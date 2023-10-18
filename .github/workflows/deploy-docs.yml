@@ -1,0 +1,111 @@
+name: Build and deploy docs
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10"]
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+
+      # =====================================================
+      # Install dependencies
+      # =====================================================
+      - name: Check out submodules
+        run: |
+          make submodules
+
+      - name: Install R
+        uses: r-lib/actions/setup-r@v2
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::knitr
+            any::rmarkdown
+            any::reticulate
+
+      - name: Install build dependencies
+        run: |
+          make deps
+
+      # =====================================================
+      # Build
+      # =====================================================
+      - uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: 1.3.340
+
+      - name: Build site
+        run: |
+          make all
+
+      # =====================================================
+      # Deploy docs to Netlify
+      # =====================================================
+
+      - name: Configure pull release name
+        if: ${{github.event_name == 'pull_request'}}
+        env:
+          PR_NUMBER: ${{ github.event.number }}
+        run: |
+          echo "RELEASE_NAME=pr-${PR_NUMBER}" >> $GITHUB_ENV
+      - name: Configure branch release name
+        if: ${{github.event_name != 'pull_request'}}
+        run: |
+          # use branch name, but replace slashes. E.g. feat/a -> feat-a
+          echo "RELEASE_NAME=${GITHUB_REF_NAME/\//-}" >> $GITHUB_ENV
+
+      - name: Create Github "view deployment" button in PR
+        if: ${{github.event_name == 'pull_request'}}
+        uses: bobheadxi/deployments@v1
+        id: deployment
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: ${{ env.RELEASE_NAME }}
+          ref: ${{ github.head_ref }}
+          logs: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+      - name: Deploy to Netlify
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          REF_NAME: ${{ github.ref_name }}
+          ALIAS: ${{ steps.deployment.outputs.env }}
+        run: |
+          npm install -g netlify-cli@15.11.0
+          # push main branch to production, others to preview --
+          if [ "${REF_NAME}" == "main" ]; then
+            netlify deploy --dir=_build/ --prod
+          else
+            netlify deploy --dir=_build/ --alias="${ALIAS}"
+          fi
+
+      - name: Update Github "view deployment" button in PR
+        uses: bobheadxi/deployments@v1
+        if: ${{ steps.deployment.conclusion != 'failure' && github.event_name == 'pull_request'}}
+        with:
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ job.status }}
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+          env: ${{ steps.deployment.outputs.env }}
+          env_url: "https://${{ steps.deployment.outputs.env }}--pyshiny.netlify.app"
+          logs: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"

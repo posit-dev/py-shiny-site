@@ -1,0 +1,273 @@
+---
+title: Handling mutability
+---
+
+To write robust Shiny applications, it is important to understand _mutability_ in Python objects. Simple objects like numbers, strings, bools, and even tuples are immutable, but most other objects in Python, like lists and dicts, are mutable. This means that they can be modified in place---modifying an object in one part of a program can cause it to be (unexpectedly) different in another part of the program. **That makes mutable objects dangerous, and they are everywhere in Python.**
+
+In this article, you'll learn exactly why mutable objects can cause problems for Shiny reactivity, and techniques for solving them.
+
+:::{.callout-tip}
+## Shiny for Python compared to R
+
+If you've used Shiny for R, you probably haven't had to worry about mutable objects; almost all objects in R are immutable: vectors, matrices, lists, data frames. Even when it looks like you're modifying them, R actually uses the "copy on update" approach behind the scenes. To use Shiny for Python successfully, it's important to understand the reference semantics of Python objects and learn to program defensively.
+:::
+
+## The problem
+
+Let's first look at an example featuring (immutable) integer objects.
+
+```{shinylive-python}
+#| components: [editor, cell]
+
+a = 1
+b = a
+
+a += 1
+b
+```
+
+Initially, `b` gets its value from `a`. Then, the value of `a` changes. This doesn't affect `b`, which retains its original value.
+
+Now, what happens if `a` and `b` both point to the same (mutable) list object, and then we change that list in-place?
+
+```{shinylive-python}
+#| components: [editor, cell]
+
+a = [1, 2]
+b = a
+
+a.append(3)
+b
+```
+
+If our goal is to end up with `a == [1, 2, 3]` and `b == [1, 2]`, then we've failed.
+
+Mutability can cause unexpected behavior in any Python program, but especially so in reactive programming. For example, if you modify a mutable object stored in a `reactive.Value`, or one returned from a `reactive.Calc`, other consumers of those values will have their values changed. This can cause two different problems. First, the altered value will probably be unexpected. Second, even if the the change in value is expected and desired, it will not trigger downstream reactive objects to re-execute.
+
+
+## Solutions
+
+There are a few ways to fix this problem and end up with the results we want (`b == [1, 2]`).
+
+### Copy on assignment
+
+The first way is to avoid having two variables point to the same object in the first place, by **copying** the object every time you use it in a new context:
+
+```{shinylive-python}
+#| components: [editor, cell]
+
+a = [1, 2]
+b = a.copy()
+
+a.append(3)
+b
+```
+
+### Copy on update
+
+The second way is to be disciplined about never mutating the object in question, but using methods and operators that create a copy. For example, there are two ways to add an item to an existing list: `x.append(value)` which mutates the existing list, as we saw above; and `x + [value]`, which leaves the original list `x` unchanged and creates a _new_ list object that has the results we want.
+
+```{shinylive-python}
+#| components: [editor, cell]
+
+a = [1, 2]
+b = a
+
+a = a + [3]
+b
+```
+
+The advantage to this approach is not eagerly creating defensive copies all the time, as we must in the "copy on assignment" approach. However, if you are performing more updates than assignments, this approach actually makes _more_ copies, plus it gives you more opportunities to slip up and forget not to mutate the object.
+
+### Use immutable objects
+
+The third way is to use a different data structure entirely. Instead of list, we will use tuple, which is immutable. Immutable objects do not provide any way to change their values "in place", even if we wanted to. Therefore, we can be confident that nothing we do to tuple variable `a` could ever affect tuple variable `b`.
+
+```{shinylive-python}
+#| components: [editor, cell]
+
+a = (1, 2)
+b = a
+
+a = (*a, 3)  # alternatively, a = a + (3,)
+b
+```
+
+For this simple example, a tuple was an adequate substitute for a list, but this won't always be the case. The [pyrsistent](https://pypi.org/project/pyrsistent/) Python package provides immutable versions of several common data structures including list, dict, and set; using these objects in conjunction with `reactive.Value` and `reactive.Calc` is much safer than mutable versions.
+
+<!--
+### Pandas vs. Polars
+
+In data science, we frequently have data in the form of data frames, most commonly using [Pandas](https://pandas.pydata.org/). These are mutable data structures, and as such, require care.
+
+[Polars](https://www.pola.rs/) is a newer data frame library that may be particularly compelling for Shiny. Unlike in Pandas, most of Polars' DataFrame manipulation methods return a copy, leaving the original object unchanged (as in the [Copy on update](#copy-on-update) section).
+
+Care must still be taken to make explicit copies when performing operations that do mutate, like [setting column names](https://pola-rs.github.io/polars/py-polars/html/reference/api/polars.DataFrame.columns.html#polars.DataFrame.columns). In Polars, this operation is `df.clone()`, not `df.copy()`.
+
+In contrast, Pandas' lack of copy-on-update methods means that explicit `df.copy()` will be common and crucial. And due to architectural differences between the two libraries, copying in Pandas can be slow for large data while cloning in Polars should always be extremely fast.
+
+TODO: Note that Polars isn't installable on shinylive
+TODO: Compare Siuba
+-->
+
+## Examples in Shiny
+
+The rest of this article demonstrates these problems, and their solutions, in the context of a minimal Shiny app.
+
+### Example 1: Lack of reactive invalidation
+
+This demo app demonstrates that when an object that is stored in a `reactive.Value` is mutated, the change is not visible to the `reactive.Value` and no reactive invalidation occurs. Below, the `add_value_to_list` effect retrieves the list stored in `user_provided_values` and appends an item to it.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 250
+
+from shiny import App, reactive, render, ui
+
+app_ui = ui.page_fluid(
+    ui.input_numeric("x", "Enter a value to add to the list:", 1),
+    ui.input_action_button("submit", "Add Value"),
+    ui.p(
+        ui.output_text_verbatim("out")
+    ),
+)
+
+def server(input, output, session):
+    # Stores all the values the user has submitted so far
+    user_provided_values = reactive.Value([])
+
+    @reactive.Effect
+    @reactive.event(input.submit)
+    def add_value_to_list():
+        values = user_provided_values()
+        values.append(input.x())
+
+    @output
+    @render.text
+    def out():
+        return f"Values: {user_provided_values()}"
+
+app = App(app_ui, server)
+```
+
+Each time the button is clicked, a new item is added to the list; but the `reactive.Value` has no way to know anything has changed. (Surprisingly, even adding `user_provided_values.set(values)` to the end of `add_value_to_list` will not help; the reactive value will see that the identity of the new object is the same as its existing object, and ignore the change.)
+
+Switching to the "copy on update" technique fixes the problem. The app below is identical to the one above, except for the body of `add_value_to_list`. Click on the button a few times--the results now appear correctly.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 250
+
+from shiny import App, reactive, render, ui
+
+app_ui = ui.page_fluid(
+    ui.input_numeric("x", "Enter a value to add to the list:", 1),
+    ui.input_action_button("submit", "Add Value"),
+    ui.p(
+        ui.output_text_verbatim("out")
+    ),
+)
+
+def server(input, output, session):
+    # Stores all the values the user has submitted so far
+    user_provided_values = reactive.Value([])
+
+    @reactive.Effect
+    @reactive.event(input.submit)
+    def add_value_to_list():
+        user_provided_values.set(user_provided_values() + [input.x()])
+
+    @output
+    @render.text
+    def out():
+        return f"Values: {user_provided_values()}"
+
+app = App(app_ui, server)
+```
+
+### Example 2: Leaky changes
+
+Let's further modify our example; now, we will output not just the values entered by the user, but also a parallel list of those values after being doubled. This example is the same as the last one, with the addition of the `@reactive.Calc` called `doubled_values`, which is then included in the text output. Click the button a few times, and you'll see that something is amiss.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 250
+
+from shiny import App, reactive, render, ui
+
+app_ui = ui.page_fluid(
+    ui.input_numeric("x", "Enter a value to add to the list:", 1),
+    ui.input_action_button("submit", "Add Value"),
+    ui.p(
+        ui.output_text_verbatim("out")
+    ),
+)
+
+def server(input, output, session):
+    # Stores all the values the user has submitted so far
+    user_provided_values = reactive.Value([])
+
+    @reactive.Effect
+    @reactive.event(input.submit)
+    def add_value_to_list():
+        user_provided_values.set(user_provided_values() + [input.x()])
+
+    @reactive.Calc
+    def doubled_values():
+        values = user_provided_values()
+        for i in range(len(values)):
+            values[i] *= 2
+        return values
+
+    @output
+    @render.text
+    def out():
+        return f"Raw Values: {user_provided_values()}\n" + f"Doubled: {doubled_values()}"
+
+app = App(app_ui, server)
+```
+
+This is because `doubled_values` does its doubling by modifying the values of the list in place, causing these changes to "leak" back into `user_provided_values`. We could fix this by having `doubled_values` call `user_provided_values().copy()`, or by using a list comprehension (since it creates a new list and leaves the old one alone).
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 250
+
+from shiny import App, reactive, render, ui
+
+app_ui = ui.page_fluid(
+    ui.input_numeric("x", "Enter a value to add to the list:", 1),
+    ui.input_action_button("submit", "Add Value"),
+    ui.p(
+        ui.output_text_verbatim("out")
+    ),
+)
+
+def server(input, output, session):
+    # Stores all the values the user has submitted so far
+    user_provided_values = reactive.Value([])
+
+    @reactive.Effect
+    @reactive.event(input.submit)
+    def add_value_to_list():
+        user_provided_values.set(user_provided_values() + [input.x()])
+
+    @reactive.Calc
+    def doubled_values():
+        return [x*2 for x in user_provided_values()]
+
+    @output
+    @render.text
+    def out():
+        return f"Raw Values: {user_provided_values()}\n" + f"Doubled: {doubled_values()}"
+
+app = App(app_ui, server)
+```

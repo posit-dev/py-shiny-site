@@ -1,0 +1,185 @@
+---
+title: "Input controls"
+---
+
+Each input control on a page is created by calling a Python function. All such functions take the same first two string arguments:
+
+* `id`: an identifier used to refer to input's value in the server code. For example, `id="x1"` corresponds with `input.x1()` in the server function. `id` values must be unique across all input and output objects on a page, and should follow Python variable/function naming rules (lowercase with underscores, alphanumeric characters allowed, cannot start with a number).
+* `label`: a description for the input that will appear next to it. Can usually be `None` if no label is desired.
+
+Note that many inputs take additional arguments.
+For example, an `input_checkbox` lets you indicate if it should start checked or not.
+
+In the section below we'll show the most common input objects.
+If you're curious to learn more, see the [API Reference on UI Inputs](../api/#ui-inputs) (for example, here's the page for [`input_checkbox()`](../api/reference/shiny.ui.input_checkbox.html))
+
+## Input examples
+
+:::{.callout-note}
+In these UI examples there's no server logic, so we're just using `None` instead of a server function.
+:::
+
+### Number inputs
+
+[`ui.input_numeric`](../api/reference/shiny.ui.input_numeric.html) creates a text box where a number (integer or real) can be entered, plus up/down buttons. This is most useful when you want the user to be able to enter an exact value.
+
+[`ui.input_slider`](../api/reference/shiny.ui.input_slider.html) creates a slider. Compared to a numeric input, a slider makes it easier to scrub back and forth between values, so it may be more appropriate when the user does not have an exact value in mind to start with. You can also provide more restrictions on the possible values, as the min, max, and step size are all strictly enforced.
+
+`ui.input_slider` can also be used to select a range of values. To do so, pass a tuple of two numbers as the `value` argument instead of a single number.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 300
+
+from shiny import ui, App
+
+app_ui = ui.page_fluid(
+    ui.input_numeric("x1", "Number", value=10),
+    ui.input_slider("x2", "Slider", value=10, min=0, max=20),
+    ui.input_slider("x3", "Range slider", value=(6, 14), min=0, max=20)
+)
+
+app = App(app_ui, None)
+```
+
+### Text inputs
+
+Shiny includes three inputs for inputting string values.
+
+Use [`ui.input_text`](../api/reference/shiny.ui.input_text.html) for shorter, single-line values.
+
+[`ui.input_text_area`](../api/reference/shiny.ui.input_text_area.html) displays multiple lines, soft-wraps the text, and lets the user include line breaks, so is more appropriate for longer runs of text or multiple paragraphs.
+
+[`ui.input_password`](../api/reference/shiny.ui.input_password.html) is for passwords and other values that should not be displayed in the clear. (Note that Shiny does not apply any encryption to the password, so if your app involves passing sensitive information, make sure your deployed app uses https, not http, connections.)
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 300
+
+from shiny import ui, App
+
+app_ui = ui.page_fluid(
+    ui.input_text("x1", "Text", placeholder="Enter text"),
+    ui.input_text_area("x2", "Text area", placeholder="Enter text"),
+    ui.input_password ("x3", "Password", placeholder="Enter password"),
+)
+
+app = App(app_ui, None)
+```
+
+### Selection inputs
+
+[`ui.input_selectize`](../api/reference/shiny.ui.input_selectize.html) and [`ui.input_select`](../api/reference/shiny.ui.input_select.html) are useful for letting the user select from a list of values. You can choose whether the user can select multiple values or not, using the `multiple` argument. The difference between the two functions is that `ui.input_selectize` uses the [Selectize](https://selectize.dev/) JavaScript library, while `ui.input_select` inserts a standard HTML [`<select>` tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select). For most apps, we recommend `ui.input_selectize` for its better all-around usability, especially when `multiple=True`.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 450
+
+from shiny import ui, App
+import re
+
+# A list of Python's built-in functions
+choices = list(filter(lambda x: re.match(r'[a-z].*', x), dir(__builtins__)))
+
+app_ui = ui.page_fluid(
+    ui.input_selectize("x1", "Selectize (single)", choices),
+    ui.input_selectize("x2", "Selectize (multiple)", choices, multiple = True),
+    ui.input_select("x3", "Select (single)", choices),
+    ui.input_select("x4", "Select (multiple)", choices, multiple = True),
+)
+
+app = App(app_ui, None)
+```
+
+[`ui.input_radio_buttons`](../api/reference/shiny.ui.input_radio_buttons.html) and [`ui.input_checkbox_group`](../api/reference/shiny.ui.input_checkbox_group.html) are useful for cases where you want the choices to always be displayed. Radio buttons force the user to choose one and only one option, while checkbox groups allow zero, one, or multiple choices to be selected.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 300
+
+from shiny import ui, App
+
+choices = {"a": "Choice A", "b": "Choice B", "c": "Choice C"}
+
+app_ui = ui.page_fluid(
+    ui.input_radio_buttons("x1", "Radio buttons", choices),
+    ui.input_checkbox_group("x2", "Checkbox group", choices),
+)
+
+app = App(app_ui, None)
+```
+
+### Toggle inputs
+
+Toggles allow the user to specify whether something is true/false (or on/off, enabled/disabled, included/excluded, etc.).
+
+[`ui.input_checkbox`](../api/reference/shiny.ui.input_checkbox.html) shows a simple checkbox, while [`ui.input_switch`](../api/reference/shiny.ui.input_switch.html) shows a toggle switch. These are functionally identical, but by convention, checkboxes should be used when part of a form that has a Submit or Continue button, while toggle switches should be used when they take immediate effect.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 125
+
+from shiny import ui, App
+
+app_ui = ui.page_fluid(
+    ui.input_checkbox("x1", "Checkbox"),
+    ui.input_switch("x2", "Switch")
+)
+
+app = App(app_ui, None)
+```
+
+### Date inputs
+
+[`ui.input_date`](../api/reference/shiny.ui.input_date.html) lets the user specify a date, either interactively or by typing it in. [`ui.input_date_range`](../api/reference/shiny.ui.input_date_range.html) is similar, but for cases where a start and end date are needed.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 300
+
+from shiny import ui, App
+
+app_ui = ui.page_fluid(
+    ui.input_date("x1", "Date input"),
+    ui.input_date_range("x2", "Date range input"),
+)
+
+app = App(app_ui, None)
+```
+
+### Action inputs
+
+[`ui.input_action_button`](../api/reference/shiny.ui.input_action_button.html) and [`ui.input_action_link`](../api/reference/shiny.ui.input_action_link.html) let the user invoke specific actions on the server side. (See [Handling events](reactive-events.html) for an introduction to using buttons and links.)
+
+Use `ui.input_action_button` for actions that feels effectual: recalculating, fetching new data, applying settings, etc. Add `class_="btn-primary"` to highlight important actions (like Submit or Continue), and `class_="btn-danger"` to highlight dangerous actions (like Delete).
+
+Use `ui.input_action_link` for actions that feel more like navigation, like exposing a new UI panel, navigating through paginated results, or bringing up a [modal dialog](../api/reference/shiny.ui.modal.html).
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 300
+
+from shiny import ui, App
+
+app_ui = ui.page_fluid(
+    ui.p(ui.input_action_button("x1", "Action button")),
+    ui.p(ui.input_action_button("x2", "Action button", class_="btn-primary")),
+    ui.p(ui.input_action_link("x3", "Action link")),
+)
+
+app = App(app_ui, None)
+```

@@ -1,0 +1,13 @@
+{
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "display": "Deno",
+    "compilerOptions": {
+      "jsx": "react",
+      "lib": [],
+      "resolveJsonModule": true,
+      "strict": true
+    },
+    "lib": [
+        "deno.ns"
+    ]
+}

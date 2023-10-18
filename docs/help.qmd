@@ -1,0 +1,35 @@
+---
+title: Getting help
+page-layout: article
+toc: false
+---
+
+:::{.lead}
+Many of your questions might be answered in our [Learn Shiny materials](overview.qmd). If you don't find answers there, we have a number of other resources to recommend: 
+:::
+
+## Shiny
+
+  1. The first place to look for help with Shiny is [Posit Community](https://community.rstudio.com/c/shiny){target="_blank"}, which is a warm and welcoming place to ask any questions you might have about Shiny (as well as tidyverse and all things Posit). The web site is running Discourse, which is an excellent community discussion platform. Our developers monitor Posit Community and answer questions periodically.
+
+  2. Shiny users (and the Shiny team!) regularly talk on [Shiny's Discord server](https://discord.gg/yMGCamUMnS){target="_blank"}. Discord has more of a chat interface than Posit Community, and is not indexed by search engines. It's a great forum for casual conversations or networking with other Shiny developers.
+
+  3. You can also check the ["shiny+python" tag on Stack Overflow](https://stackoverflow.com/questions/tagged/shiny+python){target="_blank"} for existing answers, or post your own question. (Keep in mind that general [Shiny for R answers](https://stackoverflow.com/questions/tagged/shiny){target="_blank"} may also point you in the right direction.) Note that questions posted on Stack Overflow are not closely monitored by our developers.
+
+## shinyapps.io
+
+  1. For documentation and instructions on how to use [shinyapps.io](http://shinyapps.io){target="_blank"}, see the [shinyapps.io user guide](https://docs.posit.co/shinyapps.io/?_gl=1*fwm1mn*_ga*MjQzNjU5NDUuMTY0ODgyOTc5Ng..*_ga_HXP006LBGY*MTY5MTQ0NjYwNy41LjAuMTY5MTQ0NjYwOS4wLjAuMA..){target="_blank"}. 
+
+  2. The best place to get community support for shinyapps.io is the [shinyapps.io category on Posit Community](https://community.rstudio.com/tags/shinyappsio?_gl=1*nqeupu*_ga*MjQzNjU5NDUuMTY0ODgyOTc5Ng..*_ga_2C0WZ1JHG0*MTY5MTQ0NjYwNy41LjAuMTY5MTQ0NjYwOS4wLjAuMA..*_ga_HXP006LBGY*MTY5MTQ0NjYwNy41LjAuMTY5MTQ0NjYwOS4wLjAuMA..){target="_blank"}. If you're having difficulties with shinyapps.io, feel free to ask questions there. Another option is to file an issue in the [rsconnect-python package repo](https://github.com/rstudio/rsconnect-python/issues){target="_blank"}.
+
+
+  3. Customers with Starter, Basic, Standard or Pro subscriptions can get direct access to our support engineers by opening a case on [the Posit Support site](https://support.posit.co/?_gl=1*1aff1iz*_ga*MjQzNjU5NDUuMTY0ODgyOTc5Ng..*_ga_2C0WZ1JHG0*MTY5MTQ0NjYwNy41LjAuMTY5MTQ0NjYwOS4wLjAuMA..*_ga_HXP006LBGY*MTY5MTQ0NjYwNy41LjAuMTY5MTQ0NjYwOS4wLjAuMA..){target="_blank"}. Questions are answered from 9AM - 5PM(EST) Monday - Friday.
+
+
+## Posit Connect and Shiny Server Pro
+
+Customers with Posit Connect or Shiny Server Pro subscriptions can [contact our dedicated support team](https://support.posit.co/){target="_blank"} for our commercial offerings.
+
+## Sales
+
+For sales questions, please email [sales@posit.co](mailto:sales@posit.co).

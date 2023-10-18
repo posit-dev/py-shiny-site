@@ -1,0 +1,90 @@
+---
+title: "Server logic"
+format: html
+---
+
+In Shiny, the server logic is defined within a function which takes three arguments: `input`, `output`, and `session`. It looks something like this:
+
+```python
+def server(input, output, session):
+    # Server code goes here
+    ...
+```
+
+All of the server logic we'll discuss, such as using inputs and define outputs, happens _within the server function_.
+
+Each time a user connects to the app, the server function executes _once_ --- it does _not_ re-execute each time someone moves a slider or clicks on a checkbox. So how do updates happen? When the server function executes, it creates a number of reactive objects that persist as long as the user stays connected --- in other words, as long is their session is active. These reactive objects are containers for functions that automatically re-execute in response to changes in inputs.
+
+
+### Accessing inputs
+
+Input values are accessed via `input.x()`, where `x` is the name of the input. If you need to access an input by a name that is not known until runtime, you can do that with `[]`:
+
+```python
+input_name = "x"
+input[input_name]()  # Equivalent to input["x"]() or input.x()
+```
+
+:::{.callout-tip .column-margin}
+## Shiny for Python compared to R
+
+In Python, `input.x()` is equivalent to `input$x` in Shiny for R. Unlike in R, `()` is necessary to retrieve the value. This aligns the reading of inputs with the reading of reactive values and reactive expressions. It also makes it easier to pass inputs to module server functions.
+:::
+
+You can't read input values at the top level of the server function. If you try to do that, you'll get an error that says `RuntimeError: No current reactive context`. The input values are _reactive_ and, as the error suggests, are only accessible within reactive code. We'll learn more about that in the upcoming sections.
+
+
+### Defining outputs
+
+To define the logic for an output, create a function with no parameters whose name matches a corresponding output ID in the UI. Then apply a `render` decorator and the `@output` decorator.
+
+:::{.callout-note .column-margin icon=false appearance="minimal"}
+Normally, `@output` matches the function name to output name in the UI.
+There are times when this doesn't work, like if you have a variable with the same name, or if the output name is a reserved keyword in Python.
+In these cases, you can use `@output(id="txt")` and `def _():`
+:::
+
+Here's server function that defines a single text output named `txt`. Inside of that output function, it reads the value of `input.enable()`.
+
+```python
+def server(input, output, session):
+    @output
+    @render.text
+    def txt():
+        if input.enable():
+            return "Yes!"
+        else:
+            return "No!"
+```
+
+
+
+When you define an output function, Shiny makes it _reactive_, and so it can be used to access input values.
+
+Now we can put together the UI we created earlier with the server function to create an `App` object. When we do that, the resulting object must be named `app` in order for the application to run.
+
+:::{.column-page-inset-right}
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+from shiny import App, render, ui
+
+app_ui = ui.page_fluid(
+    ui.input_checkbox("enable", "Enable?"),
+    ui.h3("Is it enabled?"),
+    ui.output_text_verbatim("txt"),
+)
+
+def server(input, output, session):
+    @output
+    @render.text
+    def txt():
+        if input.enable():
+            return "Yes!"
+        else:
+            return "No!"
+
+app = App(app_ui, server)
+
+```
+:::

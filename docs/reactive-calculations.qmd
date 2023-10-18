@@ -1,0 +1,112 @@
+---
+title: Intermediate calculations
+---
+
+## Reactive calculations
+
+Sometimes we want to compute values based on inputs. For example, if we have a numeric input `x`, we could compute 2 times x with a _reactive calculation_:
+
+```python
+@reactive.Calc
+def double_x():
+    return input.x() * 2
+```
+
+Then we can use the reactive calculation in an output:
+
+```python
+@output
+@render.text
+def txt():
+    return f"x * 2 is {double_x()}"
+```
+
+:::{.callout-tip}
+## Shiny for Python compared to R
+
+A `reactive.Calc` in Shiny for Python is equivalent to a `shiny::reactive()` in R. The R version is also sometimes also called a _reactive expression_.
+:::
+
+How does a `reactive.Calc` differ from an ordinary function? The primary difference is that a `reactive.Calc` tries to minimize the amount of work it does, by using caching. When it runs, it caches its most recent value and simply returns that cached value until the `Calc` is _invalidated_.
+
+What does it mean to be invalidated? Reactive objects like `reactive.Calc`s and `reactive.Effect`s (and `@output` functions) are invalidated when their reactive inputs change. For example `double_x()` uses `input.x()`, so if the user changes the value of `input.x()`, then `double_x()` gets invalidated. And in turn, `double_x()` invalidates any reactive objects that use it. In our example, it invalidates the output `txt`.
+
+After the output `txt` is invalidated, it will re-execute, and when it does, it will call `double_x()`. Since `double_x()` was invalidated, it will re-execute (and not simply return a cached value), and it in turn will read `input.x()`.
+
+
+### Basic example
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+
+# A reactive Calc is used for its return value. It intelligently caches its value, and
+# only re-runs after it has been invalidated -- that is, when upstream reactive inputs
+# change.
+
+from shiny import App, reactive, render, ui
+
+app_ui = ui.page_fluid(
+    ui.input_slider("x", "Choose a number", 1, 100, 50),
+    ui.output_text_verbatim("txt1"),
+    ui.output_text_verbatim("txt2"),
+)
+
+
+def server(input, output, session):
+    # Each time input.x() changes, it invalidates this reactive.Calc object. If someone
+    # then calls x_times_2(), it will execute the user function and return the value.
+    # The value is cached, so if another function calls x_times_2(), it will simply
+    # return the cached value, without re-running the function.  When input.x() changes
+    # again, it will invalidate this reactive.Calc, and the cache will be cleared.
+    @reactive.Calc
+    def x_times_2():
+        val = input.x() * 2
+        print(f"Running x_times_2(). Result is {val}.")
+        return val
+
+    @output
+    @render.text
+    def txt1():
+        return f'x times 2 is: "{x_times_2()}"'
+
+    @output
+    @render.text
+    def txt2():
+        return f'x times 2 is: "{x_times_2()}"'
+
+
+app = App(app_ui, server)
+
+```
+
+
+## Reactive Effects
+
+A `reactive.Effect` wraps a function that runs when its reactive inputs change. They differ from  `reactive.Calc`s in important ways:
+
+* A `reactive.Calc` is used for its return value: it is meant to be called from another `reactive.Calc` or a `reactive.Effect`, which then uses the return value from the first `reactive.Calc`. A `reactive.Effect`, on the other hand, does not have a return value, and cannot be called like a function. Once created, a `reactive.Effect` continues to exist, and it automatically re-executes after it has been invalidated.
+* As the name implies, a `reactive.Effect` is used for its _side effect_. In programming lingo, a _side effect_ is when a function modifies state other than its return value. These side effects may include: writing to a file, printing to the console, or modifying a global variable.
+
+:::{.callout-tip}
+## Shiny for Python compared to R
+
+A `reactive.Effect` in Shiny for Python is equivalent to a `shiny::observe()` in R. The R version is also sometimes also called a _reactive observer_.
+:::
+
+
+### More about outputs
+
+In Shiny, outputs are created with the `@output` decorator. Although this may not look like it's reactive, (since it doesn't start with `reactive.`), it actually creates a `reactive.Effect` under the hood. The `reactive.Effect` has the side effect of putting a message into the outbound message queue.
+
+In the example below, the user-provided function returns a string. That function is wrapped with `@render.text`, and then with `@output`. The `@output` decorator creates a `reactive.Effect` that puts the resulting string into the outbound message queue; each time the reactive inputs change, it re-executes and puts the new string in the message queue.
+
+```python
+@output
+@render.text
+def txt():
+    return f"The value of x is {input.x()}"
+```
+
+

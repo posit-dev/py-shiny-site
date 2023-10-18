@@ -1,0 +1,40 @@
+---
+title: "Cloud hosting"
+---
+
+## Shinyapps.io
+
+The quickest way to get started is [shinyapps.io](https://www.shinyapps.io/), which is our hosted service for deploying Shiny applications. 
+Shinyapps.io allows you to easily host applications without having to set up your own server, and has a variety of free and paid plans depending on your use case.
+
+To use shinyapps.io, follow these steps:
+
+1) Install the [rsconnect-python](https://github.com/rstudio/rsconnect-python) package.
+
+```bash
+pip install rsconnect-python
+```
+
+2) [Sign up](https://www.shinyapps.io/admin/#/signup) for a free shinyapps.io account
+
+3) When you log in for the first time, you will be shown a command to run that will [configure rsconnect-python](https://docs.posit.co/shinyapps.io/getting-started.html#configure-rsconnect-python) with a shinyapps.io API token. The command will look something like:
+
+```bash
+rsconnect add --account <ACCOUNT> --name <NAME> --token <TOKEN> --secret <SECRET>
+```
+
+4) Deploy your application by calilng `rsconnect deploy`. 
+
+```bash
+rsconnect deploy shiny /path/to/app --name <NAME> --title my-app
+```
+
+After following these steps you will be able to manage and share the application on the cloud.
+Please see the [full documentation](https://docs.posit.co/shinyapps.io/getting-started.html#configure-rsconnect-python) for more information on how to deploy content to shinyapps.io.
+
+## Hugging Face
+
+Hugging Face is an open-source platform that provides state-of-the-art natural language processing (NLP) tools and models.
+You can host a variety of applications, including Shiny apps, on Hugging Face using [Hugging Face spaces](https://huggingface.co/spaces) which makes it easy to integrate their hosted models into your Shiny app without having to build everything from scratch. 
+Hugging Face has implemented [templated spaces](https://huggingface.co/new-space?template=posit/shiny-for-python-template) for Shiny applications which will populate all the files you need to get started.
+

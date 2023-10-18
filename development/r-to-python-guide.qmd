@@ -1,0 +1,20 @@
+---
+title: Shiny R to Python guide
+format: html
+---
+
+
+
+## UI Components
+
+
+## Server logic
+
+In Shiny for Python, the server function looks like this:
+```python
+
+```
+
+### Reactivity
+
+*

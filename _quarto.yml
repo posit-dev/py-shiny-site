@@ -1,0 +1,158 @@
+project:
+  type: website
+  output-dir: _build
+  render:
+    # List index.qmd first so that / redirects to it instead of components.html.
+    - /index.qmd
+    - /*.qmd
+    - docs
+    - in-depth
+    - development
+    - gallery
+    - api
+  resources:
+    - /pypi/**
+    - /robots.txt
+    - objects.json
+    - "*.png"
+    - "*.gif"
+    - "*.jpg"
+    - "*.svg"
+  post-render:
+    - scripts/post-render.py
+
+metadata-files:
+  - api/_sidebar.yml
+
+filters:
+  - shinylive
+  - interlinks
+
+interlinks:
+  sources:
+    python:
+      url: https://docs.python.org/3/
+
+website:
+  title: "Shiny for Python"
+  google-analytics: "UA-20375833-3"
+  page-navigation: true
+  favicon: "favicon.png"
+  open-graph:
+    site-name: Shiny for Python
+    locale: es_ES
+    image: images/shiny-for-python.jpg
+    description: Build interactive web applications easily with the power of Python’s data and scientific stack.
+  twitter-card:
+    title: "Shiny for Python"
+    description: "Build interactive web applications easily with the power of Python’s data and scientific stack."
+    image: "images/shiny-for-python.jpg"
+    image-width: 1200
+    image-height: 630
+    card-style: "summary_large_image"
+
+  navbar:
+    logo: shiny-for-python.svg
+    logo-alt: The logo for Shiny for Python
+    search: true
+    left:
+      - text: "Learn Shiny"
+        file: docs/overview.qmd
+      - text: "Install"
+        href: docs/install.qmd
+      - text: "Deploy"
+        menu:
+          - docs/deploy-cloud.qmd
+          - docs/deploy-on-prem.qmd
+          - docs/shinylive.qmd
+      - text: "Gallery"
+        file: gallery/index.qmd
+      - text: "Examples"
+        href: https://shinylive.io/py/examples/
+      - text: "Function Reference"
+        href: api/index.qmd
+      - text: "Help"
+        href: docs/help.qmd
+    tools:
+      - icon: discord
+        href: https://discord.gg/yMGCamUMnS
+        text: Shiny Discord
+      - icon: github
+        href: https://github.com/posit-dev/py-shiny/
+        text: Shiny for Python Github
+
+  page-footer:
+    left: 'Proudly supported by <a href="https://www.posit.co/" class="no-icon"><img src="/images/posit-logo-black.svg" alt="Posit" width="80" style="padding-left: 3px;vertical-align:text-top;"></a>'
+    right:
+      - icon: discord
+        href: https://discord.gg/yMGCamUMnS
+        aria-label: Shiny Discord
+      - icon: github
+        href: https://github.com/posit-dev/py-shiny/
+        aria-label: Shiny for Python Github
+      - icon: twitter
+        href: https://twitter.com/posit_pbc
+        aria-label: Posit Twitter
+      - icon: youtube
+        href: https://www.youtube.com/playlist?list=PL9HYL-VRX0oRbLoj3FyL5zeASU5FMDgVe
+        aria-label: Shiny YouTube Playlist
+  sidebar:
+    - id: docs
+      style: "floating"
+      collapse-level: 2
+      align: left
+      contents:
+        - section: "Essentials"
+          contents:
+            - docs/overview.qmd
+            - docs/inputs.qmd
+            - docs/outputs.qmd
+            - docs/server.qmd
+        - section: "Reactivity"
+          contents:
+            - docs/reactive-programming.qmd
+            - docs/reactive-calculations.qmd
+            - docs/reactive-events.qmd
+            - docs/reactive-values.qmd
+            - docs/reactive-mutable.qmd
+        - section: "Page Layout and Style"
+          contents:
+            - docs/ui-page-layouts.qmd
+            - docs/ui-styling.qmd
+            - docs/ui-navigation.qmd
+            - docs/ui-dynamic.qmd
+            - docs/ui-feedback.qmd
+            - docs/ui-static.qmd
+        - section: "Workflow"
+          contents:
+            - docs/workflow-modules.qmd
+            - docs/workflow-module-communication.qmd
+            - docs/running-debugging.qmd
+        - section: "In Depth"
+          contents:
+            - docs/ipywidgets.qmd
+            - docs/ui-html.qmd
+            - docs/workflow-server.qmd
+        - section: "Framework Comparisons"
+          contents:
+            - docs/comp-streamlit.qmd
+            - docs/comp-r-shiny.qmd
+    # TODO: if the sidebar only has 1 entry, then it displays for the entire site...
+    # added entry below to prevent this.
+    - id: deploy
+
+format:
+  html:
+    # it appears that these are applied to all rendered pages, and _metadata.yml
+    # in a subdirectory would e.g. add an additional css file (not override the one here)
+    # see _metadata.yml for options meant to be overridden in subdirectories.
+    toc: true
+    theme: quarto-style.scss
+    include-in-header: trailing-slash-redirect.html
+    code-copy: true
+    link-external-newwindow: true
+
+
+editor:
+  markdown:
+    wrap: sentence

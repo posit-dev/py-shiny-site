@@ -1,0 +1,20 @@
+---
+pagetitle: "Gallery"
+format:
+  html:
+    toc: false
+    css: "_style.css"
+listing:
+  - id: gallery
+    template: gallery.ejs
+    contents: gallery.yml
+---
+
+::: {.column-page}
+
+
+::: {#gallery}
+:::
+
+
+:::

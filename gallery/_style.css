@@ -1,0 +1,35 @@
+.gallery-entry {
+  display: flex;
+}
+
+.link-dark:hover {
+  color: #007BC2;
+}
+.gallery-entry__img-container {
+    border: 1px solid #cdd4da;
+    height: 185px;
+    overflow: hidden;
+}
+
+.gallery-entry__img-container img {
+    object-fit: contain;
+}
+
+.gallery-entry a {
+  text-decoration: none;
+}
+
+.gallery-entry__body {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.gallery-entry__body ul {
+  list-style-type: none;
+  padding: 0px;
+  margin-bottom: 0;
+}
+.gallery-entry__body ul li {
+  display: inline;
+  margin-right: 20px;
+}

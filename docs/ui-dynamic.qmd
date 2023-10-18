@@ -1,0 +1,159 @@
+---
+title: Dynamic UI
+---
+
+This page shows how to dynamically update the user interface (UI).
+Dynamically updating UI is useful when you want to generate new pieces of UI as
+a result of user input. You can also dynamically change existing inputs (like the options in a dropdown)
+or generate entirely new inputs.
+
+
+## Updating inputs
+
+One approach to dynamically changing inputs is to use `ui.update_select()`.
+
+Try clicking checkbox inputs in the example below, to add them to the dropdown.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+
+from shiny import App, reactive, render, ui
+
+app_ui = ui.page_fluid(
+    ui.tags.p("The checkbox group controls the select input"),
+    ui.input_checkbox_group(
+        "checkbox_item", "Input checkbox", ["Item A", "Item B", "Item C"]
+    ),
+    ui.input_select("in_select", "Select input", []),
+)
+
+def server(input, output, session):
+
+    @reactive.Effect()
+    def _():
+        x = input.checkbox_item()
+
+        ui.update_select(
+            "in_select",
+            label=f"Select input ({len(x)} options)",
+            choices=x,
+            selected=None,
+        )
+
+
+app = App(app_ui, server)
+```
+
+Note that when you add or remove an option from the dropdown, the current selection of the dropdown is
+reset to be the first option.
+You can keep the current selection by manually setting the `selected=` argument.
+In the example above, this means setting `selected=input.in_select()` in `ui.update_select()`.
+
+
+## Dynamic UI from server output
+
+The previous section showed how shiny can dynamically effect UI by updating an existing input.
+An alternative approach is to replace the UI input with `output_ui()`, and then generate the input on the server.
+
+This is shown below example---which uses `ui.output_ui()` and `@render.ui`.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 250
+
+from shiny import App, reactive, render, ui
+
+app_ui = ui.page_fluid(
+    ui.tags.p("The checkbox group controls the select input"),
+    ui.input_checkbox_group(
+        "checkbox_item", "Input checkbox", ["Item A", "Item B", "Item C"]
+    ),
+    ui.output_ui("ui_select"),
+)
+
+def server(input, output, session):
+
+    @output
+    @render.ui
+    def ui_select():
+        x = input.checkbox_item()
+
+        return ui.input_select(
+            "in_select",
+            label=f"Select input ({len(x)} options)",
+            choices=x,
+            selected=None,
+        )
+
+
+app = App(app_ui, server)
+```
+
+Notice that the `ui.input_select()` was moved to inside a server output function (`def ui_select():`).
+Whenever `input.checkbox_item()` changes, the `ui.input_select()` is regenerated on the server and output.
+
+
+## Comparing approaches
+
+The difference between the two approaches---updating a UI input and outputting UI from the server---can feel a bit subtle.
+
+This table compares how each approach handles UI, reactivity, and the server logic used.
+
+| approach | UI part | reactive piece | server action |
+| -------- | -------- | -------- | ------------ |
+| update UI | `ui.input_select()` | `reactive.Effect()` | `ui.update_select()` |
+| output UI | `ui.output_ui()` | `output()` | `ui.input_select()` |
+
+Notice that the first approach puts an input in the UI, then uses `Effect()` to modify it.
+On the other hand, the second approach puts an output in the UI, and then renders a UI input as its content.
+
+A key here is that like rendering a plot to fill an output, inputs can fill outputs too!
+
+
+## Showing and hiding UI
+
+Use `ui.panel_conditional()` to show UI pieces only if certain conditions are met.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+
+from shiny import App, ui
+
+app_ui = ui.page_fluid(
+    ui.input_checkbox("show", "Show radio buttons", False),
+    ui.panel_conditional(
+        "input.show", ui.input_radio_buttons("radio", "Choose ", ["slider", "select"])
+    ),
+    ui.panel_conditional(
+        "input.show && input.radio === 'slider'",
+        ui.input_slider("slider", None, min=0, max=100, value=50),
+    ),
+    ui.panel_conditional(
+        "input.show && input.radio === 'select'",
+        ui.input_select("slider", None, ["A", "B", "C"]),
+    ),
+)
+
+def server(input, output, session):
+
+    pass
+
+
+app = App(app_ui, server)
+```
+
+The first argument to `ui.panel_conditional()` is a string with logic for checking input values.
+For example `"input.radio === 'slider'`.
+
+Note two important points:
+
+* This string is a javascript expression.
+* Instead of using `input.radio()`--like in the server function--you use `input.radio` without parentheses to refer
+  to input values.
+

@@ -1,0 +1,29 @@
+---
+title: "Reactive programming"
+format: html
+---
+
+At the heart of Shiny is a reactive programming engine. So far we've seen some very basic reactive programming. When a (reactive) input is modified, it causes a (reactive) output function to re-execute. Shiny does this automatically; you don't need to explicitly tell it that a function should re-execute when a particular value changes.
+
+In this section, we'll learn more about reactivity, and more complex programs that can be built with reactive programming.
+
+* `reactive.Value`: An object that causes reactive functions to run when its value changes.
+* `reactive.Calc`: Create a reactive function that is used for its return value.
+* `reactive.Effect`: Create a reactive function that is used for its side effects (and not its return value).
+* `@output`: outputs (wrapped up in a `reactive.Effect`)
+
+There are a few utility functions that help with managing reactivity:
+
+* `with isolate():` Run blocks of code inside a reactive function, but _without_ taking a reactive dependency on code inside the block.
+* `@reactive.event()`: A decorator that controls what causes a reactive function to invalidate.
+
+
+:::{.callout-tip}
+## Shiny for Python compared to R
+
+If you already know Shiny for R, you'll notice that we've used some different names in Python.
+
+* A `shiny::observe()` in R is equivalent to a `reactive.Effect` in Python.
+* A `shiny::reactive()` in R is equivalent to a `reactive.Calc` in Python.
+
+:::

@@ -1,0 +1,144 @@
+---
+title: Running and debugging
+---
+
+Shiny apps can be previewed using the `shiny` command line interface (CLI), or directly from IDEs like Visual Studio Code and RStudio.
+
+## Demo Application
+
+This page assumes that you've created an app in your `my_app/` folder called `app.py`.
+
+A quick way to do this is using the `shiny create` command.
+
+```python
+# create demo file: my_app/app.py
+shiny create my_app
+```
+
+Alternatively, you can copy in this tiny app code into `my_app/app.py`:
+
+```python
+from shiny import App, ui
+
+app_ui = ui.page_fluid(ui.h1("My App"))
+
+app = App(app_ui, None)
+```
+
+
+## Running with the `shiny` CLI
+
+Use the `shiny` CLI's `run` command to preview your application.
+
+```sh
+# create and run demo
+shiny create my_app
+shiny run --reload my_app/app.py
+```
+
+Note that the `--reload` flag will reload the app whenever the file changes.
+
+
+## Running in Visual Studio Code
+
+
+:::{.callout-note}
+VS Code integration is currently a work in progress.
+:::
+
+In the top bar, click "Terminal" followed by "New Terminal".
+
+In the new terminal pane, enter the commands from the "Running with the Shiny CLI" section:
+
+```sh
+shiny run --reload my_app/app.py
+```
+
+## Running in RStudio IDE
+
+:::{.callout-note}
+RStudio IDE integration is currently a work in progress.
+:::
+
+To run a Shiny application from the RStudio IDE, click on "Tools" in the menu bar.
+Then, select "Terminal" followed by "New Terminal".
+This will open a terminal tab next to your R console.
+
+In the terminal pane, enter the commands from the "Running with the shiny CLI" section:
+
+```sh
+shiny run --reload my_app/app.py
+```
+
+
+## Debugging
+
+### Showing error in outputs
+
+One way that Shiny helps with debugging server logic is by showing errors where their output would be.
+
+For example, the `report_check` function in the app below erroneously references a variable that doesn't exist.
+
+:::{.column-page-inset-right}
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+
+from shiny import App, ui, render
+
+app_ui = ui.page_fluid(
+    ui.output_text("report_check"),
+    ui.output_text("another_output")
+)
+
+def server(input, output, session):
+    @output
+    @render.text
+    def report_check():
+        return str(a_missing_variable)
+
+    @output
+    @render.text
+    def another_output():
+        return "This output is looking good"
+
+
+app = App(app_ui, server)
+
+```
+:::
+
+Notice that the error about `'a_missing_variable' is not defined` is where the `report_check` output would normally go.
+
+The error displayed in the app is only the final part of the stack trace, but the full trace can be read in the console where you used `shiny run`.
+
+### Print statements
+
+A quick and simple way to debug Shiny applications is to add `print()` statements.
+This lets you see the value of different variables, and how they change when you toggle different inputs.
+
+:::{.callout-note}
+If your Shiny application is running with Shinylive (Python in the browser), and there is not a visible Python console, then error messages will show up in your browser's JavaScript console.
+:::
+
+
+### Setting debug mode
+
+An advanced option for debugging apps is using the `App(..., debug=True)` argument.
+This is not super useful in general, as it requires some knowledge of Shiny's internals.
+
+In debug mode, Shiny applications log in the console all of the messages that the server sends and receive from browser sessions.
+This is the raw data behind how changes to inputs cause calculations on the server, and how messages from the server cause the client's browser to update (e.g. a plot).
+
+Here is a short log example.
+
+```json
+SEND: {"busy": "busy"}
+SEND: {"recalculating": {"name": "my_cool_output", "status": "recalculating"}}
+SEND: {"recalculating": {"name": "my_cool_output", "status": "recalculated"}}
+SEND: {"busy": "idle"}
+SEND: {"values": {}, "inputMessages": [], "errors": {}}
+```
+
+Note also that Shiny applications use Python's asyncio under the hood, so it may be useful to set
+[asyncio's debug mode](https://docs.python.org/3/library/asyncio-dev.html#debug-mode).

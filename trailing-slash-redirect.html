@@ -1,0 +1,12 @@
+<script>
+  // Redirect URLs like https://shiny.posit.co/py to
+  // https://shiny.posit.co/py/ (with trailing slash). This is needed for
+  // relative paths to work correctly. Unfortunately, Netlify cannot have a
+  // redirect that adds or removes a trailing slash.
+  if (
+    !window.location.pathname.endsWith(".html") &&
+    !window.location.pathname.endsWith("/")
+  ) {
+    window.location.replace(window.location.href + "/");
+  }
+</script>

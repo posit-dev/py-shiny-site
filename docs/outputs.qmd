@@ -1,0 +1,298 @@
+---
+title: "Output controls"
+---
+
+Outputs create a spot on the webpage to put results from the server.
+
+At a minimum, all UI outputs require an `id` argument, which corresponds to the server's output ID.
+
+For example if you create this UI output:
+
+```{.python}
+ui.output_text("my_text")
+```
+
+Then you could connect it to the server output using the code below.
+
+```{.python}
+def server(input, output, session):
+    @output
+    @render.text
+    def my_text():
+        return "some text to show"
+```
+
+Notice that the name of the function `my_text()` matches the output ID; this is how Shiny knows how to connect each of the UI's outputs with its corresponding logic in the server.
+
+Notice also the relationship between the names `ui.output_text()` and `@render.text`. Shiny outputs generally follow this pattern of `ui.output_XXX()` for the UI and `@render.XXX` to decorate the output logic.
+
+
+### Static plot output
+
+Render static plots based on [Matplotlib](https://matplotlib.org/) with [`ui.output_plot()`](../api/reference/shiny.ui.output_plot.html) and [`@render.plot`](../api/reference/shiny.render.plot.html). Plotting libraries built on Matplotlib, like [seaborn](https://seaborn.pydata.org/) and [plotnine](https://plotnine.readthedocs.io/en/stable/) are also supported.
+
+The function that `@render.plot` decorates typically returns a Matplotlib [Figure](https://matplotlib.org/stable/api/figure_api.html) or [plotnine ggplot](https://plotnine.readthedocs.io/en/stable/generated/plotnine.ggplot.html) object, but `@render.plot` does support other less common return types, and also supports plots generated through side-effects. See the [API reference](../api/reference/shiny.render.plot.html) for more details.
+
+::: {.callout-tip}
+#### Interactive plots
+
+Although `ui.output_plot()` holds a static plot, it is possible to respond to user input(s) like hovering, clicking, and/or dragging. [See here](https://rstudio.github.io/shinylive/examples/#basic-plot-interaction) for an example.
+:::
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 400
+from shiny import ui, render, App
+from matplotlib import pyplot as plt
+
+app_ui = ui.page_fluid(
+    ui.output_plot("a_scatter_plot"),
+)
+
+def server(input, output, session):
+    @output
+    @render.plot
+    def a_scatter_plot():
+        return plt.scatter([1,2,3], [5, 2, 3])
+
+app = App(app_ui, server)
+```
+
+### Simple table output
+
+Render various kinds of data frames into an HTML table with [`ui.output_table()`](../api/reference/shiny.ui.output_table.html) and [`@render.table`](../api/reference/shiny.render.table.html).
+
+The function that `@render.table` decorates typically returns a [`pandas.DataFrame`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html), but object(s) that can be coerced to a `pandas.DataFrame` via an `obj.to_pandas()` method are also supported (this includes Polars data frames and Arrow tables).
+
+
+::: {.callout-tip}
+#### Styling tables
+
+For more control over colors, alignment, borders, etc., your server logic may instead return a [`pandas.Styler`](https://pandas.pydata.org/docs/user_guide/style.html) object. See the [`ui.output_table`](../api/reference/shiny.ui.output_table.html) for an example.
+:::
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 300
+from pathlib import Path
+import pandas as pd
+from shiny import ui, render, App
+
+df = pd.read_csv(Path(__file__).parent / "salmon.csv")
+
+app_ui = ui.page_fluid(
+    ui.output_table("salmon_species"),
+)
+
+def server(input, output, session):
+    @output
+    @render.table
+    def salmon_species():
+        return df
+
+app = App(app_ui, server)
+
+## file: salmon.csv
+Common,Scientific
+Atlantic,Salmo salar
+Chinook,Oncorhynchus tshawytscha
+Coho,Oncorhynchus kisutch
+Sockeye,Oncorhynchus nerka
+```
+
+
+### Interactive plots
+
+As you'll learn more about in the section on [using ipywidgets](ipywidgets.html), Shiny supports interactive plotting libraries such as [plotly](https://plotly.com/python/), [Altair](https://altair-viz.github.io/), and more. Here's a basic example using plotly:
+
+```{shinylive-python}
+#| standalone: true
+#| layout: vertical
+#| components: [editor, viewer]
+#| viewerHeight: 350
+from shiny import ui, App
+from shinywidgets import output_widget, render_widget
+import plotly.express as px
+import plotly.graph_objs as go
+
+df = px.data.tips()
+
+app_ui = ui.page_fluid(
+    ui.div(
+        ui.input_select(
+            "x", label="Variable",
+            choices=["total_bill", "tip", "size"]
+        ),
+        ui.input_select(
+            "color", label="Color",
+            choices=["smoker", "sex", "day", "time"]
+        ),
+        class_="d-flex gap-3"
+    ),
+    output_widget("my_widget")
+)
+
+def server(input, output, session):
+    @output
+    @render_widget
+    def my_widget():
+        fig = px.histogram(
+            df, x=input.x(), color=input.color(),
+            marginal="rug"
+        )
+        fig.layout.height = 275
+        return fig
+
+app = App(app_ui, server)
+## file: requirements.txt
+plotly
+pandas
+```
+
+### Interactive maps
+
+As you'll learn more about in the section on [using ipywidgets](ipywidgets.html), Shiny supports interactive mapping libraries such as [ipyleaflet](https://ipyleaflet.readthedocs.io/en/latest/), [pydeck](https://pydeck.gl/), and more. Here's a basic example using ipyleaflet:
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 525
+from shiny import *
+from shinywidgets import output_widget, render_widget
+import ipyleaflet as L
+
+basemaps = {
+  "Satellite": L.basemaps.Gaode.Satellite,
+  "OpenStreetMap": L.basemaps.OpenStreetMap.Mapnik,
+  "Stamen.Toner": L.basemaps.Stamen.Toner,
+  "Stamen.Terrain": L.basemaps.Stamen.Terrain,
+  "Stamen.Watercolor": L.basemaps.Stamen.Watercolor,
+}
+
+app_ui = ui.page_fluid(
+    ui.input_select(
+        "basemap", "Choose a basemap",
+        choices=list(basemaps.keys())
+    ),
+    output_widget("map")
+)
+
+def server(input, output, session):
+    @output
+    @render_widget
+    def map():
+        basemap = basemaps[input.basemap()]
+        return L.Map(basemap=basemap, center=[38.128, 2.588], zoom=5)
+
+app = App(app_ui, server)
+## file: requirements.txt
+ipyleaflet
+```
+
+### Other interactive widgets
+
+See the section on [using ipywidgets](ipywidgets.html) to learn how to effectively use any [ipywidgets](https://ipywidgets.readthedocs.io/en/latest/) package inside Shiny.
+
+
+### Text output
+
+Use [`ui.output_text()`](../api/reference/shiny.ui.output_text.html) / [`@render.text`](../api/reference/shiny.render.text.html) to render a block of text. Your server logic should return a Python string. You may not use HTML markup or Markdown; see the section on [HTML and UI](#html-and-ui) instead.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 100
+from shiny import ui, render, App
+
+app_ui = ui.page_fluid(
+    ui.output_text("my_cool_text")
+)
+
+def server(input, output, session):
+    @output
+    @render.text
+    def my_cool_text():
+        return "hello, world!"
+
+app = App(app_ui, server)
+```
+
+### Code output
+
+[`ui.output_text_verbatim`](../api/reference/shiny.ui.output_text_verbatim.html) / [`@render.text`](../api/reference/shiny.render.text.html) (note: not `@render.text_verbatim`) is similar to text output, but renders text in a monospace font, and respects newlines and multiple spaces (unlike `ui.output_text()`, which collapses all whitespace into a single space, in accordance with HTML's [normal whitespace rule](https://developer.mozilla.org/en-US/docs/Web/CSS/white-space)).
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+from shiny import ui, render, App
+
+app_ui = ui.page_fluid(
+    ui.output_text_verbatim("a_code_block"),
+    # The p-3 CSS class is used to add padding on all sides of the page
+    class_="p-3"
+)
+
+def server(input, output, session):
+    @output
+    @render.text
+    def a_code_block():
+        # This function should return a string
+        return ui.page_navbar.__doc__
+
+app = App(app_ui, server)
+```
+
+
+### HTML and UI output
+
+[`ui.output_ui()`](../api/reference/shiny.ui.output_ui.html) / [`@render.ui`](../api/reference/shiny.render.ui.html) are used to render HTML and UI from the server. These are the same exact objects you use in your `app_ui` UI already, and whenever possible, you should put HTML/UI directly into your `app_ui`. However, you'll need to use `output_ui` if you want to render HTML/UI _dynamically_--that is, if you want the HTML to change as inputs and other reactives change.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 250
+from shiny import ui, render, App
+
+app_ui = ui.page_fluid(
+    ui.input_text("message", "Message", value="Hello, world!"),
+    ui.input_checkbox_group("styles", "Styles", choices=["Bold", "Italic"]),
+    # The class_ argument is used to enlarge and center the text
+    ui.output_ui("some_html", class_="display-3 text-center")
+)
+
+def server(input, output, session):
+    @output
+    @render.ui
+    def some_html():
+        x = input.message()
+        if "Bold" in input.styles():
+            x = ui.strong(x)
+        if "Italic" in input.styles():
+            x = ui.em(x)
+        return x
+
+app = App(app_ui, server)
+```
+
+When using `@render.ui`, your output function can return any of the following:
+
+* A plain string (which will be rendered as plain text, even if it contains HTML markup)
+* Any HTML tag object (like [`ui.tags.div()`](../api/reference/shiny.ui.tags.div.html))
+* Any Shiny UI object, including layouts, inputs, and outputs
+
+You can also write raw HTML or Markdown.
+
+* A string wrapped in [`ui.HTML()`](../api/reference/shiny.ui.HTML.html), which will be treated as raw HTML markup
+* A string containing Markdown content, wrapped in [`ui.markdown()`](../api/reference/shiny.ui.markdown.html), which will be rendered into HTML
+
+::: {.callout-caution}
+Be careful not to use `ui.HTML` or `ui.markdown` with strings that may be malicious (e.g. based on input from a malicious user, or from a database whose contents could have been influenced by a malicious user), as you could easily introduce a security vulnerability called [Cross Site Scripting (XSS)](https://owasp.org/www-community/attacks/xss/). Whenever possible, try to stick to Shiny's tag and UI functions, which are immune to such attacks.
+:::

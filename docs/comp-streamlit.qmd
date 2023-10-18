@@ -1,0 +1,1284 @@
+---
+title: Streamlit
+format:
+  html:
+    code-line-numbers: true
+    code-annotations: hover
+include-in-header:
+  text: "<style>.col-code .sourceCode {margin-top: 15px;}</style>"
+---
+
+The idea of Streamlit is to simplify application development by rerunning the entire application script whenever any user input changes.
+This strategy leads to a great initial user experience, but quickly becomes constricting as your application grows in scope.
+
+Shiny and Streamlit differ in a few key ways:
+
+1)  Shiny's reactive execution means that elements are minimally re-rendered.
+2)  You can build lare Shiny applications without manually managing application state or caching data.
+3)  Shiny allows you to easily customize the look and feel of your application.
+
+Shiny is designed to support your application's growth without extensive rewriting; the patterns you learn when developing a simple app are robust enough to handle a complicated one.
+
+## Streamlit example
+
+Consider this basic Streamlit application which filters a dataset and draws two plots.
+The nice thing about this application is that it's very similar to a non-interactive script.
+This makes getting started very easy because all you need to do to turn this script into an application is to add some Streamlit function calls to your variables and outputs.
+At the beginning, Streamlit doesn't demand that you change your code to fit into a particular structure.
+
+The way Streamlit achieves this is by rerunning your script from start to finish every time the user takes an action.
+While this works okay for small applications it is inefficient, and becomes intractable for larger more complicated ones.
+In this case clicking the `Add Smoother` button will cause the entire app to reload, even though the button is only used by one plot.
+
+:::: {.grid .column-screen-inset}
+::: {.g-col-12 .g-col-md-6 .col-code}
+``` {.python}
+import streamlit as st
+import pandas as pd
+from plotnine import ggplot, geom_density, aes, theme_light, geom_point, stat_smooth
+from pathlib import Path
+
+infile = Path(__file__).parent / "penguins.csv"
+df = pd.read_csv(infile)
+
+
+def dist_plot(df):
+    plot = (
+        ggplot(df, aes(x="Body Mass (g)", fill="Species"))
+        + geom_density(alpha=0.2)
+        + theme_light()
+    )
+    return plot.draw()
+
+
+def scatter_plot(df, smoother):
+    plot = (
+        ggplot(
+            df,
+            aes(
+                x="Bill Length (mm)",
+                y="Bill Depth (mm)",
+                color="Species",
+                group="Species",
+            ),
+        )
+        + geom_point()
+        + theme_light()
+    )
+
+    if smoother:
+        plot = plot + stat_smooth()
+
+    return plot.draw()
+
+
+with st.sidebar:
+    mass = st.slider("Mass", 2000, 8000, 6000)
+    smoother = st.checkbox("Add Smoother")
+
+filt_df = df.loc[df["Body Mass (g)"] < mass]
+
+st.pyplot(scatter_plot(filt_df, smoother))
+st.pyplot(dist_plot(filt_df))
+```
+:::
+::: {.g-col-12 .g-col-md-6}
+![](assets/streamlit-penguins.mp4)
+:::
+::::
+
+## Shiny translation
+
+Shiny requires a bit more initial setup than Streamlit, but this structure creates the foundation for a much more performant and flexible application.
+Unlike Streamlit, Shiny does not rerender the application every time an input is changed, but instead keeps track of the relationships between components to minimally rerender the parts of the application which need to be updated.
+The framework does this automatically when the application is run, and so you don't need to manually define the execution method for your app.
+
+:::{.column-screen-inset}
+``` {shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+from shiny import App, render, ui, reactive
+import pandas as pd
+from plotnine import ggplot, geom_density, aes, theme_light, geom_point, stat_smooth
+from pathlib import Path
+
+app_ui = ui.page_fluid(
+    ui.layout_sidebar(
+        ui.panel_sidebar(
+            ui.input_slider("mass", "Mass", 2000, 8000, 6000),
+            ui.input_checkbox("smoother", "Add Smoother"),
+        ),
+        ui.panel_main(
+            ui.output_plot(id="scatter"),
+            ui.output_plot(id="mass_distribution"),
+        ),
+    )
+)
+
+
+def server(input, output, session):
+    infile = Path(__file__).parent / "penguins.csv"
+    df = pd.read_csv(infile)
+
+    @reactive.Calc
+    def filtered_data():
+        filt_df = df.copy()
+        filt_df = filt_df.loc[df["Body Mass (g)"] < input.mass()]
+        return filt_df
+
+    @output
+    @render.plot
+    def mass_distribution():
+        return dist_plot(filtered_data())
+
+    @output
+    @render.plot
+    def scatter():
+        return scatter_plot(filtered_data(), input.smoother())
+
+
+def dist_plot(df):
+    plot = (
+        ggplot(df, aes(x="Body Mass (g)", fill="Species"))
+        + geom_density(alpha=0.2)
+        + theme_light()
+    )
+    return plot
+
+
+def scatter_plot(df, smoother):
+    plot = (
+        ggplot(
+            df,
+            aes(
+                x="Bill Length (mm)",
+                y="Bill Depth (mm)",
+                color="Species",
+                group="Species",
+            ),
+        )
+        + geom_point()
+        + theme_light()
+    )
+
+    if smoother:
+        plot = plot + stat_smooth()
+
+    return plot
+
+
+app = App(app_ui, server)
+## file: penguins.csv
+Species,Island,Bill Length (mm),Bill Depth (mm),Flipper Length (mm),Body Mass (g),Sex,Year
+Adelie,Torgersen,39.1,18.7,181,3750,male,2007
+Adelie,Torgersen,39.5,17.4,186,3800,female,2007
+Adelie,Torgersen,40.3,18,195,3250,female,2007
+Adelie,Torgersen,NA,NA,NA,NA,NA,2007
+Adelie,Torgersen,36.7,19.3,193,3450,female,2007
+Adelie,Torgersen,39.3,20.6,190,3650,male,2007
+Adelie,Torgersen,38.9,17.8,181,3625,female,2007
+Adelie,Torgersen,39.2,19.6,195,4675,male,2007
+Adelie,Torgersen,34.1,18.1,193,3475,NA,2007
+Adelie,Torgersen,42,20.2,190,4250,NA,2007
+Adelie,Torgersen,37.8,17.1,186,3300,NA,2007
+Adelie,Torgersen,37.8,17.3,180,3700,NA,2007
+Adelie,Torgersen,41.1,17.6,182,3200,female,2007
+Adelie,Torgersen,38.6,21.2,191,3800,male,2007
+Adelie,Torgersen,34.6,21.1,198,4400,male,2007
+Adelie,Torgersen,36.6,17.8,185,3700,female,2007
+Adelie,Torgersen,38.7,19,195,3450,female,2007
+Adelie,Torgersen,42.5,20.7,197,4500,male,2007
+Adelie,Torgersen,34.4,18.4,184,3325,female,2007
+Adelie,Torgersen,46,21.5,194,4200,male,2007
+Adelie,Biscoe,37.8,18.3,174,3400,female,2007
+Adelie,Biscoe,37.7,18.7,180,3600,male,2007
+Adelie,Biscoe,35.9,19.2,189,3800,female,2007
+Adelie,Biscoe,38.2,18.1,185,3950,male,2007
+Adelie,Biscoe,38.8,17.2,180,3800,male,2007
+Adelie,Biscoe,35.3,18.9,187,3800,female,2007
+Adelie,Biscoe,40.6,18.6,183,3550,male,2007
+Adelie,Biscoe,40.5,17.9,187,3200,female,2007
+Adelie,Biscoe,37.9,18.6,172,3150,female,2007
+Adelie,Biscoe,40.5,18.9,180,3950,male,2007
+Adelie,Dream,39.5,16.7,178,3250,female,2007
+Adelie,Dream,37.2,18.1,178,3900,male,2007
+Adelie,Dream,39.5,17.8,188,3300,female,2007
+Adelie,Dream,40.9,18.9,184,3900,male,2007
+Adelie,Dream,36.4,17,195,3325,female,2007
+Adelie,Dream,39.2,21.1,196,4150,male,2007
+Adelie,Dream,38.8,20,190,3950,male,2007
+Adelie,Dream,42.2,18.5,180,3550,female,2007
+Adelie,Dream,37.6,19.3,181,3300,female,2007
+Adelie,Dream,39.8,19.1,184,4650,male,2007
+Adelie,Dream,36.5,18,182,3150,female,2007
+Adelie,Dream,40.8,18.4,195,3900,male,2007
+Adelie,Dream,36,18.5,186,3100,female,2007
+Adelie,Dream,44.1,19.7,196,4400,male,2007
+Adelie,Dream,37,16.9,185,3000,female,2007
+Adelie,Dream,39.6,18.8,190,4600,male,2007
+Adelie,Dream,41.1,19,182,3425,male,2007
+Adelie,Dream,37.5,18.9,179,2975,NA,2007
+Adelie,Dream,36,17.9,190,3450,female,2007
+Adelie,Dream,42.3,21.2,191,4150,male,2007
+Adelie,Biscoe,39.6,17.7,186,3500,female,2008
+Adelie,Biscoe,40.1,18.9,188,4300,male,2008
+Adelie,Biscoe,35,17.9,190,3450,female,2008
+Adelie,Biscoe,42,19.5,200,4050,male,2008
+Adelie,Biscoe,34.5,18.1,187,2900,female,2008
+Adelie,Biscoe,41.4,18.6,191,3700,male,2008
+Adelie,Biscoe,39,17.5,186,3550,female,2008
+Adelie,Biscoe,40.6,18.8,193,3800,male,2008
+Adelie,Biscoe,36.5,16.6,181,2850,female,2008
+Adelie,Biscoe,37.6,19.1,194,3750,male,2008
+Adelie,Biscoe,35.7,16.9,185,3150,female,2008
+Adelie,Biscoe,41.3,21.1,195,4400,male,2008
+Adelie,Biscoe,37.6,17,185,3600,female,2008
+Adelie,Biscoe,41.1,18.2,192,4050,male,2008
+Adelie,Biscoe,36.4,17.1,184,2850,female,2008
+Adelie,Biscoe,41.6,18,192,3950,male,2008
+Adelie,Biscoe,35.5,16.2,195,3350,female,2008
+Adelie,Biscoe,41.1,19.1,188,4100,male,2008
+Adelie,Torgersen,35.9,16.6,190,3050,female,2008
+Adelie,Torgersen,41.8,19.4,198,4450,male,2008
+Adelie,Torgersen,33.5,19,190,3600,female,2008
+Adelie,Torgersen,39.7,18.4,190,3900,male,2008
+Adelie,Torgersen,39.6,17.2,196,3550,female,2008
+Adelie,Torgersen,45.8,18.9,197,4150,male,2008
+Adelie,Torgersen,35.5,17.5,190,3700,female,2008
+Adelie,Torgersen,42.8,18.5,195,4250,male,2008
+Adelie,Torgersen,40.9,16.8,191,3700,female,2008
+Adelie,Torgersen,37.2,19.4,184,3900,male,2008
+Adelie,Torgersen,36.2,16.1,187,3550,female,2008
+Adelie,Torgersen,42.1,19.1,195,4000,male,2008
+Adelie,Torgersen,34.6,17.2,189,3200,female,2008
+Adelie,Torgersen,42.9,17.6,196,4700,male,2008
+Adelie,Torgersen,36.7,18.8,187,3800,female,2008
+Adelie,Torgersen,35.1,19.4,193,4200,male,2008
+Adelie,Dream,37.3,17.8,191,3350,female,2008
+Adelie,Dream,41.3,20.3,194,3550,male,2008
+Adelie,Dream,36.3,19.5,190,3800,male,2008
+Adelie,Dream,36.9,18.6,189,3500,female,2008
+Adelie,Dream,38.3,19.2,189,3950,male,2008
+Adelie,Dream,38.9,18.8,190,3600,female,2008
+Adelie,Dream,35.7,18,202,3550,female,2008
+Adelie,Dream,41.1,18.1,205,4300,male,2008
+Adelie,Dream,34,17.1,185,3400,female,2008
+Adelie,Dream,39.6,18.1,186,4450,male,2008
+Adelie,Dream,36.2,17.3,187,3300,female,2008
+Adelie,Dream,40.8,18.9,208,4300,male,2008
+Adelie,Dream,38.1,18.6,190,3700,female,2008
+Adelie,Dream,40.3,18.5,196,4350,male,2008
+Adelie,Dream,33.1,16.1,178,2900,female,2008
+Adelie,Dream,43.2,18.5,192,4100,male,2008
+Adelie,Biscoe,35,17.9,192,3725,female,2009
+Adelie,Biscoe,41,20,203,4725,male,2009
+Adelie,Biscoe,37.7,16,183,3075,female,2009
+Adelie,Biscoe,37.8,20,190,4250,male,2009
+Adelie,Biscoe,37.9,18.6,193,2925,female,2009
+Adelie,Biscoe,39.7,18.9,184,3550,male,2009
+Adelie,Biscoe,38.6,17.2,199,3750,female,2009
+Adelie,Biscoe,38.2,20,190,3900,male,2009
+Adelie,Biscoe,38.1,17,181,3175,female,2009
+Adelie,Biscoe,43.2,19,197,4775,male,2009
+Adelie,Biscoe,38.1,16.5,198,3825,female,2009
+Adelie,Biscoe,45.6,20.3,191,4600,male,2009
+Adelie,Biscoe,39.7,17.7,193,3200,female,2009
+Adelie,Biscoe,42.2,19.5,197,4275,male,2009
+Adelie,Biscoe,39.6,20.7,191,3900,female,2009
+Adelie,Biscoe,42.7,18.3,196,4075,male,2009
+Adelie,Torgersen,38.6,17,188,2900,female,2009
+Adelie,Torgersen,37.3,20.5,199,3775,male,2009
+Adelie,Torgersen,35.7,17,189,3350,female,2009
+Adelie,Torgersen,41.1,18.6,189,3325,male,2009
+Adelie,Torgersen,36.2,17.2,187,3150,female,2009
+Adelie,Torgersen,37.7,19.8,198,3500,male,2009
+Adelie,Torgersen,40.2,17,176,3450,female,2009
+Adelie,Torgersen,41.4,18.5,202,3875,male,2009
+Adelie,Torgersen,35.2,15.9,186,3050,female,2009
+Adelie,Torgersen,40.6,19,199,4000,male,2009
+Adelie,Torgersen,38.8,17.6,191,3275,female,2009
+Adelie,Torgersen,41.5,18.3,195,4300,male,2009
+Adelie,Torgersen,39,17.1,191,3050,female,2009
+Adelie,Torgersen,44.1,18,210,4000,male,2009
+Adelie,Torgersen,38.5,17.9,190,3325,female,2009
+Adelie,Torgersen,43.1,19.2,197,3500,male,2009
+Adelie,Dream,36.8,18.5,193,3500,female,2009
+Adelie,Dream,37.5,18.5,199,4475,male,2009
+Adelie,Dream,38.1,17.6,187,3425,female,2009
+Adelie,Dream,41.1,17.5,190,3900,male,2009
+Adelie,Dream,35.6,17.5,191,3175,female,2009
+Adelie,Dream,40.2,20.1,200,3975,male,2009
+Adelie,Dream,37,16.5,185,3400,female,2009
+Adelie,Dream,39.7,17.9,193,4250,male,2009
+Adelie,Dream,40.2,17.1,193,3400,female,2009
+Adelie,Dream,40.6,17.2,187,3475,male,2009
+Adelie,Dream,32.1,15.5,188,3050,female,2009
+Adelie,Dream,40.7,17,190,3725,male,2009
+Adelie,Dream,37.3,16.8,192,3000,female,2009
+Adelie,Dream,39,18.7,185,3650,male,2009
+Adelie,Dream,39.2,18.6,190,4250,male,2009
+Adelie,Dream,36.6,18.4,184,3475,female,2009
+Adelie,Dream,36,17.8,195,3450,female,2009
+Adelie,Dream,37.8,18.1,193,3750,male,2009
+Adelie,Dream,36,17.1,187,3700,female,2009
+Adelie,Dream,41.5,18.5,201,4000,male,2009
+Gentoo,Biscoe,46.1,13.2,211,4500,female,2007
+Gentoo,Biscoe,50,16.3,230,5700,male,2007
+Gentoo,Biscoe,48.7,14.1,210,4450,female,2007
+Gentoo,Biscoe,50,15.2,218,5700,male,2007
+Gentoo,Biscoe,47.6,14.5,215,5400,male,2007
+Gentoo,Biscoe,46.5,13.5,210,4550,female,2007
+Gentoo,Biscoe,45.4,14.6,211,4800,female,2007
+Gentoo,Biscoe,46.7,15.3,219,5200,male,2007
+Gentoo,Biscoe,43.3,13.4,209,4400,female,2007
+Gentoo,Biscoe,46.8,15.4,215,5150,male,2007
+Gentoo,Biscoe,40.9,13.7,214,4650,female,2007
+Gentoo,Biscoe,49,16.1,216,5550,male,2007
+Gentoo,Biscoe,45.5,13.7,214,4650,female,2007
+Gentoo,Biscoe,48.4,14.6,213,5850,male,2007
+Gentoo,Biscoe,45.8,14.6,210,4200,female,2007
+Gentoo,Biscoe,49.3,15.7,217,5850,male,2007
+Gentoo,Biscoe,42,13.5,210,4150,female,2007
+Gentoo,Biscoe,49.2,15.2,221,6300,male,2007
+Gentoo,Biscoe,46.2,14.5,209,4800,female,2007
+Gentoo,Biscoe,48.7,15.1,222,5350,male,2007
+Gentoo,Biscoe,50.2,14.3,218,5700,male,2007
+Gentoo,Biscoe,45.1,14.5,215,5000,female,2007
+Gentoo,Biscoe,46.5,14.5,213,4400,female,2007
+Gentoo,Biscoe,46.3,15.8,215,5050,male,2007
+Gentoo,Biscoe,42.9,13.1,215,5000,female,2007
+Gentoo,Biscoe,46.1,15.1,215,5100,male,2007
+Gentoo,Biscoe,44.5,14.3,216,4100,NA,2007
+Gentoo,Biscoe,47.8,15,215,5650,male,2007
+Gentoo,Biscoe,48.2,14.3,210,4600,female,2007
+Gentoo,Biscoe,50,15.3,220,5550,male,2007
+Gentoo,Biscoe,47.3,15.3,222,5250,male,2007
+Gentoo,Biscoe,42.8,14.2,209,4700,female,2007
+Gentoo,Biscoe,45.1,14.5,207,5050,female,2007
+Gentoo,Biscoe,59.6,17,230,6050,male,2007
+Gentoo,Biscoe,49.1,14.8,220,5150,female,2008
+Gentoo,Biscoe,48.4,16.3,220,5400,male,2008
+Gentoo,Biscoe,42.6,13.7,213,4950,female,2008
+Gentoo,Biscoe,44.4,17.3,219,5250,male,2008
+Gentoo,Biscoe,44,13.6,208,4350,female,2008
+Gentoo,Biscoe,48.7,15.7,208,5350,male,2008
+Gentoo,Biscoe,42.7,13.7,208,3950,female,2008
+Gentoo,Biscoe,49.6,16,225,5700,male,2008
+Gentoo,Biscoe,45.3,13.7,210,4300,female,2008
+Gentoo,Biscoe,49.6,15,216,4750,male,2008
+Gentoo,Biscoe,50.5,15.9,222,5550,male,2008
+Gentoo,Biscoe,43.6,13.9,217,4900,female,2008
+Gentoo,Biscoe,45.5,13.9,210,4200,female,2008
+Gentoo,Biscoe,50.5,15.9,225,5400,male,2008
+Gentoo,Biscoe,44.9,13.3,213,5100,female,2008
+Gentoo,Biscoe,45.2,15.8,215,5300,male,2008
+Gentoo,Biscoe,46.6,14.2,210,4850,female,2008
+Gentoo,Biscoe,48.5,14.1,220,5300,male,2008
+Gentoo,Biscoe,45.1,14.4,210,4400,female,2008
+Gentoo,Biscoe,50.1,15,225,5000,male,2008
+Gentoo,Biscoe,46.5,14.4,217,4900,female,2008
+Gentoo,Biscoe,45,15.4,220,5050,male,2008
+Gentoo,Biscoe,43.8,13.9,208,4300,female,2008
+Gentoo,Biscoe,45.5,15,220,5000,male,2008
+Gentoo,Biscoe,43.2,14.5,208,4450,female,2008
+Gentoo,Biscoe,50.4,15.3,224,5550,male,2008
+Gentoo,Biscoe,45.3,13.8,208,4200,female,2008
+Gentoo,Biscoe,46.2,14.9,221,5300,male,2008
+Gentoo,Biscoe,45.7,13.9,214,4400,female,2008
+Gentoo,Biscoe,54.3,15.7,231,5650,male,2008
+Gentoo,Biscoe,45.8,14.2,219,4700,female,2008
+Gentoo,Biscoe,49.8,16.8,230,5700,male,2008
+Gentoo,Biscoe,46.2,14.4,214,4650,NA,2008
+Gentoo,Biscoe,49.5,16.2,229,5800,male,2008
+Gentoo,Biscoe,43.5,14.2,220,4700,female,2008
+Gentoo,Biscoe,50.7,15,223,5550,male,2008
+Gentoo,Biscoe,47.7,15,216,4750,female,2008
+Gentoo,Biscoe,46.4,15.6,221,5000,male,2008
+Gentoo,Biscoe,48.2,15.6,221,5100,male,2008
+Gentoo,Biscoe,46.5,14.8,217,5200,female,2008
+Gentoo,Biscoe,46.4,15,216,4700,female,2008
+Gentoo,Biscoe,48.6,16,230,5800,male,2008
+Gentoo,Biscoe,47.5,14.2,209,4600,female,2008
+Gentoo,Biscoe,51.1,16.3,220,6000,male,2008
+Gentoo,Biscoe,45.2,13.8,215,4750,female,2008
+Gentoo,Biscoe,45.2,16.4,223,5950,male,2008
+Gentoo,Biscoe,49.1,14.5,212,4625,female,2009
+Gentoo,Biscoe,52.5,15.6,221,5450,male,2009
+Gentoo,Biscoe,47.4,14.6,212,4725,female,2009
+Gentoo,Biscoe,50,15.9,224,5350,male,2009
+Gentoo,Biscoe,44.9,13.8,212,4750,female,2009
+Gentoo,Biscoe,50.8,17.3,228,5600,male,2009
+Gentoo,Biscoe,43.4,14.4,218,4600,female,2009
+Gentoo,Biscoe,51.3,14.2,218,5300,male,2009
+Gentoo,Biscoe,47.5,14,212,4875,female,2009
+Gentoo,Biscoe,52.1,17,230,5550,male,2009
+Gentoo,Biscoe,47.5,15,218,4950,female,2009
+Gentoo,Biscoe,52.2,17.1,228,5400,male,2009
+Gentoo,Biscoe,45.5,14.5,212,4750,female,2009
+Gentoo,Biscoe,49.5,16.1,224,5650,male,2009
+Gentoo,Biscoe,44.5,14.7,214,4850,female,2009
+Gentoo,Biscoe,50.8,15.7,226,5200,male,2009
+Gentoo,Biscoe,49.4,15.8,216,4925,male,2009
+Gentoo,Biscoe,46.9,14.6,222,4875,female,2009
+Gentoo,Biscoe,48.4,14.4,203,4625,female,2009
+Gentoo,Biscoe,51.1,16.5,225,5250,male,2009
+Gentoo,Biscoe,48.5,15,219,4850,female,2009
+Gentoo,Biscoe,55.9,17,228,5600,male,2009
+Gentoo,Biscoe,47.2,15.5,215,4975,female,2009
+Gentoo,Biscoe,49.1,15,228,5500,male,2009
+Gentoo,Biscoe,47.3,13.8,216,4725,NA,2009
+Gentoo,Biscoe,46.8,16.1,215,5500,male,2009
+Gentoo,Biscoe,41.7,14.7,210,4700,female,2009
+Gentoo,Biscoe,53.4,15.8,219,5500,male,2009
+Gentoo,Biscoe,43.3,14,208,4575,female,2009
+Gentoo,Biscoe,48.1,15.1,209,5500,male,2009
+Gentoo,Biscoe,50.5,15.2,216,5000,female,2009
+Gentoo,Biscoe,49.8,15.9,229,5950,male,2009
+Gentoo,Biscoe,43.5,15.2,213,4650,female,2009
+Gentoo,Biscoe,51.5,16.3,230,5500,male,2009
+Gentoo,Biscoe,46.2,14.1,217,4375,female,2009
+Gentoo,Biscoe,55.1,16,230,5850,male,2009
+Gentoo,Biscoe,44.5,15.7,217,4875,NA,2009
+Gentoo,Biscoe,48.8,16.2,222,6000,male,2009
+Gentoo,Biscoe,47.2,13.7,214,4925,female,2009
+Gentoo,Biscoe,NA,NA,NA,NA,NA,2009
+Gentoo,Biscoe,46.8,14.3,215,4850,female,2009
+Gentoo,Biscoe,50.4,15.7,222,5750,male,2009
+Gentoo,Biscoe,45.2,14.8,212,5200,female,2009
+Gentoo,Biscoe,49.9,16.1,213,5400,male,2009
+Chinstrap,Dream,46.5,17.9,192,3500,female,2007
+Chinstrap,Dream,50,19.5,196,3900,male,2007
+Chinstrap,Dream,51.3,19.2,193,3650,male,2007
+Chinstrap,Dream,45.4,18.7,188,3525,female,2007
+Chinstrap,Dream,52.7,19.8,197,3725,male,2007
+Chinstrap,Dream,45.2,17.8,198,3950,female,2007
+Chinstrap,Dream,46.1,18.2,178,3250,female,2007
+Chinstrap,Dream,51.3,18.2,197,3750,male,2007
+Chinstrap,Dream,46,18.9,195,4150,female,2007
+Chinstrap,Dream,51.3,19.9,198,3700,male,2007
+Chinstrap,Dream,46.6,17.8,193,3800,female,2007
+Chinstrap,Dream,51.7,20.3,194,3775,male,2007
+Chinstrap,Dream,47,17.3,185,3700,female,2007
+Chinstrap,Dream,52,18.1,201,4050,male,2007
+Chinstrap,Dream,45.9,17.1,190,3575,female,2007
+Chinstrap,Dream,50.5,19.6,201,4050,male,2007
+Chinstrap,Dream,50.3,20,197,3300,male,2007
+Chinstrap,Dream,58,17.8,181,3700,female,2007
+Chinstrap,Dream,46.4,18.6,190,3450,female,2007
+Chinstrap,Dream,49.2,18.2,195,4400,male,2007
+Chinstrap,Dream,42.4,17.3,181,3600,female,2007
+Chinstrap,Dream,48.5,17.5,191,3400,male,2007
+Chinstrap,Dream,43.2,16.6,187,2900,female,2007
+Chinstrap,Dream,50.6,19.4,193,3800,male,2007
+Chinstrap,Dream,46.7,17.9,195,3300,female,2007
+Chinstrap,Dream,52,19,197,4150,male,2007
+Chinstrap,Dream,50.5,18.4,200,3400,female,2008
+Chinstrap,Dream,49.5,19,200,3800,male,2008
+Chinstrap,Dream,46.4,17.8,191,3700,female,2008
+Chinstrap,Dream,52.8,20,205,4550,male,2008
+Chinstrap,Dream,40.9,16.6,187,3200,female,2008
+Chinstrap,Dream,54.2,20.8,201,4300,male,2008
+Chinstrap,Dream,42.5,16.7,187,3350,female,2008
+Chinstrap,Dream,51,18.8,203,4100,male,2008
+Chinstrap,Dream,49.7,18.6,195,3600,male,2008
+Chinstrap,Dream,47.5,16.8,199,3900,female,2008
+Chinstrap,Dream,47.6,18.3,195,3850,female,2008
+Chinstrap,Dream,52,20.7,210,4800,male,2008
+Chinstrap,Dream,46.9,16.6,192,2700,female,2008
+Chinstrap,Dream,53.5,19.9,205,4500,male,2008
+Chinstrap,Dream,49,19.5,210,3950,male,2008
+Chinstrap,Dream,46.2,17.5,187,3650,female,2008
+Chinstrap,Dream,50.9,19.1,196,3550,male,2008
+Chinstrap,Dream,45.5,17,196,3500,female,2008
+Chinstrap,Dream,50.9,17.9,196,3675,female,2009
+Chinstrap,Dream,50.8,18.5,201,4450,male,2009
+Chinstrap,Dream,50.1,17.9,190,3400,female,2009
+Chinstrap,Dream,49,19.6,212,4300,male,2009
+Chinstrap,Dream,51.5,18.7,187,3250,male,2009
+Chinstrap,Dream,49.8,17.3,198,3675,female,2009
+Chinstrap,Dream,48.1,16.4,199,3325,female,2009
+Chinstrap,Dream,51.4,19,201,3950,male,2009
+Chinstrap,Dream,45.7,17.3,193,3600,female,2009
+Chinstrap,Dream,50.7,19.7,203,4050,male,2009
+Chinstrap,Dream,42.5,17.3,187,3350,female,2009
+Chinstrap,Dream,52.2,18.8,197,3450,male,2009
+Chinstrap,Dream,45.2,16.6,191,3250,female,2009
+Chinstrap,Dream,49.3,19.9,203,4050,male,2009
+Chinstrap,Dream,50.2,18.8,202,3800,male,2009
+Chinstrap,Dream,45.6,19.4,194,3525,female,2009
+Chinstrap,Dream,51.9,19.5,206,3950,male,2009
+Chinstrap,Dream,46.8,16.5,189,3650,female,2009
+Chinstrap,Dream,45.7,17,195,3650,female,2009
+Chinstrap,Dream,55.8,19.8,207,4000,male,2009
+Chinstrap,Dream,43.5,18.1,202,3400,female,2009
+Chinstrap,Dream,49.6,18.2,193,3775,male,2009
+Chinstrap,Dream,50.8,19,210,4100,male,2009
+Chinstrap,Dream,50.2,18.7,198,3775,female,2009
+```
+:::
+
+There are two main things which will be new to you if you're coming from Streamlit.
+
+## Explicit UI layout
+
+Shiny requires you to explicitly lay out your UI using nested `ui.` method calls, which map onto HTML -- you don't need to know HTML and CSS for Shiny, but if you do, you can use that knowledge to customize and extend your applications.
+Defining your UI in this way gives you more control over precisely how your application is laid out, and also makes the UI easier to read and modify down the road.
+
+
+### UI flexibility
+
+The Shiny UI is also more flexible and customizable than Streamlit.
+For example, in Streamlit container functions like columns or sidebars are called using the `with <container>`, this makes some layouts [like nested columns](https://discuss.streamlit.io/t/create-nested-columns/18807/7) difficult or impossible to implement.
+All of Shiny's container functions take child elements as arguments, which makes them very easy to compose them to create
+highly customized layouts.
+Implementing nested columns is as a simple as nesting function calls.
+
+``` {shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+
+from shiny import App, ui
+
+style = "border: 1px solid #999;"
+
+app_ui = ui.page_fluid(
+    ui.row(
+        ui.column(4, "row-1 col-1", style=style),
+        ui.column(8, "row-1 col-2", style=style),
+    ),
+    ui.row(
+        ui.column(6, "row-2 col-1", style=style),
+        ui.column(
+            6,
+            ui.row(
+                ui.column(4, "sub-col1", style=style),
+                ui.column(8, "sub-col2", style=style),
+            ),
+            style=style,
+        ),
+    ),
+)
+
+
+app = App(app_ui, None)
+```
+
+
+### Modular UI code
+
+Most Streamlit UI elements have the important side effect of rendering themselves.
+This means that _where_ the ui element is in the script determines its location in the app and as a result those ui elements are deeply intertwined with server logic.
+For example if you want to move a UI element from one part of the app to another, you often have to also rearrange the server logic of your app.
+This means that seemingly minor layout changes can result in major application surgery.
+
+Shiny's UI uses pure functions which return a value instead of rendering themselves.
+This means that UI can be defined independently of the server logic, which makes maintaining and modifying the UI much easier. All you have to do to move a graph in the UI is change the location of the `ui.output_plot` call.
+
+This also means that the UI can be broken up into informative pieces to improve code readability.
+For example, if you want to move pieces of the UI code to another file you can do that either by storing them in variables, or using Shiny [modules](workflow-modules.qmd).
+
+``` {shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+
+from shiny import App, ui
+from rows import row_1, row_2
+
+app_ui = ui.page_fluid(row_1, row_2)
+
+app = App(app_ui, None)
+
+## file: rows.py
+from shiny import ui
+style = "border: 1px solid #999;"
+row_2 = (
+    ui.row(
+        ui.column(6, "row-2 col-1", style=style),
+        ui.column(
+            6,
+            ui.row(
+                ui.column(4, "sub-col", style=style),
+                ui.column(8, "sub-col", style=style),
+            ),
+            style=style,
+        ),
+    ),
+)
+
+row_1 = ui.row(
+    ui.column(4, "row-1 col-1", style=style),
+    ui.column(8, "row-1 col-2", style=style),
+)
+```
+
+
+## Code organization
+
+The second main difference between Streamlit and Shiny is code organization.
+Since Streamlit runs everything from top to bottom it doesn't particularly matter how your code is organized.
+In order to benefit from Shiny's execution model, you need to organize your code into decorated functions.
+
+For example, take this part of the application code:
+
+``` python
+@reactive.Calc
+def filtered_data():
+    filt_df = df.copy()
+    filt_df = filt_df.loc[df["Body Mass (g)"] < input.mass()]
+    return filt_df
+
+@output
+@render.plot
+def mass_distribution():
+    return dist_plot(filtered_data())
+
+@output
+@render.plot
+def scatter():
+    return scatter_plot(filtered_data(), input.smoother())
+```
+
+These functions define the three main nodes of the application, as well as the relationships between them.
+The `@render.plot` and `@reactive.Calc` decorators identify the functions as reactive functions which need to re-execute in response to upstream changes, and the `filtered_data()` and `input.*` calls define the relationships between these components.
+These decorators help Shiny to construct a computational graph of the application as it runs, and only rerender an element when one of its upstream dependencies changes.
+
+```{mermaid}
+flowchart LR
+  S[input.mass] --> F[Filtered Data]
+  F --> H((Distribution))
+  F --> SC((Scatterplot))
+  C[input.smoother] --> SC
+```
+
+# Extending the application
+
+The benefit of Shiny's structure is that you can extend the application without having to rewrite it.
+For example, let's add a button which resets the slider.
+In Shiny you can do this by adding a a `reactive.Effect` function which calls the `ui.update_slider()` function.
+This adds a node to the computation graph and everything works as you'd expect it to.
+Importantly, we can extend the application without changing how we think about the overall application.
+
+```{mermaid}
+flowchart LR
+  S[input.mass] --> F[Filtered Data]
+  F --> H((Distribution))
+  F --> SC((Scatterplot))
+  C[input.smoother] --> SC
+  R{Reset} -.-> S
+```
+
+:::{.column-screen-inset}
+``` {shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+from shiny import App, render, ui, reactive
+import pandas as pd
+from plotnine import ggplot, geom_density, aes, theme_light, geom_point, stat_smooth
+from pathlib import Path
+
+app_ui = ui.page_fluid(
+    ui.layout_sidebar(
+        ui.panel_sidebar(
+            ui.input_slider(
+                "mass",
+                "Mass",
+                2000,
+                8000,
+                6000,
+            ),
+            ui.input_checkbox("smoother", "Add Smoother"),
+            ui.input_action_button("reset", "Reset slider"),
+        ),
+        ui.panel_main(
+            ui.output_plot(id="scatter"),
+            ui.output_plot(id="mass_distribution"),
+        ),
+    )
+)
+
+
+def server(input, output, session):
+    infile = Path(__file__).parent / "penguins.csv"
+    df = pd.read_csv(infile)
+
+    @reactive.Calc
+    def filtered_data():
+        filt_df = df.copy()
+        filt_df = filt_df.loc[df["Body Mass (g)"] < input.mass()]
+        return filt_df
+
+    @output
+    @render.plot
+    def mass_distribution():
+        return dist_plot(filtered_data())
+
+    @output
+    @render.plot
+    def scatter():
+        return scatter_plot(filtered_data(), input.smoother())
+
+    @reactive.Effect
+    @reactive.event(input.reset)
+    def _():
+        ui.update_slider("mass", value=6000)
+
+
+def dist_plot(df):
+    plot = (
+        ggplot(df, aes(x="Body Mass (g)", fill="Species"))
+        + geom_density(alpha=0.2)
+        + theme_light()
+    )
+    return plot
+
+
+def scatter_plot(df, smoother):
+    plot = (
+        ggplot(
+            df,
+            aes(
+                x="Bill Length (mm)",
+                y="Bill Depth (mm)",
+                color="Species",
+                group="Species",
+            ),
+        )
+        + geom_point()
+        + theme_light()
+    )
+
+    if smoother:
+        plot = plot + stat_smooth()
+
+    return plot
+
+
+app = App(app_ui, server)
+## file: penguins.csv
+Species,Island,Bill Length (mm),Bill Depth (mm),Flipper Length (mm),Body Mass (g),Sex,Year
+Adelie,Torgersen,39.1,18.7,181,3750,male,2007
+Adelie,Torgersen,39.5,17.4,186,3800,female,2007
+Adelie,Torgersen,40.3,18,195,3250,female,2007
+Adelie,Torgersen,NA,NA,NA,NA,NA,2007
+Adelie,Torgersen,36.7,19.3,193,3450,female,2007
+Adelie,Torgersen,39.3,20.6,190,3650,male,2007
+Adelie,Torgersen,38.9,17.8,181,3625,female,2007
+Adelie,Torgersen,39.2,19.6,195,4675,male,2007
+Adelie,Torgersen,34.1,18.1,193,3475,NA,2007
+Adelie,Torgersen,42,20.2,190,4250,NA,2007
+Adelie,Torgersen,37.8,17.1,186,3300,NA,2007
+Adelie,Torgersen,37.8,17.3,180,3700,NA,2007
+Adelie,Torgersen,41.1,17.6,182,3200,female,2007
+Adelie,Torgersen,38.6,21.2,191,3800,male,2007
+Adelie,Torgersen,34.6,21.1,198,4400,male,2007
+Adelie,Torgersen,36.6,17.8,185,3700,female,2007
+Adelie,Torgersen,38.7,19,195,3450,female,2007
+Adelie,Torgersen,42.5,20.7,197,4500,male,2007
+Adelie,Torgersen,34.4,18.4,184,3325,female,2007
+Adelie,Torgersen,46,21.5,194,4200,male,2007
+Adelie,Biscoe,37.8,18.3,174,3400,female,2007
+Adelie,Biscoe,37.7,18.7,180,3600,male,2007
+Adelie,Biscoe,35.9,19.2,189,3800,female,2007
+Adelie,Biscoe,38.2,18.1,185,3950,male,2007
+Adelie,Biscoe,38.8,17.2,180,3800,male,2007
+Adelie,Biscoe,35.3,18.9,187,3800,female,2007
+Adelie,Biscoe,40.6,18.6,183,3550,male,2007
+Adelie,Biscoe,40.5,17.9,187,3200,female,2007
+Adelie,Biscoe,37.9,18.6,172,3150,female,2007
+Adelie,Biscoe,40.5,18.9,180,3950,male,2007
+Adelie,Dream,39.5,16.7,178,3250,female,2007
+Adelie,Dream,37.2,18.1,178,3900,male,2007
+Adelie,Dream,39.5,17.8,188,3300,female,2007
+Adelie,Dream,40.9,18.9,184,3900,male,2007
+Adelie,Dream,36.4,17,195,3325,female,2007
+Adelie,Dream,39.2,21.1,196,4150,male,2007
+Adelie,Dream,38.8,20,190,3950,male,2007
+Adelie,Dream,42.2,18.5,180,3550,female,2007
+Adelie,Dream,37.6,19.3,181,3300,female,2007
+Adelie,Dream,39.8,19.1,184,4650,male,2007
+Adelie,Dream,36.5,18,182,3150,female,2007
+Adelie,Dream,40.8,18.4,195,3900,male,2007
+Adelie,Dream,36,18.5,186,3100,female,2007
+Adelie,Dream,44.1,19.7,196,4400,male,2007
+Adelie,Dream,37,16.9,185,3000,female,2007
+Adelie,Dream,39.6,18.8,190,4600,male,2007
+Adelie,Dream,41.1,19,182,3425,male,2007
+Adelie,Dream,37.5,18.9,179,2975,NA,2007
+Adelie,Dream,36,17.9,190,3450,female,2007
+Adelie,Dream,42.3,21.2,191,4150,male,2007
+Adelie,Biscoe,39.6,17.7,186,3500,female,2008
+Adelie,Biscoe,40.1,18.9,188,4300,male,2008
+Adelie,Biscoe,35,17.9,190,3450,female,2008
+Adelie,Biscoe,42,19.5,200,4050,male,2008
+Adelie,Biscoe,34.5,18.1,187,2900,female,2008
+Adelie,Biscoe,41.4,18.6,191,3700,male,2008
+Adelie,Biscoe,39,17.5,186,3550,female,2008
+Adelie,Biscoe,40.6,18.8,193,3800,male,2008
+Adelie,Biscoe,36.5,16.6,181,2850,female,2008
+Adelie,Biscoe,37.6,19.1,194,3750,male,2008
+Adelie,Biscoe,35.7,16.9,185,3150,female,2008
+Adelie,Biscoe,41.3,21.1,195,4400,male,2008
+Adelie,Biscoe,37.6,17,185,3600,female,2008
+Adelie,Biscoe,41.1,18.2,192,4050,male,2008
+Adelie,Biscoe,36.4,17.1,184,2850,female,2008
+Adelie,Biscoe,41.6,18,192,3950,male,2008
+Adelie,Biscoe,35.5,16.2,195,3350,female,2008
+Adelie,Biscoe,41.1,19.1,188,4100,male,2008
+Adelie,Torgersen,35.9,16.6,190,3050,female,2008
+Adelie,Torgersen,41.8,19.4,198,4450,male,2008
+Adelie,Torgersen,33.5,19,190,3600,female,2008
+Adelie,Torgersen,39.7,18.4,190,3900,male,2008
+Adelie,Torgersen,39.6,17.2,196,3550,female,2008
+Adelie,Torgersen,45.8,18.9,197,4150,male,2008
+Adelie,Torgersen,35.5,17.5,190,3700,female,2008
+Adelie,Torgersen,42.8,18.5,195,4250,male,2008
+Adelie,Torgersen,40.9,16.8,191,3700,female,2008
+Adelie,Torgersen,37.2,19.4,184,3900,male,2008
+Adelie,Torgersen,36.2,16.1,187,3550,female,2008
+Adelie,Torgersen,42.1,19.1,195,4000,male,2008
+Adelie,Torgersen,34.6,17.2,189,3200,female,2008
+Adelie,Torgersen,42.9,17.6,196,4700,male,2008
+Adelie,Torgersen,36.7,18.8,187,3800,female,2008
+Adelie,Torgersen,35.1,19.4,193,4200,male,2008
+Adelie,Dream,37.3,17.8,191,3350,female,2008
+Adelie,Dream,41.3,20.3,194,3550,male,2008
+Adelie,Dream,36.3,19.5,190,3800,male,2008
+Adelie,Dream,36.9,18.6,189,3500,female,2008
+Adelie,Dream,38.3,19.2,189,3950,male,2008
+Adelie,Dream,38.9,18.8,190,3600,female,2008
+Adelie,Dream,35.7,18,202,3550,female,2008
+Adelie,Dream,41.1,18.1,205,4300,male,2008
+Adelie,Dream,34,17.1,185,3400,female,2008
+Adelie,Dream,39.6,18.1,186,4450,male,2008
+Adelie,Dream,36.2,17.3,187,3300,female,2008
+Adelie,Dream,40.8,18.9,208,4300,male,2008
+Adelie,Dream,38.1,18.6,190,3700,female,2008
+Adelie,Dream,40.3,18.5,196,4350,male,2008
+Adelie,Dream,33.1,16.1,178,2900,female,2008
+Adelie,Dream,43.2,18.5,192,4100,male,2008
+Adelie,Biscoe,35,17.9,192,3725,female,2009
+Adelie,Biscoe,41,20,203,4725,male,2009
+Adelie,Biscoe,37.7,16,183,3075,female,2009
+Adelie,Biscoe,37.8,20,190,4250,male,2009
+Adelie,Biscoe,37.9,18.6,193,2925,female,2009
+Adelie,Biscoe,39.7,18.9,184,3550,male,2009
+Adelie,Biscoe,38.6,17.2,199,3750,female,2009
+Adelie,Biscoe,38.2,20,190,3900,male,2009
+Adelie,Biscoe,38.1,17,181,3175,female,2009
+Adelie,Biscoe,43.2,19,197,4775,male,2009
+Adelie,Biscoe,38.1,16.5,198,3825,female,2009
+Adelie,Biscoe,45.6,20.3,191,4600,male,2009
+Adelie,Biscoe,39.7,17.7,193,3200,female,2009
+Adelie,Biscoe,42.2,19.5,197,4275,male,2009
+Adelie,Biscoe,39.6,20.7,191,3900,female,2009
+Adelie,Biscoe,42.7,18.3,196,4075,male,2009
+Adelie,Torgersen,38.6,17,188,2900,female,2009
+Adelie,Torgersen,37.3,20.5,199,3775,male,2009
+Adelie,Torgersen,35.7,17,189,3350,female,2009
+Adelie,Torgersen,41.1,18.6,189,3325,male,2009
+Adelie,Torgersen,36.2,17.2,187,3150,female,2009
+Adelie,Torgersen,37.7,19.8,198,3500,male,2009
+Adelie,Torgersen,40.2,17,176,3450,female,2009
+Adelie,Torgersen,41.4,18.5,202,3875,male,2009
+Adelie,Torgersen,35.2,15.9,186,3050,female,2009
+Adelie,Torgersen,40.6,19,199,4000,male,2009
+Adelie,Torgersen,38.8,17.6,191,3275,female,2009
+Adelie,Torgersen,41.5,18.3,195,4300,male,2009
+Adelie,Torgersen,39,17.1,191,3050,female,2009
+Adelie,Torgersen,44.1,18,210,4000,male,2009
+Adelie,Torgersen,38.5,17.9,190,3325,female,2009
+Adelie,Torgersen,43.1,19.2,197,3500,male,2009
+Adelie,Dream,36.8,18.5,193,3500,female,2009
+Adelie,Dream,37.5,18.5,199,4475,male,2009
+Adelie,Dream,38.1,17.6,187,3425,female,2009
+Adelie,Dream,41.1,17.5,190,3900,male,2009
+Adelie,Dream,35.6,17.5,191,3175,female,2009
+Adelie,Dream,40.2,20.1,200,3975,male,2009
+Adelie,Dream,37,16.5,185,3400,female,2009
+Adelie,Dream,39.7,17.9,193,4250,male,2009
+Adelie,Dream,40.2,17.1,193,3400,female,2009
+Adelie,Dream,40.6,17.2,187,3475,male,2009
+Adelie,Dream,32.1,15.5,188,3050,female,2009
+Adelie,Dream,40.7,17,190,3725,male,2009
+Adelie,Dream,37.3,16.8,192,3000,female,2009
+Adelie,Dream,39,18.7,185,3650,male,2009
+Adelie,Dream,39.2,18.6,190,4250,male,2009
+Adelie,Dream,36.6,18.4,184,3475,female,2009
+Adelie,Dream,36,17.8,195,3450,female,2009
+Adelie,Dream,37.8,18.1,193,3750,male,2009
+Adelie,Dream,36,17.1,187,3700,female,2009
+Adelie,Dream,41.5,18.5,201,4000,male,2009
+Gentoo,Biscoe,46.1,13.2,211,4500,female,2007
+Gentoo,Biscoe,50,16.3,230,5700,male,2007
+Gentoo,Biscoe,48.7,14.1,210,4450,female,2007
+Gentoo,Biscoe,50,15.2,218,5700,male,2007
+Gentoo,Biscoe,47.6,14.5,215,5400,male,2007
+Gentoo,Biscoe,46.5,13.5,210,4550,female,2007
+Gentoo,Biscoe,45.4,14.6,211,4800,female,2007
+Gentoo,Biscoe,46.7,15.3,219,5200,male,2007
+Gentoo,Biscoe,43.3,13.4,209,4400,female,2007
+Gentoo,Biscoe,46.8,15.4,215,5150,male,2007
+Gentoo,Biscoe,40.9,13.7,214,4650,female,2007
+Gentoo,Biscoe,49,16.1,216,5550,male,2007
+Gentoo,Biscoe,45.5,13.7,214,4650,female,2007
+Gentoo,Biscoe,48.4,14.6,213,5850,male,2007
+Gentoo,Biscoe,45.8,14.6,210,4200,female,2007
+Gentoo,Biscoe,49.3,15.7,217,5850,male,2007
+Gentoo,Biscoe,42,13.5,210,4150,female,2007
+Gentoo,Biscoe,49.2,15.2,221,6300,male,2007
+Gentoo,Biscoe,46.2,14.5,209,4800,female,2007
+Gentoo,Biscoe,48.7,15.1,222,5350,male,2007
+Gentoo,Biscoe,50.2,14.3,218,5700,male,2007
+Gentoo,Biscoe,45.1,14.5,215,5000,female,2007
+Gentoo,Biscoe,46.5,14.5,213,4400,female,2007
+Gentoo,Biscoe,46.3,15.8,215,5050,male,2007
+Gentoo,Biscoe,42.9,13.1,215,5000,female,2007
+Gentoo,Biscoe,46.1,15.1,215,5100,male,2007
+Gentoo,Biscoe,44.5,14.3,216,4100,NA,2007
+Gentoo,Biscoe,47.8,15,215,5650,male,2007
+Gentoo,Biscoe,48.2,14.3,210,4600,female,2007
+Gentoo,Biscoe,50,15.3,220,5550,male,2007
+Gentoo,Biscoe,47.3,15.3,222,5250,male,2007
+Gentoo,Biscoe,42.8,14.2,209,4700,female,2007
+Gentoo,Biscoe,45.1,14.5,207,5050,female,2007
+Gentoo,Biscoe,59.6,17,230,6050,male,2007
+Gentoo,Biscoe,49.1,14.8,220,5150,female,2008
+Gentoo,Biscoe,48.4,16.3,220,5400,male,2008
+Gentoo,Biscoe,42.6,13.7,213,4950,female,2008
+Gentoo,Biscoe,44.4,17.3,219,5250,male,2008
+Gentoo,Biscoe,44,13.6,208,4350,female,2008
+Gentoo,Biscoe,48.7,15.7,208,5350,male,2008
+Gentoo,Biscoe,42.7,13.7,208,3950,female,2008
+Gentoo,Biscoe,49.6,16,225,5700,male,2008
+Gentoo,Biscoe,45.3,13.7,210,4300,female,2008
+Gentoo,Biscoe,49.6,15,216,4750,male,2008
+Gentoo,Biscoe,50.5,15.9,222,5550,male,2008
+Gentoo,Biscoe,43.6,13.9,217,4900,female,2008
+Gentoo,Biscoe,45.5,13.9,210,4200,female,2008
+Gentoo,Biscoe,50.5,15.9,225,5400,male,2008
+Gentoo,Biscoe,44.9,13.3,213,5100,female,2008
+Gentoo,Biscoe,45.2,15.8,215,5300,male,2008
+Gentoo,Biscoe,46.6,14.2,210,4850,female,2008
+Gentoo,Biscoe,48.5,14.1,220,5300,male,2008
+Gentoo,Biscoe,45.1,14.4,210,4400,female,2008
+Gentoo,Biscoe,50.1,15,225,5000,male,2008
+Gentoo,Biscoe,46.5,14.4,217,4900,female,2008
+Gentoo,Biscoe,45,15.4,220,5050,male,2008
+Gentoo,Biscoe,43.8,13.9,208,4300,female,2008
+Gentoo,Biscoe,45.5,15,220,5000,male,2008
+Gentoo,Biscoe,43.2,14.5,208,4450,female,2008
+Gentoo,Biscoe,50.4,15.3,224,5550,male,2008
+Gentoo,Biscoe,45.3,13.8,208,4200,female,2008
+Gentoo,Biscoe,46.2,14.9,221,5300,male,2008
+Gentoo,Biscoe,45.7,13.9,214,4400,female,2008
+Gentoo,Biscoe,54.3,15.7,231,5650,male,2008
+Gentoo,Biscoe,45.8,14.2,219,4700,female,2008
+Gentoo,Biscoe,49.8,16.8,230,5700,male,2008
+Gentoo,Biscoe,46.2,14.4,214,4650,NA,2008
+Gentoo,Biscoe,49.5,16.2,229,5800,male,2008
+Gentoo,Biscoe,43.5,14.2,220,4700,female,2008
+Gentoo,Biscoe,50.7,15,223,5550,male,2008
+Gentoo,Biscoe,47.7,15,216,4750,female,2008
+Gentoo,Biscoe,46.4,15.6,221,5000,male,2008
+Gentoo,Biscoe,48.2,15.6,221,5100,male,2008
+Gentoo,Biscoe,46.5,14.8,217,5200,female,2008
+Gentoo,Biscoe,46.4,15,216,4700,female,2008
+Gentoo,Biscoe,48.6,16,230,5800,male,2008
+Gentoo,Biscoe,47.5,14.2,209,4600,female,2008
+Gentoo,Biscoe,51.1,16.3,220,6000,male,2008
+Gentoo,Biscoe,45.2,13.8,215,4750,female,2008
+Gentoo,Biscoe,45.2,16.4,223,5950,male,2008
+Gentoo,Biscoe,49.1,14.5,212,4625,female,2009
+Gentoo,Biscoe,52.5,15.6,221,5450,male,2009
+Gentoo,Biscoe,47.4,14.6,212,4725,female,2009
+Gentoo,Biscoe,50,15.9,224,5350,male,2009
+Gentoo,Biscoe,44.9,13.8,212,4750,female,2009
+Gentoo,Biscoe,50.8,17.3,228,5600,male,2009
+Gentoo,Biscoe,43.4,14.4,218,4600,female,2009
+Gentoo,Biscoe,51.3,14.2,218,5300,male,2009
+Gentoo,Biscoe,47.5,14,212,4875,female,2009
+Gentoo,Biscoe,52.1,17,230,5550,male,2009
+Gentoo,Biscoe,47.5,15,218,4950,female,2009
+Gentoo,Biscoe,52.2,17.1,228,5400,male,2009
+Gentoo,Biscoe,45.5,14.5,212,4750,female,2009
+Gentoo,Biscoe,49.5,16.1,224,5650,male,2009
+Gentoo,Biscoe,44.5,14.7,214,4850,female,2009
+Gentoo,Biscoe,50.8,15.7,226,5200,male,2009
+Gentoo,Biscoe,49.4,15.8,216,4925,male,2009
+Gentoo,Biscoe,46.9,14.6,222,4875,female,2009
+Gentoo,Biscoe,48.4,14.4,203,4625,female,2009
+Gentoo,Biscoe,51.1,16.5,225,5250,male,2009
+Gentoo,Biscoe,48.5,15,219,4850,female,2009
+Gentoo,Biscoe,55.9,17,228,5600,male,2009
+Gentoo,Biscoe,47.2,15.5,215,4975,female,2009
+Gentoo,Biscoe,49.1,15,228,5500,male,2009
+Gentoo,Biscoe,47.3,13.8,216,4725,NA,2009
+Gentoo,Biscoe,46.8,16.1,215,5500,male,2009
+Gentoo,Biscoe,41.7,14.7,210,4700,female,2009
+Gentoo,Biscoe,53.4,15.8,219,5500,male,2009
+Gentoo,Biscoe,43.3,14,208,4575,female,2009
+Gentoo,Biscoe,48.1,15.1,209,5500,male,2009
+Gentoo,Biscoe,50.5,15.2,216,5000,female,2009
+Gentoo,Biscoe,49.8,15.9,229,5950,male,2009
+Gentoo,Biscoe,43.5,15.2,213,4650,female,2009
+Gentoo,Biscoe,51.5,16.3,230,5500,male,2009
+Gentoo,Biscoe,46.2,14.1,217,4375,female,2009
+Gentoo,Biscoe,55.1,16,230,5850,male,2009
+Gentoo,Biscoe,44.5,15.7,217,4875,NA,2009
+Gentoo,Biscoe,48.8,16.2,222,6000,male,2009
+Gentoo,Biscoe,47.2,13.7,214,4925,female,2009
+Gentoo,Biscoe,NA,NA,NA,NA,NA,2009
+Gentoo,Biscoe,46.8,14.3,215,4850,female,2009
+Gentoo,Biscoe,50.4,15.7,222,5750,male,2009
+Gentoo,Biscoe,45.2,14.8,212,5200,female,2009
+Gentoo,Biscoe,49.9,16.1,213,5400,male,2009
+Chinstrap,Dream,46.5,17.9,192,3500,female,2007
+Chinstrap,Dream,50,19.5,196,3900,male,2007
+Chinstrap,Dream,51.3,19.2,193,3650,male,2007
+Chinstrap,Dream,45.4,18.7,188,3525,female,2007
+Chinstrap,Dream,52.7,19.8,197,3725,male,2007
+Chinstrap,Dream,45.2,17.8,198,3950,female,2007
+Chinstrap,Dream,46.1,18.2,178,3250,female,2007
+Chinstrap,Dream,51.3,18.2,197,3750,male,2007
+Chinstrap,Dream,46,18.9,195,4150,female,2007
+Chinstrap,Dream,51.3,19.9,198,3700,male,2007
+Chinstrap,Dream,46.6,17.8,193,3800,female,2007
+Chinstrap,Dream,51.7,20.3,194,3775,male,2007
+Chinstrap,Dream,47,17.3,185,3700,female,2007
+Chinstrap,Dream,52,18.1,201,4050,male,2007
+Chinstrap,Dream,45.9,17.1,190,3575,female,2007
+Chinstrap,Dream,50.5,19.6,201,4050,male,2007
+Chinstrap,Dream,50.3,20,197,3300,male,2007
+Chinstrap,Dream,58,17.8,181,3700,female,2007
+Chinstrap,Dream,46.4,18.6,190,3450,female,2007
+Chinstrap,Dream,49.2,18.2,195,4400,male,2007
+Chinstrap,Dream,42.4,17.3,181,3600,female,2007
+Chinstrap,Dream,48.5,17.5,191,3400,male,2007
+Chinstrap,Dream,43.2,16.6,187,2900,female,2007
+Chinstrap,Dream,50.6,19.4,193,3800,male,2007
+Chinstrap,Dream,46.7,17.9,195,3300,female,2007
+Chinstrap,Dream,52,19,197,4150,male,2007
+Chinstrap,Dream,50.5,18.4,200,3400,female,2008
+Chinstrap,Dream,49.5,19,200,3800,male,2008
+Chinstrap,Dream,46.4,17.8,191,3700,female,2008
+Chinstrap,Dream,52.8,20,205,4550,male,2008
+Chinstrap,Dream,40.9,16.6,187,3200,female,2008
+Chinstrap,Dream,54.2,20.8,201,4300,male,2008
+Chinstrap,Dream,42.5,16.7,187,3350,female,2008
+Chinstrap,Dream,51,18.8,203,4100,male,2008
+Chinstrap,Dream,49.7,18.6,195,3600,male,2008
+Chinstrap,Dream,47.5,16.8,199,3900,female,2008
+Chinstrap,Dream,47.6,18.3,195,3850,female,2008
+Chinstrap,Dream,52,20.7,210,4800,male,2008
+Chinstrap,Dream,46.9,16.6,192,2700,female,2008
+Chinstrap,Dream,53.5,19.9,205,4500,male,2008
+Chinstrap,Dream,49,19.5,210,3950,male,2008
+Chinstrap,Dream,46.2,17.5,187,3650,female,2008
+Chinstrap,Dream,50.9,19.1,196,3550,male,2008
+Chinstrap,Dream,45.5,17,196,3500,female,2008
+Chinstrap,Dream,50.9,17.9,196,3675,female,2009
+Chinstrap,Dream,50.8,18.5,201,4450,male,2009
+Chinstrap,Dream,50.1,17.9,190,3400,female,2009
+Chinstrap,Dream,49,19.6,212,4300,male,2009
+Chinstrap,Dream,51.5,18.7,187,3250,male,2009
+Chinstrap,Dream,49.8,17.3,198,3675,female,2009
+Chinstrap,Dream,48.1,16.4,199,3325,female,2009
+Chinstrap,Dream,51.4,19,201,3950,male,2009
+Chinstrap,Dream,45.7,17.3,193,3600,female,2009
+Chinstrap,Dream,50.7,19.7,203,4050,male,2009
+Chinstrap,Dream,42.5,17.3,187,3350,female,2009
+Chinstrap,Dream,52.2,18.8,197,3450,male,2009
+Chinstrap,Dream,45.2,16.6,191,3250,female,2009
+Chinstrap,Dream,49.3,19.9,203,4050,male,2009
+Chinstrap,Dream,50.2,18.8,202,3800,male,2009
+Chinstrap,Dream,45.6,19.4,194,3525,female,2009
+Chinstrap,Dream,51.9,19.5,206,3950,male,2009
+Chinstrap,Dream,46.8,16.5,189,3650,female,2009
+Chinstrap,Dream,45.7,17,195,3650,female,2009
+Chinstrap,Dream,55.8,19.8,207,4000,male,2009
+Chinstrap,Dream,43.5,18.1,202,3400,female,2009
+Chinstrap,Dream,49.6,18.2,193,3775,male,2009
+Chinstrap,Dream,50.8,19,210,4100,male,2009
+Chinstrap,Dream,50.2,18.7,198,3775,female,2009
+```
+:::
+
+
+### Streamlit requires rewriting
+
+Streamlit is optimized for very simple applications, but the cost of that is that Streamlit applications can be quite challenging to extend.
+For example, to add a reset button to Streamlit you might expect that something like this would work.
+After all, if your script runs from top-to-bottom whenever a button is pressed, shouldn't you be able to redefine a slider using an `if` statement?
+
+```{.python}
+import streamlit as st
+
+x = st.slider("x", 0, 10, 5)
+btn = st.button("Reset")
+if btn:
+    x = st.slider("x", 0, 10, 5)
+```
+
+Unfortunately, this doesn't work because Streamlit maintains hidden application state, and resetting the slider value causes a name conflict.
+In order to get this to work you need to first initialize a state variable `slider` which matches the `key` of the slider input widget, then you need to define a callback function and pass that as an argument to the button function.
+Streamlit then uses the slider `key` to look for a variable with that same key session state.
+This variable defines the value of the slider.
+
+The difficulty here is that in order to get the app to work you need to change your mental model of how the application runs.
+Instead of thinking about your app as a simple Python script which reruns when anything changes, you need to start thinking about manually manipulating the state variables which persist across runs.
+The limitations of the simple rerun-everything model will require you to add more and more workarounds like this as your application grows in complexity.
+
+```{.python}
+import streamlit as st
+import pandas as pd
+from plotnine import ggplot, geom_density, aes, theme_light, geom_point, stat_smooth
+from pathlib import Path
+
+infile = Path(__file__).parent / "penguins.csv"
+df = pd.read_csv(infile)
+
+
+def dist_plot(df):
+    plot = (
+        ggplot(df, aes(x="Body Mass (g)", fill="Species"))
+        + geom_density(alpha=0.2)
+        + theme_light()
+    )
+    return plot.draw()
+
+
+def scatter_plot(df, smoother):
+    plot = (
+        ggplot(
+            df,
+            aes(
+                x="Bill Length (mm)",
+                y="Bill Depth (mm)",
+                color="Species",
+                group="Species",
+            ),
+        )
+        + geom_point()
+        + theme_light()
+    )
+
+    if smoother:
+        plot = plot + stat_smooth()
+
+    return plot.draw()
+
+# You need to check for the variable in session state to avoid an error
+if "slider" not in st.session_state:
+    st.session_state["slider"] = 6000
+
+def reset_value():
+    st.session_state["slider"] = 6000
+
+
+with st.sidebar:
+    mass = st.slider(
+        label="Mass",
+        min_value=2000,
+        max_value=8000,
+        key="slider", # The `key` imports the number which is stored in `session_state`
+    )
+    smoother = st.checkbox("Add Smoother")
+    reset = st.button("Reset Slider", on_click=reset_value)
+
+filt_df = df.loc[df["Body Mass (g)"] < mass]
+
+st.pyplot(scatter_plot(filt_df, smoother))
+st.pyplot(dist_plot(filt_df))
+```
+
+
+## Changing the button style
+
+Some common web development tasks are quite difficult in Streamlit.
+For example, let's say we want to change the color of one button without changing the colors of any other buttons in our app.
+The UI structure that you use to define your Shiny app is designed to work seamlessly with CSS and JavaScript, so all that's required to change the button color is to pass a `style` argument with CSS attributes.
+In addition to including inline CSS like this, you can add a CSS class to any element, or include global CSS or JavaScript assets using `include_css()` or `include_js()`.
+
+```{.python}
+from shiny import *
+
+app_ui = ui.page_fluid(
+    ui.input_action_button(
+        "red",
+        "Red Button",
+        style="background: red",
+    ),
+    ui.input_action_button("gray", "Gray Button"),
+)
+
+app = App(app_ui, None)
+```
+
+You might not need to customize the CSS of your app that often, but it's important to have the option if your application calls for it.
+For example, suppose your company wants to publish your application publicly on their website, but in order to do that you need to make sure that it matches their style guide.
+You can do that with Shiny because it supports the same styling patterns that your company is probably already using.
+
+### Streamlit
+
+This task is almost impossible in Streamlit, and requires a [JavaScript workaround](https://discuss.streamlit.io/t/issues-with-background-colour-for-buttons/38723/2).
+
+```{.python}
+import streamlit as st
+import streamlit.components.v1 as components
+
+st.button("red", "Red Button")
+st.button("white", "White Button")
+
+
+def ChangeButtonColour(widget_label, font_color, background_color="transparent"):
+    htmlstr = f"""
+        <script>
+            var elements = window.parent.document.querySelectorAll('button');
+            for (var i = 0; i < elements.length; ++i) {{
+                if (elements[i].innerText == '{widget_label}') {{
+                    elements[i].style.color ='{font_color}';
+                    elements[i].style.background = '{background_color}'
+                }}
+            }}
+        </script>
+        """
+    components.html(f"{htmlstr}", height=0, width=0)
+
+
+ChangeButtonColour("red", "white", "red")
+```
+
+Despite its complexity, this is the best way to change the style of an individual element in Streamlit
+How this pattern works is:
+
+- Return an empty html component with a script tag
+- Use that script to break out of the iframe and access the parent document
+- Search through the parent elements for those which matches a string
+- Change the style of those elements
+
+This pattern is fairly tricky to understand, and can lead to some unexpected bugs.
+For instance changes to page structure or button names can cause the styling to behave unpredictably.
+
+Streamlit was designed around simple applications which didn't require customized styling, so it's no surprise that this type of styling is difficult.
+It is, however, an example of how the up-front simplicity of Streamlit has a significant cost when you go outside the boundaries of that simplicity.
+The fact that this is a fairly common workaround is an indication that Streamlit users commonly exceed those boundaries.
+
+# Privacy and security
+
+Streamlit collects [user information](https://docs.streamlit.io/library/advanced-features/configuration#telemetry) on everyone who visits a running Streamlit app unless you opt-out.
+The data is sent to a American server owned by Snowflake so that the company can analyze user behavior.
+This can cause legal and security problems because your application may be subject to data governance policies which forbid this type of data collection.
+For example, if your users do not explicitly provide consent to transfer data to a US company, sending data to Snowflake might be a [GDPR violation](https://github.com/streamlit/streamlit/issues/4747).
+In order to prevent data collection you need to set `gatherUsageStats = false` in your Streamlit config file, which is an easy thing to forget to include in a given Streamlit deployment. 
+
+Shiny does not collect or report user data of any kind, and it never will.
+We do not believe that open-source tools should collect user data without explicit consent. 
+
+
+# Conclusion
+
+Shiny requires you to use a bit more structure initially than you might using Streamlit, but the payoff of that structure is that your application is much more robust and extensible.
+The patterns that you use to build a simple Shiny application are the same ones that you use to build a complex one, and you never need to change your mental model of how the application works.
+This design will let your application grow along with the scope of your problem, and you can have confidence that the framework has the tools that you need to handle almost any requirement.

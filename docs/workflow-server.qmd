@@ -1,0 +1,40 @@
+---
+title: Routing
+---
+
+This page covers how to access and extend a Shiny applications server,
+including adding new routes.
+Shiny is built on top of the web server framework [Starlette](https://www.starlette.io/),
+which allows a wide range of customization.
+
+## Adding routes
+
+Shiny apps can be put alongside each other, and other starlette applications.
+
+Here is an example.
+
+```python
+from starlette.applications import Starlette
+from starlette.routing import Mount
+from starlette.staticfiles import StaticFiles
+
+from shiny import App, ui
+
+# first starlette app, just serves static files ----
+app_static = StaticFiles(directory=".")
+
+# shiny app ----
+app_shiny = App(ui.page_fluid("hello from shiny!"), None)
+
+
+# combine apps ----
+routes = [
+    Mount('/static', app=app_static),
+    Mount('/shiny', app=app_shiny)
+]
+
+app = Starlette(routes=routes)
+```
+
+This application can be run using tools like `uvicorn`, as discussed in [deployment](deploy-on-prem.qmd).
+

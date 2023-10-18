@@ -1,0 +1,553 @@
+---
+title: Shiny for R
+format:
+  html:
+    code-line-numbers: true
+    code-annotations: hover
+filters:
+  - line-highlight
+execute:
+  eval: false
+---
+
+The R and Python Shiny packages are quite similar, and as a result if you know how to build a Shiny app in R you are well on your way to building one in Python.
+All of the main components of Shiny like reactivity, rendering functions, and modules are the same, and both packages use the same JavaScript code.
+There are, however, a few differences that you need to keep in mind in order to build effective Shiny applications in Python.
+If you're reading this, we expect that you are an existing R Shiny user with some Python knowledge.
+
+# Getting started
+
+R users tend to use the R console to install and run Shiny while Python requires you to use the terminal.
+To get started you can do the following (or see the [installation instructions](install.qmd) for a more in-depth explanation):
+
+1.  In your terminal, create a new directory with `mkdir <my_directory>` and navigate into it with `cd <my_directory>`
+2.  Install Shiny. We strongly recommend using a virtual environment for this as it will eliminate dependency resolution headaches and make deployment easier.
+
+::: panel-tabset
+### Install with pip
+
+``` bash
+# Create a virtual environment in the .venv subdirectory
+python3 -m venv venv
+source venv/bin/activate
+# Install shiny
+pip install shiny
+```
+
+### Install with conda
+
+``` bash
+# Create a conda environment named 'myenv'
+conda create --name myenv
+conda activate myenv
+conda install -c conda-forge shiny
+```
+:::
+
+3.  Call `shiny create .` to create an example shiny app in your directory
+4.  Call `shiny run --reload` to run the app and reload when the source code changes
+
+::: callout-tip
+### Takeaways
+
+-   Always use a virtual environment with Python projects
+-   Install and run shiny from the command line, not a Python process
+:::
+
+# Syntax differences
+
+There are five main syntax difference between the R and Python versions of Shiny:
+
+1)  Decorators instead of render functions
+2)  Function names are used to connect outputs to the UI
+3)  More precise namespaces
+4)  All inputs are invoked with `input.<input_name>()`
+5)  Some functions have different names
+
+## Decorators
+
+Shiny for Python uses decorators instead of top level rendering functions.
+Decorators are just python functions which take other functions and are invoked by putting `@<decorator>` above the function definition.
+While R doesn't have an exact analog to decorators they are similar to [function operators](https://adv-r.hadley.nz/function-operators.html) you like `purrr::safely`.
+
+::: callout-tip
+### Takeaways
+
+-   Decorate output function with `@output`
+-   Use rendering decorators like `@render.plot`, `@render.text`, or `@render.ui` instead of `renderPlot()`, `renderText`, or `renderUI`
+-   Reactive calculations (equivalent to reactive expressions in R) are decorated `@reactive.Calc`, and reactive effects (equivalent to observers in R) are decorated with `@reactive.Effect`.
+:::
+
+::: {.grid .column-screen-inset}
+::: {.g-col-12 .g-col-md-6}
+#### R
+
+```{R}
+#| source-line-numbers: "9-11"
+library(shiny)
+
+ui <- fluidPage(
+  sliderInput("n", "N", 0, 100, 40),
+  verbatimTextOutput("txt")
+)
+
+server <- function(input, output, session) {
+  output$txt <- renderText({
+    paste0("n*2 is ", input$n, " * 2")
+  })
+}
+
+shinyApp(ui, server)
+```
+:::
+
+::: {.g-col-12 .g-col-md-6}
+#### Python
+
+```{python}
+#| source-line-numbers: "9-13"
+from shiny import ui, render, App
+
+app_ui = ui.page_fluid(
+    ui.input_slider("n", "N", 0, 100, 40),
+    ui.output_text_verbatim("txt"),
+)
+
+def server(input, output, session):
+    @output
+    @render.text
+    def txt():
+        return f"n*2 is {input.n() * 2}"
+
+app = App(app_ui, server)
+```
+:::
+:::
+
+## Connecting outputs
+
+Both R an Python use a special object type to connect server computations to UI components, but the interface is quite different.
+In R, we connect outputs to UI elements by assigning into the `output` object but since Python renderings are produced with decorators, we instead use the function name to connect the rendered object to its UI component.
+
+::: callout-tip
+### Takeaways
+
+-   In Python, we don't define outputs by assigning to `output$x`
+-   Use the function name to connect a server output to a UI element
+:::
+
+::: {.grid .column-screen-inset}
+::: {.g-col-12 .g-col-md-6}
+#### R
+
+```{R}
+#| source-line-numbers: "5,9"
+library(shiny)
+
+ui <- fluidPage(
+  sliderInput("n", "N", 0, 100, 40),
+  verbatimTextOutput("txt")
+)
+
+server <- function(input, output) {
+  output$txt <- renderText({
+    paste0("n*2 is ", input$n," * 2")
+  })
+}
+
+shinyApp(ui, server)
+```
+:::
+
+::: {.g-col-12 .g-col-md-6}
+#### Python
+
+```{python}
+#| source-line-numbers: "5,11"
+from shiny import ui, render, App
+
+app_ui = ui.page_fluid(
+    ui.input_slider("n", "N", 0, 100, 40),
+    ui.output_text_verbatim("txt"),
+)
+
+def server(input, output, session):
+    @output
+    @render.text
+    def txt():
+        return f"n*2 is {input.n() * 2}"
+
+app = App(app_ui, server)
+```
+:::
+:::
+
+### Submodules
+
+All of the Shiny R functions are in a single package namespace.
+On the Python side we make use of [submodules](https://docs.python.org/3/tutorial/modules.html#packages) to keep related functions together.
+Note that "submodules" in this case refers to the generic module which is not the same as [shiny modules](workflow-modules.qmd).
+For example, instead of `sliderInput()`, you would call `ui.input_slider()`, where the `ui.` refers to a submodule of the main `shiny` module.
+
+::: callout-tip
+#### Takeways
+
+-   Python submodules make autocomplete easier
+-   Some important namespaces include:
+    -   **ui** for the UI elements
+    -   **render** includes the rendering decorators
+    -   **reactive** has reactive expressions and observers
+:::
+
+::: {.grid .column-screen-inset}
+::: {.g-col-12 .g-col-md-6}
+#### R
+
+```{R}
+#| source-line-numbers: "3-6"
+library(shiny)
+
+ui <- fluidPage(
+  sliderInput("n", "N", 0, 100, 40),
+  verbatimTextOutput("txt")
+)
+
+server <- function(input, output) {
+  output$txt <- renderText({
+    paste0("n*2 is ", input$n," * 2")
+  })
+}
+
+shinyApp(ui, server)
+```
+:::
+
+::: {.g-col-12 .g-col-md-6}
+#### Python
+
+```{python}
+#| source-line-numbers: "3-6"
+from shiny import ui, render, App
+
+app_ui = ui.page_fluid(
+    ui.input_slider("n", "N", 0, 100, 40),
+    ui.output_text_verbatim("txt"),
+)
+
+def server(input, output, session):
+    @output
+    @render.text
+    def txt():
+        return f"n*2 is {input.n() * 2}"
+
+app = App(app_ui, server)
+```
+:::
+:::
+
+### Call inputs with `()`
+
+In R reactive values and reactive expressions are retrieved with different syntax.
+Reactive values like `input$value` are retrieved like variables while reactive expressions are called like functions `my_reactive()`.
+
+This interface makes it seem like inputs and reactive expressions are different types of thing when in fact they're the same type of thing.
+In Python we chose to require that all reactive objects be retrieved with a function call.
+So instead of calling `input.value` you use `input.value()`.
+
+::: {.grid .column-screen-inset}
+::: {.g-col-12 .g-col-md-6}
+### R
+
+```{R}
+#| source-line-numbers: "10,13"
+library(shiny)
+
+ui <- fluidPage(
+  sliderInput("n", "N", 0, 100, 40),
+  verbatimTextOutput("txt")
+)
+
+server <- function(input, output) {
+
+  n <- reactive({input$n})
+
+  output$txt <- renderText({
+    paste0("n*2 is ", n()," * 2")
+  })
+}
+
+
+shinyApp(ui, server)
+```
+:::
+
+::: {.g-col-12 .g-col-md-6}
+### Python
+
+```{python}
+#| source-line-numbers: "11,16"
+from shiny import ui, render, reactive, App
+
+app_ui = ui.page_fluid(
+    ui.input_slider("n", "N", 0, 100, 40),
+    ui.output_text_verbatim("txt"),
+)
+
+def server(input, output, session):
+    @reactive.Calc
+    def n():
+      return input.n()
+
+    @output
+    @render.text
+    def txt():
+        return f"n*2 is {n() * 2}"
+
+app = App(app_ui, server)
+```
+:::
+:::
+
+::: callout-tip
+### Takeaways
+
+-   Access input values by calling the object like a function
+-   `input.x()`, not `input$x`
+:::
+
+### Function name changes
+
+The Python function names have been modified to make them easier to discover with tab completion.
+For example all python output functions start with `output_` while the input functions start with `input_`.
+This means that you can type `ui.ou` and hit tab to see all of the available output functions.
+The Shiny R functions on the other hand all start with the element type (`plotOutput`, `textInput`), which makes it hard to see all of the input or output options.
+For the most part you can follow this naming pattern to find the function you're looking for, but there are a number of functions that have different names in R and Python, the most important of which are listed below:
+
+| R Function                             | Python Equivalent                         |
+|-----------------------------------|-------------------------------------|
+| `observeEvent`                         | `@reactive.Effect`                        |
+| `reactive`                             | `@reactive.Calc`                          |
+| `bindEvent`                            | `@ractive.event`                          |
+| `reactiveEvent`                        | `@reactive.Calc` with `@reactive.event`   |
+| `observeEvent`                         | `@reactive.Effect` with `@reactive.event` |
+| `htmlTemplate`                         | `page_template`                           |
+| `tabPanelBody`                         | `navs_content`                            |
+| `*Tab` (`insertTab`, `appendTab`, etc) | `nav_*` (`nav_insert`, `nav_append` etc)  |
+| `fluidRow`                             | `row`                                     |
+
+# Reactive programming
+
+Reactivity works mostly the same in R and Python, but there are a few small differences in naming and syntax.
+
+## New names for `reactive()` and `observe()`
+
+In Shiny for R, reactive expressions (created by `reactive()`, which are used when you want to compute a value (which is then used in an output or an observer), and observers (created by `observe()`) are used for their side effects, like writing data to disk.
+This is a common source of confusion because the names `reactive()` and `observe()` do not clearly express when they should be used.
+To help clarify this confusion we've renamed `reactive()` to `@reactive.Calc`, and `observe()` to `@reactive.Effect` in Python.
+
+::: {.grid .column-screen-inset}
+::: {.g-col-12 .g-col-md-6}
+#### R
+
+```{R}
+#| source-line-numbers: "11,14-17"
+library(shiny)
+
+ui <- fluidPage(
+  sliderInput("n", "N", 0, 100, 40),
+  verbatimTextOutput("txt"),
+  actionButton("reset", "Reset")
+)
+
+server <- function(input, output, session) {
+
+  val <- reactive({input$n})
+
+
+  observe({
+    input$reset
+    updateSliderInput(session, "n", value = 40)
+  })
+
+  output$txt <- renderText({
+    paste0("n*2 is ", val()," * 2")
+  })
+}
+
+shinyApp(ui, server)
+```
+:::
+
+::: {.g-col-12 .g-col-md-6}
+#### Python
+
+```{python}
+#| source-line-numbers: "10-12,14-17"
+from shiny import App, reactive, render, ui
+
+app_ui = ui.page_fluid(
+    ui.input_slider("n", "N", 0, 100, 40),
+    ui.output_text_verbatim("txt"),
+    ui.input_action_button("reset", "Reset"),
+)
+
+def server(input, output, session):
+    @reactive.Calc
+    def val():
+        return input.n()
+
+    @reactive.Effect
+    def _():
+        input.reset()
+        ui.update_slider("n", value=40)
+
+    @output
+    @render.text
+    def txt():
+        return f"n*2 is {val() * 2}"
+
+app = App(app_ui, server)
+```
+:::
+:::
+
+## Reactive Values
+
+------------------------------------------------------------------------
+
+In R, there are two types of reactive objects which store values:
+
+-   Items in a `reactiveValues` object.
+    This is a list-like object that contains multiple reactive values.
+    (Note that the `input` object is a `reactiveValues`.)
+
+-   Standalone `reactiveVal` objects.
+
+In R, the way that you get values from a `reactiveValues` object differs from how you get it from a `reactiveVal`.
+To get the value of an item's in a `reactiveValues` object, you would simply access it with `input$x`.
+However, for a standalone `reactiveVal`, you would invoke it like a function, with `x()`.
+
+```{r}
+vals <- reactiveValues(x = 1, y = 2)
+z <- reactiveVal(3)
+
+# Retrieve values
+print(vals$x)
+print(z())
+```
+
+In Shiny for Python, we've simplified things in the following ways:
+
+-   There is no direct analog to R's `reactiveValues`.
+
+-   The analog of R's standalone `reactiveVal` is `reactive.Value`.
+    (The `input` object in Python is a dictionary-like object containing individual `reactive.Value` objects.)
+
+-   Reactive values have can be retrieved with `my_val()` or `my_val.get()` and can be set with `my_val.set()`.
+
+There is no analog of `reactiveValues` in Python, but you can create something similar by using a dictionary of `reactive.Value` objects.
+
+```{python}
+vals = {
+  "x": reactive.Value(1),
+  "y": reactive.Value(2),
+}
+
+z = reactive.Value(3)
+
+# Retrieve values
+print(vals.x())
+print(z())
+```
+
+::: {.grid .column-screen-inset}
+::: {.g-col-12 .g-col-md-6}
+#### R
+
+```{R}
+#| source-line-numbers: "11,16-17,22-23,28"
+library(shiny)
+
+ui <- fluidPage(
+  actionButton("minus", "-1"),
+  actionButton("plus", "+1"),
+  br(),
+  textOutput("value")
+)
+
+server <- function(input, output, session) {
+  value <- reactiveVal(0)
+
+
+
+  observeEvent(input$minus, {
+    newValue <- value() - 1
+    value(newValue)
+  })
+
+
+  observeEvent(input$plus, {
+    newValue <- value() + 1
+    value(newValue)
+  })
+
+
+  output$value <- renderText({
+    value()
+  })
+}
+shinyApp(ui, server)
+```
+:::
+
+::: {.g-col-12 .g-col-md-6}
+#### Python
+
+```{python}
+#| source-line-numbers: "11,16-17,22-23,28"
+from shiny import *
+
+app_ui = ui.page_fluid(
+    ui.input_action_button("minus", "-1"),
+    ui.input_action_button("plus", "+1"),
+    ui.br(),
+    ui.output_text("value"),
+)
+
+def server(input: Inputs, output: Outputs, session: Session):
+    val = reactive.Value(0)
+
+    @reactive.Effect
+    @reactive.event(input.minus)
+    def _():
+        newVal = val() - 1
+        val.set(newVal)
+
+    @reactive.Effect
+    @reactive.event(input.plus)
+    def _():
+        newVal = val() + 1
+        val.set(newVal)
+
+    @output
+    @render.text
+    def value():
+        return str(val())
+
+
+app = App(app_ui, server)
+```
+:::
+:::
+
+# Mutability
+
+One of the biggest differences between R and Python is the mutability of objects.\
+In R, most objects are *immutable*.
+This means, for example, that if you pass a data frame to a function, that function cannot alter your copy of the data frame.\
+In Python, many objects are *mutable*.
+This means that they can be modified in place---modifying an object in one part of a program can cause it to be (unexpectedly) modified in another part of the program.
+
+This difference in mutability has consequences for Shiny applications and for programming in general.
+In many cases, using `.copy()` in Python will help avoid bugs due to inadvertently altering mutable objects.
+See our [page on mutability](https://github.com/rstudio/pyshiny-site/pull/reactive-mutable.html) to understand the possible bugs and how to avoid them.

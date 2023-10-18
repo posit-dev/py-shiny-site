@@ -1,0 +1,185 @@
+---
+title: Installing Shiny for Python
+---
+
+To install Shiny for Python, first create a new directory for your first Shiny app, and change to it.
+
+```bash
+mkdir myapp
+cd myapp
+```
+
+Next, use either `pip` or `conda` to install the `shiny` package.
+
+::: {.panel-tabset}
+
+### Install with pip
+
+If you want to use a virtual environment, feel free to create/activate one now:
+
+```bash
+# Create a virtual environment in the .venv subdirectory
+python3 -m venv venv
+
+# Activate the virtual environment
+source venv/bin/activate
+```
+
+It is also a good idea to upgrade `pip` and install `wheel`:
+
+```bash
+pip install --upgrade pip wheel
+```
+
+Next, install `shiny` from PyPI.
+
+```bash
+pip install shiny
+```
+
+You may on occasion need to force installation of updated versions of our packages, since they are in development. This can be done with:
+
+```bash
+pip install --upgrade shiny htmltools
+```
+
+### Install with conda
+
+If you want to use a conda environment, feel free to create/activate one now:
+
+```bash
+# Create a conda environment named 'myenv'
+conda create --name myenv
+
+# Activate the virtual environment
+conda activate myenv
+```
+
+Next, install `shiny` from conda-forge.
+
+```bash
+conda install -c conda-forge shiny
+```
+
+You may on occasion need to force installation of updated versions of our packages, since they are in development. This can be done with:
+
+```bash
+conda update -c conda-forge shiny
+```
+
+:::
+
+## Running
+
+In the same directory you created above, run:
+
+```bash
+shiny create .
+```
+
+This will create a basic Shiny application in the current directory, in a file named `app.py`.
+
+To run the app, run this command from the shell:
+
+```bash
+shiny run --reload
+```
+
+This should start your app and also automatically launch a web browser.
+
+The `--reload` flag means that file changes in the current directory tree will cause the Python process to restart and the browser to reload. Update and save changes to `app.py` and then wait a moment for the changes to appear in the browser.
+
+With these two `shiny` commands, you now have a project that you can run in your terminal. You can use any text editor or Python IDE to write Shiny apps, but we've taken special care to ensure a smooth workflow for [Visual Studio Code][vscode]. The next section will help you set up VS Code for Shiny for Python.
+
+## Configure Visual Studio Code
+
+For the best experience with [Visual Studio Code][vscode], install the [**Shiny for Python** extension][vscode-shiny].
+
+### Running Shiny apps
+
+The [Shiny for Python extension][vscode-shiny] makes it easy to run your Shiny app from your editor. When a Shiny `app.py` file is being edited, the default behavior of the Run button (circled in red in the screenshot below) becomes "Run Shiny App".
+
+![Visual Studio Code running with the Shiny extension](assets/vscode.png)
+
+This launches a Python process in a dedicated terminal instance, and a captive web browser. This lets you test your app without leaving your editor, and whenever you make changes to your app's source, the preview will update. To preview your app in a full browser, click the icon to the right of the URL bar to launch the app in an external browser.
+
+Note that this method of running Shiny apps doesn't work for interactive debugging; in that case, run your app using [the instructions below](#vsc-debug).
+
+### Configuring VS Code type checking
+
+We highly recommend installing the [Python extension][vscode-python], which provides many features that assist in writing Python code, including inline type checking.
+
+We recommend the following settings in your project's `.vscode/settings.json` file:
+
+```default
+{
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportUnusedFunction": "none"
+    }
+}
+```
+
+or alternatively, if your project keeps these settings in `pyrightconfig.json`:
+
+```default
+{
+  "typeCheckingMode": "basic",
+  "reportUnusedFunction":  "none",
+}
+```
+
+The `basic` type checking mode will flag many potential problems in your code, but it does require an understanding of type hints in Python. This is the mode that is used by the [Shinylive](https://shinylive.io) examples editor. If you want to make even greater use of type checking, you can use `strict` mode:
+
+```default
+   "python.analysis.typeCheckingMode": "strict"
+```
+
+If you still find that too obtrusive and aren't used to working with type hints, you can remove that line entirely.
+
+In the above configuration, we also disable the `reportUnusedFunction` diagnostic, as it's idiomatic Shiny to create named functions that are never explicitly called by any code (i.e., [`@reactive.Effect`](reactive-programming.html)).
+
+
+You can also modify these settings on a per-file basis with comments at the top of the file. For example, you might have something like this at the the top of your `app.py`:
+
+```default
+# pyright: strict
+# pyright: reportUnusedFunction=false
+```
+
+A full list of configuration settings for Pyright/Pylance is available [here](https://github.com/microsoft/pyright/blob/main/docs/configuration.md).
+
+### Using the VS Code Python debugger {#vsc-debug}
+
+The Python extension also adds an excellent Python debugger to Visual Studio Code. Each VS Code project/workspace must indicate how it should be launched for debugging purposes, via a `.vscode/launch.json` file. For Shiny apps, that file should look like this:
+
+```json
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run Shiny app",
+      "type": "python",
+      "request": "launch",
+      "module": "shiny",
+      "args": ["run", "${file}"],
+      "jinja": true,
+      "justMyCode": true
+    },
+  ]
+}
+```
+
+With that file is in place, you can start a debugging session: open your `app.py` file and run the Start Debugger command (`F5`). This will attempt to debug `shiny run <path-to-current-file>`.
+
+If your project contains a single Shiny app, you can replace the `"${file}"` in the above snippet with the relative path to your `app.py` file. With a hardcoded path like this, you can press `F5` to start debugging your app without having to activate the `app.py` editor tab first.
+
+Note that in debugging mode, edits to your source code will not result in automatic reloading (i.e. the `shiny run` command will not have `--reload`); instead, you will need to restart your debugging session (`Command+Shift+F5` / `Ctrl+Shift+F5`).
+
+
+[vscode]: https://code.visualstudio.com/
+[vscode-shiny]: https://marketplace.visualstudio.com/items?itemName=posit.shiny-python
+[vscode-python]: https://marketplace.visualstudio.com/items?itemName=ms-python.python

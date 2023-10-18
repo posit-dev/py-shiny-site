@@ -1,0 +1,124 @@
+---
+title: User feedback
+---
+
+When a user initiates some action on the server, it's often helpful to provide feedback
+on its progress, or additional information about what's happening.
+This page will cover three different ways to give user's feedback with shiny:
+notifications, progress bars, and confirmation modals.
+
+
+:::{.callout-note}
+The examples on this page use [asynchronous programming](https://docs.python.org/3/library/asyncio.html).
+This ensures long-running or sleeping code does not stall the shiny server.
+
+(It is also necessary for running examples in the browser.)
+:::
+
+
+## Notifications
+
+Use `ui.notification_show()` to display a message in the corner of the screen.
+Try clicking "Show" in the example below to see two messages pop up in sequence.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+
+from shiny import App, reactive, ui
+from asyncio import sleep
+
+app_ui = ui.page_fluid(
+    ui.input_action_button("show", "Show"),
+)
+
+def server(input, output, session):
+
+    @reactive.Effect
+    @reactive.event(input.show)
+    async def _():
+        ui.notification_show("Message")
+        await sleep(1)
+        ui.notification_show("Warning message", type="warning")
+
+
+app = App(app_ui, server, debug=True)
+```
+
+Note that the example above simply waits a second between messages.
+In practice you might have messages provide updates during long running calculations.
+
+
+## Progress bars
+
+Use `ui.Progress()` to create a progress bar, that can be updated to show how far along a task is.
+Try clicking "Compute" below to see the progress bar fill over time.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+
+from shiny import App, reactive, render, ui
+from asyncio import sleep
+
+
+app_ui = ui.page_fluid(
+    ui.input_action_button("button", "Compute"),
+    ui.output_text("compute"),
+)
+
+def server(input, output, session):
+
+    @output
+    @render.text
+    @reactive.event(input.button)
+    async def compute():
+        with ui.Progress(min=1, max=15) as p:
+            p.set(message="Calculation in progress", detail="This may take a while...")
+
+            for i in range(1, 15):
+                p.set(i, message="Computing")
+                await sleep(0.1)
+
+        return "Done computing!"
+
+
+app = App(app_ui, server)
+```
+
+Note that `ui.Progress()` is a context manager, so should be used as part of a `with` statement.
+
+## Confirming with modals
+
+Use `ui.modal()` to cover the page with an instructional overlay.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+
+from shiny import App, reactive, ui
+
+app_ui = ui.page_fluid(
+    ui.input_action_button("show", "Show modal dialog"),
+)
+
+def server(input, output, session):
+
+    @reactive.Effect
+    @reactive.event(input.show)
+    def _():
+        m = ui.modal(
+            "This is a somewhat important message.",
+            title="Somewhat important message",
+            easy_close=True,
+            footer=None,
+        )
+        ui.modal_show(m)
+
+
+app = App(app_ui, server)
+```
+
