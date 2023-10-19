@@ -268,7 +268,7 @@ It is possible to install packages using Pyodide's `micropip` package. To do tha
 
 ```default
 import micropip
-micropip.install("mypackage")
+await micropip.install("mypackage")
 import mypackage
 ```
 
