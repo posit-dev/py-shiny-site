@@ -147,7 +147,8 @@ format:
     # see _metadata.yml for options meant to be overridden in subdirectories.
     toc: true
     theme: quarto-style.scss
-    include-in-header: head.html
+    include-before-body: include-before-body.html
+    include-in-header: include-in-header.html
     code-copy: true
     link-external-newwindow: true
 
