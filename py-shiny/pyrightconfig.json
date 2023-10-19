@@ -1,0 +1,16 @@
+{
+  "ignore": [
+    "shiny/api-examples",
+    "examples",
+    "build",
+    "dist",
+    "typings",
+    "sandbox",
+    "docs"
+  ],
+  "typeCheckingMode": "strict",
+  "reportImportCycles": "none",
+  "reportUnusedFunction": "none",
+  "reportPrivateUsage": "none",
+  "reportUnnecessaryIsInstance": "none",
+}
