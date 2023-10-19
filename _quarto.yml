@@ -148,7 +148,7 @@ format:
     # see _metadata.yml for options meant to be overridden in subdirectories.
     toc: true
     theme: quarto-style.scss
-    include-in-header: trailing-slash-redirect.html
+    include-in-header: head.html
     code-copy: true
     link-external-newwindow: true
 
