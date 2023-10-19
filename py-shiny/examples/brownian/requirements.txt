@@ -1,4 +1,0 @@
-numpy
-shiny
-plotly
-shinywidgets
