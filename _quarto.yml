@@ -35,7 +35,6 @@ interlinks:
 
 website:
   title: "Shiny for Python"
-  google-analytics: "UA-20375833-3"
   page-navigation: true
   favicon: "favicon.png"
   open-graph:
