@@ -1,3 +1,0 @@
-[submodule "py-shiny"]
-	path = py-shiny
-	url = https://github.com/posit-dev/py-shiny.git
