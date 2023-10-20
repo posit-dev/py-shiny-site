@@ -550,4 +550,4 @@ This means that they can be modified in place---modifying an object in one part 
 
 This difference in mutability has consequences for Shiny applications and for programming in general.
 In many cases, using `.copy()` in Python will help avoid bugs due to inadvertently altering mutable objects.
-See our [page on mutability](https://github.com/rstudio/pyshiny-site/pull/reactive-mutable.html) to understand the possible bugs and how to avoid them.
+See our [page on mutability](https://shiny.posit.co/py/docs/reactive-mutable.html) to understand the possible bugs and how to avoid them.
