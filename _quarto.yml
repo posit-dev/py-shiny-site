@@ -35,7 +35,6 @@ interlinks:
 
 website:
   title: "Shiny for Python"
-  google-analytics: "UA-20375833-3"
   page-navigation: true
   favicon: "favicon.png"
   open-graph:
@@ -148,7 +147,8 @@ format:
     # see _metadata.yml for options meant to be overridden in subdirectories.
     toc: true
     theme: quarto-style.scss
-    include-in-header: trailing-slash-redirect.html
+    include-before-body: include-before-body.html
+    include-in-header: include-in-header.html
     code-copy: true
     link-external-newwindow: true
 
