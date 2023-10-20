@@ -29,7 +29,6 @@ Serve the website and watch for changes to the .qmd files:
 make serve
 ```
 
-
 Running `make` by itself will print out the available `make` targets:
 
 ```
