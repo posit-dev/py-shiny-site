@@ -1,10 +1,16 @@
 project:
   type: website
+  preview:
+    port: 1414
   output-dir: _build
   render:
     # List index.qmd first so that / redirects to it instead of components.html.
     - /index.qmd
     - /*.qmd
+    - components
+    - inputs
+    - outputs
+    - display-messages
     - docs
     - in-depth
     - development
@@ -64,6 +70,8 @@ website:
           - docs/deploy-cloud.qmd
           - docs/deploy-on-prem.qmd
           - docs/shinylive.qmd
+      - text: "Components"
+        file: components/index.qmd
       - text: "Gallery"
         file: gallery/index.qmd
       - text: "Examples"
@@ -139,6 +147,76 @@ website:
     # TODO: if the sidebar only has 1 entry, then it displays for the entire site...
     # added entry below to prevent this.
     - id: deploy
+
+    - id: components
+      collapse-level: 1
+      contents:
+        - section: COMPONENTS
+          href: components/index.qmd
+          contents:
+            - text: __Inputs__
+            - components/inputs/action-button.qmd
+            - components/inputs/action-link.qmd
+            - components/inputs/checkbox.qmd
+            - components/inputs/checkbox-group.qmd
+            - components/inputs/date-range-selector.qmd
+            - components/inputs/date-selector.qmd
+            - components/inputs/numeric-input.qmd
+            - components/inputs/password-field.qmd
+            - components/inputs/radio-buttons.qmd
+            - components/inputs/select-list.qmd
+            - components/inputs/selectize-list.qmd
+            - components/inputs/slider.qmd
+            - components/inputs/switch.qmd
+            - components/inputs/text-area.qmd
+            - components/inputs/text-box.qmd
+            - text: __Outputs__
+            - components/outputs/data-grid.qmd
+            - components/outputs/datatable.qmd
+            - components/outputs/plot.qmd
+            - components/outputs/text.qmd
+            - components/outputs/value-box.qmd
+            - components/outputs/verbatim-text.qmd
+            - text: __Display Messages__
+            - components/display-messages/help-text.qmd
+            - components/display-messages/modal.qmd
+            - components/display-messages/notifications.qmd
+            - components/display-messages/progress-bar.qmd
+            - components/display-messages/tooltips.qmd
+            
+        - section: LAYOUTS
+          href: https://www.google.com/ytre45t6y7uijhgfrtyu
+          contents:
+            - text: __Layout Subtitle__
+              href: https://www.google.com/rjkhgfr567uhygfre
+            - text: Layout 
+              href: https://www.google.com/jukijhgfrtyuioiuytre
+            - text: Layout 2
+              href: https://www.google.com/jukijhgfrtyasdfasdfuioiuytre
+            - text: Layout 3
+              href: https://www.google.com/jukijhgfrasdfasdfadfyuioiuytre
+            - text: Layout 4
+              href: https://www.google.com/juadsfasdfasdfkijhgfrtyuioiuytre
+            - text: Layout 5
+              href: https://www.google.com/jukijhgfrtyuioiuasdfasdfadsfytre
+        - section: TEMPLATES
+          href: https://www.google.com/ytre45t6y7uijhgfrtyu
+          contents:
+            - text: __Template Subtitle__
+              href: https://www.google.com/jklkjhgfrdfgtyhujio
+            - text: Template 
+              href: https://www.google.com/wy4asdfasdfruit6ujyhtgr
+            - text: Template 2
+              href: https://www.google.com/wy4ruiasdfasdfasdt6ujyhtgr
+            - text: Template 3
+              href: https://www.google.com/wy4ruit6ujyhtasdfasdfgr
+            - text: Template 4
+              href: https://www.google.com/wy4ruit6ujasdfasdfasdfyhtgr
+            - text: Template 5
+              href: https://www.google.com/wasdfasdfy4ruit6ujyhtgr
+            - text: Template 6
+              href: https://www.google.com/wy4rasdfasdfafsduit6ujyhtgr
+
 
 format:
   html:

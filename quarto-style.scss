@@ -78,6 +78,50 @@ $h1-font-size: 2.1rem;
 
 /*-- scss:rules --*/
 
+// color classes
+
+
+.purple {
+  color: #74149c !important;
+}
+.blue {
+  color: #007bc2 !important;
+}
+.indigo {
+  color: #4b00c1 !important;
+}
+.purple {
+  color: #74149c !important;
+}
+.pink {
+  color: #bf007f !important;
+}
+.red {
+  color: #c10000 !important;
+}
+.orange {
+  color: #f45100 !important;
+}
+.yellow {
+  color: #f9b928 !important;
+}
+.green {
+  color: #00891a !important;
+}
+.teal {
+  color: #00bf7f !important;
+}
+.cyan {
+  color: #03c7e8 !important;
+}
+.white {
+  color: #ffffff !important;
+}
+.dark {
+  color: $gray-900 !important;
+}
+
+
 // Original pyshiny-site css
 
 a {
@@ -314,7 +358,7 @@ main.content a:not(.btn) {
 main.content
   a:hover:not(.btn):not(.gallery-entry a):not(a img):not(
     .text-decoration-none
-  ):not(.gallery-meta):not(.link-cards a):not(.dont-index a) {
+  ):not(.gallery-meta):not(.link-cards a):not(.dont-index a):not(.anchorjs-link) {
   border-bottom: 1px solid;
 }
 
@@ -497,6 +541,13 @@ header.headroom {
 
 .fw-900 {
   font-weight: 900 !important;
+}
+
+// additional spacing classes
+
+.my-6 {
+  margin-top: 5rem !important;
+  margin-bottom: 5rem !important;
 }
 
 // background colors (primarily for sections)
@@ -1443,5 +1494,20 @@ div.hero-carousel {
   }
 }
 
+// Shiny Components library
+ 
+// Replicate Action Buttons
+
+btn.action-button {
+  color:#404040;
+  border:1px solid #404040;
+  padding: .75em 2em;
+}
+
+btn.action-button:hover {
+  color: #fff;
+  background-color: #404040;
+  border-color: #404040;
+}
 
 

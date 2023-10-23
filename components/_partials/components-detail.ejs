@@ -1,0 +1,71 @@
+<% for (const item of items) { %>
+
+::: {.panel-tabset}
+
+## Preview
+
+<iframe style="height:400px;" class="mb-0 w-100 iframe-border" src="<%= item.preview %>" title="<%= item.title %>">
+</iframe>
+
+## App Code
+
+```{.python filename="app.py" }
+<%= item.code %>
+```
+
+:::
+
+:::{.border-bottom .my-6}
+:::
+
+## Relevant Functions
+
+
+<ul>
+<% for (const relevantfunction of item.relevantfunctions) { %>
+  <li>
+    <p><a href="<%= relevantfunction.href %>"><%= relevantfunction.title %></a><br>
+    <code style="text-wr"><%= relevantfunction.signature %></code></p>
+
+  </li>
+<% } %>
+</ul>
+
+:::{.border-bottom .my-6}
+:::
+
+## Details
+
+<div>
+<%= item.details %>
+</div>
+
+:::{.border-bottom .my-6}
+:::
+
+## Variations
+
+<% for (const variation of item.variations) { %>
+
+### <%= variation.title %> {.mb-0 .mt-5}
+
+<p class="mb-0"><%= variation.description %></p>
+
+::: {.panel-tabset}
+
+## Preview
+
+<iframe style="height:150px;" class="mb-0 w-100 iframe-border" src="<%= variation.preview %>" title="<%= variation.title %>">
+</iframe>
+
+## App Code
+
+```{.python filename="app.py" }
+<%= variation.code %>
+```
+
+:::
+
+<% } %>
+
+<% } %>

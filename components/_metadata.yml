@@ -1,0 +1,9 @@
+format:
+  html:
+    css: _partials/components.css
+    toc: false
+    code-line-numbers: true
+filters:
+  - quarto
+  - line-highlight   
+ 

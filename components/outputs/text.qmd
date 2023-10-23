@@ -1,0 +1,141 @@
+---
+title: "Text"
+sidebar: components 
+preview: |
+  <button type="button" class="btn btn-outline-dark action-button">Action Button</button>
+listing:
+  id: component
+  template: ../_partials/components-detail.ejs
+  contents:
+    - title: DataTable
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYNFMAMQAPH3asRDaDjT6jgBujpFCFWQ2peVlzq7upNGIBYVMAAJL870D24W7dhAOdBjVtfWNR4MQO0xjLLwRwu0xiA8nz7ZwMh8OhPc6XDAAERqUAAKlAAEZsJqtETdfqPbRoVDJKyoSJYxICVZ0aZ0aJgAC+AF0gA
+      code: |
+        from palmerpenguins import load_penguins
+        from shiny import App, render, session, ui
+
+        penguins = load_penguins()
+
+        app_ui = ui.page_fluid(
+          ui.output_data_frame("penguins_df") #<<
+        )
+
+        def server(input, output, session):
+            @output #<<
+            @render.data_frame #<<
+            def penguins_df(): #<<
+                return render.DataTable(penguins) #<<
+
+        app = App(app_ui, server)
+      relevantfunctions:
+        - title: ui.output_data_frame
+          href: https://shiny.posit.co/py/api/ui.output_data_frame.html
+          signature: ui.output_data_frame(id)
+        - title: render.data_frame
+          href: https://shiny.posit.co/py/api/render.data_frame.html
+          signature: render.data_frame(fn=None)
+        - title: render.DataTable
+          href: https://shiny.posit.co/py/api/render.DataTable.html
+          signature: render.DataTable(self, data, *, width='fit-content', height='500px', summary=True, filters=False, row_selection_mode='none')
+      details: |
+
+        <p>A DataTable presents tabular data in a spread sheet like view. </p>
+
+        <p>Follow three steps to display a DataTable in your app:</p>
+
+        <ol>
+          <li>
+          Add `ui.output_data_frame()` to the UI of your app to create a div in which to display the table. Where you call this function will determine where the table will appear within the layout of the app. For example, ...
+          </li>
+          <li>
+          Define a function within the `server` function that builds your table and uses `render.DataTable()` to return the result. Where`render.DataTable()`will package the table as an HTML data table for display. If your function calls reactive values, Shiny will update your table whenever those values change, in a [reactive fashion]().
+          
+          To notify Shiny that your function returns a reactive table to display, decorate the function with two decorators:
+          
+           <ul>
+             <li>`@output`</li>
+             <li>`@render.data_frame()`</li>
+           </ul>
+
+          </li>
+
+          <li>Pass `ui.output_data_frame()` the name of the function that builds the DataTable, as a character string, to indicate which DataTable should be displayed in the div. 
+          </li>
+        </ol>
+
+      variations:
+        - title: Filterable Table
+          description: An optional place for a description here that goes about this long but then (oh my gosh!) it's now going even longer to show what the line-height looks like.
+          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYLEQ3doONPqOAG6OkUIVZDal5WXOru6k0YgFhUwAAtMTK4VrdhAOdBjVtfWN20z9LLwRwu0xyxCrT7ZwZHx0j3sHGAAiNVAAFSgACM2E1zs9Vq0RHgIZCmDQBGwKHRRMEAXQ+HA4YVevFUMkrKhImhUIkBHM6CM6NEwABfAC6QA
+          code: |
+            from palmerpenguins import load_penguins
+            from shiny import App, render, session, ui
+
+            penguins = load_penguins()
+
+            app_ui = ui.page_fluid(
+              ui.output_data_frame("penguins_df")
+            )
+
+            def server(input, output, session):
+                @output
+                @render.data_frame
+                def penguins_df():
+                    return render.DataTable(
+                        penguins,
+                        filters = True #<<
+                    )
+
+            app = App(app_ui, server)
+        - title: Select Multiple Rows
+          description: An optional place for a description here that goes about this long but then (oh my gosh!) it's now going even longer to show what the line-height looks like.
+          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYLEQ3doONPqOAG6OkUIVZDal5WXOru6k0YgFhUwAAtMTK4VrdhAOdBjVtfWN20z9LLwRwu0xyxCrT7ZwZHx0j3sHGAAiNVAAFSgACM2E1zs9Vq0RHgIZDbMQAO5KFxgwhkDwQJQwYgOZKdGB8NgY1Bgzpwwq9eKoZJWVCRNCoRICOZ0EZ0aJgAC+AF0gA
+          code: |
+            from palmerpenguins import load_penguins
+            from shiny import App, render, session, ui
+
+            penguins = load_penguins()
+
+            app_ui = ui.page_fluid(
+              ui.output_data_frame("penguins_df")
+            )
+
+            def server(input, output, session):
+                @output
+                @render.data_frame
+                def penguins_df():
+                    return render.DataTable(
+                        penguins,
+                        row_selection_mode = "multiple" #<<
+                    )
+
+            app = App(app_ui, server)
+        - title: Size a table
+          description: 
+          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYNFM2rEQ2g40+o4Abo6RQhVkNqXlZc6u7qTRiAWFTAACs1M9EOubdhAOdBjVtfWNu-uDLLwRwu0xiFf763ZkfHR7h8cYACI1KAAFSgACM2E0Xq9Xq0RDY1tD9gB3AQKMgGZKdACsAAYcagAB6deF7RH7AxwAQ8AwyYKdACMeMJnShrz62jQqGSVlQkU5iQECzoYzo0TAAF8ALpAA
+          code: |
+            from palmerpenguins import load_penguins
+            from shiny import App, render, session, ui
+
+            penguins = load_penguins()
+
+            app_ui = ui.page_fluid(
+              ui.output_data_frame("penguins_df") #<<
+            )
+
+            def server(input, output, session):
+                @output 
+                @render.data_frame 
+                def penguins_df(): 
+                    return render.DataTable( 
+                        penguins, 
+                        width = "500px", #<<
+                        height = "200px" #<<
+                    )
+
+            app = App(app_ui, server)
+
+---
+
+:::{.component}
+:::
+
