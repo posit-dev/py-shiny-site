@@ -7,6 +7,7 @@ toc: false
 page-layout: article
 format:
   html:
+    css: _partials/components.css
     code-overflow: wrap
     include-before-body: _partials/components.html
 filters:
@@ -33,7 +34,7 @@ listing:
 
 :::::{.column-screen-inset .mx-auto style="max-width: 1300px;"}
 
-::::{.grid style="height:500px;border-bottom:1px solid;"}
+::::{.grid style="height:460px;border-bottom:1px solid;"}
 ::::{.g-col-lg-8 .g-col-12 .my-auto}
 
 
@@ -47,9 +48,9 @@ Shiny Components
 
 ::::{.g-col-lg-4 .g-col-12 .my-auto style="text-align: right;"}
 
-
-## illustration 
-
+<div class="text-center p-5">
+## Greg's<br> illustration<br> here {.m-0 .py-5}
+</div>
 
 ::::
 
@@ -129,3 +130,9 @@ Provide feedback to your user with notifications, progress bars, and confirmatio
 
 :::::
 
+<style>
+#quarto-content>* {
+  padding-top: 0px;
+  margin-top: 0px;
+}
+</style>

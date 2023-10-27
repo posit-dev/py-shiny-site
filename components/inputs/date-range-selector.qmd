@@ -2,7 +2,9 @@
 title: "Date Range Selector"
 sidebar: components 
 preview: |
-  <button type="button" class="btn btn-outline-dark action-button">Action Button</button>
+  <div class="px-4">
+    <img style="width: 100%;" src="/images/daterange.png">
+  </div>
 listing:
   id: daterangeselector
   template: ../_partials/components-detail.ejs

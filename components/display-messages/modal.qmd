@@ -2,7 +2,9 @@
 title: "Modal"
 sidebar: components 
 preview: |
-  <button type="button" class="btn btn-outline-dark action-button">Action Button</button>
+  <div class="px-2">
+  <img style="width: 100%;" src="/images/modal.gif">
+  </div>
 listing:
   id: component
   template: ../_partials/components-detail.ejs

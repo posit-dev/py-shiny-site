@@ -2,7 +2,7 @@
 title: "Action Link"
 sidebar: components 
 preview: |
-  <button type="button" class="btn btn-outline-dark action-button">Action Button</button>
+  <a style="text-decoration: underline;border-bottom: 0px" href="#">Action Link</a>
 listing:
   id: component
   template: ../_partials/components-detail.ejs

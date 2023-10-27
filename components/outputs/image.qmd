@@ -2,7 +2,9 @@
 title: "Image"
 sidebar: components 
 preview: |
-  <button type="button" class="btn btn-outline-dark action-button">Action Button</button>
+  <div class="px-4">
+  <img width="90" src="/images/shiny.png">
+  </div>
 listing:
   id: component
   template: ../_partials/components-detail.ejs

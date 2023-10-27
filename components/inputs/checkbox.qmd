@@ -2,12 +2,21 @@
 title: "Checkbox"
 sidebar: components 
 preview: |
-  <button type="button" class="btn btn-outline-dark action-button">Action Button</button>
+  <div style="justify-content: left;">
+  <div class="form-check">
+  <p class="m-0">
+    <input class="form-check-input" style="width: 1.2em;height: 1.2em;margin-right:0.35rem;border-radius: 2px;" type="checkbox" value="" id="flexCheckChecked" checked>
+    <label class="form-check-label" for="flexCheckChecked">
+    Yes
+    </label>
+    </p>
+  </div>
+  </div>  
 listing:
   id: component
   template: ../_partials/components-detail.ejs
   contents:
-    - title: DataTable
+    - title: Checkbox
       preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYNFMAMQAPH3asRDaDjT6jgBujpFCFWQ2peVlzq7upNGIBYVMAAJL870D24W7dhAOdBjVtfWNR4MQO0xjLLwRwu0xiA8nz7ZwMh8OhPc6XDAAERqUAAKlAAEZsJqtETdfqPbRoVDJKyoSJYxICVZ0aZ0aJgAC+AF0gA
       code: |
         from palmerpenguins import load_penguins

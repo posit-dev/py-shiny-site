@@ -2,7 +2,22 @@
 title: "Radio Buttons"
 sidebar: components 
 preview: |
-  <button type="button" class="btn btn-outline-dark action-button">Action Button</button>
+  <div style="justify-content: left;">
+  <div id="x" class="form-group shiny-input-radiogroup shiny-input-container shiny-bound-input" role="radiogroup" aria-labelledby="x-label">
+  <div class="shiny-options-group">
+  <div class="radio">
+  <p class="m-0">
+  <label><input type="radio" name="x" value="a" checked="checked"> <span>Never gonna give you up</span></label>
+  </p>
+  </div>
+  <div class="radio">
+  <p class="m-0">
+  <label><input type="radio" name="x" value="b"> <span>Never gonna let you go</span></label>
+  </p>
+  </div>
+  </div>
+  </div>
+  </div>  
 listing:
   id: component
   template: ../_partials/components-detail.ejs
@@ -138,4 +153,5 @@ listing:
 
 :::{.component}
 :::
+
 

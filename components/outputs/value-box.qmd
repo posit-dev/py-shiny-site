@@ -2,7 +2,9 @@
 title: "Value Box"
 sidebar: components 
 preview: |
-  <button type="button" class="btn btn-outline-dark action-button">Action Button</button>
+  <div class="px-3">
+  <img style="width: 100%;" src="/images/valuebox.png">
+  </div>
 listing:
   id: component
   template: ../_partials/components-detail.ejs

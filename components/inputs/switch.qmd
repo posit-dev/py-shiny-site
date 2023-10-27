@@ -2,7 +2,15 @@
 title: "Switch"
 sidebar: components 
 preview: |
-  <button type="button" class="btn btn-outline-dark action-button">Action Button</button>
+  <div class="px-4">
+  <div class="form-group shiny-input-container">
+  <p class="py-0">
+  <div class="form-check form-switch">
+  <input id="x" class="form-check-input shiny-bound-input" type="checkbox" checked> <label class="form-check-label" for="x">Make it switchable</label>
+  </div>
+  </p>
+  </div>
+  </div>
 listing:
   id: component
   template: ../_partials/components-detail.ejs
@@ -138,4 +146,10 @@ listing:
 
 :::{.component}
 :::
+
+
+
+
+
+
 

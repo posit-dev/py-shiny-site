@@ -2,7 +2,24 @@
 title: "Checkbox Group"
 sidebar: components 
 preview: |
-  <button type="button" class="btn btn-outline-dark action-button">Action Button</button>
+  <div style="justify-content: left;">
+  <div class="form-check">
+    <p class="m-0">
+    <input class="form-check-input" style="width: 1.2em;height: 1.2em;margin-right:0.35rem;border-radius: 2px;" type="checkbox" value="" id="flexCheckDefault">
+        <label class="form-check-label" for="flexCheckDefault">
+          Watch me whip 
+        </label>
+        </p>
+  </div>
+  <div class="form-check">
+  <p class="m-0">
+    <input class="form-check-input" style="width: 1.2em;height: 1.2em;margin-right:0.35rem;border-radius: 2px;" type="checkbox" value="" id="flexCheckChecked" checked>
+    <label class="form-check-label" for="flexCheckChecked">
+      Watch me nae nae
+    </label>
+    </p>
+  </div>
+  </div>  
 listing:
   id: component
   template: ../_partials/components-detail.ejs

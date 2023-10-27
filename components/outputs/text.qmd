@@ -2,7 +2,9 @@
 title: "Text"
 sidebar: components 
 preview: |
-  <button type="button" class="btn btn-outline-dark action-button">Action Button</button>
+  <div class="form-group shiny-input-container">
+  <input id="x" type="text" class="form-control shiny-bound-input" value="" placeholder="Enter text" autocomplete="off">
+  </div>
 listing:
   id: component
   template: ../_partials/components-detail.ejs

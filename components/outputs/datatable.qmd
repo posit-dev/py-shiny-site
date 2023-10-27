@@ -2,7 +2,9 @@
 title: "DataTable"
 sidebar: components 
 preview: |
-  <button type="button" class="btn btn-outline-dark action-button">Action Button</button>
+  <div style="padding-right: 2.5rem;padding-left: 2.5rem">
+  <img style="width: 100%;" src="/images/datatable.png">
+  </div>
 listing:
   id: component
   template: ../_partials/components-detail.ejs

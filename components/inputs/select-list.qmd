@@ -2,7 +2,15 @@
 title: "Select List"
 sidebar: components 
 preview: |
-  <button type="button" class="btn btn-outline-dark action-button">Action Button</button>
+  <div class="w-100 px-4">
+  <select id="x" class="form-select shiny-bound-input">            
+  <option value="a" selected="">We're halfway there</option>
+  <option value="b">Whoa oh, livin' on a prayer</option>
+  <option value="c">Take my hand</option>
+  <option value="d">We'll make it, I swear</option>
+  <option value="e">Whoa oh, livin' on a prayer</option>
+  </select>
+  </div>
 listing:
   id: component
   template: ../_partials/components-detail.ejs
@@ -138,4 +146,3 @@ listing:
 
 :::{.component}
 :::
-
