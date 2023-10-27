@@ -1,9 +1,3 @@
-<style>
-
-#quarto-content>* {
-  padding-top: 0px;
-  margin-top: 0px;
-}
 
 .nav-link {
   padding: 0.25rem 1rem;
@@ -138,4 +132,16 @@ div.tab-pane.active {
 div.tab-pane:not(div.tab-pane.active) {
     opacity: 0;
 }
-</style>
+
+
+a .component-link-icon:after  {
+  content: "\F134";
+  font-family: "bootstrap-icons";
+  transition: content 0.3s !important;
+}
+
+a:hover .component-link-icon:after {
+  content: "\F133";
+  font-family: "bootstrap-icons";
+  transition: content 0.3s !important;
+}

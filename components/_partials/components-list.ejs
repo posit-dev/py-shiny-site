@@ -2,14 +2,20 @@
 <% for (const item of items) { %>
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 pt-3">
+
 <div class="d-flex justify-content-between align-items-end mb-2">
+<a class="text-decoration-none dark" href="<%= item.path %>">
+<h5 class="mb-0 mt-1 mx-1"><%= item.title %></h5>
+</a>
+<h5 class="my-0 mx-1 text-nowrap">
+<a class="text-decoration-none dark" href="<%= item.path %>">
+<i class="component-link-icon dark bi fst-normal"></i>
+</a>
+</h5>
 
-<h5 class="mb-0 mt-1"><%= item.title %></h5>
-
-<p class="my-0 text-nowrap p-90"><a href="<%= item.path %>">Details <i class="bi bi-arrow-right-short"></i></a></p>
 </div>
-
-<div style="height:152px;background-color: #ffffff; border:1px solid #ddd;display:flex;justify-content: center;align-content: center;flex-wrap: wrap;">
+</a>
+<div style="box-shadow:0px 1px 2px rgba(29,31,33,.1), 0px 2px 3px rgba(29,31,33,0.1), 0px 3px 8px rgba(29,31,33,0.1);border-radius:10px;height:150px;background-color: #ffffff;;display:flex;justify-content: center;align-content: center;flex-wrap: wrap;">
 <%= item.preview %>
 </div>
 </div>
