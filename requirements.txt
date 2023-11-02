@@ -1,4 +1,4 @@
 jupyter
 jupyter_client < 8.0.0
 tabulate
-shinylive==0.1.0
+shinylive==0.1.1
