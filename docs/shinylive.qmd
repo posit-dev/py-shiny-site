@@ -108,9 +108,13 @@ The GitHub API has a much higher rate limit if the end user is authenticated, bu
 
 ### Deploying Shinylive applications
 
-#### With Quarto websites 
+#### With Quarto websites
 
-The easiest way to deploy Shinylive applications is using the [quarto-shinylive](https://github.com/quarto-ext/shinylive) extension. 
+::: {.callout-note}
+The section below describes how to embed Shinylive applications in a Quarto document -- they can be thought of as Shiny applets in that mode. As of November 2023, the pre-release version of Quarto can work in a different mode: it can generate dashboards where the entire page is a single Shiny application. See [this repository](https://github.com/wch/retirement-simulation-dashboard/) for an example and more information about how they work and how to deploy them. This page will be updated soon with more information about this mode.
+:::
+
+The easiest way to deploy Shinylive applications is using the [quarto-shinylive](https://github.com/quarto-ext/shinylive) extension.
 This extension allows you to embed Shiny apps into a quarto html document, and deploy those applications anywhere that can host quarto websites.
 Once you have the extension installed, you can insert `shinylive-python` code blocks into the document.
 
@@ -135,7 +139,7 @@ app = App(app_ui, server)
 
 #### Without Quarto
 
-If you're not using Quarto, you'll need to export and deploy your application yourself. 
+If you're not using Quarto, you'll need to export and deploy your application yourself.
 This involves:
 
 * **Exporting** the application: Create a directory of files that includes the Shinylive distribution and the application code.
