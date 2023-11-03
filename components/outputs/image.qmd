@@ -9,133 +9,63 @@ listing:
   id: component
   template: ../_partials/components-detail.ejs
   contents:
-    - title: DataTable
+    - title: Image
       preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYNFMAMQAPH3asRDaDjT6jgBujpFCFWQ2peVlzq7upNGIBYVMAAJL870D24W7dhAOdBjVtfWNR4MQO0xjLLwRwu0xiA8nz7ZwMh8OhPc6XDAAERqUAAKlAAEZsJqtETdfqPbRoVDJKyoSJYxICVZ0aZ0aJgAC+AF0gA
       code: |
-        from palmerpenguins import load_penguins
-        from shiny import App, render, session, ui
-
-        penguins = load_penguins()
-
+        from shiny import App, render, ui
+        from shiny.types import ImgData
+        from pathlib import Path
+        here = Path(__file__).parent
+    
         app_ui = ui.page_fluid(
-          ui.output_data_frame("penguins_df") #<<
+            ui.input_checkbox("show", "Show image?", value = True),
+            ui.output_image("image") #<<
         )
-
+    
         def server(input, output, session):
-            @output #<<
-            @render.data_frame #<<
-            def penguins_df(): #<<
-                return render.DataTable(penguins) #<<
-
+            @render.image #<<
+            def image():
+                img = {"src": here/"shiny.png", "width": "100px"} #<<
+                return img if input.show() else None
+    
         app = App(app_ui, server)
       relevantfunctions:
-        - title: ui.output_data_frame
-          href: https://shiny.posit.co/py/api/ui.output_data_frame.html
-          signature: ui.output_data_frame(id)
-        - title: render.data_frame
-          href: https://shiny.posit.co/py/api/render.data_frame.html
-          signature: render.data_frame(fn=None)
-        - title: render.DataTable
-          href: https://shiny.posit.co/py/api/render.DataTable.html
-          signature: render.DataTable(self, data, *, width='fit-content', height='500px', summary=True, filters=False, row_selection_mode='none')
+        - title: ui.output_image
+          href: https://shiny.posit.co/py/api/ui.output_image.html
+          signature: ui.output_image(id, width='100%', height='400px', *, inline=False, click=False, dblclick=False, hover=False, brush=False, fill=False)
+        - title: @render.image
+          href: https://shiny.posit.co/py/api/render.image.html
+          signature: render.image(_fn=None, *, delete_file=False)
       details: |
 
-        <p>A DataTable presents tabular data in a spread sheet like view. </p>
-
-        <p>Follow three steps to display a DataTable in your app:</p>
-
-        <ol>
-          <li>
-          Add `ui.output_data_frame()` to the UI of your app to create a div in which to display the table. Where you call this function will determine where the table will appear within the layout of the app. For example, ...
-          </li>
-          <li>
-          Define a function within the `server` function that builds your table and uses `render.DataTable()` to return the result. Where`render.DataTable()`will package the table as an HTML data table for display. If your function calls reactive values, Shiny will update your table whenever those values change, in a [reactive fashion]().
+        To make a reactive image, follow three steps:
           
-          To notify Shiny that your function returns a reactive table to display, decorate the function with two decorators:
-          
-           <ul>
-             <li>`@output`</li>
-             <li>`@render.data_frame()`</li>
-           </ul>
+        1. Call `ui.output_image()` in the UI of your app to create a div in which to display the text. Where you call this function within the UI functions will determine where the text will appear within the layout of the app. Set the id argument of `ui.output_image()` to a unique value.
+        
+        2. Within the server function, define a new function whose name matches the id used above. Shiny will rerun this function whenever it needs to build or update the output that has the matching id.
+        
+            The function should return the image to display as a dictionary with the following keys:
+              
+                1.  `src` - The file path to the image, relative to the app directory. Required.
+                2.  `height`- The image height in CSS, e.g. ‘100%’ or ‘600px’. At least one of `height` or `width` must be provided.
+                3.  `width` - The image width in CSS,  e.g. ‘100%’ or ‘600px’. At least one of `height` or `width` must be provided.
+                4.  `alt` -	Alt text to display for the image. Optional.
+                5.  `style`	- A CSS style tag for the image. Optional.
 
-          </li>
-
-          <li>Pass `ui.output_data_frame()` the name of the function that builds the DataTable, as a character string, to indicate which DataTable should be displayed in the div. 
-          </li>
-        </ol>
+        
+        3. Decorate the function with `@render.image`. Use `@render.image(delete_file=True)` to delete the image after it has been rendered.
+        
+        Set `ui.output_image(inline=True)` to place the image inline with the text or elements that preceed it.
+        
+        Set `ui.output_image(Fill=True)` to allow the image to grow or shrink to fill its container as the app is resized.
+        
+        You can use an image as an input widget, collecting the locations of user clicks, double clicks, hovers, and brushes. To do this, follow the instructions provided for [plots](TO DO: ADD LIN KTO THE DETAILS SECTION OF THE PLOTS PAGE).
 
       variations:
-        - title: Filterable Table
-          description: An optional place for a description here that goes about this long but then (oh my gosh!) it's now going even longer to show what the line-height looks like.
-          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYLEQ3doONPqOAG6OkUIVZDal5WXOru6k0YgFhUwAAtMTK4VrdhAOdBjVtfWN20z9LLwRwu0xyxCrT7ZwZHx0j3sHGAAiNVAAFSgACM2E1zs9Vq0RHgIZCmDQBGwKHRRMEAXQ+HA4YVevFUMkrKhImhUIkBHM6CM6NEwABfAC6QA
-          code: |
-            from palmerpenguins import load_penguins
-            from shiny import App, render, session, ui
-
-            penguins = load_penguins()
-
-            app_ui = ui.page_fluid(
-              ui.output_data_frame("penguins_df")
-            )
-
-            def server(input, output, session):
-                @output
-                @render.data_frame
-                def penguins_df():
-                    return render.DataTable(
-                        penguins,
-                        filters = True #<<
-                    )
-
-            app = App(app_ui, server)
-        - title: Select Multiple Rows
-          description: An optional place for a description here that goes about this long but then (oh my gosh!) it's now going even longer to show what the line-height looks like.
-          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYLEQ3doONPqOAG6OkUIVZDal5WXOru6k0YgFhUwAAtMTK4VrdhAOdBjVtfWN20z9LLwRwu0xyxCrT7ZwZHx0j3sHGAAiNVAAFSgACM2E1zs9Vq0RHgIZDbMQAO5KFxgwhkDwQJQwYgOZKdGB8NgY1Bgzpwwq9eKoZJWVCRNCoRICOZ0EZ0aJgAC+AF0gA
-          code: |
-            from palmerpenguins import load_penguins
-            from shiny import App, render, session, ui
-
-            penguins = load_penguins()
-
-            app_ui = ui.page_fluid(
-              ui.output_data_frame("penguins_df")
-            )
-
-            def server(input, output, session):
-                @output
-                @render.data_frame
-                def penguins_df():
-                    return render.DataTable(
-                        penguins,
-                        row_selection_mode = "multiple" #<<
-                    )
-
-            app = App(app_ui, server)
-        - title: Size a table
-          description: 
-          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYNFM2rEQ2g40+o4Abo6RQhVkNqXlZc6u7qTRiAWFTAACs1M9EOubdhAOdBjVtfWNu-uDLLwRwu0xiFf763ZkfHR7h8cYACI1KAAFSgACM2E0Xq9Xq0RDY1tD9gB3AQKMgGZKdACsAAYcagAB6deF7RH7AxwAQ8AwyYKdACMeMJnShrz62jQqGSVlQkU5iQECzoYzo0TAAF8ALpAA
-          code: |
-            from palmerpenguins import load_penguins
-            from shiny import App, render, session, ui
-
-            penguins = load_penguins()
-
-            app_ui = ui.page_fluid(
-              ui.output_data_frame("penguins_df") #<<
-            )
-
-            def server(input, output, session):
-                @output 
-                @render.data_frame 
-                def penguins_df(): 
-                    return render.DataTable( 
-                        penguins, 
-                        width = "500px", #<<
-                        height = "200px" #<<
-                    )
-
-            app = App(app_ui, server)
-
+        - title: Null
+          description: Null
+          preview: Null
+          code: Null
 ---
 
 :::{.component}
