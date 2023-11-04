@@ -1,10 +1,22 @@
 ---
 title: "Help Text"
 sidebar: components 
-preview: |
-  <div class="px-3">
-  <img style="width: 100%;" src="/images/helptext.gif">
-  </div>
+previewapp: |
+  from shiny import App, reactive, ui
+
+  app_ui = ui.page_fluid(
+      ui.input_action_button("show", "Show help text"),
+      {"class": "vh-100 d-flex justify-content-center align-items-center px-4"}
+  )
+
+  def server(input, output, session):
+
+      @reactive.Effect
+      @reactive.event(input.show)
+      def _():
+          ui.notification_show("Well done!", duration = 1)
+
+  app = App(app_ui, server)
 listing:
   id: component
   template: ../_partials/components-detail.ejs

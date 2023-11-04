@@ -13,6 +13,7 @@ format:
 filters:
   - quarto
   - line-highlight
+  - shinylive
 listing: 
   - id: inputs
     type: grid
@@ -30,7 +31,13 @@ listing:
     contents: 
       - ../../components/display-messages/*.qmd
 ---
+<style>
 
+
+
+
+
+</style>
 
 :::::{.column-screen-inset .mx-auto style="max-width: 1300px;"}
 
@@ -60,6 +67,8 @@ Shiny Components
 
 ::: {.g-col-lg-3 .g-col-12}
 ::: {.sticky-top .pt-4}
+
+
 
 <h2 class="mt-4"> <i class="bi bi-sliders indigo"></i> Inputs </h2>
 

@@ -1,16 +1,29 @@
 ---
-title: "Select List"
+title: "Select (Multiple)"
 sidebar: components 
-preview: |
-  <div class="w-100 px-4">
-  <select id="x" class="form-select shiny-bound-input">            
-  <option value="a" selected="">We're halfway there</option>
-  <option value="b">Whoa oh, livin' on a prayer</option>
-  <option value="c">Take my hand</option>
-  <option value="d">We'll make it, I swear</option>
-  <option value="e">Whoa oh, livin' on a prayer</option>
-  </select>
-  </div>
+previewapp: |
+  from shiny import App, Inputs, Outputs, Session, render, ui
+
+  app_ui = ui.page_fluid(
+    ui.input_select(
+        "select",
+        "",
+        {
+            "1": {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"},
+            "2": {"2A": "Choice 2A", "2B": "Choice 2B", "2C": "Choice 2C"}
+        },
+        multiple=True        
+    ),
+    ui.output_text("value"),
+  )
+
+  def server(input: Inputs, output: Outputs, session: Session):
+      @output
+      @render.text
+      def value():
+          return f""
+
+  app = App(app_ui, server)
 listing:
   id: component
   template: ../_partials/components-detail.ejs
@@ -146,3 +159,4 @@ listing:
 
 :::{.component}
 :::
+

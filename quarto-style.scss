@@ -36,7 +36,7 @@ $info: #03c7e8;
 $warning: #f9b928;
 $danger: #c10000;
 $light: #f8f8f8;
-$dark: #202020;
+$dark: #212529;
 $default-rgb: 222, 226, 230;
 $primary-rgb: 0, 123, 194;
 $secondary-rgb: 64, 64, 64;
@@ -303,6 +303,8 @@ div.callout-important.callout-style-default .callout-header {
   text-decoration: underline;
 }
 
+// sidebar styling
+
 .sidebar nav#TOC ul > li > ul > li > a.active {
   border-left: 1px solid #007bc2;
   color: #007bc2 !important;
@@ -312,6 +314,37 @@ div.callout-important.callout-style-default .callout-header {
   border-left: 1px solid #007bc2;
   color: #007bc2 !important;
 }
+
+@media only screen and (min-width:992px) {
+  #quarto-sidebar>* {
+    border-top: 1px solid $blue;
+    padding: 1.1em .75em;
+    margin-top: 1.4em;
+  }
+}
+@media only screen and (max-width:991px) {
+  nav#quarto-sidebar {
+    padding-right: 3px;
+  }
+}
+
+.sidebar-item.sidebar-item-section a {
+  font-size: 98%;
+}
+
+.sidebar-item.sidebar-item-section ul li .menu-text {
+  font-size: 96%;
+}
+
+
+.sidebar-item {
+    margin-bottom: 0.3em;
+}
+
+#quarto-sidebar strong {
+   font-weight: 600;
+}
+
 
 div.sidebar-item-container .active,
 div.sidebar-item-container .show > .nav-link,
@@ -330,10 +363,6 @@ div.sidebar-item-container .sidebar-link > code {
 
 .navbar-title {
   display: none;
-}
-
-.nav-link {
-  color: #007bc2;
 }
 
 .hero-banner {
@@ -366,9 +395,9 @@ a.quarto-navigation-tool {
   padding-right: 0.5rem !important;
   padding-left: 0.5rem !important;
 }
-/*
- * Customization for line-highlight extension.
- */
+
+// Customization for line-highlight extension.
+
 
 div.sourceCode.cell-code pre code.has-line-highlights > span.highlight-line {
   font-weight: bold;
@@ -400,7 +429,7 @@ main.content a:not(.btn) {
 }
 
 main.content
-  a:hover:not(.btn):not(.gallery-entry a):not(a img):not(
+  a:hover:not(.component-list-header-text):not(.btn):not(.gallery-entry a):not(a img):not(
     .text-decoration-none
   ):not(.gallery-meta):not(.link-cards a):not(.dont-index a):not(.anchorjs-link) {
   border-bottom: 1px solid;

@@ -1,10 +1,22 @@
 ---
 title: "Slider"
 sidebar: components 
-preview: |
-  <div class="px-4">
-  <img style="width: 100%;" src="/images/slider.gif">
-  </div>
+previewapp: |
+  from shiny import App, render, ui
+
+  app_ui = ui.page_fluid(
+      ui.input_slider("x", "", min=0, max=20, value=10),
+      ui.output_text_verbatim("txt"),
+      {"class": "vh-100 d-flex justify-content-center align-items-center px-4"}
+  )
+
+  def server(input, output, session):
+      @output
+      @render.text
+      def txt():
+          return f""
+
+  app = App(app_ui, server, debug=True)
 listing:
   id: component
   template: ../_partials/components-detail.ejs
@@ -140,4 +152,3 @@ listing:
 
 :::{.component}
 :::
-

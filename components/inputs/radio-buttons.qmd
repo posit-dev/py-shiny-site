@@ -12,7 +12,7 @@ preview: |
   </div>
   <div class="radio">
   <p class="m-0">
-  <label><input type="radio" name="x" value="b"> <span>Never gonna let you go</span></label>
+  <label><input type="radio" name="x" value="b"> <span>Never gonna let you down</span></label>
   </p>
   </div>
   </div>
