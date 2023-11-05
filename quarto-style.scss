@@ -305,6 +305,46 @@ div.callout-important.callout-style-default .callout-header {
 
 // sidebar styling
 
+// sidebar icon placement
+
+.sidebar-menu-container .sidebar-icon {
+  margin-top: 0px;
+  padding-right: 3px;
+  margin-left: -22px;
+  top: 2px;
+  position: relative;
+}
+
+.sidebar-section {
+  padding-left: 5px;
+  line-height: 20px;
+}
+
+
+/*
+@media only screen and (max-width:991px) {
+  .sidebar-navigation {
+    padding-left: 44px;
+  }
+}*/
+
+.sidebar-navigation a {
+  color: $gray-800;
+}
+
+.sidebar-subtitle {
+  margin-top: 1.5rem;
+  vertical-align: baseline;
+}
+.sidebar-title {
+  margin-left: -25px;
+  padding-bottom: 0.75em;
+}
+.sidebar-subtitle + strong  {
+  font-size: 16px;
+  margin-left: 7px;
+}
+
 .sidebar nav#TOC ul > li > ul > li > a.active {
   border-left: 1px solid #007bc2;
   color: #007bc2 !important;
@@ -315,26 +355,29 @@ div.callout-important.callout-style-default .callout-header {
   color: #007bc2 !important;
 }
 
-@media only screen and (min-width:992px) {
+@media only screen and (min-width: 992px){
   #quarto-sidebar>* {
-    border-top: 1px solid $blue;
-    padding: 1.1em .75em;
-    margin-top: 1.4em;
+      border-top: 1px solid #007bc2;
+      margin-top: 1.4em;
   }
 }
+#quarto-sidebar>* {
+    padding: 1.5em 0.75em 1.5em 2em;
+}
+
 @media only screen and (max-width:991px) {
   nav#quarto-sidebar {
     padding-right: 3px;
   }
 }
-
+/*
 .sidebar-item.sidebar-item-section a {
   font-size: 98%;
 }
 
 .sidebar-item.sidebar-item-section ul li .menu-text {
   font-size: 96%;
-}
+}*/
 
 
 .sidebar-item {

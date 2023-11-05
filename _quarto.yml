@@ -108,42 +108,45 @@ website:
   sidebar:
 
     - id: components
-      collapse-level: 1
+      collapse-level: 2
       contents:
-        - text: __COMPONENTS__
-          href: components/index.qmd
-        - text: __Inputs__
-          href: http://google.com/asqoiweuryqoweiruyqowieruyqowe
-        - components/inputs/action-button.qmd
-        - components/inputs/action-link.qmd
-        - components/inputs/checkbox.qmd
-        - components/inputs/checkbox-group.qmd
-        - components/inputs/date-range-selector.qmd
-        - components/inputs/date-selector.qmd
-        - components/inputs/numeric-input.qmd
-        - components/inputs/password-field.qmd
-        - components/inputs/radio-buttons.qmd
-        - components/inputs/select-single.qmd
-        - components/inputs/select-multiple.qmd
-        - components/inputs/selectize-single.qmd
-        - components/inputs/selectize-multiple.qmd
-        - components/inputs/slider.qmd
-        - components/inputs/switch.qmd
-        - components/inputs/text-area.qmd
-        - components/inputs/text-box.qmd
-        - text: __Outputs__
-        - components/outputs/data-grid.qmd
-        - components/outputs/datatable.qmd
-        - components/outputs/plot.qmd
-        - components/outputs/text.qmd
-        - components/outputs/value-box.qmd
-        - components/outputs/verbatim-text.qmd
-        - text: __Display Messages__
-        - components/display-messages/help-text.qmd
-        - components/display-messages/modal.qmd
-        - components/display-messages/notifications.qmd
-        - components/display-messages/progress-bar.qmd
-        - components/display-messages/tooltips.qmd
+        - text: "![](/images/blank-pixel.png){.sidebar-title}__COMPONENTS__"
+          href: components/
+        - section: "![](/images/sliders.svg){.sidebar-icon .sidebar-subtitle}__Inputs__"
+          contents:
+            - components/inputs/action-button.qmd
+            - components/inputs/action-link.qmd
+            - components/inputs/checkbox.qmd
+            - components/inputs/checkbox-group.qmd
+            - components/inputs/date-range-selector.qmd
+            - components/inputs/date-selector.qmd
+            - components/inputs/numeric-input.qmd
+            - components/inputs/password-field.qmd
+            - components/inputs/radio-buttons.qmd
+            - components/inputs/select-single.qmd
+            - components/inputs/select-multiple.qmd
+            - components/inputs/selectize-single.qmd
+            - components/inputs/selectize-multiple.qmd
+            - components/inputs/slider.qmd
+            - components/inputs/switch.qmd
+            - components/inputs/text-area.qmd
+            - components/inputs/text-box.qmd
+        - section: "![](/images/bar-chart-line-fill.svg){.sidebar-icon .sidebar-subtitle}__Outputs__"
+          contents:
+            - components/outputs/data-grid.qmd
+            - components/outputs/datatable.qmd
+            - components/outputs/plot.qmd
+            - components/outputs/text.qmd
+            - components/outputs/value-box.qmd
+            - components/outputs/verbatim-text.qmd
+        - section: "![](/images/chat-dots-fill.svg){.sidebar-icon .sidebar-subtitle}__Display Messages__"
+          contents:
+            - components/display-messages/help-text.qmd
+            - components/display-messages/modal.qmd
+            - components/display-messages/notifications.qmd
+            - components/display-messages/progress-bar.qmd
+            - components/display-messages/tooltips.qmd
+
     - id: docs
       style: "floating"
       collapse-level: 2
@@ -203,6 +206,9 @@ format:
     include-in-header: include-in-header.html
     code-copy: true
     link-external-newwindow: true
+    grid:
+      sidebar-width: 300px
+      gutter-width: 2.5rem
 
 
 editor:
