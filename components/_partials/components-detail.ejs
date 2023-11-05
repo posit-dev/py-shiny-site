@@ -20,14 +20,13 @@
 
 ## Relevant Functions
 
-
 <ul>
 <% for (const relevantfunction of item.relevantfunctions) { %>
-  <li>
-    <p><a href="<%= relevantfunction.href %>"><%= relevantfunction.title %></a><br>
-    <code style="text-wr"><%= relevantfunction.signature %></code></p>
+<li>
+<p><a href="<%= relevantfunction.href %>"><%= relevantfunction.title %></a><br>
+<code style="text-wr"><%= relevantfunction.signature %></code></p>
 
-  </li>
+</li>
 <% } %>
 </ul>
 
@@ -36,16 +35,16 @@
 
 ## Details
 
-<div>
 <%= item.details %>
-</div>
+
+
+<% if (item.variations) { %>
+<% for (const variation of item.variations) { %>
 
 :::{.border-bottom .my-6}
 :::
 
 ## Variations
-
-<% for (const variation of item.variations) { %>
 
 ### <%= variation.title %> {.mb-0 .mt-5}
 
@@ -65,6 +64,8 @@
 ```
 
 :::
+
+<% } %>
 
 <% } %>
 

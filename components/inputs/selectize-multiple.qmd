@@ -15,6 +15,7 @@ previewapp: |
         multiple=True
     ),
     ui.output_text("value"),
+      {"class": "vh-100 d-flex justify-content-center align-items-center px-4"}
   )
 
   def server(input: Inputs, output: Outputs, session: Session):
