@@ -18,7 +18,6 @@ previewapp: |
   )
 
   def server(input: Inputs, output: Outputs, session: Session):
-      @output
       @render.text
       def value():
           return f""
@@ -46,7 +45,6 @@ listing:
         )
         
         def server(input, output, session):
-            @output
             @render.text
             def value():
                 return f"{input.select()}"
@@ -57,55 +55,35 @@ listing:
           href: https://shiny.posit.co/py/api/ui.input_select.html
           signature: ui.input_select(id, label, choices, *, selected=None, multiple=False, selectize=False, width=None, size=None)
       details: |
+      
+        <p>A select list creates a way to select one or more items from a list.</p>
 
-        <p>A DataTable presents tabular data in a spread sheet like view. </p>
-
-        <p>Follow three steps to display a DataTable in your app:</p>
+        <p>To use a select list that allows you to select a _single_ item: </p>
 
         <ol>
           <li>
-          Add `ui.output_data_frame()` to the UI of your app to create a div in which to display the table. Where you call this function will determine where the table will appear within the layout of the app. For example, ...
+          Add `ui.input_select()` to the UI of your app to create a div in which to display the select list. Where you call this function will determine where the select list appears within the app's layout. 
           </li>
           <li>
-          Define a function within the `server` function that builds your table and uses `render.DataTable()` to return the result. Where`render.DataTable()`will package the table as an HTML data table for display. If your function calls reactive values, Shiny will update your table whenever those values change, in a [reactive fashion]().
-          
-          To notify Shiny that your function returns a reactive table to display, decorate the function with two decorators:
-          
-           <ul>
-             <li>`@output`</li>
-             <li>`@render.data_frame()`</li>
-           </ul>
-
+          Specify the `id` and `label` parameters of `ui.input_select()` to define the identifier and label of the select list.
           </li>
-
-          <li>Pass `ui.output_data_frame()` the name of the function that builds the DataTable, as a character string, to indicate which DataTable should be displayed in the div. 
+          <li>
+          Supply the `choices` parameter with either a list or dictionary of choices. If `choices` is a a list, its elements become the select list values and labels. If `choices` is a dictionary, `ui.input_select()` uses the dictionary keys as the list values and the dictionary values as the list labels. 
+          </li>
+          <li>
+          The `multiple` parameter controls whether you can select multiple items at once. By default, `multiple` is `False`.
           </li>
         </ol>
-
-      variations:
-        - title: Filterable Table
-          description: An optional place for a description here that goes about this long but then (oh my gosh!) it's now going even longer to show what the line-height looks like.
-          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYLEQ3doONPqOAG6OkUIVZDal5WXOru6k0YgFhUwAAtMTK4VrdhAOdBjVtfWN20z9LLwRwu0xyxCrT7ZwZHx0j3sHGAAiNVAAFSgACM2E1zs9Vq0RHgIZCmDQBGwKHRRMEAXQ+HA4YVevFUMkrKhImhUIkBHM6CM6NEwABfAC6QA
-          code: |
-            from palmerpenguins import load_penguins
-            from shiny import App, render, session, ui
-
-            penguins = load_penguins()
-
-            app_ui = ui.page_fluid(
-              ui.output_data_frame("penguins_df")
-            )
-
-            def server(input, output, session):
-                @output
-                @render.data_frame
-                def penguins_df():
-                    return render.DataTable(
-                        penguins,
-                        filters = True #<<
-                    )
-
-            app = App(app_ui, server)
+        
+        <p>To access the value of a select list:</p>
+        
+        <ol>
+          <li>
+          Use `input.<select_id>()` (e.g., `input.select()`) to access the selected value. The server value of a select list is a list of strings. When `multiple=False`, this list will have length 1.
+          </li>
+        </ol>
+        
+        <p>See also: Select (Multiple) (TODO: ADD LINK TO Select (Multiple) HERE)</p>
 ---
 
 :::{.component}

@@ -11,7 +11,6 @@ previewapp: |
   )
 
   def server(input, output, session):
-      @output
       @render.text
       def txt():
           return f""
@@ -32,7 +31,6 @@ listing:
         )
         
         def server(input, output, session):
-            @output
             @render.text
             def value():
                 return input.numeric()
@@ -44,55 +42,26 @@ listing:
           signature: ui.input_numeric(id, label, value, *, min=None, max=None, step=None, width=None)
       details: |
 
-        <p>A numeric input creates a way to specify a number.</p>
+        <p>A numeric input control creates a way to specify a number.</p>
 
-        <p>Follow three steps to display a DataTable in your app:</p>
+        <p>To add a numeric input control to your app:</p>
 
         <ol>
           <li>
-          Add `ui.output_data_frame()` to the UI of your app to create a div in which to display the table. Where you call this function will determine where the table will appear within the layout of the app. For example, ...
+          Add `ui.input_numeric()` to the UI of your app to create a div in which to display the input. Where you call this function will determine where the numeric input control will appear within the app's layout. 
           </li>
           <li>
-          Define a function within the `server` function that builds your table and uses `render.DataTable()` to return the result. Where`render.DataTable()`will package the table as an HTML data table for display. If your function calls reactive values, Shiny will update your table whenever those values change, in a [reactive fashion]().
-          
-          To notify Shiny that your function returns a reactive table to display, decorate the function with two decorators:
-          
-           <ul>
-             <li>`@output`</li>
-             <li>`@render.data_frame()`</li>
-           </ul>
-
-          </li>
-
-          <li>Pass `ui.output_data_frame()` the name of the function that builds the DataTable, as a character string, to indicate which DataTable should be displayed in the div. 
+          Specify the `id` and `label` parameters of `ui.input_numeric()` to define the identifier and label of the numeric input. `ui.input_numeric()` also includes various optional parameters, including `min` and `max`, which set the minimum and maximum allowed values.
           </li>
         </ol>
-
-      variations:
-        - title: Filterable Table
-          description: An optional place for a description here that goes about this long but then (oh my gosh!) it's now going even longer to show what the line-height looks like.
-          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYLEQ3doONPqOAG6OkUIVZDal5WXOru6k0YgFhUwAAtMTK4VrdhAOdBjVtfWN20z9LLwRwu0xyxCrT7ZwZHx0j3sHGAAiNVAAFSgACM2E1zs9Vq0RHgIZCmDQBGwKHRRMEAXQ+HA4YVevFUMkrKhImhUIkBHM6CM6NEwABfAC6QA
-          code: |
-            from palmerpenguins import load_penguins
-            from shiny import App, render, session, ui
-
-            penguins = load_penguins()
-
-            app_ui = ui.page_fluid(
-              ui.output_data_frame("penguins_df")
-            )
-
-            def server(input, output, session):
-                @output
-                @render.data_frame
-                def penguins_df():
-                    return render.DataTable(
-                        penguins,
-                        filters = True #<<
-                    )
-
-            app = App(app_ui, server)
         
+        <p>To access the value of the numeric input control:</p>
+        
+        <ol>
+          <li>
+          Use `input.<numeric_input_id>()` (e.g., `input.numeric()`) to access the specified numeric value. The server value of a numeric input control is a numeric value. 
+          </li>
+        </ol>
 ---
 
 :::{.component}

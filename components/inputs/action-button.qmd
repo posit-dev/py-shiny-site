@@ -8,7 +8,7 @@ listing:
   template: ../_partials/components-detail.ejs
   contents:
     - title: Action Button
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMAkhFQBXMiwkB5eXIUSAynBYsOpCXThRCZDgDc4BygBM4dCbI4AdCC7SoA+o6YBeJo6woAHM4DxoAG0drAAoXJnj-DgwuNQ9jU1IPACN5MlJYlBM9CGzc0id8JgqRIvKwAEo8OISA4lV5DwoADzICkllyOwr6lxHXcdsaVjsLOmiU+Qk2sjUJFm1dUnrEZviAAWW1XaY9wwhbOgxu3rGEk8N08zgMOAtyeZl5DEfMnLI8iC3BKTJj9QZzbbHO6GMiyOgQJg0CogBZkb61Ep-AEYDxmKCROAAXwqLlJ0HQvlE6Gi7i8HDWMzs9TAhIAukA
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdCPrSoA+jqYBeJjqxQA5nGM0ANjtUAKfUy9WOGLqi0yYxk5UmMAI0CyUg8UWQ4wyLJog3wmXTAReNIMgEoJAGIAHiLPb2tiQICgigAPMliSLXINPP1c-X11GlYNRTo3f0CJSrJqiRY4FhYEiFzEMq8AAVHqxaYllXU6DDqGjohvDakQhTgMOEVyQYhqjFPEqNIDo+6mJpaB+fWjqTItOiHGgZEBDMj3bIQCJPCBuXIAXwynWg6AsonQbiMpg4Ez6GlyYHhAF0gA
       code: |
         from shiny import App, reactive, render, ui
         
@@ -18,11 +18,10 @@ listing:
         )
         
         def server(input, output, session):
-            @output
             @render.text()
             @reactive.event(input.action_button)
             def counter():
-                return f"{input.action_button._value}"
+                return f"{input.action_button()}"
 
         app = App(app_ui, server)
       relevantfunctions:
@@ -38,14 +37,13 @@ listing:
         <p>Follow these steps to add an action button to your app:</p>
 
         <ol>
-          <li>Add `ui.input_action_button()` to the UI of your app to create the button. Where you call this function will determine where the button will appear within the layout of the app.
+          <li>Add `ui.input_action_button()` to the UI of your app to create the button. Where you call this function will determine where the button will appear within the app's layout.
           </li>
-          <li>Access the value of your action button with `input.action_button._value`. The server value of an action button is an integer representing the number of clicks. 
+          <li>Access the value of your action button with `input.<action_button_id()>` (e.g., `input.action_button()`). The server value of an action button is an integer representing the number of clicks. 
           </li>
         </ol>
 
-        <p>See also: Action Link (TODO: add link here)</p>
-
+        <p>See also: Action Link (TODO: ADD LINK TO ACTION LINK HERE)</p>
 ---
 
 :::{.component}

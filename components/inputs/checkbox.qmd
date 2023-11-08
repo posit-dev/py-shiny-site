@@ -27,7 +27,6 @@ listing:
         )
         
         def server(input, output, session):
-            @output
             @render.ui
             def value():
                 return input.checkbox()
@@ -45,15 +44,17 @@ listing:
 
         <ol>
           <li>
-          Add `ui.input_checkbox()` to the UI of your app to create a div in which to display the checkbox. Where you call this function will determine where the checkbox will appear within the layout of the app. 
+          Add `ui.input_checkbox()` to the UI of your app to create a div in which to display the checkbox. Where you call this function will determine where the checkbox will appear within the app's layout. 
           </li>
           <li>
           Supply values to `ui.input_checkbox()`'s first two parameters (`id` and `label`) to specify the id and label of the checkbox. Optionally, set the `value` argument to either `True` or `False` to specify the initial value of the checkbox. By default, the checkbox has value `False` and is un-checked.  
           </li>
           <li>
-          Access the value of your checkbox with `input.checkbox()`. The server value of a checkbox is `True` if checked and `False` if not checked. 
+          Access the value of your checkbox with `input.<checkbox_id>()` (e.g., `input.checkbox()`). The server value of a checkbox is `True` if checked and `False` if not checked. 
           </li>
         </ol>
+        
+        <p>See also: Checkbox (TODO: ADD LINK TO CHECKBOX HERE)</p>
 ---
 
 :::{.component}

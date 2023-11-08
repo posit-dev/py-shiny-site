@@ -9,7 +9,6 @@ previewapp: |
         {"class": "vh-100 d-flex justify-content-center align-items-center px-4"}
   )
   def server(input, output, session):
-      @output
       @render.plot
       def hist():
           print(input.range())
@@ -19,133 +18,56 @@ listing:
   id: component
   template: ../_partials/components-detail.ejs
   contents:
-    - title: DataTable
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYNFMAMQAPH3asRDaDjT6jgBujpFCFWQ2peVlzq7upNGIBYVMAAJL870D24W7dhAOdBjVtfWNR4MQO0xjLLwRwu0xiA8nz7ZwMh8OhPc6XDAAERqUAAKlAAEZsJqtETdfqPbRoVDJKyoSJYxICVZ0aZ0aJgAC+AF0gA
+    - title: Slider Range
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNLCx1l07YT95yyvhMwQDKXj7BEjBcugAMMVAAHroAjPGJTABuUFZwusAAzACsEgBsJQC6AJQSAMQAPI32jmIYxG6u7hTJ7tlyAEZQZHx+ufnBdao1qqqyNKxyA74ubhKdZN0SLHAsLBykNYitDgACm92nTGdSED4YvWTXCzl5InA2x9eOknBkIjoECYNGCIDWZAwAR8XwAvsE5tB0HomEpUDYNNpxEs6CsamBYVUgA
       code: |
-        from palmerpenguins import load_penguins
-        from shiny import App, render, session, ui
-
-        penguins = load_penguins()
-
+        from shiny import ui, render, App
+        
         app_ui = ui.page_fluid(
-          ui.output_data_frame("penguins_df") #<<
+            ui.input_slider("slider", "Slider", min=0, max=100, value=[35, 65]), #<<
+            ui.output_text_verbatim("value"),
         )
-
+        
         def server(input, output, session):
-            @output #<<
-            @render.data_frame #<<
-            def penguins_df(): #<<
-                return render.DataTable(penguins) #<<
-
+            @render.text
+            def value():
+                return f"{input.slider()}"
+        
         app = App(app_ui, server)
       relevantfunctions:
-        - title: ui.output_data_frame
-          href: https://shiny.posit.co/py/api/ui.output_data_frame.html
-          signature: ui.output_data_frame(id)
-        - title: render.data_frame
-          href: https://shiny.posit.co/py/api/render.data_frame.html
-          signature: render.data_frame(fn=None)
-        - title: render.DataTable
-          href: https://shiny.posit.co/py/api/render.DataTable.html
-          signature: render.DataTable(self, data, *, width='fit-content', height='500px', summary=True, filters=False, row_selection_mode='none')
+        - title: ui.input_slider
+          href: https://shiny.posit.co/py/api/ui.input_slider.html
+          signature: ui.input_slider(id, label, min, max, value, *, step=None, ticks=False, animate=False, width=None, sep=',', pre=None, post=None, time_format=None, timezone=None, drag_range=True)
       details: |
 
-        <p>A DataTable presents tabular data in a spread sheet like view. </p>
+        <p>A slider is a widget that lets you drag to select numbers, dates, or date-times from a specified range. You can use a slider to select either a single value or a range of values.</p>
 
-        <p>Follow three steps to display a DataTable in your app:</p>
+        <p>To add a slider that lets the user select a range of values: </p>
 
         <ol>
           <li>
-          Add `ui.output_data_frame()` to the UI of your app to create a div in which to display the table. Where you call this function will determine where the table will appear within the layout of the app. For example, ...
+          Add `ui.input_slider()` to the UI of your app to create a div in which to display the slider. Where you call this function will determine where the slider will appear within the app's layout. 
           </li>
           <li>
-          Define a function within the `server` function that builds your table and uses `render.DataTable()` to return the result. Where`render.DataTable()`will package the table as an HTML data table for display. If your function calls reactive values, Shiny will update your table whenever those values change, in a [reactive fashion]().
-          
-          To notify Shiny that your function returns a reactive table to display, decorate the function with two decorators:
-          
-           <ul>
-             <li>`@output`</li>
-             <li>`@render.data_frame()`</li>
-           </ul>
-
+          Specify the `id` and `label` parameters of `ui.input_slider()` to define the identifier and label of the slider. 
           </li>
-
-          <li>Pass `ui.output_data_frame()` the name of the function that builds the DataTable, as a character string, to indicate which DataTable should be displayed in the div. 
+          <li>
+          Use the `min` and `max` parameters to define the minimum and maximum values of the slider. `min` and `max` can be numbers, dates, or date-times.
+          </li>
+          <li>
+          Pass a list with two elements to the `value` parameter. These elements define the initial range. `value` can be a list of numbers, dates, or date-times.
           </li>
         </ol>
-
-      variations:
-        - title: Filterable Table
-          description: An optional place for a description here that goes about this long but then (oh my gosh!) it's now going even longer to show what the line-height looks like.
-          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYLEQ3doONPqOAG6OkUIVZDal5WXOru6k0YgFhUwAAtMTK4VrdhAOdBjVtfWN20z9LLwRwu0xyxCrT7ZwZHx0j3sHGAAiNVAAFSgACM2E1zs9Vq0RHgIZCmDQBGwKHRRMEAXQ+HA4YVevFUMkrKhImhUIkBHM6CM6NEwABfAC6QA
-          code: |
-            from palmerpenguins import load_penguins
-            from shiny import App, render, session, ui
-
-            penguins = load_penguins()
-
-            app_ui = ui.page_fluid(
-              ui.output_data_frame("penguins_df")
-            )
-
-            def server(input, output, session):
-                @output
-                @render.data_frame
-                def penguins_df():
-                    return render.DataTable(
-                        penguins,
-                        filters = True #<<
-                    )
-
-            app = App(app_ui, server)
-        - title: Select Multiple Rows
-          description: An optional place for a description here that goes about this long but then (oh my gosh!) it's now going even longer to show what the line-height looks like.
-          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYLEQ3doONPqOAG6OkUIVZDal5WXOru6k0YgFhUwAAtMTK4VrdhAOdBjVtfWN20z9LLwRwu0xyxCrT7ZwZHx0j3sHGAAiNVAAFSgACM2E1zs9Vq0RHgIZDbMQAO5KFxgwhkDwQJQwYgOZKdGB8NgY1Bgzpwwq9eKoZJWVCRNCoRICOZ0EZ0aJgAC+AF0gA
-          code: |
-            from palmerpenguins import load_penguins
-            from shiny import App, render, session, ui
-
-            penguins = load_penguins()
-
-            app_ui = ui.page_fluid(
-              ui.output_data_frame("penguins_df")
-            )
-
-            def server(input, output, session):
-                @output
-                @render.data_frame
-                def penguins_df():
-                    return render.DataTable(
-                        penguins,
-                        row_selection_mode = "multiple" #<<
-                    )
-
-            app = App(app_ui, server)
-        - title: Size a table
-          description: 
-          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYNFM2rEQ2g40+o4Abo6RQhVkNqXlZc6u7qTRiAWFTAACs1M9EOubdhAOdBjVtfWNu-uDLLwRwu0xiFf763ZkfHR7h8cYACI1KAAFSgACM2E0Xq9Xq0RDY1tD9gB3AQKMgGZKdACsAAYcagAB6deF7RH7AxwAQ8AwyYKdACMeMJnShrz62jQqGSVlQkU5iQECzoYzo0TAAF8ALpAA
-          code: |
-            from palmerpenguins import load_penguins
-            from shiny import App, render, session, ui
-
-            penguins = load_penguins()
-
-            app_ui = ui.page_fluid(
-              ui.output_data_frame("penguins_df") #<<
-            )
-
-            def server(input, output, session):
-                @output 
-                @render.data_frame 
-                def penguins_df(): 
-                    return render.DataTable( 
-                        penguins, 
-                        width = "500px", #<<
-                        height = "200px" #<<
-                    )
-
-            app = App(app_ui, server)
-
+        
+        <p>To access the value of a slider:</p>
+        
+        <ol>
+          <li>
+          Use `input.<slider_id>()` (e.g., `input.slider()`) to access the value of the slider. If `value` is a list and the slider specifies a range, the server value of a slider will be a list of length 2.
+          </li>
+        </ol>
+        
+        <p>See also: Slider (TODO: ADD LINK TO Slider HERE)</p>
 ---
 
 :::{.component}

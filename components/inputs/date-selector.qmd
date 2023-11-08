@@ -11,7 +11,6 @@ previewapp: |
   )
 
   def server(input, output, session):
-      @output
       @render.text
       def txt():
           return f""
@@ -34,7 +33,6 @@ listing:
         )
         
         def server(input, output, session):
-            @output
             @render.text
             def value():
                 return input.date()
@@ -48,27 +46,26 @@ listing:
 
         <p>A date selector allows you to select a date from a calendar.</p>
 
-        <p>Follow three steps to display a DataTable in your app:</p>
+        <p>To add a date selector to your app:</p>
 
         <ol>
           <li>
-          Add `ui.output_data_frame()` to the UI of your app to create a div in which to display the table. Where you call this function will determine where the table will appear within the layout of the app. For example, ...
+          Add `ui.input_date()` to the UI of your app to create a div in which to display the date selector. Where you call this function will determine where the date selector will appear within the app's layout. 
           </li>
           <li>
-          Define a function within the `server` function that builds your table and uses `render.DataTable()` to return the result. Where`render.DataTable()`will package the table as an HTML data table for display. If your function calls reactive values, Shiny will update your table whenever those values change, in a [reactive fashion]().
-          
-          To notify Shiny that your function returns a reactive table to display, decorate the function with two decorators:
-          
-           <ul>
-             <li>`@output`</li>
-             <li>`@render.data_frame()`</li>
-           </ul>
-
-          </li>
-
-          <li>Pass `ui.output_data_frame()` the name of the function that builds the DataTable, as a character string, to indicate which DataTable should be displayed in the div. 
+          Specify the `id` and `label` parameters of `ui.input_date()` to define the identifier and label of the date selector. `ui.input_date()` also includes various optional parameters, including `min` and `max`, which set the minimum and maximum allowed dates.
           </li>
         </ol>
+        
+        <p>To access the value of the date selector:</p>
+        
+        <ol>
+          <li>
+          Use `input.<date_id>()` to access the value of your daterange selector (e.g., `input.date()`). The server value of a date selector is a date object. 
+          </li>
+        </ol>
+
+        <p>See also: Date Range Selector (TODO: ADD LINK TO DATE RANGE SELECTOR HERE)</p>
 ---
 
 :::{.component}

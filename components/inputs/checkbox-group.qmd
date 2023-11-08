@@ -43,7 +43,6 @@ listing:
         )
         
         def server(input, output, session):
-            @output
             @render.text
             def value():
                 return ", ".join(input.checkbox_group())
@@ -61,15 +60,16 @@ listing:
 
         <ol>
           <li>
-          Add `ui.input_checkbox_group()` to the UI of your app to create a checkbox group. Where you call this function will determine where the checkbox group will appear within the layout of the app.
+          Add `ui.input_checkbox_group()` to the UI of your app to create a checkbox group. Where you call this function will determine where the checkbox group will appear within the app's layout.
           </li>
           
           <li>
-          Access the value of your checkbox group with `input.checkbox_group()`. The server value of a checkbox group is a tuple of string(s) with the selected value(s). 
+          Access the value of your checkbox group with `input.<checkbox_group_id>()` (e.g., `input.checkbox_group()`). The server value of a checkbox group is a tuple of string(s) with the selected value(s). 
           </li>
 
         </ol>
-
+                
+        <p>See also: Checkbox (TODO: ADD LINK TO CHECKBOX HERE)</p>
 ---
 
 :::{.component}

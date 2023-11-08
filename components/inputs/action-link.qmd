@@ -8,7 +8,7 @@ listing:
   template: ../_partials/components-detail.ejs
   contents:
     - title: Action Link
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMAkhFQBXMiwkB5eXIUSAynBYsOpCXThRCZDgDc4BygBM4dCbI4AdCC7SoA+o6YBeJo6woAHM4DxoAG0drAAoXJnj-DgwuNQ9jU1IPcK4Aa1iUEz0ILNynfCYykULSMoBKPBdal2aIWxpWOws6aJT5CWJVPo6dItrEOISAYiYtOi6mMyhIuHGIBKZp+JE1rgoQuiZDVEMWSlMIIKYyNjgmCFkYACM7JmJ27IgcpkJswhyWCbxTaiQiEbQsJgAdw4114MnkGHSRRKnwwHkWy0BTFQUB0LTc6F8onQ0XcXg4ElOczstTAAF8ALpAA
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdCPrSoA+jqYBeJjqxQA5nGM0ANjtUAKfUy9WOGLqi0yYxk5UmMnLgBrDxRZDjCIiEjdfCYUkTjSFIBKCQBiAB4Cz29rYkCAoIoADzIYki1yDRz9bP19dRpWDUU6N39AiXKySokWOBYWeIhsxBKvAAFhyvmmBZV1OgwauraIbzWpEIU4DDhFcn6ISoxjhKi9g86mBqa+2dWDqTItOn2aFIgAZkW6ZCDhKJubIAXxS7Wg6AsonQbiMpg4Yx6GmyYGhAF0gA
       code: |
         from shiny import App, reactive, render, ui
         
@@ -18,11 +18,10 @@ listing:
         )
         
         def server(input, output, session):
-            @output
             @render.text()
             @reactive.event(input.action_link)
             def counter():
-                return f"{input.action_link._value}"
+                return f"{input.action_link()}"
         
         app = App(app_ui, server)
       relevantfunctions:
@@ -40,12 +39,14 @@ listing:
 
         <ol>
           <li>
-          Add `ui.input_action_link()` to the UI of your app to create the action link. Where you call this function will determine where the link will appear within the layout of the app.
+          Add `ui.input_action_link()` to the UI of your app to create the action link. Where you call this function will determine where the link will appear within the app's layout.
           </li>
           <li>
-          Access the value of your action link with `input.action_link._value`. The server value of an action link is an integer representing the number of clicks. 
+          Access the value of your action link with `input.<action_link_id()`> (e.g., `input.action_link()`). The server value of an action link is an integer representing the number of clicks. 
           </li>
         </ol>
+        
+        <p>See also: Action Button (TODO: ADD LINK TO ACTION BUTTON HERE)</p>
 ---
 
 :::{.component}
