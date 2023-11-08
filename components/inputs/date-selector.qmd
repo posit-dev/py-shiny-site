@@ -66,6 +66,11 @@ listing:
         </ol>
 
         <p>See also: Date Range Selector (TODO: ADD LINK TO DATE RANGE SELECTOR HERE)</p>
+      variations:
+        - title: null
+          description: null
+          preview: null
+          code: null
 ---
 
 :::{.component}

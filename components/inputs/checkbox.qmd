@@ -60,6 +60,11 @@ listing:
         </ol>
         
         <p>See also: Checkbox Group(TODO: ADD LINK TO CHECKBOX GROUP HERE)</p>
+      variations:
+        - title: null
+          description: null
+          preview: null
+          code: null
 ---
 
 :::{.component}

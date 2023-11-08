@@ -68,6 +68,11 @@ listing:
         </ol>
         
         <p>See also: Slider (TODO: ADD LINK TO Slider HERE)</p>
+      variations:
+        - title: null
+          description: null
+          preview: null
+          code: null
 ---
 
 :::{.component}

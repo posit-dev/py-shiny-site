@@ -60,6 +60,11 @@ listing:
           Use `input.<switch_id>()` (e.g., `input.switch()`) to access the value of the switch. The server value of a switch is `True` if checked and `False` otherwise. 
           </li>
         </ol>
+      variations:
+        - title: null
+          description: null
+          preview: null
+          code: null
 ---
 
 :::{.component}

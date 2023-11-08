@@ -71,6 +71,11 @@ listing:
           Use `input.<radio_buttons_id>()` to access the value of a radio button set (e.g., `input.radio()`). The server value of a set of radio buttons is a string containing the selected value. 
           </li>
         </ol>
+      variations:
+        - title: null
+          description: null
+          preview: null
+          code: null
 ---
 
 :::{.component}

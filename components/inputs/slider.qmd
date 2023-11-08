@@ -70,6 +70,11 @@ listing:
         </ol>
 
         <p>See also: Slider Range (TODO: ADD LINK TO Slider Range HERE)</p>
+      variations:
+        - title: null
+          description: null
+          preview: null
+          code: null
 ---
 
 :::{.component}
