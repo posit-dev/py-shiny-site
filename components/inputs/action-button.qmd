@@ -32,14 +32,23 @@ listing:
           href: https://shiny.posit.co/py/api/reactive.event.html
           signature: reactive.event(*args, ignore_none=True, ignore_init=False)
       details: |
-        <p>An action button appears as a button in your app and has a value that increments each time the user presses the button. </p>
+        <p>An action button appears as a button and has a value that increments each time the user presses the button. </p>
 
         <p>Follow these steps to add an action button to your app:</p>
 
         <ol>
           <li>Add `ui.input_action_button()` to the UI of your app to create the button. Where you call this function will determine where the button will appear within the app's layout.
           </li>
-          <li>Access the value of your action button with `input.<action_button_id()>` (e.g., `input.action_button()`). The server value of an action button is an integer representing the number of clicks. 
+          <li>
+          Specify the `id` and `label` parameters of `ui.input_action_button()` to define the button's identifier and label. 
+          </li>
+        </ol>
+        
+        <p>To access the value of an action button:</p>
+        
+        <ol>
+          <li>
+          Use `input.<action_button_id()>` (e.g., `input.action_button()`) to access the value of the action button. The server value of an action button is an integer representing the number of clicks.  
           </li>
         </ol>
 

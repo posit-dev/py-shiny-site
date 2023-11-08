@@ -35,14 +35,21 @@ listing:
 
         <p>An action link appears as a link in your app and has a value that increments each time the user presses the button. </p>
 
-        <p>Follow these steps to add an action link to your app:</p>
+        <p>Follow these steps to add an action button to your app:</p>
 
         <ol>
-          <li>
-          Add `ui.input_action_link()` to the UI of your app to create the action link. Where you call this function will determine where the link will appear within the app's layout.
+          <li>Add `ui.input_action_link()` to the UI of your app to create the link. Where you call this function will determine where the link appears within the app's layout.
           </li>
           <li>
-          Access the value of your action link with `input.<action_link_id()`> (e.g., `input.action_link()`). The server value of an action link is an integer representing the number of clicks. 
+          Specify the `id` and `label` parameters of `ui.input_action_link()` to define the action link's identifier and label. 
+          </li>
+        </ol>
+        
+        <p>To access the value of an action link:</p>
+        
+        <ol>
+          <li>
+          Use `input.<action_link_id()>` (e.g., `input.action_link()`) to access the value of the action link. The server value of an action link is an integer representing the number of clicks.  
           </li>
         </ol>
         

@@ -57,11 +57,11 @@ listing:
           </li>
         </ol>
         
-        <p>To access the value of the date selector:</p>
+        <p>To access the value of a date selector:</p>
         
         <ol>
           <li>
-          Use `input.<date_id>()` to access the value of your daterange selector (e.g., `input.date()`). The server value of a date selector is a date object. 
+          Use `input.<date_id>()` to access the value of a daterange selector (e.g., `input.date()`). The server value of a date selector is a date object. 
           </li>
         </ol>
 

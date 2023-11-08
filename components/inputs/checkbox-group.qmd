@@ -63,10 +63,22 @@ listing:
           Add `ui.input_checkbox_group()` to the UI of your app to create a checkbox group. Where you call this function will determine where the checkbox group will appear within the app's layout.
           </li>
           
+         <li>
+          Specify the `id` and `label` parameters of `ui.input_checkbox_group()` to define the identifier and label of the checkbox group. 
+         </li>
+         
           <li>
-          Access the value of your checkbox group with `input.<checkbox_group_id>()` (e.g., `input.checkbox_group()`). The server value of a checkbox group is a tuple of string(s) with the selected value(s). 
+          Supply the `choices` parameter with either a list or dictionary of choices. If `choices` is a a list, its elements become the select list values and labels. If `choices` is a dictionary, `ui.input_checkbox_group()` uses the dictionary keys as the checkbox values and the dictionary values as the checkbox labels. 
           </li>
 
+        </ol>
+        
+        <p>To access the value of a checkbox group:</p> 
+        
+        <ol>
+          <li>
+          Use `input.<checkbox_group_id>()` (e.g., `input.checkbox_group()`) to access the value of a checkbox group. The server value of a checkbox group is a tuple of string(s) with the selected value(s). 
+          </li>
         </ol>
                 
         <p>See also: Checkbox (TODO: ADD LINK TO CHECKBOX HERE)</p>

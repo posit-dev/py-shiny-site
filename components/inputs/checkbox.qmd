@@ -49,12 +49,17 @@ listing:
           <li>
           Supply values to `ui.input_checkbox()`'s first two parameters (`id` and `label`) to specify the id and label of the checkbox. Optionally, set the `value` argument to either `True` or `False` to specify the initial value of the checkbox. By default, the checkbox has value `False` and is un-checked.  
           </li>
+        </ol>
+        
+        <p>To access the value of a checkbox:</p>
+        
+        <ol>
           <li>
-          Access the value of your checkbox with `input.<checkbox_id>()` (e.g., `input.checkbox()`). The server value of a checkbox is `True` if checked and `False` if not checked. 
+          Use `input.<checkbox_id>()` (e.g., `input.checkbox()`) to access the value of a checkbox. The server value of a checkbox is `True` if checked and `False` if not checked. 
           </li>
         </ol>
         
-        <p>See also: Checkbox (TODO: ADD LINK TO CHECKBOX HERE)</p>
+        <p>See also: Checkbox Group(TODO: ADD LINK TO CHECKBOX GROUP HERE)</p>
 ---
 
 :::{.component}

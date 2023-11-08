@@ -55,7 +55,7 @@ listing:
           </li>
         </ol>
         
-        <p>To access the value of the numeric input control:</p>
+        <p>To access the value of a numeric input control:</p>
         
         <ol>
           <li>

@@ -68,7 +68,7 @@ listing:
         
         <ol>
           <li>
-          Use `input.<radio_buttons_id>()` to access the value of your radio button set (e.g., `input.radio()`). The server value of a set of radio buttons is a string containing the selected value. 
+          Use `input.<radio_buttons_id>()` to access the value of a radio button set (e.g., `input.radio()`). The server value of a set of radio buttons is a string containing the selected value. 
           </li>
         </ol>
 ---

@@ -59,11 +59,11 @@ listing:
           </li>
         </ol>
         
-        <p>To access the value of the daterange selector:</p>
+        <p>To access the value of a daterange selector:</p>
         
         <ol>
           <li>
-          Use `input.<date_range_id>()` to access the value of your daterange selector (e.g., `input.daterange()`). The server value of a daterange selector is a tuple of date objects. You can access the individual tuple elements using square brackets and indices (e.g., `input.daterange()[0]`).
+          Use `input.<date_range_id>()` to access the value of a daterange selector (e.g., `input.daterange()`). The server value of a daterange selector is a tuple of date objects. You can access the individual tuple elements using square brackets and indices (e.g., `input.daterange()[0]`).
           </li>
         </ol>
 
