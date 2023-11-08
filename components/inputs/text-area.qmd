@@ -48,7 +48,7 @@ listing:
 
         <ol>
           <li>
-          Add `ui.input_text_area()` to the UI of your app to create a div in which to display the textarea. Where you call this function will determine where the textarea will appear within the app's layout. 
+          Add `ui.input_text_area()` to the UI of your app to create a textarea. Where you call this function will determine where the textarea will appear within the app's layout. 
           </li>
           <li>
           Specify the `id` and `label` parameters of `ui.input_text_area()` to define the identifier and label of the textarea. 

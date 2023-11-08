@@ -38,7 +38,7 @@ listing:
         <p>Follow these steps to add an action button to your app:</p>
 
         <ol>
-          <li>Add `ui.input_action_link()` to the UI of your app to create the link. Where you call this function will determine where the link appears within the app's layout.
+          <li>Add `ui.input_action_link()` to the UI of your app to create an action link. Where you call this function will determine where the link appears within the app's layout.
           </li>
           <li>
           Specify the `id` and `label` parameters of `ui.input_action_link()` to define the action link's identifier and label. 

@@ -54,7 +54,7 @@ listing:
 
         <ol>
           <li>
-          Add `ui.input_radio_buttons()` to the UI of your app to create a div in which to display the radio buttons. Where you call this function will determine where the radio buttons will appear within the app's layout. 
+          Add `ui.input_radio_buttons()` to the UI of your app to create a set of radio buttons. Where you call this function will determine where the radio buttons will appear within the app's layout. 
           </li>
           <li>
           Specify the `id` and `label` parameters of `ui.input_radio_buttons()` to define the identifier and label of the set of radio buttons.

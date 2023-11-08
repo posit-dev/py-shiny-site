@@ -37,7 +37,7 @@ listing:
         <p>Follow these steps to add an action button to your app:</p>
 
         <ol>
-          <li>Add `ui.input_action_button()` to the UI of your app to create the button. Where you call this function will determine where the button will appear within the app's layout.
+          <li>Add `ui.input_action_button()` to the UI of your app to create an action button. Where you call this function will determine where the button will appear within the app's layout.
           </li>
           <li>
           Specify the `id` and `label` parameters of `ui.input_action_button()` to define the button's identifier and label. 

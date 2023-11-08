@@ -46,7 +46,7 @@ listing:
 
         <ol>
           <li>
-          Add `ui.input_slider()` to the UI of your app to create a div in which to display the slider. Where you call this function will determine where the slider will appear within the app's layout. 
+          Add `ui.input_slider()` to the UI of your app to create a slider. Where you call this function will determine where the slider will appear within the app's layout. 
           </li>
           <li>
           Specify the `id` and `label` parameters of `ui.input_slider()` to define the identifier and label of the slider. 

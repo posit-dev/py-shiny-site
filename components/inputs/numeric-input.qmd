@@ -48,7 +48,7 @@ listing:
 
         <ol>
           <li>
-          Add `ui.input_numeric()` to the UI of your app to create a div in which to display the input. Where you call this function will determine where the numeric input control will appear within the app's layout. 
+          Add `ui.input_numeric()` to the UI of your app to create a numeric input. Where you call this function will determine where the numeric input control will appear within the app's layout. 
           </li>
           <li>
           Specify the `id` and `label` parameters of `ui.input_numeric()` to define the identifier and label of the numeric input. `ui.input_numeric()` also includes various optional parameters, including `min` and `max`, which set the minimum and maximum allowed values.

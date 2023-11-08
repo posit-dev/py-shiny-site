@@ -44,7 +44,7 @@ listing:
 
         <ol>
           <li>
-          Add `ui.input_checkbox()` to the UI of your app to create a div in which to display the checkbox. Where you call this function will determine where the checkbox will appear within the app's layout. 
+          Add `ui.input_checkbox()` to the UI of your app to create a checkbox. Where you call this function will determine where the checkbox will appear within the app's layout. 
           </li>
           <li>
           Supply values to `ui.input_checkbox()`'s first two parameters (`id` and `label`) to specify the id and label of the checkbox. Optionally, set the `value` argument to either `True` or `False` to specify the initial value of the checkbox. By default, the checkbox has value `False` and is un-checked.  

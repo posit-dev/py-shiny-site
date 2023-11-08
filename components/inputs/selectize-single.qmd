@@ -63,7 +63,7 @@ listing:
 
         <ol>
           <li>
-          Add `ui.input_selectize()` to the UI of your app to create a div in which to display the selectize list. Where you call this function will determine where the selectize list appears within the app's layout. 
+          Add `ui.input_selectize()` to the UI of your app to create a selectize list. Where you call this function will determine where the selectize list appears within the app's layout. 
           </li>
           <li>
           Specify the `id` and `label` parameters of `ui.input_selectize()` to define the identifier and label of the select list.
