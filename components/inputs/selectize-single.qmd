@@ -1,50 +1,65 @@
 ---
-title: "Numeric Input"
+title: "Selectize (Single)"
 sidebar: components 
 previewapp: |
-  from shiny import App, render, ui
+  from shiny import App, Inputs, Outputs, Session, render, ui
 
   app_ui = ui.page_fluid(
-      ui.input_numeric("x", "", value=100),
-      ui.output_text_verbatim("txt"),
+    ui.input_selectize(
+        "select",
+        "",
+        {
+            "1": {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"},
+            "2": {"2A": "Choice 2A", "2B": "Choice 2B", "2C": "Choice 2C"}
+        }
+    ),
+    ui.output_text("value"),
       {"class": "vh-100 d-flex justify-content-center align-items-center px-4"}
   )
 
-  def server(input, output, session):
+  def server(input: Inputs, output: Outputs, session: Session):
       @output
       @render.text
-      def txt():
+      def value():
           return f""
 
-  app = App(app_ui, server, debug=True)
+  app = App(app_ui, server)
 listing:
   id: component
   template: ../_partials/components-detail.ejs
   contents:
-    - title: Numeric Input
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymiAvh0OhO5Decn7K+EyhAHJBvoS8EG5koRIAjBIwXLqpTDBQAB6ZAAwAlHj2jobE7gmaFLkeAG5yAEZQZHwB9VBWcKElqkWqgxCyNKxyjXQ2ru4SlWQJEixwLCwcpEWIZQ4AAnMJW0zbUsNyGLWJEI5MI0yd3TYbB1dSZAp0l9NkGF4+fg9D6nQelE6BsGm0HEW4zkRTAAF8ALpAA
+    - title: Selectize List
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZDgBecHYQjmFMymBePn6RePbhDpEAyt6+wgBGxAAecQmJIPmJjpEAjJGITIVgpSIVEWAAwmzEHIRwTLVxDaUAQvWRza3tnf34PY0DTS1tHaWTYAC+8aHFYZEATPXVG3VIDUOzTLvdm2OVgzMjG2MSmwsX08MdGwuLRWHLH44wChb+qB8ugAKnQFHAigBKFZhQzEdxuDwUbJkOxgABuUCsELA0NUkNUhIgshorDk6LkNlc7gk8LIiIkXhYLA4pEhiCKAAE6YiuVJiXIMMiyEUSUxMdibOzvg4pGQFHRQjRIiBqWQMNF0lL3mAiep0HpROgbBptBxGeS5JClgBdIA
       code: |
         from shiny import App, render, ui
         
         app_ui = ui.page_fluid(
-            ui.input_numeric("numeric", "Numeric input", 1, min=1, max=10), #<<
-            ui.output_text_verbatim("value"),
+            ui.input_selectize( #<<
+                "select", #<<
+                "Select box", #<<
+                { #<<
+                    "1": {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"}, #<<
+                    "2": {"2A": "Choice 2A", "2B": "Choice 2B", "2C": "Choice 2C"} #<<
+                }, #<<
+                multiple=True #<<
+            ), #<<
+            ui.output_text("value"),
         )
         
         def server(input, output, session):
             @output
             @render.text
             def value():
-                return input.numeric()
+                return f"{input.select()}"
         
         app = App(app_ui, server)
       relevantfunctions:
-        - title: ui.input_numeric
-          href: https://shiny.posit.co/py/api/ui.input_numeric.html
-          signature: ui.input_numeric(id, label, value, *, min=None, max=None, step=None, width=None)
+        - title: ui.input_selectize
+          href: https://shiny.posit.co/py/api/ui.input_selectize.html
+          signature: ui.input_selectize(id, label, choices, *, selected=None, multiple=False, width=None)
       details: |
 
-        <p>A numeric input creates a way to specify a number.</p>
+        <p>A DataTable presents tabular data in a spread sheet like view. </p>
 
         <p>Follow three steps to display a DataTable in your app:</p>
 
@@ -97,4 +112,3 @@ listing:
 
 :::{.component}
 :::
-

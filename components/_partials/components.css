@@ -1,7 +1,75 @@
+// list page styling
 
-.nav-link {
-  padding: 0.25rem 1rem;
+.component-list-column {
+  padding-top: 1rem;
 }
+
+.component-list-card {
+  box-shadow:0px 1px 2px rgba(29, 31, 33, .1),0px 2px 3px rgba(29, 31, 33, 0.1),0px 3px 8px rgba(29, 31, 33, 0.1);
+  border-radius:10px;
+  height:150px;
+  background-color: #ffffff;
+  display:flex;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+}
+.component-list-header {
+  display:flex;
+  justify-content: space-between;
+  align-items: center; 
+  margin-bottom: 0px;
+/*  height: 30px;*/
+}
+
+.component-list-header-text h5 {
+  margin-bottom: 0.15rem;
+}
+.component-list-header-text, .component-list-icon a {
+  text-decoration: none;
+  color: #212529;
+}
+
+.component-list-icon a {
+  font-size: 1.25em;
+}
+
+.component-list-header-text a {
+  margin-bottom: 0px;
+  margin-top: .25rem;
+  margin-left: .25rem;
+  margin-right: .25rem;
+  border-bottom: none;
+}
+.component-link-icon {
+  margin: 0 .25em .25em 0;
+  white-space: nowrap
+}
+
+
+a .component-link-icon:after  {
+  content: "\F134";
+  font-family: "bootstrap-icons";
+  transition: all 0.3s !important;
+}
+
+a:hover .component-link-icon:after, 
+a.component-list-header-text:hover ~ div.component-list-icon p a i.component-link-icon:after {
+  content: "\F133";
+  font-family: "bootstrap-icons";
+}
+
+.component-list-header-text:hover {
+  color: #000000;
+}
+
+
+
+
+// detail page styling
+
+
+// tabs for preview and code
 
 .nav-pills .nav-link.active,
 .nav-pills .show>.nav-link {
@@ -81,9 +149,6 @@ pre.console {
   color: #48505F;
 }
 
-a.nav-link {
-  color: #707782;
-}
 
 a.nav-link:hover {
   color: #202020;
@@ -133,15 +198,3 @@ div.tab-pane:not(div.tab-pane.active) {
     opacity: 0;
 }
 
-
-a .component-link-icon:after  {
-  content: "\F134";
-  font-family: "bootstrap-icons";
-  transition: content 0.3s !important;
-}
-
-a:hover .component-link-icon:after {
-  content: "\F133";
-  font-family: "bootstrap-icons";
-  transition: content 0.3s !important;
-}

@@ -1,23 +1,66 @@
-
 <% for (const item of items) { %>
 
-<div class="g-col-md-4 g-col-sm-6 g-col-12 pt-3">
-
-<div class="d-flex justify-content-between align-items-end mb-2">
-<a class="text-decoration-none dark" href="<%= item.path %>">
-<h5 class="mb-0 mt-1 mx-1"><%= item.title %></h5>
+<% if (item.preview) { %>
+<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+<div class="component-list-header">
+<a class="component-list-header-text" href="<%= item.path %>">
+<h5><%= item.title %></h5>
 </a>
-<h5 class="my-0 mx-1 text-nowrap">
-<a class="text-decoration-none dark" href="<%= item.path %>">
+<div class="component-list-icon">
+<p class="my-0"><a class="text-decoration-none dark" href="<%= item.path %>">
 <i class="component-link-icon dark bi fst-normal"></i>
-</a>
-</h5>
-
+</a></p>
 </div>
-</a>
-<div style="box-shadow:0px 1px 2px rgba(29,31,33,.1), 0px 2px 3px rgba(29,31,33,0.1), 0px 3px 8px rgba(29,31,33,0.1);border-radius:10px;height:150px;background-color: #ffffff;;display:flex;justify-content: center;align-content: center;flex-wrap: wrap;">
+</div>
+<div class="component-list-card">
 <%= item.preview %>
 </div>
 </div>
+<% } %>
+
+
+
+
+
+<% if (item.previewapp) { %>
+<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+<div class="component-list-header">
+<a class="component-list-header-text" href="<%= item.path %>">
+<h5><%= item.title %></h5>
+</a>
+<div class="component-list-icon">
+<p class="my-0"><a class="text-decoration-none dark" href="<%= item.path %>">
+<i class="component-link-icon dark bi fst-normal"></i>
+</a></p>
+</div>
+</div>
+<div class="component-list-card">
+<div style="background-color: #ffffff;
+  animation: 10s fadeIn;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+  border-radius: 10px;">
+```{shinylive-python}
+#| standalone: true
+#| components: [viewer]
+<%= item.previewapp %>
+```
+</div>
+</div>
+</div>
+<% } %> 
 
 <% } %>
+
+<style type="text/css">
+  @keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+</style>

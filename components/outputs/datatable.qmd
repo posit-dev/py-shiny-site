@@ -33,7 +33,7 @@ listing:
         - title: ui.output_data_frame
           href: https://shiny.posit.co/py/api/ui.output_data_frame.html
           signature: ui.output_data_frame(id)
-        - title: @render.data_frame
+        - title: "@render.data_frame"
           href: https://shiny.posit.co/py/api/render.data_frame.html
           signature: render.data_frame(fn=None)
         - title: render.DataTable
@@ -41,30 +41,33 @@ listing:
           signature: render.DataTable(self, data, *, width='fit-content', height='500px', summary=True, filters=False, row_selection_mode='none')
       details: |
       
-        A DataTable presents tabular data in a figure-like view with a minimum of grid lines.
+        <p>A DataTable presents tabular data in a figure-like view with a minimum of grid lines.</p>
         
-        To make a reactive Data Table, follow three steps:
-          
-        1. Call `ui.output_data_frame()` in the UI of your app to create a div in which to display the table. Where you call this function within the UI functions will determine where the table will appear within the layout of the app. Set the id argument of `ui.output_data_frame()` to a unique value.
+        <p>To make a reactive Data Table, follow three steps:</p>
+        <ol>
+          <li>Call `ui.output_data_frame()` in the UI of your app to create a div in which to display the table. Where you call this function within the UI functions will determine where the table will appear within the layout of the app. Set the id argument of `ui.output_data_frame()` to a unique value.</li>
 
-        2. Within the server function, define a new function whose name matches the id used above. The function should assemble the table to display and then return the table wrapped in `render.DataTable()`. Shiny will rerun this function whenever it needs to build or update the output that has the matching id.
+          <li>Within the server function, define a new function whose name matches the id used above. The function should assemble the table to display and then return the table wrapped in `render.DataTable()`. Shiny will rerun this function whenever it needs to build or update the output that has the matching id.</li>
 
-        3. Decorate the function with two decorators:
-          
-            - `@output`
-            - `@render.data_frame`
+          <li>Decorate the function with two decorators:
+            <ol>
+              <li>`@output`</li>
+              <li>`@render.data_frame`</li>
+            </ol>
+          </li>
+        </ol>
+        <p>A DataTable can also collect input from the user. To allow this, set `render.DataTable(row_selection_mode="single")` or `render.DataTable(row_selection_mode="multiple")` to allow the user to select one or more rows of the DataTable.</p> 
+
+        <p>The indices of the selected rows will be accessible within the server function as a reactive variable returned by `input.<id>_selected_rows()`, where <id> is the id of the `ui.output_data_frame()` associated with the table.</p>
+
+        <p>The value returned will be `None` if no rows are selected, or a tuple of integers representing the indices of the selected rows. To filter a pandas data frame down to the selected rows, use `df.iloc[list(input.<id>_selected_rows())]`.</p>
+
+        <p>If your table is a data frame that uses the pandas styler, replace `ui.output_data_frame()` with `ui.output_table()`.</p>
+
+        <p>See also [Data Grids](TODO: ADD LINK TO DATA GRIDS DETAIL PAGE).</p>
         
-        A DataTable can also collect input from the user. To allow this, set `render.DataTable(row_selection_mode="single")` or `render.DataTable(row_selection_mode="multiple")` to allow the user to select one or more rows of the DataTable. 
-
-        The indices of the selected rows will be accessible within the server function as a reactive variable returned by `input.<id>_selected_rows()`, where <id> is the id of the `ui.output_data_frame()` associated with the table.
-
-        The value returned will be `None` if no rows are selected, or a tuple of integers representing the indices of the selected rows. To filter a pandas data frame down to the selected rows, use `df.iloc[list(input.<id>_selected_rows())]`.
-
-        If your table is a data frame that uses the pandas styler, replace `ui.output_data_frame()` with `ui.output_table()`.
-
-        See also [Data Grids](TODO: ADD LINK TO DATA GRIDS DETAIL PAGE).
       variations:
-          - title: Select Rows
+        - title: Select Rows
           description: Set `row_selection_mode` in `render.DataTable()` to `"single"` to allow the user to select one row at a time. Set it to `"multiple"` to allow the user to select multiple rows at a time. Access the selection(s) as `input.<id>_selected_rows()`.
           preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMhSkCGEKofGRKEHycAoT5kJr4TE0AcjUARo5MxDS2xADuomTETAoCwqhsUNhNNgBMAAzReAVFTQBKg6IubHCEFAqILc2pxBXllRQAHmQNDENzYhBsQnCBACp0fHAra4VnC4VJQKKBkKBZOiwOANcIaEE0JqxCDI7QOPouOgAN0ckTKFRs5zIl2crncpGiiH+TAAAkTLtSaXYIA46BhQeDIdDqeiWLwIsIETEqRAimKxmCoMk4SIMAY4Io8RBLhgIDFkeKinYyHw6KLmayMAARSUfKAdPaRDlQGwPJS7fZkDwQJQwYgOQJNGB8NhOqZwJFxMV0oFkRkGxwYG5h0VFXkPYTC6mFB0HOAKZL4shYfnwhQ0e1wPZp5QJmLJ2xwHV6pgAchstYwACtiEJIsIyHQ8dEmDQpGJnvoi4706j4qhklZUJE0KhEgJSdjHNEwABfAC6QA
           code: |

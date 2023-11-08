@@ -1,30 +1,18 @@
 ---
-title: "Progress Bar"
+title: "Slider Range"
 sidebar: components 
 previewapp: |
-  import asyncio
-
-  from shiny import App, reactive, render, ui
+  from shiny import App, render, ui
 
   app_ui = ui.page_fluid(
-      ui.input_action_button("button", "Compute"),
-      ui.output_text("compute"),
-      {"class": "vh-100 d-flex justify-content-center align-items-center px-4"}
+      ui.input_slider("range", label="", value=[25, 70], min=1, max=100),
+        {"class": "vh-100 d-flex justify-content-center align-items-center px-4"}
   )
-
   def server(input, output, session):
       @output
-      @render.text
-      @reactive.event(input.button)
-      async def compute():
-          with ui.Progress(min=1, max=15) as p:
-              p.set(message="Calculation in progress", detail="This may take a while...")
-
-              for i in range(1, 15):
-                  p.set(i, message="Computing")
-                  await asyncio.sleep(0.1)
-
-          return "Done computing!"
+      @render.plot
+      def hist():
+          print(input.range())
 
   app = App(app_ui, server)
 listing:
@@ -162,4 +150,3 @@ listing:
 
 :::{.component}
 :::
-

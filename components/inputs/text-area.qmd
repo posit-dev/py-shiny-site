@@ -1,45 +1,47 @@
 ---
 title: "Text Area"
 sidebar: components 
-preview: |
-  <div class="px-4">
-  <div class="form-group shiny-input-container">
-  <textarea id="x" class="form-control shiny-bound-input" style="width: 100%; height: 58px;" placeholder="Enter text"></textarea>
-  </div>
-  </div>
+previewapp: |
+  from shiny import App, render, ui
+
+  app_ui = ui.page_fluid(
+      ui.input_text_area("x", "", placeholder="Enter text"),
+      ui.output_text_verbatim("txt"),
+      {"class": "vh-100 d-flex justify-content-center align-items-center px-4"}
+  )
+
+  def server(input, output, session):
+      @output
+      @render.text
+      def txt():
+          return f''
+
+  app = App(app_ui, server, debug=True)
 listing:
   id: component
   template: ../_partials/components-detail.ejs
   contents:
-    - title: DataTable
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYNFMAMQAPH3asRDaDjT6jgBujpFCFWQ2peVlzq7upNGIBYVMAAJL870D24W7dhAOdBjVtfWNR4MQO0xjLLwRwu0xiA8nz7ZwMh8OhPc6XDAAERqUAAKlAAEZsJqtETdfqPbRoVDJKyoSJYxICVZ0aZ0aJgAC+AF0gA
+    - title: Text Area
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNFAB7uoUqHbAvMmV8JhCAFThvXghXYNCQgFFyOSYgjAyQgEo8e0cxDGI3OI8o9wA3OQAjKDI+APKoKzhs3Igs1VVZGlY5SrobFzcJIrI4iRY4FhYOUizEPIcAAVG4xaYlqQhZOgwg9e6mRuabefXHSTgyEToIGLi9stPO6HQ9JiVUGw1tcV66fpZMAAXwAukA
       code: |
-        from palmerpenguins import load_penguins
-        from shiny import App, render, session, ui
-
-        penguins = load_penguins()
-
+        from shiny import ui, render, App
+        
         app_ui = ui.page_fluid(
-          ui.output_data_frame("penguins_df") #<<
+            ui.input_text_area("text", "Text input", "Enter text..."), #<<
+            ui.output_text_verbatim("value"),
         )
-
+        
         def server(input, output, session):
-            @output #<<
-            @render.data_frame #<<
-            def penguins_df(): #<<
-                return render.DataTable(penguins) #<<
-
+            @output
+            @render.text
+            def value():
+                return input.text()
+        
         app = App(app_ui, server)
       relevantfunctions:
-        - title: ui.output_data_frame
-          href: https://shiny.posit.co/py/api/ui.output_data_frame.html
-          signature: ui.output_data_frame(id)
-        - title: render.data_frame
-          href: https://shiny.posit.co/py/api/render.data_frame.html
-          signature: render.data_frame(fn=None)
-        - title: render.DataTable
-          href: https://shiny.posit.co/py/api/render.DataTable.html
-          signature: render.DataTable(self, data, *, width='fit-content', height='500px', summary=True, filters=False, row_selection_mode='none')
+        - title: ui.input_text_area
+          href: https://shiny.posit.co/py/api/ui.input_text_area.html
+          signature: ui.input_text_area(id, label, value='', *, width=None, height=None, cols=None, rows=None, placeholder=None, resize=None, autoresize=False, autocomplete=None, spellcheck=None)
       details: |
 
         <p>A DataTable presents tabular data in a spread sheet like view. </p>
@@ -137,7 +139,6 @@ listing:
                     )
 
             app = App(app_ui, server)
-
 ---
 
 :::{.component}

@@ -1,10 +1,23 @@
 ---
 title: "Text"
 sidebar: components 
-preview: |
-  <div class="form-group shiny-input-container">
-  <input id="x" type="text" class="form-control shiny-bound-input" value="" placeholder="Enter text" autocomplete="off">
-  </div>
+previewapp: |
+  from shiny import App, render, ui
+
+  app_ui = ui.page_fluid(
+      ui.input_text("x", "", placeholder="Enter text"),
+      ui.output_text("txt"),
+      {"class": "vh-100 d-flex justify-content-center align-items-center px-4 flex-column"}
+  )
+
+  def server(input, output, session):
+      @output
+      @render.text
+      def txt():
+          return f'x: "{input.x()}"'
+
+  app = App(app_ui, server, debug=True)
+
 listing:
   id: component
   template: ../_partials/components-detail.ejs
@@ -30,22 +43,23 @@ listing:
         - title: ui.output_text
           href: https://shiny.posit.co/py/api/ui.output_text.html
           signature: ui.output_text(id, inline=False, container=None)
-        - title: @render.text
+        - title: "@render.text"
           href: https://shiny.posit.co/py/api/render.text.html
           signature: render.text(fn=None)
       details: |
-
-        Text displays a character string as normal text. 
+        <p>Text displays a character string as normal text. </p>
         
-        To make reactive text, follow three steps:
+        <p>To make reactive text, follow three steps:</p>
           
-        1. Call `ui.output_text()` in the UI of your app to create a div in which to display the text. Where you call this function within the UI functions will determine where the text will appear within the layout of the app. Set the id argument of `ui.output_text()` to a unique value.
+        <ol>
+          <li>Call `ui.output_text()` in the UI of your app to create a div in which to display the text. Where you call this function within the UI functions will determine where the text will appear within the layout of the app. Set the id argument of `ui.output_text()` to a unique value.</li>
         
-        2. Within the server function, define a new function whose name matches the id used above. The function should return the text to display. Shiny will rerun this function whenever it needs to build or update the output that has the matching id.
+          <li>Within the server function, define a new function whose name matches the id used above. The function should return the text to display. Shiny will rerun this function whenever it needs to build or update the output that has the matching id.</li>
         
-        3. Decorate the function with `@render.text`
+          <li>Decorate the function with `@render.text`</li>
+        </ol>
         
-        See [Verbatim Text](TODO: ADD LINK TO VERBATIM TEXT) to display string values as they would appear in a computer console, in monospaced font on a shaded background.
+        <p>See [Verbatim Text](TODO: ADD LINK TO VERBATIM TEXT) to display string values as they would appear in a computer console, in monospaced font on a shaded background.</p>
         
       variations:
         - title: Inline text

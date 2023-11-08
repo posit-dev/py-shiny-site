@@ -13,30 +13,29 @@ format:
 filters:
   - quarto
   - line-highlight
+  - shinylive
 listing: 
-  - id: inputs
+  - id: input
     type: grid
     template: _partials/components-list.ejs
     contents: 
       - ../../components/inputs/*.qmd
-  - id: outputs
+  - id: output
     type: grid
     template: _partials/components-list.ejs
     contents: 
       - ../../components/outputs/*.qmd
-  - id: display-messages
+  - id: display-message
     type: grid
     template: _partials/components-list.ejs
     contents: 
       - ../../components/display-messages/*.qmd
 ---
 
-
 :::::{.column-screen-inset .mx-auto style="max-width: 1300px;"}
 
 ::::{.grid style="height:460px;border-bottom:1px solid;"}
 ::::{.g-col-lg-8 .g-col-12 .my-auto}
-
 
 :::{.display-3 .fw-bold}
 Shiny Components
@@ -56,30 +55,27 @@ Shiny Components
 
 ::::
 
-::: {.grid style="border-top: 1px solid #ccc;padding-top:5rem;padding-bottom:5rem;margin-top: -1px;"}
+::: {.grid style="border-top: 1px solid #ccc;padding-top:3rem;padding-bottom:5rem;margin-top: -1px;" #inputs}
 
 ::: {.g-col-lg-3 .g-col-12}
 ::: {.sticky-top .pt-4}
 
-<h2 class="mt-4"> <i class="bi bi-sliders indigo"></i> Inputs </h2>
+<h2 class="mt-4"> <i class="bi bi-sliders blue"></i> Inputs </h2>
 
 Inputs allow users to interact with the webpage by clicking a button, entering text, selecting an option, and more.
 
 :::
 :::
-<div class="g-col-lg-9 g-col-12 pt-3 ps-0 ps-lg-5 ms-0 ms-lg-4">
+<div class="g-col-lg-9 g-col-12 pt-5 ps-0 ps-lg-5 ms-0 ms-lg-4">
 
-::: {#inputs .grid}
+::: {#input .grid}
 
 :::
 
 </div>
 :::
 
-
-
-
-::: {.grid style="border-top: 1px solid #ccc;padding-top:5rem;padding-bottom:5rem;margin-top: -1px;"}
+::: {.grid style="border-top: 1px solid #ccc;padding-top:3rem;padding-bottom:5rem;margin-top: -1px;" #outputs}
 
 ::: {.g-col-lg-3 .g-col-12}
 ::: {.sticky-top .pt-4}
@@ -90,40 +86,32 @@ Outputs create a spot on the webpage to display results from the server, such as
 
 :::
 :::
-<div class="g-col-lg-9 g-col-12 pt-3 ps-0 ps-lg-5 ms-0 ms-lg-4">
+<div class="g-col-lg-9 g-col-12 pt-5 ps-0 ps-lg-5 ms-0 ms-lg-4">
 
-::: {#outputs .grid}
+::: {#output .grid}
 
 :::
 
 </div>
 :::
 
-
-
-
-
-
-::: {.grid style="border-top: 1px solid #ccc;padding-top:5rem;padding-bottom:5rem;margin-top: -1px;"}
+::: {.grid style="border-top: 1px solid #ccc;padding-top:3rem;padding-bottom:5rem;margin-top: -1px;" #display-messages}
 
 ::: {.g-col-lg-3 .g-col-12}
 ::: {.sticky-top .pt-4}
 
-<h2 class="mt-4"> <i class="bi bi-chat-right-dots-fill indigo"></i> Display Messages </h2>
-
-
+<h2 class="mt-4"> <i class="bi bi-chat-dots-fill purple"></i> Display Messages </h2>
 
 Provide feedback to your user with notifications, progress bars, and confirmation modals.
 
 :::
 :::
-<div class="g-col-lg-9 g-col-12 pt-3 ps-0 ps-lg-5 ms-0 ms-lg-4">
 
+<div class="g-col-lg-9 g-col-12 pt-5 ps-0 ps-lg-5 ms-0 ms-lg-4">
 
-::: {#display-messages .grid}
+::: {#display-message .grid}
 
 :::
-
 
 </div>
 :::
