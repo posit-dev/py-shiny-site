@@ -60,7 +60,7 @@ listing:
           Specify the `id` and `label` parameters of `ui.input_radio_buttons()` to define the identifier and label of the set of radio buttons.
           </li>
           <li>
-          Specify the value and label that accompanies each radio button using the `choices` parameter. `choices` can be either a list or a dictionary. If `choices` is a a list, the list elements become the radio button values and labels. If `choices` is a dictionary, `ui.input_radio_buttons()` uses the dictionary keys as the button values and the dictionary values as the button labels. 
+          Specify the value and label that accompanies each radio button using the `choices` parameter. `choices` can be either a list or a dictionary. If `choices` is a list, the list elements become the radio button values and labels. If `choices` is a dictionary, `ui.input_radio_buttons()` uses the dictionary keys as the button values and the dictionary values as the button labels. 
           </li>
         </ol>
         

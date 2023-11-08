@@ -70,7 +70,7 @@ listing:
           Specify the `id` and `label` parameters of `ui.input_select()` to define the identifier and label of the select list.
           </li>
           <li>
-          Supply the `choices` parameter with either a list or dictionary of choices. If `choices` is a a list, its elements become the select list values and labels. If `choices` is a dictionary, `ui.input_select()` uses the dictionary keys as the list values and the dictionary values as the list labels. 
+          Supply the `choices` parameter with either a list or dictionary of choices. If `choices` is a list, its elements become the select list values and labels. If `choices` is a dictionary, `ui.input_select()` uses the dictionary keys as the list values and the dictionary values as the list labels. 
           </li>
           <li>
           Set the `multiple` parameter to `True` to allow the user to select multiple items at once. By default, `multiple` is `False`.

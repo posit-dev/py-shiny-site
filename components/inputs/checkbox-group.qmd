@@ -68,7 +68,7 @@ listing:
          </li>
          
           <li>
-          Supply the `choices` parameter with either a list or dictionary of choices. If `choices` is a a list, its elements become the select list values and labels. If `choices` is a dictionary, `ui.input_checkbox_group()` uses the dictionary keys as the checkbox values and the dictionary values as the checkbox labels. 
+          Supply the `choices` parameter with either a list or dictionary of choices. If `choices` is a list, its elements become the select list values and labels. If `choices` is a dictionary, `ui.input_checkbox_group()` uses the dictionary keys as the checkbox values and the dictionary values as the checkbox labels. 
           </li>
 
         </ol>
