@@ -87,7 +87,7 @@ listing:
           </li>
         </ol>
         
-        <p>See also: Selectize (Single) (TODO: ADD LINK TO Selectize (Single) HERE)</p>
+        <p>See also: Selectize (Single) (TODO: ADD LINK TO Selectize (Single) HERE) and Select (Multiple) (TO DO ADD SELECT MULTIPLE LINK HERE). The Select Input is similar to the Selectize Input, but _________.</p>
 ---
 
 :::{.component}
