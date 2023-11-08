@@ -1,0 +1,93 @@
+---
+title: "Plot: Matplotlib"
+sidebar: components
+preview: |
+  <div class="px-3">
+  <img style="width: 100%;" src="/images/plot.png">
+  </div>
+listing:
+  id: component
+  template: ../_partials/components-detail.ejs
+  contents:
+    - title: "Plot: Matplotlib"
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMaVC7xGqSgHNVNCFMVNWPKABMA+pYg27E-YeMJAAs7TUdlAEF0PBZGSlc4RhjbeXk0VHdbFgBeFlssKCs4dz0uW1cACnkWGryaDDtUVTJ3CX4ExirIWXwWHoA5dQFElmI9FgFfHpiABhiARhm5lgAmGYBKPGra-OJmppbRMi6jns35ddSIeQTxiUSAN0SKxuaYvc43lnuJCRpSdaIbY1AACcQgHSwPGOpjI2R6ERYIQkZGIVkYsDOwJYt2k0IqgOxtRx41yLg8Xh89gJRNq7F+ORJwB6AmIrmw7npEncVh6AF0rsTiXoaFYYlAAB6MmQYCSqARHCQ0iBC2qSjDI45cmKvMgYCAEmIJew0MjYbIAFUYqjglxVqvEEtlcBaZFNXDgXQACqZzCwvdZbCqALKSH5Y+2q9X3FoSrhQYZcLqhhkVKyXMB2h2O50tbDxxNdAAilD+ZojtJqcTIqkYKpFvOuTfSjKiqAq6UyNBi90YTySOLgAlUVkt1tt8jAAF8+UA
+      code: |4
+          import matplotlib.pyplot as plt
+          import numpy as np
+          from palmerpenguins import load_penguins
+          from shiny import App, render, ui
+
+          app_ui = ui.page_fluid(
+              ui.input_slider("n", "Number of bins", 0, 100, 20),
+              ui.output_plot("plot"),  #<<
+          )
+
+
+          def server(input, output, session):
+              @render.plot(alt="A histogram")  #<<
+              def plot():
+                  df = load_penguins()
+                  mass = df["body_mass_g"]
+
+                  fig, ax = plt.subplots()  #<<
+                  ax.hist(mass, input.n(), density=True)
+                  ax.set_title("Palmer Penguin Masses")
+                  ax.set_xlabel("Mass (g)")
+                  ax.set_ylabel("Density")
+
+                  return fig  #<<
+
+
+          app = App(app_ui, server, debug=True)
+
+      relevantfunctions:
+        - title: ui.output_plot
+          href: https://shiny.posit.co/py/api/ui.output_plot.html
+          signature: ui.output_plot(id, width='100%', height='400px', *, inline=False, click=False, dblclick=False, hover=False, brush=False, fill=MISSING)
+        - title: "@render.plot"
+          href: https://shiny.posit.co/py/api/render.plot.html
+          signature: render.plot(_fn=None, *, alt=None, width=MISSING, height=MISSING, **kwargs)
+        - title: matplotlib.pyplot.subplots
+          href: https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html
+          signature: matplotlib.pyplot.subplots(nrows=1, ncols=1, *, sharex=False, sharey=False, squeeze=True, width_ratios=None, height_ratios=None, subplot_kw=None, gridspec_kw=None, **fig_kw)
+        - title: matplotlib.axes.Axes.hist
+          href: https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.hist.html
+          signature: Axes.hist(x, bins=None, range=None, density=False, weights=None, cumulative=False, bottom=None, histtype='bar', align='mid', orientation='vertical', rwidth=None, log=False, color=None, label=None, stacked=False, *, data=None, **kwargs)
+
+      details: |
+
+              <p>The Matplotlib is a library that can be used to create plots.</p>
+
+              <p>Follow three steps to display a Matplotlib figure in your app:</p>
+
+              <ol>
+                <li>
+                Add `ui.output_plot()` to the UI of your app to create a div in which to display the figure.
+                Where you call this function will determine where the figure will appear within the layout of the app.
+                </li>
+                <li>
+                Define a function within the `server()` function that creates the figure and
+                is wrapped around with the `@render.plot()` decorator to return the figure.
+                If your function calls reactive values, Shiny will update your figure whenever those values change,
+                in a [reactive fashion](https://shiny.posit.co/py/docs/reactive-programming.html).
+                </li>
+                  <ul>
+                    <li>The name of the decorated function (or `@output(id=...)`) should match the `id` of a `output_plot()` container.</li>
+                  </ul>
+
+                To notify Shiny that your function returns a reactive figure to display, decorate the function with:
+
+                <ul>
+                  <li>`@render.plot()`</li>
+                </ul>
+
+                <li>Pass `ui.output_plot()` the name of the function that builds the figure for the `input` argument,
+                as a character string,
+                to indicate which figure should be displayed in the div.
+                </li>
+              </ol>
+
+---
+
+:::{.component}
+:::
