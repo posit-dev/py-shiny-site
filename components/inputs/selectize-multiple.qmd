@@ -79,7 +79,7 @@ listing:
           </li>
         </ol>
         
-        <p>To access the value of a selectize list:</p>
+        <p>The currently selected value of the selectize list is accessible as a reactive value within the server function. To access the value of a selectize list:</p>
         
         <ol>
           <li>
