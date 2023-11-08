@@ -29,18 +29,15 @@ listing:
   template: ../_partials/components-detail.ejs
   contents:
     - title: Selectize List
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZDgBecDZMAMQAPOH2jjHKYF4+fnESEVEQMbFgAMrevsIARsQAHslhkdEZTCBlaZWVcQCMcYhVjSLNTHEAwmzEHIRwTA3t+J1gDQBCHd29-YOTpY1d02A9fQNDy2AAvinl6XWZAEwdIHFHIy0z64MXi2BHU0hja3NMj-dHW1ersxtfcW2NQqGV2wIOlRgCgs-lQPl0ADEoBYvOCYgBKPa1RyGYjuNweChFMh2MAAN2RCjgcUxqnRqlUshorDkZLkNlc7gkeLIBIkXhYLA4pHRiBBAAEeQSJVIILI6BgiWQQUymBSrMFRSCYlIyAo6OkaHEQJyyBgEnkbOjtnEGdB0HpROgbBptBx+ay5OidgBdIA
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZDgBecDZMAMQAPOH2jjHKYF4+foFwcRIRURAxsWAAyt6+wlCZxKj+pEwARt7EAO6IqWGR0VlMIHEAjCJxiExxAMJsxByEcEydDR0AQt29YANDI2PT+LPtfTP9g8Oja3EAvmlNmY4AlIcZMYbE7m4eFAAeZHZgAG5QVilgZ6onqqqyNFYchechsrncEmuZFuEi8LBYHFIJ3qxwcAAEpBBZHQMA8yM0mACmG8PjZkQSYlIyAo6JkaHEQOCyBgEgVkmS9nE-tB0HpROgbBptBxYcC5L8IGA9gBdIA
       code: |
         from shiny import App, render, ui
         
         app_ui = ui.page_fluid(
             ui.input_selectize( #<<
                 "selectize", #<<
-                "Select box", #<<
-                { #<<
-                    "1": {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"}, #<<
-                    "2": {"2A": "Choice 2A", "2B": "Choice 2B", "2C": "Choice 2C"} #<<
-                }, #<<
+                "Select an option below:", #<<
+                {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"}, #<<
             ), #<<
             ui.output_text("value"),
         )
@@ -86,7 +83,32 @@ listing:
           </li>
         </ol>
         
-        <p>See also: Selectize (Multiple) (TODO: ADD LINK TO Selectize (Multiple) HERE)</p>
+        <p>See also: Selectize (Multiple) (TODO: ADD LINK TO Selectize (Multiple) HERE) and Select (Single) (TO DO ADD SELECT SINGLE LINK HERE). Select inputs and selectize inputs are similar, but have different interfaces and provide different ways of selecting multiple options. Selectize inputs also allow you to deselect items.</p>
+      variations:
+        - title: Selectize with grouped choices
+          description: To group the choices into categories, supply the `choices` argument with a dictionary of dictionaries. `ui.input_selectize()` will use the top-level keys as group labels.
+          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZDgBecDZMAMQAPOH2jjHKYF4+foFwcRIRURAxsWAAyt6+wlCZxKj+pEwARt7EAO6IqWGR0VlMII0ZLS1xAIxxiK09In1McQDCbMQchHBM3UP4I2DdAELDYxNTMysNPaNrYOOT07N7YAC+aU2ZndkATMMgcbfz-etHM887YLerSIuHmyYPy+t1OrwOG2OoLiZ3azSyFzh1wcAEpLh1HIZiO43B4KAAPMh2MAANygVhSYDRqhRqlUshorDkJLkNlc7gk2LIuIkXhYLA4pBR9WRTAAAlIILI6BgCWR4QymGSKTZhfCYlIyAo6JkaHEQOyyBgEgVkqqznE6dB0HpROgbBptBxecy5CjzgBdIA
+          code: |
+            from shiny import App, render, ui
+            
+            app_ui = ui.page_fluid(
+                ui.input_selectize( #<<
+                    "selectize", #<<
+                    "Select an option below:", #<<
+                    { #<<
+                        "1": {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"}, #<<
+                        "2": {"2A": "Choice 2A", "2B": "Choice 2B", "2C": "Choice 2C"} #<<
+                    }, #<<
+                ), #<<
+                ui.output_text("value"),
+            )
+            
+            def server(input, output, session):
+                @render.text
+                def value():
+                    return f"{input.selectize()}"
+            
+            app = App(app_ui, server)
 ---
 
 :::{.component}

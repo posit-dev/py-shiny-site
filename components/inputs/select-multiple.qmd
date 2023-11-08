@@ -29,18 +29,15 @@ listing:
   template: ../_partials/components-detail.ejs
   contents:
     - title: Select (Multiple)
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZG0wAxAA8wfaOEcpgXj5+URIhYRARkWAAyt6+wgBGxAAe8UGh4SlMIEVJpaVRAIxRiGW1IvVMUQDCbMQchHBMNc34rWA1AEIt7Z3dvaOFtW3jYB1dPX3zYAC+CcXJVakATC0gUXsDDRPLvSezYHtjSENLU0y313trZ4uTK29R6xUlKU2-x2pRgCgsZA4qB8ugAKnQFL1EgCAJRbSqOQzEdxuDwUPL+KIANygVjgUTRqhRqlUshorDkRLkNlc7gk2LIuIkXhYLA4pBRiABAAEObiRVIILI6Bh8WQAXSmCSyTZBQCIlIyAo6MkaFEQKyyBgYllVesojToOg9KJ0DYNNoONzGXIURsALpAA
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZG0wAxAA8wfaOEcpgXj5+URIhYRARkWAAyt6+wsSoZBykLEwARt7EAO6I8UGh4SlMIFEAjCJRiExRAMJsxByEcEzNVU0AQq3tYF09fQOj+OONHWOd3b39C1EAvgk1yXVMMAoWeag+ugAqdAr9ibVMAJTbSRGGxO5uHhQAHv5RAG5QVjgUQeqjuqlUshorDkvzkNlc7gkrzI7wkXhYLHyEDulV2DgAAlIILI6BgvmRbpCmP9ATYcbcIlIyAo6MkaFEQAiyBgYlk6RsouDoOg9KJ0DYNNoOGiYXI7mANgBdIA
       code: |
         from shiny import App, render, ui
         
         app_ui = ui.page_fluid(
             ui.input_select( #<<
                 "select", #<<
-                "Select box", #<<
-                { #<<
-                    "1": {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"}, #<<
-                    "2": {"2A": "Choice 2A", "2B": "Choice 2B", "2C": "Choice 2C"} #<<
-                }, #<<
+                "Select options below:", #<<
+                {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"}, #<<
                 multiple=True #<<
             ), #<<
             ui.output_text("value"),
@@ -71,6 +68,8 @@ listing:
           </li>
           <li>
           Supply the `choices` parameter with either a list or dictionary of choices. If `choices` is a list, its elements become the select list values and labels. If `choices` is a dictionary, `ui.input_select()` uses the dictionary keys as the list values and the dictionary values as the list labels. 
+          
+          You can also supply with `choices` a dictionary of dictionaries. `ui.input_select()` will use the top-level keys as group labels.
           </li>
           <li>
           Set the `multiple` parameter to `True` to allow the user to select multiple items at once. By default, `multiple` is `False`.
@@ -85,7 +84,33 @@ listing:
           </li>
         </ol>
         
-        <p>See also: Select (Single) (TODO: ADD LINK TO Select (Single) HERE)</p>
+        <p>See also: Select (Single) (TODO: ADD LINK TO Select (Single) HERE) and Selectize (Multiple) (TO DO ADD SELECTIZE MULTIPLE LINK HERE). Select inputs and selectize inputs are similar, but have different interfaces and provide different ways of selecting multiple options. Selectize inputs also allow you to deselect items.</p>
+      variations:
+        - title: Select list with grouped choices
+          description: To group the choices into categories, supply the `choices` argument with a dictionary of dictionaries. `ui.input_select()` will use the top-level keys as group labels.
+          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZG0wAxAA8wfaOEcpgXj5+URIhYRARkWAAyt6+wsSoZBykLEwARt7EAO6I8UGh4SlMINVJdXVRAIxRiPVtIh1MUQDCbMQchHBMrT34fWCtAEK9A0MjY3NVbf0LYIPDo+MbYAC+CTXJzakATL0gUeeTnYs7Y7drYOfzSNPby0xvL+f79y2S12-yiB0atRSRwhpzqMAUFjyqB8ugAKnQFGNEpCAJTHJqOQzEdxuDwUAAe-iiADcoFY4FE8aocapVLIaKw5NS5DZXO4JMSyKSJF4WCx8hAcZVYUwAAJSCCyOgYClkSHspi0+k2KWQiJSMgKOjJGhREB8sgYGJZHUHKKs6DoPSidA2DTaDgirlyHGHAC6QA
+          code: |
+            from shiny import App, render, ui
+            
+            app_ui = ui.page_fluid(
+                ui.input_select( #<<
+                    "select", #<<
+                    "Select options below:", #<<
+                    { #<<
+                        "1": {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"}, #<<
+                        "2": {"2A": "Choice 2A", "2B": "Choice 2B", "2C": "Choice 2C"} #<<
+                    }, #<<
+                    multiple=True #<<
+                ), #<<
+                ui.output_text("value"),
+            )
+            
+            def server(input, output, session):
+                @render.text
+                def value():
+                    return f"{input.select()}"
+            
+            app = App(app_ui, server)
 ---
 
 :::{.component}
