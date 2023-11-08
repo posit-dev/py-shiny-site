@@ -64,7 +64,7 @@ listing:
           </li>
         </ol>
         
-        <p>To access the value of a set of radio buttons:</p>
+        The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a set of radio buttons:</p>
         
         <ol>
           <li>

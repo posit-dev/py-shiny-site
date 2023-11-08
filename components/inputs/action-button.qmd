@@ -44,7 +44,7 @@ listing:
           </li>
         </ol>
         
-        <p>To access the value of an action button:</p>
+        The value of an input component is accessible as a reactive value within the `server()` function. To access the value of an action button:</p>
         
         <ol>
           <li>
