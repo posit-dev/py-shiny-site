@@ -59,7 +59,7 @@ listing:
 
         <p>A selectize list creates a way to select one or more items from a list.</p>
 
-        <p>To use a selectize list that allows you to select a _single_ item: </p>
+        <p>To use a selectize list that allows you to select a <em>single</em> item: </p>
 
         <ol>
           <li>
