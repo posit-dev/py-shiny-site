@@ -47,7 +47,6 @@ listing:
           href: https://shiny.posit.co/py/api/render.text.html
           signature: render.text(fn=None)
       details: |
-
         <p>Text displays a character string as normal text. </p>
         
         <p>To make reactive text, follow three steps:</p>

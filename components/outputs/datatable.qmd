@@ -40,6 +40,7 @@ listing:
           href: https://shiny.posit.co/py/api/render.DataTable.html
           signature: render.DataTable(self, data, *, width='fit-content', height='500px', summary=True, filters=False, row_selection_mode='none')
       details: |
+      
         <p>A DataTable presents tabular data in a figure-like view with a minimum of grid lines.</p>
         
         <p>To make a reactive Data Table, follow three steps:</p>
@@ -164,4 +165,5 @@ listing:
 
 :::{.component}
 :::
+
 
