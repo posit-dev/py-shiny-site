@@ -27,7 +27,7 @@ listing:
         from shiny import App, reactive, ui
         
         app_ui = ui.page_fluid(
-            ui.help_text("Press the button below to..."),
+            ui.help_text("Press the button below to..."), #<<
             ui.tags.br(),
             ui.input_action_button("show", "Click Me")
         )
