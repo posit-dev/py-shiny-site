@@ -59,7 +59,7 @@ listing:
 
         Control the placement of the tooltip relative to the item it highlights with the `placement` argument. `placement` defaults to `'auto'`, but can be set to one of `'top'`, `'bottom'`, `'left'`, or `'right'`.
 
-        ## Accessibility Of Tooltip Triggers
+        ## Accessibility of Tooltip Triggers
 
         Because the user needs to interact with the `trigger` element to see the `tooltip`, it's best practice to use an element that is typically accessible via keyboard interactions, like a button or a link.
 
