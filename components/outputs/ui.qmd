@@ -41,7 +41,7 @@ listing:
 
           <li>Within the server function, define a new function whose name matches the id used above. The function should return a UI element, like an input control.</li>
 
-          <li>Decorate the function with `@render.ui`. If you're using a button or other element to show or hide the UI element, you'll also need to decorate with `@reactive.event`.</li>
+          <li>Decorate the function with `@render.ui`. If you're using an action button or link to show the UI element, you'll also need to decorate with `@reactive.event`.</li>
         </ol>
         
       variations:
@@ -63,6 +63,25 @@ listing:
                     return ui.input_slider("slider", "Current number:", min=1, max=10, value=input.number()),
             
             app = App(app_ui, server)
+      - title: Toggle to show or hide an input
+        description: Use an input control to switch between showing or hiding a UI output element.
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdCPrSoA+jqYBeJjqxQA5nGM0ANjtUAKfUy9WOGLqi0yYxYAdw4yQjYPMHZiEOCnDnU6XXwmVIBlNjjWROTUgEo8T29rYkCAoJ1onQBRJzh4ckLiiAL9DrU4GlYNRTo3f0CJcrJKiRY4FhYOUgLEEq8AARVkjB1FpnUeuoamsjd5ze9eHsGISoxY+JY8jUOjiBPn7ykyLTon6yGg26T71J-fJpVIAYWyxEmTCgTAgWhgACMNKkJDAuOYAIyoqAAD0xAAYJPIoC44OYAKztAzQdAWUToNxGUwcCZ9DQFMAAXwAukA
+        code: |
+          from shiny import App, reactive, render, ui
+          
+          app_ui = ui.page_fluid(
+              ui.input_switch("show_slider", "Show slider"),
+              ui.output_ui("uiElement"),
+          )
+          
+          
+          def server(input, output, session):
+              @render.ui
+              def uiElement():
+                  if (input.show_slider()):
+                      return ui.input_slider("slider", "Choose a number", min=1, max=10, value=5)
+          
+          app = App(app_ui, server)
 
 ---
 
