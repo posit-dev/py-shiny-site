@@ -63,7 +63,7 @@ listing:
 
         Because the user needs to interact with the `trigger` element to see the `tooltip`, it's best practice to use an element that is typically accessible via keyboard interactions, like a button or a link.
 
-        If you use a non-interactive element, like a `<span> `or text, `tooltip()` will automatically add the `tabindex="0"` attribute to the trigger element to make sure that users can reach the element with the keyboard. This means that in most cases you can use any element you want as the trigger.
+        If you use a non-interactive element, like a `<span>` or text, `tooltip()` will automatically add the `tabindex="0"` attribute to the trigger element to make sure that users can reach the element with the keyboard. This means that in most cases you can use any element you want as the trigger.
 
         One place where it's important to consider the accessibility of the trigger is when using an icon without any accompanying text. In these cases, many icon elements are created with the assumption that the icon is decorative, which will make it inaccessible to users of assistive technologies.
 
