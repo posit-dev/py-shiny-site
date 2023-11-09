@@ -36,131 +36,166 @@ listing:
   id: component
   template: ../_partials/components-detail.ejs
   contents:
-    - title: DataTable
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYNFMAMQAPH3asRDaDjT6jgBujpFCFWQ2peVlzq7upNGIBYVMAAJL870D24W7dhAOdBjVtfWNR4MQO0xjLLwRwu0xiA8nz7ZwMh8OhPc6XDAAERqUAAKlAAEZsJqtETdfqPbRoVDJKyoSJYxICVZ0aZ0aJgAC+AF0gA
+    - title: Notifications
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwdmIAdzV8JliAZTZopgA5YjkaDkIof00wAEo8DQKNDTs4GlY4OkU6B09vCWJvLzIJFjgWFg5SAsQyiFcmAAEpPwU4DABRGho4WWdXMelZSYw4RXIGiDaMSKjSodcKqp0HfqXhlwgDACYr65MIDI4snLydA6dj6+uaWIAFU4LCYUQ41msTDsHBY2mkdCYUBoFERIAgAF9qiQIHYWBhYhJHn8XHZlHRcr1bppftcjlp0IZROgHNo9BwOjU6gUwBiALpAA
       code: |
-        from palmerpenguins import load_penguins
-        from shiny import App, render, session, ui
-
-        penguins = load_penguins()
-
+        from shiny import App, reactive, ui
+        
         app_ui = ui.page_fluid(
-          ui.output_data_frame("penguins_df") #<<
+            ui.input_action_button("show", "Show Notification"),
         )
-
+        
         def server(input, output, session):
-            @output #<<
-            @render.data_frame #<<
-            def penguins_df(): #<<
-                return render.DataTable(penguins) #<<
-
+        
+            @reactive.Effect
+            @reactive.event(input.show)
+            def _():
+                n=2
+                ui.notification_show( #<<
+                    f"This will disappear after {n} seconds.", #<<
+                    duration=n #<<
+                )
+        
         app = App(app_ui, server)
       relevantfunctions:
-        - title: ui.output_data_frame
-          href: https://shiny.posit.co/py/api/ui.output_data_frame.html
-          signature: ui.output_data_frame(id)
-        - title: render.data_frame
-          href: https://shiny.posit.co/py/api/render.data_frame.html
-          signature: render.data_frame(fn=None)
-        - title: render.DataTable
-          href: https://shiny.posit.co/py/api/render.DataTable.html
-          signature: render.DataTable(self, data, *, width='fit-content', height='500px', summary=True, filters=False, row_selection_mode='none')
+        - title: ui.notification_show
+          href: https://shiny.posit.co/py/api/ui.notification_show.html
+          signature: ui.notification_show(ui, *, action=None, duration=5, close_button=True, id=None, type='default', session=None)
+        - title: ui.notification_remove
+          href: https://shiny.posit.co/py/api/ui.notification_remove.html
+          signature: ui.notification_remove(id, *, session=None)
       details: |
 
-        <p>A DataTable presents tabular data in a spread sheet like view. </p>
+        A notification is a message that appears near the bottom corner of the app. Notifications normally disappear after a short period of time, and should multiple notifications appear together, they will stack on top of one another.
 
-        <p>Follow three steps to display a DataTable in your app:</p>
+        To create a notification, call [`ui.show_notification()`](TODO ADD LINK TO UI SHOW NOTIFICATION). Typically, you will want to create a reactive effect to call `ui.show_notification()` whenever a particular event occurs. For example, the reactive effect below will create a notification whenever the value of `input.show()` changes.
 
-        <ol>
-          <li>
-          Add `ui.output_data_frame()` to the UI of your app to create a div in which to display the table. Where you call this function will determine where the table will appear within the layout of the app. For example, ...
-          </li>
-          <li>
-          Define a function within the `server` function that builds your table and uses `render.DataTable()` to return the result. Where`render.DataTable()`will package the table as an HTML data table for display. If your function calls reactive values, Shiny will update your table whenever those values change, in a [reactive fashion]().
-          
-          To notify Shiny that your function returns a reactive table to display, decorate the function with two decorators:
-          
-           <ul>
-             <li>`@output`</li>
-             <li>`@render.data_frame()`</li>
-           </ul>
+        ```
+        @reactive.Effect
+        @reactive.event(input.show)
+        def _():
+            ui.notification_show("You've been notified.")
+        ```
 
-          </li>
+        You can call [`ui.remove_notification()`](TODO ADD LINK TO UI REMOVE NOTIFICATION) to remove a notification programatically, but usually app developers will let notifications expire on their own. Also, notifications come by default with a button that the user can click to close the notification prematurely.
 
-          <li>Pass `ui.output_data_frame()` the name of the function that builds the DataTable, as a character string, to indicate which DataTable should be displayed in the div. 
-          </li>
-        </ol>
+        ## Duration
+
+        By default, Shiny notifications will disappear after five seconds. To change how long a notification appears for, set the `duration` argument of `ui.show_notification()` to an integer number of seconds. Set `duration` to `None` to have the notification appear until the user closes it. 
+
+        ## Type
+
+        Shiny notifications come in three types: messages, warnings and errors. To set the type of a notification, use the `type` argument of `ui.show_notification()`.
+
+        ## See Also
+
+        [Modal messages](TO DO ADD LINK TO MODAL DETAIL PAGE) provide a similar, but alternative way to display information to the user.
 
       variations:
-        - title: Filterable Table
-          description: An optional place for a description here that goes about this long but then (oh my gosh!) it's now going even longer to show what the line-height looks like.
-          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYLEQ3doONPqOAG6OkUIVZDal5WXOru6k0YgFhUwAAtMTK4VrdhAOdBjVtfWN20z9LLwRwu0xyxCrT7ZwZHx0j3sHGAAiNVAAFSgACM2E1zs9Vq0RHgIZCmDQBGwKHRRMEAXQ+HA4YVevFUMkrKhImhUIkBHM6CM6NEwABfAC6QA
+        - title: Warning notification
+          description: Set `type="warning"` to create a warning colored notification.
+          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwdmIAdzV8JliAZTZopgB1KDoILjNYgEo8DVyNDTs4GlY4OkU6B09vCWJvLzIJFjgWFg5SXMRiiFcmAAEpPwU4DABRGho4WWdXYelZMYw4RXJaiGaMSKii-tdS8p0HHvmBlwgDACZzi5MIYjkaDkIofwgdXYcmAGIAHn+dwurhosQAKpwWEwohxrNYmHYOCxtNI6EwoDQKOiQBAAL4VEgQOwsDCxCQAoEHEEDOzKOjvLpXCAFak0lxkbCoOAGWJRDJZCA5MCU4GufZadCGUToBzaPQcVqVaq5MB4gC6QA
           code: |
-            from palmerpenguins import load_penguins
-            from shiny import App, render, session, ui
-
-            penguins = load_penguins()
-
+            from shiny import App, reactive, ui
+            
             app_ui = ui.page_fluid(
-              ui.output_data_frame("penguins_df")
+                ui.input_action_button("show", "Show Warning"),
             )
-
+            
             def server(input, output, session):
-                @output
-                @render.data_frame
-                def penguins_df():
-                    return render.DataTable(
-                        penguins,
-                        filters = True #<<
+            
+                @reactive.Effect
+                @reactive.event(input.show)
+                def _():
+                    n=2
+                    ui.notification_show(
+                        f"This will disappear after {n} seconds.",
+                        duration=n,
+                        type="warning" #<<
                     )
-
+            
             app = App(app_ui, server)
-        - title: Select Multiple Rows
-          description: An optional place for a description here that goes about this long but then (oh my gosh!) it's now going even longer to show what the line-height looks like.
-          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYLEQ3doONPqOAG6OkUIVZDal5WXOru6k0YgFhUwAAtMTK4VrdhAOdBjVtfWN20z9LLwRwu0xyxCrT7ZwZHx0j3sHGAAiNVAAFSgACM2E1zs9Vq0RHgIZDbMQAO5KFxgwhkDwQJQwYgOZKdGB8NgY1Bgzpwwq9eKoZJWVCRNCoRICOZ0EZ0aJgAC+AF0gA
+
+        - title: Error notification
+          description: Set `type="error"` to create an error colored notification.
+          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwdmIAdzV8JliAZTZopgBROgY6WIBKPA1sjQ07OBpWODpFOgdPbwliby8yCRY4FhYOUmzEQohXJgABKT8FOAxUmho4WWdXQelZEYw4RXJqiEaMSKiC3tdi0p0HLpm+lwgDACYT05MIYjkaDkIofwgdLadd09OaWIAVTgsJhRDjWaxMOwcFjaaR0JhQGgUOEgCAAXzKJAgdhYGFieS+3z2yjoLw65wg+MJpzI2FQcAMsXKmViTAAxAAednXPo7LToQyidAObR6DjNcqVbJgVEAXSAA
           code: |
-            from palmerpenguins import load_penguins
-            from shiny import App, render, session, ui
-
-            penguins = load_penguins()
-
+            from shiny import App, reactive, ui
+            
             app_ui = ui.page_fluid(
-              ui.output_data_frame("penguins_df")
+                ui.input_action_button("show", "Show Error"),
             )
-
+            
             def server(input, output, session):
-                @output
-                @render.data_frame
-                def penguins_df():
-                    return render.DataTable(
-                        penguins,
-                        row_selection_mode = "multiple" #<<
+            
+                @reactive.Effect
+                @reactive.event(input.show)
+                def _():
+                    n=2
+                    ui.notification_show(
+                        f"This will disappear after {n} seconds.",
+                        duration=n,
+                        type="error" #<<
                     )
-
+            
             app = App(app_ui, server)
-        - title: Size a table
-          description: 
-          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYNFM2rEQ2g40+o4Abo6RQhVkNqXlZc6u7qTRiAWFTAACs1M9EOubdhAOdBjVtfWNu-uDLLwRwu0xiFf763ZkfHR7h8cYACI1KAAFSgACM2E0Xq9Xq0RDY1tD9gB3AQKMgGZKdACsAAYcagAB6deF7RH7AxwAQ8AwyYKdACMeMJnShrz62jQqGSVlQkU5iQECzoYzo0TAAF8ALpAA
+
+        - title: Replace/update a notification
+          description: Assign a notification an `id` to replace any existing notification with the same `id`.
+          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwdmIAdzV8JliAZTZopgA5YjkaDkIof00wAEo8DQKNDTs4GlY4OkU6B09vCWJvLzIJFjgWFg5SAsQyiFcmAAEpPwU4DABRGho4WWdXMelZSYw4RXIGiDaMSKjSodcKqp0HfqXhlxMIDI4snLydA6dj6+uaWIBNFqZCazZADWcDsTDIbDgTCSKWCZFCQxAjTI+2SUQuAF9wXwuhhYhIrh8Tso6LlehADOkIEpCUTeHYDLF4N1zHBYrTXEctOhDKJ0A5tHoOB0anUCmAMQBdIA
           code: |
-            from palmerpenguins import load_penguins
-            from shiny import App, render, session, ui
-
-            penguins = load_penguins()
-
+            from shiny import App, reactive, ui
+            
             app_ui = ui.page_fluid(
-              ui.output_data_frame("penguins_df") #<<
+                ui.input_action_button("show", "Show Notification"),
             )
-
+            
             def server(input, output, session):
-                @output 
-                @render.data_frame 
-                def penguins_df(): 
-                    return render.DataTable( 
-                        penguins, 
-                        width = "500px", #<<
-                        height = "200px" #<<
+            
+                @reactive.Effect
+                @reactive.event(input.show)
+                def _():
+                    ui.notification_show(
+                        f"You clicked the Show button {input.show()} times.", 
+                        duration=None,
+                        # compare to what happens if you comment out the line below #<<
+                        id="message" #<<
                     )
+            
+            app = App(app_ui, server)          
 
+        - title: Track and remove notifications
+          description: Track notifications, and use `ui.notification_remove()` to remove notifications one at a time.
+          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwdmIAdzV8JliAZTZopgA5YjkaDkIof00wAEo8Z1cTT29fWQ4A4LJQiHCpGGJFWIlYgCU4ZsU0jI4snLzYoo0CjQ07OBpWODpFOgdysgliby8V2ZYWaogCxBKXDjsWRCZrDhYyYCu6AF1DJmA7w6YIM65hIwAGCYhXJgAASkfgUcAwAFEaDQ4LJXsDpFVFBg4IpyEsIBsMJEouN-q4pjMdA59q8ARBSNZiDlrLwTmTXBSIFSaW8GS4AMRMBJQXpkNhwJgASQAIkwaIJJN0WlBadZcnN2XTHiYKZlsrldjoceEALJwbbmQWxJgAalYZEWewkdmUdE1pAM6QgcDxAIBxxYGG0lEcxzd7pc-1NRgAjH8AQjQcioTC4fiXFGkeDUZQyBisU0Wq7XoSmMTSQn3UyWbK6SwlQNywci4GXKr+oMHRAdFnFEsTlhiKgSXitOhHmIe9o9BwJCw5gsCmAAL53IA
+          code: |
+            from shiny import App, reactive, ui
+            
+                app_ui = ui.page_fluid(
+                ui.input_action_button("show", "Show Notification"),
+                ui.input_action_button("remove", "Remove Notification"),
+            )
+            
+            def server(input, output, session):
+                ids: list[str] = []
+                n: int = 0
+            
+                @reactive.Effect
+                @reactive.event(input.show)
+                def _():
+                    nonlocal ids
+                    nonlocal n
+                    # Save the ID for removal later
+                    id = ui.notification_show("Message " + str(n), duration=None)
+                    ids.append(id)
+                    n += 1
+            
+                @reactive.Effect
+                @reactive.event(input.remove)
+                def _():
+                    nonlocal ids
+                    if ids:
+                        ui.notification_remove(ids.pop())
+            
             app = App(app_ui, server)
 
 ---

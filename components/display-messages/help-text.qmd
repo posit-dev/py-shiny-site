@@ -42,7 +42,13 @@ listing:
           signature: ui.help_text(*args, **kwargs)
       details: |
 
-`ui.help_text()` creates help text which can be added to the user interface to provide additional explanation or context. To use `ui.help_text()`, call it at a desired location from within your `app_ui`. Then pass `ui.help_text()` one or more help text strings (or other inline HTML elements) to place into the `app_ui`.
+[`ui.help_text()`](TODO ADD LINK TO UI HELP TEXT) creates stylized help text which can be added to the user interface to provide additional explanation or context. 
+
+To create help text, call `ui.help_text()` at a desired location from within your `app_ui`. Then pass `ui.help_text()` one or more help text strings (or other inline HTML elements) to place into the `app_ui`.
+
+        ## See Also
+
+        [Tooltips](TO DO ADD LINK TO TOOLTIPS PAGE) provide a similar, but alternative way to display information to the user.
 
       variations:
         - title: null

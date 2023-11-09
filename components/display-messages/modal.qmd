@@ -84,6 +84,10 @@ listing:
         To add elements to a modal, pass them as unnamed arguments to `ui.modal()`. Modals can contain any UI elements recognized by Shiny.
 
         Modals come in four sizes: small (`'s'`), medium (`'m'`) (the default), large (`'l'`), and extra-large (`'xl'`). Set the size of a modal with the `size` argument of `ui.modal()`.
+        
+        ## See Also
+
+        [Notifications](TO DO ADD LINK TO NOTIFICATIONS PAGE) provide a similar, but alternative way to display information to the user.
 
       variations:
         - title: Modal for authentication
