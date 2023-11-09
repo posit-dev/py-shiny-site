@@ -49,7 +49,7 @@ listing:
 
       details: |
 
-              <p>The Matplotlib is a library that can be used to create plots.</p>
+              <p>Matplotlib is a library that can be used to create plots.</p>
 
               <p>Follow three steps to display a Matplotlib figure in your app:</p>
 
@@ -57,28 +57,31 @@ listing:
                 <li>
                 Add `ui.output_plot()` to the UI of your app to create a div in which to display the figure.
                 Where you call this function will determine where the figure will appear within the layout of the app.
+                The `id` parameter you provide will be used to link to other parts of the Shiny app.
                 </li>
                 <li>
-                Define a function within the `server()` function that creates the figure and
-                is wrapped around with the `@render.plot()` decorator to return the figure.
+                Define a function within the `server()` function that creates the figure.
+                The name of the function should be the same value you passed into the `id` parameter
+                in your `ui.output_plot()` function call in the UI.
                 If your function calls reactive values, Shiny will update your figure whenever those values change,
                 in a [reactive fashion](https://shiny.posit.co/py/docs/reactive-programming.html).
-                </li>
-                  <ul>
-                    <li>The name of the decorated function (or `@output(id=...)`) should match the `id` of a `output_plot()` container.</li>
-                    <li>Your function should return one of the following objects</li>
                     <ul>
-                      <li>A `matplotlib.figure.Figure` instance</li>
-                      <li>A `matplotlib.artist.Artist` instance</li>
-                      <li>A list/tuple of `Figure`/`Artist` instances</li>
-                      <li>An object with a ‘figure’ attribute pointing to a `matplotlib.figure.Figure` instance</li>
-                      <li>A `PIL.Image.Image` instance</li>
+                      <li>Your function should return one of the following objects:</li>
+                          <ul>
+                              <li>A `matplotlib.figure.Figure` instance</li>
+                              <li>A `matplotlib.artist.Artist` instance</li>
+                              <li>A list/tuple of `Figure`/`Artist` instances</li>
+                              <li>An object with a ‘figure’ attribute pointing to a `matplotlib.figure.Figure` instance</li>
+                              <li>A `PIL.Image.Image` instance</li>
+                          </ul>
                     </ul>
-                  </ul>
-                <li>Pass `ui.output_plot()` the name of the function that builds the figure for the `input` argument,
-                as a character string,
-                to indicate which figure should be displayed in the div.
                 </li>
+                <li>
+                Decorate your plotting function with a `@render.plot()` decorator.
+                If your plotting function is not the same as the `id` you used in the `ui.output_plot()`,
+                you can add an additional `@output(id=...)` decorator.
+                If you use the `@output()` decorator,
+                make sure it is __above__ the `@render.plot()` decorator.
               </ol>
 
 ---
