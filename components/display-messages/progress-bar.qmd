@@ -31,132 +31,100 @@ listing:
   id: component
   template: ../_partials/components-detail.ejs
   contents:
-    - title: DataTable
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYNFMAMQAPH3asRDaDjT6jgBujpFCFWQ2peVlzq7upNGIBYVMAAJL870D24W7dhAOdBjVtfWNR4MQO0xjLLwRwu0xiA8nz7ZwMh8OhPc6XDAAERqUAAKlAAEZsJqtETdfqPbRoVDJKyoSJYxICVZ0aZ0aJgAC+AF0gA
+    - title: Progress Bar
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACKAZ2wkJuIB0IAgGaNiMFuwAWNCNhZ0GzFgEF0eFozhRCZGgDc46zRAAmcRuoCuNAQLSoA+tZYBeFtaxQA5nAdCANtYmABQCLOHuNBgyqJZkDtq6pA4ARnFkpKFgaWQZgvgsfGAAwmKxFEUAlHhhER7EceUOFAAeZFkk9HFwVTUQlbamcEIS5gaMwTFx6g1k5erscOzsvP2IteEAArPlGyybxmaMGK1kewdaOvpwGHAG5JMQ5Rg5eQMQEWyc3CxmI53lODBSrrD6fCIAdxoZEkkQwAAVRF5NMtgjAZC4AIzqGBQFpYgCslS+LFQoPBFNJGEW7Xgy28cBcRWKUH8hEs-igSQ+MlJSJR7CK6jMZCgNH8TLAABVpOwWLi5KKANZwNgsCHSfw3DAYKqDSngoRMeTyD6MKAQHzBbEsTFE8kGymYGmTHFLdgMyWlLq6S16sGO8FQCFi1gcLg8YjUrVwVDBAAMGEx7z2n00ZEsjA+RQAIqRVQC4jIvABCIqDeyuFToYL2Jw0BZjcyVMAAXwAukA
       code: |
-        from palmerpenguins import load_penguins
-        from shiny import App, render, session, ui
+        import asyncio
 
-        penguins = load_penguins()
-
+        from shiny import App, reactive, render, ui
+        
         app_ui = ui.page_fluid(
-          ui.output_data_frame("penguins_df") #<<
+            ui.input_action_button("button", "Compute"),
+            ui.output_text("compute"),
         )
-
+        
         def server(input, output, session):
-            @output #<<
-            @render.data_frame #<<
-            def penguins_df(): #<<
-                return render.DataTable(penguins) #<<
-
+            @output
+            @render.text
+            @reactive.event(input.button)
+            async def compute():
+                with ui.Progress(min=1, max=15) as p:
+                    p.set(message="Calculation in progress", detail="This may take a while...")
+        
+                    for i in range(1, 15):
+                        p.set(i, message="Computing")
+                        await asyncio.sleep(0.1)
+        
+                return "Done computing!"
+        
         app = App(app_ui, server)
       relevantfunctions:
-        - title: ui.output_data_frame
-          href: https://shiny.posit.co/py/api/ui.output_data_frame.html
-          signature: ui.output_data_frame(id)
-        - title: render.data_frame
-          href: https://shiny.posit.co/py/api/render.data_frame.html
-          signature: render.data_frame(fn=None)
-        - title: render.DataTable
-          href: https://shiny.posit.co/py/api/render.DataTable.html
-          signature: render.DataTable(self, data, *, width='fit-content', height='500px', summary=True, filters=False, row_selection_mode='none')
+        - title: "ui.Progress"
+          href: https://shiny.posit.co/py/api/ui.Progress.html
+          signature: ui.Progress(self, min=0, max=1, session=None)
+        - title: "ui.Progress.close"
+          href: https://shiny.posit.co/py/api/ui.Progress.html
+          signature: ui.Progress.close(self)
+        - title: "ui.Progress.inc"
+          href: https://shiny.posit.co/py/api/ui.Progress.html
+          signature: ui.Progress.inc(self, amount=0.1, message=None, detail=None)
+        - title: "ui.Progress.set"
+          href: https://shiny.posit.co/py/api/ui.Progress.html
+          signature: ui.Progress.set(self, value=None, message=None, detail=None)
       details: |
-
-        <p>A DataTable presents tabular data in a spread sheet like view. </p>
-
-        <p>Follow three steps to display a DataTable in your app:</p>
-
-        <ol>
-          <li>
-          Add `ui.output_data_frame()` to the UI of your app to create a div in which to display the table. Where you call this function will determine where the table will appear within the layout of the app. For example, ...
-          </li>
-          <li>
-          Define a function within the `server` function that builds your table and uses `render.DataTable()` to return the result. Where`render.DataTable()`will package the table as an HTML data table for display. If your function calls reactive values, Shiny will update your table whenever those values change, in a [reactive fashion]().
-          
-          To notify Shiny that your function returns a reactive table to display, decorate the function with two decorators:
-          
-           <ul>
-             <li>`@output`</li>
-             <li>`@render.data_frame()`</li>
-           </ul>
-
-          </li>
-
-          <li>Pass `ui.output_data_frame()` the name of the function that builds the DataTable, as a character string, to indicate which DataTable should be displayed in the div. 
-          </li>
-        </ol>
+      
+        With Shiny, you can display a progress bar while a computation runs by running the computation bar within a special computation manager. Here's how: 
+      
+        1. Use [`ui.Progress()`](TODO ADD LINK TO UI PROGRESS) to create a computation manager, and use `with` to run the computation within the manager. For example, you might set up a progress bar like this:
+    
+        ```
+        async def compute():
+            with ui.Progress(min=1, max=15) as p:
+                #  computation
+        ```
+  
+        `ui.Progress()` creates a progress bar object that you can use to update the progress bar that is displayed during the computation.
+      
+        2. Set the minimum and maximum values of the progress bar when you call `ui.Progress()`. These provide the outer bounds for the progress to display. For example, in the code above, when the bar is at 1, it would appear empty. When it is at 8, it would appear half full. When it is at 15, it would appear complete.
+      
+        3. Update the progress bar object as the computation runs. Updating the object is simple: you can call its `set()` method to change the location of the progress bar, as well as the message it displays. For example the code below would update the progress bar above to half finished, and change the message that accompanies the bar to "Almost there!".
+      
+        ```
+        p.set(8, message="Almost there")
+        ```
+      
+        Finding opportunities to update the bar while the computation runs is more tricky. To have a responsive bar, you will need to interlace `set()` calls with the computation that runs. If the computation is a function from an external package, you may only be able to alert the user when the computation begins and when it finishes, which is unlikely to be satisfying:
+        
+        ```
+        async def compute():
+          with ui.Progress(min=1, max=15) as p:
+              p.set(1, message="Here we go")
+              # computation()
+              p.set(15, message="Finished!")
+        ```
+        
+        If the computation involves separate functions run in sequence, you can update the progress bar after each function:
+        
+        ```
+        async def compute():
+          with ui.Progress(min=1, max=15) as p:
+              p.set(1, message="Here we go")
+              # computation1()
+              p.set(5, message="Working hard")
+              # computation2()
+              p.set(10, message="Almost there")
+              # computation3()
+              p.set(15, message="Finished!")
+        ```
+        
+        If the computation is a function that you have written, you can write the function to accept a progress bar object to update as it runs.
+      
 
       variations:
-        - title: Filterable Table
-          description: An optional place for a description here that goes about this long but then (oh my gosh!) it's now going even longer to show what the line-height looks like.
-          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYLEQ3doONPqOAG6OkUIVZDal5WXOru6k0YgFhUwAAtMTK4VrdhAOdBjVtfWN20z9LLwRwu0xyxCrT7ZwZHx0j3sHGAAiNVAAFSgACM2E1zs9Vq0RHgIZCmDQBGwKHRRMEAXQ+HA4YVevFUMkrKhImhUIkBHM6CM6NEwABfAC6QA
-          code: |
-            from palmerpenguins import load_penguins
-            from shiny import App, render, session, ui
-
-            penguins = load_penguins()
-
-            app_ui = ui.page_fluid(
-              ui.output_data_frame("penguins_df")
-            )
-
-            def server(input, output, session):
-                @output
-                @render.data_frame
-                def penguins_df():
-                    return render.DataTable(
-                        penguins,
-                        filters = True #<<
-                    )
-
-            app = App(app_ui, server)
-        - title: Select Multiple Rows
-          description: An optional place for a description here that goes about this long but then (oh my gosh!) it's now going even longer to show what the line-height looks like.
-          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYLEQ3doONPqOAG6OkUIVZDal5WXOru6k0YgFhUwAAtMTK4VrdhAOdBjVtfWN20z9LLwRwu0xyxCrT7ZwZHx0j3sHGAAiNVAAFSgACM2E1zs9Vq0RHgIZDbMQAO5KFxgwhkDwQJQwYgOZKdGB8NgY1Bgzpwwq9eKoZJWVCRNCoRICOZ0EZ0aJgAC+AF0gA
-          code: |
-            from palmerpenguins import load_penguins
-            from shiny import App, render, session, ui
-
-            penguins = load_penguins()
-
-            app_ui = ui.page_fluid(
-              ui.output_data_frame("penguins_df")
-            )
-
-            def server(input, output, session):
-                @output
-                @render.data_frame
-                def penguins_df():
-                    return render.DataTable(
-                        penguins,
-                        row_selection_mode = "multiple" #<<
-                    )
-
-            app = App(app_ui, server)
-        - title: Size a table
-          description: 
-          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYNFM2rEQ2g40+o4Abo6RQhVkNqXlZc6u7qTRiAWFTAACs1M9EOubdhAOdBjVtfWNu-uDLLwRwu0xiFf763ZkfHR7h8cYACI1KAAFSgACM2E0Xq9Xq0RDY1tD9gB3AQKMgGZKdACsAAYcagAB6deF7RH7AxwAQ8AwyYKdACMeMJnShrz62jQqGSVlQkU5iQECzoYzo0TAAF8ALpAA
-          code: |
-            from palmerpenguins import load_penguins
-            from shiny import App, render, session, ui
-
-            penguins = load_penguins()
-
-            app_ui = ui.page_fluid(
-              ui.output_data_frame("penguins_df") #<<
-            )
-
-            def server(input, output, session):
-                @output 
-                @render.data_frame 
-                def penguins_df(): 
-                    return render.DataTable( 
-                        penguins, 
-                        width = "500px", #<<
-                        height = "200px" #<<
-                    )
-
-            app = App(app_ui, server)
+        - title: null
+          description: null
+          preview: null
+          code: null
 
 ---
 
