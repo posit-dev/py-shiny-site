@@ -78,6 +78,7 @@ website:
         file: gallery/index.qmd
       - text: "Examples"
         href: https://shinylive.io/py/examples/
+        target: _blank
       - text: "Function Reference"
         href: api/index.qmd
       - text: "Help"

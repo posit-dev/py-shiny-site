@@ -1,3 +1,4 @@
+sidebar: components 
 format:
   html:
     css: _partials/components.css
