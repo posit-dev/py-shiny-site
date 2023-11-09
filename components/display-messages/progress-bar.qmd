@@ -78,7 +78,7 @@ listing:
         1. Use [`ui.Progress()`](TODO ADD LINK TO UI PROGRESS) to create a computation manager, and use `with` to run the computation within the manager. For example, you might set up a progress bar like this:
     
         ```
-        async def compute():
+        def compute():
             with ui.Progress(min=1, max=15) as p:
                 #  computation
         ```
