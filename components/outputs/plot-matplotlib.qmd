@@ -13,7 +13,6 @@ listing:
       preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMaVC7xGqSgHNVNCFMVNWPKABMA+pYg27E-YeMJAAs7TUdlAEF0PBZGSlc4RhjbeXk0VHdbFgBeFlssKCs4dz0uW1cACnkWGryaDDtUVTJ3CX4ExirIWXwWHoA5dQFElmI9FgFfHpiABhiARhm5lgAmGYBKPGra-OJmppbRMi6jns35ddSIeQTxiUSAN0SKxuaYvc43lnuJCRpSdaIbY1AACcQgHSwPGOpjI2R6ERYIQkZGIVkYsDOwJYt2k0IqgOxtRx41yLg8Xh89gJRNq7F+ORJwB6AmIrmw7npEncVh6AF0rsTiXoaFYYlAAB6MmQYCSqARHCQ0iBC2qSjDI45cmKvMgYCAEmIJew0MjYbIAFUYqjglxVqvEEtlcBaZFNXDgXQACqZzCwvdZbCqALKSH5Y+2q9X3FoSrhQYZcLqhhkVKyXMB2h2O50tbDxxNdAAilD+ZojtJqcTIqkYKpFvOuTfSjKiqAq6UyNBi90YTySOLgAlUVkt1tt8jAAF8+UA
       code: |4
           import matplotlib.pyplot as plt
-          import numpy as np
           from palmerpenguins import load_penguins
           from shiny import App, render, ui
 
