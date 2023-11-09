@@ -47,12 +47,6 @@ listing:
         - title: "@render.plot"
           href: https://shiny.posit.co/py/api/render.plot.html
           signature: render.plot(_fn=None, *, alt=None, width=MISSING, height=MISSING, **kwargs)
-        - title: matplotlib.pyplot.subplots
-          href: https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html
-          signature: matplotlib.pyplot.subplots(nrows=1, ncols=1, *, sharex=False, sharey=False, squeeze=True, width_ratios=None, height_ratios=None, subplot_kw=None, gridspec_kw=None, **fig_kw)
-        - title: matplotlib.axes.Axes.hist
-          href: https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.hist.html
-          signature: Axes.hist(x, bins=None, range=None, density=False, weights=None, cumulative=False, bottom=None, histtype='bar', align='mid', orientation='vertical', rwidth=None, log=False, color=None, label=None, stacked=False, *, data=None, **kwargs)
 
       details: |
 
@@ -73,14 +67,15 @@ listing:
                 </li>
                   <ul>
                     <li>The name of the decorated function (or `@output(id=...)`) should match the `id` of a `output_plot()` container.</li>
+                    <li>Your function should return one of the following objects</li>
+                    <ul>
+                      <li>A `matplotlib.figure.Figure` instance</li>
+                      <li>A `matplotlib.artist.Artist` instance</li>
+                      <li>A list/tuple of `Figure`/`Artist` instances</li>
+                      <li>An object with a ‘figure’ attribute pointing to a `matplotlib.figure.Figure` instance</li>
+                      <li>A `PIL.Image.Image` instance</li>
+                    </ul>
                   </ul>
-
-                To notify Shiny that your function returns a reactive figure to display, decorate the function with:
-
-                <ul>
-                  <li>`@render.plot()`</li>
-                </ul>
-
                 <li>Pass `ui.output_plot()` the name of the function that builds the figure for the `input` argument,
                 as a character string,
                 to indicate which figure should be displayed in the div.
