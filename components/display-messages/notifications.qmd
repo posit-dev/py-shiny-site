@@ -194,7 +194,7 @@ listing:
                 def _():
                     nonlocal ids
                     if ids:
-                        ui.notification_remove(ids.pop())
+                        ui.notification_remove(ids.pop()) #<<
             
             app = App(app_ui, server)
 
