@@ -1,0 +1,71 @@
+---
+title: "UI Object"
+sidebar: components 
+preview: |
+  # TODO: ADD PREVIEW CODE
+listing:
+  id: component
+  template: ../_partials/components-detail.ejs
+  contents:
+    - title: UI Object
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdCPrSoA+jqYBeJjqxQA5nGM0ANjtUAKfUy9WOGLqi0yYxk5UmMAI0CyUg8UVVUIqNJdfCYUkXimKCYAVQBJJjgnOHhyFIBKPE9va2JAgKCdWJ0AUWLSsgqqiHL9PrU4GlYNRTo3f0CJOrIGiRY4FhYOUnLEaq8AARV1OgwddaYt6VkFOAw4RXJxiAaMKHjEsmieg-Uh1vbKMjdVg+9JOBkLR0CA+Pw3QLGFhODg7WLQ2EaFISFIAYTYxGI8yyTAgWhg4SRqRgXHMAEYJDAoAAPckABgk8igLjg5gArJV+kYLKJ0G4jKYOHMRhpehAwABfAC6QA
+      code: |
+        from shiny import App, reactive, render, ui
+        
+        app_ui = ui.page_fluid(
+            ui.input_action_button("add_button", "Add a UI element"),
+            ui.output_ui("uiElement"),
+        )
+        
+        
+        def server(input, output, session):
+            @render.ui
+            @reactive.event(input.add_button)
+            def uiElement():
+                return ui.input_slider("slider", "Choose a number", min=1, max=10, value=5),
+        
+        app = App(app_ui, server)
+      relevantfunctions:
+        - title: ui.output_ui
+          href: https://shiny.posit.co/py/api/ui.output_ui.html
+          signature: ui.output_ui(id, inline=False, container=None, fill=False, fillable=False, **kwargs)
+        - title: "@render.ui"
+          href: https://shiny.posit.co/py/api/render.ui.html
+          signature: render.ui(_fn=None)
+      details: |
+        <p>A UI output creates an output container for a UI (i.e., HTML) element, such as a set of additional controls. Adding a UI output allows you to show, hide, or update input controls within your app.</p>
+        
+        <p>To add a UI output, follow three steps:</p>
+        <ol>
+          <li>Call `ui.output_ui()` in the UI of your app to create a div in which to display the UI element. Where you call this function within the UI functions will determine where the table will appear within the layout of the app. Set the `id` argument of `ui.output_ui()` to a unique value.</li>
+
+          <li>Within the server function, define a new function whose name matches the id used above. The function should return a UI element, like an input control.</li>
+
+          <li>Decorate the function with `@render.ui`. If you're using a button or other element to show or hide the UI element, you'll also need to decorate with `@reactive.event`.</li>
+        </ol>
+        
+      variations:
+        - title: Update an input
+          description: The previous example demonstrated how to show or hide a UI element. You can also use `ui.output_ui()` to update an existing input.
+          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdCPrSoA+jqYBeJjqxQA5nGM0ANjtUAKfUy9WOGLqi0yYwgteDoOQg9IUIAjDV18JgSAUXINJigmEJg4ukQEiQBGCRguc2KmGCgAD3KABgBKPE9va2JAgKCdKJ1kpzh4cgSm-Qb9cbU4GlYNRTo3f0CJdrJOiRY4FhYOUgb8iG8mAAEVdToMHRavdWne-sGyNz2rw8k4Mi06A+tFoJYnDhnKL-QHxRIJADCnxUwmyuXyiVKEHKJRq9Qk8igLjg5l+GDhGieIwM0HQFlE6DcRlMHHWsw0DTAAF8ALpAA
+          code: |
+            from shiny import App, reactive, render, ui
+            
+            app_ui = ui.page_fluid(
+                ui.input_numeric("number", "Enter a number:", 1, min=1, max=10),
+                ui.output_ui("uiElement"),
+            )
+            
+            
+            def server(input, output, session):
+                @render.ui
+                def uiElement():
+                    return ui.input_slider("slider", "Current number:", min=1, max=10, value=input.number()),
+            
+            app = App(app_ui, server)
+
+---
+
+:::{.component}
+:::
+
