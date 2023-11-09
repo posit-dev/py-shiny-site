@@ -93,7 +93,7 @@ listing:
 
       variations:
         - title: Warning notification
-          description: Set `type="warning"` to create a warning colored notification.
+          description: Set `type="warning"` to create a warning-colored notification.
           preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwdmIAdzV8JliAZTZopgB1KDoILjNYgEo8DVyNDTs4GlY4OkU6B09vCWJvLzIJFjgWFg5SXMRiiFcmAAEpPwU4DABRGho4WWdXYelZMYw4RXJaiGaMSKii-tdS8p0HHvmBlwgDACZzi5MIYjkaDkIofwgdXYcmAGIAHn+dwurhosQAKpwWEwohxrNYmHYOCxtNI6EwoDQKOiQBAAL4VEgQOwsDCxCQAoEHEEDOzKOjvLpXCAFak0lxkbCoOAGWJRDJZCA5MCU4GufZadCGUToBzaPQcVqVaq5MB4gC6QA
           code: |
             from shiny import App, reactive, ui
@@ -117,7 +117,7 @@ listing:
             app = App(app_ui, server)
 
         - title: Error notification
-          description: Set `type="error"` to create an error colored notification.
+          description: Set `type="error"` to create an error-colored notification.
           preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwdmIAdzV8JliAZTZopgBROgY6WIBKPA1sjQ07OBpWODpFOgdPbwliby8yCRY4FhYOUmzEQohXJgABKT8FOAxUmho4WWdXQelZEYw4RXJqiEaMSKiC3tdi0p0HLpm+lwgDACYT05MIYjkaDkIofwgdLadd09OaWIAVTgsJhRDjWaxMOwcFjaaR0JhQGgUOEgCAAXzKJAgdhYGFieS+3z2yjoLw65wg+MJpzI2FQcAMsXKmViTAAxAAednXPo7LToQyidAObR6DjNcqVbJgVEAXSAA
           code: |
             from shiny import App, reactive, ui
