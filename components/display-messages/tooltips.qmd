@@ -127,7 +127,7 @@ listing:
                         "A " + " ".join(["NEW" for _ in range(input.btn_update())])+ " message"
                     )
             
-                    ui.update_tooltip("btn_tooltip", content, show=True)
+                    ui.update_tooltip("btn_tooltip", content, show=True) #<<
             
             app = App(app_ui, server)
       
