@@ -14,15 +14,15 @@ listing:
         
         app_ui = ui.page_fluid(
             ui.input_action_button("add_button", "Add a UI element"),
-            ui.output_ui("uiElement"),
+            ui.output_ui("uiElement"), #<<
         )
         
         
         def server(input, output, session):
-            @render.ui
-            @reactive.event(input.add_button)
-            def uiElement():
-                return ui.input_slider("slider", "Choose a number", min=1, max=10, value=5),
+            @render.ui #<<
+            @reactive.event(input.add_button) #<<
+            def uiElement(): #<<
+                return ui.input_slider("slider", "Choose a number", min=1, max=10, value=5), #<<
         
         app = App(app_ui, server)
       relevantfunctions:
@@ -53,14 +53,14 @@ listing:
             
             app_ui = ui.page_fluid(
                 ui.input_numeric("number", "Enter a number:", 1, min=1, max=10),
-                ui.output_ui("uiElement"),
+                ui.output_ui("uiElement"), #<<
             )
             
             
             def server(input, output, session):
-                @render.ui
-                def uiElement():
-                    return ui.input_slider("slider", "Current number:", min=1, max=10, value=input.number()),
+                @render.ui #<<
+                def uiElement(): #<<
+                    return ui.input_slider("slider", "Current number:", min=1, max=10, value=input.number()), #<<
             
             app = App(app_ui, server)
       - title: Toggle to show or hide an input
@@ -71,15 +71,15 @@ listing:
           
           app_ui = ui.page_fluid(
               ui.input_switch("show_slider", "Show slider"),
-              ui.output_ui("uiElement"),
+              ui.output_ui("uiElement"), #<<
           )
           
           
           def server(input, output, session):
-              @render.ui
-              def uiElement():
-                  if (input.show_slider()):
-                      return ui.input_slider("slider", "Choose a number", min=1, max=10, value=5)
+              @render.ui #<<
+              def uiElement(): #<<
+                  if (input.show_slider()): #<<
+                      return ui.input_slider("slider", "Choose a number", min=1, max=10, value=5) #<<
           
           app = App(app_ui, server)
 
