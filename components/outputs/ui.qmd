@@ -46,7 +46,7 @@ listing:
         
       variations:
         - title: Update an input
-          description: The previous example demonstrated how to show or hide a UI element. You can also use `ui.output_ui()` to update an existing input.
+          description: The previous example demonstrated how to show a UI element on button click. You can also use `ui.output_ui()` to update an existing input.
           preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdCPrSoA+jqYBeJjqxQA5nGM0ANjtUAKfUy9WOGLqi0yYwgteDoOQg9IUIAjDV18JgSAUXINJigmEJg4ukQEiQBGCRguc2KmGCgAD3KABgBKPE9va2JAgKCdKJ1kpzh4cgSm-Qb9cbU4GlYNRTo3f0CJdrJOiRY4FhYOUgb8iG8mAAEVdToMHRavdWne-sGyNz2rw8k4Mi06A+tFoJYnDhnKL-QHxRIJADCnxUwmyuXyiVKEHKJRq9Qk8igLjg5l+GDhGieIwM0HQFlE6DcRlMHHWsw0DTAAF8ALpAA
           code: |
             from shiny import App, reactive, render, ui
