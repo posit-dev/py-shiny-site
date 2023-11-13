@@ -1,14 +1,26 @@
 ---
 title: "Action Link"
 sidebar: components 
-preview: |
-  <a style="text-decoration: underline;border-bottom: 0px" href="#">Action Link</a>
+previewapp: |
+  from shiny import App, reactive, render, ui
+  app_ui = ui.page_fluid(
+      ui.input_action_link("action_link", "Action"), 
+      ui.output_text("counter"),
+      {"class": "vh-100 d-flex justify-content-center align-items-center px-4"}
+  )
+  def server(input, output, session):
+      @output
+      @render.text()
+      @reactive.event(input.action_link)
+      def counter():
+          return f""
+  app = App(app_ui, server)
 listing:
   id: component
   template: ../_partials/components-detail.ejs
   contents:
     - title: Action Link
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMAkhFQBXMiwkB5eXIUSAynBYsOpCXThRCZDgDc4BygBM4dCbI4AdCC7SoA+o6YBeJo6woAHM4DxoAG0drAAoXJnj-DgwuNQ9jU1IPcK4Aa1iUEz0ILNynfCYykULSMoBKPBdal2aIWxpWOws6aJT5CWJVPo6dItrEOISAYiYtOi6mMyhIuHGIBKZp+JE1rgoQuiZDVEMWSlMIIKYyNjgmCFkYACM7JmJ27IgcpkJswhyWCbxTaiQiEbQsJgAdw4114MnkGHSRRKnwwHkWy0BTFQUB0LTc6F8onQ0XcXg4ElOczstTAAF8ALpAA
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EqQEcJAVw4AdaOgD6apgF4marFADmcbTQA2a6QApNTJ0Y4YuqFWW2E2cQgGsAI2IAD21TBhVUOyZHZ3j1Il8A4LCI4ijEiTj4p0SAYWSg0KZ0zPxYiFznEErq6sSoRMRYsBEsuvqEsEDm1oAhDpyu1sI+gqGq+oBfbKmnAEo5+OMMsg8vChCyBzAANygbOESlzRBEwisoFhZx-bYAWgBGAAYXpmkH6zgQpgArFQsMgcGjYB4kciUMjgqFyJiHDimCAPDgUGAsGGQuhMVAhB4AFkS000C00shorDkezkdncngkaw2EhYcBuHFIC0QwwAAozPDypBBZHQMFsyMNyUwDkc7JzhvEpGQVHQqkMwBg-sQuLSIBsMD4-MU0pFogtSVpUAZROg7GhULoOMyqXIFmBpgBdIA
       code: |
         from shiny import App, reactive, render, ui
         
@@ -32,22 +44,23 @@ listing:
         - title: reactive.event
           href: https://shiny.posit.co/py/api/reactive.event.html
           signature: reactive.event(*args, ignore_none=True, ignore_init=False)
-      details: |
 
-        <p>An action link appears as a link in your app and has a value that increments each time the user presses the button. </p>
-
-        <p>Follow these steps to add an action link to your app:</p>
-
-        <ol>
-          <li>
-          Add `ui.input_action_link()` to the UI of your app to create the action link. Where you call this function will determine where the link will appear within the layout of the app.
-          </li>
-          <li>
-          Access the value of your action link with `input.action_link._value`. The server value of an action link is an integer representing the number of clicks. 
-          </li>
-        </ol>
 ---
 
-:::{.component}
+:::{#component}
 :::
 
+## Details
+
+<p>An action link appears as a link in your app and has a value that increments each time the user presses the button. </p>
+
+<p>Follow these steps to add an action link to your app:</p>
+
+<ol>
+  <li>
+  Add `ui.input_action_link()` to the UI of your app to create the action link. Where you call this function will determine where the link will appear within the layout of the app.
+  </li>
+  <li>
+  Access the value of your action link with `input.action_link._value`. The server value of an action link is an integer representing the number of clicks. 
+  </li>
+</ol>

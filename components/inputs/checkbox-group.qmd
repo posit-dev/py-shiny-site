@@ -1,31 +1,34 @@
 ---
 title: "Checkbox Group"
 sidebar: components 
-preview: |
-  <div style="justify-content: left;">
-  <div class="form-check">
-    <p class="m-0">
-    <input class="form-check-input" style="width: 1.2em;height: 1.2em;margin-right:0.35rem;border-radius: 2px;" type="checkbox" value="" id="flexCheckDefault">
-        <label class="form-check-label" for="flexCheckDefault">
-          Watch me whip 
-        </label>
-        </p>
-  </div>
-  <div class="form-check">
-  <p class="m-0">
-    <input class="form-check-input" style="width: 1.2em;height: 1.2em;margin-right:0.35rem;border-radius: 2px;" type="checkbox" value="" id="flexCheckChecked" checked>
-    <label class="form-check-label" for="flexCheckChecked">
-      Watch me nae nae
-    </label>
-    </p>
-  </div>
-  </div>  
+previewapp: |
+    from shiny import App, render, req, ui
+    app_ui = ui.page_fluid(
+        ui.input_checkbox_group( 
+            "checkbox_group", 
+            "", 
+            { 
+                "a": "Watch me Whip", 
+                "b": "Watch me Nae Nae", 
+                "c": "Watch neither", 
+            }, 
+        ), 
+        ui.output_text("value",
+    {"class": "mb-0"}),
+    {"class": "vh-100 d-flex align-items-center px-4"}
+    )
+    def server(input, output, session):
+        @output
+        @render.text
+        def value():
+            return ""
+    app = App(app_ui, server)
 listing:
   id: component
   template: ../_partials/components-detail.ejs
   contents:
     - title: Checkbox Group
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMAkhFQBXMiwkB5eXIUSAynBYsOpCXUoATOHQNwAjhNkcAOhHtpUAfRtMAvExtYoAczjONAA2NkYAFPZMUV4cGFxqzoRscIQA1gBGxAAezr4MsqgRENElTLZEyWmZOXnEBeV4kaVR5QDClRnZTLX1+E3NIP3N0eVQ5YhlYCINQ8OT6eOTAEIzxXMjRIttq3MAvo1rUQCUByXedWQJFFlkEWAAblAhcOUn9kf2nxAmNKym96YwvF5BILmoJCxtLpSEdEEMAAJg+QIwzfUwYa5kIY-JiPZ5hWGzaKGMiyOjFBqTDAAK2IXCBMnkGCSKU6NXyhSOHwcPKcHlE6DCTlcHAh-1MRzAuwAukA
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EqQEcJAVw4AdaOgD6apgF4marFADmcbTQA2a6QApNTJ0Y4YuqFWW2E2cQgGsAI2IAD21TBhVUOyZHZ3j1Il8A4LCI4ijEiTj4p0SAYWSg0KZ0zPxYiFznEErq6sSoRMRYsBEsuvqEsEDm1oAhDpyu1sI+gqGq+oBfbKmnAEo5+OMMsg8vChCyBzAANygbOESlzRBEwisoFhZx-bYAWgBGAAYXpmkH6zgQpkOOUwQB4cCgwFgPQiUCh0JioEIPAAsiWmmgWmlkNFYcj2cjs7k8EjWGwkLDgNw4pAWiGGAAEiZ5aVIILI6BgtmRhhimAcjnYqcN4lIyCo6FUhmAMAArYhcPEQDYYHx+YppSLRBZorSoAyidB2NCoXQcEnYuQLMDTAC6QA
       code: |
         from shiny import App, render, req, ui
         
@@ -53,25 +56,25 @@ listing:
         - title: ui.input_checkbox_group
           href: https://shiny.posit.co/py/api/ui.input_checkbox_group.html
           signature: ui.input_checkbox_group(id, label, choices, *, selected=None, inline=False, width=None)
-      details: |
-
-        <p>A checkbox group creates a group of checkboxes that can be used to toggle multiple choices independently. </p>
-
-        <p>Follow these steps to display a checkbox group in your app:</p>
-
-        <ol>
-          <li>
-          Add `ui.input_checkbox_group()` to the UI of your app to create a checkbox group. Where you call this function will determine where the checkbox group will appear within the layout of the app.
-          </li>
-          
-          <li>
-          Access the value of your checkbox group with `input.checkbox_group()`. The server value of a checkbox group is a tuple of string(s) with the selected value(s). 
-          </li>
-
-        </ol>
 
 ---
 
-:::{.component}
+:::{#component}
 :::
 
+## Details
+
+<p>A checkbox group creates a group of checkboxes that can be used to toggle multiple choices independently. </p>
+
+<p>Follow these steps to display a checkbox group in your app:</p>
+
+<ol>
+  <li>
+  Add `ui.input_checkbox_group()` to the UI of your app to create a checkbox group. Where you call this function will determine where the checkbox group will appear within the layout of the app.
+  </li>
+  
+  <li>
+  Access the value of your checkbox group with `input.checkbox_group()`. The server value of a checkbox group is a tuple of string(s) with the selected value(s). 
+  </li>
+
+</ol>
