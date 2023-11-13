@@ -1,115 +1,50 @@
 ---
 title: "Plot (Plotly)"
-sidebar: components 
+sidebar: components
 preview: |
   <div class="px-3">
-  <img style="width: 100%;" src="/images/plotly.jpg">
+  <img style="width: 100%;" src="/images/plotly.png">
   </div>
 listing:
   id: component
   template: ../_partials/components-detail.ejs
   contents:
-    - title: DataTable
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYNFMAMQAPH3asRDaDjT6jgBujpFCFWQ2peVlzq7upNGIBYVMAAJL870D24W7dhAOdBjVtfWNR4MQO0xjLLwRwu0xiA8nz7ZwMh8OhPc6XDAAERqUAAKlAAEZsJqtETdfqPbRoVDJKyoSJYxICVZ0aZ0aJgAC+AF0gA
-      code: |
-        from palmerpenguins import load_penguins
-        from shiny import App, render, session, ui
+    - title: "Plot (Plotly)"
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACVAG2LPewzgA9UjOAGcRLKONT8AOhABmjYjDZR28RqkoBzAK40I4ug2YtOUACYB9LRD0GRcxcpYiAFgewtjTVgEF0PBZhKEIyGgA3OCD9JyUVd08AdxoLbTgyI3pfFmJdMlR8qxS0jKDhCAs4RmLU9NYWAGIAHma5OTRUK30WAF4WfSwodKt5dn0LAAo5FlmBmgwDQrIrEXZU6unIGXwWHYA5XRgAI2rc+RZjhx2ggEY7gAYHoIAmB4BKPBm5vIKikvqWw4XB2n1mLTaEHe7QgciqFxE1SijEmS3yQV+yyCiLENFI70Q31mAAEKlUagCMuCWK0iSx4WxOGRJgS6XM2Dp9IY+mZiJYbJyHCy2XMRIQoGQKJomTzpBgPCIyMRtIxYNMIOzNXMLBKoKNVfBerZ7IYgvxejtjsQLNgrDBJCIrNobiwIFdDL00WQMBBhRqtSx3hhdKgdRQrOwoNhfuqA5rwtw4L0QDsKPwyDtEHswAAFQUagCyDpdO1kSBYDwwAFYAL5ff1x2bYKD8GiOhPsJM7ADCeXINxFWv4LbbVg7XbAACFrV4i2IWJNtND8IPAzC48IyLpGBqxRKpcCGhCYR10DyAqhJp1ujRsUjqtCIGAawBdIA
+      code: |4
+          import plotly.express as px
+          from palmerpenguins import load_penguins
+          from shiny import App, reactive, ui
+          from shinywidgets import output_widget, render_widget  #<<
 
-        penguins = load_penguins()
+          app_ui = ui.page_fluid(
+              ui.input_slider("n", "Number of bins", 1, 100, 20),
+              output_widget("plot"),  #<<
+          )
 
-        app_ui = ui.page_fluid(
-          ui.output_data_frame("penguins_df") #<<
-        )
+          def server(input, output, session):
+              @render_widget  #<<
+              def plot(): #<<
+                  penguins = load_penguins()
+                  scatterplot = px.histogram(
+                      data_frame=penguins, x="body_mass_g", nbins=input.n()
+                  ).update_layout(
+                      title={"text": "Penguin Mass", "x": 0.5},
+                      yaxis_title="Count",
+                      xaxis_title="Body Mass (g)",
+                  )
 
-        def server(input, output, session):
-            @output #<<
-            @render.data_frame #<<
-            def penguins_df(): #<<
-                return render.DataTable(penguins) #<<
+                  return scatterplot  #<<
 
-        app = App(app_ui, server)
+          app = App(app_ui, server)
+
       relevantfunctions:
-        - title: ui.output_data_frame
-          href: https://shiny.posit.co/py/api/ui.output_data_frame.html
-          signature: ui.output_data_frame(id)
-        - title: render.data_frame
-          href: https://shiny.posit.co/py/api/render.data_frame.html
-          signature: render.data_frame(fn=None)
-        - title: render.DataTable
-          href: https://shiny.posit.co/py/api/render.DataTable.html
-          signature: render.DataTable(self, data, *, width='fit-content', height='500px', summary=True, filters=False, row_selection_mode='none')
-
-      variations:
-        - title: Filterable Table
-          description: An optional place for a description here that goes about this long but then (oh my gosh!) it's now going even longer to show what the line-height looks like.
-          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYLEQ3doONPqOAG6OkUIVZDal5WXOru6k0YgFhUwAAtMTK4VrdhAOdBjVtfWN20z9LLwRwu0xyxCrT7ZwZHx0j3sHGAAiNVAAFSgACM2E1zs9Vq0RHgIZCmDQBGwKHRRMEAXQ+HA4YVevFUMkrKhImhUIkBHM6CM6NEwABfAC6QA
-          code: |
-            from palmerpenguins import load_penguins
-            from shiny import App, render, session, ui
-
-            penguins = load_penguins()
-
-            app_ui = ui.page_fluid(
-              ui.output_data_frame("penguins_df")
-            )
-
-            def server(input, output, session):
-                @output
-                @render.data_frame
-                def penguins_df():
-                    return render.DataTable(
-                        penguins,
-                        filters = True #<<
-                    )
-
-            app = App(app_ui, server)
-        - title: Select Multiple Rows
-          description: An optional place for a description here that goes about this long but then (oh my gosh!) it's now going even longer to show what the line-height looks like.
-          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYLEQ3doONPqOAG6OkUIVZDal5WXOru6k0YgFhUwAAtMTK4VrdhAOdBjVtfWN20z9LLwRwu0xyxCrT7ZwZHx0j3sHGAAiNVAAFSgACM2E1zs9Vq0RHgIZDbMQAO5KFxgwhkDwQJQwYgOZKdGB8NgY1Bgzpwwq9eKoZJWVCRNCoRICOZ0EZ0aJgAC+AF0gA
-          code: |
-            from palmerpenguins import load_penguins
-            from shiny import App, render, session, ui
-
-            penguins = load_penguins()
-
-            app_ui = ui.page_fluid(
-              ui.output_data_frame("penguins_df")
-            )
-
-            def server(input, output, session):
-                @output
-                @render.data_frame
-                def penguins_df():
-                    return render.DataTable(
-                        penguins,
-                        row_selection_mode = "multiple" #<<
-                    )
-
-            app = App(app_ui, server)
-        - title: Size a table
-          description: 
-          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYNFM2rEQ2g40+o4Abo6RQhVkNqXlZc6u7qTRiAWFTAACs1M9EOubdhAOdBjVtfWNu-uDLLwRwu0xiFf763ZkfHR7h8cYACI1KAAFSgACM2E0Xq9Xq0RDY1tD9gB3AQKMgGZKdACsAAYcagAB6deF7RH7AxwAQ8AwyYKdACMeMJnShrz62jQqGSVlQkU5iQECzoYzo0TAAF8ALpAA
-          code: |
-            from palmerpenguins import load_penguins
-            from shiny import App, render, session, ui
-
-            penguins = load_penguins()
-
-            app_ui = ui.page_fluid(
-              ui.output_data_frame("penguins_df") #<<
-            )
-
-            def server(input, output, session):
-                @output 
-                @render.data_frame 
-                def penguins_df(): 
-                    return render.DataTable( 
-                        penguins, 
-                        width = "500px", #<<
-                        height = "200px" #<<
-                    )
-
-            app = App(app_ui, server)
+        - title: shinywidgets.output_widget
+          href: https://github.com/posit-dev/py-shinywidgets/blob/main/shinywidgets/_shinywidgets.py#L58
+          signature: shinywidgets.output_widget(id, width, height)
+        - title: "@shinywidgets.render_widget()"
+          href: https://github.com/posit-dev/py-shinywidgets/blob/main/shinywidgets/_shinywidgets.py#L213
+          signature: shinywidgets.render_widget(fn)
 
 ---
 
@@ -118,26 +53,47 @@ listing:
 
 ## Details
 
-<p>A DataTable presents tabular data in a spread sheet like view. </p>
+<p>Plotly is an interactive graphics plotting library.</p>
+<p>To make an interactive plot with Plotly in Shiny for Python,
+we will need to use the `shinywidgets` library to connect Shiny with `ipywidgets`.
+</p>
 
-<p>Follow three steps to display a DataTable in your app:</p>
+<p>To make a plotly figure, we need to do the following steps:</p>
 
 <ol>
   <li>
-  Add `ui.output_data_frame()` to the UI of your app to create a div in which to display the table. Where you call this function will determine where the table will appear within the layout of the app. For example, ...
+  Import the `output_widget()` and `render_widget()` functions from the `shinywidgets` library,
+  `from shinywidgets import output_widget, render_widget`
   </li>
+
   <li>
-  Define a function within the `server` function that builds your table and uses `render.DataTable()` to return the result. Where`render.DataTable()`will package the table as an HTML data table for display. If your function calls reactive values, Shiny will update your table whenever those values change, in a [reactive fashion]().
-  
-  To notify Shiny that your function returns a reactive table to display, decorate the function with two decorators:
-  
-   <ul>
-     <li>`@output`</li>
-     <li>`@render.data_frame()`</li>
-   </ul>
-
+  Call `output_widget()` to the UI of your app to create a div in which to display the figure.
+  Where you call this function will determine where the figure will appear within the layout of the app.
+  The `id` parameter you provide will be used to link to other parts of the Shiny app.
   </li>
 
-  <li>Pass `ui.output_data_frame()` the name of the function that builds the DataTable, as a character string, to indicate which DataTable should be displayed in the div. 
+  <li>
+  Define a function within the `server()` function that creates the figure.
+    <ul>
+      <li>
+      The name of the function should be the same value you passed into the `id` parameter
+      in your `output_widget()` function call in the UI.
+      </li>
+      <li>
+      If your function calls reactive values, Shiny will update your figure whenever those values change,
+      in a [reactive fashion](https://shiny.posit.co/py/docs/reactive-programming.html).
+      </li>
+    </ul>
+  </li>
+
+  <li>
+  Decorate your plotting function with a `@render.plot()` decorator.
+    <ul>
+      <li>If your plotting function is not the same as the `id` you used in the `ui.output_plot()`,
+      you can add an additional `@output(id=...)` decorator.
+      If you use the `@output()` decorator,
+      make sure it is __above__ the `@render.plot()` decorator.
+      </li>
+    </ul>
   </li>
 </ol>
