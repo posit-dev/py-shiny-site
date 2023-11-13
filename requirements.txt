@@ -1,4 +1,10 @@
 jupyter
 jupyter_client < 8.0.0
 tabulate
-shinylive==0.0.17
+shinylive==0.1.1
+matplotlib==3.8.1
+shiny
+seaborn==0.13.0
+plotly
+shinywidgets==0.2.2
+ipyleaflet==0.17.4 

@@ -36,37 +36,30 @@ listing:
         - title: ui.input_checkbox()
           href: https://shiny.posit.co/py/api/ui.input_checkbox.html
           signature: ui.input_checkbox(id, label, value=False, *, width=None)
-      details: |
-
-        <p>A checkbox creates a single checkbox that can be used to specify logical values. </p>
-
-        <p>Follow these steps to add a checkbox to your app: </p>
-
-        <ol>
-          <li>
-          Add `ui.input_checkbox()` to the UI of your app to create a checkbox. Where you call this function will determine where the checkbox will appear within the app's layout. 
-          </li>
-          <li>
-          Supply values to `ui.input_checkbox()`'s first two parameters (`id` and `label`) to specify the id and label of the checkbox. Optionally, set the `value` argument to either `True` or `False` to specify the initial value of the checkbox. By default, the checkbox has value `False` and is un-checked.  
-          </li>
-        </ol>
-        
-        The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a checkbox:</p>
-        
-        <ol>
-          <li>
-          Use `input.<checkbox_id>()` (e.g., `input.checkbox()`) to access the value of a checkbox. The server value of a checkbox is `True` if checked and `False` if not checked. 
-          </li>
-        </ol>
-        
-        <p>See also: Checkbox Group(TODO: ADD LINK TO CHECKBOX GROUP HERE)</p>
-      variations:
-        - title: null
-          description: null
-          preview: null
-          code: null
 ---
 
-:::{.component}
+:::{#component}
 :::
 
+## Details
+
+<p>A checkbox creates a single checkbox that can be used to specify logical values. </p>
+
+<ol>
+  <li>
+  Add `ui.input_checkbox()` to the UI of your app to create a checkbox. Where you call this function will determine where the checkbox will appear within the app's layout. 
+  </li>
+  <li>
+  Supply values to `ui.input_checkbox()`'s first two parameters (`id` and `label`) to specify the id and label of the checkbox. Optionally, set the `value` argument to either `True` or `False` to specify the initial value of the checkbox. By default, the checkbox has value `False` and is un-checked.  
+  </li>
+</ol>
+
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a checkbox:</p>
+
+<ol>
+  <li>
+  Use `input.<checkbox_id>()` (e.g., `input.checkbox()`) to access the value of a checkbox. The server value of a checkbox is `True` if checked and `False` if not checked. 
+  </li>
+</ol>
+
+<p>See also: Checkbox Group(TODO: ADD LINK TO CHECKBOX GROUP HERE)</p>

@@ -1,8 +1,20 @@
 ---
 title: "Action Button"
 sidebar: components 
-preview: |
-  <button type="button" class="btn btn-outline-dark action-button">Action Button</button>
+previewapp: |
+  from shiny import App, reactive, render, ui
+  app_ui = ui.page_fluid(
+      ui.input_action_button("action_button", "Action"), 
+      ui.output_text("counter"),
+        {"class": "vh-100 d-flex justify-content-center align-items-center px-4"}
+  )
+  def server(input, output, session):
+      @output
+      @render.text()
+      @reactive.event(input.action_button)
+      def counter():
+          return f""
+  app = App(app_ui, server)
 listing:
   id: component
   template: ../_partials/components-detail.ejs
@@ -31,34 +43,32 @@ listing:
         - title: reactive.event
           href: https://shiny.posit.co/py/api/reactive.event.html
           signature: reactive.event(*args, ignore_none=True, ignore_init=False)
-      details: |
-        <p>An action button appears as a button and has a value that increments each time the user presses the button. </p>
 
-        <p>Follow these steps to add an action button to your app:</p>
-
-        <ol>
-          <li>Add `ui.input_action_button()` to the UI of your app to create an action button. Where you call this function will determine where the button will appear within the app's layout.
-          </li>
-          <li>
-          Specify the `id` and `label` parameters of `ui.input_action_button()` to define the button's identifier and label. 
-          </li>
-        </ol>
-        
-        The value of an input component is accessible as a reactive value within the `server()` function. To access the value of an action button:</p>
-        
-        <ol>
-          <li>
-          Use `input.<action_button_id()>` (e.g., `input.action_button()`) to access the value of the action button. The server value of an action button is an integer representing the number of clicks.  
-          </li>
-        </ol>
-
-        <p>See also: Action Link (TODO: ADD LINK TO ACTION LINK HERE)</p>
-      variations:
-        - title: null
-          description: null
-          preview: null
-          code: null
 ---
 
-:::{.component}
+:::{#component}
 :::
+
+## Details
+
+<p>An action button appears as a button in your app and has a value that increments each time the user presses the button. </p>
+
+<p>Follow these steps to add an action button to your app:</p>
+
+<ol>
+  <li>Add `ui.input_action_button()` to the UI of your app to create an action button. Where you call this function will determine where the button will appear within the app's layout.
+  </li>
+  <li>
+  Specify the `id` and `label` parameters of `ui.input_action_button()` to define the button's identifier and label. 
+  </li>
+</ol>
+
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of an action button:</p>
+
+<ol>
+  <li>
+  Use `input.<action_button_id()>` (e.g., `input.action_button()`) to access the value of the action button. The server value of an action button is an integer representing the number of clicks.  
+  </li>
+</ol>
+
+<p>See also: Action Link (TODO: ADD LINK TO ACTION LINK HERE)</p>

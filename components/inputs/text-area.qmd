@@ -40,41 +40,35 @@ listing:
         - title: ui.input_text_area
           href: https://shiny.posit.co/py/api/ui.input_text_area.html
           signature: ui.input_text_area(id, label, value='', *, width=None, height=None, cols=None, rows=None, placeholder=None, resize=None, autoresize=False, autocomplete=None, spellcheck=None)
-      details: |
-
-        <p>Create a textarea input control for entry of unstructured text values.</p>
-
-        <p>To add a textarea to your app:</p>
-
-        <ol>
-          <li>
-          Add `ui.input_text_area()` to the UI of your app to create a textarea. Where you call this function will determine where the textarea will appear within the app's layout. 
-          </li>
-          <li>
-          Specify the `id` and `label` parameters of `ui.input_text_area()` to define the identifier and label of the textarea. 
-          </li>
-          <li>
-          By default, the `value` parameter, which defines the textarea's initial value, is the empty string (`''`). Provide a different string to `value` to change the initial text.
-          </li>
-        </ol>
-        
-        The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a textarea:</p>
-        
-        <ol>
-          <li>
-          Use `input.<textarea_id>()` (e.g., `input.textarea()`) to access the value of the textarea. The server value of a textarea is a string containing the current text input.
-          </li>
-        </ol>
-                
-        <p>See also: Text Box (TODO: ADD LINK TO Text Box HERE)</p>
-      variations:
-        - title: null
-          description: null
-          preview: null
-          code: null
 ---
 
-:::{.component}
+:::{#component}
 :::
 
+## Details
 
+<p>Create a textarea input control for entry of unstructured text values.</p>
+
+<p>To add a textarea to your app:</p>
+
+<ol>
+  <li>
+  Add `ui.input_text_area()` to the UI of your app to create a textarea. Where you call this function will determine where the textarea will appear within the app's layout. 
+  </li>
+  <li>
+  Specify the `id` and `label` parameters of `ui.input_text_area()` to define the identifier and label of the textarea. 
+  </li>
+  <li>
+  By default, the `value` parameter, which defines the textarea's initial value, is the empty string (`''`). Provide a different string to `value` to change the initial text.
+  </li>
+</ol>
+
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a textarea:</p>
+
+<ol>
+  <li>
+  Use `input.<textarea_id>()` (e.g., `input.textarea()`) to access the value of the textarea. The server value of a textarea is a string containing the current text input.
+  </li>
+</ol>
+
+<p>See also: Text Box (TODO: ADD LINK TO Text Box HERE)</p>

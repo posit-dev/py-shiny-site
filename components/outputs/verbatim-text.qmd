@@ -44,15 +44,6 @@ listing:
         - title: "@render.text"
           href: https://shiny.posit.co/py/api/render.text.html
           signature: render.text(fn=None)
-      details: |
-
-        Verbatim text displays a character string as monospaced code in a shaded rectangle.
-        
-        To create reactive verbatim text, render the text in the server function with the decorators `@render.text`, just as you would to display [normal text](TODO: ADD LINK TO TEXT). Then place the rendered text in the ui with `ui.output_verbatim_text()`.
-        
-        By default, `ui.output_verbatim_text()` will display nothing when the string to display is empty. To ensure that `ui.output_verbatim_text()` displays an empty shaded rectangle as a placeholder even when when the string to display is empty, set `placeholder=True`.
-        
-        See [Text](TODO: ADD LINK TO TEXT) to display string values as normal text.
         
       variations:
         - title: Placeholder rectangle when string is empty
@@ -75,6 +66,15 @@ listing:
 
 ---
 
-:::{.component}
+:::{#component}
 :::
 
+## Details
+
+Verbatim text displays a character string as monospaced code in a shaded rectangle.
+
+To create reactive verbatim text, render the text in the server function with the decorators `@render.text`, just as you would to display [normal text](TODO: ADD LINK TO TEXT). Then place the rendered text in the ui with `ui.output_verbatim_text()`.
+
+By default, `ui.output_verbatim_text()` will display nothing when the string to display is empty. To ensure that `ui.output_verbatim_text()` displays an empty shaded rectangle as a placeholder even when when the string to display is empty, set `placeholder=True`.
+
+See [Text](TODO: ADD LINK TO TEXT) to display string values as normal text.

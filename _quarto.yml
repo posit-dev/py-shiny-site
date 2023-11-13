@@ -78,6 +78,7 @@ website:
         file: gallery/index.qmd
       - text: "Examples"
         href: https://shinylive.io/py/examples/
+        target: _blank
       - text: "Function Reference"
         href: api/index.qmd
       - text: "Help"
@@ -137,6 +138,7 @@ website:
             - components/outputs/datatable.qmd
             - components/outputs/plot.qmd
             - components/outputs/text.qmd
+            - components/outputs/ui.qmd
             - components/outputs/value-box.qmd
             - components/outputs/verbatim-text.qmd
         - section: "![](/images/chat-dots-fill.svg){.sidebar-icon .sidebar-subtitle}__Display Messages__"

@@ -42,37 +42,32 @@ listing:
         - title: ui.input_date
           href: https://shiny.posit.co/py/api/ui.input_date.html
           signature: ui.input_date(id, label, *, value=None, min=None, max=None, format='yyyy-mm-dd', startview='month', weekstart=0, language='en', width=None, autoclose=True, datesdisabled=None, daysofweekdisabled=None)
-      details: |
-
-        <p>A date selector allows you to select a date from a calendar.</p>
-
-        <p>To add a date selector to your app:</p>
-
-        <ol>
-          <li>
-          Add `ui.input_date()` to the UI of your app to create a date selector. Where you call this function will determine where the date selector will appear within the app's layout. 
-          </li>
-          <li>
-          Specify the `id` and `label` parameters of `ui.input_date()` to define the identifier and label of the date selector. `ui.input_date()` also includes various optional parameters, including `min` and `max`, which set the minimum and maximum allowed dates.
-          </li>
-        </ol>
-        
-        The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a date selector:</p>
-        
-        <ol>
-          <li>
-          Use `input.<date_id>()` to access the value of a daterange selector (e.g., `input.date()`). The server value of a date selector is a date object. 
-          </li>
-        </ol>
-
-        <p>See also: Date Range Selector (TODO: ADD LINK TO DATE RANGE SELECTOR HERE)</p>
-      variations:
-        - title: null
-          description: null
-          preview: null
-          code: null
 ---
 
-:::{.component}
+:::{#component}
 :::
 
+## Details
+
+<p>A date selector allows you to select a date from a calendar.</p>
+
+<p>To add a date selector to your app:</p>
+
+<ol>
+  <li>
+  Add `ui.input_date()` to the UI of your app to create a date selector. Where you call this function will determine where the date selector will appear within the app's layout. 
+  </li>
+  <li>
+  Specify the `id` and `label` parameters of `ui.input_date()` to define the identifier and label of the date selector. `ui.input_date()` also includes various optional parameters, including `min` and `max`, which set the minimum and maximum allowed dates.
+  </li>
+</ol>
+
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a date selector:</p>
+
+<ol>
+  <li>
+  Use `input.<date_id>()` to access the value of a daterange selector (e.g., `input.date()`). The server value of a date selector is a date object. 
+  </li>
+</ol>
+
+<p>See also: Date Range Selector (TODO: ADD LINK TO DATE RANGE SELECTOR HERE)</p>

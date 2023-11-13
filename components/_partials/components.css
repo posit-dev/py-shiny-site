@@ -1,4 +1,12 @@
-// list page styling
+/* make space for sidebar icons */
+
+@media only screen and (min-width: 992px) {
+  #quarto-sidebar>* {
+      padding: 1.5em 0.75em 1.5em 2em;
+  }
+}
+
+/* list page styling */
 
 .component-list-column {
   padding-top: 1rem;
@@ -66,10 +74,10 @@ a.component-list-header-text:hover ~ div.component-list-icon p a i.component-lin
 
 
 
-// detail page styling
+/* detail page styling */
 
 
-// tabs for preview and code
+/* tabs for preview and code */
 
 .nav-pills .nav-link.active,
 .nav-pills .show>.nav-link {

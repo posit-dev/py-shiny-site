@@ -46,39 +46,33 @@ listing:
         - title: ui.input_radio_buttons
           href: https://shiny.posit.co/py/api/ui.input_radio_buttons.html
           signature: ui.input_radio_buttons(id, label, choices, *, selected=None, inline=False, width=None)
-      details: |
-
-        <p>Use a set of radio buttons to select an item from a list.</p>
-
-        <p>To add radio buttons to your app:</p>
-
-        <ol>
-          <li>
-          Add `ui.input_radio_buttons()` to the UI of your app to create a set of radio buttons. Where you call this function will determine where the radio buttons will appear within the app's layout. 
-          </li>
-          <li>
-          Specify the `id` and `label` parameters of `ui.input_radio_buttons()` to define the identifier and label of the set of radio buttons.
-          </li>
-          <li>
-          Specify the value and label that accompanies each radio button using the `choices` parameter. `choices` can be either a list or a dictionary. If `choices` is a list, the list elements become the radio button values and labels. If `choices` is a dictionary, `ui.input_radio_buttons()` uses the dictionary keys as the button values and the dictionary values as the button labels. 
-          </li>
-        </ol>
-        
-        The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a set of radio buttons:</p>
-        
-        <ol>
-          <li>
-          Use `input.<radio_buttons_id>()` to access the value of a radio button set (e.g., `input.radio()`). The server value of a set of radio buttons is a string containing the selected value. 
-          </li>
-        </ol>
-      variations:
-        - title: null
-          description: null
-          preview: null
-          code: null
 ---
 
-:::{.component}
+:::{#component}
 :::
 
+## Details
 
+<p>Use a set of radio buttons to select an item from a list.</p>
+
+<p>To add radio buttons to your app:</p>
+
+<ol>
+  <li>
+  Add `ui.input_radio_buttons()` to the UI of your app to create a set of radio buttons. Where you call this function will determine where the radio buttons will appear within the app's layout. 
+  </li>
+  <li>
+  Specify the `id` and `label` parameters of `ui.input_radio_buttons()` to define the identifier and label of the set of radio buttons.
+  </li>
+  <li>
+  Specify the value and label that accompanies each radio button using the `choices` parameter. `choices` can be either a list or a dictionary. If `choices` is a list, the list elements become the radio button values and labels. If `choices` is a dictionary, `ui.input_radio_buttons()` uses the dictionary keys as the button values and the dictionary values as the button labels. 
+  </li>
+</ol>
+
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a set of radio buttons:</p>
+
+<ol>
+  <li>
+  Use `input.<radio_buttons_id>()` to access the value of a radio button set (e.g., `input.radio()`). The server value of a set of radio buttons is a string containing the selected value. 
+  </li>
+</ol>

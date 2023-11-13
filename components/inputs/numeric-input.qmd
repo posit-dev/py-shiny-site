@@ -40,35 +40,31 @@ listing:
         - title: ui.input_numeric
           href: https://shiny.posit.co/py/api/ui.input_numeric.html
           signature: ui.input_numeric(id, label, value, *, min=None, max=None, step=None, width=None)
-      details: |
 
-        <p>A numeric input control creates a way to specify a number.</p>
-
-        <p>To add a numeric input control to your app:</p>
-
-        <ol>
-          <li>
-          Add `ui.input_numeric()` to the UI of your app to create a numeric input. Where you call this function will determine where the numeric input control will appear within the app's layout. 
-          </li>
-          <li>
-          Specify the `id` and `label` parameters of `ui.input_numeric()` to define the identifier and label of the numeric input. `ui.input_numeric()` also includes various optional parameters, including `min` and `max`, which set the minimum and maximum allowed values.
-          </li>
-        </ol>
-        
-        The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a numeric input control:</p>
-        
-        <ol>
-          <li>
-          Use `input.<numeric_input_id>()` (e.g., `input.numeric()`) to access the specified numeric value. The server value of a numeric input control is a numeric value. 
-          </li>
-        </ol>
-      variations:
-        - title: null
-          description: null
-          preview: null
-          code: null
 ---
 
-:::{.component}
+:::{#component}
 :::
 
+## Details
+
+<p>A numeric input control creates a way to specify a number.</p>
+
+<p>To add a numeric input control to your app:</p>
+
+<ol>
+  <li>
+  Add `ui.input_numeric()` to the UI of your app to create a numeric input. Where you call this function will determine where the numeric input control will appear within the app's layout. 
+  </li>
+  <li>
+  Specify the `id` and `label` parameters of `ui.input_numeric()` to define the identifier and label of the numeric input. `ui.input_numeric()` also includes various optional parameters, including `min` and `max`, which set the minimum and maximum allowed values.
+  </li>
+</ol>
+
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a numeric input control:</p>
+
+<ol>
+  <li>
+  Use `input.<numeric_input_id>()` (e.g., `input.numeric()`) to access the specified numeric value. The server value of a numeric input control is a numeric value. 
+  </li>
+</ol>

@@ -58,7 +58,7 @@ Shiny Components
 ::: {.grid style="border-top: 1px solid #ccc;padding-top:3rem;padding-bottom:5rem;margin-top: -1px;" #inputs}
 
 ::: {.g-col-lg-3 .g-col-12}
-::: {.sticky-top .pt-4}
+::: {.sticky-lg-top .pt-4}
 
 <h2 class="mt-4"> <i class="bi bi-sliders blue"></i> Inputs </h2>
 
@@ -78,7 +78,7 @@ Inputs allow users to interact with the webpage by clicking a button, entering t
 ::: {.grid style="border-top: 1px solid #ccc;padding-top:3rem;padding-bottom:5rem;margin-top: -1px;" #outputs}
 
 ::: {.g-col-lg-3 .g-col-12}
-::: {.sticky-top .pt-4}
+::: {.sticky-lg-top .pt-4}
 
 <h2 class="mt-4"> <i class="bi bi-bar-chart-line-fill indigo"></i> Outputs </h2>
 
@@ -98,7 +98,7 @@ Outputs create a spot on the webpage to display results from the server, such as
 ::: {.grid style="border-top: 1px solid #ccc;padding-top:3rem;padding-bottom:5rem;margin-top: -1px;" #display-messages}
 
 ::: {.g-col-lg-3 .g-col-12}
-::: {.sticky-top .pt-4}
+::: {.sticky-lg-top .pt-4}
 
 <h2 class="mt-4"> <i class="bi bi-chat-dots-fill purple"></i> Display Messages </h2>
 
