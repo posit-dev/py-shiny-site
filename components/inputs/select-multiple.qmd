@@ -19,7 +19,6 @@ previewapp: |
   )
 
   def server(input: Inputs, output: Outputs, session: Session):
-      @output
       @render.text
       def value():
           return f""
@@ -60,15 +59,12 @@ listing:
           preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZG0wAxAA8wfaOEcpgXj5+URIhYRARkWAAyt6+wsSoZBykLEwARt7EAO6I8UGh4SlMINVJdXVRAIxRiPVtIh1MUQDCbMQchHBMrT34fWCtAEK9A0MjY3NVbf0LYIPDo+MbYAC+CTXJzakATL0gUeeTnYs7Y7drYOfzSNPby0xvL+f79y2S12-yiB0atRSRwhpzqMAUFjyqB8ugAKnQFGNEpCAJTHJqOQzEdxuDwUAAe-iiADcoFY4FE8aocapVLIaKw5NS5DZXO4JMSyKSJF4WCx8hAcZVYUwAAJSCCyOgYClkSHspi0+k2KWQiJSMgKOjJGhREB8sgYGJZHUHKKs6DoPSidA2DTaDgirlyHGHAC6QA
           code: |
             from shiny import App, render, ui
-            
+        
             app_ui = ui.page_fluid(
                 ui.input_select( #<<
                     "select", #<<
                     "Select options below:", #<<
-                    { #<<
-                        "1": {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"}, #<<
-                        "2": {"2A": "Choice 2A", "2B": "Choice 2B", "2C": "Choice 2C"} #<<
-                    }, #<<
+                    {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"}, #<<
                     multiple=True #<<
                 ), #<<
                 ui.output_text("value"),

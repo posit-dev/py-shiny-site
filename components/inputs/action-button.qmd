@@ -20,21 +20,20 @@ listing:
   template: ../_partials/components-detail.ejs
   contents:
     - title: Action Button
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdaOgD6OpgF4mOrFADmcQzQA2O1QAp9TDxY4YuqLWUMZOVJDACN-MlI3FFkOEPCySIhdfCYUkVjSFIBKCXdPS2J-PwCKAA8yaJItcg0cvHzPJhAUwgcoFhYUxDSweTYAWgBGAAYRplUBxzgypgArLRY5GmwBklryNcoKOiYoBw5rCAGOChgWLdrd1DKBgBYUgF99bP11GlYNRToXX38JIpkEoSFhwTpxCDZRCNJgAAUBJRhsJU6joGHKlVeECayOksUUGDginIvwgJQwQQhYQipCxTXeTGqVxcUJhTSkZC0dGxNBSID+ZApmQg1MSpAwhnk+y0cGeYH0aFQZlE6BciuMHBBXw02TAjwAukA
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdCPrSoA+jqYBeJjqxQA5nGM0ANjtUAKfUy9WOGLqi0yYxk5UmMAI0CyUg8UWQ4wyLJog3wmXTAReNIMgEoJAGIAHiLPb2tiQICgigAPMliSLXINPP1c-X11GlYNRTo3f0CJSrJqiRY4FhYEiFzEMq8AAVHqxaYllXU6DDqGjohvDakQhTgMOEVyQYhqjFPEqNIDo+6mJpaB+fWjqTItOiHGgZEBDMj3bIQCJPCBuXIAXwynWg6AsonQbiMpg4Ez6GlyYHhAF0gA
       code: |
         from shiny import App, reactive, render, ui
-        
+
         app_ui = ui.page_fluid(
-            ui.input_action_button("action_button", "Action"), #<<
-            ui.output_text("counter")
+          ui.input_action_button("action_button", "Action"), #<<
+          ui.output_text("counter")
         )
-        
+
         def server(input, output, session):
-            @output
-            @render.text()
-            @reactive.event(input.action_button)
-            def counter():
-                return f"{input.action_button._value}"
+          @render.text()
+          @reactive.event(input.action_button)
+          def counter():
+              return f"{input.action_button()}"
 
         app = App(app_ui, server)
       relevantfunctions:

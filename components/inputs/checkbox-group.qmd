@@ -45,7 +45,6 @@ listing:
         )
         
         def server(input, output, session):
-            @output
             @render.text
             def value():
                 return ", ".join(input.checkbox_group())

@@ -9,7 +9,6 @@ previewapp: |
         {"class": "vh-100 d-flex justify-content-center align-items-center px-4"}
   )
   def server(input, output, session):
-      @output
       @render.plot
       def hist():
           print(input.range())

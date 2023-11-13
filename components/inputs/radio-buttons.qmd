@@ -37,7 +37,6 @@ listing:
         )
         
         def server(input, output, session):
-            @output
             @render.ui
             def value():
                 return input.radio()

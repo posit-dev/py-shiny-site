@@ -30,11 +30,10 @@ listing:
         )
         
         def server(input, output, session):
-            @output
             @render.text()
             @reactive.event(input.action_link)
             def counter():
-                return f"{input.action_link._value}"
+                return f"{input.action_link()}"
         
         app = App(app_ui, server)
       relevantfunctions:
