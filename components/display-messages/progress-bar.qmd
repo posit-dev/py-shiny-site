@@ -71,14 +71,6 @@ listing:
         - title: "ui.Progress.set"
           href: https://shiny.posit.co/py/api/ui.Progress.html
           signature: ui.Progress.set(self, value=None, message=None, detail=None)
-      
-      
-
-      variations:
-        - title: null
-          description: null
-          preview: null
-          code: null
 
 ---
 
