@@ -6,5 +6,6 @@ format:
     code-line-numbers: true
 filters:
   - quarto
-  - line-highlight   
+  - line-highlight
+  - shinylive 
  

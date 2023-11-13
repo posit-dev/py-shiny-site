@@ -19,7 +19,7 @@ previewapp: |
   app = App(app_ui, server, debug=True)
 
 listing:
-  id: daterangeselector
+  id: component
   template: ../_partials/components-detail.ejs
   contents:
     - title: Date Range Selector
@@ -46,31 +46,31 @@ listing:
         - title: ui.input_date_range
           href: https://shiny.posit.co/py/api/ui.input_date_range.html
           signature: ui.input_date_range(id, label, *, start=None, end=None, min=None, max=None, format='yyyy-mm-dd', startview='month', weekstart=0, language='en', separator=' to ', width=None, autoclose=True)
-      details: |
-
-        <p>A date range selector allows you to select a pair of dates from calendars. </p>
-
-        <p>To add a date range selector to your app:</p>
-
-        <ol>
-          <li>
-          Add `ui.input_date_range()` to the UI of your app to create a div in which to display the date range. Where you call this function will determine where the table will appear within the layout of the app. 
-          </li>
-          <li>
-          Specify the `id` and `label` parameters of `ui.input_date_range()` to define the identifier and label of the daterange selector. `ui.input_date_range()` also includes various optional parameters, including `start` and `end`, which set the initial start and end dates.
-          </li>
-        </ol>
-        
-        <p>To access the value of the daterange selector:</p>
-        
-        <ol>
-          <li>
-          Use `input.<date_range_id>()` to access the value of your daterange selector (e.g., `input.daterange()`). The server value of the daterange selector is a tuple of date objects. You can access the individual tuple elements using square brackets and indices (e.g., `input.daterange()[0]`).
-          </li>
-        </ol>
 
 ---
 
-:::{.daterangeselector}
+:::{#component}
 :::
 
+## Details
+
+<p>A date range selector allows you to select a pair of dates from calendars. </p>
+
+<p>To add a date range selector to your app:</p>
+
+<ol>
+  <li>
+  Add `ui.input_date_range()` to the UI of your app to create a div in which to display the date range. Where you call this function will determine where the table will appear within the layout of the app. 
+  </li>
+  <li>
+  Specify the `id` and `label` parameters of `ui.input_date_range()` to define the identifier and label of the daterange selector. `ui.input_date_range()` also includes various optional parameters, including `start` and `end`, which set the initial start and end dates.
+  </li>
+</ol>
+
+<p>To access the value of the daterange selector:</p>
+
+<ol>
+  <li>
+  Use `input.<date_range_id>()` to access the value of your daterange selector (e.g., `input.daterange()`). The server value of the daterange selector is a tuple of date objects. You can access the individual tuple elements using square brackets and indices (e.g., `input.daterange()[0]`).
+  </li>
+</ol>

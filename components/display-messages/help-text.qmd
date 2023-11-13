@@ -1,6 +1,6 @@
 ---
 title: "Help Text"
-sidebar: components
+sidebar: components 
 previewapp: |
   from shiny import App, reactive, ui
 
@@ -18,44 +18,39 @@ previewapp: |
 
   app = App(app_ui, server)
 listing:
-  id: component
-  template: ../_partials/components-detail.ejs
-  contents:
-    - title: Help Text
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGNnGu6KADzJOYAAKUiwsTGSeTABGymRkpDFexADuEcQYmWpgAJR4zq4mZOYsGNF0DnkFLiZcqHE6MnKkOrHxpIHsqdkS2QDC1hyEANZMALJwPbwQgxBwhkwAYlDWLHA5GhuaEHZwNKxwdIoVdXESxHH1ZBJrYRykOYjVknBkynQQTABypJPb2gsxKgHNo9BwbodjjkwABfAC6QA
-      code: |
-        from shiny import App, reactive, ui
-
-        app_ui = ui.page_fluid(
-            ui.help_text("Press the button below to..."), #<<
-            ui.tags.br(),
-            ui.input_action_button("show", "Click Me")
-        )
-
-        def server(input, output, session):
-            return None
-
-        app = App(app_ui, server)
-      relevantfunctions:
-        - title: "ui.help_text"
-          href: https://shiny.posit.co/py/api/ui.help_text.html
-          signature: ui.help_text(*args, **kwargs)
-      details: |
-
-        [`ui.help_text()`](TODO ADD LINK TO UI HELP TEXT) creates stylized help text which can be added to the user interface to provide additional explanation or context.
-
-        To create help text, call `ui.help_text()` at a desired location from within your `app_ui`. Then pass `ui.help_text()` one or more help text strings (or other inline HTML elements) to place into the `app_ui`.
-
-        ## See Also
-
-        [Tooltips](TO DO ADD LINK TO TOOLTIPS PAGE) provide a similar, but alternative way to display information to the user.
-
-      variations:
-        - title: null
-          description: null
-          preview: null
-          code: null
+  - id: component
+    template: ../_partials/components-detail.ejs
+    contents:
+      - title: Help Text
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGNnGu6KADzJOYAAKUiwsTGSeTABGymRkpDFexADuEcQYmWpgAJR4zq4mZOYsGNF0DnkFLiZcqHE6MnKkOrHxpIHsqdkS2QDC1hyEANZMALJwPbwQgxBwhkwAYlDWLHA5GhuaEHZwNKxwdIoVdXESxHH1ZBJrYRykOYjVknBkynQQTABypJPb2gsxKgHNo9BwbodjjkwABfAC6QA
+        code: |
+          from shiny import App, reactive, ui
+          
+          app_ui = ui.page_fluid(
+              ui.help_text("Press the button below to..."), #<<
+              ui.tags.br(),
+              ui.input_action_button("show", "Click Me")
+          )
+          
+          def server(input, output, session):
+              return None
+          
+          app = App(app_ui, server)
+        relevantfunctions:
+          - title: "ui.help_text"
+            href: https://shiny.posit.co/py/api/ui.help_text.html
+            signature: ui.help_text(*args, **kwargs)
 ---
 
-:::{.component}
+:::{#component}
 :::
+
+## Details
+
+[`ui.help_text()`](TODO ADD LINK TO UI HELP TEXT) creates stylized help text which can be added to the user interface to provide additional explanation or context.
+
+To create help text, call `ui.help_text()` at a desired location from within your `app_ui`. Then pass `ui.help_text()` one or more help text strings (or other inline HTML elements) to place into the `app_ui`.
+
+## See Also
+
+[Tooltips](TO DO ADD LINK TO TOOLTIPS PAGE) provide a similar, but alternative way to display information to the user.

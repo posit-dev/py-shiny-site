@@ -44,33 +44,33 @@ listing:
         - title: ui.input_date
           href: https://shiny.posit.co/py/api/ui.input_date.html
           signature: ui.input_date(id, label, *, value=None, min=None, max=None, format='yyyy-mm-dd', startview='month', weekstart=0, language='en', width=None, autoclose=True, datesdisabled=None, daysofweekdisabled=None)
-      details: |
-
-        <p>A date selector allows you to select a date from a calendar.</p>
-
-        <p>Follow three steps to display a DataTable in your app:</p>
-
-        <ol>
-          <li>
-          Add `ui.output_data_frame()` to the UI of your app to create a div in which to display the table. Where you call this function will determine where the table will appear within the layout of the app. For example, ...
-          </li>
-          <li>
-          Define a function within the `server` function that builds your table and uses `render.DataTable()` to return the result. Where`render.DataTable()`will package the table as an HTML data table for display. If your function calls reactive values, Shiny will update your table whenever those values change, in a [reactive fashion]().
-          
-          To notify Shiny that your function returns a reactive table to display, decorate the function with two decorators:
-          
-           <ul>
-             <li>`@output`</li>
-             <li>`@render.data_frame()`</li>
-           </ul>
-
-          </li>
-
-          <li>Pass `ui.output_data_frame()` the name of the function that builds the DataTable, as a character string, to indicate which DataTable should be displayed in the div. 
-          </li>
-        </ol>
 ---
 
-:::{.component}
+:::{#component}
 :::
 
+## Details
+
+<p>A date selector allows you to select a date from a calendar.</p>
+
+<p>Follow three steps to display a DataTable in your app:</p>
+
+<ol>
+  <li>
+  Add `ui.output_data_frame()` to the UI of your app to create a div in which to display the table. Where you call this function will determine where the table will appear within the layout of the app. For example, ...
+  </li>
+  <li>
+  Define a function within the `server` function that builds your table and uses `render.DataTable()` to return the result. Where`render.DataTable()`will package the table as an HTML data table for display. If your function calls reactive values, Shiny will update your table whenever those values change, in a [reactive fashion]().
+  
+  To notify Shiny that your function returns a reactive table to display, decorate the function with two decorators:
+  
+   <ul>
+     <li>`@output`</li>
+     <li>`@render.data_frame()`</li>
+   </ul>
+
+  </li>
+
+  <li>Pass `ui.output_data_frame()` the name of the function that builds the DataTable, as a character string, to indicate which DataTable should be displayed in the div. 
+  </li>
+</ol>

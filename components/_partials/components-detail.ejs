@@ -33,22 +33,13 @@
 :::{.border-bottom .my-6}
 :::
 
-## Details
-
-<%= item.details %>
-
-
 <% if (item.variations) { %>
-
-
-:::{.border-bottom .my-6}
-:::
 
 ## Variations
 
 <% for (const variation of item.variations) { %>
 
-### <%= variation.title %> {.mb-0 .mt-5}
+#### <%= variation.title %> {.mb-0 .mt-4}
 
 <p class="mb-0"><%= variation.description %></p>
 
@@ -68,6 +59,9 @@
 :::
 
 <% } %>
+
+:::{.border-bottom .my-6}
+:::
 
 <% } %>
 

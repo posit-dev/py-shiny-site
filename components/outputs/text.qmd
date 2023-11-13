@@ -46,21 +46,7 @@ listing:
         - title: "@render.text"
           href: https://shiny.posit.co/py/api/render.text.html
           signature: render.text(fn=None)
-      details: |
-        <p>Text displays a character string as normal text. </p>
-        
-        <p>To make reactive text, follow three steps:</p>
-          
-        <ol>
-          <li>Call `ui.output_text()` in the UI of your app to create a div in which to display the text. Where you call this function within the UI functions will determine where the text will appear within the layout of the app. Set the id argument of `ui.output_text()` to a unique value.</li>
-        
-          <li>Within the server function, define a new function whose name matches the id used above. The function should return the text to display. Shiny will rerun this function whenever it needs to build or update the output that has the matching id.</li>
-        
-          <li>Decorate the function with `@render.text`</li>
-        </ol>
-        
-        <p>See [Verbatim Text](TODO: ADD LINK TO VERBATIM TEXT) to display string values as they would appear in a computer console, in monospaced font on a shaded background.</p>
-        
+
       variations:
         - title: Inline text
           description: Set `inline=True` within `ui.output_text()` to have text appear inline with the text that preceeds it.   
@@ -82,6 +68,21 @@ listing:
 
 ---
 
-:::{.component}
+:::{#component}
 :::
 
+## Details
+
+<p>Text displays a character string as normal text. </p>
+
+<p>To make reactive text, follow three steps:</p>
+  
+<ol>
+  <li>Call `ui.output_text()` in the UI of your app to create a div in which to display the text. Where you call this function within the UI functions will determine where the text will appear within the layout of the app. Set the id argument of `ui.output_text()` to a unique value.</li>
+
+  <li>Within the server function, define a new function whose name matches the id used above. The function should return the text to display. Shiny will rerun this function whenever it needs to build or update the output that has the matching id.</li>
+
+  <li>Decorate the function with `@render.text`</li>
+</ol>
+
+<p>See [Verbatim Text](TODO: ADD LINK TO VERBATIM TEXT) to display string values as they would appear in a computer console, in monospaced font on a shaded background.</p>
