@@ -55,26 +55,26 @@ listing:
 
 ## Details
 
-<p>A DataTable presents tabular data in a spread sheet like view. </p>
+<p>Use a set of radio buttons to select an item from a list.</p>
 
-<p>Follow three steps to display a DataTable in your app:</p>
+<p>To add radio buttons to your app:</p>
 
 <ol>
   <li>
-  Add `ui.output_data_frame()` to the UI of your app to create a div in which to display the table. Where you call this function will determine where the table will appear within the layout of the app. For example, ...
+    Add `ui.input_radio_buttons()` to the UI of your app to create a set of radio buttons. Where you call this function will determine where the radio buttons will appear within the app's layout.
   </li>
   <li>
-  Define a function within the `server` function that builds your table and uses `render.DataTable()` to return the result. Where`render.DataTable()`will package the table as an HTML data table for display. If your function calls reactive values, Shiny will update your table whenever those values change, in a [reactive fashion]().
-  
-  To notify Shiny that your function returns a reactive table to display, decorate the function with two decorators:
-  
-   <ul>
-     <li>`@output`</li>
-     <li>`@render.data_frame()`</li>
-   </ul>
-
+    Specify the `id` and `label` parameters of `ui.input_radio_buttons()` to define the identifier and label of the set of radio buttons.
   </li>
+  <li>
+    Specify the value and label that accompanies each radio button using the `choices` parameter. `choices` can be either a list or a dictionary. If `choices` is a list, the list elements become the radio button values and labels. If `choices` is a dictionary, `ui.input_radio_buttons()` uses the dictionary keys as the button values and the dictionary values as the button labels.
+  </li>
+</ol>
 
-  <li>Pass `ui.output_data_frame()` the name of the function that builds the DataTable, as a character string, to indicate which DataTable should be displayed in the div. 
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a set of radio buttons:</p>
+
+<ol>
+  <li>
+  Use `input.<radio_buttons_id>()` to access the value of a radio button set (e.g., `input.radio()`). The server value of a set of radio buttons is a string containing the selected value. 
   </li>
 </ol>

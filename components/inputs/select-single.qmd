@@ -29,24 +29,20 @@ listing:
   template: ../_partials/components-detail.ejs
   contents:
     - title: Select List
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZOxCOQUzKYF4+fqF49sEOoQDK3r7CAEbEAB5RMbEg2bGOoQCMoYhMuWCFIiUhYADCbMQchHBMlVE1hQBC1aH1jc2t3fgdtT11DU0thaNgAL7RgflBoQBM1eUrVUg1fZNMm+2rQ6W9EwMrQxKrMyfj-S0rM7N5QfN5AJQLQYbE7m4eFHS-lCADcoFY4KFPqp3qo4RBZDRWHIQXIbK53BJfmR-hIvCwWBxSO9EHkAALY-7kqQIuQYQFkPKIphgiE2EkvRxSMgKOiBGihEAYsgYcLJdnPMDw9ToPSidA2DTaDh4lFyd5zAC6QA
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZG0wAxAA8wfaOEcpgXj5+URIhYRARkWAAyt6+wlDJxKhkHKRMAEbexADuiPFBoeEpTCBRAIwiUYhMUQDCbMQchHBMLdXNAEJtHWDdvf2DY-gTTZ3jXT19A4tRAL4JtcmOAJQ7SRGGxO5uHhQAHv5RAG5QVnBRh6r7qqqyNKxyd3I2rncEjOZAuEi8LBYhQg+yqewcAAEpBBZHQMNcyHUmF8mA8njZYViIlIyAo6MkaFEQICyBgYlkCZsoh9oOg9KJ0DYNNoOODfnJ9mBNgBdIA
       code: |
         from shiny import App, render, ui
         
         app_ui = ui.page_fluid(
             ui.input_select( #<<
                 "select", #<<
-                "Select box", #<<
-                { #<<
-                    "1": {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"}, #<<
-                    "2": {"2A": "Choice 2A", "2B": "Choice 2B", "2C": "Choice 2C"} #<<
-                }, #<<
+                "Select an option below:", #<<
+                {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"}, #<<
             ), #<<
             ui.output_text("value"),
         )
         
         def server(input, output, session):
-            @output
             @render.text
             def value():
                 return f"{input.select()}"
@@ -55,8 +51,32 @@ listing:
       relevantfunctions:
         - title: ui.input_select
           href: https://shiny.posit.co/py/api/ui.input_select.html
-          signature: ui.input_select(id, label, choices, *, selected=None, multiple=False, selectize=False, width=None, size=None)
-
+          signature: ui.input_select(id, label, choices, *, selected=None, multiple=False, selectize=False, width=None, size=None)    
+      variations:
+        - title: Select list with grouped choices
+          description: To group the choices into categories, supply the `choices` argument with a dictionary of dictionaries. `ui.input_select()` will use the top-level keys as group labels.
+          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZG0wAxAA8wfaOEcpgXj5+URIhYRARkWAAyt6+wlDJxKhkHKRMAEbexADuiPFBoeEpTCA1SfX1UQCMUYgN7SKdTFEAwmzEHIRwTG29+P1gbQBCfYPDo+Pz1e0Di2BDI2MTm2AAvgm1yS2pAEx9IFEXU11Lu+N362AXC0gzOytM768XBwe22WewBUUOTTqKWOkLODgAlCdmo5DMR3G4PBQAB7+KIANygVjgUURqnhqlUshorDkeLkNlc7gkaLIGIkXhYLEKEHhVThTAAAlIILI6BhsWQoVSmASiTZeVCIlIyAo6MkaFEQIyyBgYll5YcohToOg9KJ0DYNNoOOzaXJ4UcALpAA
+          code: |
+            from shiny import App, render, ui
+            
+            app_ui = ui.page_fluid(
+                ui.input_select( #<<
+                    "select", #<<
+                    "Select an option below:", #<<
+                    { #<<
+                        "1": {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"}, #<<
+                        "2": {"2A": "Choice 2A", "2B": "Choice 2B", "2C": "Choice 2C"} #<<
+                    }, #<<
+                ), #<<
+                ui.output_text("value"),
+            )
+            
+            def server(input, output, session):
+                @render.text
+                def value():
+                    return f"{input.select()}"
+            
+            app = App(app_ui, server)
 ---
 
 :::{#component}
@@ -64,26 +84,33 @@ listing:
 
 ## Details
 
-<p>A DataTable presents tabular data in a spread sheet like view. </p>
+<p>A select list creates a way to select one or more items from a list.</p>
 
-<p>Follow three steps to display a DataTable in your app:</p>
+<p>To use a select list that allows you to select a <em>single</em> item: </p>
 
 <ol>
   <li>
-  Add `ui.output_data_frame()` to the UI of your app to create a div in which to display the table. Where you call this function will determine where the table will appear within the layout of the app. For example, ...
+  Add `ui.input_select()` to the UI of your app to create a select list. Where you call this function will determine where the select list appears within the app's layout. 
   </li>
   <li>
-  Define a function within the `server` function that builds your table and uses `render.DataTable()` to return the result. Where`render.DataTable()`will package the table as an HTML data table for display. If your function calls reactive values, Shiny will update your table whenever those values change, in a [reactive fashion]().
-  
-  To notify Shiny that your function returns a reactive table to display, decorate the function with two decorators:
-  
-   <ul>
-     <li>`@output`</li>
-     <li>`@render.data_frame()`</li>
-   </ul>
-
+  Specify the `id` and `label` parameters of `ui.input_select()` to define the identifier and label of the select list.
   </li>
+  <li>
+  Supply the `choices` parameter with either a list or dictionary of choices. If `choices` is a list, its elements become the select list values and labels. If `choices` is a dictionary, `ui.input_select()` uses the dictionary keys as the list values and the dictionary values as the list labels. 
 
-  <li>Pass `ui.output_data_frame()` the name of the function that builds the DataTable, as a character string, to indicate which DataTable should be displayed in the div. 
+  You can also supply with `choices` a dictionary of dictionaries. `ui.input_select()` will use the top-level keys as group labels. See <em>Select list with grouped choices</em> below.
+  </li>
+  <li>
+  The `multiple` parameter controls whether you can select multiple items at once. By default, `multiple` is `False`.
   </li>
 </ol>
+
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a select list:</p>
+
+<ol>
+  <li>
+  Use `input.<select_id>()` (e.g., `input.select()`) to access the selected value. The server value of a select list is a list of strings. When `multiple=False`, this list will have length 1.
+  </li>
+</ol>
+
+<p>See also: Select (Multiple) (TODO: ADD LINK TO Select (Multiple) HERE) and Selectize (Multiple) (TO DO ADD SELECTIZE MULTIPLE LINK HERE). Select inputs and selectize inputs are similar, but have different interfaces and provide different ways of selecting multiple options. Selectize inputs also allow you to deselect items.</p>

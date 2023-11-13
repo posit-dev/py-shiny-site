@@ -29,36 +29,57 @@ listing:
   id: component
   template: ../_partials/components-detail.ejs
   contents:
-    - title: DataTable
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMKQIYxHxkqGVKClBkUFl0sHD5YOEaVTSaYNFMAMQAPH3asRDaDjT6jgBujpFCFWQ2peVlzq7upNGIBYVMAAJL870D24W7dhAOdBjVtfWNR4MQO0xjLLwRwu0xiA8nz7ZwMh8OhPc6XDAAERqUAAKlAAEZsJqtETdfqPbRoVDJKyoSJYxICVZ0aZ0aJgAC+AF0gA
+    - title: Selectize (Multiple)
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZDgBecDZMAMQAPOH2jjHKYF4+foFwcRIRURAxsWAAyt6+wsSo-qQsTABG3sQA7qlhkdFZTCBxAIwicYhMcQDCbMQchHBM7XVtAEKd3WB9A0Mjk-jTrT1Tvf2DwytxAL54jVkwChb+qD66ACp0CsPpBwCUaQ2ZjobE7m4eFAAeZHZgADcoFYUmBHqp7qpVLIaKw5AC5DZXO4JO8yJ8JF4WCwOKR7ogDgABKQQWR0DA-MgHGFMIEgmz4g4xKRkBR0TI0OIgZFkDAJArJBk7OJQ6DoPSidA2DTaDiY+Fye5gHYAXSAA
       code: |
-        from palmerpenguins import load_penguins
-        from shiny import App, render, session, ui
-
-        penguins = load_penguins()
-
+        from shiny import App, render, ui
+        
         app_ui = ui.page_fluid(
-          ui.output_data_frame("penguins_df") #<<
+            ui.input_selectize( #<<
+                "selectize", #<<
+                "Select options below:", #<<
+                {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"}, #<<
+                multiple=True #<<
+            ), #<<
+            ui.output_text("value"),
         )
-
+        
         def server(input, output, session):
-            @output #<<
-            @render.data_frame #<<
-            def penguins_df(): #<<
-                return render.DataTable(penguins) #<<
-
+            @render.text
+            def value():
+                return f"{input.selectize()}"
+        
         app = App(app_ui, server)
       relevantfunctions:
-        - title: ui.output_data_frame
-          href: https://shiny.posit.co/py/api/ui.output_data_frame.html
-          signature: ui.output_data_frame(id)
-        - title: render.data_frame
-          href: https://shiny.posit.co/py/api/render.data_frame.html
-          signature: render.data_frame(fn=None)
-        - title: render.DataTable
-          href: https://shiny.posit.co/py/api/render.DataTable.html
-          signature: render.DataTable(self, data, *, width='fit-content', height='500px', summary=True, filters=False, row_selection_mode='none')
-
+        - title: ui.input_selectize
+          href: https://shiny.posit.co/py/api/ui.input_selectize.html
+          signature: ui.input_selectize(id, label, choices, *, selected=None, multiple=False, width=None)
+      variations:
+        - title: Selectize with grouped choices
+          description: To group the choices into categories, supply the `choices` argument with a dictionary of dictionaries. `ui.input_selectize()` will use the top-level keys as group labels.
+          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZDgBecDZMAMQAPOH2jjHKYF4+foFwcRIRURAxsWAAyt6+wsSo-qQsTABG3sQA7oipYZHRWUwgDRnNzXEAjHGILd0ivUxxAMJsxByEcExdg-jDYF0AQkOj45PTy-XdI6tgYxNTM7tgAL5pjZkd2QBMQyBxN3N9a4fTT9tgNytICwcbTG+nxuJxe+3WRxBcVObSaWXOsKuzRgCgs-lQPl0ABU6Appuk4QBKC7tRyGYjuNweCgADzIdjAADcoFYUmBiapCapVLIaKw5Iy5DZXO4JBSyFSJF4WCwOKRCXUkUwAAJSCCyOgYWlkOG8pjM1k2BVwmJSMgKOiZGhxEAisgYBIFZJG05xbnQdB6UToGwabQcKUCuSEs4AXSAA
+          code: |
+            from shiny import App, render, ui
+            
+            app_ui = ui.page_fluid(
+                ui.input_selectize( #<<
+                    "selectize", #<<
+                    "Select options below:", #<<
+                    { #<<
+                        "1": {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"}, #<<
+                        "2": {"2A": "Choice 2A", "2B": "Choice 2B", "2C": "Choice 2C"} #<<
+                    }, #<<
+                    multiple=True #<<
+                ), #<<
+                ui.output_text("value"),
+            )
+            
+            def server(input, output, session):
+                @render.text
+                def value():
+                    return f"{input.selectize()}"
+            
+            app = App(app_ui, server)
 ---
 
 :::{#component}
@@ -66,26 +87,33 @@ listing:
 
 ## Details
 
-<p>A DataTable presents tabular data in a spread sheet like view. </p>
+<p>A selectize list creates a way to select one or more items from a list.</p>
 
-<p>Follow three steps to display a DataTable in your app:</p>
+<p>To use a selectize list that allows you to select <em>multiple</em> items: </p>
 
 <ol>
   <li>
-  Add `ui.output_data_frame()` to the UI of your app to create a div in which to display the table. Where you call this function will determine where the table will appear within the layout of the app. For example, ...
+  Add `ui.input_selectize()` to the UI of your app to create a selectize list. Where you call this function will determine where the selectize list appears within the app's layout. 
   </li>
   <li>
-  Define a function within the `server` function that builds your table and uses `render.DataTable()` to return the result. Where`render.DataTable()`will package the table as an HTML data table for display. If your function calls reactive values, Shiny will update your table whenever those values change, in a [reactive fashion]().
-  
-  To notify Shiny that your function returns a reactive table to display, decorate the function with two decorators:
-  
-   <ul>
-     <li>`@output`</li>
-     <li>`@render.data_frame()`</li>
-   </ul>
-
+  Specify the `id` and `label` parameters of `ui.input_selectize()` to define the identifier and label of the select list.
   </li>
+  <li>
+  Supply the `choices` parameter with either a list or dictionary of choices. If `choices` is a list, its elements become the select list values and labels. If `choices` is a dictionary, `ui.input_selectize()` uses the dictionary keys as the list values and the dictionary values as the list labels. 
 
-  <li>Pass `ui.output_data_frame()` the name of the function that builds the DataTable, as a character string, to indicate which DataTable should be displayed in the div. 
+  You can also supply with `choices` a dictionary of dictionaries. `ui.input_selectize()` will use the top-level keys as group labels. See <em>Selectize with grouped choices</em> below.
+  </li>
+  <li>
+  The `multiple` parameter controls whether you can select multiple items at once. Set `multiple=True` to allow the user to select multiple values.
   </li>
 </ol>
+
+<p>The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a selectize list:</p>
+
+<ol>
+  <li>
+  Use `input.<selectize_id>()` (e.g., `input.selectize()`) to access the selected value(s). The server value of a selectize list is a list of strings.
+  </li>
+</ol>
+
+<p>See also: Selectize (Single) (TODO: ADD LINK TO Selectize (Single) HERE) and Select (Multiple) (TO DO ADD SELECT MULTIPLE LINK HERE). Select inputs and selectize inputs are similar, but have different interfaces and provide different ways of selecting multiple options. Selectize inputs also allow you to deselect items.</p>

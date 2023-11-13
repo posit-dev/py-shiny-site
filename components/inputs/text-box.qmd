@@ -32,7 +32,6 @@ listing:
         )
         
         def server(input, output, session):
-            @output
             @render.text
             def value():
                 return input.text()
@@ -49,26 +48,28 @@ listing:
 
 ## Details
 
-<p>A DataTable presents tabular data in a spread sheet like view. </p>
+<p>Create input control for entry of text values.</p>
 
-<p>Follow three steps to display a DataTable in your app:</p>
+<p>To add a text box to your app:</p>
 
 <ol>
   <li>
-  Add `ui.output_data_frame()` to the UI of your app to create a div in which to display the table. Where you call this function will determine where the table will appear within the layout of the app. For example, ...
+  Add `ui.input_text()` to the UI of your app to create a text box. Where you call this function will determine where the text box will appear within the app's layout. 
   </li>
   <li>
-  <p>Define a function within the `server` function that builds your table and uses `render.DataTable()` to return the result. Where`render.DataTable()`will package the table as an HTML data table for display. If your function calls reactive values, Shiny will update your table whenever those values change, in a [reactive fashion]().</p>
-  
-  <p>To notify Shiny that your function returns a reactive table to display, decorate the function with two decorators:</p>
-  
-   <ul>
-     <li>`@output`</li>
-     <li>`@render.data_frame()`</li>
-   </ul>
-
+  Specify the `id` and `label` parameters of `ui.input_text_area()` to define the identifier and label of the text box. 
   </li>
-
-  <li>Pass `ui.output_data_frame()` the name of the function that builds the DataTable, as a character string, to indicate which DataTable should be displayed in the div. 
+  <li>
+  By default, the `value` parameter, which defines the text box's initial value, is the empty string (`''`). Provide a different string to `value` to change the initial text.
   </li>
 </ol>
+
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a text box:</p>
+
+<ol>
+  <li>
+  Use `input.<text_id>()` (e.g., `input.text()`) to access the value of the text box. The server value of a text box is a string containing the current text input.
+  </li>
+</ol>
+
+<p>See also: Text Area (TODO: ADD LINK TO Text Area HERE)</p>
