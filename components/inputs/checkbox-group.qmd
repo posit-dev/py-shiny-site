@@ -13,9 +13,8 @@ previewapp: |
                 "c": "Watch neither", 
             }, 
         ), 
-        ui.output_text("value",
-    {"class": "mb-0"}),
-    {"class": "vh-100 d-flex align-items-center px-4"}
+        ui.output_text("value"),
+          {"class": "vh-100 d-flex justify-content-center align-items-center px-4"}
     )
     def server(input, output, session):
         @output
