@@ -129,6 +129,7 @@ website:
             - components/inputs/selectize-single.qmd
             - components/inputs/selectize-multiple.qmd
             - components/inputs/slider.qmd
+            - components/inputs/slider-range.qmd
             - components/inputs/switch.qmd
             - components/inputs/text-area.qmd
             - components/inputs/text-box.qmd
@@ -136,7 +137,11 @@ website:
           contents:
             - components/outputs/data-grid.qmd
             - components/outputs/datatable.qmd
-            - components/outputs/plot.qmd
+            - components/outputs/image.qmd
+            - components/outputs/map-ipyleaflet.qmd
+            - components/outputs/plot-matplotlib.qmd
+            - components/outputs/plot-plotly.qmd
+            - components/outputs/plot-seaborn.qmd
             - components/outputs/text.qmd
             - components/outputs/ui.qmd
             - components/outputs/value-box.qmd
