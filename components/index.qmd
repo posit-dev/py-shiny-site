@@ -10,10 +10,6 @@ format:
     css: _partials/components.css
     code-overflow: wrap
     include-before-body: _partials/components.html
-filters:
-  - quarto
-  - line-highlight
-  - shinylive
 listing: 
   - id: input
     type: grid
