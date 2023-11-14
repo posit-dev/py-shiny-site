@@ -97,3 +97,5 @@ we will need to use the `shinywidgets` library to connect Shiny with `ipywidgets
     </ul>
   </li>
 </ol>
+
+<p> Visit [shiny.posit.co/py/docs/ipywidgets.html](https://shiny.posit.co/py/docs/ipywidgets.html) to learn more about using ipywidgets with Shiny. </p>
