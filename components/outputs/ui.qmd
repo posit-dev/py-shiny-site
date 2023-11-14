@@ -86,3 +86,5 @@ listing:
 
   <li>Decorate the function with `@render.ui`. If you're using an action button or link to show the UI element, you'll also need to decorate with `@reactive.event`.</li>
 </ol>
+
+<p>See also: [Dynamic UI](https://shiny.posit.co/py/docs/ui-dynamic.html) and [UI and HTML](https://shiny.posit.co/py/docs/ui-html.html).</p>
