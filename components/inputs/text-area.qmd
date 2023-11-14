@@ -21,12 +21,12 @@ listing:
   template: ../_partials/components-detail.ejs
   contents:
     - title: Text Area
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNFAB7uoUqHbAvMmV8JhCAFThvXghXYNCQgFFyOSYgjAyQgEo8e0cxDGI3OI8o9wA3OQAjKDI+APKoKzhs3Igs1VVZGlY5SrobFzcJIrI4iRY4FhYOUizEPIcAAVG4xaYlqQhZOgwg9e6mRuabefXHSTgyEToIGLi9stPO6HQ9JiVUGw1tcV66fpZMAAXwAukA
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhCbqN61WlQB9MUwC8ojligBzOLpoAbMdIAUqzWIxdUIsrooAPL1CkoJzBfMgC4KGV8JiiAFTg-XggPMiiJKIAJOBsbYiYAdUEbaSiASgkAYgAeKucNV2JPFO8ErwA3OQAjKDI+YLaoOzgyvFVS1VVZGlY5DroHd08JRrIUiRY4FhYOUlLEOvUAASkIWToMUIOmKaYBoYc9q80pMhE6NUWyC9bwoPGIbToIxMJSoBw6fTiGZ0Ob-MAAXwAukA
       code: |
         from shiny import ui, render, App
         
         app_ui = ui.page_fluid(
-            ui.input_text_area("textarea", "Text input", "Enter text..."), #<<
+            ui.input_text_area("textarea", "Text input", "Hello World"), #<<
             ui.output_text_verbatim("value"),
         )
         
