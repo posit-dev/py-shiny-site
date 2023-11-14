@@ -61,7 +61,7 @@ listing:
   Use the `min` and `max` parameters to define the minimum and maximum values of the slider. 
   </li>
   <li>
-  Set the `value` parameter to define the starting slider value. `min`, `max`, and `value` can be numbers, dates, or date-times.
+  Set the `value` parameter to define the starting slider value. `min`, `max`, and `value` can be numbers, dates, or date-times. Dates and date-times can be provided from the `datetime` module with the `date()` or `datetime()` functions, respectively.
   </li>
 </ol>
 
