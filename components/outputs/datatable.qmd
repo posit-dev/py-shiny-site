@@ -163,6 +163,6 @@ listing:
 
 <p>The value returned will be `None` if no rows are selected, or a tuple of integers representing the indices of the selected rows. To filter a pandas data frame down to the selected rows, use `df.iloc[list(input.<id>_selected_rows())]`.</p>
 
-<p>If your table is a data frame that uses the pandas styler, replace `ui.output_data_frame()` with `ui.output_table()`.</p>
+<p>If your table is a data frame that uses the pandas styler, replace `ui.output_data_frame()` with `ui.output_table()` and `@render.data_frame` with `@render.table`.</p>
 
 <p>See also [Data Grids](TODO: ADD LINK TO DATA GRIDS DETAIL PAGE).</p>
