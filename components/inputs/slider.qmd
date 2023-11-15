@@ -57,7 +57,7 @@ To add a slider to your app:
 
   3. Use the `min` and `max` parameters to define the minimum and maximum values of the slider. 
 
-  4. Set the `value` parameter to define the starting slider value. `min`, `max`, and `value` can be numbers, dates, or date-times.
+  4. Set the `value` parameter to define the starting slider value. `min`, `max`, and `value` can be numbers, dates, or date-times. Dates and date-times can be provided from the `datetime` module with the `date()` or `datetime()` functions, respectively.
 
 The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a slider:
 

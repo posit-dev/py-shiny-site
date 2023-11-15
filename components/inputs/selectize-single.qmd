@@ -94,7 +94,7 @@ To use a selectize list that allows you to select a <em>single</em> item:
 
   3. Supply the `choices` parameter with either a list or dictionary of choices. If `choices` is a list, its elements become the select list values and labels. If `choices` is a dictionary, `ui.input_selectize()` uses the dictionary keys as the list values and the dictionary values as the list labels. 
   
-  You can also supply with `choices` a dictionary of dictionaries. `ui.input_selectize()` will use the top-level keys as group labels. See <em>Selectize with grouped choices</em> below.
+  You can also supply with `choices` a dictionary of dictionaries. `ui.input_selectize()` will use the top-level keys as group labels. See <em>Selectize with grouped choices</em> variation.
 
   4. The `multiple` parameter controls whether you can select multiple items at once. By default, `multiple` is `False` and the user can only select one value at a time.
 

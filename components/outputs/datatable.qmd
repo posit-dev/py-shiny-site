@@ -165,4 +165,4 @@ listing:
 
 <p>If your table is a data frame that uses the pandas styler, replace `ui.output_data_frame()` with `ui.output_table()` and `@render.data_frame` with `@render.table`.</p>
 
-<p>See also [Data Grids](TODO: ADD LINK TO DATA GRIDS DETAIL PAGE).</p>
+See also [Data Grids](data-grid.qmd)
