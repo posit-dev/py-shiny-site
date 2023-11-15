@@ -3,7 +3,7 @@ title: "Map (ipyleaflet)"
 sidebar: components
 preview: |
   <div class="px-3">
-  <img style="width: 100%;" src="/images/leaflet.jpg">
+  <img style="width: 100%;" src="/images/ipyleaflet.jpg">
   </div>
 listing:
   id: component

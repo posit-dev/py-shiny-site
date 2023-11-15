@@ -3,7 +3,7 @@ title: "Plot (Matplotlib)"
 sidebar: components
 preview: |
   <div class="px-3">
-  <img style="width: 100%;" src="/images/plot.png">
+  <img style="width: 100%;" src="/images/matplotlib.jpg">
   </div>
 listing:
   id: component
