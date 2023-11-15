@@ -47,28 +47,19 @@ listing:
 
 ## Details
 
-<p>Create a textarea input control for entry of unstructured text values.</p>
+Create a textarea input control for entry of unstructured text values.
 
-<p>To add a textarea to your app:</p>
+To add a textarea to your app:
 
-<ol>
-  <li>
-  Add `ui.input_text_area()` to the UI of your app to create a textarea. Where you call this function will determine where the textarea will appear within the app's layout. 
-  </li>
-  <li>
-  Specify the `id` and `label` parameters of `ui.input_text_area()` to define the identifier and label of the textarea. 
-  </li>
-  <li>
-  By default, the `value` parameter, which defines the textarea's initial value, is the empty string (`''`). Provide a different string to `value` to change the initial text.
-  </li>
-</ol>
+  1. Add `ui.input_text_area()` to the UI of your app to create a textarea. Where you call this function will determine where the textarea will appear within the app's layout. 
 
-The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a textarea:</p>
+  2. Specify the `id` and `label` parameters of `ui.input_text_area()` to define the identifier and label of the textarea. 
 
-<ol>
-  <li>
-  Use `input.<textarea_id>()` (e.g., `input.textarea()`) to access the value of the textarea. The server value of a textarea is a string containing the current text input.
-  </li>
-</ol>
+  3. By default, the `value` parameter, which defines the textarea's initial value, is the empty string (`''`). Provide a different string to `value` to change the initial text.
 
-<p>See also: Text Box (TODO: ADD LINK TO Text Box HERE)</p>
+
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a textarea:
+
+  1. Use `input.<textarea_id>()` (e.g., `input.textarea()`) to access the value of the textarea. The server value of a textarea is a string containing the current text input.
+
+See also: [Text Box](text-box.qmd)

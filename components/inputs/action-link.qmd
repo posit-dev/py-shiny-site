@@ -51,15 +51,15 @@ listing:
 
 ## Details
 
-<p>An action link appears as a link in your app and has a value that increments each time the user presses the button. </p>
+An action link appears as a link in your app and has a value that increments each time the user presses the link.
 
-<p>Follow these steps to add an action link to your app:</p>
+Follow these steps to add an action link to your app:
 
-<ol>
-  <li>
-  Add `ui.input_action_link()` to the UI of your app to create the action link. Where you call this function will determine where the link will appear within the layout of the app.
-  </li>
-  <li>
-  Access the value of your action link with `input.action_link._value`. The server value of an action link is an integer representing the number of clicks. 
-  </li>
-</ol>
+  1. Add `ui.input_action_link()` to the UI of your app to create an action link. Where you call this function will determine where the link appears within the app's layout.
+  2. Specify the `id` and `label` parameters of `ui.input_action_link()` to define the action link's identifier and label. 
+  
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of an action link:
+
+  1.  Use `input.<action_link_id()>` (e.g., `input.action_link()`) to access the value of the action link. The server value of an action link is an integer representing the number of clicks.
+
+See also: [Action Button](action-button.qmd)

@@ -46,31 +46,21 @@ listing:
 :::
 
 ## Details
- <p>A slider is a widget that lets you drag to select a number, date, or date-time from a specified range. </p>
 
-<p>To add a slider to your app:</p>
+A slider is a widget that lets you drag to select a number, date, or date-time from a specified range. 
 
-<ol>
-  <li>
-  Add `ui.input_slider()` to the UI of your app to create a slider. Where you call this function will determine where the slider will appear within the app's layout. 
-  </li>
-  <li>
-  Specify the `id` and `label` parameters of `ui.input_slider()` to define the identifier and label of the slider. 
-  </li>
-  <li>
-  Use the `min` and `max` parameters to define the minimum and maximum values of the slider. 
-  </li>
-  <li>
-  Set the `value` parameter to define the starting slider value. `min`, `max`, and `value` can be numbers, dates, or date-times. Dates and date-times can be provided from the `datetime` module with the `date()` or `datetime()` functions, respectively.
-  </li>
-</ol>
+To add a slider to your app:
 
-The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a slider:</p>
+  1. Add `ui.input_slider()` to the UI of your app to create a slider. Where you call this function will determine where the slider will appear within the app's layout. 
 
-<ol>
-  <li>
-  Use `input.<slider_id>()` (e.g., `input.slider()`) to access the value of the slider. The server value of a slider is a number, date, or date-time (depending on the class of `value`). 
-  </li>
-</ol>
+  2. Specify the `id` and `label` parameters of `ui.input_slider()` to define the identifier and label of the slider. 
 
-<p>See also: Slider Range (TODO: ADD LINK TO Slider Range HERE)</p>
+  3. Use the `min` and `max` parameters to define the minimum and maximum values of the slider. 
+
+  4. Set the `value` parameter to define the starting slider value. `min`, `max`, and `value` can be numbers, dates, or date-times.
+
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a slider:
+
+  1. Use `input.<slider_id>()` (e.g., `input.slider()`) to access the value of the slider. The server value of a slider is a number, date, or date-time (depending on the class of `value`). 
+
+See also: [Slider Range](slider-range.qmd)

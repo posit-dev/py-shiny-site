@@ -48,26 +48,16 @@ listing:
 
 ## Details
 
-<p>A numeric input creates a way to specify a number.</p>
+A numeric input control creates a way to specify a number.
 
-<p>Follow three steps to display a DataTable in your app:</p>
+To add a numeric input control to your app:
 
-<ol>
-  <li>
-  Add `ui.output_data_frame()` to the UI of your app to create a div in which to display the table. Where you call this function will determine where the table will appear within the layout of the app. For example, ...
-  </li>
-  <li>
-  Define a function within the `server` function that builds your table and uses `render.DataTable()` to return the result. Where`render.DataTable()`will package the table as an HTML data table for display. If your function calls reactive values, Shiny will update your table whenever those values change, in a [reactive fashion]().
-  
-  To notify Shiny that your function returns a reactive table to display, decorate the function with two decorators:
-  
-   <ul>
-     <li>`@output`</li>
-     <li>`@render.data_frame()`</li>
-   </ul>
+  1. Add `ui.input_numeric()` to the UI of your app to create a numeric input. Where you call this function will determine where the numeric input control will appear within the app's layout. 
 
-  </li>
+  2. Specify the `id` and `label` parameters of `ui.input_numeric()` to define the identifier and label of the numeric input. `ui.input_numeric()` also includes various optional parameters, including `min` and `max`, which set the minimum and maximum allowed values.
 
-  <li>Pass `ui.output_data_frame()` the name of the function that builds the DataTable, as a character string, to indicate which DataTable should be displayed in the div. 
-  </li>
-</ol>
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a numeric input control:
+
+  1. Use `input.<numeric_input_id>()` (e.g., `input.numeric()`) to access the specified numeric value. The server value of a numeric input control is a numeric value. 
+
+

@@ -54,31 +54,21 @@ listing:
 
 ## Details
 
-<p>A slider is a widget that lets you drag to select numbers, dates, or date-times from a specified range. You can use a slider to select either a single value or a range of values.</p>
+A slider is a widget that lets you drag to select numbers, dates, or date-tifrom a specified range. You can use a slider to select either a single value or a range of values.
 
-<p>To add a slider that lets the user select a range of values: </p>
+To add a slider that lets the user select a range of values: 
 
-<ol>
-  <li>
-  Add `ui.input_slider()` to the UI of your app to create a slider. Where you call this function will determine where the slider will appear within the app's layout. 
-  </li>
-  <li>
-  Specify the `id` and `label` parameters of `ui.input_slider()` to define the identifier and label of the slider. 
-  </li>
-  <li>
-  Use the `min` and `max` parameters to define the minimum and maximum values of the slider. `min` and `max` can be numbers, dates, or date-times. Dates and date-times can be provided from the `datetime` module with the `date()` or `datetime()` functions, respectively.
-  </li>
-  <li>
-  Pass a list with two elements to the `value` parameter. These elements define the initial range. `value` can be a list of numbers, dates, or date-times.
-  </li>
-</ol>
+  1. Add `ui.input_slider()` to the UI of your app to create a slider. Where you call this function will determine where the slider will appear within the app's layout. 
 
-The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a slider:</p>
+  2. Specify the `id` and `label` parameters of `ui.input_slider()` to define the identifier and label of the slider. 
 
-<ol>
-  <li>
-  Use `input.<slider_id>()` (e.g., `input.slider()`) to access the value of the slider. If `value` is a list and the slider specifies a range, the server value of a slider will be a list of length 2.
-  </li>
-</ol>
+  3. Use the `min` and `max` parameters to define the minimum and maximum values of the slider. `min` and `max` can be numbers, dates, or date-times.
 
-<p>See also: Slider (TODO: ADD LINK TO Slider HERE)</p>
+  4. Pass a list with two elements to the `value` parameter. These elements define the initial range. `value` can be a list of numbers, dates, or date-times.
+
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a slider:
+
+  1. Use `input.<slider_id>()` (e.g., `input.slider()`) to access the value of the slider. If `value` is a list and the slider specifies a range, the server value of a slider will be a list of length 2.
+
+See also: [Slider](slider.qmd)
+

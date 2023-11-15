@@ -43,18 +43,16 @@ listing:
 
 ## Details
 
-<p>A checkbox creates a single checkbox that can be used to specify logical values. </p>
+A checkbox creates a single checkbox that can be used to specify logical values. 
 
-<p>Follow these steps to add a checkbox to your app: </p>
+Follow these steps to add a checkbox to your app: 
 
-<ol>
-  <li>
-  Add `ui.input_checkbox()` to the UI of your app to create a div in which to display the checkbox. Where you call this function will determine where the checkbox will appear within the layout of the app. 
-  </li>
-  <li>
-  Supply values to `ui.input_checkbox()`'s first two parameters (`id` and `label`) to specify the id and label of the checkbox. Optionally, set the `value` argument to either `True` or `False` to specify the initial value of the checkbox. By default, the checkbox has value `False` and is un-checked.  
-  </li>
-  <li>
-  Access the value of your checkbox with `input.checkbox()`. The server value of a checkbox is `True` if checked and `False` if not checked. 
-  </li>
-</ol>
+  1. Add `ui.input_checkbox()` to the UI of your app to create a checkbox. Where you call this function will determine where the checkbox will appear within the app's layout. 
+  
+  2. Supply values to `ui.input_checkbox()`'s first two parameters (`id` and `label`) to specify the id and label of the checkbox. Optionally, set the `value` argument to either `True` or `False` to specify the initial value of the checkbox. By default, the checkbox has value `False` and is un-checked.  
+  
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a checkbox:
+
+  1. Use `input.<checkbox_id>()` (e.g., `input.checkbox()`) to access the value of a checkbox. The server value of a checkbox is `True` if checked and `False` if not checked. 
+  
+See also: Checkbox Group([Checkbox](checkbox.qmd)

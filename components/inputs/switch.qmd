@@ -42,26 +42,16 @@ listing:
 
 ## Details
 
-<p>A switch allows you to select between logical values.</p>
+A switch allows you to select between logical values.
 
-<p>To add a switch to your app:</p>
+To add a switch to your app:
 
-<ol>
-  <li>
-  Add `ui.input_switch()` to the UI of your app to create a switch. Where you call this function will determine where the switch will appear within the app's layout. 
-  </li>
-  <li>
-  Specify the `id` and `label` parameters of `ui.input_switch()` to define the identifier and label of the switch. 
-  </li>
-  <li>
-  By default, the `value` parameter, which defines the switch's initial value, is `False`. If you'd like the initial value to be `True`, set `value` equal to `True`.
-  </li>
-</ol>
+  1. Add `ui.input_switch()` to the UI of your app to create a switch. Where you call this function will determine where the switch will appear within the app's layout. 
 
-The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a switch:</p>
+  2. Specify the `id` and `label` parameters of `ui.input_switch()` to define the identifier and label of the switch. 
 
-<ol>
-  <li>
-  Use `input.<switch_id>()` (e.g., `input.switch()`) to access the value of the switch. The server value of a switch is `True` if checked and `False` otherwise. 
-  </li>
-</ol>
+  3. By default, the `value` parameter, which defines the switch's initial value, is `False`. If you'd like the initial value to be `True`, set `value` equal to `True`.
+
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a switch:
+
+  1. Use `input.<switch_id>()` (e.g., `input.switch()`) to access the value of the switch. The server value of a switch is `True` if checked and `False` otherwise. 
