@@ -68,7 +68,7 @@ listing:
         <li>If your function calls reactive values, Shiny will update your figure whenever those values change,
   in a [reactive fashion](https://shiny.posit.co/py/docs/reactive-programming.html).
         </li>
-        <li>Your function should return one of the following objects:</li>
+        <li>If you use `matplotlib.pyplot` to plot, your function does not need to return a value. Otherwise, your function should return one of the following objects:</li>
           <ul>
             <li>A `matplotlib.figure.Figure` instance</li>
             <li>A `matplotlib.artist.Artist` instance</li>
