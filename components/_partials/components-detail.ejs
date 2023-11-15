@@ -41,7 +41,7 @@
 
 <% for (const variation of item.variations) { %>
 
-#### <%= variation.title %> {.mb-0 .mt-4}
+#### <%= variation.title %> {.mb-0 .mt-5}
 
 <p class="mb-0"><%= variation.description %></p>
 
@@ -49,7 +49,11 @@
 
 ## Preview
 
-<iframe style="height:150px;" class="mb-0 w-100 iframe-border" src="<%= variation.preview %>" title="<%= variation.title %>">
+<iframe style="height:<% if (variation.height) { %>
+<%= variation.height %>
+<% } else { %>
+150px
+<% } %>;" class="mb-0 w-100 iframe-border" src="<%= variation.preview %>" title="<%= variation.title %>">
 </iframe>
 
 ## Code
