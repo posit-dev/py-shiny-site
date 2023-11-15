@@ -44,6 +44,64 @@ listing:
         - title: "@render.plot"
           href: https://shiny.posit.co/py/api/render.plot.html
           signature: render.plot(_fn=None, *, alt=None, width=MISSING, height=MISSING, **kwargs)
+      variations:
+        - title: Plot as input
+          description: Use the `click`, `dblclick`, `hover`, and `brush` arguments of `ui.output_plot()` to collect information about the user's mouse interactions as a reactive variable. The app below displays the values returned, but you can also call the values from within your computations to filter tables, perform calculations, and so on.
+          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQgAzRsRjSoXeI1SUA5gFcaEKXQbMWPKABMA+toj7DE+UpUsJAC0PYWJpqwCC6HgsjJSWcIzBBvLyaKjWBiwAvCwGWFA6cNYKXAaWABTyLMWpNBjEepyVtjxkhRAljSyyYKJy+M0NTcWE-IQA1kkAKox6cMEAxAA8U0XdLJYCXL00A8Oj4yzTs13d7sQAbhHrY5Mzc90Cox4ncFvnuywAlHgXzWAAwn39iC2vj2kKlUyNYKAAPEFHRgCDh0QpELj9P7SLhQQhwfZccKMW4vN4tAAiFSWdy+qx+fzegMqqGq4MhERhZDhLUWy0RyO4aIxxCxxxGYzxjxaAAlDhFfvgqWUgbSQfTrFCmSywO4DoxOaj0Zjsbj-o0WgAha7uSkAmU0ulwCGKxmwmDwq4eTXcnX8jZCp4xCDhBRuCJQ-KGOXBWWVYISOASCQ0UhPX6PAACoR9ESwtXy6jISRa-hYngkZGIOkYsBaXsevpRvHy8bejUsfpSFhsdgcRlr9ZK7GjyQWCmALQExEs2GsPYk1h0LQAul3igIaFwuH3G4OwIvl9YuLoyO5xzBZ975iiyBgJIQOBRGPkJ8FN1wKyeZBgwaiBHAuPCALKSKT5HQvTAJ95hfbB30-eFDSXFcABld3cFhbxgICQO6F9mT4OB4QABV0AwGl-XsDikaDlxYeD7D3ctjxKZMwjTek3irXp+lrBMT1CMg9EYBpg0qdNeGsFYBk7CA3no1NGAwJjKzgP02VY9j5xCOBuN4nwIDlQSQUU74xIklNsRk605Dkv01RvOtHkaLieL4rSBLaax9kDCtDIY6TZIbeSWCddxlJsko7I0-iz2cq49A8MST29OI+0CVBM3QBIaAjAMImCcIBD0HRcTAABfGcgA
+          code: |
+            import matplotlib.pyplot as plt
+            from palmerpenguins import load_penguins
+            from shiny import App, render, ui
+            
+            app_ui = ui.page_fluid(
+                ui.output_plot(
+                    "plot", 
+                    click=True, #<<
+                    dblclick=True, #<<
+                    hover=True, #<<
+                    brush=True #<<
+                ),
+                "Click:",
+                ui.output_text_verbatim("clk", placeholder=True),
+                "Double Click:",
+                ui.output_text_verbatim("dblclk", placeholder=True),
+                "Hover:",
+                ui.output_text_verbatim("hvr", placeholder=True),
+                "Brush",
+                ui.output_text_verbatim("brsh", placeholder=True),
+            )
+            
+            def server(input, output, session):
+                @render.plot(alt="A histogram")
+                def plot():
+                    df = load_penguins()
+                    mass = df["body_mass_g"]
+                    bill = df["bill_length_mm"]
+            
+                    plt.scatter(mass, bill)
+                    plt.xlabel("Mass (g)")
+                    plt.ylabel("Bill Length (mm)")
+                    plt.title("Penguin Mass vs Bill Length")
+            
+                @render.text
+                def clk():
+                    return input.plot_click()
+            
+                @render.text
+                def dblclk():
+                    return input.plot_dblclick()
+            
+                @render.text
+                def hvr():
+                    return input.plot_hover()
+            
+                @render.text
+                def brsh():
+                    return input.plot_brush()
+                    
+            
+            app = App(app_ui, server, debug=True)
+            
 ---
 
 :::{#component}
@@ -51,7 +109,7 @@ listing:
 
 ## Details
 
-<p>Matplotlib is a library that can be used to create plots.</p>
+<p>[Matplotlib](https://matplotlib.org/) is a popular Python library that can be used to create plots.</p>
 <p>Follow three steps to display a Matplotlib figure in your app:</p>
 <ol>
   <li>
@@ -88,4 +146,16 @@ listing:
       </li>
     </ul>
   </li>
+</ol>
+
+<h2>Plots as Inputs</h2>
+
+<p>You can use a plot as an input widget, collecting the locations of user clicks, double clicks, hovers, and brushes. To do this, set one or more of the following arguments of `ui.output_plot()` to `True`:.</p>
+
+<ol>
+  <li>`click` - When `click = True`, the plot will allow the user to click in the plotting area, and will send the coordinates of the click to the server, where they can be accessed as a reactive variable named `input.<id>_click()`, where `<id>` is the id of the plot. The input value will be a dictionary with x and y elements indicating the mouse position.</li>
+  <li>`dblclick` - This is just like the click parameter, but for double-click events. The value can be accessed as `input.<id>_dblclick()`.</li>
+  <li>`hover` - When `hover = True`, the plot will allow the user to hover over the plotting area, and will send the coordinates of the cursor to the server, where they can be accessed as a reactive variable named `input.<id>_hover()`, where `<id>` is the id of the plot. The input value will be a dictionary with x and y elements indicating the mouse position. To control the hover time or hover delay type, set `hover` to `hover_opts()`.</li>
+  <li><p>`brush` - When `brush = True`, the plot will allow the user to “brush” in the plotting area, and will send information about the brushed area to the server, where it can be accessed as a reactive variable named `input.<id>_brush()`, where `<id>` is the id of the plot. Brushing means that the user will be able to draw a rectangle in the plotting area and drag it around. The value will be a named list with xmin, xmax, ymin, and ymax elements indicating the brush area. To control the brush behavior, set `brush` to `brush_opts()`.</p>
+  <p>Multiple `output_image()`/`output_plot()` calls may share the same id value; brushing one image or plot will cause any other brushes with the same id to disappear.</p></li>
 </ol>

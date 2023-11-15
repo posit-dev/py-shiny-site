@@ -47,10 +47,18 @@ listing:
 <p>To make a reactive image, follow three steps:</p>
 
 <ol>
-<li>Call [`ui.output_image()`](TODO ADD LINK) in the UI of your app to create a div in which to display the image. Where you call this function within the UI functions will determine where the image will appear within the layout of the app. Set the id argument of `ui.output_image()` to a unique value.</li>
+<li>
+<p>Call [`ui.output_image()`](TODO ADD LINK) in the `app_ui` section of your app to create a div in which to display the image.</p> 
+
+  <ol>
+    <li>Set the id argument of `ui.output_image()` to a unique value.</li>
+    <li>Optionally, set `ui.output_image(inline=True)` to place the image inline with the text or elements that precede it.</li>
+    <li>Optionally, set `ui.output_image(Fill=True)` to allow the image to grow or shrink to fill its container as the app is resized.</li>
+  </ol>
+</li>
 
 <li>
-<p>Within the server function, define a new function whose name matches the id used above. Shiny will rerun this function whenever it needs to build or update the output that has the matching id.</p>
+<p>Within your app's server function, define a new function whose name matches the id used above. Shiny will rerun this function whenever it needs to build or update the output with the matching id.</p>
 
 <p>The function should return the image to display as a dictionary with the following keys:</p>
 
@@ -63,11 +71,7 @@ listing:
   </ol>
 </li>
 
-<li>Decorate the function with `@render.image`. Use `@render.image(delete_file=True)` to delete the image after it has been rendered.</li>
+<li>Decorate the function with `@render.image`. Use `@render.image(delete_file=True)` to delete the image from the server after it has been rendered.</li>
 </ol>
 
-<p>Set `ui.output_image(inline=True)` to place the image inline with the text or elements that preceed it.</p>
-
-<p>Set `ui.output_image(Fill=True)` to allow the image to grow or shrink to fill its container as the app is resized.</p>
-
-<p>You can use an image as an input widget, collecting the locations of user clicks, double clicks, hovers, and brushes. To do this, follow the instructions provided for [plots](TO DO: ADD LIN KTO THE DETAILS SECTION OF THE PLOTS PAGE).</p>
+<p>You can use an image as an input widget, collecting the locations of user clicks, double clicks, hovers, and brushes. To do this, follow the instructions provided for [plots as inputs](TO DO: LINK TO THE PLOTS AS INPUTS SECTION OF THE PLOTS (MATPLOTLIB) PAGE).</p>

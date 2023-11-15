@@ -90,3 +90,5 @@ listing:
     </ul>
   </li>
 </ol>
+
+<p>You can use a plot as an input widget, collecting the locations of user clicks, double clicks, hovers, and brushes. To do this, follow the instructions provided for [plots as inputs](TO DO: LINK TO THE PLOTS AS INPUTS SECTION OF THE PLOTS (MATPLOTLIB) PAGE).</p>
