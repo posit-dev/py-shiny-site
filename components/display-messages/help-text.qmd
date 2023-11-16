@@ -47,10 +47,8 @@ listing:
 
 ## Details
 
-[`ui.help_text()`](TODO ADD LINK TO UI HELP TEXT) creates stylized help text which can be added to the user interface to provide additional explanation or context.
+[`ui.help_text()`](https://shiny.posit.co/py/api/ui.help_text.html) creates stylized help text which can be added to the user interface to provide additional explanation or context.
 
 To create help text, call `ui.help_text()` at a desired location from within your `app_ui`. Then pass `ui.help_text()` one or more help text strings (or other inline HTML elements) to place into the `app_ui`.
 
-## See Also
-
-[Tooltips](TO DO ADD LINK TO TOOLTIPS PAGE) provide a similar, but alternative way to display information to the user.
+See Also: [Tooltips](tooltips.qmd) provide a similar, but alternative way to display information to the user.

@@ -181,25 +181,23 @@ listing:
 
 A notification is a message that appears near the bottom corner of the app. Notifications normally disappear after a short period of time, and should multiple notifications appear together, they will stack on top of one another.
 
-To create a notification, call [`ui.show_notification()`](TODO ADD LINK TO UI SHOW NOTIFICATION). Typically, you will want to create a reactive effect to call `ui.show_notification()` whenever a particular event occurs. For example, the reactive effect below will create a notification whenever the value of `input.show()` changes.
+To create a notification, call [`ui.notification_show()`](https://shiny.posit.co/py/api/ui.notification_show.html). Typically, you will want to create a reactive effect to call `ui.show_notification()` whenever a particular event occurs. For example, the reactive effect below will create a notification whenever the value of `input.show()` changes.
 
-```
+```{.python}
 @reactive.Effect
 @reactive.event(input.show)
 def _():
     ui.notification_show("You've been notified.")
 ```
 
-You can call [`ui.remove_notification()`](TODO ADD LINK TO UI REMOVE NOTIFICATION) to remove a notification programatically, but usually app developers will let notifications expire on their own. Also, notifications come by default with a button that the user can click to close the notification prematurely.
+You can call [`ui.notification_remove()`](https://shiny.posit.co/py/api/ui.notification_remove.html) to remove a notification programatically, but usually app developers will let notifications expire on their own. Also, notifications come by default with a button that the user can click to close the notification prematurely.
 
 ## Duration
 
-By default, Shiny notifications will disappear after five seconds. To change how long a notification appears for, set the `duration` argument of `ui.show_notification()` to an integer number of seconds. Set `duration` to `None` to have the notification appear until the user closes it. 
+By default, Shiny notifications will disappear after five seconds. To change how long a notification appears for, set the `duration` argument of `ui.notification_show()` to an integer number of seconds. Set `duration` to `None` to have the notification appear until the user closes it. 
 
 ## Type
 
-Shiny notifications come in three types: messages, warnings and errors. To set the type of a notification, use the `type` argument of `ui.show_notification()`.
+Shiny notifications come in three types: messages, warnings and errors. To set the type of a notification, use the `type` argument of `ui.notification_show()`.
 
-## See Also
-
-[Modal messages](TO DO ADD LINK TO MODAL DETAIL PAGE) provide a similar, but alternative way to display information to the user.
+See Also: Modal messages](modal.qmd) provide a similar, but alternative way to display information to the user.

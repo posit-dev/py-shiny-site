@@ -81,7 +81,7 @@ listing:
 
 With Shiny, you can display a progress bar while a computation runs by running the computation bar within a special computation manager. Here's how: 
 
-1. Use [`ui.Progress()`](TODO ADD LINK TO UI PROGRESS) to create a computation manager, and use `with` to run the computation within the manager. For example, you might set up a progress bar like this:
+1. Use [`ui.Progress()`](https://shiny.posit.co/py/api/ui.Progress.html) to create a computation manager, and use `with` to run the computation within the manager. For example, you might set up a progress bar like this:
 
 ```{.python}
 def compute():

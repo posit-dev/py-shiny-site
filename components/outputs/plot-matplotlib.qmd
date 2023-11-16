@@ -99,7 +99,6 @@ listing:
                 def brsh():
                     return input.plot_brush()
                     
-            
             app = App(app_ui, server, debug=True)
             
 ---
@@ -109,53 +108,49 @@ listing:
 
 ## Details
 
-<p>[Matplotlib](https://matplotlib.org/) is a popular Python library that can be used to create plots.</p>
-<p>Follow three steps to display a Matplotlib figure in your app:</p>
-<ol>
-  <li>
-  Add `ui.output_plot()` to the UI of your app to create a div in which to display the figure.
+[Matplotlib](https://matplotlib.org/) is a popular Python library that can be used to create plots.
+
+Follow three steps to display a Matplotlib figure in your app:
+
+
+  1. Add `ui.output_plot()` to the UI of your app to create a div in which to display the figure.
   Where you call this function will determine where the figure will appear within the layout of the app.
   The `id` parameter you provide will be used to link to other parts of the Shiny app.
-  </li>
-  <li>
-  Define a function within the `server()` function that creates the figure.
-      <ul>
-        <li>The name of the function should be the same value you passed into the `id` parameter
-          in your `ui.output_plot()` function call in the UI.
-        </li>
-        <li>If your function calls reactive values, Shiny will update your figure whenever those values change,
-  in a [reactive fashion](https://shiny.posit.co/py/docs/reactive-programming.html).
-        </li>
-        <li>If you use `matplotlib.pyplot` to plot, your function does not need to return a value. Otherwise, your function should return one of the following objects:</li>
-          <ul>
-            <li>A `matplotlib.figure.Figure` instance</li>
-            <li>A `matplotlib.artist.Artist` instance</li>
-            <li>A list/tuple of `Figure`/`Artist` instances</li>
-            <li>An object with a ‘figure’ attribute pointing to a `matplotlib.figure.Figure` instance</li>
-            <li>A `PIL.Image.Image` instance</li>
-          </ul>
-      </ul>
-  </li>
-  <li>
-  Decorate your plotting function with a `@render.plot()` decorator.
-    <ul>
-      <li>If your plotting function is not the same as the `id` you used in the `ui.output_plot()`,
-  you can add an additional `@output(id=...)` decorator.
-  If you use the `@output()` decorator,
-  make sure it is __above__ the `@render.plot()` decorator.
-      </li>
-    </ul>
-  </li>
-</ol>
+  
+  2. Define a function within the `server()` function that creates the figure.
 
-<h2>Plots as Inputs</h2>
+      - The name of the function should be the same value you passed into the `id` parameter
+        in your `ui.output_plot()` function call in the UI.
 
-<p>You can use a plot as an input widget, collecting the locations of user clicks, double clicks, hovers, and brushes. To do this, set one or more of the following arguments of `ui.output_plot()` to `True`:.</p>
+      - If your function calls reactive values, Shiny will update your figure whenever those values change,
+in a [reactive fashion](https://shiny.posit.co/py/docs/reactive-programming.html).
 
-<ol>
-  <li>`click` - When `click = True`, the plot will allow the user to click in the plotting area, and will send the coordinates of the click to the server, where they can be accessed as a reactive variable named `input.<id>_click()`, where `<id>` is the id of the plot. The input value will be a dictionary with x and y elements indicating the mouse position.</li>
-  <li>`dblclick` - This is just like the click parameter, but for double-click events. The value can be accessed as `input.<id>_dblclick()`.</li>
-  <li>`hover` - When `hover = True`, the plot will allow the user to hover over the plotting area, and will send the coordinates of the cursor to the server, where they can be accessed as a reactive variable named `input.<id>_hover()`, where `<id>` is the id of the plot. The input value will be a dictionary with x and y elements indicating the mouse position. To control the hover time or hover delay type, set `hover` to `hover_opts()`.</li>
-  <li><p>`brush` - When `brush = True`, the plot will allow the user to “brush” in the plotting area, and will send information about the brushed area to the server, where it can be accessed as a reactive variable named `input.<id>_brush()`, where `<id>` is the id of the plot. Brushing means that the user will be able to draw a rectangle in the plotting area and drag it around. The value will be a named list with xmin, xmax, ymin, and ymax elements indicating the brush area. To control the brush behavior, set `brush` to `brush_opts()`.</p>
-  <p>Multiple `output_image()`/`output_plot()` calls may share the same id value; brushing one image or plot will cause any other brushes with the same id to disappear.</p></li>
-</ol>
+      - If you use `matplotlib.pyplot` to plot, your function does not need to return a value. Otherwise, your function should return one of the following objects:
+          
+          - A `matplotlib.figure.Figure` instance
+          - A `matplotlib.artist.Artist` instance
+          - A list/tuple of `Figure`/`Artist` instances
+          - An object with a ‘figure’ attribute pointing to a `matplotlib.figure.Figure` instance
+          - A `PIL.Image.Image` instance
+
+  3. Decorate your plotting function with a `@render.plot()` decorator.
+      
+      - If your plotting function is not the same as the `id` you used in the `ui.output_plot()`, you can add an additional `@output(id=...)` decorator.
+      - If you use the `@output()` decorator, make sure it is __above__ the `@render.plot()` decorator.
+
+
+## Plots as Inputs
+
+
+You can use a plot as an input widget, collecting the locations of user clicks, double clicks, hovers, and brushes. To do this, set one or more of the following arguments of `ui.output_plot()` to `True`:.
+
+  1. `click` - When `click = True`, the plot will allow the user to click in the plotting area, and will send the coordinates of the click to the server, where they can be accessed as a reactive variable named `input.<id>_click()`, where `<id>` is the id of the plot. The input value will be a dictionary with x and y elements indicating the mouse position.
+  
+  2. `dblclick` - This is just like the click parameter, but for double-click events. The value can be accessed as `input.<id>_dblclick()`.
+  
+  3. `hover` - When `hover = True`, the plot will allow the user to hover over the plotting area, and will send the coordinates of the cursor to the server, where they can be accessed as a reactive variable named `input.<id>_hover()`, where `<id>` is the id of the plot. The input value will be a dictionary with x and y elements indicating the mouse position. To control the hover time or hover delay type, set `hover` to `hover_opts()`.
+  
+  4. `brush` - When `brush = True`, the plot will allow the user to “brush” in the plotting area, and will send information about the brushed area to the server, where it can be accessed as a reactive variable named `input.<id>_brush()`, where `<id>` is the id of the plot. Brushing means that the user will be able to draw a rectangle in the plotting area and drag it around. The value will be a named list with xmin, xmax, ymin, and ymax elements indicating the brush area. To control the brush behavior, set `brush` to `brush_opts()`.
+
+  Multiple `output_image()`/`output_plot()` calls may share the same id value; brushing one image or plot will cause any other brushes with the same id to disappear.
+  

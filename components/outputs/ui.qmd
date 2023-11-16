@@ -76,15 +76,14 @@ listing:
 
 ## Details
 
-<p>A UI output creates an output container for a UI (i.e., HTML) element, such as a set of additional controls. Adding a UI output allows you to show, hide, or update input controls within your app.</p>
+A UI output creates an output container for a UI (i.e., HTML) element, such as a set of additional controls. Adding a UI output allows you to show, hide, or update input controls within your app.
 
-<p>To add a UI output, follow three steps:</p>
-<ol>
-  <li>Call `ui.output_ui()` in the UI of your app to create a div in which to display the UI element. Where you call this function within the UI functions will determine where the table will appear within the layout of the app. Set the `id` argument of `ui.output_ui()` to a unique value.</li>
+To add a UI output, follow three steps:
 
-  <li>Within the server function, define a new function whose name matches the id used above. The function should return a UI element, like an input control.</li>
+  1. Call `ui.output_ui()` in the UI of your app to create a div in which to display the UI element. Where you call this function within the UI functions will determine where the table will appear within the layout of the app. Set the `id` argument of `ui.output_ui()` to a unique value.
 
-  <li>Decorate the function with `@render.ui`. If you're using an action button or link to show the UI element, you'll also need to decorate with `@reactive.event`.</li>
-</ol>
+  2. Within the server function, define a new function whose name matches the id used above. The function should return a UI element, like an input control.
 
-<p>See also: [Dynamic UI](https://shiny.posit.co/py/docs/ui-dynamic.html) and [UI and HTML](https://shiny.posit.co/py/docs/ui-html.html).</p>
+  3. Decorate the function with `@render.ui`. If you're using an action button or link to show the UI element, you'll also need to decorate with `@reactive.event`.
+
+See also: [Dynamic UI](https://shiny.posit.co/py/docs/ui-dynamic.html) and [UI and HTML](https://shiny.posit.co/py/docs/ui-html.html).

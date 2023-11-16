@@ -99,7 +99,7 @@ listing:
 
 A modal is a dialog box that appears in front of the app. You can use modals to display messages, curate the user experience, or collect user input, like passwords and usernames. 
 
-To create a modal, first assemble the components of the modal with [`ui.modal()`](TODO ADD LINK TO UI MODAL) and save them to an object. Then call [`ui.modal_show()`](TODO ADD LINK TO UI MODAL SHOW) on the object to display the modal.
+To create a modal, first assemble the components of the modal with [`ui.modal()`](https://shiny.posit.co/py/api/ui.modal.html) and save them to an object. Then call [`ui.modal_show()`](https://shiny.posit.co/py/api/ui.modal_show.html) on the object to display the modal.
 
 Typically, you will want to create a reactive effect to call `ui.modal_show()` whenever a particular event occurs. For example, the reactive effect below will open a modal whenever the value of `input.show()` changes.
 
@@ -121,8 +121,6 @@ To add elements to a modal, pass them as unnamed arguments to `ui.modal()`. Moda
 
 Modals come in four sizes: small (`'s'`), medium (`'m'`) (the default), large (`'l'`), and extra-large (`'xl'`). Set the size of a modal with the `size` argument of `ui.modal()`.
 
-## See Also
-
-[Notifications](TO DO ADD LINK TO NOTIFICATIONS PAGE) provide a similar, but alternative way to display information to the user.
+See Also:[Notifications](notifications.qmd) provide a similar, but alternative way to display information to the user.
 
 

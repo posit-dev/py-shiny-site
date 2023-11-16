@@ -44,34 +44,24 @@ listing:
 
 ## Details
 
-<p>To make a reactive image, follow three steps:</p>
+To make a reactive image, follow three steps:
 
-<ol>
-<li>
-<p>Call [`ui.output_image()`](TODO ADD LINK) in the `app_ui` section of your app to create a div in which to display the image.</p> 
+  1. Call [`ui.output_image()`](TODO ADD LINK) in the `app_ui` section of your app to create a div in which to display the image. 
 
-  <ol>
-    <li>Set the id argument of `ui.output_image()` to a unique value.</li>
-    <li>Optionally, set `ui.output_image(inline=True)` to place the image inline with the text or elements that precede it.</li>
-    <li>Optionally, set `ui.output_image(Fill=True)` to allow the image to grow or shrink to fill its container as the app is resized.</li>
-  </ol>
-</li>
+      1. Set the id argument of `ui.output_image()` to a unique value.
+      2. Optionally, set `ui.output_image(inline=True)` to place the image inline with the text or elements that precede it.
+      3. Optionally, set `ui.output_image(Fill=True)` to allow the image to grow or shrink to fill its container as the app is resized.
+  
+  2. Within your app's server function, define a new function whose name matches the id used above. Shiny will rerun this function whenever it needs to build or update the output with the matching id.
+  The function should return the image to display as a dictionary with the following keys:
 
-<li>
-<p>Within your app's server function, define a new function whose name matches the id used above. Shiny will rerun this function whenever it needs to build or update the output with the matching id.</p>
+      1. `src` - The file path to the image, relative to the app directory. Required.
+      2. `height`- The image height in CSS, e.g. ‘100%’ or ‘600px’. At least one of `height` or `width` must be provided.
+      3. `width` - The image width in CSS,  e.g. ‘100%’ or ‘600px’. At least one of `height` or `width` must be provided.
+      4. `alt` - Alt text to display for the image. Optional.
+      5. `style` - A CSS style tag for the image. Optional.
 
-<p>The function should return the image to display as a dictionary with the following keys:</p>
 
-  <ol>
-    <li>`src` - The file path to the image, relative to the app directory. Required.</li>
-    <li>`height`- The image height in CSS, e.g. ‘100%’ or ‘600px’. At least one of `height` or `width` must be provided.</li>
-    <li>`width` - The image width in CSS,  e.g. ‘100%’ or ‘600px’. At least one of `height` or `width` must be provided.</li>
-    <li>`alt` - Alt text to display for the image. Optional.</li>
-    <li>`style` - A CSS style tag for the image. Optional.</li>
-  </ol>
-</li>
+  3. Decorate the function with `@render.image`. Use `@render.image(delete_file=True)` to delete the image from the server after it has been rendered.
 
-<li>Decorate the function with `@render.image`. Use `@render.image(delete_file=True)` to delete the image from the server after it has been rendered.</li>
-</ol>
-
-<p>You can use an image as an input widget, collecting the locations of user clicks, double clicks, hovers, and brushes. To do this, follow the instructions provided for [plots as inputs](TO DO: LINK TO THE PLOTS AS INPUTS SECTION OF THE PLOTS (MATPLOTLIB) PAGE).</p>
+You can use an image as an input widget, collecting the locations of user clicks, double clicks, hovers, and brushes. To do this, follow the instructions provided for [plots as inputs](plot-matplotlib.html#plots-as-inputs).

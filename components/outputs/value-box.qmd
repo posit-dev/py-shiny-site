@@ -433,33 +433,19 @@ listing:
 
 ## Details
 
-<p>
+
 Value boxes are special "cards" that help group information together in an aesthetic way.
 You can read more about value boxes in the [bslib](https://rstudio.github.io/bslib/articles/value-boxes/index.html) R Package.
-</p>
-<p>Value boxes have 4 main parts:</p>
-<ol>
-  <li>`value` - text to display in the card</li>
-  <li>`title` - optional text that displays _above_ the `value`</li>
-  <li>`showcase` - optional element to be shown next to the `value` text (e.g., an image or logo)</li>
-  <li>`theme` - optional theme to change the appearance of the value box</li>
-</ol>
 
-<p>There is only a UI component for the value box.</p>
+Value boxes have 4 main parts:
 
-<ol>
-  <li>
-    Call `ui.value_box()` to the UI of your app to create a div in which to display the value box.
-  </li>
-</ol>
+  1. `value` - text to display in the card
+  2. `title` - optional text that displays _above_ the `value`
+  3. `showcase` - optional element to be shown next to the `value` text (e.g., an image or logo)
+  4. `theme` - optional theme to change the appearance of the value box
 
-<p>
-  Since the value box is only a UI component, if you want to make it interactive
-  (i.e., [reactive](https://shiny.posit.co/py/docs/reactive-programming.html)),
-  you can pair it up with either a
-  [`ui.output_ui()`](https://shiny.posit.co/py/api/ui.output_ui.html) +
-  [`@render.ui()`](https://shiny.posit.co/py/api/render.ui.html)
-  pair or use
-  [`ui.output_text()`](https://shiny.posit.co/py/api/ui.output_text.html)
-  as an argument to the `ui.value_box()` function if you only need text changes.
-</p>
+There is only a UI component for the value box.
+  1. Call `ui.value_box()` to the UI of your app to create a div in which to display the value box.
+
+Since the value box is only a UI component, if you want to make it interactive (i.e., [reactive](https://shiny.posit.co/py/docs/reactive-programming.html)), you can pair it up with either a [`ui.output_ui()`](https://shiny.posit.co/py/api/ui.output_ui.html) + [`@render.ui()`](https://shiny.posit.co/py/api/render.ui.html) pair or use
+[`ui.output_text()`](https://shiny.posit.co/py/api/ui.output_text.html) as an argument to the `ui.value_box()` function if you only need text changes.

@@ -50,45 +50,33 @@ listing:
 
 ## Details
 
-<p>Seaborn is a statistical plotting library that builds on top of Matplotlib.</p>
+Seaborn is a statistical plotting library that builds on top of Matplotlib.
 
-<p>Follow these steps to display a Seaborn figure in your app:</p>
+Follow these steps to display a Seaborn figure in your app:
 
-<ol>
-  <li>
-  Add `ui.output_plot()` to the UI of your app to create a div in which to display the figure.
+
+  1. Add `ui.output_plot()` to the UI of your app to create a div in which to display the figure.
   Where you call this function will determine where the figure will appear within the layout of the app.
   The `id` parameter you provide will be used to link to other parts of the Shiny app.
-  </li>
-  <li>
-  Define a function within the `server()` function that creates the figure.
-      <ul>
-        <li>The name of the function should be the same value you passed into the `id` parameter
-          in your `ui.output_plot()` function call in the UI.
-        </li>
-        <li>If your function calls reactive values, Shiny will update your figure whenever those values change,
-  in a [reactive fashion](https://shiny.posit.co/py/docs/reactive-programming.html).
-        </li>
-        <li>Your function should return one of the following objects:</li>
-          <ul>
-            <li>A `matplotlib.figure.Figure` instance</li>
-            <li>A `matplotlib.artist.Artist` instance</li>
-            <li>A list/tuple of `Figure`/`Artist` instances</li>
-            <li>An object with a ‘figure’ attribute pointing to a `matplotlib.figure.Figure` instance</li>
-            <li>A `PIL.Image.Image` instance</li>
-          </ul>
-      </ul>
-  </li>
-  <li>
-  Decorate your plotting function with a `@render.plot()` decorator.
-    <ul>
-      <li>If your plotting function is not the same as the `id` you used in the `ui.output_plot()`,
-  you can add an additional `@output(id=...)` decorator.
-  If you use the `@output()` decorator,
-  make sure it is __above__ the `@render.plot()` decorator.
-      </li>
-    </ul>
-  </li>
-</ol>
+  
+  2. Define a function within the `server()` function that creates the figure.
+      
+      - The name of the function should be the same value you passed into the `id` parameter
+        in your `ui.output_plot()` function call in the UI.
 
-<p>You can use a plot as an input widget, collecting the locations of user clicks, double clicks, hovers, and brushes. To do this, follow the instructions provided for [plots as inputs](TO DO: LINK TO THE PLOTS AS INPUTS SECTION OF THE PLOTS (MATPLOTLIB) PAGE).</p>
+      - If your function calls reactive values, Shiny will update your figure whenever those values change, in a [reactive fashion](https://shiny.posit.co/py/docs/reactive-programming.html).
+        
+      - Your function should return one of the following objects:</li>
+        
+          - A `matplotlib.figure.Figure` instance
+          - A `matplotlib.artist.Artist` instance
+          - A list/tuple of `Figure`/`Artist` instances
+          - An object with a ‘figure’ attribute pointing to a `matplotlib.figure.Figure` instance
+          - A `PIL.Image.Image` instance
+
+  3. Decorate your plotting function with a `@render.plot()` decorator.
+
+      - If your plotting function is not the same as the `id` you used in the `ui.output_plot()`, you can add an additional `@output(id=...)` decorator.
+      - If you use the `@output()` decorator, make sure it is __above__ the `@render.plot()` decorator.
+
+You can use a plot as an input widget, collecting the locations of user clicks, double clicks, hovers, and brushes. To do this, follow the instructions provided for [plots as inputs](plot-matplotlib.html#plots-as-inputs).

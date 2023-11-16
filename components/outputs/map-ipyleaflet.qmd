@@ -105,32 +105,20 @@ listing:
 :::{#component}
 :::
 
-<p>`ipyleaflet` allows us to create interactive maps via [ipywidgets](https://ipywidgets.readthedocs.io/en/stable/).</p>
+`ipyleaflet` allows us to create interactive maps via [ipywidgets](https://ipywidgets.readthedocs.io/en/stable/).
 
-<p>To insert an `ipyleaflet` map do the following tasks:</p>
+To insert an `ipyleaflet` map do the following tasks:
 
-<ol>
-  <li>
-  Add `shinywidgets.output_widget()` to the UI of your app to create a div in which to display the map.
+  1. Add `shinywidgets.output_widget()` to the UI of your app to create a div in which to display the map.
   Where you call this function will determine where the map will appear within the layout of the app.
-  </li>
 
-  <li>
-  Provide an argument to the `id` parameter in the `shinywidgets.output_widget()` function call.
+  2. Provide an argument to the `id` parameter in the `shinywidgets.output_widget()` function call.
   This argument will be used to identify the map in the server function.
-  </li>
 
-
-  <li>
-  Within the `server()` function, create your `ipyleaflet` map and assign it to a variable.
+  3. Within the `server()` function, create your `ipyleaflet` map and assign it to a variable.
   Your map does not need to be created within a nested function in server() like many other shiny for python components.
-  </li>
 
-  <li>
-  Register your map with shiny using `shinywidgets.register_widget()` by passing in the id of the map and the map variable.
-  </li>
+  4. Register your map with shiny using `shinywidgets.register_widget()` by passing in the id of the map and the map variable.
 
-</ol>
-
-<p> Visit [shiny.posit.co/py/docs/ipywidgets.html](https://shiny.posit.co/py/docs/ipywidgets.html) to learn more about using ipywidgets with Shiny. </p>
+ Visit [shiny.posit.co/py/docs/ipywidgets.html](https://shiny.posit.co/py/docs/ipywidgets.html) to learn more about using ipywidgets with Shiny. 
 

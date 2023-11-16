@@ -90,7 +90,7 @@ listing:
 
 ## Details
 
-A tooltip is a box that appears next to an element when a user hovers over the element. To add a tooltip to a UI component, wrap the component in [`ui.tooltip()`](TODO ADD LINK TO UI TOOLTIP). Then pass `ui.tooltip()` one or more elements to display, such as a simple string that contains a message.
+A tooltip is a box that appears next to an element when a user hovers over the element. To add a tooltip to a UI component, wrap the component in [`ui.tooltip()`](https://shiny.posit.co/py/api/ui.tooltip.html). Then pass `ui.tooltip()` one or more elements to display, such as a simple string that contains a message.
 
 Optionally assign the tooltip an `id` to trigger reactions when the tooltip becomes visible or to programmatically update the contents of the tooltip as your user navigates the app. A boolean that describes whether or not the tooltip is visible will be accessible as a reactive variable within the server function as `input.<id>()`.
 
@@ -132,8 +132,6 @@ ui.tooltip(
 )
 ```
 
-Compare tooltips to [popovers](TODO ADD LINK TO UI.POPOVERS), which are a similar device for organizing the layout of a Shiny app.
+Compare tooltips to [popovers](https://shiny.posit.co/py/api/ui.popover.html), which are a similar device for organizing the layout of a Shiny app.
 
-## See Also
-
-[Modal messages](TO DO ADD LINK TO MODAL DETAIL PAGE) and [help text](TO DO ADD LINK TO HELP TEXT) provide a similar, but alternative way to display information to the user.
+See Also: [Modal messages](modal.qmd) and [help text](help-text.qmd) provide a similar, but alternative way to display information to the user.
