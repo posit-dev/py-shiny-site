@@ -158,8 +158,12 @@ pre.console code {
 }
 
 
+a.nav-link {
+  color: #343A46;
+}
+
 a.nav-link:hover {
-  color: #202020;
+  color: #1D1F21;
 }
 
 .panel-tabset .nav-tabs .nav-link:hover,
