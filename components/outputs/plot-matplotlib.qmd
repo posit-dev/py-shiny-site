@@ -6,48 +6,53 @@ preview: |
   <img style="width: 100%;" src="/images/matplotlib.jpg">
   </div>
 listing:
-  id: component
-  template: ../_partials/components-detail.ejs
-  contents:
-    - title: "Plot (Matplotlib)"
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMaVC7xGqSgHNVNCFMVNWPKABMA+pYg27E-YeMJAAs7TUdlAEF0PBZGSlc4RhjbeXk0VHdbFgBeFlssKCs4dz0uW1cACnkWGryaDDtUVTJ3CX4ExirIWXwWHoA5dQFElmI9FgFfHpiABhiARhm5lgAmGYBKPGra-OJmppbRMi6jns35ddSIeQTxiUSAN0SKxuaYvc43lnuJCRpSdaIbY1AACcQgHSwPGOpjI2R6ERYIQkZGIVkYsDOwJYt2k0IqgOxtRx41yLg8Xh89gJRNq7F+ORJwB6AmIrmw7npEncVh6AF0rsTiXoaFYYlAAB6MmQYCSqARHCQ0iBC2qSjDI45cmKvMgYCAEmIJew0MjYbIAFUYqjglxVqvEEtlcBaZFNXDgXQACqZzCwvdZbCqALKSH5Y+2q9X3FoSrhQYZcLqhhkVKyXMB2h2O50tbDxxNdAAilD+ZojtJqcTIqkYKpFvOuTfSjKiqAq6UyNBi90YTySOLgAlUVkt1tt8jAAF8+UA
-      code: |
-        import matplotlib.pyplot as plt
-        from palmerpenguins import load_penguins
-        from shiny import App, render, ui
+  - id: component
+    template: ../_partials/components-detail.ejs
+    contents:
+      - title: "Plot (Matplotlib)"
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMaVC7xGqSgHNVNCFMVNWPKABMA+pYg27E-YeMJAAs7TUdlAEF0PBZGSlc4RhjbeXk0VHdbFgBeFlssKCs4dz0uW1cACnkWGryaDDtUVTJ3CX4ExirIWXwWHoA5dQFElmI9FgFfHpiABhiARhm5lgAmGYBKPGra-OJmppbRMi6jns35ddSIeQTxiUSAN0SKxuaYvc43lnuJCRpSdaIbY1AACcQgHSwPGOpjI2R6ERYIQkZGIVkYsDOwJYt2k0IqgOxtRx41yLg8Xh89gJRNq7F+ORJwB6AmIrmw7npEncVh6AF0rsTiXoaFYYlAAB6MmQYCSqARHCQ0iBC2qSjDI45cmKvMgYCAEmIJew0MjYbIAFUYqjglxVqvEEtlcBaZFNXDgXQACqZzCwvdZbCqALKSH5Y+2q9X3FoSrhQYZcLqhhkVKyXMB2h2O50tbDxxNdAAilD+ZojtJqcTIqkYKpFvOuTfSjKiqAq6UyNBi90YTySOLgAlUVkt1tt8jAAF8+UA
+        height: 500px
+        code: |
+          import matplotlib.pyplot as plt
+          from palmerpenguins import load_penguins
+          from shiny import App, render, ui
 
-        app_ui = ui.page_fluid(
-            ui.input_slider("n", "Number of bins", 0, 100, 20),
-            ui.output_plot("plot"),  #<<
-        )
+          app_ui = ui.page_fluid(
+              ui.input_slider("n", "Number of bins", 0, 100, 20),
+              ui.output_plot("plot"),  #<<
+          )
 
-        def server(input, output, session):
-            @render.plot(alt="A histogram")  #<<
-            def plot():  #<<
-                df = load_penguins()
-                mass = df["body_mass_g"]
+          def server(input, output, session):
+              @render.plot(alt="A histogram")  #<<
+              def plot():  #<<
+                  df = load_penguins()
+                  mass = df["body_mass_g"]
 
-                fig, ax = plt.subplots()
-                ax.hist(mass, input.n(), density=True)
-                ax.set_title("Palmer Penguin Masses")
-                ax.set_xlabel("Mass (g)")
-                ax.set_ylabel("Density")
+                  fig, ax = plt.subplots()
+                  ax.hist(mass, input.n(), density=True)
+                  ax.set_title("Palmer Penguin Masses")
+                  ax.set_xlabel("Mass (g)")
+                  ax.set_ylabel("Density")
 
-                return fig  #<<
+                  return fig  #<<
 
-        app = App(app_ui, server, debug=True)
+          app = App(app_ui, server, debug=True)
 
-      relevantfunctions:
-        - title: ui.output_plot
-          href: https://shiny.posit.co/py/api/ui.output_plot.html
-          signature: ui.output_plot(id, width='100%', height='400px', *, inline=False, click=False, dblclick=False, hover=False, brush=False, fill=MISSING)
-        - title: "@render.plot"
-          href: https://shiny.posit.co/py/api/render.plot.html
-          signature: render.plot(_fn=None, *, alt=None, width=MISSING, height=MISSING, **kwargs)
+        relevantfunctions:
+          - title: ui.output_plot
+            href: https://shiny.posit.co/py/api/ui.output_plot.html
+            signature: ui.output_plot(id, width='100%', height='400px', *, inline=False, click=False, dblclick=False, hover=False, brush=False, fill=MISSING)
+          - title: "@render.plot"
+            href: https://shiny.posit.co/py/api/render.plot.html
+            signature: render.plot(_fn=None, *, alt=None, width=MISSING, height=MISSING, **kwargs)
+  - id: variations
+    template: ../_partials/components-variations.ejs
+    contents:
       variations:
         - title: Plot as input
           description: Use the `click`, `dblclick`, `hover`, and `brush` arguments of `ui.output_plot()` to collect information about the user's mouse interactions as a reactive variable. The app below displays the values returned, but you can also call the values from within your computations to filter tables, perform calculations, and so on.
           preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQgAzRsRjSoXeI1SUA5gFcaEKXQbMWPKABMA+toj7DE+UpUsJAC0PYWJpqwCC6HgsjJSWcIzBBvLyaKjWBiwAvCwGWFA6cNYKXAaWABTyLMWpNBjEepyVtjxkhRAljSyyYKJy+M0NTcWE-IQA1kkAKox6cMEAxAA8U0XdLJYCXL00A8Oj4yzTs13d7sQAbhHrY5Mzc90Cox4ncFvnuywAlHgXzWAAwn39iC2vj2kKlUyNYKAAPEFHRgCDh0QpELj9P7SLhQQhwfZccKMW4vN4tAAiFSWdy+qx+fzegMqqGq4MhERhZDhLUWy0RyO4aIxxCxxxGYzxjxaAAlDhFfvgqWUgbSQfTrFCmSywO4DoxOaj0Zjsbj-o0WgAha7uSkAmU0ulwCGKxmwmDwq4eTXcnX8jZCp4xCDhBRuCJQ-KGOXBWWVYISOASCQ0UhPX6PAACoR9ESwtXy6jISRa-hYngkZGIOkYsBaXsevpRvHy8bejUsfpSFhsdgcRlr9ZK7GjyQWCmALQExEs2GsPYk1h0LQAul3igIaFwuH3G4OwIvl9YuLoyO5xzBZ975iiyBgJIQOBRGPkJ8FN1wKyeZBgwaiBHAuPCALKSKT5HQvTAJ95hfbB30-eFDSXFcABld3cFhbxgICQO6F9mT4OB4QABV0AwGl-XsDikaDlxYeD7D3ctjxKZMwjTek3irXp+lrBMT1CMg9EYBpg0qdNeGsFYBk7CA3no1NGAwJjKzgP02VY9j5xCOBuN4nwIDlQSQUU74xIklNsRk605Dkv01RvOtHkaLieL4rSBLaax9kDCtDIY6TZIbeSWCddxlJsko7I0-iz2cq49A8MST29OI+0CVBM3QBIaAjAMImCcIBD0HRcTAABfGcgA
+          height: 720px
           code: |
             import matplotlib.pyplot as plt
             from palmerpenguins import load_penguins
@@ -154,3 +159,5 @@ You can use a plot as an input widget, collecting the locations of user clicks, 
 
   Multiple `output_image()`/`output_plot()` calls may share the same id value; brushing one image or plot will cause any other brushes with the same id to disappear.
   
+:::{#variations}
+:::

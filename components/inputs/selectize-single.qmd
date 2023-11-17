@@ -25,33 +25,37 @@ previewapp: |
 
   app = App(app_ui, server)
 listing:
-  id: component
-  template: ../_partials/components-detail.ejs
-  contents:
-    - title: Selectize List
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZDgBecDZMAMQAPOH2jjHKYF4+foFwcRIRURAxsWAAyt6+wlCZxKj+pEwARt7EAO6IqWGR0VlMIHEAjCJxiExxAMJsxByEcEydDR0AQt29YANDI2PT+LPtfTP9g8Oja3EAvmlNmY4AlIcZMYbE7m4eFAAeZHZgAG5QVilgZ6onqqqyNFYchechsrncEmuZFuEi8LBYHFIJ3qxwcAAEpBBZHQMA8yM0mACmG8PjZkQSYlIyAo6JkaHEQOCyBgEgVkmS9nE-tB0HpROgbBptBxYcC5L8IGA9gBdIA
-      code: |
-        from shiny import App, render, ui
-        
-        app_ui = ui.page_fluid(
-            ui.input_selectize( #<<
-                "selectize", #<<
-                "Select an option below:", #<<
-                {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"}, #<<
-            ), #<<
-            ui.output_text("value"),
-        )
-        
-        def server(input, output, session):
-            @render.text
-            def value():
-                return f"{input.selectize()}"
-        
-        app = App(app_ui, server)
-      relevantfunctions:
-        - title: ui.input_selectize
-          href: https://shiny.posit.co/py/api/ui.input_selectize.html
-          signature: ui.input_selectize(id, label, choices, *, selected=None, multiple=False, width=None)
+  - id: component
+    template: ../_partials/components-detail.ejs
+    contents:
+      - title: Selectize List
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZDgBecDZMAMQAPOH2jjHKYF4+foFwcRIRURAxsWAAyt6+wlCZxKj+pEwARt7EAO6IqWGR0VlMIHEAjCJxiExxAMJsxByEcEydDR0AQt29YANDI2PT+LPtfTP9g8Oja3EAvmlNmY4AlIcZMYbE7m4eFAAeZHZgAG5QVilgZ6onqqqyNFYchechsrncEmuZFuEi8LBYHFIJ3qxwcAAEpBBZHQMA8yM0mACmG8PjZkQSYlIyAo6JkaHEQOCyBgEgVkmS9nE-tB0HpROgbBptBxYcC5L8IGA9gBdIA
+        height: 200px
+        code: |
+          from shiny import App, render, ui
+          
+          app_ui = ui.page_fluid(
+              ui.input_selectize( #<<
+                  "selectize", #<<
+                  "Select an option below:", #<<
+                  {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"}, #<<
+              ), #<<
+              ui.output_text("value"),
+          )
+          
+          def server(input, output, session):
+              @render.text
+              def value():
+                  return f"{input.selectize()}"
+          
+          app = App(app_ui, server)
+        relevantfunctions:
+          - title: ui.input_selectize
+            href: https://shiny.posit.co/py/api/ui.input_selectize.html
+            signature: ui.input_selectize(id, label, choices, *, selected=None, multiple=False, width=None)
+  - id: variations
+    template: ../_partials/components-variations.ejs
+    contents:
       variations:
         - title: Selectize with grouped choices
           description: To group the choices into categories, supply the `choices` argument with a dictionary of dictionaries. `ui.input_selectize()` will use the top-level keys as group labels.
@@ -103,3 +107,6 @@ The value of an input component is accessible as a reactive value within the `se
   1. Use `input.<selectize_id>()` (e.g., `input.selectize()`) to access the selected value. The server value of a selectize list is a list of strings. When `multiple=False`, this list will have length 1.
 
 See also: [Selectize (Multiple)](selectize-multiple.qmd) and [Select (Single)](select-single.qmd). Select inputs and selectize inputs are similar, but have different interfaces and provide different ways of selecting multiple options. Selectize inputs also allow you to deselect items.
+
+:::{#variations}
+:::

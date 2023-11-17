@@ -1,23 +1,26 @@
 ---
 title: "Checkbox"
 sidebar: components 
-preview: |
-  <div style="justify-content: left;">
-  <div class="form-check">
-  <p class="m-0">
-    <input class="form-check-input" style="width: 1.2em;height: 1.2em;margin-right:0.35rem;border-radius: 2px;" type="checkbox" value="" id="flexCheckChecked" checked>
-    <label class="form-check-label" for="flexCheckChecked">
-    Yes
-    </label>
-    </p>
-  </div>
-  </div>  
+previewapp: |
+  from shiny import App, render, ui
+  app_ui = ui.page_fluid(
+      ui.input_checkbox("x", "Checkbox Checkbox").add_class("mb-0"),
+      ui.output_text_verbatim("txt"),
+      {"class": "vh-100 d-flex justify-content-center align-items-center px-4"}
+  )
+  def server(input, output, session):
+      @output
+      @render.text
+      def txt():
+          return f""
+  app = App(app_ui, server, debug=True)
 listing:
   id: component
   template: ../_partials/components-detail.ejs
   contents:
     - title: Checkbox
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymwmziEA1gCNiAA87Im8-QKDlfCZogGFwgODoiQAxKAsWOABKPHtHQ2J3Nw8lUIA3DIU4aNzVbNVVWRpWOXK5G1d3CSKyEokslhYOUmzEfIcAAV6SiaZJqQhZOgwlOeamSqs4GzG5x0k4MgU6CF4IEowvHySQhrVodD1RdBsNbQ4BtrlssABfAC6QA
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOtHQB9JUwC8TJVigBzOOpoAbJdIAUqpnb0cMDAO42I9jw4wkLMCFYA2RUcuVAUydUI2OEIAawAjYgAPGyJouMSk5XwmbIBhdITk7IkAFToFOABKDChpaUizKBYWVJh4gFoABiYKJLIOwkoKOmyqqolbTzt9HwU-QOCMYnCwiKVUgDcoCzgx2vrG5tbs9u7euH7B4bkxianpkGzCJpbsxFywTbYOgEYunoAKwULDIHBo2EGpAo5Gu5DkTB2HEMEA6HAoMBYcJGTFQSQ6AFZsgBfB5MKqqCkQVSyGisOSbORWULhCQrMhrCQsOAtDikKqIMkAASkEFkdAwSjJtKY212VgFZI8UjICjo7hZZG8hUyCtUaFQOlE6CsBs0HC5DLkVTAxIAukA
+      height: 150px
       code: |
         from shiny import App, render, ui
         

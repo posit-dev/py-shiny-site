@@ -4,15 +4,24 @@
 
 ## Preview
 
-<iframe style="height:400px;" class="mb-0 w-100 iframe-border" src="<%= item.preview %>" title="<%= item.title %>">
+:::{.fade}
+
+<iframe style="height:<% if (item.height) { %>
+<%= item.height %>
+<% } else { %>
+400px
+<% } %>;" class="mb-0 w-100 iframe-border" src="<%= item.preview %>" title="<%= item.title %>">
 </iframe>
+
+:::
 
 ## Code
 
+:::{.fade}
 ```{.python filename="app.py" }
 <%= item.code %>
 ```
-
+:::
 :::
 
 :::{.mt-5}
@@ -30,47 +39,7 @@
 <% } %>
 </ul>
 
-:::{.border-bottom .mt-6 .mb-5}
+:::{.border-bottom .blue .mt-6 .mb-4}
 :::
-
-<% if (item.variations) { %>
-
-:::{.pt-1}
-
-## Variations
-
-<% for (const variation of item.variations) { %>
-
-#### <%= variation.title %> {.mb-0 .mt-5}
-
-<p class="mb-0"><%= variation.description %></p>
-
-::: {.panel-tabset}
-
-## Preview
-
-<iframe style="height:<% if (variation.height) { %>
-<%= variation.height %>
-<% } else { %>
-150px
-<% } %>;" class="mb-0 w-100 iframe-border" src="<%= variation.preview %>" title="<%= variation.title %>">
-</iframe>
-
-## Code
-
-```{.python filename="app.py" }
-<%= variation.code %>
-```
-
-:::
-
-<% } %>
-
-:::
-
-:::{.border-bottom .mt-6 .mb-5}
-:::
-
-<% } %>
 
 <% } %>

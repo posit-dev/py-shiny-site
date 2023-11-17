@@ -3,7 +3,7 @@ title: "Plot (Plotly)"
 sidebar: components
 preview: |
   <div class="px-3">
-  <img style="width: 100%;" src="/images/plotly.png">
+  <img style="width: 100%;height:auto;" src="/images/plotly.jpg">
   </div>
 listing:
   id: component
@@ -11,6 +11,7 @@ listing:
   contents:
     - title: "Plot (Plotly)"
       preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACVAG2LPewzgA9UjOAGcRLKONT8AOhABmjYjDZR28RqkoBzAK40I4ug2YtOUACYB9LRD0GRcxcpYiAFgewtjTVgEF0PBZhKEIyGgA3OCD9JyUVd08AdxoLbTgyI3pfFmJdMlR8qxS0jKDhCAs4RmLU9NYWAGIAHma5OTRUK30WAF4WfSwodKt5dn0LAAo5FlmBmgwDQrIrEXZU6unIGXwWHYA5XRgAI2rc+RZjhx2ggEY7gAYHoIAmB4BKPBm5vIKikvqWw4XB2n1mLTaEHe7QgciqFxE1SijEmS3yQV+yyCiLENFI70Q31mAAEKlUagCMuCWK0iSx4WxOGRJgS6XM2Dp9IY+mZiJYbJyHCy2XMRIQoGQKJomTzpBgPCIyMRtIxYNMIOzNXMLBKoKNVfBerZ7IYgvxejtjsQLNgrDBJCIrNobiwIFdDL00WQMBBhRqtSx3hhdKgdRQrOwoNhfuqA5rwtw4L0QDsKPwyDtEHswAAFQUagCyDpdO1kSBYDwwAFYAL5ff1x2bYKD8GiOhPsJM7ADCeXINxFWv4LbbVg7XbAACFrV4i2IWJNtND8IPAzC48IyLpGBqxRKpcCGhCYR10DyAqhJp1ujRsUjqtCIGAawBdIA
+      height: 500px
       code: |4
           import plotly.express as px
           from palmerpenguins import load_penguins

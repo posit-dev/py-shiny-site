@@ -20,7 +20,8 @@ listing:
   template: ../_partials/components-detail.ejs
   contents:
     - title: Action Link
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdCPrSoA+jqYBeJjqxQA5nGM0ANjtUAKfUy9WOGLqi0yYxk5UmMnLgBrDxRZDjCIiEjdfCYUkTjSFIBKCQBiAB4Cz29rYkCAoIoADzIYki1yDRz9bP19dRpWDUU6N39AiXKySokWOBYWeIhsxBKvAAFhyvmmBZV1OgwauraIbzWpEIU4DDhFcn6ISoxjhKi9g86mBqa+2dWDqTItOn2aFIgAZkW6ZCDhKJubIAXxS7Wg6AsonQbiMpg4Yx6GmyYGhAF0gAS000C00shorDkezkdncngkaw2EhYcBuHFIC0QwwAAozPDypBBZHQMFsyMNyUwDkc7JzhvEpGQVHQqkMwBg-sQuLSIBsMD4-MU0pFogtSVpUAZROg7GhULoOMyqXIFmBpgBdIA
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdaOgD6OpgF4mOrFADmcQzQA2O1QAp9TDxY4YGAdzcQnkFeGCROMBAuAGza3lyoWmSGMnKkhg5cANZuKLIcaRkQmbr4TCUieaQlAJTVEu7BHpZhWhHRsRjEiQlJFAAeZDkkWuQaNRhQqqqGhA5QLCw5MABGALQADDV1DY0gJbPzLCWIZWDybKsAjOvrTABWWixyNNirJKPkb5QUdExQGdYIKsOBQYCwvqNfqg+qsAKwlAC+OyY1QmUxmcwWOX6ZAhPxqHn01X06horA0ijoLniiQkXTIPQkLDgC3yEGqiAaAAEVOo6BgcS5iYEmDzpHlFBg4IpyNSID0JpUIOkssKPKSmMNIULOSKglIyFo6IEaCUQDSyIrUsrCtlqkiwPo0KgzKJ0C5ncYOEyKRphfp9GAEQBdIA
+      height: 200px
       code: |
         from shiny import App, reactive, render, ui
         

@@ -1,37 +1,50 @@
 ---
 title: "UI"
 sidebar: components 
-preview: |
-  # TODO: ADD PREVIEW CODE
+previewapp: |
+  from shiny import App, reactive, render, ui
+  app_ui = ui.page_fluid(
+      ui.input_switch("show_slider", "Show slider", True),
+      ui.output_ui("uiElement"),
+          {"class": "vh-100 d-flex flex-column pt-4 px-4"}
+  )
+  def server(input, output, session):
+      @render.ui 
+      def uiElement(): 
+          if (input.show_slider()): 
+              return ui.input_slider("slider", "", min=1, max=10, value=5) 
+  app = App(app_ui, server)
 listing:
-  id: component
-  template: ../_partials/components-detail.ejs
-  contents:
-    - title: UI
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdCPrSoA+jqYBeJjqxQA5nGM0ANjtUAKfUy9WOGLqi0yYxk5UmMAI0CyUg8UVVUIqNJdfCYUkXimKCYAVQBJJjgnOHhyFIBKPE9va2JAgKCdWJ0AUWLSsgqqiHL9PrU4GlYNRTo3f0CJOrIGiRY4FhYOUnLEaq8AARV1OgwddaYt6VkFOAw4RXJxiAaMKHjEsmieg-Uh1vbKMjdVg+9JOBkLR0CA+Pw3QLGFhODg7WLQ2EaFISFIAYTYxGI8yyTAgWhg4SRqRgXHMAEYJDAoAAPckABgk8igLjg5gArJV+kYLKJ0G4jKYOHMRhpehAwABfAC6QA
-      code: |
-        from shiny import App, reactive, render, ui
-        
-        app_ui = ui.page_fluid(
-            ui.input_action_button("add_button", "Add a UI element"),
-            ui.output_ui("uiElement"), #<<
-        )
-        
-        def server(input, output, session):
-            @render.ui #<<
-            @reactive.event(input.add_button) #<<
-            def uiElement(): #<<
-                return ui.input_slider("slider", "Choose a number", min=1, max=10, value=5), #<<
-        
-        app = App(app_ui, server)
-      relevantfunctions:
-        - title: ui.output_ui
-          href: https://shiny.posit.co/py/api/ui.output_ui.html
-          signature: ui.output_ui(id, inline=False, container=None, fill=False, fillable=False, **kwargs)
-        - title: "@render.ui"
-          href: https://shiny.posit.co/py/api/render.ui.html
-          signature: render.ui(_fn=None)
-        
+  - id: component
+    template: ../_partials/components-detail.ejs
+    contents:
+      - title: UI
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdCPrSoA+jqYBeJjqxQA5nGM0ANjtUAKfUy9WOGLqi0yYxk5UmMAI0CyUg8UVVUIqNJdfCYUkXimKCYAVQBJJjgnOHhyFIBKPE9va2JAgKCdWJ0AUWLSsgqqiHL9PrU4GlYNRTo3f0CJOrIGiRY4FhYOUnLEaq8AARV1OgwddaYt6VkFOAw4RXJxiAaMKHjEsmieg-Uh1vbKMjdVg+9JOBkLR0CA+Pw3QLGFhODg7WLQ2EaFISFIAYTYxGI8yyTAgWhg4SRqRgXHMAEYJDAoAAPckABgk8igLjg5gArJV+kYLKJ0G4jKYOHMRhpehAwABfAC6QA
+        code: |
+          from shiny import App, reactive, render, ui
+          
+          app_ui = ui.page_fluid(
+              ui.input_action_button("add_button", "Add a UI element"),
+              ui.output_ui("uiElement"), #<<
+          )
+          
+          def server(input, output, session):
+              @render.ui #<<
+              @reactive.event(input.add_button) #<<
+              def uiElement(): #<<
+                  return ui.input_slider("slider", "Choose a number", min=1, max=10, value=5), #<<
+          
+          app = App(app_ui, server)
+        relevantfunctions:
+          - title: ui.output_ui
+            href: https://shiny.posit.co/py/api/ui.output_ui.html
+            signature: ui.output_ui(id, inline=False, container=None, fill=False, fillable=False, **kwargs)
+          - title: "@render.ui"
+            href: https://shiny.posit.co/py/api/render.ui.html
+            signature: render.ui(_fn=None)
+  - id: variations
+    template: ../_partials/components-variations.ejs
+    contents:
       variations:
         - title: Update an input
           description: The previous example demonstrated how to show a UI element on button click. You can also use `ui.output_ui()` to update an existing input.
@@ -87,3 +100,6 @@ To add a UI output, follow three steps:
   3. Decorate the function with `@render.ui`. If you're using an action button or link to show the UI element, you'll also need to decorate with `@reactive.event`.
 
 See also: [Dynamic UI](https://shiny.posit.co/py/docs/ui-dynamic.html) and [UI and HTML](https://shiny.posit.co/py/docs/ui-html.html).
+
+:::{#variations}
+:::

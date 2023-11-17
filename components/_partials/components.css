@@ -119,8 +119,8 @@ pre.console code {
   margin-top: 0px;
 }
 
-div.sourceCode,
-pre.console {
+.tab-content div.sourceCode,
+.tab-content pre.console {
   margin-bottom: 0px;
 }
 
@@ -199,10 +199,4 @@ a.nav-link:hover {
   border-radius: 10px;
 }
 
-div.tab-pane.active {
-    transition: opacity .15s linear;
-}
-div.tab-pane:not(div.tab-pane.active) {
-    opacity: 0;
-}
 

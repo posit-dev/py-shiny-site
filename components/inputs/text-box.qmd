@@ -21,7 +21,8 @@ listing:
   template: ../_partials/components-detail.ejs
   contents:
     - title: Text Box
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNFAB5k7YL2WV8JkCAFThvXghXAKDAgFFyOSZ-DFTAgEo8e0cxDGI3aI9w9wA3OQAjKDI+XxKoKzgMrIh01VVZGlY5MrobFzcJfLJoiRY4FhYOUnTEbIcAASHouaZ5qQhZOgx-FY6mOoabGZXHSTgyEToISOjt4qO26HQ9JiVUGw1tcS66HvSwAC+AF0gA
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNFAB5k7YL2WV8JkDAiUCAUXI5Jn8MOMCASgwoaWlNQgsoFhZfVDIAWgBWJhhPfKg3Yhi4b3zCSgo6RLx7RzEMYjdXd39NADc5ACMoMj5fPqgrOGbWhxBAjKyWQMRgsD62fIBGAAYdpgArERZRmmw60gpyOoboyY5jCHyOChgWG6i6JlQywsCAX1USRSaUW2V8MHOFTIVX8H0aiVUqlkNFYcgGdBsLjcEk6ZG6EhYcGyHFICUQsyYAAE8d1KVSpBBZHQMP5KSimBMpjZyZTHJI4GQRHQILwIN1WTUfAkkdB0HomEpUDYNNpxGi6BiEmB-gBdIA
+      height: 200px
       code: |
         from shiny import ui, render, App
         

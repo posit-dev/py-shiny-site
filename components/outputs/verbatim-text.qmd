@@ -18,33 +18,36 @@ previewapp: |
 
   app = App(app_ui, server, debug=True)
 listing:
-  id: component
-  template: ../_partials/components-detail.ejs
-  contents:
-    - title: Verbatim Text
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymigA8ydsABU4H2V8JhCAUXI5Jm8yEIkQgAk4CwtiJgBlTm4QgEo8e0dDYnc3D1jNADc5ACMoMj4-WLymAGIAHnbVXNVVWRpWOWq6G1d3CRKyMokWOBYWDlJcxEKHAAEpCFk6DFi2ztWmfpig32XDx0k4MgU6CF4IMoxAnxsetWh0PVF0Gw1tDgzIZyXJgAC+AF0gA
-      code: |
-        from shiny import App, render, ui
+  - id: component
+    template: ../_partials/components-detail.ejs
+    contents:
+      - title: Verbatim Text
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymigA8ydsABU4H2V8JhCAUXI5Jm8yEIkQgAk4CwtiJgBlTm4QgEo8e0dDYnc3D1jNADc5ACMoMj4-WLymAGIAHnbVXNVVWRpWOWq6G1d3CRKyMokWOBYWDlJcxEKHAAEpCFk6DFi2ztWmfpig32XDx0k4MgU6CF4IMoxAnxsetWh0PVF0Gw1tDgzIZyXJgAC+AF0gA
+        height: 200px
+        code: |
+          from shiny import App, render, ui
 
-        app_ui = ui.page_fluid(
-            ui.input_text("Text", "Enter text", "Hello Shiny"),
-            ui.output_text_verbatim("text") #<<
-        )
-        
-        def server(input, output, session):
-            @render.text #<<
-            def text():
-                return input.Text()
-        
-        app = App(app_ui, server)
-      relevantfunctions:
-        - title: ui.output_text_verbatim
-          href: https://shiny.posit.co/py/api/ui.output_text_verbatim.html
-          signature: ui.output_text_verbatim(id, placeholder=False)
-        - title: "@render.text"
-          href: https://shiny.posit.co/py/api/render.text.html
-          signature: render.text(fn=None)
-        
+          app_ui = ui.page_fluid(
+              ui.input_text("Text", "Enter text", "Hello Shiny"),
+              ui.output_text_verbatim("text") #<<
+          )
+          
+          def server(input, output, session):
+              @render.text #<<
+              def text():
+                  return input.Text()
+          
+          app = App(app_ui, server)
+        relevantfunctions:
+          - title: ui.output_text_verbatim
+            href: https://shiny.posit.co/py/api/ui.output_text_verbatim.html
+            signature: ui.output_text_verbatim(id, placeholder=False)
+          - title: "@render.text"
+            href: https://shiny.posit.co/py/api/render.text.html
+            signature: render.text(fn=None)
+  - id: variations
+    template: ../_partials/components-variations.ejs
+    contents:
       variations:
         - title: Placeholder rectangle when string is empty
           description: Verbatim text with a placeholder when the string to display is empty (see Details above).   
@@ -78,3 +81,6 @@ To create reactive verbatim text, render the text in the server function with th
 By default, `ui.output_verbatim_text()` will display nothing when the string to display is empty. To ensure that `ui.output_verbatim_text()` displays an empty shaded rectangle as a placeholder even when when the string to display is empty, set `placeholder=True`.
 
 See [Text](text.qmd) to display string values as normal text.
+
+:::{#variations}
+:::

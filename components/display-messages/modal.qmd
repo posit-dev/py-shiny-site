@@ -59,37 +59,40 @@ listing:
           - title: "ui.modal_button"
             href: https://shiny.posit.co/py/api/ui.modal_button.html
             signature: ui.modal_button(label, icon=None, **kwargs)
-        variations:
-          - title: Modal for authentication
-            description: Place inputs inside a modal to collect, and then login with, credentials.
-            preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwa2IzLjV8JliAGSiYsABKPA1UjQ07OBpWODpFOgdPbwliby8yCRY4FhYOUlTEZ1cAASk-BTgMAFEaGjhZNpdO6VkejDhFclKIaoxI6IgsiFcmXPydBxbRjaZmIxMYYjsoayd1g5uTMp8KAA8ycOh4WIlYgFU6uje4VppDLXG4bO4Lbw6VBQBoAd0Ejli0LhCI+8TAAAUYSx4XQ7ID0vtQW4PBCfN0AsEyKEIOESBAIMMyGjYgBhUiMkZAomg6QsbA6QiROoGAAqdGUSh5NxoxGIFDoBgAcqQ4NKmGtiSczhcdOxiLCHDBNaD9uNuop+oMmWaupNLTNKC97hh6ZyyCaXFsmDodnsQQdtedrDopKdFLt1QBiJjs3JMUJMN1MpiwjhkNi8MkYf67JhQCB2LOLZE4hGRzTQdCGUToBzaPQcWqFYqpMAAXwAukA
-            code: |
-              from shiny import App, reactive, ui
-              
-              app_ui = ui.page_fluid(
-                  ui.input_action_button("login", "Login"),
-              )
-              
-              def server(input, output, session):
-                  @reactive.Effect
-                  @reactive.event(input.login)
-                  def _():
-                      m = ui.modal(
-                          ui.input_text("name", "Username:"), #<<
-                          ui.input_password("password", "Password:"), #<<
-                          ui.input_action_button("connect", "Connect"), #<<
-                          easy_close=True, #<<
-                          footer=None #<<
-                      )
-                      ui.modal_show(m)
-                      
-                  @reactive.Effect #<<
-                  @reactive.event(input.connect) #<<
-                  def __(): #<<
-                      ui.modal_remove() #<<
-                      # Code to connect with input.name() and input.password() #<<
-              
-              app = App(app_ui, server)
+  - id: variations
+    template: ../_partials/components-variations.ejs
+    contents:
+      variations:
+        - title: Modal for authentication
+          description: Place inputs inside a modal to collect, and then login with, credentials.
+          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwa2IzLjV8JliAGSiYsABKPA1UjQ07OBpWODpFOgdPbwliby8yCRY4FhYOUlTEZ1cAASk-BTgMAFEaGjhZNpdO6VkejDhFclKIaoxI6IgsiFcmXPydBxbRjaZmIxMYYjsoayd1g5uTMp8KAA8ycOh4WIlYgFU6uje4VppDLXG4bO4Lbw6VBQBoAd0Ejli0LhCI+8TAAAUYSx4XQ7ID0vtQW4PBCfN0AsEyKEIOESBAIMMyGjYgBhUiMkZAomg6QsbA6QiROoGAAqdGUSh5NxoxGIFDoBgAcqQ4NKmGtiSczhcdOxiLCHDBNaD9uNuop+oMmWaupNLTNKC97hh6ZyyCaXFsmDodnsQQdtedrDopKdFLt1QBiJjs3JMUJMN1MpiwjhkNi8MkYf67JhQCB2LOLZE4hGRzTQdCGUToBzaPQcWqFYqpMAAXwAukA
+          code: |
+            from shiny import App, reactive, ui
+            
+            app_ui = ui.page_fluid(
+                ui.input_action_button("login", "Login"),
+            )
+            
+            def server(input, output, session):
+                @reactive.Effect
+                @reactive.event(input.login)
+                def _():
+                    m = ui.modal(
+                        ui.input_text("name", "Username:"), #<<
+                        ui.input_password("password", "Password:"), #<<
+                        ui.input_action_button("connect", "Connect"), #<<
+                        easy_close=True, #<<
+                        footer=None #<<
+                    )
+                    ui.modal_show(m)
+                    
+                @reactive.Effect #<<
+                @reactive.event(input.connect) #<<
+                def __(): #<<
+                    ui.modal_remove() #<<
+                    # Code to connect with input.name() and input.password() #<<
+            
+            app = App(app_ui, server)
 ---
 
 :::{#component}
@@ -123,4 +126,5 @@ Modals come in four sizes: small (`'s'`), medium (`'m'`) (the default), large (`
 
 See Also:[Notifications](notifications.qmd) provide a similar, but alternative way to display information to the user.
 
-
+:::{#variations}
+:::

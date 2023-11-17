@@ -6,52 +6,55 @@ previewapp: |
   from shiny import App, ui
 
   app_ui = ui.page_fluid(
-      x.ui.tooltip(
-          ui.input_action_button("btn", "A button with a tooltip", class_="mt-3"),
-          "A message",
-          id="btn_tooltip",
-      ),
-      {"class": "vh-100 d-flex justify-content-center align-items-center px-4"}
+    x.ui.tooltip(
+        ui.input_action_button("btn", "A button with a tooltip"),
+        "A message",
+        id="btn_tooltip",
+    ),
+    {"class": "vh-100 d-flex justify-content-center align-items-center px-4"}
   )
 
   def server(input, output, session):
-      return None
+    return None
 
   app = App(app_ui, server)
 listing:
-  id: component
-  template: ../_partials/components-detail.ejs
-  contents:
-    - title: Tooltips
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYGOGMsWIWyHVHYgPfjjFyoCmSaUIQepJoARsEuEHZgUWRq+EzKYCJMMWRxTADuHGRsTFBMLm4eqOkAlHj2fmkZTPAsLCZw6XU+DRzSuulJEJrl7p6d9X6oFmFw8OT9YHQcxmxk6fW1E-7EwUEhFAAeIQBuclFQHjAJh2tg1ar3ahCyNKxyp3Q2gcESO2R7EhYcFaHFI1UQ9QAAlJnnJnHAjvUXmUEWQbOCtg4pGQFHQfN8yBhBsNXKMvI91Og9KJ0DYNNoOID3nJqmAAL4AXSAA
-      code: |
-        from shiny import App, render, ui
-        
-        app_ui = ui.page_fluid(
-          ui.tooltip( #<<
-              ui.input_action_button("btn", "A button with a tooltip"),
-              "A message", #<<
-              id="btn_tooltip", #<<
-              placement="right" #<<
-          ),
-            ui.output_text_verbatim("text")
-        )
-        
-        def server(input, output, session):
-          @render.text
-          def text():
-              return input.btn_tooltip() #<<
-        
-        app = App(app_ui, server)
+  - id: component
+    template: ../_partials/components-detail.ejs
+    contents:
+      - title: Tooltips
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYGOGMsWIWyHVHYgPfjjFyoCmSaUIQepJoARsEuEHZgUWRq+EzKYCJMMWRxTADuHGRsTFBMLm4eqOkAlHj2fmkZTPAsLCZw6XU+DRzSuulJEJrl7p6d9X6oFmFw8OT9YHQcxmxk6fW1E-7EwUEhFAAeIQBuclFQHjAJh2tg1ar3ahCyNKxyp3Q2gcESO2R7EhYcFaHFI1UQ9QAAlJnnJnHAjvUXmUEWQbOCtg4pGQFHQfN8yBhBsNXKMvI91Og9KJ0DYNNoOID3nJqmAAL4AXSAA
+        height: 200px
+        code: |
+          from shiny import App, render, ui
+          
+          app_ui = ui.page_fluid(
+            ui.tooltip( #<<
+                ui.input_action_button("btn", "A button with a tooltip"),
+                "A message", #<<
+                id="btn_tooltip", #<<
+                placement="right" #<<
+            ),
+              ui.output_text_verbatim("text")
+          )
+          
+          def server(input, output, session):
+            @render.text
+            def text():
+                return input.btn_tooltip() #<<
+          
+          app = App(app_ui, server)
 
-      relevantfunctions:
-        - title: ui.tooltip
-          href: https://shiny.posit.co/py/api/ui.tooltip.html
-          signature: ui.tooltip(trigger, *args, id=None, placement='auto', options=None, **kwargs)
-        - title: ui.update_tooltip
-          href: https://shiny.posit.co/py/api/ui.update_tooltip.html
-          signature: ui.update_tooltip(id, *args, show=None, session=None)
-
+        relevantfunctions:
+          - title: ui.tooltip
+            href: https://shiny.posit.co/py/api/ui.tooltip.html
+            signature: ui.tooltip(trigger, *args, id=None, placement='auto', options=None, **kwargs)
+          - title: ui.update_tooltip
+            href: https://shiny.posit.co/py/api/ui.update_tooltip.html
+            signature: ui.update_tooltip(id, *args, show=None, session=None)
+  - id: variations
+    template: ../_partials/components-variations.ejs
+    contents:
       variations:
         - title: Update a tooltip message
           description: Call `ui.update_tooltip()` to update the message of a tooltip with a given id.
@@ -135,3 +138,6 @@ ui.tooltip(
 Compare tooltips to [popovers](https://shiny.posit.co/py/api/ui.popover.html), which are a similar device for organizing the layout of a Shiny app.
 
 See Also: [Modal messages](modal.qmd) and [help text](help-text.qmd) provide a similar, but alternative way to display information to the user.
+
+:::{#variations}
+:::

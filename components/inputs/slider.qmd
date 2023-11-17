@@ -21,7 +21,8 @@ listing:
   template: ../_partials/components-detail.ejs
   contents:
     - title: Slider
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNLCx1l07YT95yyvhMwQDKXj7BEgAMEgCMMXFMAKwxAJR49o5iGMRuru4UAB7uAG5yAEZQZHx+ZVBWcMGZqumqqrI0rHIVvi5uEvlkhRIscCwsHKTpiNkOAALDhfNMC1IQPhglZKtdTA1NNrOrjpJwZCJ0EEw0wSADZBgBPscAvsEd0Oh6TEqoNg02nEPTofXSYDeAF0gA
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNLCx1l07YT95yyvhMwcESAAwSAIwRUUwArBEAlBhQ0tKahBZQLCx+qGQAtAlMMAAeRVBuxEwU5cWElBR0wcl49o5iGMRuru717gBucgBGUGR8fkNQVnBtHRCOTCDB2bkswYihYENsRbERTABWIiyTNNhFJOTN181yTLMcxhBFHBQwLPe3dEyolQSwQAvqpUulMus8n4YFdqmRaoMfi02qpVLIaKw5CNfC43BJemR+hIWHA8hxSMlEJ0HAABQn9GlMWlSCA+DCDJkYpgzOY2KlM5ZSMgiOhLGjBEB4sgYAI+fmgsBo6DoPRMJSoGwabTiLF0HHJMDAgC6QA
+      height: 200px
       code: |
         from shiny import ui, render, App
         

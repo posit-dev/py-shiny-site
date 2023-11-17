@@ -6,40 +6,42 @@ preview: |
   <img style="width: 100%;" src="/images/datatable.png">
   </div>
 listing:
-  id: component
-  template: ../_partials/components-detail.ejs
-  contents:
-    - title: DataTable
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMhSkCGEKofGRKEHycAoT5kJr4TE0AcjUARo5MxDS2xADuomTETAoCwqhsUNhNNgBMAAzReAVFqcQV5ZUKUGRQWXSwcA3hGkoKNE3RTADEADz32rEQ2g59LnQAbo6RZRU2TZkbbOVzuUjRRBrQoAASB22hTBhdggDjoGF2+0Oxzuj0R7xYvAiwguNBiUIgRSpYz2UGSZxEGAMcEUfwg2wwEBiL2pRTsZD4dEpKLRGAAIrSACpQDpsE6YqA3B5PV7xVDJKyoSJoVCJASg76OaJgAC+AF0gA
-      code: |
-        from palmerpenguins import load_penguins
-        from shiny import App, render, session, ui
-        
-        penguins = load_penguins()
-        
-        app_ui = ui.page_fluid(
-            ui.input_numeric("n", "Number of rows to display", 20),
-            ui.output_data_frame("penguins_df") #<<
-        )
-        
-        def server(input, output, session):
-            @render.data_frame #<<
-            def penguins_df():
-                data = penguins.head(input.n())
-                return render.DataTable(data) #<<
-        
-        app = App(app_ui, server)
-      relevantfunctions:
-        - title: ui.output_data_frame
-          href: https://shiny.posit.co/py/api/ui.output_data_frame.html
-          signature: ui.output_data_frame(id)
-        - title: "@render.data_frame"
-          href: https://shiny.posit.co/py/api/render.data_frame.html
-          signature: render.data_frame(fn=None)
-        - title: render.DataTable
-          href: https://shiny.posit.co/py/api/render.DataTable.html
-          signature: render.DataTable(self, data, *, width='fit-content', height='500px', summary=True, filters=False, row_selection_mode='none')
-        
+  - id: component
+    template: ../_partials/components-detail.ejs
+    contents:
+      - title: DataTable
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMhSkCGEKofGRKEHycAoT5kJr4TE0AcjUARo5MxDS2xADuomTETAoCwqhsUNhNNgBMAAzReAVFqcQV5ZUKUGRQWXSwcA3hGkoKNE3RTADEADz32rEQ2g59LnQAbo6RZRU2TZkbbOVzuUjRRBrQoAASB22hTBhdggDjoGF2+0Oxzuj0R7xYvAiwguNBiUIgRSpYz2UGSZxEGAMcEUfwg2wwEBiL2pRTsZD4dEpKLRGAAIrSACpQDpsE6YqA3B5PV7xVDJKyoSJoVCJASg76OaJgAC+AF0gA
+        code: |
+          from palmerpenguins import load_penguins
+          from shiny import App, render, session, ui
+          
+          penguins = load_penguins()
+          
+          app_ui = ui.page_fluid(
+              ui.input_numeric("n", "Number of rows to display", 20),
+              ui.output_data_frame("penguins_df") #<<
+          )
+          
+          def server(input, output, session):
+              @render.data_frame #<<
+              def penguins_df():
+                  data = penguins.head(input.n())
+                  return render.DataTable(data) #<<
+          
+          app = App(app_ui, server)
+        relevantfunctions:
+          - title: ui.output_data_frame
+            href: https://shiny.posit.co/py/api/ui.output_data_frame.html
+            signature: ui.output_data_frame(id)
+          - title: "@render.data_frame"
+            href: https://shiny.posit.co/py/api/render.data_frame.html
+            signature: render.data_frame(fn=None)
+          - title: render.DataTable
+            href: https://shiny.posit.co/py/api/render.DataTable.html
+            signature: render.DataTable(self, data, *, width='fit-content', height='500px', summary=True, filters=False, row_selection_mode='none')
+  - id: variations
+    template: ../_partials/components-variations.ejs
+    contents:
       variations:
         - title: Select Rows
           height: "350px"
@@ -168,3 +170,6 @@ The value returned will be `None` if no rows are selected, or a tuple of integer
 If your table is a data frame that uses the pandas styler, replace `ui.output_data_frame()` with `ui.output_table()` and `@render.data_frame` with `@render.table`.
 
 See also [Data Grids](data-grid.qmd)
+
+:::{#variations}
+:::

@@ -19,34 +19,37 @@ previewapp: |
   app = App(app_ui, server, debug=True)
 
 listing:
-  id: component
-  template: ../_partials/components-detail.ejs
-  contents:
-    - title: Text
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhCbqNG1WlQB9JUwC8TJVigBzOLpoAbJdIAUqjaa6oFZXRQAeZJ2AAVOF9lfCZQgFFyOSYfMlCJUIAJOBsbYiYAZU5uUIBKPGd1UIBNYgUmSgopaUQEopMODHKyd084-zj81TyG4ohZGlY5ADc5BzcPCRa2iRY4FhYOUjy6tXUAASkBuQwu9aZB2OC-Vb71KTIFOjVJsgwg3wdeg-6dI1F0Bx19DjnRuR5MAAXwAukA
-      code: |
-         from shiny import App, render, ui
-         
-         app_ui = ui.page_fluid(
-             ui.input_text("Text", "Enter text", "Hello Shiny"),
-             "You entered:",
-             ui.output_text("text") #<<
-         )
-                 
-         def server(input, output, session):
-             @render.text #<<
-             def text():
-                 return input.Text() 
-                 
-         app = App(app_ui, server)
-      relevantfunctions:
-        - title: ui.output_text
-          href: https://shiny.posit.co/py/api/ui.output_text.html
-          signature: ui.output_text(id, inline=False, container=None)
-        - title: "@render.text"
-          href: https://shiny.posit.co/py/api/render.text.html
-          signature: render.text(fn=None)
-
+  - id: component
+    template: ../_partials/components-detail.ejs
+    contents:
+      - title: Text
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhCbqNG1WlQB9JUwC8TJVigBzOLpoAbJdIAUqjaa6oFZXRQAeZJ2AAVOF9lfCZQgFFyOSYfMlCJUIAJOBsbYiYAZU5uUIBKPGd1UIBNYgUmSgopaUQEopMODHKyd084-zj81TyG4ohZGlY5ADc5BzcPCRa2iRY4FhYOUjy6tXUAASkBuQwu9aZB2OC-Vb71KTIFOjVJsgwg3wdeg-6dI1F0Bx19DjnRuR5MAAXwAukA
+        height: 200px
+        code: |
+           from shiny import App, render, ui
+           
+           app_ui = ui.page_fluid(
+               ui.input_text("Text", "Enter text", "Hello Shiny"),
+               "You entered:",
+               ui.output_text("text") #<<
+           )
+                   
+           def server(input, output, session):
+               @render.text #<<
+               def text():
+                   return input.Text() 
+                   
+           app = App(app_ui, server)
+        relevantfunctions:
+          - title: ui.output_text
+            href: https://shiny.posit.co/py/api/ui.output_text.html
+            signature: ui.output_text(id, inline=False, container=None)
+          - title: "@render.text"
+            href: https://shiny.posit.co/py/api/render.text.html
+            signature: render.text(fn=None)
+  - id: variations
+    template: ../_partials/components-variations.ejs
+    contents:
       variations:
         - title: Inline text
           description: Set `inline=True` within `ui.output_text()` to have text appear inline with the text that preceeds it.   
@@ -84,3 +87,6 @@ To make reactive text, follow three steps:
   3. Decorate the function with `@render.text`
 
 See [Verbatim Text](verbatim-text.qmd) to display string values as they would appear in a computer console, in monospaced font on a shaded background.
+
+:::{#variations}
+:::

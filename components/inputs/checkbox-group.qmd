@@ -28,6 +28,7 @@ listing:
   contents:
     - title: Checkbox Group
       preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EqQEcJAVw4AdaOgD6apgF4marFADmcbTQA2a6QApNTJ0Y4YuqFWW2E2cQgGsAI2IAD21TBhVUOyZHZ3j1Il8A4LCI4ijEiTj4p0SAYWSg0KZ0zPxYiFznEErq6sSoRMRYsBEsuvqEsEDm1oAhDpyu1sI+gqGq+oBfbKmnAEo5+OMMsg8vChCyBzAANygbOESlzRBEwisoFhZx-bYAWgBGAAYXpmkH6zgQpkOOUwQB4cCgwFgPQiUCh0JioEIPAAsiWmmgWmlkNFYcj2cjs7k8EjWGwkLDgNw4pAWiGGAAEiZ5aVIILI6BgtmRhhimAcjnYqcN4lIyCo6FUhmAMAArYhcPEQDYYHx+YppSLRBZorSoAyidB2NCoXQcEnYuQLMDTAC6QA
+      height: 200px
       code: |
         from shiny import App, render, req, ui
         

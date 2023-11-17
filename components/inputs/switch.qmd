@@ -1,22 +1,25 @@
 ---
 title: "Switch"
 sidebar: components 
-preview: |
-  <div class="px-4">
-  <div class="form-group shiny-input-container">
-  <p class="py-0">
-  <div class="form-check form-switch">
-  <input id="x" class="form-check-input shiny-bound-input" type="checkbox" checked> <label class="form-check-label" for="x">Make it switchable</label>
-  </div>
-  </p>
-  </div>
-  </div>
+previewapp: |
+  from shiny import ui, render, App
+  app_ui = ui.page_fluid(
+      ui.input_switch("switch", "Make it switchable", True).add_class("mb-0"), 
+      ui.output_ui("value"),
+        {"class": "vh-100 d-flex flex-column justify-content-center align-items-center px-4"}
+  )
+  def server(input, output, session):
+      @render.ui
+      def value():
+          return ""
+  app = App(app_ui, server)
 listing:
   id: component
   template: ../_partials/components-detail.ejs
   contents:
     - title: Switch
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNLAO4cyhNnbAvHz9lfCZQgGVvXzZQiQAxKAsWOABKPHtHMQxiN1d3MQCANySROFD01VTVVVkaVjkiuRsXNwlcsnyJFJYWDlJUxEyHAAEO-OGmEakIWToMMUm6phKrOBtBycdJODIROgheCHyMIJiNmuh0PSYlVBsNbXEGuia6VLAAXwBdIA
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNLAO4cyhNnbAvHz9lfCZQgGVvXzZQiQAVOhE4AEo8e0cxDGI3V3cxAIA3KCs4ULTVFIwoaWlNQgsoFhYA1ABaAFZy1VVZGlY5QrkbFzcJHLI8iRY4Zo5SFMQMhwABCbzlphWpCFk6DDFNvqZi0ptFzcdJODIROgheCDyMIJjznuh0PSYlVBsNbTiAZ0IZ0FJgAC+AF0gA
+      height: 200px
       code: |
         from shiny import ui, render, App
         

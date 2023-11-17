@@ -15,26 +15,29 @@ previewapp: |
       @reactive.event(input.show)
       def _():
           ui.notification_show("Well done!", duration = 1)
-
+  
   app = App(app_ui, server)
 listing:
   - id: component
     template: ../_partials/components-detail.ejs
     contents:
       - title: Help Text
-        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGNnGu6KADzJOYAAKUiwsTGSeTABGymRkpDFexADuEcQYmWpgAJR4zq4mZOYsGNF0DnkFLiZcqHE6MnKkOrHxpIHsqdkS2QDC1hyEANZMALJwPbwQgxBwhkwAYlDWLHA5GhuaEHZwNKxwdIoVdXESxHH1ZBJrYRykOYjVknBkynQQTABypJPb2gsxKgHNo9BwbodjjkwABfAC6QA
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDU2McMXVMrI6Zc0joAjLzJSJzB2YgB3NXwmGIBlNiimNjhrVCYKAA8yGIBKPA08jQ07OBpWODpFOgcPLwliL08yCRY4FhYOUjzEEogXAAEpXwU4DABRGho4WWcmYelZMYw4RXI6iBaMCMjigaYyip0HXvmXFxMIYjkaDkIoPwgdXbCAdTTrQ9I4AEIYiR2ZR0R7dAZGACM+y06EMonQDm0eg4bSqNTyYAAvgBdIA
+        height: 200px
         code: |
           from shiny import App, reactive, ui
-          
+
           app_ui = ui.page_fluid(
-              ui.help_text("Press the button below to..."), #<<
-              ui.tags.br(),
-              ui.input_action_button("show", "Click Me")
+            ui.input_action_button("show", "Show help text"),
           )
-          
+
           def server(input, output, session):
-              return None
-          
+
+            @reactive.Effect
+            @reactive.event(input.show)
+            def _():
+                ui.notification_show("Well done!", duration = 1)
+
           app = App(app_ui, server)
         relevantfunctions:
           - title: "ui.help_text"

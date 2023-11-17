@@ -19,7 +19,8 @@ listing:
   template: ../_partials/components-detail.ejs
   contents:
     - title: Slider Range
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNLCx1l07YT95yyvhMwQDKXj7BEjBcugAMMVAAHroAjPGJTABuUFZwusAAzACsEgBsJQC6AJQSAMQAPI32jmIYxG6u7hTJ7tlyAEZQZHx+ufnBdao1qqqyNKxyA74ubhKdZN0SLHAsLBykNYitDgACm92nTGdSED4YvWTXCzl5InA2x9eOknBkIjoECYNGCIDWZAwAR8XwAvsE5tB0HomEpUDYNNpxEs6CsamBYVUgA
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNLCx1l07YT95yyvhMwcESMFy6AAwRUAAeugCM0bFMAG5QVnC6wADMAKwSAGwFALoAlBhQ0tKahBZQLCx+qGQAtAVMMPHtUG7ETBTxHYSUFHTBFXj2jmIYxG6u7sPu6XIARlBkfH6Z2VMzEI5MIMENTSzBiKFg6WztKdFMAFYiLDs02O0k5OM-4zkTCyHGMEHaHAoMBYAL+dCYqF6BWCAF9VFUanULs0-DBvv0yINVrCJlNVKpZDRWHJ1r4XG4JIsyMsJCw4M0OKQKohZg4AAJM5a8ph8qQQHwYVbCykZLIiOA2bnCk5SMgiOjHGjBED0sgYAI+RVosDk6DoPRMJSoGwabTial0WkVMAospAA
+      height: 200px
       code: |
         from shiny import ui, render, App
         

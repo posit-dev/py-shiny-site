@@ -6,32 +6,34 @@ preview: |
   <img style="width: 100%;" src="/images/ipyleaflet.jpg">
   </div>
 listing:
-  id: component
-  template: ../_partials/components-detail.ejs
-  contents:
-    - title: ipyleaflet
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACASxwBs4obOzWZUxOnwDicYgCkAygHkAcniYBZNEyYBiJgB4tAHQj1GTAM4ALFhGz9BwpgEF0igK4t9h5mYvYA7iwAmAOZwZMbWQnzETmSoUQD6voHBinRwASzGFHTx-kF8Gtp6EPpoqLEuTAC8TC5YUEGxPC5+ABSR0XEJuc26YDBoPQCUA2qaOvrjEH5wNCZwdABuc80WMWSKbauKxnDGxiykA4j6amow2LF9qJXKaM2ElJkVzQCsAAwYAGwATM9fAJwAdgAHM8gX9ngCAIyKd4AZgALKDXn8-rCPr8EfCBooAF7ERgVWHDfJjCAnJgpNIZObZRJkbq9fr4JhnC5oYmjQoTErXByoZolMosLZzRZ0Ab6MAAXwAukA
-      code: |4
-          from ipyleaflet import GeoJSON, Map  #<<
-          from shiny import App, ui
-          from shinywidgets import output_widget, register_widget  #<<
+  - id: component
+    template: ../_partials/components-detail.ejs
+    contents:
+      - title: ipyleaflet
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACASxwBs4obOzWZUxOnwDicYgCkAygHkAcniYBZNEyYBiJgB4tAHQj1GTAM4ALFhGz9BwpgEF0igK4t9h5mYvYA7iwAmAOZwZMbWQnzETmSoUQD6voHBinRwASzGFHTx-kF8Gtp6EPpoqLEuTAC8TC5YUEGxPC5+ABSR0XEJuc26YDBoPQCUA2qaOvrjEH5wNCZwdABuc80WMWSKbauKxnDGxiykA4j6amow2LF9qJXKaM2ElJkVzQCsAAwYAGwATM9fAJwAdgAHM8gX9ngCAIyKd4AZgALKDXn8-rCPr8EfCBooAF7ERgVWHDfJjCAnJgpNIZObZRJkbq9fr4JhnC5oYmjQoTErXByoZolMosLZzRZ0Ab6MAAXwAukA
+        code: |4
+            from ipyleaflet import GeoJSON, Map  #<<
+            from shiny import App, ui
+            from shinywidgets import output_widget, register_widget  #<<
 
-          app_ui = ui.page_fluid(output_widget("map"))  #<<
+            app_ui = ui.page_fluid(output_widget("map"))  #<<
 
-          def server(input, output, session):
-              my_map = Map(center=(50.6252978589571, 0.34580993652344), zoom=3)  #<<
-              register_widget("map", my_map)  #<<
+            def server(input, output, session):
+                my_map = Map(center=(50.6252978589571, 0.34580993652344), zoom=3)  #<<
+                register_widget("map", my_map)  #<<
 
-          app = App(app_ui, server)
+            app = App(app_ui, server)
 
-      relevantfunctions:
-        - title: shinywidgets.output_widget
-          href:
-          signature:
-        - title: shinywidgets.register_widget
-          href:
-          signature:
-
+        relevantfunctions:
+          - title: shinywidgets.output_widget
+            href: map-ipyleaflet.html#details
+            signature:
+          - title: shinywidgets.register_widget
+            href: map-ipyleaflet.html#details
+            signature:
+  - id: variations
+    template: ../_partials/components-variations.ejs
+    contents:
       variations:
         - title: GeoJSON and Markers
           description: Read in country boundaries from a GeoJSON file and add markers to the map.
@@ -105,20 +107,21 @@ listing:
 :::{#component}
 :::
 
+## Details
+
 `ipyleaflet` allows us to create interactive maps via [ipywidgets](https://ipywidgets.readthedocs.io/en/stable/).
 
 To insert an `ipyleaflet` map do the following tasks:
 
-  1. Add `shinywidgets.output_widget()` to the UI of your app to create a div in which to display the map.
-  Where you call this function will determine where the map will appear within the layout of the app.
+  1. Add `shinywidgets.output_widget()` to the UI of your app to create a div in which to display the map.   Where you call this function will determine where the map will appear within the layout of the app.
 
-  2. Provide an argument to the `id` parameter in the `shinywidgets.output_widget()` function call.
-  This argument will be used to identify the map in the server function.
+  2. Provide an argument to the `id` parameter in the `shinywidgets.output_widget()` function call. This argument will be used to identify the map in the server function.
 
-  3. Within the `server()` function, create your `ipyleaflet` map and assign it to a variable.
-  Your map does not need to be created within a nested function in server() like many other shiny for python components.
+  3. Within the `server()` function, create your `ipyleaflet` map and assign it to a variable.   Your map does not need to be created within a nested function in server() like many other shiny for python components.
 
   4. Register your map with shiny using `shinywidgets.register_widget()` by passing in the id of the map and the map variable.
 
  Visit [shiny.posit.co/py/docs/ipywidgets.html](https://shiny.posit.co/py/docs/ipywidgets.html) to learn more about using ipywidgets with Shiny. 
 
+:::{#variations}
+:::

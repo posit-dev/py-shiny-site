@@ -1,29 +1,33 @@
 ---
 title: "Radio Buttons"
 sidebar: components 
-preview: |
-  <div style="justify-content: left;">
-  <div id="x" class="form-group shiny-input-radiogroup shiny-input-container shiny-bound-input" role="radiogroup" aria-labelledby="x-label">
-  <div class="shiny-options-group">
-  <div class="radio">
-  <p class="m-0">
-  <label><input type="radio" name="x" value="a" checked="checked"> <span>Never gonna give you up</span></label>
-  </p>
-  </div>
-  <div class="radio">
-  <p class="m-0">
-  <label><input type="radio" name="x" value="b"> <span>Never gonna let you down</span></label>
-  </p>
-  </div>
-  </div>
-  </div>
-  </div>  
+previewapp: |
+  from shiny import App, render, ui
+
+  app_ui = ui.page_fluid(
+      ui.input_radio_buttons( 
+            "radio", 
+            "Never gonna:", 
+            {"1": "Give you up", "2": "Let you down"},
+        ).add_class("mb-0"), 
+        ui.output_ui("value"),
+          {"class": "vh-100 d-flex flex-column justify-content-center align-items-center px-4"}
+  )
+
+  def server(input, output, session):
+      @output
+      @render.text
+      def txt():
+          return f''
+
+  app = App(app_ui, server, debug=True)
 listing:
   id: component
   template: ../_partials/components-detail.ejs
   contents:
     - title: Radio Buttons
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymulGkdimgEbuZKQsdhCOEUzKYF4+xNF49pEO0QBK3r5MgWTBECwJSckg0QCM0YhRYADyqGS+4WX4lQBM5ZU1daRMrU3RAMxt0R31TANgAL6J4Y4AlFMRhsTubh5KdmAAblBWcNFzqjOqRxCyNKxyG3I2ru4SS2QrEixwLCz1M4iFTAAC9ytf3ykJzkGCUX1OTC2OxsHy+ESkZAUdHCNzIGFivhhx3U6D0onQNg02g4TwuchmEwAukA
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOtHQB9JUwC8TJVigBzOOpoAbJdIAUqpnb0cMXVArLq6UaR2LqARq7JSFismW3tw5TAPL2JIiTDwu0iAJU9vJn8yQIgWONCIRPsQSIBGSMRQsAB5VDJvArL8SoAmcsqautImVqbIgGY2yI76pgGwAF94gvsASinw-WJXFzclGzAANygLOEi5hKZiojMoFlykSo22AFoSgAY7pmlr8zgADyZtjkMIa44KGAsa6ESgUOhMVBva4AFki41UM1UshorDkGzkVmcrgkSzIKwkLDgZ3qM0QBwAAlIILI6BglAdkUwtjsrKSDuEpGQFHQCliyBhot5Wao0KgdKJ0FZRZoOAS0XJERBVKoJgBdIA
+      height: 200px
       code: |
         from shiny import App, render, ui
         

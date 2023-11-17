@@ -21,7 +21,8 @@ listing:
   template: ../_partials/components-detail.ejs
   contents:
     - title: Date Selector
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAEygrIEt4nvVi6ZVuzgAdCOPqMmAZwAWnCNl4x+gpgEF0eJnUos4dHQFdO48WlQB9U0wC8TU1igBzOFZoAbUywAU4pkDHTgxFVGMyKzYKfzBosXwmUTAAERFkgEo8AKCnYgjwyIoADzJYgDcobwSM8VqJBoMaWUNyw18wiJ18skKdGTgZGU5SDMQcwIABHsKJpkm9CAM6DBKyOaamSurfMbmg3TgyYzoIXghCjHjd8wbLe010X0sbTn7WwwywAF8AXSA
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAEygrIEt4nvVi6ZVuzgAdCOPqMmAZwAWnCNl4x+gpgEF0eJnUos4dHQFdO48WlQB9U0wC8TU1igBzOFZoAbUywAU4pkDHTgxFVGMyKzYKfzBosXwmUTBkgEoMKBYWK0JPKBkZWNQyAFoAViYYAA8SqAjiJgoq0sJKCjo0vACgp2II8MimsliANyhvBNSuiCCmEGTc-JlkxCSwEbkSgEYABh2mACtjGS4abBKScjaLtsMmcc4XCBLOChgZG6u6JlQasuSAL7idKZbKLAqxGDnOpkBpDT7tNLmCQQAw0WSGEaGXxhCI6PpkAY6GRwAqcUipRDdQIAAQJA2pTBpelRhgwQ0ZaKYYwmvkpjNmejIxjoM1xZAw8T5yIs6HsmnQvksNk4xMxhlSYABAF0gA
+      height: 380px
       code: |
         from datetime import date
         

@@ -21,7 +21,8 @@ listing:
   template: ../_partials/components-detail.ejs
   contents:
     - title: Text Area
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhCbqN61WlQB9MUwC8ojligBzOLpoAbMdIAUqzWIxdUIsrooAPL1CkoJzBfMgC4KGV8JiiAFTg-XggPMiiJKIAJOBsbYiYAdUEbaSiASgkAYgAeKucNV2JPFO8ErwA3OQAjKDI+YLaoOzgyvFVS1VVZGlY5DroHd08JRrIUiRY4FhYOUlLEOvUAASkIWToMUIOmKaYBoYc9q80pMhE6NUWyC9bwoPGIbToIxMJSoBw6fTiGZ0Ob-MAAXwAukA
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNFAB7uoUqHbAvMl84KGV8JnDwiXCACTgLC2ImAHVBC2lwgEoMKGlpTUILKBYWANQyAFoAViYYT0qoN2SgysJKCjpsvHtHMQxiN1d3IM0ANzkAIygyPgCxqCs4bt6HEHCikpZwxEiwMbZKgEYABhOmACsRFlmabDbSCnI2jrkmRY5jCEqOChgWF7kN6oBrVcIAX1UOTyBU2pQCMHuTTILTg3kBnWyqlUshorDkEzoNhcbgkgzIwwkLDgpQ4pCyiFWTAAAlIILI6BggkzcUwFksbAymY5JHAyCI6BBeBBhly0cE-ILsdB0HomEpUDYNNpxPi6ISsqowOCALpAA
+      height: 200px
       code: |
         from shiny import ui, render, App
         

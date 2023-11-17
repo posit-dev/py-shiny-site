@@ -6,8 +6,7 @@ previewapp: |
 
   app_ui = ui.page_fluid(
       ui.input_action_button("show", "Show Notification"),
-      ui.input_action_button("remove", "Remove Notification"),
-      {"class": "vh-100 d-flex justify-content-center align-items-center px-4"}
+      {"class": "vh-100 d-flex justify-content-center align-items-center px-4"},
   )
 
   def server(input, output, session):
@@ -33,38 +32,41 @@ previewapp: |
 
   app = App(app_ui, server)
 listing:
-  id: component
-  template: ../_partials/components-detail.ejs
-  contents:
-    - title: Notifications
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwdmIAdzV8JliAZTZopgA5YjkaDkIof00wAEo8DQKNDTs4GlY4OkU6B09vCWJvLzIJFjgWFg5SAsQyiFcmAAEpPwU4DABRGho4WWdXMelZSYw4RXIGiDaMSKjSodcKqp0HfqXhlwgDACYr65MIDI4snLydA6dj6+uaWIAFU4LCYUQ41msTDsHBY2mkdCYUBoFERIAgAF9qiQIHYWBhYhJHn8XHZlHRcr1bppftcjlp0IZROgHNo9BwOjU6gUwBiALpAA
-      code: |
-        from shiny import App, reactive, ui
-        
-        app_ui = ui.page_fluid(
-            ui.input_action_button("show", "Show Notification"),
-        )
-        
-        def server(input, output, session):
-        
-            @reactive.Effect
-            @reactive.event(input.show)
-            def _():
-                n=2
-                ui.notification_show( #<<
-                    f"This will disappear after {n} seconds.", #<<
-                    duration=n #<<
-                )
-        
-        app = App(app_ui, server)
-      relevantfunctions:
-        - title: ui.notification_show
-          href: https://shiny.posit.co/py/api/ui.notification_show.html
-          signature: ui.notification_show(ui, *, action=None, duration=5, close_button=True, id=None, type='default', session=None)
-        - title: ui.notification_remove
-          href: https://shiny.posit.co/py/api/ui.notification_remove.html
-          signature: ui.notification_remove(id, *, session=None)
-
+  - id: component
+    template: ../_partials/components-detail.ejs
+    contents:
+      - title: Notifications
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwdmIAdzV8JliAZTZopgA5YjkaDkIof00wAEo8DQKNDTs4GlY4OkU6B09vCWJvLzIJFjgWFg5SAsQyiFcmAAEpPwU4DABRGho4WWdXMelZSYw4RXIGiDaMSKjSodcKqp0HfqXhlwgDACYr65MIDI4snLydA6dj6+uaWIAFU4LCYUQ41msTDsHBY2mkdCYUBoFERIAgAF9qiQIHYWBhYhJHn8XHZlHRcr1bppftcjlp0IZROgHNo9BwOjU6gUwBiALpAA
+        height: 200px
+        code: |
+          from shiny import App, reactive, ui
+          
+          app_ui = ui.page_fluid(
+              ui.input_action_button("show", "Show Notification"),
+          )
+          
+          def server(input, output, session):
+          
+              @reactive.Effect
+              @reactive.event(input.show)
+              def _():
+                  n=2
+                  ui.notification_show( #<<
+                      f"This will disappear after {n} seconds.", #<<
+                      duration=n #<<
+                  )
+          
+          app = App(app_ui, server)
+        relevantfunctions:
+          - title: ui.notification_show
+            href: https://shiny.posit.co/py/api/ui.notification_show.html
+            signature: ui.notification_show(ui, *, action=None, duration=5, close_button=True, id=None, type='default', session=None)
+          - title: ui.notification_remove
+            href: https://shiny.posit.co/py/api/ui.notification_remove.html
+            signature: ui.notification_remove(id, *, session=None)
+  - id: variations
+    template: ../_partials/components-variations.ejs
+    contents:
       variations:
         - title: Warning notification
           description: Set `type="warning"` to create a warning-colored notification.
@@ -201,3 +203,6 @@ By default, Shiny notifications will disappear after five seconds. To change how
 Shiny notifications come in three types: messages, warnings and errors. To set the type of a notification, use the `type` argument of `ui.notification_show()`.
 
 See Also: Modal messages](modal.qmd) provide a similar, but alternative way to display information to the user.
+
+:::{#variations}
+:::

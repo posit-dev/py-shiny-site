@@ -21,7 +21,8 @@ listing:
   template: ../_partials/components-detail.ejs
   contents:
     - title: Numeric Input
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymiAvh0OhO5Decn7K+EyhAHJBvoS8EG5koRIAjBIwXLqpTDBQAB6ZAAwAlHj2jobE7gmaFLkeAG5yAEZQZHwB9VBWcKElqkWqgxCyNKxyjXQ2ru4SlWQJEixwLCwcpEWIZQ4AAnMJW0zbUsNyGLWJEI5MI0yd3TYbB1dSZAp0l9NkGF4+fg9D6nQelE6BsGm0HEW4zkRTAAF8ALpAA
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOtHQB9JUwC8TJVigBzOOpoAbJdIAUqpnb0cMXVArLqIC+HQ6EbkT3I+yvhMwcESAIwSMFzaUUwwUAAecQAMAJQYUNLS6oRmUCwsfqhkALQArAlJZVCuxEwUSeWElBR0wel4tvb6xK4ubk1uAG5yAEZQZHx+I1AWcJ3dEPZMIMH5hSzBiKFgI2xlEampTABWCizTNNhlJORtd21yTPMchhBlHBQwLE8PdCYqBqFWCAF9VJlsrlNkU-DBbnUyA1hv92p1VLIaKw5GM6FZnK4JP0yIMJCw4EUOKR0ogenYAAJSCCyOgYYb0phYphzBZWWmc1ZSMgKOgrQlkDAeLw+fmqNCoHSidBWBWaDjk3FydJgMEAXSAA
+      height: 200px
       code: |
         from shiny import App, render, ui
         

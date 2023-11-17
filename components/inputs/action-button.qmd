@@ -16,33 +16,34 @@ previewapp: |
           return f""
   app = App(app_ui, server)
 listing:
-  id: component
-  template: ../_partials/components-detail.ejs
-  contents:
-    - title: Action Button
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdCPrSoA+jqYBeJjqxQA5nGM0ANjtUAKfUy9WOGLqi0yYxk5UmMAI0CyUg8UWQ4wyLJog3wmXTAReNIMgEoJAGIAHiLPb2tiQICgigAPMliSLXINPP1c-X11GlYNRTo3f0CJSrJqiRY4FhYEiFzEMq8AAVHqxaYllXU6DDqGjohvDakQhTgMOEVyQYhqjFPEqNIDo+6mJpaB+fWjqTItOiHGgZEBDMj3bIQCJPCBuXIAXwynWg6AsonQbiMpg4Ez6GlyYHhAF0gA
-      code: |
-        from shiny import App, reactive, render, ui
+  - id: component
+    template: ../_partials/components-detail.ejs
+    contents:
+      - title: Action Button
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdaOgD6OpgF4mOrFADmcQzQA2O1QAp9TDxY4YGAdzcQnkFeGCROMBAuAGza3lyoWmSGMnKkhgBGiWSkbiiyHGmZZNkQuvhMZSL5pGUAlLUS7sEelmFaEdGxGMSJCUkUAB5kuSRa5Bp1GFCqqoaEDlAsLLkw6QC0AAx1DU3NIGXziyxliBVg8mxrAIwbG0wAVloscjTYayTj5O+UFHRMUA4ONYIGsOBQYCxvuM-qgBmsAKxlAC+uyYtSmMzmCyWuUGZChvzqHn0tX06horA0ijoLniiQkPTIfQkLDgSwKEFqiCaAAEVOo6Bg8S5SYEmHzpPlFBg4IpyLSIH0ptUIBksqRRR5yUxRtCRdyxUEpGQtHRAjQyiA6WRlalVUUSiKUWB9GhUGZROgXG7jBwWVSNKL9PowEiALpAA
+        height: 200px
+        code: |
+          from shiny import App, reactive, render, ui
 
-        app_ui = ui.page_fluid(
-          ui.input_action_button("action_button", "Action"), #<<
-          ui.output_text("counter")
-        )
+          app_ui = ui.page_fluid(
+            ui.input_action_button("action_button", "Action"), #<<
+            ui.output_text("counter")
+          )
 
-        def server(input, output, session):
-          @render.text()
-          @reactive.event(input.action_button)
-          def counter():
-              return f"{input.action_button()}"
+          def server(input, output, session):
+            @render.text()
+            @reactive.event(input.action_button)
+            def counter():
+                return f"{input.action_button()}"
 
-        app = App(app_ui, server)
-      relevantfunctions:
-        - title: ui.input_action_button
-          href: https://shiny.posit.co/py/api/ui.input_action_button.html
-          signature: ui.input_action_button(id, label, *, icon=None, width=None, **kwargs)
-        - title: reactive.event
-          href: https://shiny.posit.co/py/api/reactive.event.html
-          signature: reactive.event(*args, ignore_none=True, ignore_init=False)
+          app = App(app_ui, server)
+        relevantfunctions:
+          - title: ui.input_action_button
+            href: https://shiny.posit.co/py/api/ui.input_action_button.html
+            signature: ui.input_action_button(id, label, *, icon=None, width=None, **kwargs)
+          - title: reactive.event
+            href: https://shiny.posit.co/py/api/reactive.event.html
+            signature: reactive.event(*args, ignore_none=True, ignore_init=False)
 
 ---
 

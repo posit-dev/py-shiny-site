@@ -25,33 +25,38 @@ previewapp: |
 
   app = App(app_ui, server)
 listing:
-  id: component
-  template: ../_partials/components-detail.ejs
-  contents:
-    - title: Select List
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZG0wAxAA8wfaOEcpgXj5+URIhYRARkWAAyt6+wlDJxKhkHKRMAEbexADuiPFBoeEpTCBRAIwiUYhMUQDCbMQchHBMLdXNAEJtHWDdvf2DY-gTTZ3jXT19A4tRAL4JtcmOAJQ7SRGGxO5uHhQAHv5RAG5QVnBRh6r7qqqyNKxyd3I2rncEjOZAuEi8LBYhQg+yqewcAAEpBBZHQMNcyHUmF8mA8njZYViIlIyAo6MkaFEQICyBgYlkCZsoh9oOg9KJ0DYNNoOODfnJ9mBNgBdIA
-      code: |
-        from shiny import App, render, ui
+  - id: component
+    template: ../_partials/components-detail.ejs
+    contents:
+      - title: Select List
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZG0wAxAA8wfaOEcpgXj5+URIhYRARkWAAyt6+wlDJxKhkHKRMAEbexADuiPFBoeEpTCBRAIwiUYhMUQDCbMQchHBMLdXNAEJtHWDdvf2DY-gTTZ3jXT19A4tRAL4JtcmOAJQ7SRGGxO5uHhQAHv5RAG5QVnBRh6r7qqqyNKxyd3I2rncEjOZAuEi8LBYhQg+yqewcAAEpBBZHQMNcyHUmF8mA8njZYViIlIyAo6MkaFEQICyBgYlkCZsoh9oOg9KJ0DYNNoOODfnJ9mBNgBdIA
+        height: 200px
+        code: |
+          from shiny import App, render, ui
+          
+          app_ui = ui.page_fluid(
+              ui.input_select( #<<
+                  "select", #<<
+                  "Select an option below:", #<<
+                  {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"}, #<<
+              ), #<<
+              ui.output_text("value"),
+          )
+          
+          def server(input, output, session):
+              @render.text
+              def value():
+                  return f"{input.select()}"
+          
+          app = App(app_ui, server)
+        relevantfunctions:
+          - title: ui.input_select
+            href: https://shiny.posit.co/py/api/ui.input_select.html
+            signature: ui.input_select(id, label, choices, *, selected=None, multiple=False, selectize=False, width=None, size=None)    
         
-        app_ui = ui.page_fluid(
-            ui.input_select( #<<
-                "select", #<<
-                "Select an option below:", #<<
-                {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"}, #<<
-            ), #<<
-            ui.output_text("value"),
-        )
-        
-        def server(input, output, session):
-            @render.text
-            def value():
-                return f"{input.select()}"
-        
-        app = App(app_ui, server)
-      relevantfunctions:
-        - title: ui.input_select
-          href: https://shiny.posit.co/py/api/ui.input_select.html
-          signature: ui.input_select(id, label, choices, *, selected=None, multiple=False, selectize=False, width=None, size=None)    
+  - id: variations
+    template: ../_partials/components-variations.ejs
+    contents:
       variations:
         - title: Select list with grouped choices
           description: To group the choices into categories, supply the `choices` argument with a dictionary of dictionaries. `ui.input_select()` will use the top-level keys as group labels.
@@ -103,3 +108,6 @@ The value of an input component is accessible as a reactive value within the `se
   1. Use `input.<select_id>()` (e.g., `input.select()`) to access the selected value. The server value of a select list is a list of strings. When `multiple=False`, this list will have length 1.
 
 See also: [Select (Multiple)](select-multiple.qmd) and [Selectize (Multiple)](selectize-multiple.qmd). Select inputs and selectize inputs are similar, but have different interfaces and provide different ways of selecting multiple options. Selectize inputs also allow you to deselect items.
+
+:::{#variations}
+:::
