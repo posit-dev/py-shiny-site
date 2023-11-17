@@ -4,8 +4,6 @@
 
 ## Preview
 
-:::{.fade}
-
 <iframe style="height:<% if (item.height) { %>
 <%= item.height %>
 <% } else { %>
@@ -13,15 +11,11 @@
 <% } %>;" class="mb-0 w-100 iframe-border" src="<%= item.preview %>" title="<%= item.title %>">
 </iframe>
 
-:::
-
 ## Code
 
-:::{.fade}
 ```{.python filename="app.py" }
 <%= item.code %>
 ```
-:::
 :::
 
 :::{.mt-5}

@@ -43,7 +43,7 @@ Shiny Components
 
 ::::
 
-::::{.g-col-lg-5 .g-col-12 .my-auto style="text-align: right;margin-right:-100px;width: 670px;"}
+::::{.g-col-lg-5 .g-col-12 .my-auto .components-hero-img style="text-align: right;"}
 
 <div class="pt-5">
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script><lottie-player src="https://lottie.host/b02934a4-cd16-471e-b961-27d91a37f151/fOkPNJ3RjU.json" background="transparent" speed="1" style="width: 600; height: auto" direction="1" mode="normal" autoplay></lottie-player>
@@ -120,5 +120,10 @@ Provide feedback to your user with notifications, progress bars, and confirmatio
 #quarto-content>* {
   padding-top: 0px;
   margin-top: 0px;
+}
+@media only screen and (min-width:991px) {
+.components-hero-img {
+  margin-right:-100px;width: 670px;
+}
 }
 </style>
