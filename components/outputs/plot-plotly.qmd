@@ -3,7 +3,7 @@ title: "Plot (Plotly)"
 sidebar: components
 preview: |
   <div class="px-3">
-  <img height="130" src="/images/plotly.jpg">
+  <img style="width: 100%;height:auto;max-height:130px;" src="/images/plotly.jpg">
   </div>
 listing:
   id: component

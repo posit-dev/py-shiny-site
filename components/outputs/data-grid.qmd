@@ -2,8 +2,8 @@
 title: "Data Grid"
 sidebar: components 
 preview: |
-  <div class="px-4">
-  <img style="width: 100%;" src="/images/datagrid.png">
+  <div class="px-2">
+  <img  style="width: 100%;height:auto;max-height:130px;" src="/images/datagrid.png">
   </div>
 listing:
   - id: component

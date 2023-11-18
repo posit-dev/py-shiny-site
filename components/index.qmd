@@ -6,7 +6,7 @@ pagedescription: Inputs, outputs and more, to make your data interactive on ever
 toc: false
 page-layout: article
 resources:
-  - _partials/animation.json
+  - _partials/animation.lottie
 format:
   html:
     css: _partials/components.css
@@ -32,8 +32,8 @@ listing:
 
 :::::{.column-screen-inset .mx-auto style="max-width: 1300px;"}
 
-::::{.grid style="height:460px;border-bottom:1px solid;"}
-::::{.g-col-lg-7 .g-col-12 .my-auto}
+::::{.grid .hero-area}
+::::{.g-col-md-7 .g-col-12 .pe-0 .pe-md-5 .my-auto}
 
 :::{.display-3 .fw-bold}
 Shiny Components
@@ -43,17 +43,20 @@ Shiny Components
 
 ::::
 
-::::{.g-col-lg-5 .g-col-12 .my-auto .components-hero-img style="text-align: right;"}
+::::{.g-col-md-5 .g-col-10 .g-start-4 .components-hero-img-container}
 
-<div class="pt-5">
-<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script><lottie-player src="https://lottie.host/b02934a4-cd16-471e-b961-27d91a37f151/fOkPNJ3RjU.json" background="transparent" speed="1" style="width: 600; height: auto" direction="1" mode="normal" autoplay></lottie-player>
+<div class="ps-4 pt-5 components-hero-img" >
+<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+<dotlottie-player src="_partials/animation.lottie" background="transparent" speed="1" style="width: 100%; height: auto;" autoplay></dotlottie-player>
 </div>
 
 ::::
 
 ::::
+:::::
+:::::{.column-screen-inset .mx-auto style="max-width: 1300px;"}
 
-::: {.grid style="border-top: 1px solid #ccc;padding-top:3rem;padding-bottom:5rem;margin-top: -1px;" #inputs}
+::: {.grid style="border-top: 1px solid #CDD4DA;padding-top:3rem;padding-bottom:5rem;" #inputs}
 
 ::: {.g-col-lg-3 .g-col-12}
 ::: {.sticky-lg-top .pt-4}
@@ -64,7 +67,7 @@ Inputs allow users to interact with the webpage by clicking a button, entering t
 
 :::
 :::
-<div class="g-col-lg-9 g-col-12 pt-5 ps-0 ps-lg-5 ms-0 ms-lg-4">
+<div class="g-col-lg-9 g-col-12 pt-3 pt-md-5 ps-0 ps-lg-5 ms-0 ms-lg-4">
 
 ::: {#input .grid}
 
@@ -73,7 +76,7 @@ Inputs allow users to interact with the webpage by clicking a button, entering t
 </div>
 :::
 
-::: {.grid style="border-top: 1px solid #ccc;padding-top:3rem;padding-bottom:5rem;margin-top: -1px;" #outputs}
+::: {.grid style="border-top: 1px solid #CDD4DA;padding-top:3rem;padding-bottom:5rem;margin-top: -1px;" #outputs}
 
 ::: {.g-col-lg-3 .g-col-12}
 ::: {.sticky-lg-top .pt-4}
@@ -84,7 +87,7 @@ Outputs create a spot on the webpage to display results from the server, such as
 
 :::
 :::
-<div class="g-col-lg-9 g-col-12 pt-5 ps-0 ps-lg-5 ms-0 ms-lg-4">
+<div class="g-col-lg-9 g-col-12 pt-3 pt-md-5 ps-0 ps-lg-5 ms-0 ms-lg-4">
 
 ::: {#output .grid}
 
@@ -93,7 +96,7 @@ Outputs create a spot on the webpage to display results from the server, such as
 </div>
 :::
 
-::: {.grid style="border-top: 1px solid #ccc;padding-top:3rem;padding-bottom:5rem;margin-top: -1px;" #display-messages}
+::: {.grid style="border-top: 1px solid #CDD4DA;padding-top:3rem;padding-bottom:5rem;margin-top: -1px;" #display-messages}
 
 ::: {.g-col-lg-3 .g-col-12}
 ::: {.sticky-lg-top .pt-4}
@@ -105,7 +108,7 @@ Provide feedback to your user with notifications, progress bars, and confirmatio
 :::
 :::
 
-<div class="g-col-lg-9 g-col-12 pt-5 ps-0 ps-lg-5 ms-0 ms-lg-4">
+<div class="g-col-lg-9 g-col-12 pt-3 pt-md-5 ps-0 ps-lg-5 ms-0 ms-lg-4">
 
 ::: {#display-message .grid}
 
@@ -120,10 +123,5 @@ Provide feedback to your user with notifications, progress bars, and confirmatio
 #quarto-content>* {
   padding-top: 0px;
   margin-top: 0px;
-}
-@media only screen and (min-width:991px) {
-.components-hero-img {
-  margin-right:-100px;width: 670px;
-}
 }
 </style>

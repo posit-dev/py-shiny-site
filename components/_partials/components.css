@@ -71,8 +71,43 @@ a.component-list-header-text:hover ~ div.component-list-icon p a i.component-lin
   color: #000000;
 }
 
+/*Hero area of list page*/
 
-
+@media only screen and (max-width:767px) {
+  .hero-area {
+    height: 310px;
+  }
+  .components-hero-img-container {
+    display: none;
+  }
+}
+@media only screen and (min-width:768px) {
+  .components-hero-img-container {
+    text-align: right;
+  }
+}
+@media only screen and (min-width:768px) {
+  .components-hero-img {
+    width: 450px;
+    margin-left: -80px;
+  }
+  .hero-area {
+    height: 373px;
+  }
+}
+@media only screen and (min-width:992px) {
+  .components-hero-img {
+    margin-left: -60px;
+    width: 650px;
+  }
+  .hero-area {
+    height:460px;
+  }
+  .components-hero-img-container {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+}
 
 /* detail page styling */
 
@@ -145,7 +180,6 @@ pre.console code {
 
 /* Tab styling */
 
-
 .panel-tabset .nav-tabs {
   display: flex !important;
   align-items: flex-end !important;
@@ -156,7 +190,6 @@ pre.console code {
   border-right: none;
   color: #48505F;
 }
-
 
 a.nav-link {
   color: #343A46;
@@ -202,5 +235,7 @@ a.nav-link:hover {
   border: 1px solid #E9ECEF;
   border-radius: 10px;
 }
+
+
 
 
