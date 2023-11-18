@@ -58,8 +58,8 @@ Shiny Components
 
 ::: {.grid style="border-top: 1px solid #CDD4DA;padding-top:3rem;padding-bottom:5rem;" #inputs}
 
-::: {.g-col-lg-3 .g-col-12}
-::: {.sticky-lg-top .pt-4}
+::: {.g-col-xl-3 .g-col-12}
+::: {.sticky-xl-top .pt-4}
 
 <h2 class="mt-4"> <i class="bi bi-sliders indigo"></i> Inputs </h2>
 
@@ -67,7 +67,7 @@ Inputs allow users to interact with the webpage by clicking a button, entering t
 
 :::
 :::
-<div class="g-col-lg-9 g-col-12 pt-3 pt-md-5 ps-0 ps-lg-5 ms-0 ms-lg-4">
+<div class="g-col-xl-9 g-col-12 pt-3 pt-xl-5 ps-0 ps-xl-5 ms-0 ms-xl-4">
 
 ::: {#input .grid}
 
@@ -78,8 +78,8 @@ Inputs allow users to interact with the webpage by clicking a button, entering t
 
 ::: {.grid style="border-top: 1px solid #CDD4DA;padding-top:3rem;padding-bottom:5rem;margin-top: -1px;" #outputs}
 
-::: {.g-col-lg-3 .g-col-12}
-::: {.sticky-lg-top .pt-4}
+::: {.g-col-xl-3 .g-col-12}
+::: {.sticky-xl-top .pt-4}
 
 <h2 class="mt-4"> <i class="bi bi-bar-chart-line-fill indigo"></i> Outputs </h2>
 
@@ -87,7 +87,7 @@ Outputs create a spot on the webpage to display results from the server, such as
 
 :::
 :::
-<div class="g-col-lg-9 g-col-12 pt-3 pt-md-5 ps-0 ps-lg-5 ms-0 ms-lg-4">
+<div class="g-col-xl-9 g-col-12 pt-3 pt-xl-5 ps-0 ps-xl-5 ms-0 ms-xl-4">
 
 ::: {#output .grid}
 
@@ -98,8 +98,8 @@ Outputs create a spot on the webpage to display results from the server, such as
 
 ::: {.grid style="border-top: 1px solid #CDD4DA;padding-top:3rem;padding-bottom:5rem;margin-top: -1px;" #display-messages}
 
-::: {.g-col-lg-3 .g-col-12}
-::: {.sticky-lg-top .pt-4}
+::: {.g-col-xl-3 .g-col-12}
+::: {.sticky-xl-top .pt-4}
 
 <h2 class="mt-4"> <i class="bi bi-chat-dots-fill indigo"></i> Display Messages </h2>
 
@@ -108,7 +108,7 @@ Provide feedback to your user with notifications, progress bars, and confirmatio
 :::
 :::
 
-<div class="g-col-lg-9 g-col-12 pt-3 pt-md-5 ps-0 ps-lg-5 ms-0 ms-lg-4">
+<div class="g-col-xl-9 g-col-12 pt-3 pt-xl-5 ps-0 ps-xl-5 ms-0 ms-xl-4">
 
 ::: {#display-message .grid}
 
