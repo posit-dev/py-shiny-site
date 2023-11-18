@@ -3,8 +3,10 @@ title: "Help Text"
 sidebar: components 
 previewapp: |
   from shiny import App, reactive, ui
-
-  app_ui = ui.page_fluid(
+  from pathlib import Path
+  appdir = Path(__file__).parent
+  app_ui = ui.page_fillable(
+    ui.include_css(appdir / "styles.css"),
       ui.input_action_button("show", "Show help text"),
       {"class": "vh-100 d-flex justify-content-center align-items-center px-4"}
   )
@@ -17,6 +19,9 @@ previewapp: |
           ui.notification_show("Well done!", duration = 1)
   
   app = App(app_ui, server)
+
+  ## file: styles.css
+  #shiny-notification-panel { max-width: 100%; }
 listing:
   - id: component
     template: ../_partials/components-detail.ejs
