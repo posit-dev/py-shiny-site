@@ -20,27 +20,27 @@
               # Modifications to Quarto from:
               # https://github.com/quarto-dev/quarto-cli/blob/fee994d5476fd1a23c37b8a700c027cdb4267688/src/resources/schema/cell-attributes.yml
               quarto = prev.quarto.overrideAttrs (oldAttrs: {
-                # The previous recipe always fetched the Linux build.
-                src = prev.fetchurl {
-                  url =
-                    "https://github.com/quarto-dev/quarto-cli/releases/download/v${oldAttrs.version}/quarto-${oldAttrs.version}-macos.tar.gz";
-                  sha256 =
-                    "sha256-w9pqJr1Y8H4Yqqd+YhVzKGtKEntz4CP4nqeVZ6MKoFw=";
-                };
+                # # The previous recipe always fetched the Linux build.
+                # src = prev.fetchurl {
+                #   url =
+                #     "https://github.com/quarto-dev/quarto-cli/releases/download/v${oldAttrs.version}/quarto-${oldAttrs.version}-macos.tar.gz";
+                #   sha256 =
+                #     "sha256-w9pqJr1Y8H4Yqqd+YhVzKGtKEntz4CP4nqeVZ6MKoFw=";
+                # };
 
-                # The Linux tarball has /quarto-x.xx.x/, which contains a bin/ and
-                # share/ directory, but the Mac tarball just has /bin/ and /share/. This
-                # causes the unpackPhase to fail -- Nix complains about multiple files
-                # in the directory. To work around this, we set sourceRoot to "." and
-                # then after unpacking, create a directory quarto/, and move bin/ and
-                # share/ into it.
-                sourceRoot = ".";
+                # # The Linux tarball has /quarto-x.xx.x/, which contains a bin/ and
+                # # share/ directory, but the Mac tarball just has /bin/ and /share/. This
+                # # causes the unpackPhase to fail -- Nix complains about multiple files
+                # # in the directory. To work around this, we set sourceRoot to "." and
+                # # then after unpacking, create a directory quarto/, and move bin/ and
+                # # share/ into it.
+                # sourceRoot = ".";
 
-                postUnpack = ''
-                  mkdir quarto
-                  mv bin share quarto
-                  sourceRoot=quarto
-                '';
+                # postUnpack = ''
+                #   mkdir quarto
+                #   mv bin share quarto
+                #   sourceRoot=quarto
+                # '';
 
                 # The previous installPhase script removed bin/tools, which caused deno
                 # to fail to start.
