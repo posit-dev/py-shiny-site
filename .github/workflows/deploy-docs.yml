@@ -24,6 +24,12 @@ jobs:
       # =====================================================
       # Build
       # =====================================================
+      - name: Build dev environment
+        # Running `nix develop` the first time will cause it to download/build all
+        # the needed Nix packages.
+        run: |
+          nix develop -c echo "Finished setting up 'nix develop' environment"
+
       - name: Check out submodules
         run: |
           nix develop -c \
