@@ -189,6 +189,7 @@ website:
             - docs/ipywidgets.qmd
             - docs/ui-html.qmd
             - docs/workflow-server.qmd
+            - docs/custom-component-one-off.qmd
             - docs/custom-components-pkg.qmd
         - section: "Framework Comparisons"
           contents:

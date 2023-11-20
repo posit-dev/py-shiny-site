@@ -1,11 +1,15 @@
 ---
-title: Custom Components Package
+title: Custom components package
 filters:
   - line-highlight
 ---
 
 
 While there are a large number of pre-built [components available for Shiny,](components/) there are times when you may want to create your own. In this article we’ll walk through the process of creating a custom input component package for Shiny. We’ll be using React and Typescript to build the component, but the process is similar for other languages and frameworks.
+
+::: {.callout-note}
+If you just want to build a one-off component for a single app, a full package may be overkill. See the accompanying article [Custom javascript component](custom-component-one-off.html) for a simpler approach.
+:::
 
 ## What we’ll build
 
