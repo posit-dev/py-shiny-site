@@ -130,6 +130,7 @@ website:
         - section: "In Depth"
           contents:
             - docs/ipywidgets.qmd
+            - docs/custom-components.qmd
             - docs/ui-html.qmd
             - docs/workflow-server.qmd
         - section: "Framework Comparisons"
@@ -151,7 +152,6 @@ format:
     include-in-header: include-in-header.html
     code-copy: true
     link-external-newwindow: true
-
 
 editor:
   markdown:
