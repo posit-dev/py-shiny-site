@@ -22,21 +22,13 @@ jobs:
         uses: DeterminateSystems/magic-nix-cache-action@v2
 
       # =====================================================
-      # Install dependencies
+      # Build
       # =====================================================
       - name: Check out submodules
         run: |
           nix develop -c \
           make submodules
 
-      - name: Install build dependencies
-        run: |
-          nix develop -c \
-          make deps
-
-      # =====================================================
-      # Build
-      # =====================================================
       - name: Build site
         run: |
           nix develop -c \
