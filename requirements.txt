@@ -7,4 +7,5 @@ shiny
 seaborn==0.13.0
 plotly
 shinywidgets==0.2.2
-ipyleaflet==0.17.4 
+ipyleaflet==0.17.4
+favicons
