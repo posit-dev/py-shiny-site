@@ -8,6 +8,11 @@
 
 /* list page styling */
 
+.list-section {
+  border-top: 1px solid #CDD4DA;
+  padding-top:3rem;
+  padding-bottom:5rem;
+}
 .component-list-column {
   padding-top: 1rem;
 }
@@ -54,7 +59,6 @@
   white-space: nowrap
 }
 
-
 a .component-link-icon:after  {
   content: "\F134";
   font-family: "bootstrap-icons";
@@ -71,7 +75,7 @@ a.component-list-header-text:hover ~ div.component-list-icon p a i.component-lin
   color: #000000;
 }
 
-/*Hero area of list page*/
+/* Hero area of list page */
 
 @media only screen and (max-width:767px) {
   .components-hero-img-container {
@@ -117,7 +121,6 @@ a.component-list-header-text:hover ~ div.component-list-icon p a i.component-lin
   padding: 1em 0px;
   margin-bottom: 1em;
 }
-
 
 code.sourceCode,
 pre.console code {
@@ -216,7 +219,3 @@ a.nav-link:hover {
   border: 1px solid #E9ECEF;
   border-radius: 10px;
 }
-
-
-
-

@@ -9,9 +9,10 @@ resources:
   - _partials/animation.lottie
 format:
   html:
-    css: _partials/components.css
+    css: 
+      - _partials/components.css
+      - _partials/components-list.css
     code-overflow: wrap
-    include-before-body: _partials/components.html
 listing: 
   - id: input
     type: grid
@@ -29,21 +30,18 @@ listing:
     contents: 
       - ../../components/display-messages/*.qmd
 ---
-
-:::::{.column-screen-inset .mx-auto style="max-width: 1300px;"}
-
-::::{.grid .hero-area .my-md-0 .my-5}
-::::{.g-col-md-7 .g-col-12 .pe-0 .pe-md-5 .my-auto}
-
-:::{.display-3 .fw-bold}
+<!-- Begin Hero area -->
+:::::::: {.column-screen-inset .mx-auto style="max-width: 1300px;"}
+:::::: {.grid .hero-area .my-md-0 .my-5}
+:::: {.g-col-md-7 .g-col-12 .pe-0 .pe-md-5 .my-auto}
+::: {.display-3 .fw-bold}
 Shiny Components
 :::
 
 ##### Inputs, outputs and display messages to make your data interactive on every device. Add these components to [Shiny Layouts](https://shiny.posit.co/py/docs/ui-page-layouts.html) to make your app a dashboard, article and more.
 
 ::::
-
-::::{.g-col-md-5 .g-col-10 .g-start-4 .components-hero-img-container}
+:::: {.g-col-md-5 .g-col-10 .g-start-4 .components-hero-img-container}
 
 <div class="ps-4 pt-5 components-hero-img" >
 <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
@@ -52,13 +50,15 @@ Shiny Components
 
 ::::
 
-::::
-:::::
-:::::{.column-screen-inset .mx-auto style="max-width: 1300px;"}
+::::::
+::::::::
+<!-- End Hero area -->
 
-::: {.grid style="border-top: 1px solid #CDD4DA;padding-top:3rem;padding-bottom:5rem;" #inputs}
+<!-- Begin List area -->
+:::::::: {.column-screen-inset .mx-auto style="max-width: 1300px;"}
+:::::: {.grid .list-section #inputs}
 
-::: {.g-col-xl-3 .g-col-12}
+:::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
 
 <h2 class="mt-4"> <i class="bi bi-sliders indigo"></i> Inputs </h2>
@@ -66,19 +66,17 @@ Shiny Components
 Inputs allow users to interact with the webpage by clicking a button, entering text, selecting an option, and more.
 
 :::
-:::
-<div class="g-col-xl-9 g-col-12 pt-3 pt-xl-5 ps-0 ps-xl-5 ms-0 ms-xl-4">
-
+::::
+:::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
 ::: {#input .grid}
-
 :::
 
-</div>
-:::
+::::
 
-::: {.grid style="border-top: 1px solid #CDD4DA;padding-top:3rem;padding-bottom:5rem;margin-top: -1px;" #outputs}
+::::::
+:::::: {.grid .list-section style="margin-top: -1px;" #outputs}
+:::: {.g-col-xl-3 .g-col-12}
 
-::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
 
 <h2 class="mt-4"> <i class="bi bi-bar-chart-line-fill indigo"></i> Outputs </h2>
@@ -86,19 +84,16 @@ Inputs allow users to interact with the webpage by clicking a button, entering t
 Outputs create a spot on the webpage to display results from the server, such as text, tables, plots, and more.
 
 :::
-:::
-<div class="g-col-xl-9 g-col-12 pt-3 pt-xl-5 ps-0 ps-xl-5 ms-0 ms-xl-4">
-
+::::
+:::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
 ::: {#output .grid}
-
 :::
 
-</div>
-:::
+::::
 
-::: {.grid style="border-top: 1px solid #CDD4DA;padding-top:3rem;padding-bottom:5rem;margin-top: -1px;" #display-messages}
-
-::: {.g-col-xl-3 .g-col-12}
+::::::
+:::::: {.grid .list-section style="margin-top: -1px;" #display-messages}
+:::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
 
 <h2 class="mt-4"> <i class="bi bi-chat-dots-fill indigo"></i> Display Messages </h2>
@@ -106,22 +101,13 @@ Outputs create a spot on the webpage to display results from the server, such as
 Provide feedback to your user with notifications, progress bars, and confirmation modals.
 
 :::
-:::
-
-<div class="g-col-xl-9 g-col-12 pt-3 pt-xl-5 ps-0 ps-xl-5 ms-0 ms-xl-4">
-
+::::
+:::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
 ::: {#display-message .grid}
-
 :::
 
-</div>
-:::
+::::
 
-:::::
-
-<style>
-#quarto-content>* {
-  padding-top: 0px;
-  margin-top: 0px;
-}
-</style>
+::::::
+::::::::
+<!-- End List area -->

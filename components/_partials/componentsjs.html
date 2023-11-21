@@ -1,9 +1,6 @@
 <script type="text/javascript">
 
-  let elements = document.querySelectorAll('.tab-pane');
-  for (let elem of elements) {
-  elem.classList.add("fade");
-  elem.classList.add("show");
-  }
+document.querySelectorAll('.tab-pane:first-of-type').forEach((x) => x.classList.add("show"))
+document.querySelectorAll('.tab-pane').forEach((x) => x.classList.add("fade"))
 
 </script>

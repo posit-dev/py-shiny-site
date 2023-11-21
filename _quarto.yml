@@ -106,8 +106,8 @@ website:
       - icon: youtube
         href: https://www.youtube.com/playlist?list=PL9HYL-VRX0oRbLoj3FyL5zeASU5FMDgVe
         aria-label: Shiny YouTube Playlist
+  
   sidebar:
-
     - id: components
       collapse-level: 2
       contents:
@@ -198,10 +198,6 @@ website:
     # added entry below to prevent this.
     - id: deploy
 
-
-            
-
-
 format:
   html:
     # it appears that these are applied to all rendered pages, and _metadata.yml
@@ -216,7 +212,6 @@ format:
     grid:
       sidebar-width: 300px
       gutter-width: 2.5rem
-
 
 editor:
   markdown:
