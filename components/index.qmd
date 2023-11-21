@@ -32,7 +32,7 @@ listing:
 
 :::::{.column-screen-inset .mx-auto style="max-width: 1300px;"}
 
-::::{.grid .hero-area}
+::::{.grid .hero-area .my-md-0 .my-5}
 ::::{.g-col-md-7 .g-col-12 .pe-0 .pe-md-5 .my-auto}
 
 :::{.display-3 .fw-bold}
