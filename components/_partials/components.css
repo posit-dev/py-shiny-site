@@ -103,6 +103,8 @@ a.component-list-header-text:hover ~ div.component-list-icon p a i.component-lin
   .components-hero-img-container {
     margin-top: auto;
     margin-bottom: auto;
+    overflow: hidden;
+    margin-right: -2.5rem;
   }
 }
 
