@@ -305,51 +305,56 @@ listing:
       variations:
         - title: Theme and Layout Examples
           height: "315px"
-          description: Value boxes with different `theme` and `showcase_layout` locations
-          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOag4BzJdgD6AIygQA1kwC8UjhgASAFQCyAGQAUcpkwDkAHhYA3JUwAeMADYQWfRkwNjIyVEQAekiAdziMGIBmDEElSIAmAAZsyPclYKY3DjgYgCFiLyCwTKYagEYANiZGgsJfKBZA4I0OJh6AWkUVbH6tXSYCljJsXzgqmg5fX0RCSTo6SjIAYWJfQQBuNjhlUMQ67IBSfYKoOg4ofs4AEyfKKrI6STgChlmqvnyYCYAD5nKgoGQ2EwnlULABWJgNDDpOFQDAAdjhGIR9Wa-TqGBxTGx2NqZLqzUJtQAXjACXVEgAOfEYAAsAE4GiIkQ0GYiMLzEmTceiMJzWUxWYTCAKGk16hhEplkpl2ejKYz2cl0ujEmisUSajVkYyGv0xXDGSJRQ1MukmDa7cKyaLxUxknDCObdRLMizWaz6cr+ukMOdQ+l2el9VTccadUjOelqcFQZFwZDgTI5GCIVCFkt+p8-sE4G5KMQXgUYcELK6GhKCXCdV7Q2r1X6DeiKQT0ZlWf0kYl7VK6ii2Oa4XCRD3nca6hSkYz0qzfMi4Y22Q0oE3KYbyWz0YzKSvEmxkQ1EjKPQyBYzGWKj5S6qyEQSmelfN7I0xQ6z0eiMb7sarIPg2dRsNGhKxs6h51OaiTDmuoHpCyiRwnUMqXlidS6pSiQEukDTqqGmQLheop9h2+H3uaqoIqR6TMsi6KfoSrJCu+rFAXOxKsg0WIEQ0kE8UaZKHsxDZwl+GK8iGhKZA0Wy3oyFLshgmpvlKCIPlO7LNNpDoYIp7KEH6YavnRmTouakZ0ahbIERe8Fhk2mTMURSJ9nC5oBlKBGCYpGl1IFS4hb5uHiek6SJJOyIxb5cnGURaLsliaW8cZ7K2VOGIYnOtl2uaUmErpx5ieZVF0eyD66lidUFYqmKEg06ReslUqnsZy5sg+w4ChuUChgu9rDWOzouSi6khVek6JAOoZygO2qMgO2lpYObKsqh61wtSFihhhTRIkRMqvj5pFyr+so2ckupCliAbMndiHuhZ8pMAaiRNGNEpfU02nbQeKIDgKK7XYGLLEW9K6MqJwrmo0X3SbK124XCE5ioy0mTtlBKgYB0HAcVdkmoy7VyoRsXvup6HZcNcKinTUBIlOx6s5aE3ySFNmKnC6kGo12GKv2MnNm+cGY2q7JrpesUM-DRqI7zcLzZKAocurDb6WJ8GEatLIbk2MFK1tZosRjk7bkTXNslGEWrjlA748JYqIYr4mgcxiRarSY5gy52OE3CAktfuLmqg+6S9v2GL9rb-ag3anqI-x1WI4zys+WGza2TFaIxSd30TcSC687hV7GRy9miu59n0reZFQVkEZOrrxKKaO7LsimYBphmbBpnkwKOHIACUchyGgqBqNIBhGFgUBKHAag0L40hPHYEAOA40gYO02DEJIZBqCQ68wBAagxHQaBbzv98L24UDryvGgVHfD+f8EADSAAKACSTAzAcDILMYIeB7CfwfsEAAJBSUoixfAcFIEwAAIrsdodAWDgMgVAnewQACqqB3SZAuEwAAagAZSYL-AASgAUXIf-AA8gQ6hSo0EiAAJqUJwdvPBO92DEBiIQDocwhiqE0NoHQED+ECKYJCOA8AqgaCUP0JQN8njFHIP0LgWilDEEGGsVAYD8C4IETQSQSw1AsEIBsN4ZhPhwFkXgseLioF7yfi-TQ79zF4J-gAoBIDTHuPkbA+BiDkHb3QUsW42CzFyIEYQ4hSoyFUJoQwphrD2E1FQdw3hCT5EOCESIsR+gJHqDGDIvxUDFHKOCBQLwZB1H2PkIUopJTREsBXgfI+ZB3jEGIXcJQoQ+FFKYJY6xtjWn6EcV8UJD83E1N3sYLxXwfFeA-mEsAf9AHANAd8dp2y4FMAQUsKJaCMFxLGUU5JJC0nULoYwlhbCSGcJ4Tc+RnSykVKkboBZeC6lzG6GojRUAtGbF0RAfRhiNAv0+QI753S1C9OPio4gYRGAIrwZM3wNi7FwAcU4gFO8lmJInhAClk9oDoHnmIVANhp6zw4BIbpdByx0H0AAOVIHAClYAAC+ABdIAA
+          description: Value boxes with different `theme` and `showcase_layout` locations. This value box uses multiple files, see how on [Shinylive](https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACAMyhpIgGcAdCG0bEYLHgAsaEbCzoNmLAILo8LAK40BAtKgD6GlgF51NLFADmcXWwA2GgCYAKARow2o2YmrK6SdmBC6AO6MaM4QLCYYAG5QdlYARsQAHuGR6Sx8YADSAAoAkiwAKjRkNnBZeAIZkVkAJACMLABCNDY2NKQsACLE7VCM-PjVNVkAqqgsAMwADACkLABqAMosuQBKAKKL+QDyY6uzPYoAmsuVIxkSxEGEUDxwhhxcpDwYL4E80eaOAOSoNHM5mwAFoElAIABrX6qII0exkcSGLIAVhmqGSWQAlFUIjVEXB4MiwAlzCDzKF7DRKGQQVIqeZiCDUGpGKhypVIgBiAA8PMu6TYanauh4hEYcEohiKjDUcFxkRxI1csXiuiSqQFtRyBWKpQ5wzxGXqTVa7U6EV6-UGFyN6XGk1mCxWay2O32hxmxzOtpqYnENzuDyenG4bw+ou+fwBQNB4KhMJYcIRSNR6MxYCVdsiBKJWQoyVpFMlEE5LF5-Oz-sD9ys7k83mJZGIk0YgPEZDLFa17GFNlF4pL0tl8pGWciKricvVKTSox1hRKZQqhr9JpabQ6XSt7htq-nE2m8yWqw22z2ByP3vO+6uAdutZDH3D3EjP3+gOBYIh0Nh8MRxJohi2IKvi4iEo8WQsmyBqqOWfI9tcD4PLo9ZeGQxJJGQzYwF2CFVkKIpihKUoynKoFZliAhUdA6BGEo6CODo+g0KoDyMNEcCMIYABypBwFiYAAL54OA0DwNQEoAI4aBK8DkG8ZCFvgRCkBQVDIM8YbCQAukAA)
+          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACAMyhpIgGcAdCG0bEYLHgAsaEbCzoNmLAILo8LAK40BAtKgD6GlgF51NLFADmcXWwA2GgCYAKARow2o2YmrK6SdmBC6AO6MaM4QLCYYAG5QdlYARsQAHuGR6Sx8YADSAAoAkiwAKjRkNnBZeAIZkVkAJACMLABCNDY2NKQsACLE7VCM-PjVNVkAqqgsAMwADACkLABqAMosuQBKAKKL+QDyY6uzPYoAmsuVIxkSxEGEUDxwhhxcpDwYL4E80eaOAOSoNHM5mwAFoElAIABrX6qII0exkcSGLIAVhmqGSWQAlFUIjVEXB4MiwAlzCDzKF7DRKGQQVIqeZiCDUGpGKhypVIgBiAA8PMu6TYanauh4hEYcEohiKjDUcFxkRxI1csXiuiSqQFtRyBWKpQ5wzxGXqTVa7U6EV6-UGFyN6XGk1mCxWay2O32hxmxzOtpqYnENzuDyenG4bw+ou+fwBQNB4KhMJYcIRSNR6MxYCVdsiBKJWQoyVpFMlEE5LF5-Oz-sD9ys7k83mJZGIk0YgPEZDLFa17GFNlF4pL0tl8pGWciKricvVKTSox1hRKZQqhr9JpabQ6XSt7htq-nE2m8yWqw22z2ByP3vO+6uAdutZDH3D3EjP3+gOBYIh0Nh8MRxJohi2IKvi4iEo8WQsmyBqqOWfI9tcD4PLo9ZeGQxJJGQzYwF2CFVkKIpihKUoynKoFZliAhUdA6BGEo6CODo+g0KoDyMNEcCMIYABypBwFiYAAL54OA0DwNQEoAI4aBK8DkG8ZCFvgRCkBQVDIM8YbCQAukAA
           code: |4
+              import faicons
               from shiny import App, ui
-
               app_ui = ui.page_fluid(
-                  ui.layout_column_wrap(
-                      ui.value_box(
-                          "KPI Title",
-                          "$1 Billion Dollars",
-                          "Up 30% VS PREVIOUS 30 DAYS",
-                          theme="bg-gradient-indigo-purple",  #<<
-                          full_screen=True,
-                      ),
-                      ui.value_box(
-                          "KPI Title",
-                          "$1 Billion Dollars",
-                          "Up 30% VS PREVIOUS 30 DAYS",
-                          theme="text-green",  #<<
-                          showcase_layout="top right",  #<<
-                          full_screen=True,
-                      ),
-                      ui.value_box(
-                          "KPI Title",
-                          "$1 Billion Dollars",
-                          "Up 30% VS PREVIOUS 30 DAYS",
-                          theme="purple",  #<<
-                          showcase_layout="bottom",  #<<
-                          full_screen=True,
-                      ),
-                  )
+              ui.layout_column_wrap(
+                  ui.value_box(S
+                      "KPI Title",
+                      "$1 Billion Dollars",
+                      "Up 30% VS PREVIOUS 30 DAYS",
+                      showcase=faicons.icon_svg('piggy-bank', width="50px"),
+                      theme="bg-gradient-indigo-purple",  #<<
+                      full_screen=True,
+                  ),
+                  ui.value_box(
+                      "KPI Title",
+                      "$1 Billion Dollars",
+                      "Up 30% VS PREVIOUS 30 DAYS",
+                      showcase=faicons.icon_svg('piggy-bank', width="50px"),
+                      theme="text-green",  #<<
+                      showcase_layout="top right",  #<<
+                      full_screen=True,
+                  ),
+                  ui.value_box(
+                      "KPI Title",
+                      "$1 Billion Dollars",
+                      "Up 30% VS PREVIOUS 30 DAYS",
+                      showcase=faicons.icon_svg('piggy-bank', width="50px"),
+                      theme="purple",  #<<
+                      showcase_layout="bottom",  #<<
+                      full_screen=True,
+                  ),
               )
-
+              )
               app = App(app_ui, server=None)
 
         - title: Reactive Value Box
+        - description: Connecting a reactive input value to a value box. This value box uses multiple files, see how on [Shinylive](https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACAMyhpIgGcAdCG0bEYLHgAsaEbCzoNmLAILo8LAJIRUAVzI9VAeR3bdqgMpwePGqVWNKAEziNVWmgIFpUAfVcsAvCyuWFAA5nBebAA2rvYAFAIsiYE0GFLGXjyRNI6M8ZB8+CwFAHJaMABGTizEbCwAQjSRWaT8hQCMqm0ADF2qAExdAJSqLADELAA8EwlJQQBuUNHh5cQAHvEQSVssZDRkkXB+BQDSAApqLAAqewcFeDPbYuLEAO6EUDyHHFwtqdwZcxCeVQNBCIWwAFpylAIABrO4sF7ZMjiI5gACsXVQqwKwwe2wWSz8QWIRh0XgoqzIeXKjWavFxI3GU3xWxRcHgaPKIQhIUYUHsNEoZAhUkFIWIEO0jFQt3wrKSbC0TQyhDslD8l0YWjg902STxEEG7ggAkctU+jDmTliaR0qlJZGMqk+lmsRsQ+IAAnYIDkMJTWGNJtN9YlzSxaU13TxYoNEIlmaHHok7GQtIxNmwCgASEB2sgYCBxgC+9Tp7pYABFiE0oIxWomQyaPOh-Ep0LFPD4aC6nNbGMaIGAS3hwNB4NQ7ABHVx2eDkHgBqn4IikChUZDfbg8EcAXSAA)
           height: "225px"
-          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMAkhFQBXMiwkB5eXIUSAynBYsOpCXUoATOHQmyOAHQjW0qAPoWmAXiYWsUAOZx7NADYWRgAU1kxuHBhcavYsfhwmdCGQlvhMKQBysjAARqZMxDRMAEIcfnGkLCkSAIw1AAx1EgBMdQCUEkwAxAA83aHhGABuUAE+2cQAHiEQYbNMZBxkfnDOKQDSAAqSTAAqi8tV-XPDo87uxKry9hQTZEnZpeUQlWDtYT19M3PzbHDwq2Bsp4ALSeOhQIwcShkYFcSGeYjAuR0VAHfBHWY0WRlGKEQyUZw7OiyOB4frtaytazWEyFFimQamIJReQSC5kNQSek6PQQVqIfoAAUMEASGBuwi6vX6tKYDzKvJYQX572lXzmhjIsjoMxoKQAJCAWWQMBBlQBfYqPXlMAAixDKUDoL1Vn1s6BconQQTsjg4XIZplaYHNAF0gA
+          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACAMyhpIgGcAdCG0bEYLHgAsaEbCzoNmLAILo8LAJIRUAVzI9VAeR3bdqgMpwePGqVWNKAEziNVWmgIFpUAfVcsAvCyuWFAA5nBebAA2rvYAFAIsiYE0GFLGXjyRNI6M8ZB8+CwFAHJaMABGTizEbCwAQjSRWaT8hQCMqm0ADF2qAExdAJSqLADELAA8EwlJQQBuUNHh5cQAHvEQSVssZDRkkXB+BQDSAApqLAAqewcFeDPbYuLEAO6EUDyHHFwtqdwZcxCeVQNBCIWwAFpylAIABrO4sF7ZMjiI5gACsXVQqwKwwe2wWSz8QWIRh0XgoqzIeXKjWavFxI3GU3xWxRcHgaPKIQhIUYUHsNEoZAhUkFIWIEO0jFQt3wrKSbC0TQyhDslD8l0YWjg902STxEEG7ggAkctU+jDmTliaR0qlJZGMqk+lmsRsQ+IAAnYIDkMJTWGNJtN9YlzSxaU13TxYoNEIlmaHHok7GQtIxNmwCgASEB2sgYCBxgC+9Tp7pYABFiE0oIxWomQyaPOh-Ep0LFPD4aC6nNbGMaIGAS3hwNB4NQ7ABHVx2eDkHgBqn4IikChUZDfbg8EcAXSAA
           code: |4
+              import faicons
               from shiny import App, Inputs, Outputs, Session, render, ui
 
               app_ui = ui.page_fluid(
                   ui.input_slider("n", "Number of Billions", 1, 100, 20),  #<<
                   ui.value_box(
                       title="KPI Title",
+                      showcase=faicons.icon_svg('piggy-bank', width="50px"),
                       value=ui.output_text("billions"),  #<<
                       theme="bg-gradient-indigo-purple",
                       full_screen=True,
