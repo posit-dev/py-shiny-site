@@ -15,7 +15,7 @@ Shiny supports ipywidgets via the [shinywidgets](https://github.com/posit-dev/py
 ::: {.callout-warning}
 ## Not all widgets are ipywidgets
 
-Some web-based widgets in Python aren't compatible with the ipywidgets framework, but do provide a method for saving the widget as an HTML file. It's possible to display these widgets in Shiny using an approach similar to [this](https://github.com/posit-dev/py-shinywidgets/issues/63#issuecomment-1340221792), but be aware that, you won't be able to do anything discussed in [advanced usage](#advanced-usage).
+Some web-based widgets in Python aren't compatible with the ipywidgets framework, but do provide a method for saving the widget as an HTML file. It may be possible to display these widgets using Shiny's [`ui.output_ui()`](../api/ui.output_ui.html), but be aware that, you won't be able to do anything discussed in [advanced usage](#advanced-usage).
 :::
 
 ## Installation
