@@ -1,5 +1,5 @@
 ---
-title: "Notifications and Help Text"
+title: "Notifications / Help Text"
 sidebar: components
 previewapp: |
   from shiny import App, reactive, ui
@@ -180,7 +180,7 @@ listing:
             app = App(app_ui, server)
 
         - title: Help Text
-          description: [`ui.help_text()`](https://shiny.posit.co/py/api/ui.help_text.html) creates stylized help text which can be added to the user interface to provide additional explanation or context. [Tooltips](tooltips.qmd) provides a similar, but alternative way to display information to the user.
+          description: "[`ui.help_text()`](https://shiny.posit.co/py/api/ui.help_text.html) creates stylized help text which can be added to the user interface to provide additional explanation or context. [Tooltips](tooltips.qmd) provides a similar, but alternative way to display information to the user."
           preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwdmIAdzV8JliAZTZopgA5YjkaDkIof00wAEo8Z1cTT29fWQ4A4LJQiHCpGGJFWIlYgCU4ZsU0jI4snLzYoo0CjQ07OBpWODpFOgdysgliby8V2ZYWaogCxBKXDjsWRCZrDhYyYCu6AF1DJmA7w6YIM65hIwAGCYhXJgAASkfgUcAwAFEaDQ4LJXsDpFVFBg4IpyEsIBsMJEouN-q4pjMdA59q8ARBSNZiDlrLwTmTXBSIFSaW8GS4AMRMBJQXpkNhwJgASQAIkwaIJJN0WlBadZcnN2XTHiYKZlsrldjoceEALJwbbmQWxJgAalYZEWewkdmUdE1pAM6QgcDxAIBxxYGG0lEcxzd7pc-1NRgAjH8AQjQcioTC4fiXFGkeDUZQyBisU0Wq7XoSmMTSQn3UyWbK6SwlQNywci4GXKr+oMHRAdFnFEsTlhiKgSXitOhHmIe9o9BwJCw5gsCmAAL53IA
           height: 200px
           code: |
@@ -195,7 +195,6 @@ listing:
                 pass
 
             app = App(app_ui, server)
-
 
 ---
 

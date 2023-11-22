@@ -148,7 +148,6 @@ website:
             - components/outputs/verbatim-text.qmd
         - section: "![](/images/chat-dots-fill.svg){.sidebar-icon .sidebar-subtitle}__Display Messages__"
           contents:
-            - components/display-messages/help-text.qmd
             - components/display-messages/modal.qmd
             - components/display-messages/notifications.qmd
             - components/display-messages/progress-bar.qmd

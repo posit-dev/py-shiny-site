@@ -25,6 +25,9 @@
 150px
 <% } %>;" class="mb-0 w-100 iframe-border" src="<%= variation.preview %>" title="<%= variation.title %>">
 </iframe>
+<% if (variation.shinylive) { %>    
+<p class="text-end my-0 p-90 me-2 pt-2"><a  href="<%= variation.shinylive %>"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
+<% } %>
 
 ## Code
 
