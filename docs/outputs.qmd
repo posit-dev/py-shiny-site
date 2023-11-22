@@ -169,9 +169,8 @@ import ipyleaflet as L
 basemaps = {
   "Satellite": L.basemaps.Gaode.Satellite,
   "OpenStreetMap": L.basemaps.OpenStreetMap.Mapnik,
-  "Stamen.Toner": L.basemaps.Stamen.Toner,
-  "Stamen.Terrain": L.basemaps.Stamen.Terrain,
-  "Stamen.Watercolor": L.basemaps.Stamen.Watercolor,
+  "WorldStreetMap": L.basemaps.Esri.WorldStreetMap,
+  "NatGeoWorldMap": L.basemaps.Esri.NatGeoWorldMap
 }
 
 app_ui = ui.page_fluid(
