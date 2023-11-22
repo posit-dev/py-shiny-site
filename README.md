@@ -2,13 +2,25 @@ This repository contains the sources for the Shiny for Python web site.
 
 ## Setup and build
 
-Install Quarto. Because Quarto is under rapid development, it's best to install by cloning the Quarto git repository and running a setup script; after that, just doing `git pull` will make the latest version available, without needing to run an installer each time. [Instructions here](https://github.com/quarto-dev/quarto-cli#development-version).
+
+**Prerequisites:** Make sure you have the following installed. (Note that if you have Nix installed on your system, you do not need to install these manually because Nix can provide them automatically.)
+
+- Quarto 1.3.x
+- Python
+- R
 
 Clone this repository:
 
 ```bash
-git clone https://github.com/rstudio/pyshiny-site.git
-cd pyshiny-site
+git clone https://github.com/posit-dev/py-shiny-site.git
+cd py-shiny-site
+```
+
+**Optional:** If you are using Nix, you can get a working development environment with all of the prerequisites by simply running `nix develop`. This will enter a shell with correct versions of the dependencies already installed.
+
+```bash
+# Optional, if you have Nix installed
+nix develop
 ```
 
 Set up git submodules:
@@ -36,14 +48,15 @@ $ make
 all                    Build everything
 submodules             Update git submodules to commits referenced in this repository
 submodules-pull        Pull latest commits in git submodules
-build_pkgs             Build and install htmltools and shiny
-shinylive              Build JS components for shinylive
-pypi                   Create a local pypi repository with htmltools and shiny
-api_docs               Build shiny API documentation
+quarto-exts            Update Quarto extensions
+deps                   Install build dependencies
+quartodoc              Build qmd files for Shiny API docs
 site                   Build website
 serve                  Build website and serve
 clean                  Remove Quarto website build files
-distclean              Remove all build files (packages, API docs, shinylive, Quarto website)
+clean-exts             Remove Quarto extensions
+clean-venv             Remove venv files
+distclean              Remove all build files (Quarto website, quarto extensions, venv)
 ```
 
 

@@ -11,7 +11,7 @@ VENV = venv
 PYBIN = $(VENV)/bin
 
 
-## Build everything
+## Build everything (except pulling in submodules)
 all: deps quartodoc site
 
 # Any targets that depend on $(VENV) or $(PYBIN) will cause the venv to be
