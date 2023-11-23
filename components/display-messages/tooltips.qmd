@@ -139,7 +139,7 @@ ui.tooltip(
 
 Compare tooltips to [popovers](https://shiny.posit.co/py/api/ui.popover.html), which are a similar device for organizing the layout of a Shiny app.
 
-See Also: [Modal messages](modal.qmd) and [help text](help-text.qmd) provide a similar, but alternative way to display information to the user.
+See Also: [Modal messages](modal.qmd) and [notications](notifications.qmd) provide a similar, but alternative way to display information to the user.
 
 :::{#variations}
 :::
