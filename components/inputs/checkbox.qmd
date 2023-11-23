@@ -13,7 +13,7 @@ previewapp: |
       @render.text
       def txt():
           return f""
-  app = App(app_ui, server, debug=True)
+  app = App(app_ui, server)
 listing:
   id: component
   template: ../_partials/components-detail.ejs
