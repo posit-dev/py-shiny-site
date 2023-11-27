@@ -1,0 +1,45 @@
+<% for (const item of items) { %>
+
+<% if (item.variations) { %>
+
+:::{.border-bottom .blue .mt-6 .mb-4}
+:::
+
+:::{.pt-1}
+
+## Variations
+
+<% for (const variation of item.variations) { %>
+
+#### <%= variation.title %> {.mb-0 .mt-5}
+
+<p class="mb-0"><%= variation.description %></p>
+
+::: {.panel-tabset}
+
+## Preview
+
+<iframe style="height:<% if (variation.height) { %>
+<%= variation.height %>
+<% } else { %>
+150px
+<% } %>;" class="mb-0 w-100 iframe-border" src="<%= variation.preview %>" title="<%= variation.title %>">
+</iframe>
+
+## Code
+
+```{.python filename="app.py" }
+<%= variation.code %>
+```
+<% if (variation.shinylive) { %>    
+<p class="text-end my-0 p-95 me-2"><a  href="<%= variation.shinylive %>"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
+<% } %>
+:::
+
+<% } %>
+
+:::
+
+<% } %>
+
+<% } %>
