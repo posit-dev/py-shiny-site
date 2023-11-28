@@ -1,0 +1,85 @@
+---
+title: Overview
+editor:
+  markdown:
+    wrap: sentence
+---
+
+The `shiny.express` module helps you build apps faster by writing less code compared to a "Shiny Core" app. A quick way to tell the difference is that a Core app requires an `App()` object, which in turn requires a UI definition and server function. With express, these objects aren't required since UI components are effectively added to the UI as they are defined, and reactive functions like `@render.text` are effectively inject into an implicit server function.
+
+
+
+The examples above use `shiny.express` to reduce boilerplate code, but you can also use Shiny's "core" mode, which requires more boilerplate, but may be preferred for more complex apps. In this mode, the user interface (UI) is decoupled from the server logic, allowing you to build the UI using pure functions as opposed to side-effects. And, as a result, we also see the following differences:
+
+* A Shiny `App` requires both a UI definition and server function.
+* The UI typically starts with a `ui.page_*()` call to create a page layout.
+* Containers for outputs must to be explicitly added to the UI via `ui.output_*()`.
+* The `input` object is passed as an argument to the server function.
+
+::: {.panel-tabset .panel-underline .border-0 .p-0 .justify-content-center}
+
+### Core
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny import App, render, ui
+
+app_ui = ui.page_fixed(
+    ui.input_slider("val", "Slider label", min=0, max=100, value=50),
+    ui.output_text_verbatim("slider_val")
+)
+
+def server(input, output, session):
+    @render.text
+    def slider_val():
+        return f"Slider value: {input.val()}"
+
+app = App(app_ui, server)
+```
+
+### Express
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny import render, ui
+from shiny.express import input
+
+ui.input_slider("val", "Slider label", min=0, max=100, value=50)
+
+@render.text
+def slider_val():
+    return f"Slider value: {input.val()}"
+```
+
+:::
+
+
+### Express vs core {#express-vs-core}
+
+Throughout this overview, we've been using `shiny.express` to reduce the amount of boilerplate code needed to create an app. In the next article, we'll learn more about the differences between `shiny.express` and _core_ Shiny, but for now, here's a quick summary:
+
+* Express is great for simple apps, but may not be preferred for more complex apps.
+* Express builds on top of _core_ Shiny, so you can always start with `shiny.express` and then switch to core Shiny as needed.
+
+
+
+```{=html}
+<script defer>
+  (function() {
+    const navs = document.querySelectorAll('.panel-underline .nav');
+    navs.forEach((x) => {
+      x.classList.remove("nav-tabs");
+      x.classList.add("nav-underline");
+      x.classList.add("justify-content-center");
+    });
+  })();
+</script>
+```

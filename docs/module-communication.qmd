@@ -46,7 +46,7 @@ Next, you would add an argument to the server function which specifies the start
 def counter_server(input, output, session, starting_value = 0):
     count = reactive.Value(starting_value)
 
-    @reactive.Effect
+    @reactive.effect
     @reactive.event(input.button)
     def _():
         count.set(count() + 1)
@@ -101,7 +101,7 @@ def counter_ui(label: str = "Increment counter"):
 def counter_server(input, output, session, starting_value = 0):
     count = reactive.Value(starting_value)
 
-    @reactive.Effect
+    @reactive.effect
     @reactive.event(input.button)
     def _():
         count.set(count() + 1)
@@ -265,12 +265,12 @@ def counter_ui(label: str = "Increment counter"):
 def counter_server(input, output, session, global_clear, starting_value=0):
     count = reactive.Value(starting_value)
 
-    @reactive.Effect
+    @reactive.effect
     @reactive.event(global_clear)
     def clear_all():
         count.set(0)
 
-    @reactive.Effect
+    @reactive.effect
     @reactive.event(input.button)
     def iterate_counter():
         count.set(count() + 1)
@@ -350,7 +350,7 @@ def counter_ui(label: str = "Increment counter"):
 def counter_server(input, output, session, _on_click, starting_value=0):
     count = reactive.Value(starting_value)
 
-    @reactive.Effect
+    @reactive.effect
     @reactive.event(input.button)
     def increment_button():
         _on_click()
@@ -553,5 +553,3 @@ Named tuples are similar to tuples except that they allow you to set specific na
 Modules are the main way to grow and scale your Shiny application code.
 They let you break up your app into tractable parts, define how those parts communicate with one another, and reuse components across applications.
 While mastering modules takes quite a bit of time, you can accomplish almost anything with the four patterns listed in this article.
-
-

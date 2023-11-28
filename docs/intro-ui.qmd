@@ -1,0 +1,146 @@
+---
+title: "Basic UI"
+---
+
+In the previous article, we were introduced to Shiny's user interface (UI) model, and also learned some basic [reactivity](reactive-programming.html) to update a plot based on the slider's value.
+Here we'll recap and expand on some basic UI concepts, focusing mostly on creating UI components.
+
+### Inputs
+
+Input components typically start with a `ui.input_*()` object directly in the UI definition.
+All inputs require an `id` argument, and also usually take a `label` argument to display a label next to the input.
+That `id` can then be used to reactively read the input's value in the server.
+
+```python
+from shiny import App, reactive, ui
+
+app_ui = ui.page_fluid(
+    ui.input_text("text", label="Enter some text")
+)
+
+def server(input):
+    @reactive.effect
+    def _():
+        # Can also use `input["text"]()` to read the value
+        # (useful if the input id is stored in a variable)
+        print(input.text())
+
+app = App(app_ui, server)
+```
+
+::: {.callout-tip}
+#### Input gallery
+
+See [this section of the component gallery](/components/#inputs) for an overview of available inputs.
+:::
+
+::: {.callout-tip}
+#### Updating inputs
+
+Most inputs can be updated dynamically on the server with a corresponding `ui.update_*()` function.
+[See here](ui-dynamic.html#updating-inputs) for more details and examples.
+:::
+
+
+### Outputs
+
+Output components typically start with a `ui.output_*()` object directly in the UI definition.
+Like inputs, outputs require an `id` argument, which must match the name of the function that returns the output's value in the server.[^1]
+Also, make sure this function is decorated with a corresponding `@render.*` (e.g. `@render.text` for `ui.output_text()`, `@render.plot` for `ui.output_plot()`, etc).
+
+[^1]: If you'd prefer not pollute the server namespace with output functions, you can add a `output` argument to the `server` function, apply the `@output(id = ...)` decorator to the result of the `@render.*` decorator, and use `def _(): ...` as the function name.
+
+```python
+from shiny import App, render, ui
+
+app_ui = ui.page_fluid(
+    ui.input_text("text", label="Enter some text"),
+    ui.output_text("text_out")
+)
+
+def server(input):
+    @render.text
+    def text_out():
+        return f"Input text: {input.text()}"
+
+app = App(app_ui, server)
+```
+
+::: {.callout-tip}
+#### Output gallery
+
+See [this section of the component gallery](/components/#outputs) for an overview of available outputs.
+:::
+
+::: {.callout-tip}
+#### Output as an input control
+
+Some outputs provide access their client-side state as input values. For example:
+
+* [`ui.output_plot()`](https://shiny.posit.co/py/components/outputs/plot-matplotlib.html) provides access to hover, click, and drag events.
+* [`ui.output_data_frame()`](https://shiny.posit.co/py/components/outputs/data-grid.html) provides access to selected rows and more.
+* `{shinywidgets}`'s [`output_widget()`](ipywidgets.html) provides access to the ipywidget traits.
+:::
+
+### Layouts
+
+Layout components typically start with a `ui.layout_*()` directly in the UI definition.
+That said, other functions like `ui.page_fluid()`, `ui.card()`, `ui.div()` could be considered layout components as well since they are used to arrange other components on the page.
+Besides page layouts, probably the most fundamental layout is `ui.layout_columns()`, which arranges its child components in a column-wise grid.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 100
+
+from shiny import App, ui
+
+app_ui = ui.page_fluid(
+    ui.layout_column_wrap(
+        ui.input_slider("slider1", label="Slider 1", min=0, max=100, value=50),
+        ui.input_slider("slider2", label="Slider 2", min=0, max=100, value=50)
+    )
+)
+
+app = App(app_ui, None)
+```
+
+::: {.callout-tip}
+#### Layout gallery
+
+See the [layout gallery](/layouts) for an overview of available layout mechanisms.
+:::
+
+### Page layouts
+
+A special type of layout is the page layout, which is used to start a new UI. Most of the getting started examples in this guide use `ui.page_fluid()` to start the UI since it's simple and minimal. However, Shiny comes with a number of other page layouts that can be used to create more complex UIs.
+
+| name | description | filling |
+| ---- | ----------- | ------- |
+| `page_sidebar()` | A page with a sidebar. | ✔ |
+| `page_navbar()` | A multi-page application, with an optional sidebar. | ✔ |
+| `page_fillable()` | A basic fillable page. | ✔ |
+| `page_fluid()` | A "full width" page (with a small gutter on each side). | ✗ |
+| `page_fixed()` | A "restricted width" page (great for "articles"). | ✗ |
+| `page_bootstrap()` | A bare bones [Bootstrap](https://getbootstrap.com/docs/5.3/getting-started/introduction/) page. | ✗ |
+
+The first three page options are designed to fill the page (by default), meaning that if components like plots, cards, widgets, etc. appear as direct children of the page, they grow/shrink to fill the page.
+That behavior works great for small examples, but may not be ideal for apps with lots of content. In those cases, set the `fillable` keyword argument to `False` (or use `page_fluid()`/`page_fixed()`).
+
+::: {.callout-tip}
+#### Dashboards
+
+In the [next article](intro-dash.html), you'll learn how to create dashboards using `page_sidebar()` and `page_navbar()`.
+:::
+
+### Display messages
+
+Another type of UI component is one used to display messages to the user (e.g. notifications, modals, tooltips, etc).
+Display messages like notifications and modals require server-side code to manage their state, so they are typically created in the server and then shown/hidden using the `ui.*_show()` and `ui.*_hide()` functions. Tooltips and popovers, on the other hand, can be created directly in the UI definition (i.e., statically rendered, without any server-side code).
+
+::: {.callout-tip}
+#### Display message gallery
+
+See [this section of the component gallery](/components/#display-messages) for an overview of available display messages.
+:::

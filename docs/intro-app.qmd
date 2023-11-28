@@ -1,0 +1,131 @@
+---
+title: Your first app
+editor:
+  markdown:
+    wrap: sentence
+---
+
+In this article, we'll cover the basics of creating a Shiny app.
+
+::: {.callout-tip}
+## Running examples
+
+The last example in this article is interactive (i.e., it runs entirely in the browser), allowing you to modify the code and see the results immediately (thanks to [shinylive](shinylive.html)).
+If you'd like to run any examples locally, first [install](install.html) and [run](run.html) Shiny locally, then copy/paste relevant code into the `app.py` file (created by `shiny create .`).
+:::
+
+### App structure
+
+Every Shiny app has two parts: a **user interface** (or **UI**), and a **server**.
+The UI defines the overall appearance of your app, and the server provides a recipe for generating output from user input.
+The UI typically starts with a `ui.page_*()` function, defining an overall page layout which takes any collection of [components](/components).
+
+Let's start with the most simple app (no server logic, just a static page).
+
+```python
+from shiny import App, ui
+
+app_ui = ui.page_fluid(
+    "Hello, world!"
+)
+
+def server(input, output, session):
+    ...
+
+# This is a shiny.App object. It must be named `app`.
+app = App(app_ui, server)
+```
+
+
+### Adding UI components
+
+There are essentially three types of UI components: inputs (e.g., `ui.input_slider()`), outputs (e.g., `ui.output_plot()`), and layout functions (e.g., `ui.page_*()`). Here's a quick example with each type:
+
+```python
+app_ui = ui.page_fluid(
+    ui.input_slider("nbins", "Number of bins", 0, 100, 40),
+    ui.output_plot("hist")
+)
+```
+
+Both input and output components require an **id** (e.g., `"nbins"` and `"hist"`).
+These ids allow afford us two important things:
+
+1. Ability to add server logic which reactively reads to input values, and assign output(s) to their appropriate UI container(s).
+2. Decouple the UI from server logic, which is important for keeping application code modular and readable as complexity grows.
+
+At this point, if we were to run the `app`, no plot would appear, because we haven't defined any server logic yet to populate the `ui.output_plot("hist")` container.
+
+### Adding server logic
+
+To actually populate UI outputs, we need to add some server logic.
+This is done by first defining a function with one argument: `input`.
+This `input` argument is a special object representing the client-side input value(s).
+These input values must be read in a so-called "reactive context", which can created by any of the following decorators:
+
+1. `@render.*`: for rendering outputs (e.g., `@render.plot` for `ui.output_plot()`).
+2. `@reactive.effect`: for side-effects (e.g., printing to the console).
+3. `@reactive.calc`: for intermediate calculations (e.g., caching).
+
+You'll learn more about these decorators in [reactive programming](reactive-programming.html), but for now, we'll just populate plot output, and print the value of the slider input whenever it changes.
+
+```python
+from shiny import render, reactive
+
+def server(input):
+
+  @render.plot
+  def hist():
+    ... # Code to histogram depending on input.nbins()
+
+  @reactive.effect
+  def _():
+    # Print the value of nbins whenever it changes
+    print(input.nbins())
+```
+
+
+::: {.callout-tip}
+## Server lifecycle
+
+The `server` function gets called only once when a user first visits the app (whereas
+the `hist` function gets called whenever it's input dependencies change).
+Note that, since `server` only executes once, it's a good place to (if needed) initialize server-side state,
+load data, and perform other one-time setup (that isn't needed for initial page load).
+:::
+
+
+### Final result
+
+By bringing together the UI and server logic, we have a complete Shiny app.
+Notice how the plot updates whenever the slider value changes.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 500
+
+from shiny import App, render, ui
+
+app_ui = ui.page_fluid(
+    ui.input_slider("nbins", "Number of bins", 0, 100, 40),
+    ui.output_plot("hist"),
+)
+
+def server(input):
+
+    @render.plot
+    def hist():
+        import matplotlib.pyplot as plt
+        import numpy as np
+
+        x = np.random.normal(0, 1, 1000)
+
+        fig, ax = plt.subplots()
+        ax.hist(x, input.nbins(), density=True)
+        return fig
+
+# This is a shiny.App object. It must be named `app`.
+app = App(app_ui, server)
+```

@@ -12,7 +12,6 @@ project:
     - outputs
     - display-messages
     - docs
-    - in-depth
     - development
     - gallery
     - api
@@ -64,9 +63,7 @@ website:
     search: true
     left:
       - text: "Learn Shiny"
-        file: docs/overview.qmd
-      - text: "Install"
-        href: docs/install.qmd
+        file: docs/quick-start.qmd
       - text: "Deploy"
         menu:
           - docs/deploy-cloud.qmd
@@ -81,8 +78,6 @@ website:
         target: _blank
       - text: "Function Reference"
         href: api/index.qmd
-      - text: "Help"
-        href: docs/help.qmd
     tools:
       - icon: discord
         href: https://discord.gg/yMGCamUMnS
@@ -158,12 +153,21 @@ website:
       collapse-level: 2
       align: left
       contents:
-        - section: "Essentials"
+        - section: "Get Started"
           contents:
-            - docs/overview.qmd
-            - docs/inputs.qmd
-            - docs/outputs.qmd
-            - docs/server.qmd
+            - docs/quick-start.qmd
+            - docs/dashboards.qmd
+            - docs/ipywidgets.qmd
+        - section: "Workflow"
+          contents:
+            - docs/install.qmd
+            - docs/create-run.qmd
+            - docs/debug.qmd
+            - docs/help.qmd
+        - section: "User interfaces"
+          contents:
+            - docs/ui-dynamic.qmd
+            - docs/ui-customize.qmd
         - section: "Reactivity"
           contents:
             - docs/reactive-programming.qmd
@@ -171,24 +175,15 @@ website:
             - docs/reactive-events.qmd
             - docs/reactive-values.qmd
             - docs/reactive-mutable.qmd
-        - section: "Page Layout and Style"
+        - section: "Express vs Core"
           contents:
-            - docs/ui-page-layouts.qmd
-            - docs/ui-styling.qmd
-            - docs/ui-navigation.qmd
-            - docs/ui-dynamic.qmd
-            - docs/ui-feedback.qmd
-            - docs/ui-static.qmd
-        - section: "Workflow"
+            - docs/express-vs-core.qmd
+            - docs/intro-app.qmd
+            - docs/intro-ui.qmd
+        - section: "Modules"
           contents:
-            - docs/workflow-modules.qmd
-            - docs/workflow-module-communication.qmd
-            - docs/running-debugging.qmd
-        - section: "In Depth"
-          contents:
-            - docs/ipywidgets.qmd
-            - docs/ui-html.qmd
-            - docs/workflow-server.qmd
+            - docs/modules.qmd
+            - docs/module-communication.qmd
         - section: "Extending"
           contents:
             - docs/custom-component-one-off.qmd
@@ -197,6 +192,10 @@ website:
           contents:
             - docs/comp-streamlit.qmd
             - docs/comp-r-shiny.qmd
+        - section: "Miscellaneous"
+          contents:
+            - docs/ui-html.qmd
+            - docs/routing.qmd
     # TODO: if the sidebar only has 1 entry, then it displays for the entire site...
     # added entry below to prevent this.
     - id: deploy

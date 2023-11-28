@@ -31,7 +31,7 @@ app_ui = ui.page_fluid(
 
 def server(input, output, session):
 
-    @reactive.Effect()
+    @reactive.effect()
     def _():
         x = input.checkbox_item()
 
@@ -105,7 +105,7 @@ This table compares how each approach handles UI, reactivity, and the server log
 
 | approach | UI part | reactive piece | server action |
 | -------- | -------- | -------- | ------------ |
-| update UI | `ui.input_select()` | `reactive.Effect()` | `ui.update_select()` |
+| update UI | `ui.input_select()` | `reactive.effect()` | `ui.update_select()` |
 | output UI | `ui.output_ui()` | `output()` | `ui.input_select()` |
 
 Notice that the first approach puts an input in the UI, then uses `Effect()` to modify it.
@@ -157,3 +157,166 @@ Note two important points:
 * Instead of using `input.radio()`--like in the server function--you use `input.radio` without parentheses to refer
   to input values.
 
+
+
+
+
+
+
+
+
+## Dynamic UI
+
+### Conditional UI
+
+Often times it's useful to show or hide UI components based on some condition.
+`ui.panel_conditional()` enables this by showing/hiding UI based on a whether a JavaScript condition is truthy.
+This condition can reference input values, and used to make any sort of UI conditional (not just a string as done here).
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 100
+
+from shiny import App, ui
+
+app_ui = ui.page_fluid(
+    ui.input_radio_buttons("display", None, ["hidden", "shown"], inline=True),
+    ui.panel_conditional(
+        "input.display === 'shown'",
+        "Hidden content"
+    )
+)
+
+app = App(app_ui, None)
+```
+
+
+### Updating inputs
+
+Updating inputs server-side is useful for updating input parameters that are usually hard-coded in the UI.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 200
+
+from shiny import App, reactive, ui
+
+CHOICES = {
+  "lower": ["a", "b", "c"],
+  "upper": ["A", "B", "C"]
+}
+
+app_ui = ui.page_fluid(
+    ui.input_switch("uppercase", "Uppercase choices", value=False),
+    ui.input_selectize("x", None, choices=CHOICES["lower"])
+)
+
+def server(input, output, session):
+    @reactive.effect
+    def _():
+        choices = "upper" if input.uppercase() else "lower"
+        ui.update_selectize("x", choices=CHOICES[choices])
+
+app = App(app_ui, server)
+```
+
+
+### Dynamic UI
+
+Dynamic UI is a powerful feature that enables dynamic (i.e., server-side) rendering of any UI component(s).
+Like any other output, start with a container for output (via `ui.output_ui()`), and then apply `@render.ui` to a function that returns UI component(s). Here, for a starting example, we'll recreate the previous example using dynamic UI.
+
+:::{.callout-warning}
+## Dynamic UI vs. updating inputs vs. conditional UI
+
+Dynamic UI is a more general mechanism than the updating inputs and conditional UI patterns, and can be used to update any UI component(s) (not just inputs). However, updating inputs is more efficient than dynamic UI, and should be preferred when possible.
+:::
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 200
+
+from shiny import App, render, ui
+
+CHOICES = {
+  "lower": ["a", "b", "c"],
+  "upper": ["A", "B", "C"]
+}
+
+app_ui = ui.page_fluid(
+    ui.input_switch("uppercase", "Uppercase choices", value=False),
+    ui.output_ui("slider")
+)
+
+def server(input):
+    @render.ui
+    def slider():
+        choices = "upper" if input.uppercase() else "lower"
+        return ui.input_selectize("x", None, choices=CHOICES[choices])
+
+app = App(app_ui, server)
+```
+
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 250
+from shiny import ui, render, App
+
+app_ui = ui.page_fluid(
+    ui.input_text("message", "Message", value="Hello, world!"),
+    ui.input_checkbox_group("styles", "Styles", choices=["Bold", "Italic"]),
+    # The class_ argument is used to enlarge and center the text
+    ui.output_ui("some_html", class_="display-3 text-center")
+)
+
+def server(input):
+    @render.ui
+    def some_html():
+        x = input.message()
+        if "Bold" in input.styles():
+            x = ui.strong(x)
+        if "Italic" in input.styles():
+            x = ui.em(x)
+        return x
+
+app = App(app_ui, server)
+```
+
+
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 250
+from shiny import ui, render, App
+
+app_ui = ui.page_fluid(
+    ui.input_text("message", "Message", value="Hello, world!"),
+    ui.input_checkbox_group("styles", "Styles", choices=["Bold", "Italic"]),
+    # The class_ argument is used to enlarge and center the text
+    ui.output_ui("some_html", class_="display-3 text-center")
+)
+
+def server(input, output, session):
+    @output
+    @render.ui
+    def some_html():
+        x = input.message()
+        if "Bold" in input.styles():
+            x = ui.strong(x)
+        if "Italic" in input.styles():
+            x = ui.em(x)
+        return x
+
+app = App(app_ui, server)
+```

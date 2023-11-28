@@ -9,8 +9,8 @@ In this section, we'll learn more about reactivity, and more complex programs th
 
 * `reactive.Value`: An object that causes reactive functions to run when its value changes.
 * `reactive.Calc`: Create a reactive function that is used for its return value.
-* `reactive.Effect`: Create a reactive function that is used for its side effects (and not its return value).
-* `@output`: outputs (wrapped up in a `reactive.Effect`)
+* `reactive.effect`: Create a reactive function that is used for its side effects (and not its return value).
+* `@output`: outputs (wrapped up in a `reactive.effect`)
 
 There are a few utility functions that help with managing reactivity:
 
@@ -23,7 +23,7 @@ There are a few utility functions that help with managing reactivity:
 
 If you already know Shiny for R, you'll notice that we've used some different names in Python.
 
-* A `shiny::observe()` in R is equivalent to a `reactive.Effect` in Python.
+* A `shiny::observe()` in R is equivalent to a `reactive.effect` in Python.
 * A `shiny::reactive()` in R is equivalent to a `reactive.Calc` in Python.
 
 :::
