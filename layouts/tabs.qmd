@@ -7,7 +7,7 @@ preview: |
 
 ## Description
 
-...description...
+Tabs and navigation allow you to create apps that have multiple pages.
 
 ## Relevant functions
 
