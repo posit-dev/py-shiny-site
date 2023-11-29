@@ -11,14 +11,14 @@ body {
   background: linear-gradient(175deg,
   rgba(250, 250, 250, 1),
   rgba(248, 248, 248, 1),
-  rgba(193, 0, 0, .04), /* red */
-  rgba(193, 0, 0, .05), /* red */
-  rgba(191, 0, 127, .04), /* pink */
-  rgba(191, 0, 127, .04), /* pink */
-  rgba(116, 20, 156, .04), /* purple */
-  rgba(116, 20, 156, .04), /* purple */
   rgba(75, 0, 193, .05), /* indigo */
-  rgba(75, 0, 193, .05) /* indigo */
+  rgba(75, 0, 193, .05), /* indigo */
+  rgba(116, 20, 156, .04), /* purple */
+  rgba(116, 20, 156, .04), /* purple */
+  rgba(191, 0, 127, .04), /* pink */
+  rgba(191, 0, 127, .04), /* pink */
+  rgba(193, 0, 0, .04), /* red */
+  rgba(193, 0, 0, .05) /* red */
   100%);
 }
 

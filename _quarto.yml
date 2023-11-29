@@ -11,6 +11,7 @@ project:
     - inputs
     - outputs
     - display-messages
+    - layouts
     - docs
     - in-depth
     - development
@@ -46,12 +47,12 @@ website:
   open-graph:
     site-name: Shiny for Python
     locale: es_ES
-    image: images/shiny-for-python.jpg
+    image: https://shiny.posit.co/py/images/shiny-for-python.jpg
     description: Build interactive web applications easily with the power of Python’s data and scientific stack.
   twitter-card:
     title: "Shiny for Python"
     description: "Build interactive web applications easily with the power of Python’s data and scientific stack."
-    image: "images/shiny-for-python.jpg"
+    image: https://shiny.posit.co/py/images/shiny-for-python.jpg
     image-width: 1200
     image-height: 630
     card-style: "summary_large_image"
@@ -74,6 +75,8 @@ website:
           - docs/shinylive.qmd
       - text: "Components"
         file: components/index.qmd
+      - text: "Layouts"
+        file: layouts/index.qmd
       - text: "Gallery"
         file: gallery/index.qmd
       - text: "Examples"
