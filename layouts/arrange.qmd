@@ -1,9 +1,7 @@
 ---
 title: "Arrange Elements"
+description: "Shiny's premade layouts, such as ui.page_sidebar() and ui.page_navbar() make use of Shiny's lower-level grid layout functions"
 ---
-
-## Description
-
 Shiny's premade layouts, such as [`ui.page_sidebar()`](TODO ADD LINK) and [`ui.page_navbar()`](TODO ADD LINK) make use of Shiny's lower-level grid layout functions:
 
 * Rows are created by the `ui.row()` function and include columns.
@@ -28,17 +26,18 @@ You can use these functions directly to create your own layout. Grid layouts can
 - [ui.page_fillable](https://shiny.posit.co/py/api/ui.page_fillable.html)  
   `ui.page_fillable(*args, padding=None, gap=None, fillable_mobile=False, title=None, lang=None, **kwargs)`
 
+:::{.border-bottom .blue .my-6}
+:::
+
 ## Grid Layouts
 
 To create a layout using the grid system, first build a grid by interlacing calls to [`ui.row()`](TODO ADD LINK) and [`ui.column()`](TODO ADD LINK). Then place UI elements within the grid by passing them to a `ui.row()` or `ui.column()` function. For example, the app below arranges three cards into a simple pattern.
-
-
 
 ::: {.panel-tabset}
 
 ## Preview
 
-<iframe style="height:175px;" class="mb-0 w-100 iframe-border" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYGOGBgHc7EBw8MkrMCDYBGACYJRwxCKDpbZTAAYUjpJgCYgEoU+yYUvAzDV3dPMJ8FPxsANkUnCKi7OISmINSsjK9K4l9-csKEmviopgBmRoKHDPSIMdVZGlY5ADc5Gy5UBTIJYhXl1ZmWFg5SFMRmyTgyBToPJgA5UjhVdXQ9UXQbDW0OCRY5uRSwAF8AXSAA" title="title">
+<iframe style="height:175px;" class="mb-0 w-100 iframe-border py-3" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYGOGBgHc7EBw8MkrMCDYBGACYJRwxCKDpbZTAAYUjpJgCYgEoU+yYUvAzDV3dPMJ8FPxsANkUnCKi7OISmINSsjK9K4l9-csKEmviopgBmRoKHDPSIMdVZGlY5ADc5Gy5UBTIJYhXl1ZmWFg5SFMRmyTgyBToPJgA5UjhVdXQ9UXQbDW0OCRY5uRSwAF8AXSAA" title="title">
 </iframe> 
 <p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYGOGBgHc7EBw8MkrMCDYBGACYJRwxCKDpbZTAAYUjpJgCYgEoU+yYUvAzDV3dPMJ8FPxsANkUnCKi7OISmINSsjK9K4l9-csKEmviopgBmRoKHDPSIMdVZGlY5ADc5Gy5UBTIJYhXl1ZmWFg5SFMRmyTgyBToPJgA5UjhVdXQ9UXQbDW0OCRY5uRSwAF8AXSAA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 
@@ -86,7 +85,7 @@ In addition to setting a column's width, you can also set its offset. This contr
 
 ## Preview
 
-<iframe style="height:300px;" class="mb-0 w-100 iframe-border" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaHAB5xpAClVMDHDAwDu9iI8eGSAGwUwELYALIrOhFB0dspgAMJskcIAjDEAlKl4Dl4+xP6BIWEYEVH2cQlCTABMaRLENDQscGS6walZGVmGbh5eTkW5AUGhfcXRZYlMAMw1THUNTS1tnkwdy13E7lne4QP5wz6RY-ETwWmrvTl5Q4WjpccVAKwzc43Nre2qS6qyNKxyAG5yWxcVAKMi1MGg8F-FgsDikVKILaSJoKOjLABypDgqnU6D0onQtg02g4EkadEBdFSYAAvgBdIA" title="title">
+<iframe style="height:300px;" class="mb-0 w-100 iframe-border py-3" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaHAB5xpAClVMDHDAwDu9iI8eGSAGwUwELYALIrOhFB0dspgAMJskcIAjDEAlKl4Dl4+xP6BIWEYEVH2cQlCTABMaRLENDQscGS6walZGVmGbh5eTkW5AUGhfcXRZYlMAMw1THUNTS1tnkwdy13E7lne4QP5wz6RY-ETwWmrvTl5Q4WjpccVAKwzc43Nre2qS6qyNKxyAG5yWxcVAKMi1MGg8F-FgsDikVKILaSJoKOjLABypDgqnU6D0onQtg02g4EkadEBdFSYAAvgBdIA" title="title">
 </iframe> 
 <p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaHAB5xpAClVMDHDAwDu9iI8eGSAGwUwELYALIrOhFB0dspgAMJskcIAjDEAlKl4Dl4+xP6BIWEYEVH2cQlCTABMaRLENDQscGS6walZGVmGbh5eTkW5AUGhfcXRZYlMAMw1THUNTS1tnkwdy13E7lne4QP5wz6RY-ETwWmrvTl5Q4WjpccVAKwzc43Nre2qS6qyNKxyAG5yWxcVAKMi1MGg8F-FgsDikVKILaSJoKOjLABypDgqnU6D0onQtg02g4EkadEBdFSYAAvgBdIA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 
@@ -118,6 +117,9 @@ app = App(app_ui, server)
 <p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaHAB5xpAClVMDHDAwDu9iI8eGSAGwUwELYALIrOhFB0dspgAMJskcIAjDEAlKl4Dl4+xP6BIWEYEVH2cQlCTABMaRLENDQscGS6walZGVmGbh5eTkW5AUGhfcXRZYlMAMw1THUNTS1tnkwdy13E7lne4QP5wz6RY-ETwWmrvTl5Q4WjpccVAKwzc43Nre2qS6qyNKxyAG5yWxcVAKMi1MGg8F-FgsDikVKILaSJoKOjLABypDgqnU6D0onQtg02g4EkadEBdFSYAAvgBdIA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
  
+:::{.border-bottom .blue .my-6}
+:::
+
 ## Column nesting
 
 When you nest rows and columns within a column, each nested level of column widths should add up to 12. This is because bootstrap divides every row into 12 units, no matter the actual width of the row.
@@ -128,7 +130,7 @@ Consider this page layout:
 
 ## Preview
 
-<iframe style="height:300px;" class="mb-0 w-100 iframe-border" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDAwDudiI69OMJKzAgbAEYAJgl7b0jDQig6W2UwAHUOaTI2JlCEvAjI3J83Dzyix2jif0CANmzPYtqHaNj4pJS0pgqsnLquwwLOrv6fPwUAmyrBxrtm1PT2sABKOeqB5cGy4crFZxi4yeTptoSFvpXIueOTs5qLpZPV8tHN3wmEvdbZo6uuy7rv3N+HS6XVSyGisOQANzkNi4qAUZAkxDhsPhYJYLA4pDmiE6UjICjoNQAcqQ4Kp1Og9KJ0DYNNoOBIWBC5JcwABfAC6QA" title="title">
+<iframe style="height:300px;" class="mb-0 w-100 iframe-border py-3" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDAwDudiI69OMJKzAgbAEYAJgl7b0jDQig6W2UwAHUOaTI2JlCEvAjI3J83Dzyix2jif0CANmzPYtqHaNj4pJS0pgqsnLquwwLOrv6fPwUAmyrBxrtm1PT2sABKOeqB5cGy4crFZxi4yeTptoSFvpXIueOTs5qLpZPV8tHN3wmEvdbZo6uuy7rv3N+HS6XVSyGisOQANzkNi4qAUZAkxDhsPhYJYLA4pDmiE6UjICjoNQAcqQ4Kp1Og9KJ0DYNNoOBIWBC5JcwABfAC6QA" title="title">
 </iframe> 
 <p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDAwDudiI69OMJKzAgbAEYAJgl7b0jDQig6W2UwAHUOaTI2JlCEvAjI3J83Dzyix2jif0CANmzPYtqHaNj4pJS0pgqsnLquwwLOrv6fPwUAmyrBxrtm1PT2sABKOeqB5cGy4crFZxi4yeTptoSFvpXIueOTs5qLpZPV8tHN3wmEvdbZo6uuy7rv3N+HS6XVSyGisOQANzkNi4qAUZAkxDhsPhYJYLA4pDmiE6UjICjoNQAcqQ4Kp1Og9KJ0DYNNoOBIWBC5JcwABfAC6QA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 
@@ -168,6 +170,8 @@ from shiny import App, render, ui
 <p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDAwDudiI69OMJKzAgbAEYAJgl7b0jDQig6W2UwAHUOaTI2JlCEvAjI3J83Dzyix2jif0CANmzPYtqHaNj4pJS0pgqsnLquwwLOrv6fPwUAmyrBxrtm1PT2sABKOeqB5cGy4crFZxi4yeTptoSFvpXIueOTs5qLpZPV8tHN3wmEvdbZo6uuy7rv3N+HS6XVSyGisOQANzkNi4qAUZAkxDhsPhYJYLA4pDmiE6UjICjoNQAcqQ4Kp1Og9KJ0DYNNoOBIWBC5JcwABfAC6QA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
     
+:::{.border-bottom .blue .my-6}
+:::
 
 ## Controlling for page width and height
 
@@ -183,13 +187,11 @@ Each grid system uses a flexibly sub-dividable 12-column grid for layout. They d
 
 ### Fluid Grid System
 
-
-
 ::: {.panel-tabset}
 
 ## Preview
 
-<iframe style="height:480px;" class="mb-0 w-100 iframe-border" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89Li8XAAp5FlSwmgwuKGxiVTJ-CRo3AShGZIg0yvSIiDguAqK4ErKUqrbwi1Q8gv43FshZfBZBgDlBxwAGRwBGCamWACYJgEo8VrbV9arw1Cha+vYLcrb2jNzObtEyZLBzCTJiSMZYQc2Kk7fKt+WfCHk3PQmdwAN3ciU6eUc5y6ZEcEjgEkKpGWiC2AAFoXl0c4IH0sDxrlAuGRgoNbCw7g8ni8wD93qkARSaPdHs8YIkUVtKjoMM9cUYMPC4ElpgBOABsAA4JtLpnSTiwAB4hFizCYsADUqoArCwAFQqTB8lwC40QRIAFgAzAB2eUnGQYSmJRWOCFkDDm1YsNwQQpkbDBAAqjFUcDpvz8KvsqESfkCNDhIPcjmKqkiwdD4fkYAAvgBdIA" title="title">
+<iframe style="height:480px;" class="mb-0 w-100 iframe-border py-3" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89Li8XAAp5FlSwmgwuKGxiVTJ-CRo3AShGZIg0yvSIiDguAqK4ErKUqrbwi1Q8gv43FshZfBZBgDlBxwAGRwBGCamWACYJgEo8VrbV9arw1Cha+vYLcrb2jNzObtEyZLBzCTJiSMZYQc2Kk7fKt+WfCHk3PQmdwAN3ciU6eUc5y6ZEcEjgEkKpGWiC2AAFoXl0c4IH0sDxrlAuGRgoNbCw7g8ni8wD93qkARSaPdHs8YIkUVtKjoMM9cUYMPC4ElpgBOABsAA4JtLpnSTiwAB4hFizCYsADUqoArCwAFQqTB8lwC40QRIAFgAzAB2eUnGQYSmJRWOCFkDDm1YsNwQQpkbDBAAqjFUcDpvz8KvsqESfkCNDhIPcjmKqkiwdD4fkYAAvgBdIA" title="title">
 </iframe> 
 <p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89Li8XAAp5FlSwmgwuKGxiVTJ-CRo3AShGZIg0yvSIiDguAqK4ErKUqrbwi1Q8gv43FshZfBZBgDlBxwAGRwBGCamWACYJgEo8VrbV9arw1Cha+vYLcrb2jNzObtEyZLBzCTJiSMZYQc2Kk7fKt+WfCHk3PQmdwAN3ciU6eUc5y6ZEcEjgEkKpGWiC2AAFoXl0c4IH0sDxrlAuGRgoNbCw7g8ni8wD93qkARSaPdHs8YIkUVtKjoMM9cUYMPC4ElpgBOABsAA4JtLpnSTiwAB4hFizCYsADUqoArCwAFQqTB8lwC40QRIAFgAzAB2eUnGQYSmJRWOCFkDDm1YsNwQQpkbDBAAqjFUcDpvz8KvsqESfkCNDhIPcjmKqkiwdD4fkYAAvgBdIA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 
@@ -231,13 +233,11 @@ To make a fluid grid that adapts to the width of the user's viewing window, buil
 
 ### Fixed Grid System
 
-
-
 ::: {.panel-tabset}
 
 ## Preview
 
-<iframe style="height:480px;" class="mb-0 w-100 iframe-border" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89GgAPOBcACnkWdLCaDC4obGJVMn8JGjcBKEZUiAzqzIiIOC4ikrgyirSajvCLVAKi-jc2yFl8FmGAOWHHAAZHAEYpmZYAJimASjx2jvXNmvDUKHrG9gtKjs6s-M5e0TJUsHMJMmJIxlhh7aqzj+qP1Z8IeRuPQmdwAN3cyW6BUclx6ZEcEjgEmKpFWiB2AAFYQVMc4IAMsDxblAuGRgsNbCwHk8Xm8wH9PukgVSaI9nq8YMk0TtqjoMK98UYMIikslZgBOABsAA4prLZgyzix4iEWPMpiwANRqgCsLAAVCpMAKXEKTRBkgAWADMAHZFWcZBhqcl4o4oWQMBb1iw3BBimRsMEACqMVRwBn-Pyq+yoZJ+QI0BFg9yOUqqSIhsMR+RgAC+AF0gA" title="title">
+<iframe style="height:480px;" class="mb-0 w-100 iframe-border py-3" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89GgAPOBcACnkWdLCaDC4obGJVMn8JGjcBKEZUiAzqzIiIOC4ikrgyirSajvCLVAKi-jc2yFl8FmGAOWHHAAZHAEYpmZYAJimASjx2jvXNmvDUKHrG9gtKjs6s-M5e0TJUsHMJMmJIxlhh7aqzj+qP1Z8IeRuPQmdwAN3cyW6BUclx6ZEcEjgEmKpFWiB2AAFYQVMc4IAMsDxblAuGRgsNbCwHk8Xm8wH9PukgVSaI9nq8YMk0TtqjoMK98UYMIikslZgBOABsAA4prLZgyzix4iEWPMpiwANRqgCsLAAVCpMAKXEKTRBkgAWADMAHZFWcZBhqcl4o4oWQMBb1iw3BBimRsMEACqMVRwBn-Pyq+yoZJ+QI0BFg9yOUqqSIhsMR+RgAC+AF0gA" title="title">
 </iframe> 
 <p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89GgAPOBcACnkWdLCaDC4obGJVMn8JGjcBKEZUiAzqzIiIOC4ikrgyirSajvCLVAKi-jc2yFl8FmGAOWHHAAZHAEYpmZYAJimASjx2jvXNmvDUKHrG9gtKjs6s-M5e0TJUsHMJMmJIxlhh7aqzj+qP1Z8IeRuPQmdwAN3cyW6BUclx6ZEcEjgEmKpFWiB2AAFYQVMc4IAMsDxblAuGRgsNbCwHk8Xm8wH9PukgVSaI9nq8YMk0TtqjoMK98UYMIikslZgBOABsAA4prLZgyzix4iEWPMpiwANRqgCsLAAVCpMAKXEKTRBkgAWADMAHZFWcZBhqcl4o4oWQMBb1iw3BBimRsMEACqMVRwBn-Pyq+yoZJ+QI0BFg9yOUqqSIhsMR+RgAC+AF0gA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 
@@ -283,13 +283,11 @@ The main benefit of a fixed grid is that it provides stronger guarantees about h
 
 ### Fillable Grid System
 
-
-
 ::: {.panel-tabset}
 
 ## Preview
 
-<iframe style="height:400px;" class="mb-0 w-100 iframe-border" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89Gi4uKAEuOAAKeRZMsJoMROxiVTJ-CRo3AShGdIgsmuyIiDguYtK4csqM2s7wi1RC4v43dshZfBYRgDkRxwAGRwBGadmWACZpgEo8Ds6Nrdrw1CgGpvYLKs6unILOPtEydLBzCTJiSMZYEZ3q88+az7WfCDyNx6EzuABu7lSPUKjiuvTIjgkcAkJVIa0QuwAAnDCljnBBBlgeHcoFwyMERrYWI9nq93mB-l9MsDqTQni83jBUujdjUdBg3gSjBgkXAXKk5gBOABsAA5pvK5ozziwAB4hFgLaYsADUmoArCwAFQqTCClzC80QVIAFgAzAB2ZXnGQYGmpVWOaFkDDWjYsNwQEpkbDBAAqjFUcEZAL8GvsqFSfkCNER4PcjjKqki4cj0fkYAAvgBdIA" title="title">
+<iframe style="height:400px;" class="mb-0 w-100 iframe-border py-3" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89Gi4uKAEuOAAKeRZMsJoMROxiVTJ-CRo3AShGdIgsmuyIiDguYtK4csqM2s7wi1RC4v43dshZfBYRgDkRxwAGRwBGadmWACZpgEo8Ds6Nrdrw1CgGpvYLKs6unILOPtEydLBzCTJiSMZYEZ3q88+az7WfCDyNx6EzuABu7lSPUKjiuvTIjgkcAkJVIa0QuwAAnDCljnBBBlgeHcoFwyMERrYWI9nq93mB-l9MsDqTQni83jBUujdjUdBg3gSjBgkXAXKk5gBOABsAA5pvK5ozziwAB4hFgLaYsADUmoArCwAFQqTCClzC80QVIAFgAzAB2ZXnGQYGmpVWOaFkDDWjYsNwQEpkbDBAAqjFUcEZAL8GvsqFSfkCNER4PcjjKqki4cj0fkYAAvgBdIA" title="title">
 </iframe> 
 <p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89Gi4uKAEuOAAKeRZMsJoMROxiVTJ-CRo3AShGdIgsmuyIiDguYtK4csqM2s7wi1RC4v43dshZfBYRgDkRxwAGRwBGadmWACZpgEo8Ds6Nrdrw1CgGpvYLKs6unILOPtEydLBzCTJiSMZYEZ3q88+az7WfCDyNx6EzuABu7lSPUKjiuvTIjgkcAkJVIa0QuwAAnDCljnBBBlgeHcoFwyMERrYWI9nq93mB-l9MsDqTQni83jBUujdjUdBg3gSjBgkXAXKk5gBOABsAA5pvK5ozziwAB4hFgLaYsADUmoArCwAFQqTCClzC80QVIAFgAzAB2ZXnGQYGmpVWOaFkDDWjYsNwQEpkbDBAAqjFUcEZAL8GvsqFSfkCNER4PcjjKqki4cj0fkYAAvgBdIA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 
