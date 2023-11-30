@@ -94,8 +94,8 @@ st.pyplot(dist_plot(filt_df))
 
 ## Shiny translation
 
-Shiny requires a bit more initial setup than Streamlit, but this structure creates the foundation for a much more performant and flexible application.
-Unlike Streamlit, Shiny does not rerender the application every time an input is changed, but instead keeps track of the relationships between components to minimally rerender the parts of the application which need to be updated.
+Shiny express apps look very similar to Streamlit apps, but run much more efficiently.
+Unlike Streamlit, Shiny does not rerender the application every time an input is changed, but instead keeps track of the relationships between components and minimally rerenders the components which need to be updated.
 The framework does this automatically when the application is run, and so you don't need to manually define the execution method for your app.
 
 :::{.column-screen-inset}
@@ -133,7 +133,7 @@ def scatter():
 
 These functions define the three main nodes of the application, as well as the relationships between them.
 The `@render.plot` and `@reactive.Calc` decorators identify the functions as reactive functions which need to re-execute in response to upstream changes, and the `filtered_data()` and `input.*` calls define the relationships between these components.
-The decorators help Shiny to construct a computation graph of the application as it runs, and only rerender an element when one of its upstream dependencies changes.
+The decorators allow Shiny to construct a computation graph of the application as it runs, and only rerender an element when one of its upstream dependencies changes.
 
 ```{mermaid}
 flowchart LR
