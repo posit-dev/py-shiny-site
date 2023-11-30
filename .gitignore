@@ -13,3 +13,6 @@
 
 /_inv/
 /objects.json
+
+.venv/
+__pycache__/
