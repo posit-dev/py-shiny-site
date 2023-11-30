@@ -2,12 +2,13 @@
   description = "py-shiny-site";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
-    # Use unstable channel for recent version of Quarto
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    # Pin to this release of nixpkgs to use Quarto 1.3. (This is currently the same as
+    # nixpkgs above but they may change independently in the future.)
+    nixpkgs-quarto.url = "github:NixOS/nixpkgs/nixos-23.11";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable }:
+  outputs = { self, nixpkgs, nixpkgs-quarto }:
     let
       allSystems =
         [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
@@ -64,7 +65,7 @@
 
             pkgs = import nixpkgs { inherit system; };
 
-            pkgs-unstable = import nixpkgs-unstable {
+            pkgs-quarto = import nixpkgs-quarto {
               inherit system;
               overlays = [ quartoOverlay ];
             };
@@ -74,7 +75,7 @@
 
     in {
       # Development environment output
-      devShells = forAllSystems ({ pkgs, pkgs-unstable, system, ... }: {
+      devShells = forAllSystems ({ pkgs, pkgs-quarto, system, ... }: {
         default = pkgs.mkShell {
           packages = with pkgs; [
             git
@@ -82,15 +83,15 @@
             rsync
             (with rPackages; [ R rmarkdown reticulate ])
             python311
-            pkgs-unstable.quarto
+            pkgs-quarto.quarto
             # Quarto uses `rmarkdown::pandoc_available()` when running rmd files, which
             # in turn calls `find_pandoc()` -> `find_program("pandoc")`, and on Linux,
             # this calls `Sys.which("pandoc")` (it does something a bit different on
             # Mac). This means that pandoc needs to be in the PATH. So we'll explicitly
-            # add it here, making sure that that it comes from pkgs-unstable, so it's
+            # add it here, making sure that that it comes from pkgs-quarto, so it's
             # the same copy that quarto would find anyway.
             # https://github.com/quarto-dev/quarto-cli/blob/fee994d5/src/resources/rmd/rmd.R#L219C12-L228
-            pkgs-unstable.pandoc
+            pkgs-quarto.pandoc
             sysctl # Needed by Quarto to detect system
           ];
           # Need to set LD_LIBRARY_PATH to load some Python packages on Linux (like zmq,
