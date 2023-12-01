@@ -2,20 +2,22 @@
 title: "Tooltips"
 sidebar: components 
 previewapp: |
-  import shiny.experimental as x
-  from shiny import App, ui
+  from shiny import App, render, ui
 
   app_ui = ui.page_fluid(
-    x.ui.tooltip(
+    ui.tooltip(
         ui.input_action_button("btn", "A button with a tooltip"),
         "A message",
-        id="btn_tooltip",
+        id="btn_tooltip"
     ),
-    {"class": "vh-100 d-flex justify-content-center align-items-center px-4"}
+      ui.output_text_verbatim("text"),
+      {"class": "vh-100 d-flex justify-content-center align-items-center px-4"}
   )
 
   def server(input, output, session):
-    return None
+    @render.text
+    def text():
+        return ""
 
   app = App(app_ui, server)
 listing:
@@ -137,7 +139,7 @@ ui.tooltip(
 
 Compare tooltips to [popovers](https://shiny.posit.co/py/api/ui.popover.html), which are a similar device for organizing the layout of a Shiny app.
 
-See Also: [Modal messages](modal.qmd) and [help text](help-text.qmd) provide a similar, but alternative way to display information to the user.
+See Also: [Modal messages](modal.qmd) and [notications](notifications.qmd) provide a similar, but alternative way to display information to the user.
 
 :::{#variations}
 :::

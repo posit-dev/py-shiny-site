@@ -1,10 +1,10 @@
 sidebar: components 
 format:
   html:
-    css: _partials/components.css
+    css: _partials/layouts.css
     toc: false
     code-line-numbers: true
-    include-after-body: _partials/componentsjs.html
+    include-after-body: ../components/_partials/componentsjs.html
 filters:
   - quarto
   - line-highlight

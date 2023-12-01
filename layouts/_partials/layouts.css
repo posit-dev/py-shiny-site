@@ -163,7 +163,7 @@ pre.console code {
 }
 
 /* Tab styling */
-
+/*
 .panel-tabset .nav-tabs {
   display: flex !important;
   align-items: flex-end !important;
@@ -213,7 +213,7 @@ a.nav-link:hover {
 .panel-tabset .nav-tabs .nav-link {
   padding: 0.35rem 1.25rem;
   margin-bottom: 0px;
-}
+}*/
 
 .iframe-border {
   border: 1px solid #E9ECEF;

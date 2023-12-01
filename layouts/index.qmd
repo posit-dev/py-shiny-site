@@ -1,0 +1,253 @@
+---
+pagetitle: "Shiny Layouts"
+anchor-sections: false
+sidebar: false
+pagedescription: Frameworks that will allow the simplest and most complicated app to be useable and scalable.  Is it bursting at the seams with content? Quickly change your layout to give your app a fresh start. 
+toc: false
+page-layout: article
+resources:
+  - components/_partials/animation.lottie
+format:
+  html:
+    css: 
+      - _partials/layouts.css
+      - components/_partials/components-list.css
+    code-overflow: wrap
+---
+<!-- Begin Hero area -->
+:::::::: {.column-screen-inset .mx-auto style="max-width: 1300px;"}
+:::::: {.grid .hero-area .my-md-0 .my-5}
+:::: {.g-col-md-7 .g-col-12 .pe-0 .pe-md-5 .my-auto}
+::: {.display-3 .fw-bold}
+Shiny Layouts
+:::
+
+##### Layouts allow the simplest or most complicated app to be useable and scalable.  Is it bursting at the seams with content? Quickly change your layout to give your app a fresh start. Fill these layouts with [Shiny Components](https://shiny.posit.co/py/docs/ui-page-layouts.html) to make your app reactive and interactive.
+::::
+:::: {.g-col-md-5 .g-col-10 .g-start-4 .components-hero-img-container}
+
+<div class="ps-4 pt-5 components-hero-img" >
+<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+<dotlottie-player src="/components/_partials/animation.lottie" background="transparent" speed="1" style="width: 100%; height: auto;" autoplay></dotlottie-player>
+</div>
+
+::::
+
+::::::
+::::::::
+<!-- End Hero area -->
+
+<!-- Begin List area -->
+:::::::: {.column-screen-inset .mx-auto style="max-width: 1300px;"}
+:::::: {.grid .list-section #navbars}
+
+:::: {.g-col-xl-3 .g-col-12}
+::: {.sticky-xl-top .pt-4}
+
+<h2 class="mt-4"> <i class="me-2 p-90 bi bi-window indigo"></i> Navbars </h2>
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+
+:::
+::::
+:::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
+::: {#navbar .grid}
+
+
+<style>
+  .layout-list-card {
+    align-content: flex-start;
+    justify-content: space-evenly;
+        overflow: hidden;
+  }
+  /*.layout-list-card .nav-link {
+    padding: 0.5rem 0.75rem;
+    color: white;
+    background-color: #007bc2;
+  }
+*/
+</style>
+
+
+<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+<div class="component-list-header">
+<a class="component-list-header-text" href="<%= item.path %>">
+<h5>Navbar with Links</h5>
+</a>
+<div class="component-list-icon">
+<p class="my-0"><a class="text-decoration-none dark" href="navbars.qmd">
+<i class="component-link-icon dark bi fst-normal"></i>
+</a></p>
+</div>
+</div>
+<div class="component-list-card layout-list-card w-100">
+
+<ul class="nav nav-fill w-100">
+  <li class="nav-item">
+    <a class="nav-link" aria-current="page" href="#"><i class="bi bi-square-fill"></i></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#"><i class="bi bi-square-fill"></i></a>
+  </li>
+  <li class="nav-item"> 
+    <a class="nav-link" href="#"><i class="bi bi-square-fill"></i></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#"><i class="bi bi-square-fill"></i></a>
+  </li>
+</ul>
+
+</div>
+</div>
+
+
+
+<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+<div class="component-list-header">
+<a class="component-list-header-text" href="<%= item.path %>">
+<h5>Navbar with Pills</h5>
+</a>
+<div class="component-list-icon">
+<p class="my-0"><a class="text-decoration-none dark" href="navbars.qmd">
+<i class="component-link-icon dark bi fst-normal"></i>
+</a></p>
+</div>
+</div>
+<div class="component-list-card layout-list-card">
+
+
+<ul class="nav nav-pills nav-fill w-100">
+  <li class="nav-item">
+    <a class="nav-link" aria-current="page" href="#"><i class="bi bi-square-fill"></i></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#"><i class="bi bi-square-fill"></i></a>
+  </li>
+  <li class="nav-item"> 
+    <a class="nav-link" href="#"><i class="bi bi-square-fill"></i></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#"><i class="bi bi-square-fill"></i></a>
+  </li>
+</ul>
+
+</div>
+</div>
+
+
+<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+<div class="component-list-header">
+<a class="component-list-header-text" href="<%= item.path %>">
+<h5>Navbar with Tabs</h5>
+</a>
+<div class="component-list-icon">
+<p class="my-0"><a class="text-decoration-none dark" href="navbars.qmd">
+<i class="component-link-icon dark bi fst-normal"></i>
+</a></p>
+</div>
+</div>
+<div class="component-list-card layout-list-card">
+
+<ul class="nav nav-tabs nav-fill w-100">
+  <li class="nav-item">
+    <a class="nav-link" aria-current="page" href="#"><i class="bi bi-square-fill"></i></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#"><i class="bi bi-square-fill"></i></a>
+  </li>
+  <li class="nav-item"> 
+    <a class="nav-link" href="#"><i class="bi bi-square-fill"></i></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#"><i class="bi bi-square-fill"></i></a>
+  </li>
+</ul>
+
+</div>
+</div>
+
+
+
+
+
+
+:::
+
+::::
+
+::::::
+:::::: {.grid .list-section style="margin-top: -1px;" #sidebars}
+:::: {.g-col-xl-3 .g-col-12}
+
+::: {.sticky-xl-top .pt-4}
+
+<h2 class="mt-4"> <i class="me-2 p-90 bi bi-layout-sidebar indigo"></i> Sidebars </h2>
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+
+:::
+::::
+:::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
+::: {#sidebar .grid}
+:::
+
+::::
+
+::::::
+:::::: {.grid .list-section style="margin-top: -1px;" #tabs}
+:::: {.g-col-xl-3 .g-col-12}
+::: {.sticky-xl-top .pt-4}
+
+<h2 class="mt-4"> <i class="me-2 p-90 bi bi-layout-three-columns indigo"></i> Tabs </h2>
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+
+:::
+::::
+:::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
+::: {#tab .grid}
+:::
+
+::::
+
+::::::
+
+:::::: {.grid .list-section style="margin-top: -1px;" #panels}
+:::: {.g-col-xl-3 .g-col-12}
+::: {.sticky-xl-top .pt-4}
+
+<h2 class="mt-4"> <i class="me-2 p-90 bi bi-grid-fill indigo"></i> Panels & Cards </h2>
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+
+:::
+::::
+:::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
+::: {#panel .grid}
+:::
+
+::::
+
+::::::
+
+
+:::::: {.grid .list-section style="margin-top: -1px;" #elements}
+:::: {.g-col-xl-3 .g-col-12}
+::: {.sticky-xl-top .pt-4}
+
+<h2 class="mt-4"> <i class="me-2 p-90 bi bi-columns indigo"></i> Arrange Elements </h2>
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+
+:::
+::::
+:::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
+::: {#element .grid}
+:::
+
+::::
+
+::::::
+
+::::::::
+<!-- End List area -->

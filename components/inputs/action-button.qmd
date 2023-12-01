@@ -20,7 +20,7 @@ listing:
     template: ../_partials/components-detail.ejs
     contents:
       - title: Action Button
-        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdaOgD6OpgF4mOrFADmcQzQA2O1QAp9TDxY4YGAdzcQnkFeGCROMBAuAGza3lyoWmSGMnKkhgBGiWSkbiiyHGmZZNkQuvhMZSL5pGUAlLUS7sEelmFaEdGxGMSJCUkUAB5kuSRa5Bp1GFCqqoaEDlAsLLkw6QC0AAx1DU3NIGXziyxliBVg8mxrAIwbG0wAVloscjTYayTj5O+UFHRMUA4ONYIGsOBQYCxvuM-qgBmsAKxlAC+uyYtSmMzmCyWuUGZChvzqHn0tX06horA0ijoLniiQkPTIfQkLDgSwKEFqiCaAAEVOo6Bg8S5SYEmHzpPlFBg4IpyLSIH0ptUIBksqRRR5yUxRtCRdyxUEpGQtHRAjQyiA6WRlalVUUSiKUWB9GhUGZROgXG7jBwWVSNKL9PowEiALpAA
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdaOgD6OpgF4mOrFADmcQzQA2O1QAp9TDxY4YGAdzcQnkFeGCROMBAuAGza3lyoWmSGMnKkhgBGiWSkbiiyHGmZZNkQuvhMZQCSEIRSUCxwTAByWjDpGmUAlJ0S7sEelmGtkTEhxIkJSRQAHmS5JFrkHWCdGFCqqoaEDvUsuaocLKg72AC0AKxMbacADF09ff0gZdu7ZYgVYPJspwCMNzcmAArLQsOQ0M4kJbkU6ESgUOhMKAODjWCCnDgUGAsWHwjRMVDTC5lAC+jyYq3Wm1eLD2ZRmZFxSzoXQ8+k6+nUNFYGkUdBc8USEnGZEmEgatIKEHFZCgQi41kM8mRWka5hunUQ5IW5DMkmk+UUGAAaiq4C4wXK5BBFcqnHAOaVAp4AAJ1Q1wDAAURoNDgsnJboNciNcEU5AFEEma3yhSypEdQS5TEMLk15KCOrIGAacyzaaYAGomL9HYGVOo6BgGeTk1mNGmtc7+lIyFo6IEaGUQPnOmSwPpBwZUHqxKgXGhUMYOOLeRpHWASQBdIA
         height: 200px
         code: |
           from shiny import App, reactive, render, ui
@@ -65,4 +65,6 @@ The value of an input component is accessible as a reactive value within the `se
   1. Use `input.<action_button_id()>` (e.g., `input.action_button()`) to access the value of the action button. The server value of an action button is an integer representing the number of clicks.  
   
 See also: [Action Link](action-link.qmd)
+
+
 

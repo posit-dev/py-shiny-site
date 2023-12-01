@@ -2,8 +2,8 @@
 title: "DataTable"
 sidebar: components 
 preview: |
-  <div style="padding-right: 2.5rem;padding-left: 2.5rem">
-  <img style="width: 100%;" src="/images/datatable.png">
+  <div class="px-4">
+  <img style="width: 100%;height:auto;max-height:130px;" src="/images/datatable.png">
   </div>
 listing:
   - id: component
