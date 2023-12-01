@@ -1,0 +1,211 @@
+---
+title: "Sidebars"
+---
+
+## Description
+
+A sidebar layout creates a sidebar, typically used for inputs, and a large main area, typically used for outputs. 
+
+## Relevant functions
+
+- title: ui.layout_sidebar
+  href: https://shiny.posit.co/py/api/ui.layout_sidebar.html
+  signature: ui.layout_sidebar(sidebar, *args, fillable=True, fill=True, bg=None, fg=None, border=None, border_radius=None, border_color=None, gap=None, padding=None, height=None, **kwargs)
+
+- title: ui.sidebar
+  href: https://shiny.posit.co/py/api/ui.sidebar.html#shiny.ui.sidebar
+  signature: ui.sidebar(*args, width=250, position='left', open='desktop', id=None, title=None, bg=None, fg=None, class_=None, max_height_mobile=None, gap=None, padding=None)
+
+
+## Section - Sidebar on the left
+
+- preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQ1GzFJZJSw4m4AIyh0zTAMQAPAGW1qHSGK7uXj4yYADKbp7esQCUEoHBEKGhsQCyUFxMJOSUZLEhVmn+QXIpcnLuNKxwdABuLWZcqE4SjmTdZBIscCyupCmIFUyoUKP10OjqouhmiiocQy3tdClgAL4AukA
+- code: |
+    
+    from shiny import App, ui
+
+    app_ui = ui.page_fluid(
+        ui.layout_sidebar( #<<
+            ui.sidebar("Sidebar"), #<<
+            "Main content"
+        ), #<<
+    )
+    
+    def server(input, output, session):
+        pass
+    
+    app = App(app_ui, server)
+- details: |
+  
+  Follow these steps to add a left-side sidebar to your app: 
+  
+    1. Add `ui.layout_sidebar()` inside any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.layout_sidebar()` creates a sidebar layout.
+    
+    2. Pass `ui.sidebar()`as the first argument of `ui.layout_sidebar()` to create the sidebar. By default, the `position` parameter of `ui.sidebar()` is "left" and the sidebar will appear on the left. 
+    
+    3. Supply additional components (output components, cards, text, etc.) to `ui.layout_sidebar()` to define the contents of the main content area.
+
+## Section - Sidebar on the right
+
+- preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQ1GzFJZJSw4m4AIyh0LEa-5tXdy8fGTAAZTdPbzCJAVcyDlI1MLoOHTYyMIBKPEsAq2kMRzJUJyUKAA9nADc4Oi9EmAswKqz8JlQ7Qjg2YkN3OjUAFTpJOGz8q1y5SfkIdxpWerqfLjKyCRKNiRY4FldSbMQpzqgDuQV0dVF0M0UVDl2V+uywAF8AXSA
+- code: |
+    
+    from shiny import App, ui
+    
+    app_ui = ui.page_fluid(
+        ui.layout_sidebar( #<<
+            ui.sidebar("Sidebar", position="right"), #<<
+            "Main content"
+        ), #<<
+    )
+    
+    def server(input, output, session):
+        pass
+    
+    app = App(app_ui, server)
+- details: |
+
+    Follow these steps to add a right-side sidebar to your app: 
+  
+    1. Add `ui.layout_sidebar()` inside any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.layout_sidebar()` creates a sidebar layout.
+    
+    2. Pass `ui.sidebar()`as the first argument of `ui.layout_sidebar()` to create the sidebar. 
+    
+    3. Pass `position="right"` to `ui.sidebar()`. The `position` argument controls where the sidebar appears relative to the main content.
+    
+    3. Supply components (e.g., inputs) to `ui.sidebar()` to define the sidebar's contents. Supply additional components (e.g., output components, cards, etc.) to `ui.layout_sidebar()` to define the contents of the main content area. 
+
+## Section - Sidebars on the left and right
+
+- preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQ1GzFJZJSw4m4AIyh0LEa-5tXdy8fGTAAGTgaYSDPbzCASjxLAKtpW3tHZ1iQ31TU9JzvCzAAJQ4dNhi3OLowiQFXMg5SNTC6CqrE5L98-zCAWSguJhJySjJ6lL6rD0F3OjUAMShDFjhpgKTN-1QoExMuHTUABk3tiAS5OXcaVjg6ADcHsy5UJwks97IJdZZXUgJRCbPb-a7QdDqUToMyKFQcX4PZ50K4QMAAXwAukA
+- code: |
+
+    from shiny import App, ui
+    
+    app_ui = ui.page_fluid(
+        ui.layout_sidebar( #<<
+            ui.sidebar("Left sidebar"), #<<
+            ui.layout_sidebar( #<<
+                ui.sidebar("Right sidebar", position="right"), #<<
+                "Main content",
+                border=False #<<
+            ), #<<
+            padding=0 #<<
+        ), #<<
+    )
+    
+    def server(input, output, session):
+        pass
+    
+    app = App(app_ui, server)
+- details: |
+
+    To create a layout with two sidebars, nest `ui.layout_sidebar()` calls. Follow these steps:
+  
+    1. Add the first `ui.layout_sidebar()` call inside any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.layout_sidebar()` creates a sidebar layout.
+    2. Pass `ui.sidebar()` and another call `ui.layout_sidebar()` to `ui.layout_sidebar()`. This will create a sidebar layout within another sidebar layout.
+    3. Set the `padding` argument of the _first_ `ui.layout_sidebar()` call to `0` to remove any padding. 
+    4. For the _second_ `ui.layout_sidebar()` call, supply `ui.sidebar()` as the first argument to create the second sidebar. Set `position="right"` to position this sidebar on the right. Pass whatever content you want as the second argument of `ui.layout_sidebar()` to define the main panel content. 
+    5. Set the `border` argument of the _second_ `ui.layout_sidebar()` call to `False`. This removes the border around the nested sidebar layout. 
+    6. Add desired inputs or other sidebar content inside both `ui.sidebar()` calls. 
+    
+
+## Section - Two sidebars on the left
+
+- preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQ1GzFJZJSw4m4AIyh0LEa-5tXdy8fGTAAZTdPbyYARjCASjxLAKtpW3tHZyDo0L9UgPSckIsIqJCmACZE5PyC6zCAWSguJhJySjIw2vr-D0F3OjUAMShDFjgU1KSpgNQoExMuHTUABlmZiAS5OXcaVjg6ADdDsy5UJwksi7IJCZZXUgTEWfmHneh0dVF0M0UVDh3Q4nOjbCBgAC+AF0gA
+- code: |
+
+    from shiny import App, ui
+    
+    app_ui = ui.page_fluid(
+        ui.layout_sidebar( #<<
+            ui.sidebar("Sidebar 1"), #<<
+            ui.layout_sidebar( #<<
+                ui.sidebar("Sidebar 2"), #<<
+                "Main content",
+                border=False #<<
+            ), #<<
+            padding=0 #<<
+        ), #<<
+    )
+    
+    def server(input, output, session):
+        pass
+    
+    app = App(app_ui, server)
+- details: |
+
+    To create a layout with two sidebars on one side, nest `ui.layout_sidebar()` calls. The process is identical to creating a layout with one left and one right sidebar, except that both sidebars will have `position="left"` or `position="right"`. Follow these steps to create two sidebars on the left:
+  
+    1. Add the first `ui.layout_sidebar()` call inside any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.layout_sidebar()` creates a sidebar layout.
+    2. Pass `ui.sidebar()` and another call `ui.layout_sidebar()` to `ui.layout_sidebar()`. This will create a sidebar layout within another sidebar layout.
+    3. Set the `padding` argument of the _first_ `ui.layout_sidebar()` call to `0` to remove any padding. 
+    4. For the _second_ `ui.layout_sidebar()` call, supply `ui.sidebar()` as the first argument to create the second sidebar. Pass whatever content you want as the second argument of `ui.layout_sidebar()` to define the main panel content. 
+    5. Set the `border` argument of the _second_ `ui.layout_sidebar()` call to `False`. This removes the border around the nested sidebar layout. 
+    6. Add desired inputs or other sidebar content inside both `ui.sidebar()` calls. 
+
+    If you want both sidebars to appear on the right, pass `position="right"` to both `ui.sidebar()` calls.
+    
+
+## Section - Sidebar within a card
+
+- preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQlDrnL159IyGo2YpLJKWHE3AARvYWEM7h1q5+AcF0FmAAyv5B9jJgAJR4ThHOaQCyUFxMJOSUZGlZYTmZ2UzpcvXyEAE0rHB0AG7tZlyo3hJeZH1kEixwLH6k6Yi1qFATcovQ6Oqi6GaKKhyj7V10jWAAvgC6QA
+- code: |
+
+    from shiny import App, ui
+    
+    app_ui = ui.page_fluid(
+        ui.card( #<<
+            ui.layout_sidebar( #<<
+                ui.sidebar("Sidebar"), #<<
+                "Main content",
+            ), #<<
+        ) #<<
+    )
+    
+    def server(input, output, session):
+        pass
+    
+    
+    app = App(app_ui, server)
+- details: |
+
+    Follow these steps to add a sidebar within a card to your app:
+    
+    1. Add `ui.card()` to the UI of your app to create a card.
+    2. Pass `ui.layout_sidebar()` to `ui.card()` to define a sidebar layout within the card.
+    3. Add `ui.sidebar()` and additional elements to `ui.layout_sidebar()` to define the sidebar and main content as usual.
+    4. Add inputs or other components as desired to `ui.sidebar()` to define the sidebar's contents.
+
+## Section - Collapsed sidebar
+
+- preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQ1GzFJZJSw4m4AIyh0zTAMQAPAGW1qHSGK7uXj4yYADKbp7esRLEqJRqsYSGxCxwJrEAlBKBwRChobEAslBcTCTklGSxIVbF-kFyhXJy7jSscHQAboNmXKhOqU4TZBJ5LK6khYitTKhQCz3Q6Oqi6GaKKhxzgyN0hWAAvgC6QA
+- code: |
+
+    from shiny import App, ui
+    
+    app_ui = ui.page_fluid(
+        ui.layout_sidebar(
+            ui.sidebar("Sidebar", open="closed"), #<<
+            "Main content" 
+        ), 
+    )
+    
+    def server(input, output, session):
+        pass
+    
+    app = App(app_ui, server)
+
+- details: |
+  
+  `ui.sidebar()` has an `open` parameter that defines whether the sidebar appears open or closed when the app launches. To create a sidebar that is initially closed, set the `open` parameter to `"closed"`.  
+  
+  The other options for `open` are:
+  
+  * `"desktop"`: The default. The sidebar starts open on a desktop screen and closed on mobile.
+  * `"open"`: The sidebar starts open and can be closed.
+  * `"always"`: The sidebar is always open and cannot be closed.
+
+
+
+
