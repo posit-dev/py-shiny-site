@@ -1,0 +1,125 @@
+---
+title: "Panels and cards"
+sidebar: components 
+preview: |
+  <div class="indigo w-100 h-100">HI THERE</div>
+---
+
+## Description
+
+Use panels and cards to define areas of related content. 
+
+## Relevant functions
+
+- title: ui.card
+  href: https://shiny.posit.co/py/api/ui.card.html
+  signature: ui.card(*args, full_screen=False, height=None, max_height=None, min_height=None, fill=True, class_=None, **kwargs)
+  
+- title: ui.card_footer
+  href: https://shiny.posit.co/py/api/ui.card_footer.html
+  signature: ui.card_footer(*args, **kwargs)
+  
+- title: ui.card_header
+  href: https://shiny.posit.co/py/api/ui.card_header.html
+  signature: ui.card_header(*args, container=tags.div, **kwargs)
+  
+- title: ui.panel_absolute
+  href: https://shiny.posit.co/py/api/ui.panel_absolute.html
+  signature: ui.panel_absolute(*args, top=None, left=None, right=None, bottom=None, width=None, height=None, draggable=False, fixed=False, cursor='auto', **kwargs)
+
+- title: ui.panel_fixed
+  href: https://shiny.posit.co/py/api/ui.panel_fixed.html
+  signature: ui.panel_fixed(*args, **kwargs)
+  
+- title: ui.panel_well
+  href: https://shiny.posit.co/py/api/ui.panel_well.html
+  signature: ui.panel_well(*args, **kwargs)
+
+## Section - Main image with panel floating above
+
+- preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGPjosRrT1nUJqZYNmTKoWiAPT+LMSSrnAYkhAsqIZQ7BgkMP5QALQAbhxwAO4pxDQpqTAh5FBcKXRQEHopWRxkbCksZFB0LCll9XCNANbYKQAcAIocAJIADJJwAJowAMyDHhKWzla1JvXuYACMY2MApIvLK2xwHDobHjv7HkdMAJR4t9LaEHCGSlAARsHGFA4rVmeqEqbyUWTehn+AKcQJB7zIdUMcAsYAAIhUdDovkimMDXoYPA9btCPCITCYmG84PByCwmCc6HAbo4AUSWSs1hcwLNdqgAB6HdnOOhnLybACsY35guhZGIqAlUoF+GJ1hMGKxnyRagAKnRJrc2Xc5CaICY4DRWHA6GlrWYuKhJGQJCEfE6JCw4CwWBxSHdELdgd7TQp0OpROgzIoVBwPdbbXQ7mAAL4AXSAA
+- code: |
+    
+    from shiny import App, ui
+    
+    app_ui = ui.page_fluid(
+        ui.img( #<<
+            src="https://source.unsplash.com/a-view-of-a-mountain-range-with-stars-in-the-sky-8QiI0ueYm3Q", #<<
+            width="100%",#<<
+            heigth="100%"#<<
+        ),#<<
+        ui.panel_absolute(#<<
+            ui.panel_well(
+                ui.panel_title("Draggable panel"),
+                "Add elements here"
+            ), #<<
+            width="300px", #<<
+            right="50px", #<<
+            top="50px", #<<
+            draggable=True #<<
+        ), #<<
+    )
+    
+    def server(input, output, session):
+        pass
+    
+    
+    app = App(app_ui, server)
+
+- details: |
+  
+    Follow these steps to create an app that has a panel floating over a main image. 
+    
+    First, to create the image:
+  
+    1. Pass `ui.img()` to any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.img()` creates an image.
+    
+    2. Pass the path or URL of your desired image to `ui.img()'s` `src` parameter. Set additional parameters to control the appearance of the image (e.g., `width` and `height`).
+    
+    Then, to create the floating panel:
+    
+    1. Pass `ui.panel_absolute()` as the second argument of your Shiny UI page method, after `ui.img()`. Pass elements that you want to appear inside the panel to `ui.panel_absolute()`. 
+    
+    2. Position the panel using the `top`, `bottom`, `left`, and/or `right` parameters. Set the size of the panel using the `height` and/or `width` parameters. 
+    
+    3. If you want the panel to be draggable, set the `draggable` parameter to `True`. 
+    
+    See also: [`ui.panel_fixed()`](https://shiny.posit.co/py/api/ui.panel_fixed.html). `ui.panel_fixed()` is equivalent to calling panel_absolute with `fixed=True` (i.e., the panel does not scroll with the rest of the page). 
+    
+## Section - Content divided by cards
+
+- preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwkBJCKklkWAHQhq0qAPrSmAXikcsUAOZwtNADbSAJgAo1TJ4YyEode4+ffpr9za02OCgbODoHMABhfyYARiYgkLCVMABKPC9vJ19UCOiPOKYAI2IbbBT0zKzfLkUyLRZLDlDwlMbm5PwmFIBlJpaUiQAGCViRpgBWSohvaZ8jNw8HGazshf9A4Ja8mIAmBK3OudWXXJT8myZ9krKKjJXVmoUlLQoADzII97JB7rARGyXb6-FIVKrTVJqNShGisMIANzCdlqSgkxCUdQkLDgLBYHFIqUQVVQUFxUOg6H0onQdk0OhkcLoiLoqTAAF8ALpAA
+- code: |
+    
+    from shiny import App, ui, Inputs
+    
+    app_ui = ui.page_fluid(
+        ui.card( #<<
+            ui.card_header("Card 1 header"), #<<
+            ui.p("Card 1 body"), #<<
+            ui.input_slider("slider", "Slider", 0, 10, 5), #<<
+        ), #<<
+        ui.card( #<<
+            ui.card_header("Card 2 header"), #<<
+            ui.p("Card 2 body"), #<<
+            ui.input_text("text", "Add text", "") #<<
+        ), #<<
+    ) 
+    
+    def server(input, output, session):
+        pass
+    
+    app = App(app_ui, server)
+- details: |
+
+    Cards are general purpose containers used to group related UI elements together with a border and optional padding.
+    
+    Follow these steps to create an app with content separated into cards: 
+  
+    1. Add `ui.card()` inside any Shiny UI page method (e.g., `ui.page_fluid()`) to create a card. Add additional cards by adding additional calls to `ui.card()`. 
+    
+    2. Define the contents of each card. Inside `ui.card()`, pass elements that you would like to appear inside the card (e.g., inputs, text). You can also use `ui.card_header()` and `ui.card_footer()` to create a card header and footer.
+    
+    3. Control the appearance and functionality of each card by passing additional  arguments to `ui.card()`. For example, you can set `full_screen` to `True` to allow the user to expand the card to fullscreen, or control the height of the card with the `height` parameter.    
+    
+    
