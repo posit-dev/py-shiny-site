@@ -1,0 +1,87 @@
+---
+title: "Navbars"
+sidebar: components 
+preview: |
+  <div class="indigo w-100 h-100">HI THERE</div>
+---
+
+## Description
+
+A navbar adds a navigation bar to your app, allowing users to easily navigate your app. 
+
+## Relevant functions
+
+- title: ui.page_navbar
+  href: https://shiny.posit.co/py/api/ui.page_navbar.html
+  signature: ui.page_navbar(*args, title=None, id=None, selected=None, sidebar=None, fillable=True, fillable_mobile=False, gap=None, padding=None, position='static-top', header=None, footer=None, bg=None, inverse=False, underline=True, collapsible=True, fluid=True, window_title=MISSING, lang=None)
+
+- title: ui.nav
+  href: https://shiny.posit.co/py/api/ui.nav.html
+  signature: https://shiny.posit.co/py/api/ui.nav.html
+
+
+## Section - Navbar at top
+
+- preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEugA3AEZQ6ACiYBiADw25TR5oxHzMsCPcT3ABV1xRJhJySjJ3AEoJW3sIJ2dXdwAhLyZffyZEoNIKcgiouwcnaRcoQzcwAGEUtL0mCqyQ3LBI6wLYpzIOMgAbODV3MVQmAHcutiYjUzoU6MLHDgATfshSqfdWmPCNuTkFuBpWODpDI-MuVEkyCWJLi6vDlhYOUnDEOaZUKEed6HR1UXQ5kUKg4EhYRxOdHCYAAvgBdIA
+- code: |
+    
+    from shiny import App, ui
+    
+    app_ui = ui.page_navbar( #<<
+        ui.nav("A", "Page A content"), 
+        ui.nav("B", "Page B content"), 
+        ui.nav("C", "Page C content"), 
+        title="App with navbar", #<<
+        id="navbar" #<<
+    ) #<<
+    
+    def server(input, output, session):
+        pass
+    
+    app = App(app_ui, server)
+- details: |
+  
+  Follow these steps to add a navbar to the top of your app: 
+  
+    1. Define a navbar page layout with `ui.page_navbar()`.
+    
+    2. Pass nav items (e.g., [`ui.nav()`](https://shiny.posit.co/py/api/ui.nav.html) and [`ui.nav_menu()`](https://shiny.posit.co/py/api/ui.nav_menu.html)) to `ui.page_navbar()` to control the items displayed in the navbar. 
+    
+    3. _Optional:_ Set the `title` argument of `ui.page_navbar()` to set the browser window title.
+    
+    4. _Optional:_ Pass a string to the `id` argument of `ui.page_navbar()`. This will create an input value that holds the currently selected nav item. 
+
+## Section - Navbar at bottom
+
+- preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEugA3AEZQ6ACiYBiADw25TR5oxHzMsCPcT3ABV1xRJhJySjJ3AEoJW3sIJ2dXdwAhLyZffyZEoNIKcgiouwcnaRcoQzcwAGEUtL0mCqyQ3LBI6wLYpzIOMgAbODV3MVQmAHcutiYjUzoU6MLHDgATfshSqZm2uIEWLo5SZZoOAA84BYBaY2IyMkYvOXDWmLkFuBpWODpDd-MuVEkyCWIf1+-zeLG2pHCiDmTFQUDBcgU6HUonQ5kUKg4EhY70+dHCYAAvgBdIA
+- code: |
+    
+    from shiny import App, ui
+    
+    app_ui = ui.page_navbar( #<<
+        ui.nav("A", "Page A content"), #<<
+        ui.nav("B", "Page B content"), #<<
+        ui.nav("C", "Page C content"), #<<
+        title="App with navbar", #<<
+        id="navbar", #<<
+        position="fixed-bottom", #<<
+    ) #<<
+    
+    def server(input, output, session):
+        pass
+    
+    app = App(app_ui, server)
+- details: |
+
+    Follow these steps to add a navbar to the bottom of your app: 
+  
+    1. Define a navbar page layout with `ui.page_navbar()`.
+    
+    2. Pass nav items (e.g., [`ui.nav()`](https://shiny.posit.co/py/api/ui.nav.html) and [`ui.nav_menu()`](https://shiny.posit.co/py/api/ui.nav_menu.html)) to `ui.page_navbar()` to control the items displayed in the navbar. 
+    
+    3. Set the `position` parameter of `ui.page_navbar()` to `"fixed-bottom"` to pin the navbar to the bottom of the app. By default, `position` is `"static-top"`, which causes the navbar to display at the top with normal scrolling behavior. You can also pin the navbar to the top (`position="fixed-top"`).
+    
+    4. _Optional:_ Set the `title` argument of `ui.page_navbar()` to set the browser window title.
+    
+    5. _Optional:_ Pass a string to the `id` argument of `ui.page_navbar()`. This will create an input value that holds the currently selected nav item.  
+
