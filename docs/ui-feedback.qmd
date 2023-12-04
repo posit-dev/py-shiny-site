@@ -2,6 +2,12 @@
 title: User feedback
 ---
 
+:::{.callout-note}
+## Component gallery
+
+See [this section of the component gallery](../components/#display-messages) for more examples and components for displaying messages.
+:::
+
 When a user initiates some action on the server, it's often helpful to provide feedback
 on its progress, or additional information about what's happening.
 This page will cover three different ways to give user's feedback with shiny:
@@ -121,4 +127,3 @@ def server(input, output, session):
 
 app = App(app_ui, server)
 ```
-

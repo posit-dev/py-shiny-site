@@ -2,6 +2,13 @@
 title: "Input controls"
 ---
 
+:::{.callout-note}
+## Input gallery
+
+In this article, we only cover the most common input objects.
+If you're curious to see more, checkout the [inputs section of the components gallery](../components/#inputs).
+:::
+
 Each input control on a page is created by calling a Python function. All such functions take the same first two string arguments:
 
 * `id`: an identifier used to refer to input's value in the server code. For example, `id="x1"` corresponds with `input.x1()` in the server function. `id` values must be unique across all input and output objects on a page, and should follow Python variable/function naming rules (lowercase with underscores, alphanumeric characters allowed, cannot start with a number).
@@ -9,9 +16,6 @@ Each input control on a page is created by calling a Python function. All such f
 
 Note that many inputs take additional arguments.
 For example, an `input_checkbox` lets you indicate if it should start checked or not.
-
-In the section below we'll show the most common input objects.
-If you're curious to learn more, see the [API Reference on UI Inputs](../api/#ui-inputs) (for example, here's the page for [`input_checkbox()`](../api/reference/shiny.ui.input_checkbox.html))
 
 ## Input examples
 

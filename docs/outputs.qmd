@@ -2,6 +2,13 @@
 title: "Output controls"
 ---
 
+:::{.callout-note}
+## Output gallery
+
+In this article, we only cover the most common output objects.
+If you're curious to see more, checkout the [outputs section of the components gallery](../components/#outputs).
+:::
+
 Outputs create a spot on the webpage to put results from the server.
 
 At a minimum, all UI outputs require an `id` argument, which corresponds to the server's output ID.
