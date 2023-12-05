@@ -117,13 +117,19 @@ def express_tabs(path: str, viewer_height: str) -> None:
             "## Express",
         ]
     )
-    block.extend(_include_shiny_folder(path, "express.py", exclusions=["classic.py"]))
+    block.extend(
+        _include_shiny_folder(
+            path,
+            "app-express.py",
+            exclusions=["app-classic.py"],
+        )
+    )
     block.append("## Classic")
     block.extend(
         _include_shiny_folder(
             path,
-            "classic.py",
-            exclusions=["express.py"],
+            "app-classic.py",
+            exclusions=["app-express.py"],
         )
     )
 
