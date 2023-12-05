@@ -156,6 +156,60 @@ website:
             - components/display-messages/progress-bar.qmd
             - components/display-messages/tooltips.qmd
 
+    - id: layouts
+      collapse-level: 2
+      contents:
+        - text: "![](/images/blank-pixel.png){.sidebar-title}__LAYOUTS__"
+          href: layouts/
+        - section: "![](/images/navbars.svg){.sidebar-icon .sidebar-subtitle}__Navbars__"
+          contents:
+            - text: "Navbar at Top"
+              href: "/layouts/navbars.html#navbar-at-top"
+            - text: "Navbar at Bottom"
+              href: "/layouts/navbars.html#navbar-at-bottom"
+        - section: "![](/images/sidebars.svg){.sidebar-icon .sidebar-subtitle}__Sidebars__"
+          contents:
+            - text: "Sidebar on Left"
+              href: "/layouts/sidebars.html#sidebar-on-the-left"
+            - text: "Sidebar on Right"
+              href: "/layouts/sidebars.html#sidebar-on-the-right"
+            - text: "Sidebars on left & right"
+              href: "/layouts/sidebars.html#sidebars-on-the-left-and-right"
+            - text: "Two Sidebars on the Left"
+              href: "/layouts/sidebars.html#two-sidebars-on-the-left"
+            - text: "Sidebar Within a Card"
+              href: "/layouts/sidebars.html#sidebar-within-a-card"
+            - text: "Collapsed Sidebar"
+              href: "/layouts/sidebars.html#collapsed-sidebar"
+        - section: "![](/images/tabs.svg){.sidebar-icon .sidebar-subtitle}__Tabs__"
+          contents:
+            - text: "Tabset with Pill Navigation"
+              href: "/layouts/tabs.html#tabset-with-pill-navigation"
+            - text: "Tabset with Pill List Navigation"
+              href: "/layouts/tabs.html#tabset-with-pill-list-navigation"
+            - text: "Tabset with Tab Navigation"
+              href: "/layouts/tabs.html#tabset-with-tab-navigation"
+            - text: "Card with a Tabbed Tabset"
+              href: "/layouts/tabs.html#card-with-a-tabbed-tabset"
+            - text: "Card with a Pill Tabset"
+              href: "/layouts/tabs.html#card-with-a-pill-tabset"
+            - text: "Vertically Collapsing Accordion Panels"
+              href: "/layouts/tabs.html#vertically-collapsing-accordion-panels"
+        - section: "![](/images/panels.svg){.sidebar-icon .sidebar-subtitle}__Panels & Cards__"
+          contents:
+            - text: "Main Image with Panel Floating Above"
+              href: "/layouts/tabs.html#vertically-collapsing-accordion-panels"
+            - text: "Content Divided by Cards"
+              href: "/layouts/panels-cards.html#content-divided-by-cards"
+        - section: "![](/images/arrange.svg){.sidebar-icon .sidebar-subtitle}__Arrange Elements__"
+          contents:
+            - text: "Grid Layouts"
+              href: "/layouts/arrange.html#grid-layouts"
+            - text: "Column Nesting"
+              href: "/layouts/arrange.html#column-nesting"
+            - text: "Controlling for Page Width and Height"
+              href: "/layouts/arrange.html#controlling-for-page-width-and-height"
+
     - id: docs
       style: "floating"
       collapse-level: 2

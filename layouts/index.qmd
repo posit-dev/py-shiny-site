@@ -75,7 +75,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="<%= item.path %>">
+<a class="component-list-header-text" href="#">
 <h5>Navbar with Links</h5>
 </a>
 <div class="component-list-icon">
@@ -84,7 +84,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 </a></p>
 </div>
 </div>
-<div class="component-list-card layout-list-card w-100 py-3">
+<div class="component-list-card layout-list-card">
 
 ```{shinylive-python}
 #| standalone: true
@@ -120,7 +120,7 @@ app = App(app_ui, None)
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="<%= item.path %>">
+<a class="component-list-header-text" href="#">
 <h5>Navbar with Pills</h5>
 </a>
 <div class="component-list-icon">
@@ -153,7 +153,7 @@ app = App(app_ui, None)
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="<%= item.path %>">
+<a class="component-list-header-text" href="#">
 <h5>Navbar with Tabs</h5>
 </a>
 <div class="component-list-icon">
@@ -210,7 +210,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="<%= item.path %>">
+<a class="component-list-header-text" href="#">
 <h5>Sidebar on the Left</h5>
 </a>
 <div class="component-list-icon">
@@ -219,7 +219,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 </a></p>
 </div>
 </div>
-<div class="component-list-card layout-list-card w-100 py-3">
+<div class="component-list-card layout-list-card">
 
 ```{shinylive-python}
 #| standalone: true
@@ -228,10 +228,10 @@ from shiny import App, ui
 
 app_ui = ui.page_fluid(
     ui.layout_sidebar( #<<
-        ui.sidebar("Sidebar"), #<<
-        "Main content"
+        ui.sidebar("Sidebar content"), #<<
+        "Here is the main content area."
     ), #<<
-)
+).add_class("py-3")
 
 def server(input, output, session):
     pass
@@ -247,7 +247,7 @@ app = App(app_ui, server)
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="<%= item.path %>">
+<a class="component-list-header-text" href="#">
 <h5>Sidebar on the Right</h5>
 </a>
 <div class="component-list-icon">
@@ -267,9 +267,9 @@ from shiny import App, ui
 app_ui = ui.page_fluid(
     ui.layout_sidebar( #<<
         ui.sidebar("Sidebar", position="right"), #<<
-        "Main content"
+        "Sidebar on the left main content"
     ), #<<
-)
+).add_class("py-3")
 
 def server(input, output, session):
     pass
@@ -283,7 +283,7 @@ app = App(app_ui, server)
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="<%= item.path %>">
+<a class="component-list-header-text" href="#">
 <h5>Sidebars: Left & Right</h5>
 </a>
 <div class="component-list-icon">
@@ -308,7 +308,7 @@ app_ui = ui.page_fluid(
         ), #<<
         padding=0 #<<
     ), #<<
-)
+).add_class("py-3")
 
 def server(input, output, session):
     pass
@@ -323,7 +323,7 @@ app = App(app_ui, server)
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="<%= item.path %>">
+<a class="component-list-header-text" href="#">
 <h5>Two Sidebars on Left</h5>
 </a>
 <div class="component-list-icon">
@@ -332,7 +332,7 @@ app = App(app_ui, server)
 </a></p>
 </div>
 </div>
-<div class="component-list-card layout-list-card w-100 py-3">
+<div class="component-list-card layout-list-card">
 
 ```{shinylive-python}
 #| standalone: true
@@ -348,7 +348,7 @@ app = App(app_ui, server)
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="<%= item.path %>">
+<a class="component-list-header-text" href="#">
 <h5>Sidebar Qithin a Card</h5>
 </a>
 <div class="component-list-icon">
@@ -371,7 +371,7 @@ app = App(app_ui, server)
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="<%= item.path %>">
+<a class="component-list-header-text" href="#">
 <h5>Collapsing Sidebar</h5>
 </a>
 <div class="component-list-icon">
@@ -415,7 +415,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="<%= item.path %>">
+<a class="component-list-header-text" href="#">
 <h5>Tabset with Pill</h5>
 </a>
 <div class="component-list-icon">
@@ -424,7 +424,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 </a></p>
 </div>
 </div>
-<div class="component-list-card layout-list-card w-100 py-3">
+<div class="component-list-card layout-list-card">
 
 ```{shinylive-python}
 #| standalone: true
@@ -462,7 +462,7 @@ app = App(app_ui, server)
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="<%= item.path %>">
+<a class="component-list-header-text" href="#">
 <h5>Tabset with Pill List Nav</h5>
 </a>
 <div class="component-list-icon">
@@ -509,7 +509,7 @@ app = App(app_ui, server)
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="<%= item.path %>">
+<a class="component-list-header-text" href="#">
 <h5>Tabset with Tab Nav</h5>
 </a>
 <div class="component-list-icon">
@@ -555,7 +555,7 @@ app = App(app_ui, server)
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="<%= item.path %>">
+<a class="component-list-header-text" href="#">
 <h5>Card with a tabbed tabset
 </h5>
 </a>
@@ -565,7 +565,7 @@ app = App(app_ui, server)
 </a></p>
 </div>
 </div>
-<div class="component-list-card layout-list-card w-100 py-3">
+<div class="component-list-card layout-list-card">
 
 ```{shinylive-python}
 #| standalone: true
@@ -580,7 +580,7 @@ app = App(app_ui, server)
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="<%= item.path %>">
+<a class="component-list-header-text" href="#">
 <h5>Card with a pill tabset</h5>
 </a>
 <div class="component-list-icon">
@@ -604,7 +604,7 @@ app = App(app_ui, server)
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="<%= item.path %>">
+<a class="component-list-header-text" href="#">
 <h5>Vertically collapsing accordion panels</h5>
 </a>
 <div class="component-list-icon">
@@ -646,7 +646,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="<%= item.path %>">
+<a class="component-list-header-text" href="#">
 <h5>Main image with panel floating above</h5>
 </a>
 <div class="component-list-icon">
@@ -655,7 +655,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 </a></p>
 </div>
 </div>
-<div class="component-list-card layout-list-card w-100 py-3">
+<div class="component-list-card layout-list-card">
 
 ```{shinylive-python}
 #| standalone: true
@@ -670,7 +670,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="<%= item.path %>">
+<a class="component-list-header-text" href="#">
 <h5>Content divided by bounding boxes (cards)</h5>
 </a>
 <div class="component-list-icon">
@@ -716,7 +716,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="<%= item.path %>">
+<a class="component-list-header-text" href="#">
 <h5>Grid Layouts</h5>
 </a>
 <div class="component-list-icon">
@@ -725,7 +725,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 </a></p>
 </div>
 </div>
-<div class="component-list-card layout-list-card w-100 py-3">
+<div class="component-list-card layout-list-card">
 
 ```{shinylive-python}
 #| standalone: true
@@ -740,7 +740,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="<%= item.path %>">
+<a class="component-list-header-text" href="#">
 <h5>Column nesting</h5>
 </a>
 <div class="component-list-icon">
@@ -764,7 +764,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="<%= item.path %>">
+<a class="component-list-header-text" href="#">
 <h5>Controlling for page width and height</h5>
 </a>
 <div class="component-list-icon">

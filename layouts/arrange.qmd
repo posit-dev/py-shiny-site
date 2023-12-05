@@ -325,8 +325,6 @@ app = App(app_ui, server, debug=True)
 <p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89Gi4uKAEuOAAKeRZMsJoMROxiVTJ-CRo3AShGdIgsmuyIiDguYtK4csqM2s7wi1RC4v43dshZfBYRgDkRxwAGRwBGadmWACZpgEo8Ds6Nrdrw1CgGpvYLKs6unILOPtEydLBzCTJiSMZYEZ3q88+az7WfCDyNx6EzuABu7lSPUKjiuvTIjgkcAkJVIa0QuwAAnDCljnBBBlgeHcoFwyMERrYWI9nq93mB-l9MsDqTQni83jBUujdjUdBg3gSjBgkXAXKk5gBOABsAA5pvK5ozziwAB4hFgLaYsADUmoArCwAFQqTCClzC80QVIAFgAzAB2ZXnGQYGmpVWOaFkDDWjYsNwQEpkbDBAAqjFUcEZAL8GvsqFSfkCNER4PcjjKqki4cj0fkYAAvgBdIA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
 
-
-
 To make a fixed grid that maintains a constant maximum width, build your app ui with [`ui.page_fillable()`](TODO ADD LINK).
 
 `ui.page_fluid()` and `ui.page_fixed()` are used for creating web pages that are laid out from the top down, leaving whitespace at the bottom if the page content's height is smaller than the browser window, and scrolling if the content is larger than the window.

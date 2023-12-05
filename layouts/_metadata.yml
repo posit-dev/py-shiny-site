@@ -1,4 +1,4 @@
-sidebar: components 
+sidebar: layouts
 format:
   html:
     css: _partials/layouts.css
