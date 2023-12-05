@@ -5,8 +5,8 @@ title: "Input controls"
 :::{.callout-note}
 ## Input gallery
 
-In this article, we only cover the most common input objects.
-If you're curious to see more, checkout the [inputs section of the components gallery](../components/#inputs).
+In this article, we only cover the most common inputs.
+To see more, checkout [the input components gallery](../components/#inputs).
 :::
 
 Each input control on a page is created by calling a Python function. All such functions take the same first two string arguments:
