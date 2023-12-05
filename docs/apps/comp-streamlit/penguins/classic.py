@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import pandas as pd
+from palmerpenguins import load_penguins
 from plots import dist_plot, scatter_plot
 from shiny import App, reactive, render, ui
 
@@ -15,13 +16,13 @@ app_ui = ui.page_sidebar(
 
 
 def server(input, output, session):
-    infile = Path(__file__).parent / "penguins.csv"
-    df = pd.read_csv(infile)
+    df = load_penguins()
+    print(df)
 
     @reactive.Calc
     def filtered_data():
         filt_df = df.copy()
-        filt_df = filt_df.loc[df["Body Mass (g)"] < input.mass()]
+        filt_df = filt_df.loc[df["body_mass_g"] < input.mass()]
         return filt_df
 
     @render.plot

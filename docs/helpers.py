@@ -25,21 +25,6 @@ def list_files(path: str) -> List[str]:
     return files
 
 
-def include_shiny_folder(
-    path: str,
-    file_name: str = "app.py",
-    exclusions: List[str] = [],
-    components: str = "editor, viewer",
-    viewer_height: str = "800",
-    extra_object: Any = "",
-) -> None:
-    print(
-        _include_shiny_folder(
-            path, file_name, exclusions, components, viewer_height, extra_object
-        )
-    )
-
-
 def _include_shiny_folder(
     path: str,
     file_name: str = "app.py",
@@ -85,7 +70,47 @@ def _include_shiny_folder(
     return block
 
 
-def express_tabs(path: str) -> None:
+def include_shiny_folder(
+    path: str,
+    file_name: str = "app.py",
+    exclusions: List[str] = [],
+    components: str = "editor, viewer",
+    viewer_height: str = "800",
+    extra_object: Any = "",
+) -> None:
+    """
+    This function allows you to include a single shiny app in a quarto document. The
+    `file_name` will be used as the main `app.py` file, and all other files will be included
+    in the Shinylive application.
+
+    Args:
+        path (str): The path to the Shiny application files.
+        file_name (str, optional): The name of the main application file. Defaults to "app.py".
+        exclusions (List[str], optional): List of files to exclude. Defaults to [].
+        components (str, optional): Components to use. Defaults to "editor, viewer".
+        viewer_height (str, optional): The height of the resulting Shinylive viewer. Defaults to "800".
+        extra_object (Any, optional): Any extra object to include. Defaults to "".
+    """
+    print(
+        _include_shiny_folder(
+            path, file_name, exclusions, components, viewer_height, extra_object
+        )
+    )
+
+
+def express_tabs(path: str, viewer_height: str) -> None:
+    """
+    This function creates a tabbed view of the Shiny Express and Classic versions.
+    You should point it to a folder with two shiny app files, `express.py` which
+    defines the express implementation and `classic.py` which defines the classic one.
+
+    This function is designed to be called within a python chunk whose output is set
+    to be "asis" with `#| output: asis`.
+
+    Args:
+        path (str): The path to the Shiny application files.
+        viewer_height (str): The height of the resulting Shinylive viewer
+    """
     block = QuartoPrint(
         [
             "::: {.panel-tabset group='express-switcher'}",
