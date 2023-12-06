@@ -85,9 +85,9 @@ In addition to setting a column's width, you can also set its offset. This contr
 
 ## Preview
 
-<iframe style="height:300px;" class="mb-0 w-100 iframe-border py-3" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaHAB5xpAClVMDHDAwDu9iI8eGSAGwUwELYALIrOhFB0dspgAMJskcIAjDEAlKl4Dl4+xP6BIWEYEVH2cQlCTABMaRLENDQscGS6walZGVmGbh5eTkW5AUGhfcXRZYlMAMw1THUNTS1tnkwdy13E7lne4QP5wz6RY-ETwWmrvTl5Q4WjpccVAKwzc43Nre2qS6qyNKxyAG5yWxcVAKMi1MGg8F-FgsDikVKILaSJoKOjLABypDgqnU6D0onQtg02g4EkadEBdFSYAAvgBdIA" title="title">
+<iframe style="height:300px;" class="mb-0 w-100 iframe-border py-3" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaHAB5xpAClVMmysAHkaNFnDIsmAdw4ANgFMGnBQdH5slExkUUwAbhxw-hDGflzSxL68PiwK7hyESeQBPP6yGM54DgYcGGQmLBgARnS2AJTVEI6GDcZNrR1dPXUMvvbdjrUYJAEKMBC2ACyKdYThds5uHl5MAAzO7Z01IzPEcwvLqzMb9q7unsJLhxLED166S+01x5OGYxMptNZvNFitgbctu8ni8mG8dmRPt9Jr9TgCTsDzqCrhC6Jt7gj9odUVNDCDLuCyZCCY8mM8wJ04dCkT9VMjVLIaKw5PE5LYuKgFGRXkLBcLuSwWBxSO1EBipGQFHRJgA5UhwVTqdB6UToWwabQcCSeOi8ujtMAAXwAukA" title="title">
 </iframe> 
-<p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaHAB5xpAClVMDHDAwDu9iI8eGSAGwUwELYALIrOhFB0dspgAMJskcIAjDEAlKl4Dl4+xP6BIWEYEVH2cQlCTABMaRLENDQscGS6walZGVmGbh5eTkW5AUGhfcXRZYlMAMw1THUNTS1tnkwdy13E7lne4QP5wz6RY-ETwWmrvTl5Q4WjpccVAKwzc43Nre2qS6qyNKxyAG5yWxcVAKMi1MGg8F-FgsDikVKILaSJoKOjLABypDgqnU6D0onQtg02g4EkadEBdFSYAAvgBdIA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
+<p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaHAB5xpAClVMmysAHkaNFnDIsmAdw4ANgFMGnBQdH5slExkUUwAbhxw-hDGflzSxL68PiwK7hyESeQBPP6yGM54DgYcGGQmLBgARnS2AJTVEI6GDcZNrR1dPXUMvvbdjrUYJAEKMBC2ACyKdYThds5uHl5MAAzO7Z01IzPEcwvLqzMb9q7unsJLhxLED166S+01x5OGYxMptNZvNFitgbctu8ni8mG8dmRPt9Jr9TgCTsDzqCrhC6Jt7gj9odUVNDCDLuCyZCCY8mM8wJ04dCkT9VMjVLIaKw5PE5LYuKgFGRXkLBcLuSwWBxSO1EBipGQFHRJgA5UhwVTqdB6UToWwabQcCSeOi8ujtMAAXwAukA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 
 
 ## Code
@@ -184,6 +184,8 @@ Each grid system uses a flexibly sub-dividable 12-column grid for layout. They d
 * The fixed system occupies a fixed width of 940 pixels by default and may assume other widths when Bootstrap responsive layout kicks in (e.g. when on a tablet). 
 
 * The fillable system always occupies the full width _and height_ of the web page and re-sizes it's components dynamically as the size of the page changes. 
+
+!["Differences between the three systems"](/images/pages.png)
 
 ### Fluid Grid System
 
