@@ -106,7 +106,7 @@ website:
       - icon: youtube
         href: https://www.youtube.com/playlist?list=PL9HYL-VRX0oRbLoj3FyL5zeASU5FMDgVe
         aria-label: Shiny YouTube Playlist
-  
+
   sidebar:
     - id: components
       collapse-level: 2
@@ -189,6 +189,7 @@ website:
             - docs/ipywidgets.qmd
             - docs/ui-html.qmd
             - docs/workflow-server.qmd
+            - docs/custom-components-pkg.qmd
         - section: "Framework Comparisons"
           contents:
             - docs/comp-streamlit.qmd

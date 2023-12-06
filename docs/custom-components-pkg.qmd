@@ -1,0 +1,298 @@
+---
+title: Custom Components Package
+filters:
+  - line-highlight
+---
+
+
+While there are a large number of pre-built [components available for Shiny,](components/) there are times when you may want to create your own. In this article we’ll walk through the process of creating a custom component package for Shiny. We’ll be using React and Typescript to build the component, but the process is similar for other languages and frameworks.
+
+## What we’ll build
+
+We’ll be building a custom color picker component. The component will be a simple color picker that allows the user to select a color from a palette of colors. The component will be built using React and Typescript and will be packaged as a python package that can be deployed to pypi and installed with pip so other users can easily use it in their apps.
+
+::: {.callout-note}
+The example here uses typescript. If you don't want to use typescript, don't worry! Javascript works just fine. To make this example javascript you can simply erase the type annotations, or run the typescript compiler on the source code to strip them out automatically.
+:::
+
+The component itself is based on the library [react-color](https://casesandberg.github.io/react-color/). We’ll be using the `SketchPicker` component from that library to build our custom component. The full code is as follows.
+
+```{.ts filename="srcts/index.tsx" }
+import { SketchPicker } from "react-color";
+import React from "react";
+
+function ColorPickerReact({
+  initialValue,
+  onNewValue,
+}: {
+  // The initial value for the color picker
+  initialValue: string;
+  // A callback that should be called whenever the color is changed
+  onNewValue: (x: string) => void;
+}) {
+  const [currentColor, setCurrentColor] = React.useState(initialValue);
+
+  return (
+    <SketchPicker
+      color={currentColor}
+      onChange={(color) => {
+        setCurrentColor(color.hex);
+        onNewValue(color.hex);
+      }}
+    />
+  );
+}
+
+```
+
+![Output of `ColorPickerReact` component](custom-components-color-picker.png){width=200px}
+
+
+Your component may look very different, but at the end of the day it just needs to be a self-contained react component.
+
+
+
+## The quick version
+
+If you just want to get up and running with the code, you can start with one of the available templates available with the `Shiny create` command and then run the commands provided after the template is created.
+
+```bash
+% Shiny create
+? Which template would you like to use?: Custom JavaScript Component
+? What kind of component do you want to build?: React component
+? What do you want to name your component?
+  Name must be dash-delimited and all lowercase.
+  E.g. 'my-component-name' my-color-picker
+? Enter destination directory: ./my-color-picker
+Setting up my-color-picker component package...
+
+Next steps:
+- Run `cd my-color-picker` to change into the new directory
+- Run `npm install` to install dependencies
+- Run `npm run build` to build the component
+- Install package locally with `pip install -e .`
+- Open and run the example app in the `example-app` directory
+```
+
+
+If you want to understand what's going on under the hood, read on!
+
+## Project structure
+
+
+This template will contain the color picker component above along with all the scaffolding to build and package it as a python package. The template also includes an example app that can be used to test the component while developing. Let's take a look at the files that are created and talk through why they are there.
+
+
+
+```{.bash filename="my-color-picker/" }
+├── package.json
+├── package-lock.json
+├── srcts
+│   └── index.tsx
+├── example-app
+│   └── app.py
+├── fancy_color_picker
+│   ├── __init__.py
+│   ├── distjs
+│   │   └── index.js
+│   └── fancy_color_picker.py
+├── pyproject.toml
+├── README.md
+└── tsconfig.json
+```
+
+
+### `package.json`
+
+This is the standard `package.json` file for a javascript project. It contains the dependencies and build commands for the javascript code. The important sections are:
+- A dependency on the `shiny-bindings-react` package. This is a javascript package with helpers for making it easier to create input and output bindings using React. Later we use the function `makeReactInput()` from this package to make Shiny aware of the component and its role as an input binding.
+- `build` command. The build command (and accompanying `watch` command) use `esbuild` to transpile the typescript to javascript and bundle the dependencies (like `shiny-bindings-react` and `react` itself.
+
+### `srcts/index.tsx`
+
+This is the source code for the react component. We talked about the react component - `ColorPickerReact` - above, but it's worth touching on the actual binding:
+
+```ts
+import { SketchPicker } from "react-color";
+import type { ColorResult } from "react-color";
+import React from "react";
+
+import { makeReactInput } from "@shiny-helpers/react";
+
+// Generates a new input binding that renders the supplied react component
+// into the root of the webcomponent.
+makeReactInput({
+  tagName: "fancy-color-picker",
+  initialValue: "#fff",
+  renderComp: ({ onNewValue }) => (
+    <ColorPickerReact
+      initialValue="#fff"
+      onNewValue={(color) => onNewValue(color)}
+    />
+  ),
+});
+
+// Color Picker React component
+function ColorPickerReact(...) { ... }
+```
+
+In here we declare the `tagName` of for our component. This name is used to generate the correct markup with python later. Under the hood `makeReactInput()` generates a [webcomponent](https://developer.mozilla.org/en-US/docs/Web/Web_Components) to hold our input. A webcomponent is a custom HTML element. The `tagName` provided here represents the name of that custom component we're generating. In this case we're registering the component as `<fancy-color-picker>`.
+
+::: {.callout-note}
+This example uses the webcomponent based interface provided by the `@posit-dev/shiny-binding-react` package, but if you want lower level access you can use the built-in class-based interface. See the [Shiny for R documentation](https://shiny.posit.co/r/articles/build/building-inputs/) for more details.
+:::
+
+Next we provide an `initialValue` for the component. This is the value that will be used when the component is first rendered. In this case we're using `#fff`.
+
+Finally we provide a `renderComp` function. This function is called whenever the component needs to be rendered. It is passed a single argument, `onNewValue`. This is a callback that should be called whenever the value of the component changes. In this case we're just passing the value of the color picker to the callback. This will send the value to Shiny and update the value of the input.
+
+
+### `fancy_color_picker/`
+
+
+#### `distjs/*`
+
+This is where the bundled javascript from `srcts` gets placed. You shouldn’t ever need to modify anything in here by hand. It will be automatically generated when you run `npm run build`. It is important to note the path though, as we will need to tell Shiny where to find this javascript when we declare the `HTMLDependency`...
+
+
+#### `fancy_color_picker.py`
+
+```{.python}
+from pathlib import PurePath
+from htmltools import HTMLDependency, Tag
+from shiny.module import resolve_id
+
+# This object is used to let Shiny know where the dependencies needed to run
+# our component all live. In this case, we're just using a single javascript
+# file but we could also include CSS.
+fancy_color_picker_deps = HTMLDependency(
+    "fancy_color_picker",
+    "1.0.0",
+    source={
+        "package": "fancy_color_picker",
+        "subdir": str(PurePath(__file__).parent / "distjs"),
+    },
+    script={"src": "index.js", "type": "module"},
+)
+
+
+def fancy_color_picker(id: str):
+    """
+    A shiny input.
+    """
+    return Tag(
+        # This is the name of the custom tag we created with our webcomponent
+        "fancy-color-picker",
+        fancy_color_picker_deps,
+        # Use resolve_id so that our component will work in a module
+        id=resolve_id(id),
+    )
+```
+
+
+This is the main python file for the package. It contains the code that tells Shiny about the component and how to render it. The important parts are:
+
+##### `fancy_color_picker_deps`
+
+```{.python}
+fancy_color_picker_deps = HTMLDependency(
+    "fancy_color_picker",
+    "1.0.0",
+    source={
+        "package": "fancy_color_picker",
+        "subdir": str(PurePath(__file__).parent / "distjs"),
+    },
+    script={"src": "index.js", "type": "module"},
+)
+```
+
+This setups an "html-dependency" for our component. HTMLDependencies are Shiny's way of keeping track of what resources are needed for the currently displayed elements. This html dependency is telling Shiny that whenever there is a `fancy_color_picker` on the page in an app, it needs to also have the bundled javascript at `distjs/index.js` as well.
+
+::: {.callout-note}
+Here we just declare javascript dependencies but you can also include style sheets.
+:::
+
+
+##### `fancy_color_picker`
+
+```{.python}
+def fancy_color_picker(id: str):
+    """
+    A shiny input.
+    """
+    return Tag(
+        # This is the name of the custom tag we created with our webcomponent
+        "fancy-color-picker",
+        fancy_color_picker_deps,
+        # Use resolve_id so that our component will work in a module
+        id=resolve_id(id),
+    )
+```
+
+This is the actual UI function for our component. Aka the one that gets called by the user in their app’s UI to add our component to their app.
+
+Because `makeReactInput()` works by creating a [webcomponent](https://developer.mozilla.org/en-US/docs/Web/Web_Components), to render our input we just need to pass the tag name we setup as the argument `tagName` to `makeReactInput().` Next, we pass the `fancy_color_picker_deps` html dependency we just made and the ID of the binding and we’re good to go!
+
+::: {.callout-note}
+By using the `resolve_id(id)` function here when declaring our ID, we make sure that the component works [Shiny modules](docs/workflow-modules) where the ID of the component needs to be prefixed with the module name.
+:::
+
+
+#### `__init__.py`
+
+```{.python}
+from .fancy_color_picker import fancy_color_picker
+
+__all__ = [
+    "fancy_color_picker",
+]
+```
+
+This is how we tell python what functions/ variables our package exposes. In this case it’s a single function, `fancy_color_picker`. If you were to add more components you would also need to register them here for them to be importable by users in their apps. For more information on the structure of these files see the [python docs site.](https://packaging.python.org/tutorials/packaging-projects/#creating-the-package-files)
+
+
+### `pyproject.toml`
+
+This file is used to tell python/pypi about our package. It contains the name of the package, the version, and the dependencies. A deep dive into the structure of this file is outside the scope of this article, but you can find more information in the [Python Packaging Authority docs.]https://packaging.python.org/en/latest/guides/writing-pyproject-toml/)
+
+
+### `tsconfig.json`
+This file is used to configure typescript, which we are using to write our component. Like the `pyproject.toml` file, a deep dive into the structure of this file is outside the scope of this article, but you can find more information in the [typescript docs.](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
+
+
+### `example-app/app.py`
+
+```{.python}
+from fancy_color_picker import fancy_color_picker
+
+from shiny import App, render, ui
+
+app_ui = ui.page_fluid(
+    fancy_color_picker("myComponent"),
+    ui.output_text("valueOut"),
+)
+
+def server(input, output, session):
+    @render.text
+    def valueOut():
+        return f"Value from input is {input.myComponent()}"
+
+app = App(app_ui, server)
+```
+
+This is a simple example app that can be used to test the component while developing. It uses the `fancy_color_picker` function we defined in `fancy_color_picker.py` to add the component to the app. It also uses the `render.text` decorator to render the value of the input to the page.
+
+
+## Development workflow
+
+Now that we’ve seen the files that make up the package, let’s talk about how to develop the component.
+
+While there are lots of ways to develop components with live-feedback (e.g. Storybook, dev servers like `vite`, etc) an easy way to develop a component with our package structure is to use the example app, an editable mode pip install, and the watch mode for our build step. We can do this with the following steps:
+
+1. Install the package in “editable mode” with `pip install -e .` (https://setuptools.pypa.io/en/latest/userguide/development_mode.html)
+
+2. Run the bundler in watch mode with `npm run watch`. This will watch the `srcts` directory for changes and automatically rebuild the javascript when it detects a change.
+
+3. Run the example app in live-reload mode. If you're using VScode, the Shiny for Python extension enables this automatically when pressing the run button above the app script. (https://marketplace.visualstudio.com/items?itemName=Posit.shiny-python)
+
+Now you can update your component javascript/python functions and your app will automatically reload with the changes. Happy developing!
