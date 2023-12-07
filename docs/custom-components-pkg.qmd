@@ -357,8 +357,10 @@ def server(input, output, session):
 app = App(app_ui, server)
 ```
 
+
 This is a simple example app that can be used to test the component while developing. It uses the `fancy_color_picker` function we defined in `fancy_color_picker.py` to add the component to the app. It also uses the `render.text` decorator to render the value of the input to the page.
 
+![Example app running with color picker](custom-components-pkg-example-app.png)
 
 ::: {.callout-tip collapse="true"}
 ## What about an output binding?
@@ -386,7 +388,9 @@ app = App(app_ui, server)
 :::
 
 
+
 ## Development workflow
+
 
 Now that we’ve seen the files that make up the package, let’s talk about how to develop the component.
 
