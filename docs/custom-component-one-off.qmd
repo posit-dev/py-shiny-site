@@ -15,20 +15,20 @@ The code shown here is simplified to get the point across, but before you use it
 
 # The problem
 
-You found a new table library that you really want to use in your Shiny app. Problem is, there's no wrapper for it, currently. The library is [Tabulator](https://tabulator.info/) and it's a javascript library for making tables with data.
+You found a new table library that you really want to use in your Shiny app. The library is [Tabulator](https://tabulator.info/), which is a JavaScript library for making tables with data. But there's a problem: there's no way to easily use it from a Shiny app. To do this, we'll need to write some Python code that will let us use the library from the Python side of Shiny, and wrap the library's JavaScript code to make it talk to JavaScript side of Shiny.
 
 # The solution
 
-To implement a custom tabulator element for your app, you'll need to write three things:
+To implement a custom Tabulator element for your app, you'll need to write three things:
 
-1. A javascript script that renders the element on the client side using the Tabulator library
+1. A JavaScript script that renders the element on the client side using the Tabulator library
 2. An `output_tabulator()` function for placing the element in your app's UI
 3. A `render_tabulator()` decorator for passing table data to the javascript code rendering the element on the server side
 
 
 ## The javascript code
 
-First things first, to use a custom Javascript library we need to write... some javascript.
+First things first: to use a custom JavaScript library we need to write... some JavaScript.
 
 To do this we will create a new folder called `tabulator/` that has the following structure:
 
@@ -72,7 +72,7 @@ This class has two methods that we need to implement: `find()` and `renderValue(
 
 ### The `find()` method
 
-Now that we have the scaffolding setup, we can fill it in. Starting with the `find` method, this function is passed a `scope` object, which is a `JQuery` selection and should return the element you wish to render your output into.
+Now that we have the scaffolding setup, we can fill it in. Starting with the `find` method, this function is passed a `scope` object, which is a `jQuery` selection and should return the element you wish to render your output into.
 
 ```{.javascript filename="tableComponent.js"}
 class TabulatorOutputBinding extends Shiny.OutputBinding {
@@ -90,7 +90,7 @@ Note that we're using the class `".shiny-tabulator-output"` here to mark the ele
 
 ### The `renderValue()` method
 
-Next, we fill in the main logic for rendering our table in to the `renderValue` method. This method gets passed two arguments: `el` which is an HTMLElement as found by our find function, and `payload` which is the data that the server has provided from the render function (more on this [soon.](#the-render_tabulator-decorator))
+Next, we fill in the main logic for rendering our table in to the `renderValue` method. This method gets passed two arguments: `el` which is an HTMLElement as found by our find function, and `payload` which is the data that the server has provided from the render function (more on this [soon](#the-render_tabulator-decorator)).
 
 ```{.javascript filename="tableComponent.js"}
 // Import the Tabulator library
