@@ -123,7 +123,9 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
         return obj;
       }
 
-      // Render the table
+      // Instantiate a new Tabulator table in the element.
+      // This will also destroy any existing table in the element
+      // so we don't have to worry about adding and removing tables.
       new Tabulator(el, {
         data: data.map(zipRowWithColumns),
         layout: "fitColumns",
