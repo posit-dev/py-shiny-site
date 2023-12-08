@@ -90,7 +90,7 @@ Note that we're using the class `".shiny-tabulator-output"` here to mark the ele
 
 ### The `renderValue()` method
 
-Next, we fill in the main logic for rendering our table in to the `renderValue` method. This method gets passed two arguments: `el` which is an HTMLElement as found by our find function, and `payload` which is the data that the server has provided from the render function (more on this [soon](#the-render_tabulator-decorator)).
+Next, we fill in the main logic for rendering our table in to the `renderValue` method. This method gets passed two arguments: `el` which is an [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) as found by our find function, and `payload` which is the data that the server has provided from the render function (more on this [soon](#the-render_tabulator-decorator)).
 
 ```{.javascript filename="tableComponent.js"}
 // Import the Tabulator library
