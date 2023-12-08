@@ -1,5 +1,5 @@
 ---
-title: "Custom javascript component"
+title: "Custom JavaScript component"
 ---
 
 In this post, you will learn how to create a custom element and accompanying output binding in Shiny. This is useful if you want to create an output that is not currently in Shiny for your app.
@@ -23,17 +23,17 @@ To implement a custom Tabulator element for your app, you'll need to write three
 
 1. A JavaScript script that renders the element on the client side using the Tabulator library
 2. An `output_tabulator()` function for placing the element in your app's UI
-3. A `render_tabulator()` decorator for passing table data to the javascript code rendering the element on the server side
+3. A `render_tabulator()` decorator for passing table data to the JavaScript code rendering the element on the server side
 
 
-## The javascript code
+## The JavaScript code
 
 First things first: to use a custom JavaScript library we need to write... some JavaScript.
 
 To do this we will create a new folder called `tabulator/` that has the following structure:
 
 :::{.callout-note}
-This example uses plain javascript with no build step. For an example using typescript and with a build-step see the accompanying article on [making a custom component package.](custom-components-pkg.html)
+This example uses plain JavaScript with no build step. For an example using typescript and with a build-step see the accompanying article on [making a custom component package.](custom-components-pkg.html)
 :::
 
 ```
@@ -154,11 +154,11 @@ if (Shiny) {
 ```
 :::
 
-To see the full javascript code, see `tabulator/tableComponent.js` in the [accompanying repo.](https://github.com/posit-dev/pyshiny-output-binding-example/blob/main/tabulator/tableComponent.js)
+To see the full JavaScript code, see `tabulator/tableComponent.js` in the [accompanying repo.](https://github.com/posit-dev/pyshiny-output-binding-example/blob/main/tabulator/tableComponent.js)
 
 ## The `output_tabulator()` function
 
-For the case of our table we just need an HTML element to target with our javascript code. When we setup [the find method](#the-find-method) for our binding, we chose the class `shiny-tabulator-output` as the mark of a tabualtor output, so we need to add that class. We also need to allow the user to set the ID of the element so that Shiny knows which element to target with which output. By wrapping the `id` argument in `resolve_id()` we make sure it will work in the context of modules. We'll also add a height argument so that the user can set the height of the table.
+For the case of our table we just need an HTML element to target with our JavaScript code. When we setup [the find method](#the-find-method) for our binding, we chose the class `shiny-tabulator-output` as the mark of a tabualtor output, so we need to add that class. We also need to allow the user to set the ID of the element so that Shiny knows which element to target with which output. By wrapping the `id` argument in `resolve_id()` we make sure it will work in the context of modules. We'll also add a height argument so that the user can set the height of the table.
 
 ```{.python filename="app.py"}
 from shiny import ui, App
