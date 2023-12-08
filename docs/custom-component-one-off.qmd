@@ -72,7 +72,7 @@ This class has two methods that we need to implement: `find()` and `renderValue(
 
 ### The `find()` method
 
-Now that we have the scaffolding setup, we can fill it in. Starting with the `find` method, this function is passed a `scope` object, which is a `jQuery` selection and should return the element you wish to render your output into.
+Now that we have the scaffolding set up, we can fill it in. Starting with the `find` method, this function is passed a `scope` object, which is a `jQuery` selection and should return the element you wish to render your output into.
 
 ```{.javascript filename="tableComponent.js"}
 class TabulatorOutputBinding extends Shiny.OutputBinding {
@@ -160,7 +160,7 @@ To see the full JavaScript code, see `tabulator/tableComponent.js` in the [accom
 
 ## The `output_tabulator()` function
 
-For the case of our table we just need an HTML element to target with our JavaScript code. When we setup [the find method](#the-find-method) for our binding, we chose the class `shiny-tabulator-output` as the mark of a tabualtor output, so we need to add that class. We also need to allow the user to set the ID of the element so that Shiny knows which element to target with which output. By wrapping the `id` argument in `resolve_id()` we make sure it will work in the context of modules. We'll also add a height argument so that the user can set the height of the table.
+For the case of our table we just need an HTML element to target with our JavaScript code. When we set up [the find method](#the-find-method) for our binding, we chose the class `shiny-tabulator-output` as the mark of a tabualtor output, so we need to add that class. We also need to allow the user to set the ID of the element so that Shiny knows which element to target with which output. By wrapping the `id` argument in `resolve_id()` we make sure it will work in the context of modules. We'll also add a height argument so that the user can set the height of the table.
 
 ```{.python filename="app.py"}
 from shiny import ui, App
@@ -187,7 +187,7 @@ def output_tabulator(id, height="200px"):
     )
 ```
 
-We use the `HTMLDependency` function to bind up the assets needed for tabulator that we made in the previous step and making sure that they're included in our app anytime the `output_tabulator()` function is called (but not more than once.)
+We use the `HTMLDependency` function to bind up the assets needed for tabulator that we made in the previous step and making sure that they're included in our app whenever the `output_tabulator()` function is called (but not more than once.)
 
 :::{.callout-note}
 Note the use of `all_files=True` here. This makes it so we can do the esm import of the tabulator library. Otherwise `tabulator_esm.min.js` would not be hosted and the js library couldn't find it.

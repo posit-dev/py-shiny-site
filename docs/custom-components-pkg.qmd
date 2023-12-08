@@ -274,7 +274,7 @@ def fancy_color_picker(id: str):
 
 This is the actual UI function for our component. Aka the one that gets called by the user in their app’s UI to add our component to their app.
 
-Because `makeReactInput()` [works by creating a webcomponent](#srctsindex.tsx), to render our input we just need to pass the tag name we setup in the  `tagName` argument to `makeReactInput().` Next, we pass the `fancy_color_picker_deps` html dependency we just made and the ID of the binding and we’re good to go!
+Because `makeReactInput()` [works by creating a webcomponent](#srctsindex.tsx), to render our input we just need to pass the tag name we set up in the  `tagName` argument to `makeReactInput().` Next, we pass the `fancy_color_picker_deps` html dependency we just made and the ID of the binding and we’re good to go!
 
 ::: {.callout-note}
 By using the `resolve_id(id)` function here when declaring our ID, we make sure that the component works [Shiny modules](docs/workflow-modules) where the ID of the component needs to be prefixed with the module name.
