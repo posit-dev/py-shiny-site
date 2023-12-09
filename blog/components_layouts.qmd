@@ -1,0 +1,107 @@
+---
+title: Introducing Shiny for Python Components and Layout Galleries"
+author: "Daniel Chen, Sara Altman, Garrett Grolemund"
+format: html
+editor:
+  render-on-save: true
+---
+
+<!-- FIXME: maybe add the cool set of component and layout animations? -->
+
+We are pleased to announce the
+[components gallery](https://shiny.posit.co/py/components/)
+and
+[layouts gallery](https://shiny.posit.co/py/layouts/) <!-- FIXME: link is broken -->
+for
+[Shiny for Python](https://shiny.posit.co/py/).
+
+The goal of these galleries are to provide:
+
+1. an overview of Shiny options for new users, and
+2. a cheatsheet-like reference for current users that will accelerate how you build Shiny apps
+
+## Components Gallery
+
+Each of the components comes with a demo code as well as details on how to
+use the component,
+links to documentation,
+and example variations of the component in action.
+
+The site provides an overview of available Shiny components,
+as well as details and examples to help you get started.
+The main components page lists all the
+input, output, and display components, along with a small demo example of the component’s behavior.
+
+[![Components](components-site-main-snippet.png)](https://shiny.posit.co/py/components){fig-align="center" fig-alt="Screenshot of a few rows on the Components main page showing 2 rows of example inputs" style="border: 2px solid  gray;"}
+
+When you click on a component,
+you’ll see a running example of the component,
+along with the code used to create the component.
+
+![](components-example-value_box.png){width=400 fig-align="center" fig-alt="of the value box component preview" style="border: 2px solid  gray;"}
+
+Code highlights reveal the most important lines for creating the  component.
+You can run the example code in
+[Shiny Live](https://shinylive.io/py/)
+and edit it—right in the browser,
+without having to create or host your own Shiny app.
+This makes it easy to experiment and see the results!.
+
+![](components-example-value_box-code.png){width=400 fig-align="center" fig-alt="screen shot of the value box component preview" style="border: 2px solid  gray;"}
+
+Each of the components has a section that links to the documentation pages
+for the individual functions that are used to build the component.
+We also provide the function signature right on the page if you just need a quick reference.
+
+![](components-example-value_box-functions.png){width=400 fig-align="center" fig-alt="screenshot of the relevant functions section of the value box component page" style="border: 2px solid  gray;"}
+
+For Shiny newcomers,
+each component also comes with a "Details" section
+that describes how to use and create the component in your own application.
+Over time, these Details sections will expand and become a central source of
+techniques, tips, and best practices related to the component.
+
+![](components-example-value_box-details.png){width=400 fig-align="center" fig-alt="screenshot of the details section of the value box component page" style="border: 2px solid  gray;"}
+
+Some of the more complex components also have a Variations section.
+Here you will find code templates for commonly used configurations of the component.
+Like all of the examples in the gallery,
+these templates can be edited and run right in the browser, thanks to
+[Shinylive](https://shinylive.io/py).
+
+![](components-example-value_box-variations.png){width=400 fig-align="center" fig-alt="screenshot of the details section of the value box component page" style="border: 2px solid  gray;"}
+
+
+## Layouts Gallery
+
+We've also followed the same display pattern as the components gallery to showcase the diffeernt ways you can do user interface (UI) in the layouts gallery.
+The main page will list out all the main types of layouts.
+This gives you an overview of everything you can put into your application,
+and hoepfully gives you inspiration on what you need for your layout.
+
+![](layouts-main.png){fig-align="center" fig-alt="screenshot of the navbar section on the main layout page" style="border: 2px solid  gray;"}
+
+Once you know the overall type of style you like,
+you get the same set of relevant functions,
+in-browser preview,
+example code,
+and detailed instructions,
+just like each of the components gallery.
+
+![](layouts-navbars.png){width=400 fig-align="center" fig-alt="screenshot of the navbar at top example of the navbar page" style="border: 2px solid  gray;"}
+
+All the other UI variations are all displayed in the same page.
+This let's you pick the general layout from the main page,
+and see all the modifications you you can make as you are planning out your application.
+Just like the components gallery,
+you can see the layout in action directly on the page,
+or modify the code as needed and see the results without leaving your browser,
+with the help of
+[Shinylive](https://shinylive.io/py).
+
+## Check It Out!
+
+Come check out
+[Shiny for Python](https://shiny.posit.co/py/)
+With the new components and layouts galleries,
+Shiny has never been easier to use!
