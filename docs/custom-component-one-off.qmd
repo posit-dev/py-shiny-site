@@ -187,7 +187,7 @@ def output_tabulator(id, height="200px"):
     )
 ```
 
-We use the `HTMLDependency` function to bind up the assets needed for tabulator that we made in the previous step and making sure that they're included in our app whenever the `output_tabulator()` function is called (but not more than once.)
+We use the `HTMLDependency` function to bind up the assets needed for tabulator that we made in the previous step to make sure that they're included in our app whenever the `output_tabulator()` function is called (but not more than once).
 
 :::{.callout-note}
 Note the use of `all_files=True` here. This makes it so we can do the ESM import of the Tabulator library. Otherwise `tabulator_esm.min.js` would not be hosted and the JS library wouldn't be able to find it.
