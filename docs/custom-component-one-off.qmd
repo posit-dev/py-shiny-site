@@ -199,6 +199,8 @@ Now, the `output_tabulator()` function can be called anywhere we want to render 
 
 Now we've got the client-side logic finished, we need to write a custom render decorator that sends our data into the component.
 
+A render function's job is to take the result of calling the decorated function, transform it into the format our client-side code wants (in many cases this may be as simple as just returning the object unchanged), and then returning that client-side friendly data which will be passed to our client's `renderValue()` method.
+
 To do this we can leverage some tools provided by Shiny in the `shiny.render.transformer` subpackage.
 
 ```{.python filename="app.py"}
