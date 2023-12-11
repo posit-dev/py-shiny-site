@@ -86,7 +86,7 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
 Shiny.outputBindings.register(...);
 ```
 
-Note that we're using the class `".shiny-tabulator-output"` here to mark the element that we want to render the table in. This is the same class that we will use in our `output_tabulator()` function in our app's server code. You can use any valid css selector here, but it's common to use a descriptive class name like this.
+Note that we're using the class `".shiny-tabulator-output"` here to mark the element that we want to render the table in. This is the same class that we will use in our `output_tabulator()` function in our app's server code. You can use any valid CSS selector here, but it's common to use a descriptive class name like this.
 
 ### The `renderValue()` method
 
