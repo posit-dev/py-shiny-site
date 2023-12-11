@@ -49,7 +49,9 @@ function ColorPickerReact({
 
 ```
 
-![Output of `ColorPickerReact` component](custom-components-color-picker.png){width=200px}
+:::{.sourceCode}
+![Output of `ColorPickerReact` component](custom-components-color-picker.png){width=200px fig-alt="Screenshot of color picker component" class="app-screenshot pad-top"}
+:::
 
 
 Your component may look very different, but at the end of the day it just needs to be a self-contained react component.
@@ -364,7 +366,10 @@ app = App(app_ui, server)
 
 This is a simple example app that can be used to test the component while developing. It uses the `fancy_color_picker` function we defined in `fancy_color_picker.py` to add the component to the app. It also uses the `render.text` decorator to render the value of the input to the page.
 
-![Example app running with color picker](custom-components-pkg-example-app.png)
+:::{.sourceCode}
+![Example app running with color picker](custom-components-pkg-example-app.png){fig-alt="Screenshot of example app running" class="app-screenshot"}
+:::
+
 
 ::: {.callout-tip collapse="true"}
 ## What about an output binding?
@@ -407,3 +412,36 @@ While there are lots of ways to develop components with live-feedback (e.g. Stor
 3. Run the example app in live-reload mode. If you're using VScode, the [Shiny for Python extension](https://marketplace.visualstudio.com/items?itemName=Posit.shiny-python) enables this automatically when pressing the run button above the app script.
 
 Now you can update your component JavaScript/python functions and your app will automatically reload with the changes. Happy developing!
+
+<style>
+/*
+  Co-opt the sourceCode class for nice dropshadow to
+  separate screenshot from background
+*/
+
+.sourceCode:has(.app-screenshot) {
+  padding:0;
+
+  & > p {
+      margin:0;
+  }
+
+  .quarto-figure {
+    margin-bottom: 0;
+  }
+
+  img {
+    margin: 0;
+  }
+
+  figcaption {
+      margin-inline:1rem;
+      margin-block: 0.25rem;
+      font-style: italic;
+  }
+}
+
+.sourceCode:has(.app-screenshot.pad-top) img {
+    margin-block-start: 0.5rem;
+}
+</style>

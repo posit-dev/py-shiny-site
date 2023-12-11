@@ -317,21 +317,43 @@ app = App(app_ui, server)
 Which results in the following app:
 
 
+
 <style>
 /*
   Co-opt the sourceCode class for nice dropshadow to
   separate screenshot from background
 */
+
 .sourceCode:has(.app-screenshot) {
-    padding:0;
+  padding:0;
+
+  & > p {
+      margin:0;
+  }
+
+  .quarto-figure {
+    margin-bottom: 0;
+  }
+
+  img {
+    margin: 0;
+  }
+
+  figcaption {
+      margin-inline:1rem;
+      margin-block: 0.25rem;
+      font-style: italic;
+  }
 }
-.sourceCode:has(.app-screenshot) > p {
-    margin:0;
+
+.sourceCode:has(.app-screenshot.pad-top) img {
+    margin-block-start: 0.5rem;
 }
 </style>
 
+
 :::{.sourceCode}
-![](./custom-components-result.png){fig-alt="Screenshot of resulting app" class="app-screenshot"}
+![Our app with custom Tabulator component.](./custom-components-result.png){fig-alt="Screenshot of resulting app" class="app-screenshot"}
 :::
 
 
