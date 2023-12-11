@@ -232,6 +232,9 @@ async def render_tabulator(
         "type_hints": res.dtypes.astype(str).tolist(),
     }
 ```
+:::{.callout-note}
+In the code above we use types so that we can get some type checking in our IDE, but these are not required.
+:::
 
 The `output_transformer` decorator is a decorator factory (it's a decorator that creates decorators!) that takes a function that returns a dictionary of data to be passed to the client side. The function that it decorates is passed two arguments: `_meta` and `_fn`.
 
@@ -239,15 +242,23 @@ The `output_transformer` decorator is a decorator factory (it's a decorator that
 
 `_fn` is the function that is being decorated, i.e. the function that goes below the `@render_tabulator()` in your app's server code. In this case we are expecting that that function returns either a pandas dataframe or `None`.
 
-In the code above we use types so that we can get some type checking in our IDE, but these are not required. Also note that the decorated function is an async function, so we need to use the `await` keyword when we call it for `resolve_value_fn()`.
 
-```python
+```{.python}
 ...
-res = await resolve_value_fn(_fn)
+    res = await resolve_value_fn(_fn)
 ...
 ```
 
-`resolve_value_fn()` is a helper provided in `shiny.render.transformer` for resolving the value of a function that may or may not be async. This allows us to write our code in a way that is agnostic to how the user has written their render function.
+`resolve_value_fn()` is a helper provided in `shiny.render.transformer` for resolving the value of a function that may or may not be async.
+
+
+:::{.callout-note}
+# Why an asynchronous function?
+It is required for output decorator functions to be `async`. This allows users of the render bindings to provide either synchronous or asynchronous functions to the decorator. This allows us to write our code in a way that is agnostic to how the user has written their render function.
+
+If you don't need any async behavior you can simply write your function as you would a standard synchronous function after `await`ing `resolve_value_fn()`.
+:::
+
 
 Next, we check to make sure that the value returned by the function is a dataframe. If it's not, we throw an error. This is not required, but it's good practice to do so.
 
