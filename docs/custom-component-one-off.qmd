@@ -90,7 +90,7 @@ Note that we're using the class `".shiny-tabulator-output"` here to mark the ele
 
 ### The `renderValue()` method
 
-Next, we fill in the main logic for rendering our table in to the `renderValue` method. This method gets passed two arguments: `el` which is an [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) as found by our find function, and `payload` which is the data that the server has provided from the render function (more on this [soon](#the-render_tabulator-decorator)).
+Next, we fill in the main logic for rendering our table in to the `renderValue` method. This method gets passed two arguments: `el`, which is an [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) as found by our find function, and `payload`, which is the data that the server has provided from the render function (more on this [soon](#the-render_tabulator-decorator)).
 
 ```{.javascript filename="tableComponent.js"}
 // Import the Tabulator library
@@ -145,7 +145,7 @@ The format of this will vary entirely based upon the type of component you're bu
 
 :::{.callout-note}
 
-Since this code is relying on the `Shiny` object just existing in the Javascript context. It's safe to wrap all the above code in an if statement so it only runs if that object exists. This is useful if you're writing a package that might be used in a non-Shiny context, your code won't error out and break the document.
+This code relies on the `Shiny` object just existing in the JavaScript context, but you may want to wrap all the above code in an `if (Shiny)` statement so it only runs if the `Shiny` object exists. This is useful if you're writing a component that might be used in a non-Shiny context, your code won't error out and break the document.
 
 ```{.javascript filename="tableComponent.js"}
 if (Shiny) {
@@ -190,7 +190,7 @@ def output_tabulator(id, height="200px"):
 We use the `HTMLDependency` function to bind up the assets needed for tabulator that we made in the previous step and making sure that they're included in our app whenever the `output_tabulator()` function is called (but not more than once.)
 
 :::{.callout-note}
-Note the use of `all_files=True` here. This makes it so we can do the esm import of the tabulator library. Otherwise `tabulator_esm.min.js` would not be hosted and the js library couldn't find it.
+Note the use of `all_files=True` here. This makes it so we can do the ESM import of the Tabulator library. Otherwise `tabulator_esm.min.js` would not be hosted and the JS library wouldn't be able to find it.
 :::
 
 Now, the `output_tabulator()` function can be called anywhere we want to render a table in our app.
@@ -233,11 +233,11 @@ async def render_tabulator(
     }
 ```
 
-The `output_transformer` decorator is a decorator factory that takes a function that returns a dictionary of data to be passed to the client side. The function that it decorates is passed two arguments: `_meta` and `_fn`.
+The `output_transformer` decorator is a decorator factory (it's a decorator that creates decorators!) that takes a function that returns a dictionary of data to be passed to the client side. The function that it decorates is passed two arguments: `_meta` and `_fn`.
 
 `_meta` is a dictionary of metadata about the function that is being decorated. We don't use it in our example.
 
-`_fn` is the function that is being decorated. Aka the function that goes below the `@render_tabulator()` in your app's server code. In this case we are expecting that that function returns either a pandas dataframe or `None`.
+`_fn` is the function that is being decorated, i.e. the function that goes below the `@render_tabulator()` in your app's server code. In this case we are expecting that that function returns either a pandas dataframe or `None`.
 
 In the code above we use types so that we can get some type checking in our IDE, but these are not required. Also note that the decorated function is an async function, so we need to use the `await` keyword when we call it for `resolve_value_fn()`.
 
