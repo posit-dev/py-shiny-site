@@ -68,11 +68,12 @@ Shiny.outputBindings.register(
 );
 ```
 
-This class has two methods that we need to implement: `find()` and `renderValue()`. The `find()` method is used to find the element that we want to render the table in. The `renderValue()` method is used to render the table in the element. After making that class we need to register it with Shiny so it can find and send data to instances of our output.
+This class has two methods that we need to implement: `find()` and `renderValue()`. The `find()` method is used to identify the element that will contain the rendered table. The `renderValue()` method is used to render the table in the element. After making that class we need to register it with Shiny so it can find and send data to instances of our output.
 
 ### The `find()` method
 
-Now that we have the scaffolding set up, we can fill it in. Starting with the `find` method, this function is passed a `scope` object, which is a `jQuery` selection and should return the element you wish to render your output into.
+
+Now that we have the scaffolding set up we can start by filling in the `find` method. This function is passed a `scope` object, which is a `jQuery` selection and should return the element you wish to render your output into.
 
 ```{.javascript filename="tableComponent.js"}
 class TabulatorOutputBinding extends Shiny.OutputBinding {
@@ -86,11 +87,11 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
 Shiny.outputBindings.register(...);
 ```
 
-Note that we're using the class `".shiny-tabulator-output"` here to mark the element that we want to render the table in. This is the same class that we will use in our `output_tabulator()` function in our app's server code. You can use any valid CSS selector here, but it's common to use a descriptive class name like this.
+Note that we're using the class `".shiny-tabulator-output"` here to mark the element that we want to render the table in. This is the same class that we will use in our `output_tabulator()` function in our app's server code. You can use any valid CSS selector here, but it's common to use a class name that descibes the output.
 
 ### The `renderValue()` method
 
-Next, we fill in the main logic for rendering our table in to the `renderValue` method. This method gets passed two arguments: `el`, which is an [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) as found by our find function, and `payload`, which is the data that the server has provided from the render function (more on this [soon](#the-render_tabulator-decorator)).
+Next, we fill in the main logic for rendering our table in to the `renderValue` method. This method gets passed two arguments: `el`, which is an [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) identified by our find function, and `payload`, which is the data that the server has provided from the render function (more on this [soon](#the-render_tabulator-decorator)).
 
 ```{.javascript filename="tableComponent.js"}
 // Import the Tabulator library
@@ -139,13 +140,13 @@ Shiny.outputBindings.register(...);
 
 The implementation of this function is not terribly important and draws directly from the [tabulator docs](https://tabulator.info/docs/5.5/quickstart).
 
-What matters is that we take our data, transform it in some way, and then instantiate our table with the `new Tabulator(el, {...})` call. In this case we take data in the form of the rows of a passed data frame, the column names, and the types of those columns (we decide this format when we [create the render decorator](#the-render_tabulator-decorator)), and construct a js object in the form of `data = [{col1: foo1, col2: bar1, ...}, {col1: foo2, col2: bar2, ...}]`. We also combine the column names and types to create the `columnsDef` object that Tabulator expects.
+What matters is that we take our data, transform it in some way, and then instantiate our table with the `new Tabulator(el, {...})` call. In this case we take data in the form of the rows of a passed data frame, the column names, and the types of those columns (this is determined by [the render decorator](#the-render_tabulator-decorator)), and construct a js object in the form of `data = [{col1: foo1, col2: bar1, ...}, {col1: foo2, col2: bar2, ...}]`. We also combine the column names and types to create the `columnsDef` object that Tabulator expects.
 
-The format of this will vary entirely based upon the type of component you're building though, so if you don't follow, don't worry!
+Don't worry too much about following this particular format because it will change depending on the component that you are wrapping.
 
 :::{.callout-note}
 
-This code relies on the `Shiny` object just existing in the JavaScript context, but you may want to wrap all the above code in an `if (Shiny)` statement so it only runs if the `Shiny` object exists. This is useful if you're writing a component that might be used in a non-Shiny context, your code won't error out and break the document.
+This code relies on the `Shiny` object existing in the JavaScript context, but you may want to wrap all the above code in an `if (Shiny)` statement so it only runs if the `Shiny` object exists. This is useful if you're writing a component that might be used in a non-Shiny context because your code won't error out trying to access the non-existant `Shiny` variable and break the document.
 
 ```{.javascript filename="tableComponent.js"}
 if (Shiny) {
@@ -160,7 +161,7 @@ To see the full JavaScript code, see `tabulator/tableComponent.js` in the [accom
 
 ## The `output_tabulator()` function
 
-For the case of our table we just need an HTML element to target with our JavaScript code. When we set up [the find method](#the-find-method) for our binding, we chose the class `shiny-tabulator-output` as the mark of a tabualtor output, so we need to add that class. We also need to allow the user to set the ID of the element so that Shiny knows which element to target with which output. By wrapping the `id` argument in `resolve_id()` we make sure it will work in the context of modules. We'll also add a height argument so that the user can set the height of the table.
+Next we need an HTML element to target with our JavaScript code. When we set up [the find method](#the-find-method) for our binding, we chose the class `shiny-tabulator-output` as the mark of a tabualtor output, so we need to add that class. We also need to allow the user to set the ID of the element so that Shiny knows which element to target with which output. By wrapping the `id` argument in `resolve_id()` we make sure it will work in the context of modules. We'll also add a height argument so that the user can set the height of the table.
 
 ```{.python filename="app.py"}
 from shiny import ui, App
@@ -187,9 +188,10 @@ def output_tabulator(id, height="200px"):
     )
 ```
 
-We use the `HTMLDependency` function to bind up the assets needed for tabulator that we made in the previous step to make sure that they're included in our app whenever the `output_tabulator()` function is called (but not more than once).
 
 :::{.callout-note}
+We use the `HTMLDependency` function to bind up the assets needed for tabulator that we made in the previous step to make sure th at they're included in our app whenever the `output_tabulator()` function is called (but not more than once).
+
 Note the use of `all_files=True` here. This makes it so we can do the ESM import of the Tabulator library. Otherwise `tabulator_esm.min.js` would not be hosted and the JS library wouldn't be able to find it.
 :::
 
@@ -242,7 +244,7 @@ The `output_transformer` decorator is a decorator factory (it's a decorator that
 
 `_meta` is a dictionary of metadata about the function that is being decorated. We don't use it in our example.
 
-`_fn` is the function that is being decorated, i.e. the function that goes below the `@render_tabulator()` in your app's server code. In this case we are expecting that that function returns either a pandas dataframe or `None`.
+`_fn` is the decorated function, i.e. the function that goes below the `@render_tabulator()` decorator in your app's server code. In this case we are expecting the function to return either a pandas dataframe or `None`.
 
 
 ```{.python}
@@ -256,13 +258,13 @@ The `output_transformer` decorator is a decorator factory (it's a decorator that
 
 :::{.callout-note}
 # Why an asynchronous function?
-It is required for output decorator functions to be `async`. This allows users of the render bindings to provide either synchronous or asynchronous functions to the decorator. This allows us to write our code in a way that is agnostic to how the user has written their render function.
+It is required by Shiny that the output decorator function be `async`. This allows users of the render bindings to provide either synchronous or asynchronous functions to the decorator. This ensures that the function will work whether or not the end user has defined their render function asynchronously.
 
 If you don't need any async behavior you can simply write your function as you would a standard synchronous function after `await`ing `resolve_value_fn()`.
 :::
 
 
-Next, we check to make sure that the value returned by the function is a dataframe. If it's not, we throw an error. This is not required, but it's good practice to do so.
+Next, we check to make sure that the value returned by the function is a dataframe. If it's not, we throw an error. This is not strictly required, but is a best practice.
 
 ```python
 ...
