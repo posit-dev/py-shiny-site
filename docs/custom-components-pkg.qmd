@@ -65,7 +65,7 @@ This article touches on building an input component. However, it's also possible
 
 ## The quick version
 
-If you just want to get up and running with the code, you can start with one of the available templates available with the `Shiny create` command and then run the commands provided after the template is created.
+If you just want to get up and running with the code, you can start with one of the available templates available with the `shiny create -t js-react` command and then run the commands provided after the template is created. You can also see the full list of JavaScript extension templates with `shiny create -t js-component`.
 
 ```bash
 % Shiny create
