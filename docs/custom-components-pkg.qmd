@@ -135,7 +135,7 @@ makeReactInput({
 function ColorPickerReact(...) { ... }
 ```
 
-In here we declare the `tagName` of for our component. This name is used to generate the correct markup with python later. Under the hood `makeReactInput()` generates a [webcomponent](https://developer.mozilla.org/en-US/docs/Web/Web_Components) to hold our input. A webcomponent is a custom HTML element. The `tagName` provided here represents the name of that custom component we're generating. In this case we're registering the component as `<fancy-color-picker>`.
+In here we declare the `tagName` of for our component. This name is used to generate the correct markup with python later. Under the hood `makeReactInput()` generates a [webcomponent](https://developer.mozilla.org/en-US/docs/Web/Web_Components) to hold our input. A webcomponent is a custom HTML element that allows us to bind custom markup and JavaScript logic to a point in our app by simply writing the custom tag into the app's HTML. The `tagName` argument provided here represents the name of that custom component we're generating. In this case we're registering the component as `<fancy-color-picker>`.
 
 ::: {.callout-note}
 This example uses the webcomponent based interface provided by the [`@posit-dev/shiny-bindings-react` package,](https://github.com/posit-dev/shiny-bindings/blob/main/packages/react/README.md) but if you want lower level access you can use the built-in class-based interface. See the [Shiny for R documentation](https://shiny.posit.co/r/articles/build/building-inputs/) for more details.
