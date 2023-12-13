@@ -82,6 +82,7 @@ While there are lots of ways to develop components with live-feedback (e.g. Stor
 
 Now you can update your component JavaScript/python functions and your app will automatically reload with the changes. Happy developing!
 
+4. Once you're happy with your component, you can deploy to PyPi. For instructions on doing this see the [Python Packaging User Guide.](https://packaging.python.org/en/latest/tutorials/packaging-projects/#generating-distribution-archives)
 
 If you want to understand what's going on under the hood, read on!
 
