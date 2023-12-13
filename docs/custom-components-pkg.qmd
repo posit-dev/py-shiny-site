@@ -59,7 +59,7 @@ Your component may look very different, but at the end of the day it just needs 
 ::: {.callout-tip}
 ## What about an output binding?
 
-This article touches on building an input component. However, it's also possible to build output components. The process and project structure is very similar to inputs. Throughout this article look for the "What about an output binding?" tips for more information on how to build an output binding. There is also a template for building an output binding in the `Shiny create` menu.
+This article touches on building an input component. However, it's also possible to build output components. The process and project structure is very similar to inputs. Throughout this article look for the "What about an output binding?" tips for more information on how to build an output binding. You can generate an output template with `shiny create -t js-output`.
 :::
 
 
