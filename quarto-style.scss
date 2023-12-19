@@ -1355,6 +1355,11 @@ a.gallery-meta {
   width: 33%;
 }
 
+// Special colwidths for first column of api index tables
+.doc-index table td:first-child {
+  text-wrap: nowrap;
+}
+
 // tables without borders
 .table-simple {
   border: none !important;
