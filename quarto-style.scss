@@ -1512,10 +1512,25 @@ code .parameter-default a {
 }
 
 // Indent parameter descriptions in API docs
-#parameters dd {
-  margin-top: 0.5rem;
-  margin-left: 2rem;
+#parameters {
+  dt code {
+    font-size: 0.95em;
+    background: none;
+  }
+
+  dd {
+    margin-top: 0.25rem;
+    margin-left: 2rem;
+  }
+
+  dd, dt {
+    p:first-child {
+      margin-top: 0;
+    }
+  }
 }
+
+
 
 // badge shenanigans
 .badge {
