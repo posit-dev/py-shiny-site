@@ -10,41 +10,6 @@
 <%= item.description %>
 :::
 
-::: {.panel-tabset group="shiny-app-mode"}
-
-## Preview
-
-```{shinylive-python}
-#| standalone: true
-#| components: [<%= item.appCore.components ? item.appCore.components.join(', ') : 'viewer' %>]
-#| viewerHeight: <%= item.appCore.height ? item.appCore.height : '300px' %>
-
-<%= Deno.readTextFileSync(item.metaDir + item.appCore.file) %>
-```
-
-## Core
-
-```{.python filename="app.py" }
-<%= Deno.readTextFileSync(item.metaDir + item.appCore.file) %>
-```
-
-<% if (item.appCore.shinylive) { %>
-<p class="text-end my-0 p-90 me-2"><a  href="<%= item.appCore.shinylive %>"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
-<% } %>
-
-<% if (item.appExpress) { %>
-## Express
-
-```{.python filename="app.py" }
-<%= Deno.readTextFileSync(item.metaDir + item.appExpress.file) %>
-```
-
-<% if (item.appExpress.shinylive) { %>
-<p class="text-end my-0 p-90 me-2"><a  href="<%= item.appExpress.shinylive %>"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
-<% } %>
-
-<% } %>
-
-:::
+<%= include('_new_shiny-example-panel.ejs', item) %>
 
 <% } %>

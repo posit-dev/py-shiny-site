@@ -3,7 +3,7 @@ title: Modal for authentication
 description: >
   Place inputs inside a modal to collect, and then login with, credentials.
 
-metaDir: components/display-messages/modal/
+appDir: components/display-messages/modal/
 
 appCore:
   file: app-variation-modal-core.py

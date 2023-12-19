@@ -1,7 +1,7 @@
 ---
 title: Modal
 
-metaDir: components/display-messages/modal/
+appDir: components/display-messages/modal/
 
 appCore:
   file: app-core.py
