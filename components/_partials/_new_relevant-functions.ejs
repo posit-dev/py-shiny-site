@@ -1,0 +1,26 @@
+<!-- relevant functions -->
+
+<% for (const item of items) { %>
+<% if (item.relevantFunctions) { %>
+
+## Relevant Functions {.mt-5}
+
+```{=html}
+<ul>
+<% for (const fun of item.relevantFunctions) { %>
+  <li>
+    <p>
+      <a href="<%= fun.href %>"><%= fun.title %></a>
+      <br>
+      <code style="text-wr"><%= fun.signature %></code>
+    </p>
+  </li>
+<% } %>
+</ul>
+```
+
+<% } %>
+
+<div class="border-bottom blue mt-6 mb-4"></div>
+
+<% } %>
