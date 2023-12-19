@@ -103,12 +103,12 @@ $box-shadow:
   0px 3px 7px rgba(29, 31, 33,.1),
   0px 12px 30px rgba(29, 31, 33,.08) !default;
 
-$box-shadow-sm: 
-  0px 1px 2px rgba(29,31,33,.1), 
-  0px 2px 3px rgba(29,31,33,.1), 
+$box-shadow-sm:
+  0px 1px 2px rgba(29,31,33,.1),
+  0px 2px 3px rgba(29,31,33,.1),
   0px 3px 8px rgba(29,31,33,.08) !default;
 
-  
+
 // A shiny-preset-specific variable, hoping Bootstrap adds something like this
 $box-shadow-dark:
   0px 1px 2px rgba(0, 0, 0,.1),
@@ -1511,6 +1511,12 @@ code .parameter-default a {
   color: $link-color;
 }
 
+// Indent parameter descriptions in API docs
+#parameters dd {
+  margin-top: 0.5rem;
+  margin-left: 2rem;
+}
+
 // badge shenanigans
 .badge {
   padding: 0.675rem 2rem;
@@ -1606,7 +1612,7 @@ div.hero-carousel {
 }
 
 // Shiny Components library
- 
+
 // Replicate Action Buttons
 
 btn.action-button {
