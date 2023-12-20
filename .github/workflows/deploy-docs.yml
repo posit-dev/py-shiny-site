@@ -74,6 +74,15 @@ jobs:
           # Output changes
           echo "Changed files:"
           git diff --name-only
+      - name: Push back results to repo
+        uses: stefanzweifel/git-auto-commit-action@v5
+        if: |
+          github.event_name == 'pull_request' &&
+          (! github.event.pull_request.head.repo.fork) &&
+          steps.components.outputs.has-changes == 'true'
+        with:
+          commit_message: "`make quartodoc` (GitHub Actions)"
+          file_pattern: components
 
       - name: Write comment to update components folder
         if: ${{github.event_name == 'pull_request' && steps.components.outputs.has-changes == 'true'}}
