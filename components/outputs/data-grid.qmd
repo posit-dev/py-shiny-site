@@ -32,14 +32,17 @@ listing:
           app = App(app_ui, server)
         relevantfunctions:
           - title: ui.output_data_frame
-            href: https://shiny.posit.co/py/api/ui.output_data_frame.html
-            signature: ui.output_data_frame(id)
+            href: https://shiny.posit.co/py/api/ui.output_data_frame.html#shiny.ui.output_data_frame
+            signature: 'ui.output_data_frame(id: str)'
+            github: https://github.com/posit-dev/py-shiny/blob/de6fbda/shiny/ui/dataframe/_dataframe.py#L12-L39
           - title: '@render.data_frame'
-            href: https://shiny.posit.co/py/api/render.data_frame.html
-            signature: render.data_frame(fn=None)
+            href: https://shiny.posit.co/py/api/render.data_frame.html#shiny.render.data_frame
+            signature: render.data_frame()
+            github: https://github.com/posit-dev/py-shiny/blob/de6fbda/shiny/render/_dataframe.py#L258-L302
           - title: render.DataGrid
-            href: https://shiny.posit.co/py/api/render.DataGrid.html
-            signature: render.DataGrid(self, data, *, width='fit-content', height='500px', summary=True, filters=False, row_selection_mode='none')
+            href: https://shiny.posit.co/py/api/render.DataGrid.html#shiny.render.DataGrid
+            signature: "render.DataGrid(data: object, width: str | float | None = 'fit-content', height: Union = '500px', summary: Union = True, filters: bool = False, row_selection_mode: Literal = 'none')"
+            github: https://github.com/posit-dev/py-shiny/blob/de6fbda/shiny/render/_dataframe.py#L36-L119
   - id: variations
     template: ../_partials/components-variations.ejs
     contents:
