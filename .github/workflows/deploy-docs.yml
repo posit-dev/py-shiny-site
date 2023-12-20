@@ -42,15 +42,15 @@ jobs:
           make deps
 
       # =====================================================
-      # Build
+      # Setup site
       # =====================================================
       - uses: quarto-dev/quarto-actions/setup@v2
         with:
           version: 1.3.340
 
-      - name: Build site
+      - name: Prep site
         run: |
-          make all
+          make deps quartodoc
 
       # =====================================================
       # Notify PR of file updates
@@ -81,6 +81,13 @@ jobs:
           #   Components folder is up to date. Removing comment
           comment_tag: make_quartodoc
           mode: delete
+
+      # =====================================================
+      # Build
+      # =====================================================
+      - name: Build site
+        run: |
+          make site
 
       # =====================================================
       # Deploy docs to Netlify
