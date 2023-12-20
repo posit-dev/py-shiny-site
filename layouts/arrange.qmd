@@ -2,7 +2,7 @@
 title: "Arrange Elements"
 description: "Shiny's premade layouts, such as ui.page_sidebar() and ui.page_navbar() make use of Shiny's lower-level grid layout functions"
 ---
-Shiny's premade layouts, such as [`ui.page_sidebar()`](TODO ADD LINK) and [`ui.page_navbar()`](TODO ADD LINK) make use of Shiny's lower-level grid layout functions:
+Shiny's premade layouts, such as [ui.layout_sidebar](https://shiny.posit.co/py/api/ui.layout_sidebar.html) and [ui.page_navbar](https://shiny.posit.co/py/api/ui.page_navbar.html)  make use of Shiny's lower-level grid layout functions:
 
 * Rows are created by the `ui.row()` function and include columns.
 * Columns are defined by the `ui.column()` function. Column widths are based on the [Bootstrap](https://getbootstrap.com/) 12-wide grid system, so column widths should add up to 12 within a row. 
@@ -26,21 +26,20 @@ You can use these functions directly to create your own layout. Grid layouts can
 - [ui.page_fillable](https://shiny.posit.co/py/api/ui.page_fillable.html)  
   `ui.page_fillable(*args, padding=None, gap=None, fillable_mobile=False, title=None, lang=None, **kwargs)`
 
-:::{.border-bottom .blue .my-6}
+:::{.border-bottom .blue .mt-6 .mb-5}
 :::
 
 ## Grid Layouts
 
-To create a layout using the grid system, first build a grid by interlacing calls to [`ui.row()`](TODO ADD LINK) and [`ui.column()`](TODO ADD LINK). Then place UI elements within the grid by passing them to a `ui.row()` or `ui.column()` function. For example, the app below arranges three cards into a simple pattern.
+To create a layout using the grid system, first build a grid by interlacing calls to [ui.row](https://shiny.posit.co/py/api/ui.row.html)  and [ui.column](https://shiny.posit.co/py/api/ui.column.html). Then place UI elements within the grid by passing them to a `ui.row()` or `ui.column()` function. For example, the app below arranges three cards into a simple pattern.
 
+:::{.column-screen-inset-right style="max-width:800px;"}
 ::: {.panel-tabset}
 
 ## Preview
 
 <iframe style="height:175px;" class="mb-0 w-100 iframe-border py-3" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYGOGBgHc7EBw8MkrMCDYBGACYJRwxCKDpbZTAAYUjpJgCYgEoU+yYUvAzDV3dPMJ8FPxsANkUnCKi7OISmINSsjK9K4l9-csKEmviopgBmRoKHDPSIMdVZGlY5ADc5Gy5UBTIJYhXl1ZmWFg5SFMRmyTgyBToPJgA5UjhVdXQ9UXQbDW0OCRY5uRSwAF8AXSAA" title="title">
 </iframe> 
-<p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYGOGBgHc7EBw8MkrMCDYBGACYJRwxCKDpbZTAAYUjpJgCYgEoU+yYUvAzDV3dPMJ8FPxsANkUnCKi7OISmINSsjK9K4l9-csKEmviopgBmRoKHDPSIMdVZGlY5ADc5Gy5UBTIJYhXl1ZmWFg5SFMRmyTgyBToPJgA5UjhVdXQ9UXQbDW0OCRY5uRSwAF8AXSAA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
-
 
 ## Code
 
@@ -62,6 +61,7 @@ def server(input, output, session):
 
 app = App(app_ui, server)
 ```
+:::
 <p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYGOGBgHc7EBw8MkrMCDYBGACYJRwxCKDpbZTAAYUjpJgCYgEoU+yYUvAzDV3dPMJ8FPxsANkUnCKi7OISmINSsjK9K4l9-csKEmviopgBmRoKHDPSIMdVZGlY5ADc5Gy5UBTIJYhXl1ZmWFg5SFMRmyTgyBToPJgA5UjhVdXQ9UXQbDW0OCRY5uRSwAF8AXSAA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
 
@@ -81,14 +81,13 @@ Notice three things about the app:
 In addition to setting a column's width, you can also set its offset. This controls how many units of padding should appear to the left of the column. Once again the units should be an integer from 1 to 12. Here we use offsets to make a new arrangement:
 
 
+:::{.column-screen-inset-right style="max-width:800px;"}
 ::: {.panel-tabset}
 
 ## Preview
 
 <iframe style="height:300px;" class="mb-0 w-100 iframe-border py-3" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaHAB5xpAClVMmysAHkaNFnDIsmAdw4ANgFMGnBQdH5slExkUUwAbhxw-hDGflzSxL68PiwK7hyESeQBPP6yGM54DgYcGGQmLBgARnS2AJTVEI6GDcZNrR1dPXUMvvbdjrUYJAEKMBC2ACyKdYThds5uHl5MAAzO7Z01IzPEcwvLqzMb9q7unsJLhxLED166S+01x5OGYxMptNZvNFitgbctu8ni8mG8dmRPt9Jr9TgCTsDzqCrhC6Jt7gj9odUVNDCDLuCyZCCY8mM8wJ04dCkT9VMjVLIaKw5PE5LYuKgFGRXkLBcLuSwWBxSO1EBipGQFHRJgA5UhwVTqdB6UToWwabQcCSeOi8ujtMAAXwAukA" title="title">
 </iframe> 
-<p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaHAB5xpAClVMmysAHkaNFnDIsmAdw4ANgFMGnBQdH5slExkUUwAbhxw-hDGflzSxL68PiwK7hyESeQBPP6yGM54DgYcGGQmLBgARnS2AJTVEI6GDcZNrR1dPXUMvvbdjrUYJAEKMBC2ACyKdYThds5uHl5MAAzO7Z01IzPEcwvLqzMb9q7unsJLhxLED166S+01x5OGYxMptNZvNFitgbctu8ni8mG8dmRPt9Jr9TgCTsDzqCrhC6Jt7gj9odUVNDCDLuCyZCCY8mM8wJ04dCkT9VMjVLIaKw5PE5LYuKgFGRXkLBcLuSwWBxSO1EBipGQFHRJgA5UhwVTqdB6UToWwabQcCSeOi8ujtMAAXwAukA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
-
 
 ## Code
 
@@ -114,10 +113,11 @@ def server(input, output, session):
 
 app = App(app_ui, server)
 ```
+:::
 <p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaHAB5xpAClVMDHDAwDu9iI8eGSAGwUwELYALIrOhFB0dspgAMJskcIAjDEAlKl4Dl4+xP6BIWEYEVH2cQlCTABMaRLENDQscGS6walZGVmGbh5eTkW5AUGhfcXRZYlMAMw1THUNTS1tnkwdy13E7lne4QP5wz6RY-ETwWmrvTl5Q4WjpccVAKwzc43Nre2qS6qyNKxyAG5yWxcVAKMi1MGg8F-FgsDikVKILaSJoKOjLABypDgqnU6D0onQtg02g4EkadEBdFSYAAvgBdIA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
  
-:::{.border-bottom .blue .my-6}
+:::{.border-bottom .blue .mt-6 .mb-5}
 :::
 
 ## Column nesting
@@ -126,14 +126,13 @@ When you nest rows and columns within a column, each nested level of column widt
 
 Consider this page layout:
 
+:::{.column-screen-inset-right style="max-width:800px;"}
 ::: {.panel-tabset}
 
 ## Preview
 
 <iframe style="height:300px;" class="mb-0 w-100 iframe-border py-3" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDAwDudiI69OMJKzAgbAEYAJgl7b0jDQig6W2UwAHUOaTI2JlCEvAjI3J83Dzyix2jif0CANmzPYtqHaNj4pJS0pgqsnLquwwLOrv6fPwUAmyrBxrtm1PT2sABKOeqB5cGy4crFZxi4yeTptoSFvpXIueOTs5qLpZPV8tHN3wmEvdbZo6uuy7rv3N+HS6XVSyGisOQANzkNi4qAUZAkxDhsPhYJYLA4pDmiE6UjICjoNQAcqQ4Kp1Og9KJ0DYNNoOBIWBC5JcwABfAC6QA" title="title">
 </iframe> 
-<p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDAwDudiI69OMJKzAgbAEYAJgl7b0jDQig6W2UwAHUOaTI2JlCEvAjI3J83Dzyix2jif0CANmzPYtqHaNj4pJS0pgqsnLquwwLOrv6fPwUAmyrBxrtm1PT2sABKOeqB5cGy4crFZxi4yeTptoSFvpXIueOTs5qLpZPV8tHN3wmEvdbZo6uuy7rv3N+HS6XVSyGisOQANzkNi4qAUZAkxDhsPhYJYLA4pDmiE6UjICjoNQAcqQ4Kp1Og9KJ0DYNNoOBIWBC5JcwABfAC6QA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
-
 
 ## Code
 
@@ -167,10 +166,11 @@ def server(input, output, session):
 
 app = App(app_ui, server)
 ```
+:::
 <p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDAwDudiI69OMJKzAgbAEYAJgl7b0jDQig6W2UwAHUOaTI2JlCEvAjI3J83Dzyix2jif0CANmzPYtqHaNj4pJS0pgqsnLquwwLOrv6fPwUAmyrBxrtm1PT2sABKOeqB5cGy4crFZxi4yeTptoSFvpXIueOTs5qLpZPV8tHN3wmEvdbZo6uuy7rv3N+HS6XVSyGisOQANzkNi4qAUZAkxDhsPhYJYLA4pDmiE6UjICjoNQAcqQ4Kp1Og9KJ0DYNNoOBIWBC5JcwABfAC6QA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
     
-:::{.border-bottom .blue .my-6}
+:::{.border-bottom .blue .mt-6 .mb-5}
 :::
 
 ## Controlling for page width and height
@@ -189,14 +189,13 @@ Each grid system uses a flexibly sub-dividable 12-column grid for layout. They d
 
 ### Fluid Grid System
 
+:::{.column-screen-inset-right style="max-width:800px;"}
 ::: {.panel-tabset}
 
 ## Preview
 
 <iframe style="height:480px;" class="mb-0 w-100 iframe-border py-3" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89Li8XAAp5FlSwmgwuKGxiVTJ-CRo3AShGZIg0yvSIiDguAqK4ErKUqrbwi1Q8gv43FshZfBZBgDlBxwAGRwBGCamWACYJgEo8VrbV9arw1Cha+vYLcrb2jNzObtEyZLBzCTJiSMZYQc2Kk7fKt+WfCHk3PQmdwAN3ciU6eUc5y6ZEcEjgEkKpGWiC2AAFoXl0c4IH0sDxrlAuGRgoNbCw7g8ni8wD93qkARSaPdHs8YIkUVtKjoMM9cUYMPC4ElpgBOABsAA4JtLpnSTiwAB4hFizCYsADUqoArCwAFQqTB8lwC40QRIAFgAzAB2eUnGQYSmJRWOCFkDDm1YsNwQQpkbDBAAqjFUcDpvz8KvsqESfkCNDhIPcjmKqkiwdD4fkYAAvgBdIA" title="title">
 </iframe> 
-<p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89Li8XAAp5FlSwmgwuKGxiVTJ-CRo3AShGZIg0yvSIiDguAqK4ErKUqrbwi1Q8gv43FshZfBZBgDlBxwAGRwBGCamWACYJgEo8VrbV9arw1Cha+vYLcrb2jNzObtEyZLBzCTJiSMZYQc2Kk7fKt+WfCHk3PQmdwAN3ciU6eUc5y6ZEcEjgEkKpGWiC2AAFoXl0c4IH0sDxrlAuGRgoNbCw7g8ni8wD93qkARSaPdHs8YIkUVtKjoMM9cUYMPC4ElpgBOABsAA4JtLpnSTiwAB4hFizCYsADUqoArCwAFQqTB8lwC40QRIAFgAzAB2eUnGQYSmJRWOCFkDDm1YsNwQQpkbDBAAqjFUcDpvz8KvsqESfkCNDhIPcjmKqkiwdD4fkYAAvgBdIA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
-
 
 ## Code
 
@@ -228,21 +227,21 @@ def server(input, output, session):
 
 app = App(app_ui, server, debug=True)
 ```
+:::
 <p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89Li8XAAp5FlSwmgwuKGxiVTJ-CRo3AShGZIg0yvSIiDguAqK4ErKUqrbwi1Q8gv43FshZfBZBgDlBxwAGRwBGCamWACYJgEo8VrbV9arw1Cha+vYLcrb2jNzObtEyZLBzCTJiSMZYQc2Kk7fKt+WfCHk3PQmdwAN3ciU6eUc5y6ZEcEjgEkKpGWiC2AAFoXl0c4IH0sDxrlAuGRgoNbCw7g8ni8wD93qkARSaPdHs8YIkUVtKjoMM9cUYMPC4ElpgBOABsAA4JtLpnSTiwAB4hFizCYsADUqoArCwAFQqTB8lwC40QRIAFgAzAB2eUnGQYSmJRWOCFkDDm1YsNwQQpkbDBAAqjFUcDpvz8KvsqESfkCNDhIPcjmKqkiwdD4fkYAAvgBdIA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
 
-To make a fluid grid that adapts to the width of the user's viewing window, build your app ui with [`ui.page_fluid()`](TODO ADD LINK).
+To make a fluid grid that adapts to the width of the user's viewing window, build your app ui with [ui.page_fluid](https://shiny.posit.co/py/api/ui.page_fluid.html).
 
 ### Fixed Grid System
 
+:::{.column-screen-inset-right style="max-width:800px;"}
 ::: {.panel-tabset}
 
 ## Preview
 
-<iframe style="height:480px;" class="mb-0 w-100 iframe-border py-3" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89GgAPOBcACnkWdLCaDC4obGJVMn8JGjcBKEZUiAzqzIiIOC4ikrgyirSajvCLVAKi-jc2yFl8FmGAOWHHAAZHAEYpmZYAJimASjx2jvXNmvDUKHrG9gtKjs6s-M5e0TJUsHMJMmJIxlhh7aqzj+qP1Z8IeRuPQmdwAN3cyW6BUclx6ZEcEjgEmKpFWiB2AAFYQVMc4IAMsDxblAuGRgsNbCwHk8Xm8wH9PukgVSaI9nq8YMk0TtqjoMK98UYMIikslZgBOABsAA4prLZgyzix4iEWPMpiwANRqgCsLAAVCpMAKXEKTRBkgAWADMAHZFWcZBhqcl4o4oWQMBb1iw3BBimRsMEACqMVRwBn-Pyq+yoZJ+QI0BFg9yOUqqSIhsMR+RgAC+AF0gA" title="title">
+<iframe style="height:500px;" class="mb-0 w-100 iframe-border py-3" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89GgAPOBcACnkWdLCaDC4obGJVMn8JGjcBKEZUiAzqzIiIOC4ikrgyirSajvCLVAKi-jc2yFl8FmGAOWHHAAZHAEYpmZYAJimASjx2jvXNmvDUKHrG9gtKjs6s-M5e0TJUsHMJMmJIxlhh7aqzj+qP1Z8IeRuPQmdwAN3cyW6BUclx6ZEcEjgEmKpFWiB2AAFYQVMc4IAMsDxblAuGRgsNbCwHk8Xm8wH9PukgVSaI9nq8YMk0TtqjoMK98UYMIikslZgBOABsAA4prLZgyzix4iEWPMpiwANRqgCsLAAVCpMAKXEKTRBkgAWADMAHZFWcZBhqcl4o4oWQMBb1iw3BBimRsMEACqMVRwBn-Pyq+yoZJ+QI0BFg9yOUqqSIhsMR+RgAC+AF0gA" title="title">
 </iframe> 
-<p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89GgAPOBcACnkWdLCaDC4obGJVMn8JGjcBKEZUiAzqzIiIOC4ikrgyirSajvCLVAKi-jc2yFl8FmGAOWHHAAZHAEYpmZYAJimASjx2jvXNmvDUKHrG9gtKjs6s-M5e0TJUsHMJMmJIxlhh7aqzj+qP1Z8IeRuPQmdwAN3cyW6BUclx6ZEcEjgEmKpFWiB2AAFYQVMc4IAMsDxblAuGRgsNbCwHk8Xm8wH9PukgVSaI9nq8YMk0TtqjoMK98UYMIikslZgBOABsAA4prLZgyzix4iEWPMpiwANRqgCsLAAVCpMAKXEKTRBkgAWADMAHZFWcZBhqcl4o4oWQMBb1iw3BBimRsMEACqMVRwBn-Pyq+yoZJ+QI0BFg9yOUqqSIhsMR+RgAC+AF0gA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
-
 
 ## Code
 
@@ -274,10 +273,11 @@ def server(input, output, session):
 
 app = App(app_ui, server, debug=True)
 ```
+:::
 <p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89GgAPOBcACnkWdLCaDC4obGJVMn8JGjcBKEZUiAzqzIiIOC4ikrgyirSajvCLVAKi-jc2yFl8FmGAOWHHAAZHAEYpmZYAJimASjx2jvXNmvDUKHrG9gtKjs6s-M5e0TJUsHMJMmJIxlhh7aqzj+qP1Z8IeRuPQmdwAN3cyW6BUclx6ZEcEjgEmKpFWiB2AAFYQVMc4IAMsDxblAuGRgsNbCwHk8Xm8wH9PukgVSaI9nq8YMk0TtqjoMK98UYMIikslZgBOABsAA4prLZgyzix4iEWPMpiwANRqgCsLAAVCpMAKXEKTRBkgAWADMAHZFWcZBhqcl4o4oWQMBb1iw3BBimRsMEACqMVRwBn-Pyq+yoZJ+QI0BFg9yOUqqSIhsMR+RgAC+AF0gA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
 
-To make a fixed grid that maintains a constant maximum width, build your app ui with [`ui.page_fluid()`](TODO ADD LINK).
+To make a fixed grid that maintains a constant maximum width, build your app ui with [ui.page_fluid](https://shiny.posit.co/py/api/ui.page_fluid.html).
 
 The fixed grid system maintains a fixed page width of 940 pixels by default. If Bootstrap responsive features are enabled (they are by default in Shiny) then the grid will also adapt to be 724px or 1170px wide depending on your viewport (e.g. when on a tablet). The fixed system does this by using Bootstrap `.container`s, whereas the fluid system uses Bootstrap `.container-fluid`s. Learn more about the difference [here](https://getbootstrap.com/docs/5.3/layout/containers/#how-they-work).
 
@@ -285,14 +285,13 @@ The main benefit of a fixed grid is that it provides stronger guarantees about h
 
 ### Fillable Grid System
 
+:::{.column-screen-inset-right style="max-width:800px;"}
 ::: {.panel-tabset}
 
 ## Preview
 
-<iframe style="height:400px;" class="mb-0 w-100 iframe-border py-3" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89Gi4uKAEuOAAKeRZMsJoMROxiVTJ-CRo3AShGdIgsmuyIiDguYtK4csqM2s7wi1RC4v43dshZfBYRgDkRxwAGRwBGadmWACZpgEo8Ds6Nrdrw1CgGpvYLKs6unILOPtEydLBzCTJiSMZYEZ3q88+az7WfCDyNx6EzuABu7lSPUKjiuvTIjgkcAkJVIa0QuwAAnDCljnBBBlgeHcoFwyMERrYWI9nq93mB-l9MsDqTQni83jBUujdjUdBg3gSjBgkXAXKk5gBOABsAA5pvK5ozziwAB4hFgLaYsADUmoArCwAFQqTCClzC80QVIAFgAzAB2ZXnGQYGmpVWOaFkDDWjYsNwQEpkbDBAAqjFUcEZAL8GvsqFSfkCNER4PcjjKqki4cj0fkYAAvgBdIA" title="title">
+<iframe style="height:425px;" class="mb-0 w-100 iframe-border py-3" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89Gi4uKAEuOAAKeRZMsJoMROxiVTJ-CRo3AShGdIgsmuyIiDguYtK4csqM2s7wi1RC4v43dshZfBYRgDkRxwAGRwBGadmWACZpgEo8Ds6Nrdrw1CgGpvYLKs6unILOPtEydLBzCTJiSMZYEZ3q88+az7WfCDyNx6EzuABu7lSPUKjiuvTIjgkcAkJVIa0QuwAAnDCljnBBBlgeHcoFwyMERrYWI9nq93mB-l9MsDqTQni83jBUujdjUdBg3gSjBgkXAXKk5gBOABsAA5pvK5ozziwAB4hFgLaYsADUmoArCwAFQqTCClzC80QVIAFgAzAB2ZXnGQYGmpVWOaFkDDWjYsNwQEpkbDBAAqjFUcEZAL8GvsqFSfkCNER4PcjjKqki4cj0fkYAAvgBdIA" title="title">
 </iframe> 
-<p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89Gi4uKAEuOAAKeRZMsJoMROxiVTJ-CRo3AShGdIgsmuyIiDguYtK4csqM2s7wi1RC4v43dshZfBYRgDkRxwAGRwBGadmWACZpgEo8Ds6Nrdrw1CgGpvYLKs6unILOPtEydLBzCTJiSMZYEZ3q88+az7WfCDyNx6EzuABu7lSPUKjiuvTIjgkcAkJVIa0QuwAAnDCljnBBBlgeHcoFwyMERrYWI9nq93mB-l9MsDqTQni83jBUujdjUdBg3gSjBgkXAXKk5gBOABsAA5pvK5ozziwAB4hFgLaYsADUmoArCwAFQqTCClzC80QVIAFgAzAB2ZXnGQYGmpVWOaFkDDWjYsNwQEpkbDBAAqjFUcEZAL8GvsqFSfkCNER4PcjjKqki4cj0fkYAAvgBdIA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
-
 
 ## Code
 
@@ -324,10 +323,11 @@ def server(input, output, session):
 
 app = App(app_ui, server, debug=True)
 ```
+:::
 <p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89Gi4uKAEuOAAKeRZMsJoMROxiVTJ-CRo3AShGdIgsmuyIiDguYtK4csqM2s7wi1RC4v43dshZfBYRgDkRxwAGRwBGadmWACZpgEo8Ds6Nrdrw1CgGpvYLKs6unILOPtEydLBzCTJiSMZYEZ3q88+az7WfCDyNx6EzuABu7lSPUKjiuvTIjgkcAkJVIa0QuwAAnDCljnBBBlgeHcoFwyMERrYWI9nq93mB-l9MsDqTQni83jBUujdjUdBg3gSjBgkXAXKk5gBOABsAA5pvK5ozziwAB4hFgLaYsADUmoArCwAFQqTCClzC80QVIAFgAzAB2ZXnGQYGmpVWOaFkDDWjYsNwQEpkbDBAAqjFUcEZAL8GvsqFSfkCNER4PcjjKqki4cj0fkYAAvgBdIA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
 
-To make a fixed grid that maintains a constant maximum width, build your app ui with [`ui.page_fillable()`](TODO ADD LINK).
+To make a fixed grid that maintains a constant maximum width, build your app ui with [ui.page_fillable](https://shiny.posit.co/py/api/ui.page_fillable.html).
 
 `ui.page_fluid()` and `ui.page_fixed()` are used for creating web pages that are laid out from the top down, leaving whitespace at the bottom if the page content's height is smaller than the browser window, and scrolling if the content is larger than the window.
 

@@ -160,6 +160,7 @@ website:
       collapse-level: 2
       contents:
         - text: "![](/images/blank-pixel.png){.sidebar-title}__LAYOUTS__"
+          href: "layouts/index.qmd"
         - section: "![](/images/navbars-purple.svg){.sidebar-icon .sidebar-subtitle}__Navbars__"
           contents:
             - text: "Navbar at Top"
@@ -192,12 +193,12 @@ website:
               href: "/layouts/tabs.html#card-with-a-tabbed-tabset"
             - text: "Card with a Pill Tabset"
               href: "/layouts/tabs.html#card-with-a-pill-tabset"
-            - text: "Vertically Collapsing Accordion Panels"
+            - text: "Vertically Collapsing Accordions"
               href: "/layouts/tabs.html#vertically-collapsing-accordion-panels"
         - section: "![](/images/cards-purple.svg){.sidebar-icon .sidebar-subtitle}__Panels & Cards__"
           contents:
             - text: "Main Image w/ Floating Panel"
-              href: "/layouts/tabs.html#vertically-collapsing-accordion-panels"
+              href: "/layouts/panels-cards.html#main-image-with-panel-floating-above"
             - text: "Content Divided by Cards"
               href: "/layouts/panels-cards.html#content-divided-by-cards"
         - section: "![](/images/arrange-purple.svg){.sidebar-icon .sidebar-subtitle}__Arrange Elements__"
@@ -206,7 +207,7 @@ website:
               href: "/layouts/arrange.html#grid-layouts"
             - text: "Column Nesting"
               href: "/layouts/arrange.html#column-nesting"
-            - text: "Controlling for Page Width / Height"
+            - text: "Controlling for Page Width/Height"
               href: "/layouts/arrange.html#controlling-for-page-width-and-height"
 
     - id: docs

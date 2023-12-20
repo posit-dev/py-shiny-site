@@ -1,7 +1,6 @@
 ---
 title: "Panels and cards"
-preview: |
-  <div class="indigo w-100 h-100">HI THERE</div>
+description: "Use panels and cards to define areas of related content in your Shiny app."
 ---
 
 Use panels and cards to define areas of related content. 
@@ -26,11 +25,12 @@ Use panels and cards to define areas of related content.
 - [ui.panel_well](https://shiny.posit.co/py/api/ui.panel_well.html)
   `ui.panel_well(*args, **kwargs)`
 
-:::{.border-bottom .blue .my-6}
+:::{.border-bottom .blue .mt-6 .mb-5}
 :::
 
 ## Main image with panel floating above
 
+:::{.column-screen-inset-right style="max-width:800px;"}
 ::: {.panel-tabset}
 
 ## Preview
@@ -68,6 +68,7 @@ def server(input, output, session):
 
 app = App(app_ui, server)
 ```
+:::
 <p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGPjosRrT1nUJqZYNmTKoWiAPT+LMSSrnAYkhAsqIZQ7BgkMP5QALQAbhxwAO4pxDQpqTAh5FBcKXRQEHopWRxkbCksZFB0LCll9XCNANbYKQAcAIocAJIADJJwAJowAMyDHhKWzla1JvXuYACMY2MApIvLK2xwHDobHjv7HkdMAJR4t9LaEHCGSlAARsHGFA4rVmeqEqbyUWTehn+AKcQJB7zIdUMcAsYAAIhUdDovkimMDXoYPA9btCPCITCYmG84PByCwmCc6HAbo4AUSWSs1hcwLNdqgAB6HdnOOhnLybACsY35guhZGIqAlUoF+GJ1hMGKxnyRagAKnRJrc2Xc5CaICY4DRWHA6GlrWYuKhJGQJCEfE6JCw4CwWBxSHdELdgd7TQp0OpROgzIoVBwPdbbXQ7mAAL4AXSAA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
   
@@ -89,19 +90,18 @@ Then, to create the floating panel:
   
 See also: [`ui.panel_fixed()`](https://shiny.posit.co/py/api/ui.panel_fixed.html). `ui.panel_fixed()` is equivalent to calling panel_absolute with `fixed=True` (i.e., the panel does not scroll with the rest of the page). 
 
-:::{.border-bottom .blue .my-6}
+:::{.border-bottom .blue .my-5}
 :::
 
 ## Content divided by cards
 
+:::{.column-screen-inset-right style="max-width:800px;"}
 ::: {.panel-tabset}
 
 ## Preview
 
 <iframe style="height:400px;" class="mb-0 w-100 iframe-border" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwkBJCKklkWAHQhq0qAPrSmAXikcsUAOZwtNADbSAJgAo1TJ4YyEode4+ffpr9za02OCgbODoHMABhfyYARiYgkLCVMABKPC9vJ19UCOiPOKYAI2IbbBT0zKzfLkUyLRZLDlDwlMbm5PwmFIBlJpaUiQAGCViRpgBWSohvaZ8jNw8HGazshf9A4Ja8mIAmBK3OudWXXJT8myZ9krKKjJXVmoUlLQoADzII97JB7rARGyXb6-FIVKrTVJqNShGisMIANzCdlqSgkxCUdQkLDgLBYHFIqUQVVQUFxUOg6H0onQdk0OhkcLoiLoqTAAF8ALpAA" title="Content divided by cards">
 </iframe> 
-<p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwkBJCKklkWAHQhq0qAPrSmAXikcsUAOZwtNADbSAJgAo1TJ4YyEode4+ffpr9za02OCgbODoHMABhfyYARiYgkLCVMABKPC9vJ19UCOiPOKYAI2IbbBT0zKzfLkUyLRZLDlDwlMbm5PwmFIBlJpaUiQAGCViRpgBWSohvaZ8jNw8HGazshf9A4Ja8mIAmBK3OudWXXJT8myZ9krKKjJXVmoUlLQoADzII97JB7rARGyXb6-FIVKrTVJqNShGisMIANzCdlqSgkxCUdQkLDgLBYHFIqUQVVQUFxUOg6H0onQdk0OhkcLoiLoqTAAF8ALpAA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
-
 
 ## Code
 
@@ -126,7 +126,9 @@ def server(input, output, session):
 
 app = App(app_ui, server)
 ```
+:::
 <p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwkBJCKklkWAHQhq0qAPrSmAXikcsUAOZwtNADbSAJgAo1TJ4YyEode4+ffpr9za02OCgbODoHMABhfyYARiYgkLCVMABKPC9vJ19UCOiPOKYAI2IbbBT0zKzfLkUyLRZLDlDwlMbm5PwmFIBlJpaUiQAGCViRpgBWSohvaZ8jNw8HGazshf9A4Ja8mIAmBK3OudWXXJT8myZ9krKKjJXVmoUlLQoADzII97JB7rARGyXb6-FIVKrTVJqNShGisMIANzCdlqSgkxCUdQkLDgLBYHFIqUQVVQUFxUOg6H0onQdk0OhkcLoiLoqTAAF8ALpAA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
+
 :::
 
 Cards are general purpose containers used to group related UI elements together with a border and optional padding.

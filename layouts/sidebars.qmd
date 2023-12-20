@@ -1,8 +1,6 @@
 ---
 title: "Sidebars"
-description: A sidebar layout creates a sidebar, typically used for inputs, and a large main area, typically used for outputs. 
-preview: |
-  <div class="indigo w-100 h-100">HI THERE</div>
+description: "A sidebar layout creates a sidebar in your Shiny app, typically used for inputs, and a large main area, typically used for outputs." 
 ---
 
 A sidebar layout creates a sidebar, typically used for inputs, and a large main area, typically used for outputs. 
@@ -16,19 +14,18 @@ A sidebar layout creates a sidebar, typically used for inputs, and a large main 
   `ui.sidebar(*args, width=250, position='left', open='desktop', id=None, title=None, bg=None, fg=None, class_=None, max_height_mobile=None, gap=None, padding=None)`
 
 
-:::{.border-bottom .blue .my-6}
+:::{.border-bottom .blue .mt-6 .mb-5}
 :::
 
 ## Sidebar on the left
 
+:::{.column-screen-inset-right style="max-width:800px;"}
 ::: {.panel-tabset}
 
 ## Preview
 
-<iframe style="height:105px;" class="mb-0 w-100" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQ1GzFJZJSw4m4AIyh0zTAMQAPAGW1qHSGK7uXj4yYADKbp7esQCUEoHBEKGhsQCyUFxMJOSUZLEhVmn+QXIpcnLuNKxwdABuLWZcqE4SjmTdZBIscCyupCmIFUyoUKP10OjqouhmiiocQy3tdClgAL4AukA" title="Sidebar on the left">
+<iframe style="height:110px;" class="mb-0 w-100" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQ1GzFJZJSw4m4AIyh0LEa-5tXdy8fGTAAZTdPbzCASjxLAKtpDEcyVCclCgAPZwA3ODovMj4LMByyMIlUO0I4NmJDdzo1ABU6SThYxKt4uW75CHcaVkKCny4Msgk0qYkWOBZXUljEHqZUKCW5BXR1UXQzRRUOebHC2LAAXwBdIA" title="Sidebar on the left">
 </iframe> 
-<p class="text-end my-0 p-90 me-2 pt-2"><a href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQ1GzFJZJSw4m4AIyh0zTAMQAPAGW1qHSGK7uXj4yYADKbp7esQCUEoHBEKGhsQCyUFxMJOSUZLEhVmn+QXIpcnLuNKxwdABuLWZcqE4SjmTdZBIscCyupCmIFUyoUKP10OjqouhmiiocQy3tdClgAL4AukA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
-
 
 ## Code
 
@@ -47,7 +44,8 @@ def server(input, output, session):
 
 app = App(app_ui, server)
 ```
-<p class="text-end my-0 p-90 me-2 pt-2"><a href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQ1GzFJZJSw4m4AIyh0zTAMQAPAGW1qHSGK7uXj4yYADKbp7esQCUEoHBEKGhsQCyUFxMJOSUZLEhVmn+QXIpcnLuNKxwdABuLWZcqE4SjmTdZBIscCyupCmIFUyoUKP10OjqouhmiiocQy3tdClgAL4AukA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
+:::
+<p class="text-end my-0 p-90 me-2 pt-2"><a href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQ1GzFJZJSw4m4AIyh0LEa-5tXdy8fGTAAZTdPbzCASjxLAKtpDEcyVCclCgAPZwA3ODovMj4LMByyMIlUO0I4NmJDdzo1ABU6SThYxKt4uW75CHcaVkKCny4Msgk0qYkWOBZXUljEHqZUKCW5BXR1UXQzRRUOebHC2LAAXwBdIA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
 
 Follow these steps to add a left-side sidebar to your app: 
@@ -58,18 +56,18 @@ Follow these steps to add a left-side sidebar to your app:
 
   3. Supply additional components (output components, cards, text, etc.) to `ui.layout_sidebar()` to define the contents of the main content area.
 
-:::{.border-bottom .blue .my-6}
+:::{.border-bottom .blue .my-5}
 :::
 
 ## Sidebar on the right
 
+:::{.column-screen-inset-right style="max-width:800px;"}
 ::: {.panel-tabset}
 
 ## Preview
 
 <iframe style="height:105px;" class="mb-0 w-100" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQ1GzFJZJSw4m4AIyh0LEa-5tXdy8fGTAAZTdPbzCJAVcyDlI1MLoOHTYyMIBKPEsAq2kMRzJUJyUKAA9nADc4Oi9EmAswKqz8JlQ7Qjg2YkN3OjUAFTpJOGz8q1y5SfkIdxpWerqfLjKyCRKNiRY4FldSbMQpzqgDuQV0dVF0M0UVDl2V+uywAF8AXSA" title="Sidebar on the right">
 </iframe> 
-<p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQ1GzFJZJSw4m4AIyh0LEa-5tXdy8fGTAAZTdPbzCJAVcyDlI1MLoOHTYyMIBKPEsAq2kMRzJUJyUKAA9nADc4Oi9EmAswKqz8JlQ7Qjg2YkN3OjUAFTpJOGz8q1y5SfkIdxpWerqfLjKyCRKNiRY4FldSbMQpzqgDuQV0dVF0M0UVDl2V+uywAF8AXSA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 
 ## Code
 
@@ -88,6 +86,7 @@ def server(input, output, session):
 
 app = App(app_ui, server)
 ```
+:::
 <p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQ1GzFJZJSw4m4AIyh0LEa-5tXdy8fGTAAZTdPbzCJAVcyDlI1MLoOHTYyMIBKPEsAq2kMRzJUJyUKAA9nADc4Oi9EmAswKqz8JlQ7Qjg2YkN3OjUAFTpJOGz8q1y5SfkIdxpWerqfLjKyCRKNiRY4FldSbMQpzqgDuQV0dVF0M0UVDl2V+uywAF8AXSA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
 
@@ -101,18 +100,18 @@ Follow these steps to add a right-side sidebar to your app:
   
   3. Supply components (e.g., inputs) to `ui.sidebar()` to define the sidebar's contents. Supply additional components (e.g., output components, cards, etc.) to `ui.layout_sidebar()` to define the contents of the main content area. 
 
-:::{.border-bottom .blue .my-6}
+:::{.border-bottom .blue .my-5}
 :::
 
 ## Sidebars on the left and right
 
+:::{.column-screen-inset-right style="max-width:800px;"}
 ::: {.panel-tabset}
 
 ## Preview
 
-<iframe style="height:105px;" class="mb-0 w-100" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQ1GzFJZJSw4m4AIyh0LEa-5tXdy8fGTAAGTgaYSDPbzCASjxLAKtpW3tHZ1iQ31TU9JzvCzAAJQ4dNhi3OLowiQFXMg5SNTC6CqrE5L98-zCAWSguJhJySjJ6lL6rD0F3OjUAMShDFjhpgKTN-1QoExMuHTUABk3tiAS5OXcaVjg6ADcHsy5UJwks97IJdZZXUgJRCbPb-a7QdDqUToMyKFQcX4PZ50K4QMAAXwAukA" title="Sidebars on the left and right">
+<iframe style="height:105px;" class="mb-0 w-100" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQ1GzFJZJSw4m4AIyh0LEa-5tXdy8fGTAAGTgaYSDPbzCASjxLAKtpW3tHZ1iQ31TU9JzvCzAAJQ4dNhi3OLowiQFXMg5SNTC6CqrE5L98-3Ss1CclCgAPZwA3ODovZpgSsbJ6plQ7Qjg2YkN3OjUAFTpJOCSUvqsPQR21ADEoQxY4U4CT3tTUKBMTLh01AAYnl4JORydw0VjTKY+LhDMgSQZOCQPFiuUgJRBPd7I4HQdDqUToMyKFQcREQ6ZAiBgAC+AF0gA" title="Sidebars on the left and right">
 </iframe> 
-<p class="text-end my-0 p-90 me-2 pt-2"><a href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQ1GzFJZJSw4m4AIyh0LEa-5tXdy8fGTAAGTgaYSDPbzCASjxLAKtpW3tHZ1iQ31TU9JzvCzAAJQ4dNhi3OLowiQFXMg5SNTC6CqrE5L98-zCAWSguJhJySjJ6lL6rD0F3OjUAMShDFjhpgKTN-1QoExMuHTUABk3tiAS5OXcaVjg6ADcHsy5UJwks97IJdZZXUgJRCbPb-a7QdDqUToMyKFQcX4PZ50K4QMAAXwAukA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 
 ## Code
 
@@ -136,7 +135,8 @@ def server(input, output, session):
 
 app = App(app_ui, server)
 ```
-<p class="text-end my-0 p-90 me-2 pt-2"><a href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQ1GzFJZJSw4m4AIyh0LEa-5tXdy8fGTAAGTgaYSDPbzCASjxLAKtpW3tHZ1iQ31TU9JzvCzAAJQ4dNhi3OLowiQFXMg5SNTC6CqrE5L98-zCAWSguJhJySjJ6lL6rD0F3OjUAMShDFjhpgKTN-1QoExMuHTUABk3tiAS5OXcaVjg6ADcHsy5UJwks97IJdZZXUgJRCbPb-a7QdDqUToMyKFQcX4PZ50K4QMAAXwAukA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
+:::
+<p class="text-end my-0 p-90 me-2 pt-2"><a href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQ1GzFJZJSw4m4AIyh0LEa-5tXdy8fGTAAGTgaYSDPbzCASjxLAKtpW3tHZ1iQ31TU9JzvCzAAJQ4dNhi3OLowiQFXMg5SNTC6CqrE5L98-3Ss1CclCgAPZwA3ODovZpgSsbJ6plQ7Qjg2YkN3OjUAFTpJOCSUvqsPQR21ADEoQxY4U4CT3tTUKBMTLh01AAYnl4JORydw0VjTKY+LhDMgSQZOCQPFiuUgJRBPd7I4HQdDqUToMyKFQcREQ6ZAiBgAC+AF0gA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
 
 To create a layout with two sidebars, nest `ui.layout_sidebar()` calls. Follow these steps:
@@ -147,21 +147,20 @@ To create a layout with two sidebars, nest `ui.layout_sidebar()` calls. Follow t
   4. For the _second_ `ui.layout_sidebar()` call, supply `ui.sidebar()` as the first argument to create the second sidebar. Set `position="right"` to position this sidebar on the right. Pass whatever content you want as the second argument of `ui.layout_sidebar()` to define the main panel content. 
   5. Set the `border` argument of the _second_ `ui.layout_sidebar()` call to `False`. This removes the border around the nested sidebar layout. 
   6. Add desired inputs or other sidebar content inside both `ui.sidebar()` calls. 
-    
 
-:::{.border-bottom .blue .my-6}
+
+:::{.border-bottom .blue .my-5}
 :::
 
 ## Two sidebars on the left
 
+:::{.column-screen-inset-right style="max-width:800px;"}
 ::: {.panel-tabset}
 
 ## Preview
 
-<iframe style="height:105px;" class="mb-0 w-100" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQ1GzFJZJSw4m4AIyh0LEa-5tXdy8fGTAAZTdPbyYARjCASjxLAKtpW3tHZyDo0L9UgPSckIsIqJCmACZE5PyC6zCAWSguJhJySjIw2vr-D0F3OjUAMShDFjgU1KSpgNQoExMuHTUABlmZiAS5OXcaVjg6ADdDsy5UJwksi7IJCZZXUgTEWfmHneh0dVF0M0UVDh3Q4nOjbCBgAC+AF0gA" title="Two sidebars on the left">
+<iframe style="height:105px;" class="mb-0 w-100" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQ1GzFJZJSw4m4AIyh0LEa-5tXdy8fGTAAZTdPbyYARjCASjxLAKtpW3tHZyDo0L9UgPSckIsIqJCmACZE5PyC63Ss1CclCgAPZwA3ODovMj5S9rIwiVQ7Qjg2YkN3OjUAFTpJOCSU+qsPQVm1ADEoQxY4NYDVuoDUKBMTLh01AAZj04S5OXcaVh7uny5msgkmpwSQ4sVykBKIY4XEEvaDodSidBmRQqDhAz49Z4QMAAXwAukA" title="Two sidebars on the left">
 </iframe> 
-<p class="text-end my-0 p-90 me-2 pt-2"><a href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQ1GzFJZJSw4m4AIyh0LEa-5tXdy8fGTAAZTdPbyYARjCASjxLAKtpW3tHZyDo0L9UgPSckIsIqJCmACZE5PyC6zCAWSguJhJySjIw2vr-D0F3OjUAMShDFjgU1KSpgNQoExMuHTUABlmZiAS5OXcaVjg6ADdDsy5UJwksi7IJCZZXUgTEWfmHneh0dVF0M0UVDh3Q4nOjbCBgAC+AF0gA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
-
 
 ## Code
 
@@ -185,7 +184,8 @@ def server(input, output, session):
 
 app = App(app_ui, server)
 ```
-<p class="text-end my-0 p-90 me-2 pt-2"><a href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQ1GzFJZJSw4m4AIyh0LEa-5tXdy8fGTAAZTdPbyYARjCASjxLAKtpW3tHZyDo0L9UgPSckIsIqJCmACZE5PyC6zCAWSguJhJySjIw2vr-D0F3OjUAMShDFjgU1KSpgNQoExMuHTUABlmZiAS5OXcaVjg6ADdDsy5UJwksi7IJCZZXUgTEWfmHneh0dVF0M0UVDh3Q4nOjbCBgAC+AF0gA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
+:::
+<p class="text-end my-0 p-90 me-2 pt-2"><a href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQ1GzFJZJSw4m4AIyh0LEa-5tXdy8fGTAAZTdPbyYARjCASjxLAKtpW3tHZyDo0L9UgPSckIsIqJCmACZE5PyC63Ss1CclCgAPZwA3ODovMj5S9rIwiVQ7Qjg2YkN3OjUAFTpJOCSU+qsPQVm1ADEoQxY4NYDVuoDUKBMTLh01AAZj04S5OXcaVh7uny5msgkmpwSQ4sVykBKIY4XEEvaDodSidBmRQqDhAz49Z4QMAAXwAukA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
 
 To create a layout with two sidebars on one side, nest `ui.layout_sidebar()` calls. The process is identical to creating a layout with one left and one right sidebar, except that both sidebars will have `position="left"` or `position="right"`. Follow these steps to create two sidebars on the left:
@@ -200,20 +200,18 @@ To create a layout with two sidebars on one side, nest `ui.layout_sidebar()` cal
 If you want both sidebars to appear on the right, pass `position="right"` to both `ui.sidebar()` calls.
   
 
-:::{.border-bottom .blue .my-6}
+:::{.border-bottom .blue .my-5}
 :::
 
 ## Sidebar within a card
 
-
+:::{.column-screen-inset-right style="max-width:800px;"}
 ::: {.panel-tabset}
 
 ## Preview
 
-<iframe style="height:105px;" class="mb-0 w-100" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQlDrnL159IyGo2YpLJKWHE3AARvYWEM7h1q5+AcF0FmAAyv5B9jJgAJR4ThHOaQCyUFxMJOSUZGlZYTmZ2UzpcvXyEAE0rHB0AG7tZlyo3hJeZH1kEixwLH6k6Yi1qFATcovQ6Oqi6GaKKhyj7V10jWAAvgC6QA" title="Sidebar within a card">
+<iframe style="height:125px;" class="mb-0 w-100" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQlDrnL159IyGo2YpLJKWHE3AARvYWEM7h1q5+AcF0FmAAyv5B9jJgAJR4ThEuWl5kqN5KFAAePgBucHTBZHzxpWRpEqjuhHBsxIYBdGoAKnSScOnZ4ZkjwxATcgE0rFWVcVyFZBL5yxIscCx+pOmII6hQ23In0OjqouhmiiocG-NVE2AAvgC6QA" title="Sidebar within a card">
 </iframe> 
-<p class="text-end my-0 p-90 me-2 pt-2"><a href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQlDrnL159IyGo2YpLJKWHE3AARvYWEM7h1q5+AcF0FmAAyv5B9jJgAJR4ThHOaQCyUFxMJOSUZGlZYTmZ2UzpcvXyEAE0rHB0AG7tZlyo3hJeZH1kEixwLH6k6Yi1qFATcovQ6Oqi6GaKKhyj7V10jWAAvgC6QA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
-
 
 ## Code
 
@@ -235,7 +233,8 @@ def server(input, output, session):
 
 app = App(app_ui, server)
 ```
-<p class="text-end my-0 p-90 me-2 pt-2"><a href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQlDrnL159IyGo2YpLJKWHE3AARvYWEM7h1q5+AcF0FmAAyv5B9jJgAJR4ThHOaQCyUFxMJOSUZGlZYTmZ2UzpcvXyEAE0rHB0AG7tZlyo3hJeZH1kEixwLH6k6Yi1qFATcovQ6Oqi6GaKKhyj7V10jWAAvgC6QA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
+:::
+<p class="text-end my-0 p-90 me-2 pt-2"><a href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQlDrnL159IyGo2YpLJKWHE3AARvYWEM7h1q5+AcF0FmAAyv5B9jJgAJR4ThEuWl5kqN5KFAAePgBucHTBZHzxpWRpEqjuhHBsxIYBdGoAKnSScOnZ4ZkjwxATcgE0rFWVcVyFZBL5yxIscCx+pOmII6hQ23In0OjqouhmiiocG-NVE2AAvgC6QA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
 
 Follow these steps to add a sidebar within a card to your app:
@@ -245,19 +244,18 @@ Follow these steps to add a sidebar within a card to your app:
   3. Add `ui.sidebar()` and additional elements to `ui.layout_sidebar()` to define the sidebar and main content as usual.
   4. Add inputs or other components as desired to `ui.sidebar()` to define the sidebar's contents.
 
-:::{.border-bottom .blue .my-6}
+:::{.border-bottom .blue .my-5}
 :::
 
 ## Collapsed sidebar
 
+:::{.column-screen-inset-right style="max-width:800px;"}
 ::: {.panel-tabset}
 
 ## Preview
 
 <iframe style="height:105px;" class="mb-0 w-100" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQ1GzFJZJSw4m4AIyh0zTAMQAPAGW1qHSGK7uXj4yYADKbp7esRLEqJRqsYSGxCxwJrEAlBKBwRChobEAslBcTCTklGSxIVbF-kFyhXJy7jSscHQAboNmXKhOqU4TZBJ5LK6khYitTKhQCz3Q6Oqi6GaKKhxzgyN0hWAAvgC6QA" title="Collapsed sidebar">
 </iframe> 
-<p class="text-end my-0 p-90 me-2 pt-2"><a href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQ1GzFJZJSw4m4AIyh0zTAMQAPAGW1qHSGK7uXj4yYADKbp7esRLEqJRqsYSGxCxwJrEAlBKBwRChobEAslBcTCTklGSxIVbF-kFyhXJy7jSscHQAboNmXKhOqU4TZBJ5LK6khYitTKhQCz3Q6Oqi6GaKKhxzgyN0hWAAvgC6QA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
-
 
 ## Code
 
@@ -276,7 +274,8 @@ def server(input, output, session):
 
 app = App(app_ui, server)
 ```
-<p class="text-end my-0 p-90 me-2 pt-2"><a href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQ1GzFJZJSw4m4AIyh0zTAMQAPAGW1qHSGK7uXj4yYADKbp7esRLEqJRqsYSGxCxwJrEAlBKBwRChobEAslBcTCTklGSxIVbF-kFyhXJy7jSscHQAboNmXKhOqU4TZBJ5LK6khYitTKhQCz3Q6Oqi6GaKKhxzgyN0hWAAvgC6QA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
+:::
+<p class="text-end my-0 p-90 me-2 pt-2"><a href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGQ1GzFJZJSw4m4AIyh0zTS9YDpDFd3Lx8ZMABlN09vCIliVEo1CMJDYhY4EwiASgl-AKsIgFkoLiYSckoyCIKmPL8IHLk5dxpWODoAN06zLlQnBKcBsglMlldSHMQ61CgJluh0dVF0M0UVDjHOnrocsABfAF0gA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
 
 
