@@ -78,7 +78,7 @@ First, to create the image:
   
   1. Pass `ui.img()` to any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.img()` creates an image.
   
-  2. Pass the path or URL of your desired image to `ui.img()'s` `src` parameter. Set additional parameters to control the appearance of the image (e.g., `width` and `height`).
+  2. Pass the path or URL of your desired image to `ui.img()`'s `src` parameter. Set additional parameters to control the appearance of the image (e.g., `width` and `height`).
     
 Then, to create the floating panel:
 
@@ -88,7 +88,7 @@ Then, to create the floating panel:
   
   3. If you want the panel to be draggable, set the `draggable` parameter to `True`. 
   
-See also: [`ui.panel_fixed()`](https://shiny.posit.co/py/api/ui.panel_fixed.html). `ui.panel_fixed()` is equivalent to calling panel_absolute with `fixed=True` (i.e., the panel does not scroll with the rest of the page). 
+See also: [`ui.panel_fixed()`](https://shiny.posit.co/py/api/ui.panel_fixed.html). `ui.panel_fixed()` is equivalent to calling `ui.panel_absolute()` with `fixed=True` (i.e., the panel does not scroll with the rest of the page). 
 
 :::{.border-bottom .blue .my-5}
 :::
