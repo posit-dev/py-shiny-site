@@ -66,11 +66,11 @@ listing:
           - title: ui.notification_show
             href: https://shiny.posit.co/py/api/ui.notification_show.html#shiny.ui.notification_show
             signature: "ui.notification_show(ui: TagChild, action: Optional = None, duration: Optional = 5, close_button: bool = True, id: Optional = None, type: Literal = 'default', session: Optional = None)"
-            github: https://github.com/posit-dev/py-shiny/blob/de6fbda/shiny/ui/_notification.py#L14-L90
+            github: https://github.com/posit-dev/py-shiny/blob/0e60bf8/shiny/ui/_notification.py#L14-L90
           - title: ui.notification_remove
             href: https://shiny.posit.co/py/api/ui.notification_remove.html#shiny.ui.notification_remove
             signature: 'ui.notification_remove(id: str, session: Optional = None)'
-            github: https://github.com/posit-dev/py-shiny/blob/de6fbda/shiny/ui/_notification.py#L93-L125
+            github: https://github.com/posit-dev/py-shiny/blob/0e60bf8/shiny/ui/_notification.py#L93-L125
   - id: variations
     template: ../_partials/components-variations.ejs
     contents:

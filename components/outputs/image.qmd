@@ -35,12 +35,12 @@ listing:
           - title: ui.output_image
             href: https://shiny.posit.co/py/api/ui.output_image.html#shiny.ui.output_image
             signature: "ui.output_image(id: str, width: str | float | int = '100%', height: str | float | int = '400px', inline: bool = False, click: bool | ClickOpts = False, dblclick: bool | DblClickOpts = False, hover: bool | HoverOpts = False, brush: bool | BrushOpts = False, fill: bool = False)"
-            github: https://github.com/posit-dev/py-shiny/blob/de6fbda/shiny/ui/_output.py#L123-L234
+            github: https://github.com/posit-dev/py-shiny/blob/0e60bf8/shiny/ui/_output.py#L123-L234
           - title: '@render.image'
             href: https://shiny.posit.co/py/api/render.image.html#shiny.render.image
             signature: 'render.image(delete_file: bool = False)'
 
-            github: https://github.com/posit-dev/py-shiny/blob/de6fbda/shiny/render/_render.py#L341-L371
+            github: https://github.com/posit-dev/py-shiny/blob/0e60bf8/shiny/render/_render.py#L341-L371
 ---
 
 :::{#component}

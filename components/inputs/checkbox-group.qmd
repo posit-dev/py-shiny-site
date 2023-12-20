@@ -56,7 +56,7 @@ listing:
             href: https://shiny.posit.co/py/api/ui.input_checkbox_group.html#shiny.ui.input_checkbox_group
             signature: 'ui.input_checkbox_group(id: str, label: TagChild, choices: ChoicesArg, selected: Optional = None, inline: bool = False, width: Optional = None)'
 
-            github: https://github.com/posit-dev/py-shiny/blob/de6fbda/shiny/ui/_input_check_radio.py#L169-L237
+            github: https://github.com/posit-dev/py-shiny/blob/0e60bf8/shiny/ui/_input_check_radio.py#L169-L237
 ---
 
 :::{#component}

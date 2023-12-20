@@ -46,7 +46,7 @@ listing:
             href: https://shiny.posit.co/py/api/ui.input_date_range.html#shiny.ui.input_date_range
             signature: "ui.input_date_range(id: str, label: TagChild, start: Optional = None, end: Optional = None, min: Optional = None, max: Optional = None, format: str = 'yyyy-mm-dd', startview: str = 'month', weekstart: int = 0, language: str = 'en', separator: str = ' to ', width: Optional = None, autoclose: bool = True)"
 
-            github: https://github.com/posit-dev/py-shiny/blob/de6fbda/shiny/ui/_input_date.py#L135-L269
+            github: https://github.com/posit-dev/py-shiny/blob/0e60bf8/shiny/ui/_input_date.py#L135-L269
 ---
 
 :::{#component}

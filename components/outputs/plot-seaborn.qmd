@@ -40,12 +40,12 @@ listing:
           - title: ui.output_plot
             href: https://shiny.posit.co/py/api/ui.output_plot.html#shiny.ui.output_plot
             signature: "ui.output_plot(id: str, width: str | float | int = '100%', height: str | float | int = '400px', inline: bool = False, click: bool | ClickOpts = False, dblclick: bool | DblClickOpts = False, hover: bool | HoverOpts = False, brush: bool | BrushOpts = False, fill: bool | MISSING_TYPE = MISSING)"
-            github: https://github.com/posit-dev/py-shiny/blob/de6fbda/shiny/ui/_output.py#L33-L120
+            github: https://github.com/posit-dev/py-shiny/blob/0e60bf8/shiny/ui/_output.py#L33-L120
           - title: '@render.plot'
             href: https://shiny.posit.co/py/api/render.plot.html#shiny.render.plot
             signature: 'render.plot(alt: Optional = None, width: float | None | MISSING_TYPE = MISSING, height: float | None | MISSING_TYPE = MISSING, **kwargs: Any = {})'
 
-            github: https://github.com/posit-dev/py-shiny/blob/de6fbda/shiny/render/_render.py#L237-L298
+            github: https://github.com/posit-dev/py-shiny/blob/0e60bf8/shiny/render/_render.py#L237-L298
 ---
 
 :::{#component}

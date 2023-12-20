@@ -41,12 +41,12 @@ listing:
           - title: ui.input_action_link
             href: https://shiny.posit.co/py/api/ui.input_action_link.html#shiny.ui.input_action_link
             signature: 'ui.input_action_link(id: str, label: TagChild, icon: TagChild = None, **kwargs: TagAttrValue = {})'
-            github: https://github.com/posit-dev/py-shiny/blob/de6fbda/shiny/ui/_input_action_button.py#L68-L115
+            github: https://github.com/posit-dev/py-shiny/blob/0e60bf8/shiny/ui/_input_action_button.py#L68-L115
           - title: reactive.event
             href: https://shiny.posit.co/py/api/reactive.event.html#shiny.reactive.event
             signature: 'reactive.event(*args: Callable[[], object] | Callable[[], Awaitable[object]] = (), ignore_none: bool = True, ignore_init: bool = False)'
 
-            github: https://github.com/posit-dev/py-shiny/blob/de6fbda/shiny/reactive/_reactives.py#L736-L871
+            github: https://github.com/posit-dev/py-shiny/blob/0e60bf8/shiny/reactive/_reactives.py#L736-L871
 ---
 
 :::{#component}
