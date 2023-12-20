@@ -1,3 +1,9 @@
+/*Make code in Relavent Functions wrap*/
+
+#relevant-functions ul li code {
+  white-space: normal;
+}
+
 /* make space for sidebar icons */
 
 @media only screen and (min-width: 992px) {
@@ -213,6 +219,10 @@ a.nav-link:hover {
 .panel-tabset .nav-tabs .nav-link {
   padding: 0.35rem 1.25rem;
   margin-bottom: 0px;
+}
+
+.panel-tabset .tab-content {
+  padding-bottom: 0px;
 }
 
 .iframe-border {

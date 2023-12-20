@@ -315,6 +315,11 @@ div.callout-important.callout-style-default .callout-header {
   }
 }
 
+/* img width for safari bug */
+.sidebar-link img {
+  max-width: 19px;
+}
+
 @media only screen and (min-width:992px) {
 
   .sidebar-menu-container .sidebar-icon {

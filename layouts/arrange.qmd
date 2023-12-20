@@ -142,30 +142,30 @@ Each width is relative to the row that immediately contains it. To create this l
 ```{.python filename="app.py" }
 from shiny import App, render, ui
 
-    app_ui = ui.page_fluid(
-        ui.row(
-            ui.column(12, 
-                ui.card("Width 12",
-                    ui.row(
-                        ui.column(6,
-                            ui.card("Width 6",
-                                ui.row(
-                                    ui.column(6, ui.card("Width 6")),
-                                    ui.column(6, ui.card("Width 6"))
-                                )
+app_ui = ui.page_fluid(
+    ui.row(
+        ui.column(12, 
+            ui.card("Width 12",
+                ui.row(
+                    ui.column(6,
+                        ui.card("Width 6",
+                            ui.row(
+                                ui.column(6, ui.card("Width 6")),
+                                ui.column(6, ui.card("Width 6"))
                             )
-                        ),
-                        ui.column(6, ui.card("Width 6"))
-                    )
+                        )
+                    ),
+                    ui.column(6, ui.card("Width 6"))
                 )
             )
         )
     )
-    
-    def server(input, output, session):
-        return  None
-    
-    app = App(app_ui, server)
+)
+
+def server(input, output, session):
+    return  None
+
+app = App(app_ui, server)
 ```
 <p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDAwDudiI69OMJKzAgbAEYAJgl7b0jDQig6W2UwAHUOaTI2JlCEvAjI3J83Dzyix2jif0CANmzPYtqHaNj4pJS0pgqsnLquwwLOrv6fPwUAmyrBxrtm1PT2sABKOeqB5cGy4crFZxi4yeTptoSFvpXIueOTs5qLpZPV8tHN3wmEvdbZo6uuy7rv3N+HS6XVSyGisOQANzkNi4qAUZAkxDhsPhYJYLA4pDmiE6UjICjoNQAcqQ4Kp1Og9KJ0DYNNoOBIWBC5JcwABfAC6QA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
@@ -185,7 +185,7 @@ Each grid system uses a flexibly sub-dividable 12-column grid for layout. They d
 
 * The fillable system always occupies the full width _and height_ of the web page and re-sizes it's components dynamically as the size of the page changes. 
 
-!["Differences between the three systems"](/images/pages.png)
+!["Differences between the three systems"](/images/page-control.png){.pt-4}
 
 ### Fluid Grid System
 

@@ -44,15 +44,17 @@ Shiny Layouts
 :::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
 
-<h2 class="mt-4"> <i class="me-2 p-90 bi bi-window indigo"></i> Navbars </h2>
+<h2 class="mt-4"> 
+<img src="/images/navbars-blue.svg" class="me-1" style="height: 40px;margin-bottom:7px;">
+Navbars </h2>
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+A navbar adds a navigation bar to your app, allowing users to easily navigate your app.
 
+<a href="/layouts/navbars.qmd" class="fw-500">Learn Navbars <i class="bi bi-chevron-right"></i></a>
 :::
 ::::
 :::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
 ::: {#navbar .grid}
-
 
 <style>
   .layout-list-card {
@@ -64,55 +66,22 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         padding-right: 0px;
     padding-left: 0px;
   }
-  /*.layout-list-card .nav-link {
-    padding: 0.5rem 0.75rem;
-    color: white;
-    background-color: #007bc2;
-  }
-*/
 </style>
 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="#">
-<h5>Navbar with Links</h5>
+<a class="component-list-header-text" href="/layouts/navbars.html#navbar-at-top">
+<h5>Navbar at Top</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="navbars.qmd">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/navbars.html#navbar-at-top">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-
-```{shinylive-python}
-#| standalone: true
-
-from shiny import App, ui
-
-app_ui = ui.page_fluid(
-    ui.navset_tab_card(
-        # left hand side ----
-        ui.nav("c", "tab c content"),
-        ui.nav_control(
-            ui.a("RStudio", href="https://rstudio.com", target="_blank")
-        ),
-
-        # create gap ----
-        ui.nav_spacer(),
-
-        # right hand side ----
-        ui.nav_control(
-            ui.a("Python", href="https://python.org", target="_blank")
-        ),
-    ),
-)
-
-app = App(app_ui, None)
-
-```
-
+<p class="my-0 h-100 w-100"><img src="/images/navbar-top.png" class="h-100 w-100"></p>
 </div>
 </div>
 
@@ -120,69 +89,19 @@ app = App(app_ui, None)
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="#">
-<h5>Navbar with Pills</h5>
+<a class="component-list-header-text" href="/layouts/navbars.html#navbar-at-bottom">
+<h5>Navbar at Bottom</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="navbars.qmd">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/navbars.html#navbar-at-bottom">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-
-
-```{shinylive-python}
-#| standalone: true
-
-from shiny import App, ui
-
-app_ui = ui.page_fluid(
-    ui.navset_pill(
-        ui.nav("a", "tab a content"),
-        ui.nav("b", "tab b content"),
-    )
-)
-
-app = App(app_ui, None)
-```
-
+<p class="my-0 h-100 w-100"><img src="/images/navbar-bottom.png" class="h-100 w-100"></p>
 </div>
 </div>
-
-
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="#">
-<h5>Navbar with Tabs</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="navbars.qmd">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-
-```{shinylive-python}
-#| standalone: true
-from shiny import App, ui
-
-app_ui = ui.page_fluid(
-    ui.navset_tab(
-        ui.nav("a", "tab a content"),
-        ui.nav("b", "tab b content"),
-    )
-)
-
-app = App(app_ui, None)
-
-```
-
-</div>
-</div>
-
-
 
 
 
@@ -197,9 +116,12 @@ app = App(app_ui, None)
 
 ::: {.sticky-xl-top .pt-4}
 
-<h2 class="mt-4"> <i class="me-2 p-90 bi bi-layout-sidebar indigo"></i> Sidebars </h2>
+<h2 class="mt-4"> 
+<img src="/images/sidebars-blue.svg" class="me-1" style="height: 40px;margin-bottom:7px;"> Sidebars </h2>
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+A sidebar layout creates a sidebar, typically used for inputs, and a large main area, typically used for outputs.
+
+<a href="/layouts/sidebars.qmd" class="fw-500">Learn Sidebars <i class="bi bi-chevron-right"></i></a>
 
 :::
 ::::
@@ -210,36 +132,17 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="#">
+<a class="component-list-header-text" href="/layouts/sidebars.html#sidebar-on-the-left">
 <h5>Sidebar on the Left</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="navbars.qmd">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/sidebars.html#sidebar-on-the-left">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-
-```{shinylive-python}
-#| standalone: true
-
-from shiny import App, ui
-
-app_ui = ui.page_fluid(
-    ui.layout_sidebar( #<<
-        ui.sidebar("Sidebar content"), #<<
-        "Here is the main content area."
-    ), #<<
-).add_class("py-3")
-
-def server(input, output, session):
-    pass
-
-app = App(app_ui, server)
-
-```
-
+<p class="my-0 h-100 w-100"><img src="/images/sidebar-left.png" class="h-100 w-100"></p>
 </div>
 </div>
 
@@ -247,35 +150,17 @@ app = App(app_ui, server)
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="#">
+<a class="component-list-header-text" href="/layouts/sidebars.html#sidebar-on-the-right">
 <h5>Sidebar on the Right</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="navbars.qmd">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/sidebars.html#sidebar-on-the-right">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-
-
-```{shinylive-python}
-#| standalone: true
-
-from shiny import App, ui
-  
-app_ui = ui.page_fluid(
-    ui.layout_sidebar( #<<
-        ui.sidebar("Sidebar", position="right"), #<<
-        "Sidebar on the left main content"
-    ), #<<
-).add_class("py-3")
-
-def server(input, output, session):
-    pass
-
-app = App(app_ui, server)
-```
+<p class="my-0 h-100 w-100"><img src="/images/sidebar-right.png" class="h-100 w-100"></p>
 
 </div>
 </div>
@@ -283,39 +168,18 @@ app = App(app_ui, server)
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="#">
+<a class="component-list-header-text" href="/layouts/sidebars.html#sidebar-on-the-left-and-right">
 <h5>Sidebars: Left & Right</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="navbars.qmd">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/sidebars.html#sidebar-on-the-left-and-right">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
 
-```{shinylive-python}
-#| standalone: true
-from shiny import App, ui
-    
-app_ui = ui.page_fluid(
-    ui.layout_sidebar( #<<
-        ui.sidebar("Left sidebar"), #<<
-        ui.layout_sidebar( #<<
-            ui.sidebar("Right sidebar", position="right"), #<<
-            "Main content",
-            border=False #<<
-        ), #<<
-        padding=0 #<<
-    ), #<<
-).add_class("py-3")
-
-def server(input, output, session):
-    pass
-
-app = App(app_ui, server)
-
-```
+<p class="my-0 h-100 w-100"><img src="/images/sidebar-left-right.png" class="h-100 w-100"></p>
 
 </div>
 </div>
@@ -323,71 +187,52 @@ app = App(app_ui, server)
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="#">
+<a class="component-list-header-text" href="/layouts/sidebars.html#two-sidebars-on-the-left">
 <h5>Two Sidebars on Left</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="navbars.qmd">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/sidebars.html#two-sidebars-on-the-left">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-
-```{shinylive-python}
-#| standalone: true
-
-
-
-```
-
+<p class="my-0 h-100 w-100"><img src="/images/sidebar-two.png" class="h-100 w-100"></p>
 </div>
 </div>
 
-
+ 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="#">
-<h5>Sidebar Qithin a Card</h5>
+<a class="component-list-header-text" href="/layouts/sidebars.html#sidebar-within-a-card">
+<h5>Sidebar Within a Card</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="navbars.qmd">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/sidebars.html#sidebar-within-a-card">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-
-
-```{shinylive-python}
-#| standalone: true
-
-```
-
+<p class="my-0 h-100 w-100"><img src="/images/sidebar-left-card.png" class="h-100 w-100"></p>
 </div>
 </div>
 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="#">
-<h5>Collapsing Sidebar</h5>
+<a class="component-list-header-text" href="/layouts/sidebars.html#collapsed-sidebar">
+<h5>Collapsed Sidebar</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="navbars.qmd">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/sidebars.html#collapsed-sidebar">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-
-```{shinylive-python}
-#| standalone: true
-
-
-```
-
+<p class="my-0 h-100 w-100"><img src="/images/sidebar-collapsed.png" class="h-100 w-100"></p>
 </div>
 </div>
 
@@ -402,10 +247,12 @@ app = App(app_ui, server)
 :::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
 
-<h2 class="mt-4"> <i class="me-2 p-90 bi bi-layout-three-columns indigo"></i> Tabs </h2>
+<h2 class="mt-4"> 
+<img src="/images/tabs-blue.svg" class="me-1" style="height: 40px;margin-bottom:7px;"> Tabs </h2>
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+Tabs and navigation allow you to create apps that have multiple pages.
 
+<a href="/layouts/tabs.qmd" class="fw-500">Learn Tabs <i class="bi bi-chevron-right"></i></a>
 :::
 ::::
 :::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
@@ -415,46 +262,17 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="#">
-<h5>Tabset with Pill</h5>
+<a class="component-list-header-text" href="/layouts/tabs.html#tabset-with-pill-navigation">
+<h5>Tabset with Pill Nav</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="navbars.qmd">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/tabs.html#tabset-with-pill-navigation">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-
-```{shinylive-python}
-#| standalone: true
-
-from shiny import App, ui
-
-app_ui = ui.page_fluid(
-    ui.navset_pill(
-        ui.nav("A", "Page A content"),
-        ui.nav("B", "Page B content"),
-        ui.nav("C", "Page C content"),
-        ui.nav_menu(
-            "Other links",
-            ui.nav("D", "Page D content"),
-            "----",
-            "Description:",
-            ui.nav_control(
-                ui.a("Weblink", href="URL", target="_blank")
-            ),
-        ),
-        id = "tab"
-    )
-)
-
-def server(input, output, session):
-    pass
-
-app = App(app_ui, server)
-```
-
+<p class="my-0 h-100 w-100"><img src="/images/tabset-pill.png" class="h-100 w-100"></p>
 </div>
 </div>
 
@@ -462,92 +280,34 @@ app = App(app_ui, server)
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="#">
-<h5>Tabset with Pill List Nav</h5>
+<a class="component-list-header-text" href="/layouts/tabs.html#tabset-with-pill-list-navigation">
+<h5>Tabset with Pill List Nav</h5> 
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="navbars.qmd">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/tabs.html#tabset-with-pill-list-navigation">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-
-
-```{shinylive-python}
-#| standalone: true
-
-from shiny import App, ui
-
-app_ui = ui.page_fluid(
-    ui.navset_pill_list(
-        ui.nav("A", "Page A content"),
-        ui.nav("B", "Page B content"),
-        ui.nav("C", "Page C content"),
-        ui.nav_menu(
-            "Other links",
-            ui.nav("D", "Page D content"),
-            "----",
-            "Description:",
-            ui.nav_control(
-                ui.a("Weblink", href="URL", target="_blank")
-            ),
-        ),
-        id = "tab"
-    )
-)
-
-def server(input, output, session):
-    pass
-
-app = App(app_ui, server)
-```
-
+<p class="my-0 h-100 w-100"><img src="/images/tabset-pill-list.png" class="h-100 w-100"></p>
 </div>
 </div>
 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="#">
+<a class="component-list-header-text" href="/layouts/tabs.html#tabset-with-tab-navigation">
 <h5>Tabset with Tab Nav</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="navbars.qmd">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/tabs.html#tabset-with-tab-navigation">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-
-```{shinylive-python}
-#| standalone: true
-from shiny import App, ui
-  
-app_ui = ui.page_fluid(
-    ui.navset_tab(
-        ui.nav("A", "Page A content"),
-        ui.nav("B", "Page B content"),
-        ui.nav("C", "Page C content"),
-        ui.nav_menu(
-            "Other links",
-            ui.nav("D", "Page D content"),
-            "----",
-            "Description:",
-            ui.nav_control(
-                ui.a("Weblink", href="URL", target="_blank")
-            ),
-        ),
-        id = "tab"
-    )
-)
-
-def server(input, output, session):
-    pass
-
-app = App(app_ui, server)
-```
-
+<p class="my-0 h-100 w-100"><img src="/images/tabset-tab.png" class="h-100 w-100"></p>
 </div>
 </div>
 
@@ -555,24 +315,18 @@ app = App(app_ui, server)
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="#">
+<a class="component-list-header-text" href="/layouts/tabs.html#card-with-a-tabbed-tabset">
 <h5>Card with a tabbed tabset
 </h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="navbars.qmd">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/tabs.html#card-with-a-tabbed-tabset">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-
-```{shinylive-python}
-#| standalone: true
-
-
-```
-
+<p class="my-0 h-100 w-100"><img src="/images/tabset-tab-card.png" class="h-100 w-100"></p>
 </div>
 </div>
 
@@ -580,46 +334,34 @@ app = App(app_ui, server)
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="#">
+<a class="component-list-header-text" href="/layouts/tabs.html#card-with-a-pill-tabset">
 <h5>Card with a pill tabset</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="navbars.qmd">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/tabs.html#card-with-a-pill-tabset">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-
-
-```{shinylive-python}
-#| standalone: true
-
-
-```
-
+<p class="my-0 h-100 w-100"><img src="/images/tabset-pill-card.png" class="h-100 w-100"></p>
 </div>
 </div>
 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="#">
-<h5>Vertically collapsing accordion panels</h5>
+<a class="component-list-header-text" href="/layouts/tabs.html#vertically-collapsing-accordion-panels">
+<h5>Collapsing accordion panels</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="navbars.qmd">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/tabs.html#vertically-collapsing-accordion-panels">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-
-```{shinylive-python}
-#| standalone: true
-
-```
-
+<p class="my-0 h-100 w-100"><img src="/images/accordion.png" class="h-100 w-100"></p>
 </div>
 </div>
 
@@ -633,10 +375,12 @@ app = App(app_ui, server)
 :::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
 
-<h2 class="mt-4"> <i class="me-2 p-90 bi bi-grid-fill indigo"></i> Panels & Cards </h2>
+<h2 class="mt-4"> 
+<img src="/images/cards-blue.svg" class="me-1" style="height: 40px;margin-bottom:7px;"> Panels & Cards </h2>
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+Use panels and cards to define areas of related content.
 
+<a href="/layouts/panels-cards.qmd" class="fw-500">Learn Panels & Cards <i class="bi bi-chevron-right"></i></a>
 :::
 ::::
 :::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
@@ -646,23 +390,17 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="#">
+<a class="component-list-header-text" href="/layouts/panels-cards.html#main-image-with-panel-floating-above">
 <h5>Main image with panel floating above</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="navbars.qmd">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/panels-cards.html#main-image-with-panel-floating-above">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-
-```{shinylive-python}
-#| standalone: true
-
-
-```
-
+<p class="my-0 h-100 w-100"><img src="/images/drag.png" class="h-100 w-100"></p>
 </div>
 </div>
 
@@ -670,24 +408,18 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="#">
+<a class="component-list-header-text" href="/layouts/panels-cards.html#content-divided-by-cards">
 <h5>Content divided by bounding boxes (cards)</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="navbars.qmd">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/panels-cards.html#content-divided-by-cards">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-
-
-```{shinylive-python}
-#| standalone: true
-
-
-```
-
+<p class="my-0 h-100 w-100"><img src="/images/two-cards.png" class="h-100 w-100"></p>
+ 
 </div>
 </div>
 
@@ -703,9 +435,12 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 :::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
 
-<h2 class="mt-4"> <i class="me-2 p-90 bi bi-columns indigo"></i> Arrange Elements </h2>
+<h2 class="mt-4"> 
+<img src="/images/arrange-blue.svg" class="me-1" style="height: 40px;margin-bottom:7px;"> Arrange Elements </h2>
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+Use rows and columns to create your own layout for every device size.
+
+<a href="/layouts/arrange.qmd" class="fw-500">Arrange Elements <i class="bi bi-chevron-right"></i></a>
 
 :::
 ::::
@@ -716,23 +451,17 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="#">
+<a class="component-list-header-text" href="/layouts/arrange.html#grid-layouts">
 <h5>Grid Layouts</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="navbars.qmd">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/arrange.html#grid-layouts">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-
-```{shinylive-python}
-#| standalone: true
-
-
-```
-
+<p class="my-0 h-100 w-100"><img src="/images/grid-layout.png" class="h-100 w-100"></p>
 </div>
 </div>
 
@@ -740,47 +469,35 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="#">
+<a class="component-list-header-text" href="/layouts/arrange.html#column-nesting">
 <h5>Column nesting</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="navbars.qmd">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/arrange.html#column-nesting">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-
-
-```{shinylive-python}
-#| standalone: true
-
-
-```
-
+<p class="my-0 h-100 w-100"><img src="/images/column-nesting.png" class="h-100 w-100"></p>
+ 
 </div>
 </div>
 
-
+ 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="#">
-<h5>Controlling for page width and height</h5>
+<a class="component-list-header-text" href="/layouts/arrange.html#controlling-for-page-width-and-height">
+<h5>Control for page size</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="navbars.qmd">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/arrange.html#controlling-for-page-width-and-height">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-
-```{shinylive-python}
-#| standalone: true
-
-
-```
-
+<p class="my-0 h-100 w-100"><img src="/images/controlling.png" class="h-100 w-100"></p>
 </div>
 </div>
 

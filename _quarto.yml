@@ -160,14 +160,13 @@ website:
       collapse-level: 2
       contents:
         - text: "![](/images/blank-pixel.png){.sidebar-title}__LAYOUTS__"
-          href: layouts/
-        - section: "![](/images/navbars.svg){.sidebar-icon .sidebar-subtitle}__Navbars__"
+        - section: "![](/images/navbars-purple.svg){.sidebar-icon .sidebar-subtitle}__Navbars__"
           contents:
             - text: "Navbar at Top"
               href: "/layouts/navbars.html#navbar-at-top"
             - text: "Navbar at Bottom"
               href: "/layouts/navbars.html#navbar-at-bottom"
-        - section: "![](/images/sidebars.svg){.sidebar-icon .sidebar-subtitle}__Sidebars__"
+        - section: "![](/images/sidebars-purple.svg){.sidebar-icon .sidebar-subtitle}__Sidebars__"
           contents:
             - text: "Sidebar on Left"
               href: "/layouts/sidebars.html#sidebar-on-the-left"
@@ -195,19 +194,19 @@ website:
               href: "/layouts/tabs.html#card-with-a-pill-tabset"
             - text: "Vertically Collapsing Accordion Panels"
               href: "/layouts/tabs.html#vertically-collapsing-accordion-panels"
-        - section: "![](/images/panels.svg){.sidebar-icon .sidebar-subtitle}__Panels & Cards__"
+        - section: "![](/images/cards-purple.svg){.sidebar-icon .sidebar-subtitle}__Panels & Cards__"
           contents:
-            - text: "Main Image with Panel Floating Above"
+            - text: "Main Image w/ Floating Panel"
               href: "/layouts/tabs.html#vertically-collapsing-accordion-panels"
             - text: "Content Divided by Cards"
               href: "/layouts/panels-cards.html#content-divided-by-cards"
-        - section: "![](/images/arrange.svg){.sidebar-icon .sidebar-subtitle}__Arrange Elements__"
+        - section: "![](/images/arrange-purple.svg){.sidebar-icon .sidebar-subtitle}__Arrange Elements__"
           contents:
             - text: "Grid Layouts"
               href: "/layouts/arrange.html#grid-layouts"
             - text: "Column Nesting"
               href: "/layouts/arrange.html#column-nesting"
-            - text: "Controlling for Page Width and Height"
+            - text: "Controlling for Page Width / Height"
               href: "/layouts/arrange.html#controlling-for-page-width-and-height"
 
     - id: docs
