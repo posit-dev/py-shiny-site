@@ -70,13 +70,14 @@ deps: $(PYBIN)
 	cd py-shiny/docs && make deps
 
 ## Build qmd files for Shiny API docs
-quartodoc:
+quartodoc: $(PYBIN)
 	cd py-shiny/docs && make quartodoc
 	# Copy all generated files except index.qmd
 	rsync -av --exclude="index.qmd" py-shiny/docs/api/ ./api
 	cp -R py-shiny/docs/_inv py-shiny/docs/objects.json ./
 	# Copy over index.qmd, but rename it to _api_index.qmd
 	cp py-shiny/docs/api/index.qmd ./api/_api_index.qmd
+	. $(PYBIN)/activate && python scripts/_add_objects_func_info.py
 	. $(PYBIN)/activate && python scripts/post-quartodoc.py
 
 ## Build website
