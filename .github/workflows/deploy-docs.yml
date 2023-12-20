@@ -57,6 +57,36 @@ jobs:
           make all
 
       # =====================================================
+      # Notify PR of file updates
+      # =====================================================
+
+      - name: Find updates to components
+        if: ${{github.event_name == 'pull_request'}}
+        id: components
+        shell: bash
+        run: |
+          git diff --quiet -- components && exit 0
+          # Changes detected
+          echo "has-changes=true" >> "$GITHUB_OUTPUT"
+
+      - name: Write comment to update components folder
+        if: ${{github.event_name == 'pull_request' && steps.components.outputs.has-changes == 'true'}}
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            Please call `make quartodoc` to update files within the components folder
+          comment_tag: make_quartodoc
+          mode: delete
+      - name: Remove comment to update components folder
+        if: ${{github.event_name == 'pull_request' && steps.components.outputs.has-changes != 'true'}}
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          # message: |
+          #   Components folder is up to date. Removing comment
+          comment_tag: make_quartodoc
+          mode: delete
+
+      # =====================================================
       # Deploy docs to Netlify
       # =====================================================
 
