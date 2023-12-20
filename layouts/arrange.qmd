@@ -31,7 +31,7 @@ You can use these functions directly to create your own layout. Grid layouts can
 
 ## Grid Layouts
 
-To create a layout using the grid system, first build a grid by interlacing calls to [ui.row](https://shiny.posit.co/py/api/ui.row.html)  and [ui.column](https://shiny.posit.co/py/api/ui.column.html). Then place UI elements within the grid by passing them to a `ui.row()` or `ui.column()` function. For example, the app below arranges three cards into a simple pattern.
+To create a layout using the grid system, first build a grid by interlacing calls to [ui.row](https://shiny.posit.co/py/api/ui.row.html) and [ui.column](https://shiny.posit.co/py/api/ui.column.html). Then place UI elements within the grid by passing them to a `ui.row()` or `ui.column()` function. For example, the app below arranges three cards into a simple pattern.
 
 :::{.column-screen-inset-right style="max-width:800px;"}
 ::: {.panel-tabset}
@@ -52,7 +52,7 @@ app_ui = ui.page_fluid(
   ), #<<
   ui.row( #<<
     ui.column(6, ui.card("Card 2")), #<<
-    ui.column(6, ui.card("Card 3"))  #<<   
+    ui.column(6, ui.card("Card 3")) #<<   
   ) #<<
 )
 
@@ -69,7 +69,7 @@ Notice three things about the app:
 
 1. You always create rows before columns, and then embed columns within the rows. 
 
-2. Rows are always as wide as the container they appear in, but columns take a width parameter. The width should be an integer from 1 to 12. Bootstrap uses the `width` to determine the width of the column relative to the row that contains it: 
+2. Rows are always as wide as the container they appear in, but columns take a `width` parameter. `width` should be an integer from 1 to 12. Bootstrap uses `width` to determine the width of the column relative to the row that contains it: 
 
     - A column of `width=12` will span the entire row. 
     - A column of `width=6` will span half the row.
@@ -78,7 +78,7 @@ Notice three things about the app:
 
 3. You pass UI elements to `ui.row()` or `ui.column()` to place them in the grid. Here we pass `ui.card()`s to various parts of the grid. Each element is fitted to the column or row that it appears in.
 
-In addition to setting a column's width, you can also set its offset. This controls how many units of padding should appear to the left of the column. Once again the units should be an integer from 1 to 12. Here we use offsets to make a new arrangement:
+In addition to setting a column's width, you can also set its offset with the `offset` parameter. `offset` controls how many units of padding appear to the left of the column. Once again, `offset` should be an integer from 1 to 12. The app below uses offsets to make a new arrangement:
 
 
 :::{.column-screen-inset-right style="max-width:800px;"}
@@ -122,7 +122,7 @@ app = App(app_ui, server)
 
 ## Column nesting
 
-When you nest rows and columns within a column, each nested level of column widths should add up to 12. This is because bootstrap divides every row into 12 units, no matter the actual width of the row.
+When you nest rows and columns within a column, each nested level of column widths should add up to 12. This is because Bootstrap divides every row into 12 units, no matter the actual width of the row.
 
 Consider this page layout:
 
@@ -175,15 +175,16 @@ app = App(app_ui, server)
 
 ## Controlling for page width and height
 
-There are multiple types of Shiny grids: fluid, fixed, and fillable. The examples so far have used the fluid grid system exclusively and that's the system that's recommended for most applications (and the default for Shiny functions like `ui.page_navbar()` and `ui.page_sidebar()`).
+There are multiple types of Shiny grids: fluid, fixed, and fillable. The fluid grid system is
+recommended for most applications and is the default for Shiny functions like `ui.page_navbar()` and `ui.page_sidebar()`. So far, all the examples on this page have used the fluid grid system. 
 
 Each grid system uses a flexibly sub-dividable 12-column grid for layout. They differ in how they interact with the viewer's browser window:
 
-* The fluid system always occupies the full width of the web page and re-sizes it's components dynamically as the size of the page changes. 
+* The fluid system always occupies the full width of the web page and re-sizes its components dynamically as the size of the page changes. 
 
-* The fixed system occupies a fixed width of 940 pixels by default and may assume other widths when Bootstrap responsive layout kicks in (e.g. when on a tablet). 
+* The fixed system occupies a fixed width of 940 pixels by default and may assume other widths when Bootstrap's responsive layout kicks in (e.g., when on a tablet). 
 
-* The fillable system always occupies the full width _and height_ of the web page and re-sizes it's components dynamically as the size of the page changes. 
+* The fillable system always occupies the full width _and height_ of the web page and re-sizes its components dynamically as the size of the page changes. 
 
 !["Differences between the three systems"](/images/page-control.png){.pt-4}
 
@@ -231,7 +232,7 @@ app = App(app_ui, server, debug=True)
 <p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89Li8XAAp5FlSwmgwuKGxiVTJ-CRo3AShGZIg0yvSIiDguAqK4ErKUqrbwi1Q8gv43FshZfBZBgDlBxwAGRwBGCamWACYJgEo8VrbV9arw1Cha+vYLcrb2jNzObtEyZLBzCTJiSMZYQc2Kk7fKt+WfCHk3PQmdwAN3ciU6eUc5y6ZEcEjgEkKpGWiC2AAFoXl0c4IH0sDxrlAuGRgoNbCw7g8ni8wD93qkARSaPdHs8YIkUVtKjoMM9cUYMPC4ElpgBOABsAA4JtLpnSTiwAB4hFizCYsADUqoArCwAFQqTB8lwC40QRIAFgAzAB2eUnGQYSmJRWOCFkDDm1YsNwQQpkbDBAAqjFUcDpvz8KvsqESfkCNDhIPcjmKqkiwdD4fkYAAvgBdIA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
 
-To make a fluid grid that adapts to the width of the user's viewing window, build your app ui with [ui.page_fluid](https://shiny.posit.co/py/api/ui.page_fluid.html).
+To make a fluid grid that adapts to the width of the user's viewing window, build your app UI with [ui.page_fluid](https://shiny.posit.co/py/api/ui.page_fluid.html).
 
 ### Fixed Grid System
 
@@ -277,11 +278,11 @@ app = App(app_ui, server, debug=True)
 <p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89GgAPOBcACnkWdLCaDC4obGJVMn8JGjcBKEZUiAzqzIiIOC4ikrgyirSajvCLVAKi-jc2yFl8FmGAOWHHAAZHAEYpmZYAJimASjx2jvXNmvDUKHrG9gtKjs6s-M5e0TJUsHMJMmJIxlhh7aqzj+qP1Z8IeRuPQmdwAN3cyW6BUclx6ZEcEjgEmKpFWiB2AAFYQVMc4IAMsDxblAuGRgsNbCwHk8Xm8wH9PukgVSaI9nq8YMk0TtqjoMK98UYMIikslZgBOABsAA4prLZgyzix4iEWPMpiwANRqgCsLAAVCpMAKXEKTRBkgAWADMAHZFWcZBhqcl4o4oWQMBb1iw3BBimRsMEACqMVRwBn-Pyq+yoZJ+QI0BFg9yOUqqSIhsMR+RgAC+AF0gA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
 
-To make a fixed grid that maintains a constant maximum width, build your app ui with [ui.page_fluid](https://shiny.posit.co/py/api/ui.page_fluid.html).
+To make a fixed grid that maintains a constant maximum width, build your app UI with [ui.page_fluid](https://shiny.posit.co/py/api/ui.page_fluid.html).
 
-The fixed grid system maintains a fixed page width of 940 pixels by default. If Bootstrap responsive features are enabled (they are by default in Shiny) then the grid will also adapt to be 724px or 1170px wide depending on your viewport (e.g. when on a tablet). The fixed system does this by using Bootstrap `.container`s, whereas the fluid system uses Bootstrap `.container-fluid`s. Learn more about the difference [here](https://getbootstrap.com/docs/5.3/layout/containers/#how-they-work).
+The fixed grid system maintains a fixed page width of 940 pixels by default. If Bootstrap responsive features are enabled (they are by default in Shiny) then the grid will also adapt to be 724px or 1170px wide depending on your viewport (e.g., when on a tablet). The fixed system does this by using Bootstrap `.container`s, whereas the fluid system uses Bootstrap `.container-fluid`s. Learn more about the difference [here](https://getbootstrap.com/docs/5.3/layout/containers/#how-they-work).
 
-The main benefit of a fixed grid is that it provides stronger guarantees about how users will see the various elements of your UI laid out (this is because it's not being dynamically laid out according to the width of the browser). The main drawback is that it's a bit more complex to work with. In general we recommend using fluid grids unless you absolutely require the lower level layout control afforded by a fixed grid.
+The main benefit of a fixed grid is that it provides stronger guarantees about how users will see the various elements of your UI laid out (because it's not being dynamically laid out according to the width of the browser). The main drawback is that a fixed grid is more complex to work with. In general, we recommend using a fluid grid unless you absolutely require the lower level layout control afforded by a fixed grid.
 
 ### Fillable Grid System
 
@@ -327,17 +328,17 @@ app = App(app_ui, server, debug=True)
 <p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89Gi4uKAEuOAAKeRZMsJoMROxiVTJ-CRo3AShGdIgsmuyIiDguYtK4csqM2s7wi1RC4v43dshZfBYRgDkRxwAGRwBGadmWACZpgEo8Ds6Nrdrw1CgGpvYLKs6unILOPtEydLBzCTJiSMZYEZ3q88+az7WfCDyNx6EzuABu7lSPUKjiuvTIjgkcAkJVIa0QuwAAnDCljnBBBlgeHcoFwyMERrYWI9nq93mB-l9MsDqTQni83jBUujdjUdBg3gSjBgkXAXKk5gBOABsAA5pvK5ozziwAB4hFgLaYsADUmoArCwAFQqTCClzC80QVIAFgAzAB2ZXnGQYGmpVWOaFkDDWjYsNwQEpkbDBAAqjFUcEZAL8GvsqFSfkCNER4PcjjKqki4cj0fkYAAvgBdIA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
 
-To make a fixed grid that maintains a constant maximum width, build your app ui with [ui.page_fillable](https://shiny.posit.co/py/api/ui.page_fillable.html).
+To make a fixed grid that maintains a constant maximum width, build your app UI with [ui.page_fillable](https://shiny.posit.co/py/api/ui.page_fillable.html).
 
-`ui.page_fluid()` and `ui.page_fixed()` are used for creating web pages that are laid out from the top down, leaving whitespace at the bottom if the page content's height is smaller than the browser window, and scrolling if the content is larger than the window.
+`ui.page_fluid()` and `ui.page_fixed()` create web pages that are laid out from the top down, leaving whitespace at the bottom if the page content's height is smaller than the browser window, and scrolling if the content is larger than the window.
 
 `ui.page_fillable()` is designed to latch the document body's size to the size of the window. This makes it possible to fill it with content that also scales to the size of the window.
 
-For example, `ui.page_fluid(ui.output_plot("plot", height = "100%"))` will not work as expected; the plot element's effective height will be 0, because the plot's containing elements (`<div>` and `<body>`) have automatic height; that is, they determine their own height based on the height of their contained elements. However, `ui.page_fillable(ui.output_plot("plot", height = "100%"))` will work because fillPage fixes the `<body>` height at 100% of the window height.
+For example, `ui.page_fluid(ui.output_plot("plot", height="100%"))` will not work as expected. The plot element's effective height will be 0 because the plot's containing elements (`<div>` and `<body>`) have automatic height. They determine their own height based on the height of their contained elements. However, `ui.page_fillable(ui.output_plot("plot", height="100%"))` will work as expected because `ui.page_fillable()` fixes the `<body>` height at 100% of the window height.
 
-Note that `ui.page_fillable(ui.output_plot("plot"))` may not cause the plot to fill the page. Like most Shiny output widgets, plotOutput's default height is a fixed number of pixels. You must explicitly set `height = "100%"` if you want a plot (or htmlwidget, say) to fill its container.
+Note that `ui.page_fillable(ui.output_plot("plot"))` may not cause the plot to fill the page. Like most Shiny output widgets, `ui.output_plot()`'s default height is a fixed number of pixels. You must explicitly set `height="100%"` if you want a plot (or htmlwidget, say) to fill its container.
 
-One must be careful what layouts/panels/elements come between the `ui.page_fillable()` and the plots/widgets. Any container that has an automatic height will cause children with `height = "100%"` to misbehave. Stick to functions that are designed for fill layouts, such as the ones in the Shiny package.
+One must be careful what layouts/panels/elements come between the `ui.page_fillable()` and the plots/widgets. Any container that has an automatic height will cause children with `height="100%"` to misbehave. Stick to functions that are designed for fill layouts, such as the ones in the Shiny package.
 
 
 
