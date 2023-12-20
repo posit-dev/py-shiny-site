@@ -77,6 +77,7 @@ quartodoc:
 	cp -R py-shiny/docs/_inv py-shiny/docs/objects.json ./
 	# Copy over index.qmd, but rename it to _api_index.qmd
 	cp py-shiny/docs/api/index.qmd ./api/_api_index.qmd
+	. $(PYBIN)/activate && python scripts/post-quartodoc.py
 
 ## Build website
 site:
