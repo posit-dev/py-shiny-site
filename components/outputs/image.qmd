@@ -33,14 +33,12 @@ listing:
           app = App(app_ui, server)
         relevantfunctions:
           - title: ui.output_image
-            href: https://shiny.posit.co/py/api/ui.output_image.html#shiny.ui.output_image
-            signature: "ui.output_image(id: str, width: str | float | int = '100%', height: str | float | int = '400px', inline: bool = False, click: bool | ClickOpts = False, dblclick: bool | DblClickOpts = False, hover: bool | HoverOpts = False, brush: bool | BrushOpts = False, fill: bool = False)"
-            github: https://github.com/posit-dev/py-shiny/blob/d9766b1/shiny/ui/_output.py#L123-L234
+            href: https://shiny.posit.co/py/api/ui.output_image.html
+            signature: ui.output_image(id, width='100%', height='400px', *, inline=False, click=False, dblclick=False, hover=False, brush=False, fill=False)
           - title: '@render.image'
-            href: https://shiny.posit.co/py/api/render.image.html#shiny.render.image
-            signature: 'render.image(delete_file: bool = False)'
+            href: https://shiny.posit.co/py/api/render.image.html
+            signature: render.image(_fn=None, *, delete_file=False)
 
-            github: https://github.com/posit-dev/py-shiny/blob/d9766b1/shiny/render/_render.py#L341-L371
 ---
 
 :::{#component}

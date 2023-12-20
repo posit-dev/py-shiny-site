@@ -31,17 +31,14 @@ listing:
           app = App(app_ui, server)
         relevantfunctions:
           - title: ui.output_data_frame
-            href: https://shiny.posit.co/py/api/ui.output_data_frame.html#shiny.ui.output_data_frame
-            signature: 'ui.output_data_frame(id: str)'
-            github: https://github.com/posit-dev/py-shiny/blob/d9766b1/shiny/ui/dataframe/_dataframe.py#L12-L39
+            href: https://shiny.posit.co/py/api/ui.output_data_frame.html
+            signature: ui.output_data_frame(id)
           - title: '@render.data_frame'
-            href: https://shiny.posit.co/py/api/render.data_frame.html#shiny.render.data_frame
-            signature: render.data_frame()
-            github: https://github.com/posit-dev/py-shiny/blob/d9766b1/shiny/render/_dataframe.py#L258-L302
+            href: https://shiny.posit.co/py/api/render.data_frame.html
+            signature: render.data_frame(fn=None)
           - title: render.DataTable
-            href: https://shiny.posit.co/py/api/render.DataTable.html#shiny.render.DataTable
-            signature: "render.DataTable(data: object, width: Union = 'fit-content', height: Union = '500px', summary: Union = True, filters: bool = False, row_selection_mode: Union = 'none')"
-            github: https://github.com/posit-dev/py-shiny/blob/d9766b1/shiny/render/_dataframe.py#L122-L207
+            href: https://shiny.posit.co/py/api/render.DataTable.html
+            signature: render.DataTable(self, data, *, width='fit-content', height='500px', summary=True, filters=False, row_selection_mode='none')
   - id: variations
     template: ../_partials/components-variations.ejs
     contents:

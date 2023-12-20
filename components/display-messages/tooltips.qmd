@@ -49,13 +49,11 @@ listing:
 
         relevantfunctions:
           - title: ui.tooltip
-            href: https://shiny.posit.co/py/api/ui.tooltip.html#shiny.ui.tooltip
-            signature: "ui.tooltip(trigger: TagChild, *args: TagChild | TagAttrs = (), id: Optional = None, placement: Literal = 'auto', options: Optional = None)"
-            github: https://github.com/posit-dev/py-shiny/blob/d9766b1/shiny/ui/_tooltip.py#L13-L154
+            href: https://shiny.posit.co/py/api/ui.tooltip.html
+            signature: ui.tooltip(trigger, *args, id=None, placement='auto', options=None, **kwargs)
           - title: ui.update_tooltip
-            href: https://shiny.posit.co/py/api/ui.update_tooltip.html#shiny.ui.update_tooltip
-            signature: 'ui.update_tooltip(id: str, *args: TagChild = (), show: Optional = None, session: Optional = None)'
-            github: https://github.com/posit-dev/py-shiny/blob/d9766b1/shiny/ui/_input_update.py#L904-L946
+            href: https://shiny.posit.co/py/api/ui.update_tooltip.html
+            signature: ui.update_tooltip(id, *args, show=None, session=None)
   - id: variations
     template: ../_partials/components-variations.ejs
     contents:

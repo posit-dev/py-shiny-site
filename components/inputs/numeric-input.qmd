@@ -39,10 +39,9 @@ listing:
           app = App(app_ui, server)
         relevantfunctions:
           - title: ui.input_numeric
-            href: https://shiny.posit.co/py/api/ui.input_numeric.html#shiny.ui.input_numeric
-            signature: 'ui.input_numeric(id: str, label: TagChild, value: float, min: Optional = None, max: Optional = None, step: Optional = None, width: Optional = None)'
+            href: https://shiny.posit.co/py/api/ui.input_numeric.html
+            signature: ui.input_numeric(id, label, value, *, min=None, max=None, step=None, width=None)
 
-            github: https://github.com/posit-dev/py-shiny/blob/d9766b1/shiny/ui/_input_numeric.py#L12-L73
 ---
 
 :::{#component}

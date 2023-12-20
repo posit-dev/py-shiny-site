@@ -41,9 +41,8 @@ listing:
           app = App(app_ui, server)
         relevantfunctions:
           - title: ui.input_date
-            href: https://shiny.posit.co/py/api/ui.input_date.html#shiny.ui.input_date
-            signature: "ui.input_date(id: str, label: TagChild, value: Optional = None, min: Optional = None, max: Optional = None, format: str = 'yyyy-mm-dd', startview: str = 'month', weekstart: int = 0, language: str = 'en', width: Optional = None, autoclose: bool = True, datesdisabled: Optional = None, daysofweekdisabled: Optional = None)"
-            github: https://github.com/posit-dev/py-shiny/blob/d9766b1/shiny/ui/_input_date.py#L17-L132
+            href: https://shiny.posit.co/py/api/ui.input_date.html
+            signature: ui.input_date(id, label, *, value=None, min=None, max=None, format='yyyy-mm-dd', startview='month', weekstart=0, language='en', width=None, autoclose=True, datesdisabled=None, daysofweekdisabled=None)
 ---
 
 :::{#component}

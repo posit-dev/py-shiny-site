@@ -37,9 +37,8 @@ listing:
           app = App(app_ui, server)
         relevantfunctions:
           - title: ui.input_checkbox()
-            href: https://shiny.posit.co/py/api/ui.input_checkbox.html#shiny.ui.input_checkbox
-            signature: 'ui.input_checkbox(id: str, label: TagChild, value: bool = False, width: Optional = None)'
-            github: https://github.com/posit-dev/py-shiny/blob/d9766b1/shiny/ui/_input_check_radio.py#L32-L85
+            href: https://shiny.posit.co/py/api/ui.input_checkbox.html
+            signature: ui.input_checkbox(id, label, value=False, *, width=None)
 ---
 
 :::{#component}
