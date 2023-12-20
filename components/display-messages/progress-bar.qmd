@@ -68,7 +68,7 @@ listing:
           - title: ui.Progress
             href: https://shiny.posit.co/py/api/ui.Progress.html#shiny.ui.Progress
             signature: 'ui.Progress(min: int = 0, max: int = 1, session: Optional = None)'
-            github: https://github.com/posit-dev/py-shiny/blob/0e60bf8/shiny/ui/_progress.py#L14-L167
+            github: https://github.com/posit-dev/py-shiny/blob/fb1e525/shiny/ui/_progress.py#L14-L167
           - title: ui.Progress.close
             href: https://shiny.posit.co/py/api/ui.Progress.html
             signature: ui.Progress.close(self)

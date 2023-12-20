@@ -39,7 +39,7 @@ listing:
           - title: ui.input_checkbox()
             href: https://shiny.posit.co/py/api/ui.input_checkbox.html#shiny.ui.input_checkbox
             signature: 'ui.input_checkbox(id: str, label: TagChild, value: bool = False, width: Optional = None)'
-            github: https://github.com/posit-dev/py-shiny/blob/0e60bf8/shiny/ui/_input_check_radio.py#L32-L85
+            github: https://github.com/posit-dev/py-shiny/blob/fb1e525/shiny/ui/_input_check_radio.py#L32-L85
 ---
 
 :::{#component}

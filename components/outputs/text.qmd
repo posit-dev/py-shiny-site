@@ -44,11 +44,11 @@ listing:
           - title: ui.output_text
             href: https://shiny.posit.co/py/api/ui.output_text.html#shiny.ui.output_text
             signature: 'ui.output_text(id: str, inline: bool = False, container: Optional = None)'
-            github: https://github.com/posit-dev/py-shiny/blob/0e60bf8/shiny/ui/_output.py#L237-L270
+            github: https://github.com/posit-dev/py-shiny/blob/fb1e525/shiny/ui/_output.py#L237-L270
           - title: '@render.text'
             href: https://shiny.posit.co/py/api/render.text.html#shiny.render.text
             signature: render.text()
-            github: https://github.com/posit-dev/py-shiny/blob/0e60bf8/shiny/render/_render.py#L77-L98
+            github: https://github.com/posit-dev/py-shiny/blob/fb1e525/shiny/render/_render.py#L77-L98
   - id: variations
     template: ../_partials/components-variations.ejs
     contents:

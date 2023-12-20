@@ -296,11 +296,11 @@ listing:
           - title: ui.value_box
             href: https://shiny.posit.co/py/api/ui.value_box.html#shiny.ui.value_box
             signature: "ui.value_box(title: TagChild, *args: TagChild | TagAttrs = (), showcase: Optional = None, showcase_layout: SHOWCASE_LAYOUTS_STR | ShowcaseLayout = 'left center', theme: Optional = None, full_screen: bool = False, height: Optional = None, fill: bool = True, class_: Optional = None, **kwargs: TagAttrValue = {})"
-            github: https://github.com/posit-dev/py-shiny/blob/0e60bf8/shiny/ui/_valuebox.py#L296-L459
+            github: https://github.com/posit-dev/py-shiny/blob/fb1e525/shiny/ui/_valuebox.py#L296-L459
           - title: ui.card
             href: https://shiny.posit.co/py/api/ui.card.html#shiny.ui.card
             signature: 'ui.card(*args: TagChild | TagAttrs | CardItem = (), full_screen: bool = False, height: Optional = None, fill: bool = True, class_: Optional = None, **kwargs: TagAttrValue = {})'
-            github: https://github.com/posit-dev/py-shiny/blob/0e60bf8/shiny/ui/_card.py#L45-L104
+            github: https://github.com/posit-dev/py-shiny/blob/fb1e525/shiny/ui/_card.py#L45-L104
   - id: variations
     template: ../_partials/components-variations.ejs
     contents:
