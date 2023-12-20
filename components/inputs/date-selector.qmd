@@ -1,6 +1,6 @@
 ---
-title: "Date Selector"
-sidebar: components 
+title: Date Selector
+sidebar: components
 previewapp: |
   from shiny import App, render, ui
 
@@ -17,32 +17,32 @@ previewapp: |
 
   app = App(app_ui, server, debug=True)
 listing:
-  id: component
-  template: ../_partials/components-detail.ejs
-  contents:
-    - title: Date Selector
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAEygrIEt4nvVi6ZVuzgAdCOPqMmAZwAWnCNl4x+gpgEF0eJnUos4dHQFdO48WlQB9U0wC8TU1igBzOFZoAbUywAU4pkDHTgxFVGMyKzYKfzBosXwmUTBkgEoMKBYWK0JPKBkZWNQyAFoAViYYAA8SqAjiJgoq0sJKCjo0vACgp2II8MimsliANyhvBNSuiCCmEGTc-JlkxCSwEbkSgEYABh2mACtjGS4abBKScjaLtsMmcc4XCBLOChgZG6u6JlQasuSAL7idKZbKLAqxGDnOpkBpDT7tNLmCQQAw0WSGEaGXxhCI6PpkAY6GRwAqcUipRDdQIAAQJA2pTBpelRhgwQ0ZaKYYwmvkpjNmejIxjoM1xZAw8T5yIs6HsmnQvksNk4xMxhlSYABAF0gA
-      height: 380px
-      code: |
-        from datetime import date
-        
-        from shiny import App, render, ui
-        
-        app_ui = ui.page_fluid(
-            ui.input_date("date", "Date"), #<<
-            ui.output_text("value")
-        )
-        
-        def server(input, output, session):
-            @render.text
-            def value():
-                return input.date()
-        
-        app = App(app_ui, server)
-      relevantfunctions:
-        - title: ui.input_date
-          href: https://shiny.posit.co/py/api/ui.input_date.html
-          signature: ui.input_date(id, label, *, value=None, min=None, max=None, format='yyyy-mm-dd', startview='month', weekstart=0, language='en', width=None, autoclose=True, datesdisabled=None, daysofweekdisabled=None)
+  - id: component
+    template: ../_partials/components-detail.ejs
+    contents:
+      - title: Date Selector
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAEygrIEt4nvVi6ZVuzgAdCOPqMmAZwAWnCNl4x+gpgEF0eJnUos4dHQFdO48WlQB9U0wC8TU1igBzOFZoAbUywAU4pkDHTgxFVGMyKzYKfzBosXwmUTBkgEoMKBYWK0JPKBkZWNQyAFoAViYYAA8SqAjiJgoq0sJKCjo0vACgp2II8MimsliANyhvBNSuiCCmEGTc-JlkxCSwEbkSgEYABh2mACtjGS4abBKScjaLtsMmcc4XCBLOChgZG6u6JlQasuSAL7idKZbKLAqxGDnOpkBpDT7tNLmCQQAw0WSGEaGXxhCI6PpkAY6GRwAqcUipRDdQIAAQJA2pTBpelRhgwQ0ZaKYYwmvkpjNmejIxjoM1xZAw8T5yIs6HsmnQvksNk4xMxhlSYABAF0gA
+        height: 380px
+        code: |
+          from datetime import date
+
+          from shiny import App, render, ui
+
+          app_ui = ui.page_fluid(
+              ui.input_date("date", "Date"), #<<
+              ui.output_text("value")
+          )
+
+          def server(input, output, session):
+              @render.text
+              def value():
+                  return input.date()
+
+          app = App(app_ui, server)
+        relevantfunctions:
+          - title: ui.input_date
+            href: https://shiny.posit.co/py/api/ui.input_date.html
+            signature: ui.input_date(id, label, *, value=None, min=None, max=None, format='yyyy-mm-dd', startview='month', weekstart=0, language='en', width=None, autoclose=True, datesdisabled=None, daysofweekdisabled=None)
 ---
 
 :::{#component}

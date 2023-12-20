@@ -1,6 +1,6 @@
 ---
-title: "Progress Bar"
-sidebar: components 
+title: Progress Bar
+sidebar: components
 previewapp: |
   import asyncio
 
@@ -33,50 +33,50 @@ previewapp: |
   ## file: styles.css
   #shiny-notification-panel { max-width: 100%; }
 listing:
-  id: component
-  template: ../_partials/components-detail.ejs
-  contents:
-    - title: Progress Bar
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACKAZ2wkJuIB0IAgGaNiMFuwAWNCNhZ0GzFgEF0eFozhRCZGgDc46zRAAmcRuoCuNAQLSoA+tZYBeFtaxQA5nAdCANtYmABQCLOHuNBgyqJZkDtq6pA4ARnFkpKFgaWQZgvgsfGAAwmKxFEUAlHhhER7EceUOFAAeZFkk9HFwVTUQlbamcEIS5gaMwTFx6g1k5erscOzsvP2IteEAArPlGyybxmaMGK1kewdaOvpwGHAG5JMQ5Rg5eQMQEWyc3CxmI53lODBSrrD6fCIAdxoZEkkQwAAVRF5NMtgjAZC4AIzqGBQFpYgCslS+LFQoPBFNJGEW7Xgy28cBcRWKUH8hEs-igSQ+MlJSJR7CK6jMZCgNH8TLAABVpOwWLi5KKANZwNgsCHSfw3DAYKqDSngoRMeTyD6MKAQHzBbEsTFE8kGymYGmTHFLdgMyWlLq6S16sGO8FQCFi1gcLg8YjUrVwVDBAAMGEx7z2n00ZEsjA+RQAIqRVQC4jIvABCIqDeyuFToYL2Jw0BZjcyVMAAXwAukA
-      height: 200px
-      code: |
-        import asyncio
+  - id: component
+    template: ../_partials/components-detail.ejs
+    contents:
+      - title: Progress Bar
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACKAZ2wkJuIB0IAgGaNiMFuwAWNCNhZ0GzFgEF0eFozhRCZGgDc46zRAAmcRuoCuNAQLSoA+tZYBeFtaxQA5nAdCANtYmABQCLOHuNBgyqJZkDtq6pA4ARnFkpKFgaWQZgvgsfGAAwmKxFEUAlHhhER7EceUOFAAeZFkk9HFwVTUQlbamcEIS5gaMwTFx6g1k5erscOzsvP2IteEAArPlGyybxmaMGK1kewdaOvpwGHAG5JMQ5Rg5eQMQEWyc3CxmI53lODBSrrD6fCIAdxoZEkkQwAAVRF5NMtgjAZC4AIzqGBQFpYgCslS+LFQoPBFNJGEW7Xgy28cBcRWKUH8hEs-igSQ+MlJSJR7CK6jMZCgNH8TLAABVpOwWLi5KKANZwNgsCHSfw3DAYKqDSngoRMeTyD6MKAQHzBbEsTFE8kGymYGmTHFLdgMyWlLq6S16sGO8FQCFi1gcLg8YjUrVwVDBAAMGEx7z2n00ZEsjA+RQAIqRVQC4jIvABCIqDeyuFToYL2Jw0BZjcyVMAAXwAukA
+        height: 200px
+        code: |
+          import asyncio
 
-        from shiny import App, reactive, render, ui
-        
-        app_ui = ui.page_fluid(
-            ui.input_action_button("button", "Compute"),
-            ui.output_text("compute"),
-        )
-        
-        def server(input, output, session):
-            @output
-            @render.text
-            @reactive.event(input.button)
-            async def compute():
-                with ui.Progress(min=1, max=15) as p:
-                    p.set(message="Calculation in progress", detail="This may take a while...")
-        
-                    for i in range(1, 15):
-                        p.set(i, message="Computing")
-                        await asyncio.sleep(0.1)
-        
-                return "Done computing!"
-        
-        app = App(app_ui, server)
-      relevantfunctions:
-        - title: "ui.Progress"
-          href: https://shiny.posit.co/py/api/ui.Progress.html
-          signature: ui.Progress(self, min=0, max=1, session=None)
-        - title: "ui.Progress.close"
-          href: https://shiny.posit.co/py/api/ui.Progress.html
-          signature: ui.Progress.close(self)
-        - title: "ui.Progress.inc"
-          href: https://shiny.posit.co/py/api/ui.Progress.html
-          signature: ui.Progress.inc(self, amount=0.1, message=None, detail=None)
-        - title: "ui.Progress.set"
-          href: https://shiny.posit.co/py/api/ui.Progress.html
-          signature: ui.Progress.set(self, value=None, message=None, detail=None)
+          from shiny import App, reactive, render, ui
+
+          app_ui = ui.page_fluid(
+              ui.input_action_button("button", "Compute"),
+              ui.output_text("compute"),
+          )
+
+          def server(input, output, session):
+              @output
+              @render.text
+              @reactive.event(input.button)
+              async def compute():
+                  with ui.Progress(min=1, max=15) as p:
+                      p.set(message="Calculation in progress", detail="This may take a while...")
+
+                      for i in range(1, 15):
+                          p.set(i, message="Computing")
+                          await asyncio.sleep(0.1)
+
+                  return "Done computing!"
+
+          app = App(app_ui, server)
+        relevantfunctions:
+          - title: ui.Progress
+            href: https://shiny.posit.co/py/api/ui.Progress.html
+            signature: ui.Progress(self, min=0, max=1, session=None)
+          - title: ui.Progress.close
+            href: https://shiny.posit.co/py/api/ui.Progress.html
+            signature: ui.Progress.close(self)
+          - title: ui.Progress.inc
+            href: https://shiny.posit.co/py/api/ui.Progress.html
+            signature: ui.Progress.inc(self, amount=0.1, message=None, detail=None)
+          - title: ui.Progress.set
+            href: https://shiny.posit.co/py/api/ui.Progress.html
+            signature: ui.Progress.set(self, value=None, message=None, detail=None)
 
 ---
 

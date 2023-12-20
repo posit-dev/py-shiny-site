@@ -1,18 +1,18 @@
 ---
-title: "Plot (Seaborn)"
+title: Plot (Seaborn)
 sidebar: components
 preview: |
   <div class="px-3">
   <img style="width: 100%;height:auto;max-height:130px;" src="/images/seaborn.jpg">
   </div>
 listing:
-  id: component
-  template: ../_partials/components-detail.ejs
-  contents:
-    - title: "Plot (Seaborn)"
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACAZzigCMmIWo27CGwA6EAGaNiMFqigAbeI1SUA5gFcawlnQbMW84lAAmAfRUQNW0RKky2ACy3Yd9JqwCC6PC0aVjcIw+mmJiaKimmiwAvCyaWFCqcKbi8prGABRiLHE0GFqo6mSmbPI0AYxZkCL4LDUAcuowXIEsxOIsXNY1PgCMfQAMAz4ATAMAlHjZuRjERYXFqIZkVUvEZDWTOQDEADy7YuOhEGIBHRyMAG6BGQVFPnNkCz4cbGw0pOOI0wACfhAVLDLLJ8HJghRkaI1DwsADKnB4jD4TjYZGIqkYsDafAsVj4PGMLhgAkEWhYGNgbAwNWm4x2+2mZ1kwK+9IOoLBsjUmm0sUMJnM3OsGSOHPBAA8YkIqSinsDjFAyFBorieWwfOKoWACdhTMS3qZVD1OtZoncyBgICLRZyclBxRgOMUyDQyPI4FUAAoKJQsT1C4Sbaac+2OuDFcXybhweRVACyJJYGVURzANttoadpmwUZasZqAGE5uQg2Kcn4yOokfxJSw9uzjuEpV5UBlwpEaC9AtcgiwAlx1KpogAVRjqODjMAAXwAukA
-      height: 500px
-      code: |4
+  - id: component
+    template: ../_partials/components-detail.ejs
+    contents:
+      - title: Plot (Seaborn)
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACAZzigCMmIWo27CGwA6EAGaNiMFqigAbeI1SUA5gFcawlnQbMW84lAAmAfRUQNW0RKky2ACy3Yd9JqwCC6PC0aVjcIw+mmJiaKimmiwAvCyaWFCqcKbi8prGABRiLHE0GFqo6mSmbPI0AYxZkCL4LDUAcuowXIEsxOIsXNY1PgCMfQAMAz4ATAMAlHjZuRjERYXFqIZkVUvEZDWTOQDEADy7YuOhEGIBHRyMAG6BGQVFPnNkCz4cbGw0pOOI0wACfhAVLDLLJ8HJghRkaI1DwsADKnB4jD4TjYZGIqkYsDafAsVj4PGMLhgAkEWhYGNgbAwNWm4x2+2mZ1kwK+9IOoLBsjUmm0sUMJnM3OsGSOHPBAA8YkIqSinsDjFAyFBorieWwfOKoWACdhTMS3qZVD1OtZoncyBgICLRZyclBxRgOMUyDQyPI4FUAAoKJQsT1C4Sbaac+2OuDFcXybhweRVACyJJYGVURzANttoadpmwUZasZqAGE5uQg2Kcn4yOokfxJSw9uzjuEpV5UBlwpEaC9AtcgiwAlx1KpogAVRjqODjMAAXwAukA
+        height: 500px
+        code: |
           import seaborn as sns
           from palmerpenguins import load_penguins
           from shiny import App, render, ui
@@ -36,13 +36,13 @@ listing:
 
           app = App(app_ui, server, debug=True)
 
-      relevantfunctions:
-        - title: ui.output_plot
-          href: https://shiny.posit.co/py/api/ui.output_plot.html
-          signature: ui.output_plot(id, width='100%', height='400px', *, inline=False, click=False, dblclick=False, hover=False, brush=False, fill=MISSING)
-        - title: "@render.plot"
-          href: https://shiny.posit.co/py/api/render.plot.html
-          signature: render.plot(_fn=None, *, alt=None, width=MISSING, height=MISSING, **kwargs)
+        relevantfunctions:
+          - title: ui.output_plot
+            href: https://shiny.posit.co/py/api/ui.output_plot.html
+            signature: ui.output_plot(id, width='100%', height='400px', *, inline=False, click=False, dblclick=False, hover=False, brush=False, fill=MISSING)
+          - title: '@render.plot'
+            href: https://shiny.posit.co/py/api/render.plot.html
+            signature: render.plot(_fn=None, *, alt=None, width=MISSING, height=MISSING, **kwargs)
 
 ---
 

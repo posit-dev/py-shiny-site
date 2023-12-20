@@ -1,6 +1,6 @@
 ---
-title: "Verbatim Text"
-sidebar: components 
+title: Verbatim Text
+sidebar: components
 previewapp: |
   from shiny import App, render, ui
 
@@ -31,18 +31,18 @@ listing:
               ui.input_text("Text", "Enter text", "Hello Shiny"),
               ui.output_text_verbatim("text") #<<
           )
-          
+
           def server(input, output, session):
               @render.text #<<
               def text():
                   return input.Text()
-          
+
           app = App(app_ui, server)
         relevantfunctions:
           - title: ui.output_text_verbatim
             href: https://shiny.posit.co/py/api/ui.output_text_verbatim.html
             signature: ui.output_text_verbatim(id, placeholder=False)
-          - title: "@render.text"
+          - title: '@render.text'
             href: https://shiny.posit.co/py/api/render.text.html
             signature: render.text(fn=None)
   - id: variations
@@ -50,21 +50,21 @@ listing:
     contents:
       variations:
         - title: Placeholder rectangle when string is empty
-          description: Verbatim text with a placeholder when the string to display is empty (see Details above).   
+          description: Verbatim text with a placeholder when the string to display is empty (see Details above).
           preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymigA8ydsABU4H2V8JhCAUXI5JkDg0JCQgEo8e0dDYnc3D28PADc5ACMoMj4-HJCJVAsoQjg2YgtZOj0YugU4RKYAYgAeHtVE1VVZGlY5fLobV3cJDLIsiRY4FhYOUkTEVIcAASkIJoxyiEcmEaYcmw2tk8k4MgU6Y+myDFjfQbVodBaxVBsNbQcRbjOSJMAAXwAukA
           code: |
             from shiny import App, render, ui
-    
+
             app_ui = ui.page_fluid(
                 ui.input_text("Text", "Enter Text", ""),
                 ui.output_text_verbatim("text", placeholder = True) #<<
             )
-            
+
             def server(input, output, session):
                 @render.text #<<
                 def text():
                     return input.Text()
-            
+
             app = App(app_ui, server)
 
 ---

@@ -1,6 +1,6 @@
 ---
-title: "Text Area"
-sidebar: components 
+title: Text Area
+sidebar: components
 previewapp: |
   from shiny import App, render, ui
 
@@ -17,30 +17,30 @@ previewapp: |
 
   app = App(app_ui, server, debug=True)
 listing:
-  id: component
-  template: ../_partials/components-detail.ejs
-  contents:
-    - title: Text Area
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNFAB7uoUqHbAvMl84KGV8JnDwiXCACTgLC2ImAHVBC2lwgEoMKGlpTUILKBYWANQyAFoAViYYT0qoN2SgysJKCjpsvHtHMQxiN1d3IM0ANzkAIygyPgCxqCs4bt6HEHCikpZwxEiwMbZKgEYABhOmACsRFlmabDbSCnI2jrkmRY5jCEqOChgWF7kN6oBrVcIAX1UOTyBU2pQCMHuTTILTg3kBnWyqlUshorDkEzoNhcbgkgzIwwkLDgpQ4pCyiFWTAAAlIILI6BggkzcUwFksbAymY5JHAyCI6BBeBBhly0cE-ILsdB0HomEpUDYNNpxPi6ISsqowOCALpAA
-      height: 200px
-      code: |
-        from shiny import ui, render, App
-        
-        app_ui = ui.page_fluid(
-            ui.input_text_area("textarea", "Text input", "Hello World"), #<<
-            ui.output_text_verbatim("value"),
-        )
-        
-        def server(input, output, session):
-            @render.text
-            def value():
-                return input.textarea()
-        
-        app = App(app_ui, server)
-      relevantfunctions:
-        - title: ui.input_text_area
-          href: https://shiny.posit.co/py/api/ui.input_text_area.html
-          signature: ui.input_text_area(id, label, value='', *, width=None, height=None, cols=None, rows=None, placeholder=None, resize=None, autoresize=False, autocomplete=None, spellcheck=None)
+  - id: component
+    template: ../_partials/components-detail.ejs
+    contents:
+      - title: Text Area
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNFAB7uoUqHbAvMl84KGV8JnDwiXCACTgLC2ImAHVBC2lwgEoMKGlpTUILKBYWANQyAFoAViYYT0qoN2SgysJKCjpsvHtHMQxiN1d3IM0ANzkAIygyPgCxqCs4bt6HEHCikpZwxEiwMbZKgEYABhOmACsRFlmabDbSCnI2jrkmRY5jCEqOChgWF7kN6oBrVcIAX1UOTyBU2pQCMHuTTILTg3kBnWyqlUshorDkEzoNhcbgkgzIwwkLDgpQ4pCyiFWTAAAlIILI6BggkzcUwFksbAymY5JHAyCI6BBeBBhly0cE-ILsdB0HomEpUDYNNpxPi6ISsqowOCALpAA
+        height: 200px
+        code: |
+          from shiny import ui, render, App
+
+          app_ui = ui.page_fluid(
+              ui.input_text_area("textarea", "Text input", "Hello World"), #<<
+              ui.output_text_verbatim("value"),
+          )
+
+          def server(input, output, session):
+              @render.text
+              def value():
+                  return input.textarea()
+
+          app = App(app_ui, server)
+        relevantfunctions:
+          - title: ui.input_text_area
+            href: https://shiny.posit.co/py/api/ui.input_text_area.html
+            signature: ui.input_text_area(id, label, value='', *, width=None, height=None, cols=None, rows=None, placeholder=None, resize=None, autoresize=False, autocomplete=None, spellcheck=None)
 ---
 
 :::{#component}

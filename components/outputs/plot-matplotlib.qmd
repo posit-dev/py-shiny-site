@@ -1,5 +1,5 @@
 ---
-title: "Plot (Matplotlib)"
+title: Plot (Matplotlib)
 sidebar: components
 preview: |
   <div class="px-3">
@@ -9,7 +9,7 @@ listing:
   - id: component
     template: ../_partials/components-detail.ejs
     contents:
-      - title: "Plot (Matplotlib)"
+      - title: Plot (Matplotlib)
         preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMaVC7xGqSgHNVNCFMVNWPKABMA+pYg27E-YeMJAAs7TUdlAEF0PBZGSlc4RhjbeXk0VHdbFgBeFlssKCs4dz0uW1cACnkWGryaDDtUVTJ3CX4ExirIWXwWHoA5dQFElmI9FgFfHpiABhiARhm5lgAmGYBKPGra-OJmppbRMi6jns35ddSIeQTxiUSAN0SKxuaYvc43lnuJCRpSdaIbY1AACcQgHSwPGOpjI2R6ERYIQkZGIVkYsDOwJYt2k0IqgOxtRx41yLg8Xh89gJRNq7F+ORJwB6AmIrmw7npEncVh6AF0rsTiXoaFYYlAAB6MmQYCSqARHCQ0iBC2qSjDI45cmKvMgYCAEmIJew0MjYbIAFUYqjglxVqvEEtlcBaZFNXDgXQACqZzCwvdZbCqALKSH5Y+2q9X3FoSrhQYZcLqhhkVKyXMB2h2O50tbDxxNdAAilD+ZojtJqcTIqkYKpFvOuTfSjKiqAq6UyNBi90YTySOLgAlUVkt1tt8jAAF8+UA
         height: 500px
         code: |
@@ -42,7 +42,7 @@ listing:
           - title: ui.output_plot
             href: https://shiny.posit.co/py/api/ui.output_plot.html
             signature: ui.output_plot(id, width='100%', height='400px', *, inline=False, click=False, dblclick=False, hover=False, brush=False, fill=MISSING)
-          - title: "@render.plot"
+          - title: '@render.plot'
             href: https://shiny.posit.co/py/api/render.plot.html
             signature: render.plot(_fn=None, *, alt=None, width=MISSING, height=MISSING, **kwargs)
   - id: variations
@@ -57,7 +57,7 @@ listing:
             import matplotlib.pyplot as plt
             from palmerpenguins import load_penguins
             from shiny import App, render, ui
-            
+
             app_ui = ui.page_fluid(
                 ui.output_plot(
                     "plot", 
@@ -75,37 +75,37 @@ listing:
                 "Brush",
                 ui.output_text_verbatim("brsh", placeholder=True),
             )
-            
+
             def server(input, output, session):
                 @render.plot(alt="A histogram")
                 def plot():
                     df = load_penguins()
                     mass = df["body_mass_g"]
                     bill = df["bill_length_mm"]
-            
+
                     plt.scatter(mass, bill)
                     plt.xlabel("Mass (g)")
                     plt.ylabel("Bill Length (mm)")
                     plt.title("Penguin Mass vs Bill Length")
-            
+
                 @render.text
                 def clk():
                     return input.plot_click()
-            
+
                 @render.text
                 def dblclk():
                     return input.plot_dblclick()
-            
+
                 @render.text
                 def hvr():
                     return input.plot_hover()
-            
+
                 @render.text
                 def brsh():
                     return input.plot_brush()
                     
             app = App(app_ui, server, debug=True)
-            
+
 ---
 
 :::{#component}

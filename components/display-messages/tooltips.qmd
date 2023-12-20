@@ -1,6 +1,6 @@
 ---
-title: "Tooltips"
-sidebar: components 
+title: Tooltips
+sidebar: components
 previewapp: |
   from shiny import App, render, ui
 
@@ -29,7 +29,7 @@ listing:
         height: 200px
         code: |
           from shiny import App, render, ui
-          
+
           app_ui = ui.page_fluid(
             ui.tooltip( #<<
                 ui.input_action_button("btn", "A button with a tooltip"),
@@ -39,12 +39,12 @@ listing:
             ),
               ui.output_text_verbatim("text")
           )
-          
+
           def server(input, output, session):
             @render.text
             def text():
                 return input.btn_tooltip() #<<
-          
+
           app = App(app_ui, server)
 
         relevantfunctions:
@@ -75,7 +75,7 @@ listing:
               ui.tags.br(),
               ui.input_action_button("btn_update", "Update tooltip message")
             )
-            
+
             def server(input, output, session):
                 @reactive.Effect
                 @reactive.event(input.btn_update)
@@ -83,11 +83,11 @@ listing:
                     content = (
                         "A " + " ".join(["NEW" for _ in range(input.btn_update())])+ " message"
                     )
-            
+
                     ui.update_tooltip("btn_tooltip", content, show=True) #<<
-            
+
             app = App(app_ui, server)
-      
+
 ---
 
 :::{#component}

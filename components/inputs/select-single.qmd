@@ -1,6 +1,6 @@
 ---
-title: "Select (Single)"
-sidebar: components 
+title: Select (Single)
+sidebar: components
 previewapp: |
   from shiny import App, Inputs, Outputs, Session, render, ui
 
@@ -33,7 +33,7 @@ listing:
         height: 200px
         code: |
           from shiny import App, render, ui
-          
+
           app_ui = ui.page_fluid(
               ui.input_select( #<<
                   "select", #<<
@@ -42,18 +42,18 @@ listing:
               ), #<<
               ui.output_text("value"),
           )
-          
+
           def server(input, output, session):
               @render.text
               def value():
                   return f"{input.select()}"
-          
+
           app = App(app_ui, server)
         relevantfunctions:
           - title: ui.input_select
             href: https://shiny.posit.co/py/api/ui.input_select.html
-            signature: ui.input_select(id, label, choices, *, selected=None, multiple=False, selectize=False, width=None, size=None)    
-        
+            signature: ui.input_select(id, label, choices, *, selected=None, multiple=False, selectize=False, width=None, size=None)
+
   - id: variations
     template: ../_partials/components-variations.ejs
     contents:
@@ -63,7 +63,7 @@ listing:
           preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZG0wAxAA8wfaOEcpgXj5+URIhYRARkWAAyt6+wlDJxKhkHKRMAEbexADuiPFBoeEpTCA1SfX1UQCMUYgN7SKdTFEAwmzEHIRwTG29+P1gbQBCfYPDo+Pz1e0Di2BDI2MTm2AAvgm1yS2pAEx9IFEXU11Lu+N362AXC0gzOytM768XBwe22WewBUUOTTqKWOkLODgAlCdmo5DMR3G4PBQAB7+KIANygVjgUURqnhqlUshorDkeLkNlc7gkaLIGIkXhYLEKEHhVThTAAAlIILI6BhsWQoVSmASiTZeVCIlIyAo6MkaFEQIyyBgYll5YcohToOg9KJ0DYNNoOOzaXJ4UcALpAA
           code: |
             from shiny import App, render, ui
-            
+
             app_ui = ui.page_fluid(
                 ui.input_select( #<<
                     "select", #<<
@@ -75,12 +75,12 @@ listing:
                 ), #<<
                 ui.output_text("value"),
             )
-            
+
             def server(input, output, session):
                 @render.text
                 def value():
                     return f"{input.select()}"
-            
+
             app = App(app_ui, server)
 ---
 

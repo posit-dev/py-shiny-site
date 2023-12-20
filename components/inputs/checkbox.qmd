@@ -1,6 +1,6 @@
 ---
-title: "Checkbox"
-sidebar: components 
+title: Checkbox
+sidebar: components
 previewapp: |
   from shiny import App, render, ui
   app_ui = ui.page_fluid(
@@ -15,30 +15,30 @@ previewapp: |
           return f""
   app = App(app_ui, server)
 listing:
-  id: component
-  template: ../_partials/components-detail.ejs
-  contents:
-    - title: Checkbox
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOtHQB9JUwC8TJVigBzOOpoAbJdIAUqpnb0cMDAO42I9jw4wkLMCFYA2RUcuVAUydUI2OEIAawAjYgAPGyJouMSk5XwmbIBhdITk7IkAFToFOABKDChpaUizKBYWVJh4gFoABiYKJLIOwkoKOmyqqolbTzt9HwU-QOCMYnCwiKVUgDcoCzgx2vrG5tbs9u7euH7B4bkxianpkGzCJpbsxFywTbYOgEYunoAKwULDIHBo2EGpAo5Gu5DkTB2HEMEA6HAoMBYcJGTFQSQ6AFZsgBfB5MKqqCkQVSyGisOSbORWULhCQrMhrCQsOAtDikKqIMkAASkEFkdAwSjJtKY212VgFZI8UjICjo7hZZG8hUyCtUaFQOlE6CsBs0HC5DLkVTAxIAukA
-      height: 150px
-      code: |
-        from shiny import App, render, ui
-        
-        app_ui = ui.page_fluid(
-            ui.input_checkbox("checkbox", "Checkbox", False), #<<
-            ui.output_ui("value"),
-        )
-        
-        def server(input, output, session):
-            @render.ui
-            def value():
-                return input.checkbox()
-        
-        app = App(app_ui, server)
-      relevantfunctions:
-        - title: ui.input_checkbox()
-          href: https://shiny.posit.co/py/api/ui.input_checkbox.html
-          signature: ui.input_checkbox(id, label, value=False, *, width=None)
+  - id: component
+    template: ../_partials/components-detail.ejs
+    contents:
+      - title: Checkbox
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOtHQB9JUwC8TJVigBzOOpoAbJdIAUqpnb0cMDAO42I9jw4wkLMCFYA2RUcuVAUydUI2OEIAawAjYgAPGyJouMSk5XwmbIBhdITk7IkAFToFOABKDChpaUizKBYWVJh4gFoABiYKJLIOwkoKOmyqqolbTzt9HwU-QOCMYnCwiKVUgDcoCzgx2vrG5tbs9u7euH7B4bkxianpkGzCJpbsxFywTbYOgEYunoAKwULDIHBo2EGpAo5Gu5DkTB2HEMEA6HAoMBYcJGTFQSQ6AFZsgBfB5MKqqCkQVSyGisOSbORWULhCQrMhrCQsOAtDikKqIMkAASkEFkdAwSjJtKY212VgFZI8UjICjo7hZZG8hUyCtUaFQOlE6CsBs0HC5DLkVTAxIAukA
+        height: 150px
+        code: |
+          from shiny import App, render, ui
+
+          app_ui = ui.page_fluid(
+              ui.input_checkbox("checkbox", "Checkbox", False), #<<
+              ui.output_ui("value"),
+          )
+
+          def server(input, output, session):
+              @render.ui
+              def value():
+                  return input.checkbox()
+
+          app = App(app_ui, server)
+        relevantfunctions:
+          - title: ui.input_checkbox()
+            href: https://shiny.posit.co/py/api/ui.input_checkbox.html
+            signature: ui.input_checkbox(id, label, value=False, *, width=None)
 ---
 
 :::{#component}

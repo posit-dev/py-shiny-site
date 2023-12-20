@@ -1,6 +1,6 @@
 ---
-title: "Action Button"
-sidebar: components 
+title: Action Button
+sidebar: components
 previewapp: |
   from shiny import App, reactive, render, ui
   app_ui = ui.page_fluid(

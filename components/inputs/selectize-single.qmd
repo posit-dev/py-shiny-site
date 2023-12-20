@@ -1,6 +1,6 @@
 ---
-title: "Selectize (Single)"
-sidebar: components 
+title: Selectize (Single)
+sidebar: components
 previewapp: |
   from shiny import App, Inputs, Outputs, Session, render, ui
 
@@ -33,7 +33,7 @@ listing:
         height: 200px
         code: |
           from shiny import App, render, ui
-          
+
           app_ui = ui.page_fluid(
               ui.input_selectize( #<<
                   "selectize", #<<
@@ -42,12 +42,12 @@ listing:
               ), #<<
               ui.output_text("value"),
           )
-          
+
           def server(input, output, session):
               @render.text
               def value():
                   return f"{input.selectize()}"
-          
+
           app = App(app_ui, server)
         relevantfunctions:
           - title: ui.input_selectize
@@ -62,7 +62,7 @@ listing:
           preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZDgBecDZMAMQAPOH2jjHKYF4+foFwcRIRURAxsWAAyt6+wlCZxKj+pEwARt7EAO6IqWGR0VlMII0ZLS1xAIxxiK09In1McQDCbMQchHBM3UP4I2DdAELDYxNTMysNPaNrYOOT07N7YAC+aU2ZndkATMMgcbfz-etHM887YLerSIuHmyYPy+t1OrwOG2OoLiZ3azSyFzh1wcAEpLh1HIZiO43B4KAAPMh2MAANygVhSYDRqhRqlUshorDkJLkNlc7gk2LIuIkXhYLA4pBR9WRTAAAlIILI6BgCWR4QymGSKTZhfCYlIyAo6JkaHEQOyyBgEgVkqqznE6dB0HpROgbBptBxecy5CjzgBdIA
           code: |
             from shiny import App, render, ui
-            
+
             app_ui = ui.page_fluid(
                 ui.input_selectize( #<<
                     "selectize", #<<
@@ -74,12 +74,12 @@ listing:
                 ), #<<
                 ui.output_text("value"),
             )
-            
+
             def server(input, output, session):
                 @render.text
                 def value():
                     return f"{input.selectize()}"
-            
+
             app = App(app_ui, server)
 ---
 
