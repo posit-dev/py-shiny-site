@@ -74,7 +74,7 @@ jobs:
           # Output changes
           echo "Changed files:"
           git diff --name-only
-      - name: Push back results to repo
+      - name: Push back component updates to repo
         uses: stefanzweifel/git-auto-commit-action@v5
         if: |
           github.event_name == 'pull_request' &&
