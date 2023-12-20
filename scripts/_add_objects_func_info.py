@@ -88,7 +88,7 @@ class FuncSignature(MdRenderer):
 
 def get_git_revision_short_hash() -> str:
     return (
-        subprocess.check_output(["git", "rev-parse", "--short", "HEAD"])
+        subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], cwd="py-shiny")
         .decode("ascii")
         .strip()
     )
@@ -96,7 +96,7 @@ def get_git_revision_short_hash() -> str:
 
 def get_git_current_tag() -> str:
     return (
-        subprocess.check_output(["git", "tag", "--points-at", "HEAD"])
+        subprocess.check_output(["git", "tag", "--points-at", "HEAD"], cwd="py-shiny")
         .decode("ascii")
         .strip()
     )
