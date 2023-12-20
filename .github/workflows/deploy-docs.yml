@@ -77,7 +77,8 @@ jobs:
           message: |
             Please call `make quartodoc` to update files within the components folder
 
-            - [ ] Called `make quartodoc` and commit/push changes
+            - [ ] Call `make quartodoc` in terminal
+            - [ ] Commit & push changes
           comment_tag: make_quartodoc
       - name: Remove comment to update components folder
         if: ${{github.event_name == 'pull_request' && steps.components.outputs.has-changes != 'true'}}
