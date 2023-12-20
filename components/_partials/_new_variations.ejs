@@ -2,13 +2,13 @@
 
 <% for (const item of items) { %>
 
-### <%= item.title %> {.mb-0 .mt-5}
+### <%= item.title %>
 
 ::: {.variation-description}
 <%= item.description %>
 :::
 
-<%= include('_new_shiny-example-panel.ejs', item) %>
+<%= include('_new_shiny-example-panel.ejs', {apps: item.apps, appDir: templateParams.dir}) %>
 
 <% } %>
 

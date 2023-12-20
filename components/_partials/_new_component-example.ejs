@@ -1,6 +1,2 @@
 
-<% for (const item of items) { %>
-
-<%= include('_new_shiny-example-panel.ejs', item) %>
-
-<% } %>
+<%= include('_new_shiny-example-panel.ejs', {apps: items, appDir: templateParams.dir}) %>
