@@ -39,12 +39,14 @@ listing:
           app = App(app_ui, server)
         relevantfunctions:
           - title: ui.input_action_link
-            href: https://shiny.posit.co/py/api/ui.input_action_link.html
-            signature: ui.input_action_link(id, label, *, icon=None, **kwargs)
+            href: https://shiny.posit.co/py/api/ui.input_action_link.html#shiny.ui.input_action_link
+            signature: 'ui.input_action_link(id: str, label: TagChild, icon: TagChild = None, **kwargs: TagAttrValue = {})'
+            github: https://github.com/posit-dev/py-shiny/blob/d9766b1/shiny/ui/_input_action_button.py#L68-L115
           - title: reactive.event
-            href: https://shiny.posit.co/py/api/reactive.event.html
-            signature: reactive.event(*args, ignore_none=True, ignore_init=False)
+            href: https://shiny.posit.co/py/api/reactive.event.html#shiny.reactive.event
+            signature: 'reactive.event(*args: Callable[[], object] | Callable[[], Awaitable[object]] = (), ignore_none: bool = True, ignore_init: bool = False)'
 
+            github: https://github.com/posit-dev/py-shiny/blob/d9766b1/shiny/reactive/_reactives.py#L736-L871
 ---
 
 :::{#component}

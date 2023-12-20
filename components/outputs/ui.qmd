@@ -37,11 +37,13 @@ listing:
           app = App(app_ui, server)
         relevantfunctions:
           - title: ui.output_ui
-            href: https://shiny.posit.co/py/api/ui.output_ui.html
-            signature: ui.output_ui(id, inline=False, container=None, fill=False, fillable=False, **kwargs)
+            href: https://shiny.posit.co/py/api/ui.output_ui.html#shiny.ui.output_ui
+            signature: 'ui.output_ui(id: str, inline: bool = False, container: Optional = None, fill: bool = False, fillable: bool = False, **kwargs: TagAttrValue = {})'
+            github: https://github.com/posit-dev/py-shiny/blob/d9766b1/shiny/ui/_output.py#L332-L379
           - title: '@render.ui'
-            href: https://shiny.posit.co/py/api/render.ui.html
-            signature: render.ui(_fn=None)
+            href: https://shiny.posit.co/py/api/render.ui.html#shiny.render.ui
+            signature: render.ui()
+            github: https://github.com/posit-dev/py-shiny/blob/d9766b1/shiny/render/_render.py#L540-L562
   - id: variations
     template: ../_partials/components-variations.ejs
     contents:

@@ -48,9 +48,10 @@ listing:
           app = App(app_ui, server)
         relevantfunctions:
           - title: ui.input_radio_buttons
-            href: https://shiny.posit.co/py/api/ui.input_radio_buttons.html
-            signature: ui.input_radio_buttons(id, label, choices, *, selected=None, inline=False, width=None)
+            href: https://shiny.posit.co/py/api/ui.input_radio_buttons.html#shiny.ui.input_radio_buttons
+            signature: 'ui.input_radio_buttons(id: str, label: TagChild, choices: ChoicesArg, selected: Optional = None, inline: bool = False, width: Optional = None)'
 
+            github: https://github.com/posit-dev/py-shiny/blob/d9766b1/shiny/ui/_input_check_radio.py#L240-L307
 ---
 
 :::{#component}

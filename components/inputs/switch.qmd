@@ -36,8 +36,9 @@ listing:
           app = App(app_ui, server)
         relevantfunctions:
           - title: ui.input_switch
-            href: https://shiny.posit.co/py/api/ui.input_switch.html
-            signature: ui.input_switch(id, label, value=False, *, width=None)
+            href: https://shiny.posit.co/py/api/ui.input_switch.html#shiny.ui.input_switch
+            signature: 'ui.input_switch(id: str, label: TagChild, value: bool = False, width: Optional = None)'
+            github: https://github.com/posit-dev/py-shiny/blob/d9766b1/shiny/ui/_input_check_radio.py#L88-L133
 ---
 
 :::{#component}

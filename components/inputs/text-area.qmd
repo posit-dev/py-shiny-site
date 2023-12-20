@@ -39,8 +39,9 @@ listing:
           app = App(app_ui, server)
         relevantfunctions:
           - title: ui.input_text_area
-            href: https://shiny.posit.co/py/api/ui.input_text_area.html
-            signature: ui.input_text_area(id, label, value='', *, width=None, height=None, cols=None, rows=None, placeholder=None, resize=None, autoresize=False, autocomplete=None, spellcheck=None)
+            href: https://shiny.posit.co/py/api/ui.input_text_area.html#shiny.ui.input_text_area
+            signature: "ui.input_text_area(id: str, label: TagChild, value: str = '', width: Optional = None, height: Optional = None, cols: Optional = None, rows: Optional = None, placeholder: Optional = None, resize: Optional = None, autoresize: bool = False, autocomplete: Optional = None, spellcheck: Optional = None)"
+            github: https://github.com/posit-dev/py-shiny/blob/d9766b1/shiny/ui/_input_text.py#L83-L187
 ---
 
 :::{#component}

@@ -40,11 +40,13 @@ listing:
 
         relevantfunctions:
           - title: ui.output_plot
-            href: https://shiny.posit.co/py/api/ui.output_plot.html
-            signature: ui.output_plot(id, width='100%', height='400px', *, inline=False, click=False, dblclick=False, hover=False, brush=False, fill=MISSING)
+            href: https://shiny.posit.co/py/api/ui.output_plot.html#shiny.ui.output_plot
+            signature: "ui.output_plot(id: str, width: str | float | int = '100%', height: str | float | int = '400px', inline: bool = False, click: bool | ClickOpts = False, dblclick: bool | DblClickOpts = False, hover: bool | HoverOpts = False, brush: bool | BrushOpts = False, fill: bool | MISSING_TYPE = MISSING)"
+            github: https://github.com/posit-dev/py-shiny/blob/d9766b1/shiny/ui/_output.py#L33-L120
           - title: '@render.plot'
-            href: https://shiny.posit.co/py/api/render.plot.html
-            signature: render.plot(_fn=None, *, alt=None, width=MISSING, height=MISSING, **kwargs)
+            href: https://shiny.posit.co/py/api/render.plot.html#shiny.render.plot
+            signature: 'render.plot(alt: Optional = None, width: float | None | MISSING_TYPE = MISSING, height: float | None | MISSING_TYPE = MISSING, **kwargs: Any = {})'
+            github: https://github.com/posit-dev/py-shiny/blob/d9766b1/shiny/render/_render.py#L237-L298
   - id: variations
     template: ../_partials/components-variations.ejs
     contents:
