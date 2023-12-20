@@ -69,6 +69,9 @@ jobs:
           git diff --quiet -- components && exit 0
           # Changes detected
           echo "has-changes=true" >> "$GITHUB_OUTPUT"
+          # Output changes
+          echo "Changed files:"
+          git diff --name-only
 
       - name: Write comment to update components folder
         if: ${{github.event_name == 'pull_request' && steps.components.outputs.has-changes == 'true'}}
