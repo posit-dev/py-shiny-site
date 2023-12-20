@@ -76,8 +76,9 @@ jobs:
         with:
           message: |
             Please call `make quartodoc` to update files within the components folder
+
+            - [ ] Called `make quartodoc` and commit/push changes
           comment_tag: make_quartodoc
-          mode: delete
       - name: Remove comment to update components folder
         if: ${{github.event_name == 'pull_request' && steps.components.outputs.has-changes != 'true'}}
         uses: thollander/actions-comment-pull-request@v2
