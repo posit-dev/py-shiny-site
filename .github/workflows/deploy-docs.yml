@@ -55,9 +55,9 @@ jobs:
         with:
           version: 1.3.340
 
-      - name: Prep site
+      - name: Create quartodoc artifacts
         run: |
-          make deps quartodoc
+          make quartodoc
 
       # =====================================================
       # Notify PR of file updates
@@ -85,7 +85,10 @@ jobs:
           file_pattern: components
 
       - name: Write comment to update components folder
-        if: ${{github.event_name == 'pull_request' && steps.components.outputs.has-changes == 'true'}}
+        if: |
+          github.event_name == 'pull_request' &&
+          github.event.pull_request.head.repo.fork &&
+          steps.components.outputs.has-changes == 'true'
         uses: thollander/actions-comment-pull-request@v2
         with:
           message: |
@@ -95,7 +98,10 @@ jobs:
             - [ ] Commit & push changes
           comment_tag: make_quartodoc
       - name: Remove comment to update components folder
-        if: ${{github.event_name == 'pull_request' && steps.components.outputs.has-changes != 'true'}}
+        if: |
+          github.event_name == 'pull_request' &&
+          github.event.pull_request.head.repo.fork &&
+          steps.components.outputs.has-changes != 'true'
         uses: thollander/actions-comment-pull-request@v2
         with:
           # message: |
