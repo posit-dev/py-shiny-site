@@ -20,6 +20,7 @@ listing:
       - modal/meta_variation_auth.qmd
 ---
 
+
 :::{#example}
 :::
 
@@ -52,7 +53,9 @@ To add elements to a modal, pass them as unnamed arguments to `ui.modal()`. Moda
 
 Modals come in four sizes: small (`'s'`), medium (`'m'`) (the default), large (`'l'`), and extra-large (`'xl'`). Set the size of a modal with the `size` argument of `ui.modal()`.
 
-See Also:[Notifications](notifications.qmd) provide a similar, but alternative way to display information to the user.
+See Also: [Notifications](notifications.qmd) provide a similar, but alternative way to display information to the user.
+
+## Variations
 
 :::{#variations}
 :::

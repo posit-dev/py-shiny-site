@@ -1,8 +1,8 @@
-## Variations
+::: {.variations}
 
 <% for (const item of items) { %>
 
-#### <%= item.title %> {.mb-0 .mt-5}
+### <%= item.title %> {.mb-0 .mt-5}
 
 ::: {.variation-description}
 <%= item.description %>
@@ -11,3 +11,5 @@
 <%= include('_new_shiny-example-panel.ejs', item) %>
 
 <% } %>
+
+:::
