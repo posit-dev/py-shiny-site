@@ -39,19 +39,19 @@ listing:
           - title: ui.input_slider
             href: https://shiny.posit.co/py/api/ui.input_slider.html#shiny.ui.input_slider
             signature: "ui.input_slider(id: str, label: TagChild, min: SliderValueArg, max: SliderValueArg, value: SliderValueArg | Iterable[SliderValueArg], step: Optional = None, ticks: bool = False, animate: bool | AnimationOptions = False, width: Optional = None, sep: str = ',', pre: Optional = None, post: Optional = None, time_format: Optional = None, timezone: Optional = None, drag_range: bool = True)"
-            github: https://github.com/posit-dev/py-shiny/blob/fb1e525/shiny/ui/_input_slider.py#L59-L234
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/ui/_input_slider.py#L59-L234
           - title: ui.output_data_frame
             href: https://shiny.posit.co/py/api/ui.output_data_frame.html#shiny.ui.output_data_frame
             signature: 'ui.output_data_frame(id: str)'
-            github: https://github.com/posit-dev/py-shiny/blob/fb1e525/shiny/ui/dataframe/_dataframe.py#L12-L39
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/ui/dataframe/_dataframe.py#L12-L39
           - title: render.data_frame
             href: https://shiny.posit.co/py/api/render.data_frame.html#shiny.render.data_frame
             signature: render.data_frame()
-            github: https://github.com/posit-dev/py-shiny/blob/fb1e525/shiny/render/_dataframe.py#L258-L302
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/render/_dataframe.py#L258-L302
           - title: render.DataTable
             href: https://shiny.posit.co/py/api/render.DataTable.html#shiny.render.DataTable
             signature: "render.DataTable(data: object, width: Union = 'fit-content', height: Union = '500px', summary: Union = True, filters: bool = False, row_selection_mode: Union = 'none')"
-            github: https://github.com/posit-dev/py-shiny/blob/fb1e525/shiny/render/_dataframe.py#L122-L207
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/render/_dataframe.py#L122-L207
 ---
 
 :::{#component}

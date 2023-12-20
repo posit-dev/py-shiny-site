@@ -43,7 +43,7 @@ listing:
           - title: ui.input_date
             href: https://shiny.posit.co/py/api/ui.input_date.html#shiny.ui.input_date
             signature: "ui.input_date(id: str, label: TagChild, value: Optional = None, min: Optional = None, max: Optional = None, format: str = 'yyyy-mm-dd', startview: str = 'month', weekstart: int = 0, language: str = 'en', width: Optional = None, autoclose: bool = True, datesdisabled: Optional = None, daysofweekdisabled: Optional = None)"
-            github: https://github.com/posit-dev/py-shiny/blob/fb1e525/shiny/ui/_input_date.py#L17-L132
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/ui/_input_date.py#L17-L132
 ---
 
 :::{#component}

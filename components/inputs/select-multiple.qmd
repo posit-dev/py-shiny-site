@@ -54,7 +54,7 @@ listing:
           - title: ui.input_select
             href: https://shiny.posit.co/py/api/ui.input_select.html#shiny.ui.input_select
             signature: 'ui.input_select(id: str, label: TagChild, choices: SelectChoicesArg, selected: Optional = None, multiple: bool = False, selectize: bool = False, width: Optional = None, size: Optional = None)'
-            github: https://github.com/posit-dev/py-shiny/blob/fb1e525/shiny/ui/_input_select.py#L111-L204
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/ui/_input_select.py#L111-L204
   - id: variations
     template: ../_partials/components-variations.ejs
     contents:

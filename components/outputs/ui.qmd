@@ -39,11 +39,11 @@ listing:
           - title: ui.output_ui
             href: https://shiny.posit.co/py/api/ui.output_ui.html#shiny.ui.output_ui
             signature: 'ui.output_ui(id: str, inline: bool = False, container: Optional = None, fill: bool = False, fillable: bool = False, **kwargs: TagAttrValue = {})'
-            github: https://github.com/posit-dev/py-shiny/blob/fb1e525/shiny/ui/_output.py#L332-L379
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/ui/_output.py#L332-L379
           - title: '@render.ui'
             href: https://shiny.posit.co/py/api/render.ui.html#shiny.render.ui
             signature: render.ui()
-            github: https://github.com/posit-dev/py-shiny/blob/fb1e525/shiny/render/_render.py#L540-L562
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/render/_render.py#L540-L562
   - id: variations
     template: ../_partials/components-variations.ejs
     contents:

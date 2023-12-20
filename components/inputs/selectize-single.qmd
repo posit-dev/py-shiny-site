@@ -53,7 +53,7 @@ listing:
           - title: ui.input_selectize
             href: https://shiny.posit.co/py/api/ui.input_selectize.html#shiny.ui.input_selectize
             signature: 'ui.input_selectize(id: str, label: TagChild, choices: SelectChoicesArg, selected: Optional = None, multiple: bool = False, width: Optional = None)'
-            github: https://github.com/posit-dev/py-shiny/blob/fb1e525/shiny/ui/_input_select.py#L48-L108
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/ui/_input_select.py#L48-L108
   - id: variations
     template: ../_partials/components-variations.ejs
     contents:

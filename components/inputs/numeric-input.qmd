@@ -42,7 +42,7 @@ listing:
             href: https://shiny.posit.co/py/api/ui.input_numeric.html#shiny.ui.input_numeric
             signature: 'ui.input_numeric(id: str, label: TagChild, value: float, min: Optional = None, max: Optional = None, step: Optional = None, width: Optional = None)'
 
-            github: https://github.com/posit-dev/py-shiny/blob/fb1e525/shiny/ui/_input_numeric.py#L12-L73
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/ui/_input_numeric.py#L12-L73
 ---
 
 :::{#component}
