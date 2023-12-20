@@ -114,10 +114,10 @@ for dir in os.listdir("components"):
 
                     func_obj = func_info[fn_name]
 
-                    # # Make important function API updates
-                    # relevantfunction["href"] = f"{base_url}{func_obj['uri']}"
-                    # relevantfunction["signature"] = func_obj["signature"]
-                    # relevantfunction["github"] = func_obj["github"]
+                    # Make important function API updates
+                    relevantfunction["href"] = f"{base_url}{func_obj['uri']}"
+                    relevantfunction["signature"] = func_obj["signature"]
+                    relevantfunction["github"] = func_obj["github"]
                     # print(relevantfunction)
 
         # Overwrite file with updated content
