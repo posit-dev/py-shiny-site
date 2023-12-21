@@ -11,6 +11,12 @@
       padding: 1.5em 0.75em 1.5em 2em;
   }
 }
+// show description from layout pages, they are hidden in quarto-style-scss for a reason I can't remember.
+
+.quarto-title-banner .description,
+.quarto-title-block .description {
+  display: block;
+}
 
 /* list page styling */
 
@@ -38,7 +44,10 @@
   justify-content: space-between;
   align-items: center; 
   margin-bottom: 0px;
-/*  height: 30px;*/
+}
+
+.component-list-header a {
+  cursor: pointer;
 }
 
 .component-list-header-text h5 {

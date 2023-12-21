@@ -2,27 +2,26 @@
 title: "Panels and cards"
 description: "Use panels and cards to define areas of related content in your Shiny app."
 ---
-
-Use panels and cards to define areas of related content. 
+Use panels and cards to define areas of related content.  
 
 ## Relevant functions
 
-- [ui.card](https://shiny.posit.co/py/api/ui.card.html)
+- [ui.card](https://shiny.posit.co/py/api/ui.card.html)  
   `ui.card(*args, full_screen=False, height=None, max_height=None, min_height=None, fill=True, class_=None, **kwargs)`
   
-- [ui.card_footer](https://shiny.posit.co/py/api/ui.card_footer.html)
+- [ui.card_footer](https://shiny.posit.co/py/api/ui.card_footer.html)  
   `ui.card_footer(*args, **kwargs)`
   
-- [ui.card_header](https://shiny.posit.co/py/api/ui.card_header.html)
+- [ui.card_header](https://shiny.posit.co/py/api/ui.card_header.html)  
   `ui.card_header(*args, container=tags.div, **kwargs)`
   
-- [ui.panel_absolute](https://shiny.posit.co/py/api/ui.panel_absolute.html)
+- [ui.panel_absolute](https://shiny.posit.co/py/api/ui.panel_absolute.html)  
   `ui.panel_absolute(*args, top=None, left=None, right=None, bottom=None, width=None, height=None, draggable=False, fixed=False, cursor='auto', **kwargs)`
 
-- [ui.panel_fixed](https://shiny.posit.co/py/api/ui.panel_fixed.html)
+- [ui.panel_fixed](https://shiny.posit.co/py/api/ui.panel_fixed.html)  
   `ui.panel_fixed(*args, **kwargs)`
   
-- [ui.panel_well](https://shiny.posit.co/py/api/ui.panel_well.html)
+- [ui.panel_well](https://shiny.posit.co/py/api/ui.panel_well.html)  
   `ui.panel_well(*args, **kwargs)`
 
 :::{.border-bottom .blue .mt-6 .mb-5}

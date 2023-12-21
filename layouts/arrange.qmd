@@ -38,7 +38,7 @@ To create a layout using the grid system, first build a grid by interlacing call
 
 ## Preview
 
-<iframe style="height:175px;" class="mb-0 w-100 iframe-border py-3" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYGOGBgHc7EBw8MkrMCDYBGACYJRwxCKDpbZTAAYUjpJgCYgEoU+yYUvAzDV3dPMJ8FPxsANkUnCKi7OISmINSsjK9K4l9-csKEmviopgBmRoKHDPSIMdVZGlY5ADc5Gy5UBTIJYhXl1ZmWFg5SFMRmyTgyBToPJgA5UjhVdXQ9UXQbDW0OCRY5uRSwAF8AXSAA" title="title">
+<iframe style="height:175px;" class="mb-0 w-100 iframe-border py-3" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYGOGBgHc7EBw8MkrMCDYBGACYJRwxCKDpbZTAAYUjpJgCYgEoU+yYUvAzDV3dPMJ8FPxsANkUnCKi7OISmINSsjK9K4l9-csKEmviopgBmRoKHDPSIMdVZGlY5ADc5Gy5UBTIJYhXl1ZmWFg5SFMRmyTgyBToPJgA5UjhVdXQ9UXQbDW0OCRY5uRSwAF8AXSAA" title="Grid Layouts">
 </iframe> 
 
 ## Code
@@ -131,7 +131,7 @@ Consider this page layout:
 
 ## Preview
 
-<iframe style="height:300px;" class="mb-0 w-100 iframe-border py-3" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDAwDudiI69OMJKzAgbAEYAJgl7b0jDQig6W2UwAHUOaTI2JlCEvAjI3J83Dzyix2jif0CANmzPYtqHaNj4pJS0pgqsnLquwwLOrv6fPwUAmyrBxrtm1PT2sABKOeqB5cGy4crFZxi4yeTptoSFvpXIueOTs5qLpZPV8tHN3wmEvdbZo6uuy7rv3N+HS6XVSyGisOQANzkNi4qAUZAkxDhsPhYJYLA4pDmiE6UjICjoNQAcqQ4Kp1Og9KJ0DYNNoOBIWBC5JcwABfAC6QA" title="title">
+<iframe style="height:300px;" class="mb-0 w-100 iframe-border py-3" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDAwDudiI69OMJKzAgbAEYAJgl7b0jDQig6W2UwAHUOaTI2JlCEvAjI3J83Dzyix2jif0CANmzPYtqHaNj4pJS0pgqsnLquwwLOrv6fPwUAmyrBxrtm1PT2sABKOeqB5cGy4crFZxi4yeTptoSFvpXIueOTs5qLpZPV8tHN3wmEvdbZo6uuy7rv3N+HS6XVSyGisOQANzkNi4qAUZAkxDhsPhYJYLA4pDmiE6UjICjoNQAcqQ4Kp1Og9KJ0DYNNoOBIWBC5JcwABfAC6QA" title="Column nesting">
 </iframe> 
 
 ## Code
@@ -195,7 +195,7 @@ Each grid system uses a flexibly sub-dividable 12-column grid for layout. They d
 
 ## Preview
 
-<iframe style="height:480px;" class="mb-0 w-100 iframe-border py-3" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89Li8XAAp5FlSwmgwuKGxiVTJ-CRo3AShGZIg0yvSIiDguAqK4ErKUqrbwi1Q8gv43FshZfBZBgDlBxwAGRwBGCamWACYJgEo8VrbV9arw1Cha+vYLcrb2jNzObtEyZLBzCTJiSMZYQc2Kk7fKt+WfCHk3PQmdwAN3ciU6eUc5y6ZEcEjgEkKpGWiC2AAFoXl0c4IH0sDxrlAuGRgoNbCw7g8ni8wD93qkARSaPdHs8YIkUVtKjoMM9cUYMPC4ElpgBOABsAA4JtLpnSTiwAB4hFizCYsADUqoArCwAFQqTB8lwC40QRIAFgAzAB2eUnGQYSmJRWOCFkDDm1YsNwQQpkbDBAAqjFUcDpvz8KvsqESfkCNDhIPcjmKqkiwdD4fkYAAvgBdIA" title="title">
+<iframe style="height:480px;" class="mb-0 w-100 iframe-border py-3" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89Li8XAAp5FlSwmgwuKGxiVTJ-CRo3AShGZIg0yvSIiDguAqK4ErKUqrbwi1Q8gv43FshZfBZBgDlBxwAGRwBGCamWACYJgEo8VrbV9arw1Cha+vYLcrb2jNzObtEyZLBzCTJiSMZYQc2Kk7fKt+WfCHk3PQmdwAN3ciU6eUc5y6ZEcEjgEkKpGWiC2AAFoXl0c4IH0sDxrlAuGRgoNbCw7g8ni8wD93qkARSaPdHs8YIkUVtKjoMM9cUYMPC4ElpgBOABsAA4JtLpnSTiwAB4hFizCYsADUqoArCwAFQqTB8lwC40QRIAFgAzAB2eUnGQYSmJRWOCFkDDm1YsNwQQpkbDBAAqjFUcDpvz8KvsqESfkCNDhIPcjmKqkiwdD4fkYAAvgBdIA" title="Controlling for page width and height">
 </iframe> 
 
 ## Code
@@ -241,7 +241,7 @@ To make a fluid grid that adapts to the width of the user's viewing window, buil
 
 ## Preview
 
-<iframe style="height:500px;" class="mb-0 w-100 iframe-border py-3" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89GgAPOBcACnkWdLCaDC4obGJVMn8JGjcBKEZUiAzqzIiIOC4ikrgyirSajvCLVAKi-jc2yFl8FmGAOWHHAAZHAEYpmZYAJimASjx2jvXNmvDUKHrG9gtKjs6s-M5e0TJUsHMJMmJIxlhh7aqzj+qP1Z8IeRuPQmdwAN3cyW6BUclx6ZEcEjgEmKpFWiB2AAFYQVMc4IAMsDxblAuGRgsNbCwHk8Xm8wH9PukgVSaI9nq8YMk0TtqjoMK98UYMIikslZgBOABsAA4prLZgyzix4iEWPMpiwANRqgCsLAAVCpMAKXEKTRBkgAWADMAHZFWcZBhqcl4o4oWQMBb1iw3BBimRsMEACqMVRwBn-Pyq+yoZJ+QI0BFg9yOUqqSIhsMR+RgAC+AF0gA" title="title">
+<iframe style="height:500px;" class="mb-0 w-100 iframe-border py-3" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89GgAPOBcACnkWdLCaDC4obGJVMn8JGjcBKEZUiAzqzIiIOC4ikrgyirSajvCLVAKi-jc2yFl8FmGAOWHHAAZHAEYpmZYAJimASjx2jvXNmvDUKHrG9gtKjs6s-M5e0TJUsHMJMmJIxlhh7aqzj+qP1Z8IeRuPQmdwAN3cyW6BUclx6ZEcEjgEmKpFWiB2AAFYQVMc4IAMsDxblAuGRgsNbCwHk8Xm8wH9PukgVSaI9nq8YMk0TtqjoMK98UYMIikslZgBOABsAA4prLZgyzix4iEWPMpiwANRqgCsLAAVCpMAKXEKTRBkgAWADMAHZFWcZBhqcl4o4oWQMBb1iw3BBimRsMEACqMVRwBn-Pyq+yoZJ+QI0BFg9yOUqqSIhsMR+RgAC+AF0gA" title="Fixed Grid System">
 </iframe> 
 
 ## Code
@@ -291,7 +291,7 @@ The main benefit of a fixed grid is that it provides stronger guarantees about h
 
 ## Preview
 
-<iframe style="height:425px;" class="mb-0 w-100 iframe-border py-3" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89Gi4uKAEuOAAKeRZMsJoMROxiVTJ-CRo3AShGdIgsmuyIiDguYtK4csqM2s7wi1RC4v43dshZfBYRgDkRxwAGRwBGadmWACZpgEo8Ds6Nrdrw1CgGpvYLKs6unILOPtEydLBzCTJiSMZYEZ3q88+az7WfCDyNx6EzuABu7lSPUKjiuvTIjgkcAkJVIa0QuwAAnDCljnBBBlgeHcoFwyMERrYWI9nq93mB-l9MsDqTQni83jBUujdjUdBg3gSjBgkXAXKk5gBOABsAA5pvK5ozziwAB4hFgLaYsADUmoArCwAFQqTCClzC80QVIAFgAzAB2ZXnGQYGmpVWOaFkDDWjYsNwQEpkbDBAAqjFUcEZAL8GvsqFSfkCNER4PcjjKqki4cj0fkYAAvgBdIA" title="title">
+<iframe style="height:425px;" class="mb-0 w-100 iframe-border py-3" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQh0GzFhACu9bOKkRU8gGaNiMFhIAWNCJsVNWAQXR4WjSgBM4jR6prz5aVAH0vFgBeFi8sKABzOH89Gi4uKAEuOAAKeRZMsJoMROxiVTJ-CRo3AShGdIgsmuyIiDguYtK4csqM2s7wi1RC4v43dshZfBYRgDkRxwAGRwBGadmWACZpgEo8Ds6Nrdrw1CgGpvYLKs6unILOPtEydLBzCTJiSMZYEZ3q88+az7WfCDyNx6EzuABu7lSPUKjiuvTIjgkcAkJVIa0QuwAAnDCljnBBBlgeHcoFwyMERrYWI9nq93mB-l9MsDqTQni83jBUujdjUdBg3gSjBgkXAXKk5gBOABsAA5pvK5ozziwAB4hFgLaYsADUmoArCwAFQqTCClzC80QVIAFgAzAB2ZXnGQYGmpVWOaFkDDWjYsNwQEpkbDBAAqjFUcEZAL8GvsqFSfkCNER4PcjjKqki4cj0fkYAAvgBdIA" title="Fillable Grid System">
 </iframe> 
 
 ## Code

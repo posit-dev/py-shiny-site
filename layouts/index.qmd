@@ -44,9 +44,9 @@ Shiny Layouts
 :::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
 
-<h2 class="mt-4"> 
-<img src="/images/navbars-blue.svg" class="me-1" style="height: 40px;margin-bottom:7px;">
-Navbars </h2>
+<h3 class="mt-4"> 
+<img src="/images/navbars-blue.svg" class="me-1" style="height: 34px;margin-bottom:7px;">
+Navbars </h3>
 
 A navbar adds a navigation bar to your app, allowing users to easily navigate your app.
 
@@ -55,7 +55,7 @@ A navbar adds a navigation bar to your app, allowing users to easily navigate yo
 ::::
 :::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
 ::: {#navbar .grid}
-
+ 
 <style>
   .layout-list-card {
     align-content: flex-start;
@@ -116,8 +116,8 @@ A navbar adds a navigation bar to your app, allowing users to easily navigate yo
 
 ::: {.sticky-xl-top .pt-4}
 
-<h2 class="mt-4"> 
-<img src="/images/sidebars-blue.svg" class="me-1" style="height: 40px;margin-bottom:7px;"> Sidebars </h2>
+<h3 class="mt-4"> 
+<img src="/images/sidebars-blue.svg" class="me-1" style="height: 34px;margin-bottom:7px;"> Sidebars </h3>
 
 A sidebar layout creates a sidebar, typically used for inputs, and a large main area, typically used for outputs.
 
@@ -247,8 +247,8 @@ A sidebar layout creates a sidebar, typically used for inputs, and a large main 
 :::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
 
-<h2 class="mt-4"> 
-<img src="/images/tabs-blue.svg" class="me-1" style="height: 40px;margin-bottom:7px;"> Tabs </h2>
+<h3 class="mt-4"> 
+<img src="/images/tabs-blue.svg" class="me-1" style="height: 34px;margin-bottom:7px;"> Tabs </h3>
 
 Tabs and navigation allow you to create apps that have multiple pages.
 
@@ -375,8 +375,8 @@ Tabs and navigation allow you to create apps that have multiple pages.
 :::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
 
-<h2 class="mt-4"> 
-<img src="/images/cards-blue.svg" class="me-1" style="height: 40px;margin-bottom:7px;"> Panels & Cards </h2>
+<h3 class="mt-4"> 
+<img src="/images/cards-blue.svg" class="me-1" style="height: 34px;margin-bottom:7px;"> Panels & Cards </h3>
 
 Use panels and cards to define areas of related content.
 
@@ -435,8 +435,8 @@ Use panels and cards to define areas of related content.
 :::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
 
-<h2 class="mt-4"> 
-<img src="/images/arrange-blue.svg" class="me-1" style="height: 40px;margin-bottom:7px;"> Arrange Elements </h2>
+<h3 class="mt-4"> 
+<img src="/images/arrange-blue.svg" class="me-1" style="height: 34px;margin-bottom:7px;"> Arrange Elements </h3>
 
 Use rows and columns to create your own layout for every device size.
 
