@@ -1,6 +1,6 @@
 ---
 title: "Arrange Elements"
-description: "Shiny's premade layouts, such as ui.page_sidebar() and ui.page_navbar() make use of Shiny's lower-level grid layout functions"
+description: "Shiny's premade layouts, such as ui.page_sidebar() and ui.page_navbar() make use of Shiny's lower-level grid layout functions."
 ---
 Shiny's premade layouts, such as [ui.layout_sidebar](https://shiny.posit.co/py/api/ui.layout_sidebar.html) and [ui.page_navbar](https://shiny.posit.co/py/api/ui.page_navbar.html)  make use of Shiny's lower-level grid layout functions:
 
