@@ -106,7 +106,7 @@ website:
       - icon: youtube
         href: https://www.youtube.com/playlist?list=PL9HYL-VRX0oRbLoj3FyL5zeASU5FMDgVe
         aria-label: Shiny YouTube Playlist
-  
+
   sidebar:
     - id: components
       collapse-level: 2
@@ -115,43 +115,43 @@ website:
           href: components/
         - section: "![](/images/sliders.svg){.sidebar-icon .sidebar-subtitle}__Inputs__"
           contents:
-            - components/inputs/action-button.qmd
-            - components/inputs/action-link.qmd
-            - components/inputs/checkbox.qmd
-            - components/inputs/checkbox-group.qmd
-            - components/inputs/date-range-selector.qmd
-            - components/inputs/date-selector.qmd
-            - components/inputs/numeric-input.qmd
-            - components/inputs/password-field.qmd
-            - components/inputs/radio-buttons.qmd
-            - components/inputs/select-single.qmd
-            - components/inputs/select-multiple.qmd
-            - components/inputs/selectize-single.qmd
-            - components/inputs/selectize-multiple.qmd
-            - components/inputs/slider.qmd
-            - components/inputs/slider-range.qmd
-            - components/inputs/switch.qmd
-            - components/inputs/text-area.qmd
-            - components/inputs/text-box.qmd
+            - components/inputs/action-button/index.qmd
+            - components/inputs/action-link/index.qmd
+            - components/inputs/checkbox/index.qmd
+            - components/inputs/checkbox-group/index.qmd
+            - components/inputs/date-range-selector/index.qmd
+            - components/inputs/date-selector/index.qmd
+            - components/inputs/numeric-input/index.qmd
+            - components/inputs/password-field/index.qmd
+            - components/inputs/radio-buttons/index.qmd
+            - components/inputs/select-single/index.qmd
+            - components/inputs/select-multiple/index.qmd
+            - components/inputs/selectize-single/index.qmd
+            - components/inputs/selectize-multiple/index.qmd
+            - components/inputs/slider/index.qmd
+            - components/inputs/slider-range/index.qmd
+            - components/inputs/switch/index.qmd
+            - components/inputs/text-area/index.qmd
+            - components/inputs/text-box/index.qmd
         - section: "![](/images/bar-chart-line-fill.svg){.sidebar-icon .sidebar-subtitle}__Outputs__"
           contents:
-            - components/outputs/data-grid.qmd
-            - components/outputs/datatable.qmd
-            - components/outputs/image.qmd
-            - components/outputs/map-ipyleaflet.qmd
-            - components/outputs/plot-matplotlib.qmd
-            - components/outputs/plot-plotly.qmd
-            - components/outputs/plot-seaborn.qmd
-            - components/outputs/text.qmd
-            - components/outputs/ui.qmd
-            - components/outputs/value-box.qmd
-            - components/outputs/verbatim-text.qmd
+            - components/outputs/data-grid/index.qmd
+            - components/outputs/datatable/index.qmd
+            - components/outputs/image/index.qmd
+            - components/outputs/map-ipyleaflet/index.qmd
+            - components/outputs/plot-matplotlib/index.qmd
+            - components/outputs/plot-plotly/index.qmd
+            - components/outputs/plot-seaborn/index.qmd
+            - components/outputs/text/index.qmd
+            - components/outputs/ui/index.qmd
+            - components/outputs/value-box/index.qmd
+            - components/outputs/verbatim-text/index.qmd
         - section: "![](/images/chat-dots-fill.svg){.sidebar-icon .sidebar-subtitle}__Display Messages__"
           contents:
-            - components/display-messages/modal.qmd
-            - components/display-messages/notifications.qmd
-            - components/display-messages/progress-bar.qmd
-            - components/display-messages/tooltips.qmd
+            - components/display-messages/modal/index.qmd
+            - components/display-messages/notifications/index.qmd
+            - components/display-messages/progress-bar/index.qmd
+            - components/display-messages/tooltips/index.qmd
 
     - id: docs
       style: "floating"
