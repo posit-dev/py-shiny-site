@@ -3,7 +3,7 @@ title: "Modal"
 sidebar: components
 
 appPreview:
-  file: display-messages/modal/app-preview.py
+  file: components/display-messages/modal/app-preview.py
 
 listing:
   - id: example
