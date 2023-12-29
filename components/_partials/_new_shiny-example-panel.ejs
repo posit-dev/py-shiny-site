@@ -15,13 +15,20 @@
 <% for (const app of apps) { %>
 ## <%= app.title %>
 
-```{.python filename="<%= app.filename || 'app.py' %>" }
+::: {.code-with-shinylive-link}
+```{.python .code-overflow-scroll filename="<%= app.filename || 'app.py' %>" }
 <%= Deno.readTextFileSync((appDir || '') + app.file) %>
 ```
 
 <% if (app.shinylive) { %>
-<p class="text-end my-0 p-90 me-2"><a  href="<%= app.shinylive %>"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
+```{=html}
+<a class="edit-shinylive-button btn btn-link" href="<%= app.shinylive %>" data-bs-toggle="tooltip" data-bs-title="Edit in Shinylive" data-bs-placement="bottom">
+  <i class="bi bi-lightning-fill"></i> <span class="visually-hidden">Edit in Shinylive</span>
+</a>
+```
 <% } %>
+:::
+
 <% } %>
 
 :::

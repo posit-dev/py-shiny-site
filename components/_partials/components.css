@@ -132,6 +132,32 @@ a.component-list-header-text:hover ~ div.component-list-icon p a i.component-lin
   margin-bottom: 1em;
 }
 
+/* improve position of code copy button */
+div.sourceCode > pre.sourceCode {
+  position: static;
+}
+
+.code-with-filename {
+  position: relative;
+}
+
+.code-with-filename .code-copy-button {
+  top: 2em;
+}
+
+.code-with-shinylive-link {
+  position: relative;
+}
+
+.code-with-shinylive-link .edit-shinylive-button {
+  position: absolute;
+  top: 2em;
+  right: 2.5em;
+  --bs-btn-color: rgb(94, 94, 94);
+  --bs-btn-padding-x: 0;
+  --bs-btn-padding-y: 0;
+}
+
 code.sourceCode,
 pre.console code {
   padding: 0.25rem 1rem 0.25rem 0.25rem;
