@@ -22,7 +22,7 @@
 
 
 
-<% if (item.previewapp) { %>
+<% if (item.appPreview) { %>
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
 <a class="component-list-header-text" href="<%= item.path %>">
@@ -40,15 +40,11 @@
   animation-fill-mode: forwards;
   visibility: hidden;
   border-radius: 10px;">
-```{shinylive-python}
-#| standalone: true
-#| components: [viewer]
-<%= item.previewapp %>
-```
+<%= include('_new_shiny-example-panel.ejs', {apps: [{file: item.appPreview.file}]}) %>
 </div>
 </div>
 </div>
-<% } %> 
+<% } %>
 
 <% } %>
 
