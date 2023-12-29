@@ -40,7 +40,11 @@
   animation-fill-mode: forwards;
   visibility: hidden;
   border-radius: 10px;">
-<%= include('_new_shiny-example-panel.ejs', {apps: [{file: item.appPreview.file}], appDir: ""}) %>
+```{shinylive-python}
+#| standalone: true
+#| components: [viewer]
+<%= Deno.readTextFileSync(item.appPreview.file) %>
+```
 </div>
 </div>
 </div>
