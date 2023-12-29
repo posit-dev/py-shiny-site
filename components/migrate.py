@@ -201,32 +201,31 @@ def write_new_component_dir(path):
             new_var = {}
             new_var["title"] = variation["title"]
             new_var["description"] = variation["description"]
-            new_var["apps"] = []
 
             # slugify the title
             var_slug = variation["title"].lower().replace(" ", "-").replace("/", "-")
 
-            apps = [
+            new_var["apps"] = [
                 {
                     "title": "Core",
-                    "file": "app-core.py",
+                    "file": f"app-variation-{var_slug}-core.py",
                     "shinylive": variation.get("shinylive", "#FIXME: Add shinylive link")
                 },
                 {
                     "title": "Express",
-                    "file": "app-express.py",
+                    "file": f"app-variation-{var_slug}-express.py",
                     "shinylive": variation.get("shinylive", "#FIXME: Add shinylive link")
                 }
             ]
 
             if "height" in variation:
-                for app in apps:
+                for app in new_var["apps"]:
                     app["height"] = variation["height"]
 
             l_variations["contents"].append(new_var)
 
-            path_core = os.path.join(info["_dir"], f"app-variation-{var_slug}-core.py")
-            path_express = os.path.join(info["_dir"], f"app-variation-{var_slug}-express.py")
+            path_core = os.path.join(info["_dir"], new_var["apps"][0]["file"])
+            path_express = os.path.join(info["_dir"], new_var["apps"][1]["file"])
 
             with open(path_core, "w") as f:
                 f.write(variation["code"])
