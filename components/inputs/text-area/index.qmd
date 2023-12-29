@@ -1,0 +1,56 @@
+---
+title: Text Area
+sidebar: components
+appPreview:
+  file: components/inputs/text-area/app-preview.py
+listing:
+- id: example
+  template: ../../_partials/_new_component-example.ejs
+  template-params:
+    dir: components/inputs/text-area/
+  contents:
+  - title: Core
+    file: app-core.py
+    height: 200px
+    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNFAB7uoUqHbAvMl84KGV8JnDwiXCACTgLC2ImAHVBC2lwgEoMKGlpTUILKBYWANQyAFoAViYYT0qoN2SgysJKCjpsvHtHMQxiN1d3IM0ANzkAIygyPgCxqCs4bt6HEHCikpZwxEiwMbZKgEYABhOmACsRFlmabDbSCnI2jrkmRY5jCEqOChgWF7kN6oBrVcIAX1UOTyBU2pQCMHuTTILTg3kBnWyqlUshorDkEzoNhcbgkgzIwwkLDgpQ4pCyiFWTAAAlIILI6BggkzcUwFksbAymY5JHAyCI6BBeBBhly0cE-ILsdB0HomEpUDYNNpxPi6ISsqowOCALpAA
+  - title: Express
+    file: app-express.py
+    height: 200px
+    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNFAB7uoUqHbAvMl84KGV8JnDwiXCACTgLC2ImAHVBC2lwgEoMKGlpTUILKBYWANQyAFoAViYYT0qoN2SgysJKCjpsvHtHMQxiN1d3IM0ANzkAIygyPgCxqCs4bt6HEHCikpZwxEiwMbZKgEYABhOmACsRFlmabDbSCnI2jrkmRY5jCEqOChgWF7kN6oBrVcIAX1UOTyBU2pQCMHuTTILTg3kBnWyqlUshorDkEzoNhcbgkgzIwwkLDgpQ4pCyiFWTAAAlIILI6BggkzcUwFksbAymY5JHAyCI6BBeBBhly0cE-ILsdB0HomEpUDYNNpxPi6ISsqowOCALpAA
+- id: relevant-functions
+  template: ../../_partials/_new_relevant-functions.ejs
+  template-params:
+    dir: components/inputs/text-area/
+  contents:
+  - title: ui.input_text_area
+    href: https://shiny.posit.co/py/api/ui.input_text_area.html
+    signature: ui.input_text_area(id, label, value='', *, width=None, height=None,
+      cols=None, rows=None, placeholder=None, resize=None, autoresize=False, autocomplete=None,
+      spellcheck=None)
+---
+
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+Create a textarea input control for entry of unstructured text values.
+
+To add a textarea to your app:
+
+  1. Add `ui.input_text_area()` to the UI of your app to create a textarea. Where you call this function will determine where the textarea will appear within the app's layout. 
+
+  2. Specify the `id` and `label` parameters of `ui.input_text_area()` to define the identifier and label of the textarea. 
+
+  3. By default, the `value` parameter, which defines the textarea's initial value, is the empty string (`''`). Provide a different string to `value` to change the initial text.
+
+
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a textarea:
+
+  1. Use `input.<textarea_id>()` (e.g., `input.textarea()`) to access the value of the textarea. The server value of a textarea is a string containing the current text input.
+
+See also: [Text Box](text-box.qmd)

@@ -1,0 +1,51 @@
+---
+title: Switch
+sidebar: components
+appPreview:
+  file: components/inputs/switch/app-preview.py
+listing:
+- id: example
+  template: ../../_partials/_new_component-example.ejs
+  template-params:
+    dir: components/inputs/switch/
+  contents:
+  - title: Core
+    file: app-core.py
+    height: 200px
+    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNLAO4cyhNnbAvHz9lfCZQgGVvXzZQiQAVOhE4AEo8e0cxDGI3V3cxAIA3KCs4ULTVFIwoaWlNQgsoFhYA1ABaAFZy1VVZGlY5QrkbFzcJHLI8iRY4Zo5SFMQMhwABCbzlphWpCFk6DDFNvqZi0ptFzcdJODIROgheCDyMIJjznuh0PSYlVBsNbTiAZ0IZ0FJgAC+AF0gA
+  - title: Express
+    file: app-express.py
+    height: 200px
+    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNLAO4cyhNnbAvHz9lfCZQgGVvXzZQiQAVOhE4AEo8e0cxDGI3V3cxAIA3KCs4ULTVFIwoaWlNQgsoFhYA1ABaAFZy1VVZGlY5QrkbFzcJHLI8iRY4Zo5SFMQMhwABCbzlphWpCFk6DDFNvqZi0ptFzcdJODIROgheCDyMIJjznuh0PSYlVBsNbTiAZ0IZ0FJgAC+AF0gA
+- id: relevant-functions
+  template: ../../_partials/_new_relevant-functions.ejs
+  template-params:
+    dir: components/inputs/switch/
+  contents:
+  - title: ui.input_switch
+    href: https://shiny.posit.co/py/api/ui.input_switch.html
+    signature: ui.input_switch(id, label, value=False, *, width=None)
+---
+
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A switch allows you to select between logical values.
+
+To add a switch to your app:
+
+  1. Add `ui.input_switch()` to the UI of your app to create a switch. Where you call this function will determine where the switch will appear within the app's layout. 
+
+  2. Specify the `id` and `label` parameters of `ui.input_switch()` to define the identifier and label of the switch. 
+
+  3. By default, the `value` parameter, which defines the switch's initial value, is `False`. If you'd like the initial value to be `True`, set `value` equal to `True`.
+
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a switch:
+
+  1. Use `input.<switch_id>()` (e.g., `input.switch()`) to access the value of the switch. The server value of a switch is `True` if checked and `False` otherwise. 
