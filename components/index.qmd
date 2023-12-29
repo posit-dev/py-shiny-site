@@ -18,18 +18,19 @@ listing:
     type: grid
     template: _partials/components-list.ejs
     contents:
-      - ../../components/inputs/*/*.qmd
+      - inputs/*/*.qmd
   - id: output
     type: grid
     template: _partials/components-list.ejs
     contents:
-      - ../../components/outputs/*/*.qmd
+      - outputs/*/*.qmd
   - id: display-message
     type: grid
     template: _partials/components-list.ejs
     contents:
-      - ../../components/display-messages/*/*.qmd
+      - display-messages/*/*.qmd
 ---
+
 
 <!-- Begin Hero area -->
 :::::::: {.column-screen-inset .mx-auto style="max-width: 1300px;"}
