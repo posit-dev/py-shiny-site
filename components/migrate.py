@@ -242,7 +242,7 @@ def write_new_component_dir(path):
     path_index = os.path.join(info["_dir"], "index.qmd")
     with open(path_index, "w") as f:
         f.write("---\n")
-        f.write(yml.dump(new_meta, sort_keys=False, indent=2))
+        f.write(yml.dump(new_meta, sort_keys=False, indent=2, default_flow_style=False, default_style="|"))
         f.write("---\n\n")
         f.write(body.replace(":::{#component}\n:::", ":::{#example}\n:::\n\n:::{#relevant-functions}\n:::"))
 
