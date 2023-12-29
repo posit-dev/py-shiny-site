@@ -11,11 +11,11 @@ listing:
   contents:
   - title: Core
     file: app-core.py
-    height: 200px
+    height: 200
     shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdaOgD6OpgF4mOrFADmcQzQA2O1QAp9TDxY4YGAdzcQnkFeGCROMBAuAGza3lyoWmSGMnKkhg5cANZuKLIcaRkQmbr4TCUAkhCEUlAscEwAclowAEYaJQCUHRLuwR6WYc2RMSHEiQlJFAAeZDkkWuTtYB0YUKqqhoQOtSw5qhwsqNvYALQArEytJwAMnd29fSAlWzsliGVg8mwnAIzX10wAFZaFhyGinEiLcgnQiUCh0JhQDLWCAnDgUGAsGFwjRMVBTc4lAC+DyYKzWGxeLF2JWmZGxizonQ8+g6+nUNFYGkUdBc8USEjGZAmEjq1PyEFFZCgQi41kM8iRWnq5muHUQpPm5DMkmkeUUGAAakq4C5QTK5BB5YqnHA2RBSQABGr6uAYACiNBocFkTpdcgNcEU5D5EAmqzyBSy9qCHKYhhc6tJQS1ZAwdVmqcTTAA1Ewfva-ZR1HQMHTSXHUxpExrAn1dWQtHRAjQSiAsx0SWB9D2DKgdWJUC40KhjBxRdyNIWHTOwESALpAA
   - title: Express
     file: app-express.py
-    height: 200px
+    height: 200
     shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdaOgD6OpgF4mOrFADmcQzQA2O1QAp9TDxY4YGAdzcQnkFeGCROMBAuAGza3lyoWmSGMnKkhg5cANZuKLIcaRkQmbr4TCUAkhCEUlAscEwAclowAEYaJQCUHRLuwR6WYc2RMSHEiQlJFAAeZDkkWuTtYB0YUKqqhoQOtSw5qhwsqNvYALQArEytJwAMnd29fSAlWzsliGVg8mwnAIzX10wAFZaFhyGinEiLcgnQiUCh0JhQDLWCAnDgUGAsGFwjRMVBTc4lAC+DyYKzWGxeLF2JWmZGxizonQ8+g6+nUNFYGkUdBc8USEjGZAmEjq1PyEFFZCgQi41kM8iRWnq5muHUQpPm5DMkmkeUUGAAakq4C5QTK5BB5YqnHA2RBSQABGr6uAYACiNBocFkTpdcgNcEU5D5EAmqzyBSy9qCHKYhhc6tJQS1ZAwdVmqcTTAA1Ewfva-ZR1HQMHTSXHUxpExrAn1dWQtHRAjQSiAsx0SWB9D2DKgdWJUC40KhjBxRdyNIWHTOwESALpAA
 - id: relevant-functions
   template: ../../_partials/_new_relevant-functions.ejs
@@ -44,8 +44,8 @@ An action link appears as a link in your app and has a value that increments eac
 Follow these steps to add an action link to your app:
 
   1. Add `ui.input_action_link()` to the UI of your app to create an action link. Where you call this function will determine where the link appears within the app's layout.
-  2. Specify the `id` and `label` parameters of `ui.input_action_link()` to define the action link's identifier and label. 
-  
+  2. Specify the `id` and `label` parameters of `ui.input_action_link()` to define the action link's identifier and label.
+
 The value of an input component is accessible as a reactive value within the `server()` function. To access the value of an action link:
 
   1.  Use `input.<action_link_id()>` (e.g., `input.action_link()`) to access the value of the action link. The server value of an action link is an integer representing the number of clicks.

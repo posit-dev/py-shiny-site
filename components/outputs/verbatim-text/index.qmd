@@ -13,11 +13,11 @@ listing:
   contents:
   - title: Core
     file: app-core.py
-    height: 200px
+    height: 200
     shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymigA8ydsABU4H2V8JhCAUXI5Jm8yEIkQgAk4CwtiJgBlTm4QgEo8e0dDYnc3D1jNADc5ACMoMj4-WLymAGIAHnbVXNVVWRpWOWq6G1d3CRKyMokWOBYWDlJcxEKHAAEpCFk6DFi2ztWmfpig32XDx0k4MgU6CF4IMoxAnxsetWh0PVF0Gw1tDgzIZyXJgAC+AF0gA
   - title: Express
     file: app-express.py
-    height: 200px
+    height: 200
     shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymigA8ydsABU4H2V8JhCAUXI5Jm8yEIkQgAk4CwtiJgBlTm4QgEo8e0dDYnc3D1jNADc5ACMoMj4-WLymAGIAHnbVXNVVWRpWOWq6G1d3CRKyMokWOBYWDlJcxEKHAAEpCFk6DFi2ztWmfpig32XDx0k4MgU6CF4IMoxAnxsetWh0PVF0Gw1tDgzIZyXJgAC+AF0gA
 
 - id: relevant-functions

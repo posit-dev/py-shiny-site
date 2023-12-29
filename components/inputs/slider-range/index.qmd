@@ -11,11 +11,11 @@ listing:
   contents:
   - title: Core
     file: app-core.py
-    height: 200px
+    height: 200
     shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNLCx1l07YT95yyvhMwcESMFy6AAwRUAAeugCM0bFMAG5QVnC6wADMAKwSAGwFALoAlBhQ0tKahBZQLCx+qGQAtAVMMPHtUG7ETBTxHYSUFHTBFXj2jmIYxG6u7sPu6XIARlBkfH6Z2VMzEI5MIMENTSzBiKFg6WztKdFMAFYiLDs02O0k5OM-4zkTCyHGMEHaHAoMBYAL+dCYqF6BWCAF9VFUanULs0-DBvv0yINVrCJlNVKpZDRWHJ1r4XG4JIsyMsJCw4M0OKQKohZg4AAJM5a8ph8qQQHwYVbCykZLIiOA2bnCk5SMgiOjHGjBED0sgYAI+RVosDk6DoPRMJSoGwabTial0WkVMAospAA
   - title: Express
     file: app-express.py
-    height: 200px
+    height: 200
     shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNLCx1l07YT95yyvhMwcESMFy6AAwRUAAeugCM0bFMAG5QVnC6wADMAKwSAGwFALoAlBhQ0tKahBZQLCx+qGQAtAVMMPHtUG7ETBTxHYSUFHTBFXj2jmIYxG6u7sPu6XIARlBkfH6Z2VMzEI5MIMENTSzBiKFg6WztKdFMAFYiLDs02O0k5OM-4zkTCyHGMEHaHAoMBYAL+dCYqF6BWCAF9VFUanULs0-DBvv0yINVrCJlNVKpZDRWHJ1r4XG4JIsyMsJCw4M0OKQKohZg4AAJM5a8ph8qQQHwYVbCykZLIiOA2bnCk5SMgiOjHGjBED0sgYAI+RVosDk6DoPRMJSoGwabTial0WkVMAospAA
 - id: relevant-functions
   template: ../../_partials/_new_relevant-functions.ejs
@@ -50,11 +50,11 @@ listing:
 
 A slider is a widget that lets you drag to select numbers, dates, or date-tifrom a specified range. You can use a slider to select either a single value or a range of values.
 
-To add a slider that lets the user select a range of values: 
+To add a slider that lets the user select a range of values:
 
-  1. Add `ui.input_slider()` to the UI of your app to create a slider. Where you call this function will determine where the slider will appear within the app's layout. 
+  1. Add `ui.input_slider()` to the UI of your app to create a slider. Where you call this function will determine where the slider will appear within the app's layout.
 
-  2. Specify the `id` and `label` parameters of `ui.input_slider()` to define the identifier and label of the slider. 
+  2. Specify the `id` and `label` parameters of `ui.input_slider()` to define the identifier and label of the slider.
 
   3. Use the `min` and `max` parameters to define the minimum and maximum values of the slider. `min` and `max` can be numbers, dates, or date-times. Dates and date-times can be provided from the `datetime` module with the `date()` or `datetime()` functions, respectively.
 

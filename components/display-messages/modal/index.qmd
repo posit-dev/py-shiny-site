@@ -13,7 +13,7 @@ listing:
     contents:
       - title: Core
         file: app-core.py
-        height: 500px
+        height: 500
         shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwdmIAdzV8JliAZTZophhiOyhrJjsOTOIzWIBKPA1CjQ07OBpWODpFOgdPbwliby8yCRY4FhYOUkLEZ1cAASk-BTgMAFEaGjhZIZdR6VkJjDhFckaIdoxIqLKIV2yqph0HAcXj1MM3DDSM6ycj69fYgBVOFl5vqFZGOBRNhQYR8ARCKDkVLdFjmSaxEovV7HORkaxwAyJAFAkG8fiCMiQ4TwHpwhFXZFMaQsbA6QjWYhdAzvOjKJQU5E0YjECh0AwmB6ZIIhMKxAAiHBYMElLCKiMph0pAvSQv2Dhghy06FuYlQDm0eg4nVq9UKYAAvgBdIA
       - title: Express
         file: app-express.py

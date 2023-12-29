@@ -48,11 +48,11 @@ listing:
     - title: Core
       file: app-variation-select-rows-core.py
       shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMhSkCGEKofGRKEHycAoT5kJr4TE0AcjUARo5MxDS2xADuomTETAoCwqhsUNhNNgBMAAzReAVFTQBKg6IubHCEFAqILc2pxBXllRQAHmQNDENzYhBsQnCBACp0fHAra4VnC4VJQKKBkKBZOiwOANcIaEE0JqxCDI7QOPouOgAN0ckTKFRs5zIl2crncpGiiH+TAAAkTLtSaXYIA46BhQeDIdDqeiWLwIsIETEqRAimKxmCoMk4SIMAY4Io8RBLhgIDFkeKinYyHw6KLmayMAARSUfKAdPaRDlQGwPJS7fZkDwQJQwYgOQJNGB8NhOqZwJFxMV0oFkRkGxwYG5h0VFXkPYTC6mFB0HOAKZL4shYfnwhQ0e1wPZp5QJmLJ2xwHV6pgAchstYwACtiEJIsIyHQ8dEmDQpGJnvoi4706j4qhklZUJE0KhEgJSdjHNEwABfAC6QA
-      height: 350px
+      height: 350
     - title: Express
       file: app-variation-select-rows-express.py
       shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMhSkCGEKofGRKEHycAoT5kJr4TE0AcjUARo5MxDS2xADuomTETAoCwqhsUNhNNgBMAAzReAVFTQBKg6IubHCEFAqILc2pxBXllRQAHmQNDENzYhBsQnCBACp0fHAra4VnC4VJQKKBkKBZOiwOANcIaEE0JqxCDI7QOPouOgAN0ckTKFRs5zIl2crncpGiiH+TAAAkTLtSaXYIA46BhQeDIdDqeiWLwIsIETEqRAimKxmCoMk4SIMAY4Io8RBLhgIDFkeKinYyHw6KLmayMAARSUfKAdPaRDlQGwPJS7fZkDwQJQwYgOQJNGB8NhOqZwJFxMV0oFkRkGxwYG5h0VFXkPYTC6mFB0HOAKZL4shYfnwhQ0e1wPZp5QJmLJ2xwHV6pgAchstYwACtiEJIsIyHQ8dEmDQpGJnvoi4706j4qhklZUJE0KhEgJSdjHNEwABfAC6QA
-      height: 350px
+      height: 350
   - title: Filterable Table
     description: Set `render.DataTable(filters=True)` to add a row of filter options
       to the header row. Users can interact with these options to filter the table.
@@ -60,11 +60,11 @@ listing:
     - title: Core
       file: app-variation-filterable-table-core.py
       shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMhSkCGEKofGRKEHycAoT5kJr4TE0AcjUARo5MxDS2xADuomTETAoCwqhsUNhNNgDMACyL0XgFRanEFeWVClBkUFl0sHAN4RpKCjRNsRC32g59LnQAbo6RZRU2W2Q7zq7uUjRRDrQoAAR+O1BTDBdggDjoGD2ByOJ2hjxYvAiwkuNBiIIgRSJY32UGS5xEGAMcEUHwgOwwEBit2JRTsZD4dEJcIRGAAIqSACpQDpsU7IqA2GgCNgUOiiYKCuh8OD3eKoZJWVCRNCoRICf6vRzRMAAXwAukA
-      height: 350px
+      height: 350
     - title: Express
       file: app-variation-filterable-table-express.py
       shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMhSkCGEKofGRKEHycAoT5kJr4TE0AcjUARo5MxDS2xADuomTETAoCwqhsUNhNNgDMACyL0XgFRanEFeWVClBkUFl0sHAN4RpKCjRNsRC32g59LnQAbo6RZRU2W2Q7zq7uUjRRDrQoAAR+O1BTDBdggDjoGD2ByOJ2hjxYvAiwkuNBiIIgRSJY32UGS5xEGAMcEUHwgOwwEBit2JRTsZD4dEJcIRGAAIqSACpQDpsU7IqA2GgCNgUOiiYKCuh8OD3eKoZJWVCRNCoRICf6vRzRMAAXwAukA
-      height: 350px
+      height: 350
   - title: Set Table Size
     description: Set the `height` and `width` parameters of `render.DataTable()` to
       constrain the output size of the table.
@@ -72,11 +72,11 @@ listing:
     - title: Core
       file: app-variation-set-table-size-core.py
       shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMhSkCGEKofGRKEHycAoT5kJr4TE0AcjUARo5MxDS2xADuomTETAoCwqhsUNhNNgBMAAzReAVFqcQV5ZUKUGRQWXSwcA3hGkoKNE2xEDfaDn0udABujpFlFTabZNvOru6kaKINaFAAC322IKYoLsEAcdAwu32h2OUIeLF4EWEFxoMWBECKhLGeygyTOIgwBjgineEG2GAgMRuRKKdjIfDoBNh8IwABESQAVKAdNgnJFQGwDAQKMgGZJNADMi0WqAAHnMmFSBDwDDJgk15gBWFXqsB3eKoZJWVCRNCoRICP4vRzRMAAXwAukA
-      height: 350px
+      height: 350
     - title: Express
       file: app-variation-set-table-size-express.py
       shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMhSkCGEKofGRKEHycAoT5kJr4TE0AcjUARo5MxDS2xADuomTETAoCwqhsUNhNNgBMAAzReAVFqcQV5ZUKUGRQWXSwcA3hGkoKNE2xEDfaDn0udABujpFlFTabZNvOru6kaKINaFAAC322IKYoLsEAcdAwu32h2OUIeLF4EWEFxoMWBECKhLGeygyTOIgwBjgineEG2GAgMRuRKKdjIfDoBNh8IwABESQAVKAdNgnJFQGwDAQKMgGZJNADMi0WqAAHnMmFSBDwDDJgk15gBWFXqsB3eKoZJWVCRNCoRICP4vRzRMAAXwAukA
-      height: 350px
+      height: 350
   - title: Customize Summary Statement
     description: >
       Set `summary` in `render.DataGrid()` to `False` to remove the statement
@@ -86,11 +86,11 @@ listing:
     - title: Core
       file: app-variation-customize-summary-statement-core.py
       shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMhSkCGEKofGRKEHycAoT5kJr4TE0AcjUARo5MxDS2xADuomTETAoCwqhsUNhNNgBMAAzReAVFqcQV5ZUKUGRQWXSwcA3hGkoKNE2xEDfaDn0udABujpFlFTabZNvOru6kaKINaFAAC322IKYoLsEAcdAwu32h2OUIeLF4EWEFxoMWBECKhLGeygyTOIgwBjgineEG2GAgMRuRKKdjIfDoBNh8IwABESQAVKAdNgnKEswpIqA2cUS4Q1GBQOgmYJNABqAnsoxoAmmohAwn20gAvkxSSB7KaHEwQCN9mxjU1ZYU7vFUMkrKhImhUIkBH8Xo5omBjQBdIA
-      height: 350px
+      height: 350
     - title: Express
       file: app-variation-customize-summary-statement-express.py
       shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMhSkCGEKofGRKEHycAoT5kJr4TE0AcjUARo5MxDS2xADuomTETAoCwqhsUNhNNgBMAAzReAVFqcQV5ZUKUGRQWXSwcA3hGkoKNE2xEDfaDn0udABujpFlFTabZNvOru6kaKINaFAAC322IKYoLsEAcdAwu32h2OUIeLF4EWEFxoMWBECKhLGeygyTOIgwBjgineEG2GAgMRuRKKdjIfDoBNh8IwABESQAVKAdNgnKEswpIqA2cUS4Q1GBQOgmYJNABqAnsoxoAmmohAwn20gAvkxSSB7KaHEwQCN9mxjU1ZYU7vFUMkrKhImhUIkBH8Xo5omBjQBdIA
-      height: 350px
+      height: 350
 ---
 
 

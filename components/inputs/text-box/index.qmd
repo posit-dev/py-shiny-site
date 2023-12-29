@@ -11,11 +11,11 @@ listing:
   contents:
   - title: Core
     file: app-core.py
-    height: 200px
+    height: 200
     shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNFAB5k7YL2WV8JkDAiUCAUXI5Jn8MOMCASgwoaWlNQgsoFhZfVDIAWgBWJhhPfKg3Yhi4b3zCSgo6RLx7RzEMYjdXd39NADc5ACMoMj5fPqgrOGbWhxBAjKyWQMRgsD62fIBGAAYdpgArERZRmmw60gpyOoboyY5jCHyOChgWG6i6JlQywsCAX1USRSaUW2V8MHOFTIVX8H0aiVUqlkNFYcgGdBsLjcEk6ZG6EhYcGyHFICUQsyYAAE8d1KVSpBBZHQMP5KSimBMpjZyZTHJI4GQRHQILwIN1WTUfAkkdB0HomEpUDYNNpxGi6BiEmB-gBdIA
   - title: Express
     file: app-express.py
-    height: 200px
+    height: 200
     shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNFAB5k7YL2WV8JkDAiUCAUXI5Jn8MOMCASgwoaWlNQgsoFhZfVDIAWgBWJhhPfKg3Yhi4b3zCSgo6RLx7RzEMYjdXd39NADc5ACMoMj5fPqgrOGbWhxBAjKyWQMRgsD62fIBGAAYdpgArERZRmmw60gpyOoboyY5jCHyOChgWG6i6JlQywsCAX1USRSaUW2V8MHOFTIVX8H0aiVUqlkNFYcgGdBsLjcEk6ZG6EhYcGyHFICUQsyYAAE8d1KVSpBBZHQMP5KSimBMpjZyZTHJI4GQRHQILwIN1WTUfAkkdB0HomEpUDYNNpxGi6BiEmB-gBdIA
 - id: relevant-functions
   template: ../../_partials/_new_relevant-functions.ejs
@@ -41,14 +41,14 @@ Create input control for entry of text values.
 
 To add a text box to your app:
 
-  1. Add `ui.input_text()` to the UI of your app to create a text box. Where you call this function will determine where the text box will appear within the app's layout. 
+  1. Add `ui.input_text()` to the UI of your app to create a text box. Where you call this function will determine where the text box will appear within the app's layout.
 
-  2. Specify the `id` and `label` parameters of `ui.input_text_area()` to define the identifier and label of the text box. 
+  2. Specify the `id` and `label` parameters of `ui.input_text_area()` to define the identifier and label of the text box.
 
   3. By default, the `value` parameter, which defines the text box's initial value, is the empty string (`''`). Provide a different string to `value` to change the initial text.
 
 The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a text box:
 
   1. Use `input.<text_id>()` (e.g., `input.text()`) to access the value of the text box. The server value of a text box is a string containing the current text input.
-        
+
 See also: [Text Area](text-area.qmd)

@@ -11,11 +11,11 @@ listing:
   contents:
   - title: Core
     file: app-core.py
-    height: 200px
+    height: 200
     shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZDgBecDZMAMQAPOH2jjHKYF4+foFwcRIRURAxsWAAyt6+wsSo-qQsTABG3sQA7qlhkdFZTCBxAIwicYhMcQDCbMQchHBM7XVtAEKd3WB9A0Mjk-jTrT1Tvf2DwytxAL54jVkwChb+qD66ACp0CsPpBwCUaQ2ZjobE7m4eFAAeZHZgADcoFYUmBHqp7qpVLIaKw5AC5DZXO4JO8yJ8JF4WCwOKR7ogDgABKQQWR0DA-MgHGFMIEgmz4g4xKRkBR0TI0OIgZFkDAJArJBk7OJQ6DoPSidA2DTaDiY+Fye5gHYAXSAA
   - title: Express
     file: app-express.py
-    height: 200px
+    height: 200
     shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZDgBecDZMAMQAPOH2jjHKYF4+foFwcRIRURAxsWAAyt6+wsSo-qQsTABG3sQA7qlhkdFZTCBxAIwicYhMcQDCbMQchHBM7XVtAEKd3WB9A0Mjk-jTrT1Tvf2DwytxAL54jVkwChb+qD66ACp0CsPpBwCUaQ2ZjobE7m4eFAAeZHZgADcoFYUmBHqp7qpVLIaKw5AC5DZXO4JO8yJ8JF4WCwOKR7ogDgABKQQWR0DA-MgHGFMIEgmz4g4xKRkBR0TI0OIgZFkDAJArJBk7OJQ6DoPSidA2DTaDiY+Fye5gHYAXSAA
 - id: relevant-functions
   template: ../../_partials/_new_relevant-functions.ejs
@@ -55,14 +55,14 @@ listing:
 
 A selectize list creates a way to select one or more items from a list.
 
-To use a selectize list that allows you to select <em>multiple</em> items: 
+To use a selectize list that allows you to select <em>multiple</em> items:
 
-  1. Add `ui.input_selectize()` to the UI of your app to create a selectize list. Where you call this function will determine where the selectize list appears within the app's layout. 
+  1. Add `ui.input_selectize()` to the UI of your app to create a selectize list. Where you call this function will determine where the selectize list appears within the app's layout.
 
   2. Specify the `id` and `label` parameters of `ui.input_selectize()` to define the identifier and label of the select list.
 
-  3. Supply the `choices` parameter with either a list or dictionary of choices. If `choices` is a list, its elements become the select list values and labels. If `choices` is a dictionary, `ui.input_selectize()` uses the dictionary keys as the list values and the dictionary values as the list labels. 
-  
+  3. Supply the `choices` parameter with either a list or dictionary of choices. If `choices` is a list, its elements become the select list values and labels. If `choices` is a dictionary, `ui.input_selectize()` uses the dictionary keys as the list values and the dictionary values as the list labels.
+
   You can also supply with `choices` a dictionary of dictionaries. `ui.input_selectize()` will use the top-level keys as group labels. See <em>Selectize with grouped choices</em> variation.
 
   4. The `multiple` parameter controls whether you can select multiple items at once. Set `multiple=True` to allow the user to select multiple values.

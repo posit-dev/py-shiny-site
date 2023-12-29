@@ -11,11 +11,11 @@ listing:
   contents:
   - title: Core
     file: app-core.py
-    height: 200px
+    height: 200
     shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZG0wAxAA8wfaOEcpgXj5+URIhYRARkWAAyt6+wlDJxKhkHKRMAEbexADuiPFBoeEpTCBRAIwiUYhMUQDCbMQchHBMLdXNAEJtHWDdvf2DY-gTTZ3jXT19A4tRAL4JtcmOAJQ7SRGGxO5uHhQAHv5RAG5QVnBRh6r7qqqyNKxyd3I2rncEjOZAuEi8LBYhQg+yqewcAAEpBBZHQMNcyHUmF8mA8njZYViIlIyAo6MkaFEQICyBgYlkCZsoh9oOg9KJ0DYNNoOODfnJ9mBNgBdIA
   - title: Express
     file: app-express.py
-    height: 200px
+    height: 200
     shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZG0wAxAA8wfaOEcpgXj5+URIhYRARkWAAyt6+wlDJxKhkHKRMAEbexADuiPFBoeEpTCBRAIwiUYhMUQDCbMQchHBMLdXNAEJtHWDdvf2DY-gTTZ3jXT19A4tRAL4JtcmOAJQ7SRGGxO5uHhQAHv5RAG5QVnBRh6r7qqqyNKxyd3I2rncEjOZAuEi8LBYhQg+yqewcAAEpBBZHQMNcyHUmF8mA8njZYViIlIyAo6MkaFEQICyBgYlkCZsoh9oOg9KJ0DYNNoOODfnJ9mBNgBdIA
 - id: relevant-functions
   template: ../../_partials/_new_relevant-functions.ejs
@@ -55,14 +55,14 @@ listing:
 
 A select list creates a way to select one or more items from a list.
 
-To use a select list that allows you to select a <em>single</em> item: 
+To use a select list that allows you to select a <em>single</em> item:
 
-  1. Add `ui.input_select()` to the UI of your app to create a select list. Where you call this function will determine where the select list appears within the app's layout. 
+  1. Add `ui.input_select()` to the UI of your app to create a select list. Where you call this function will determine where the select list appears within the app's layout.
 
   2. Specify the `id` and `label` parameters of `ui.input_select()` to define the identifier and label of the select list.
 
-  3. Supply the `choices` parameter with either a list or dictionary of choices. If `choices` is a list, its elements become the select list values and labels. If `choices` is a dictionary, `ui.input_select()` uses the dictionary keys as the list values and the dictionary values as the list labels. 
-  
+  3. Supply the `choices` parameter with either a list or dictionary of choices. If `choices` is a list, its elements become the select list values and labels. If `choices` is a dictionary, `ui.input_select()` uses the dictionary keys as the list values and the dictionary values as the list labels.
+
   You can also supply with `choices` a dictionary of dictionaries. `ui.input_select()` will use the top-level keys as group labels. See the <em>Select list with grouped choices</em> variation.
 
   4. The `multiple` parameter controls whether you can select multiple items at once. By default, `multiple` is `False`.

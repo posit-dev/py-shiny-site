@@ -11,11 +11,11 @@ listing:
   contents:
   - title: Core
     file: app-core.py
-    height: 200px
+    height: 200
     shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACKAZ2wkJuIB0IAgGaNiMFuwAWNCNhZ0GzFgEF0eFozhRCZGgDc46zRAAmcRuoCuNAQLSoA+tZYBeFtaxQA5nAdCANtYmABQCLOHuNBgyqJZkDtq6pA4ARnFkpKFgaWQZgvgsfGAAwmKxFEUAlHhhER7EceUOFAAeZFkk9HFwVTUQlbamcEIS5gaMwTFx6g1k5erscOzsvP2IteEAArPlGyybxmaMGK1kewdaOvpwGHAG5JMQ5Rg5eQMQEWyc3CxmI53lODBSrrD6fCIAdxoZEkkQwAAVRF5NMtgjAZC4AIzqGBQFpYgCslS+LFQoPBFNJGEW7Xgy28cBcRWKUH8hEs-igSQ+MlJSJR7CK6jMZCgNH8TLAABVpOwWLi5KKANZwNgsCHSfw3DAYKqDSngoRMeTyD6MKAQHzBbEsTFE8kGymYGmTHFLdgMyWlLq6S16sGO8FQCFi1gcLg8YjUrVwVDBAAMGEx7z2n00ZEsjA+RQAIqRVQC4jIvABCIqDeyuFToYL2Jw0BZjcyVMAAXwAukA
   - title: Express
     file: app-express.py
-    height: 200px
+    height: 200
     shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACKAZ2wkJuIB0IAgGaNiMFuwAWNCNhZ0GzFgEF0eFozhRCZGgDc46zRAAmcRuoCuNAQLSoA+tZYBeFtaxQA5nAdCANtYmABQCLOHuNBgyqJZkDtq6pA4ARnFkpKFgaWQZgvgsfGAAwmKxFEUAlHhhER7EceUOFAAeZFkk9HFwVTUQlbamcEIS5gaMwTFx6g1k5erscOzsvP2IteEAArPlGyybxmaMGK1kewdaOvpwGHAG5JMQ5Rg5eQMQEWyc3CxmI53lODBSrrD6fCIAdxoZEkkQwAAVRF5NMtgjAZC4AIzqGBQFpYgCslS+LFQoPBFNJGEW7Xgy28cBcRWKUH8hEs-igSQ+MlJSJR7CK6jMZCgNH8TLAABVpOwWLi5KKANZwNgsCHSfw3DAYKqDSngoRMeTyD6MKAQHzBbEsTFE8kGymYGmTHFLdgMyWlLq6S16sGO8FQCFi1gcLg8YjUrVwVDBAAMGEx7z2n00ZEsjA+RQAIqRVQC4jIvABCIqDeyuFToYL2Jw0BZjcyVMAAXwAukA
 - id: relevant-functions
   template: ../../_partials/_new_relevant-functions.ejs
@@ -45,7 +45,7 @@ listing:
 
 ## Details
 
-With Shiny, you can display a progress bar while a computation runs by running the computation bar within a special computation manager. Here's how: 
+With Shiny, you can display a progress bar while a computation runs by running the computation bar within a special computation manager. Here's how:
 
 1. Use [`ui.Progress()`](https://shiny.posit.co/py/api/ui.Progress.html) to create a computation manager, and use `with` to run the computation within the manager. For example, you might set up a progress bar like this:
 

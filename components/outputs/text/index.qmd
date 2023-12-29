@@ -13,11 +13,11 @@ listing:
   contents:
   - title: Core
     file: app-core.py
-    height: 200px
+    height: 200
     shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhCbqNG1WlQB9JUwC8TJVigBzOLpoAbJdIAUqjaa6oFZXRQAeZJ2AAVOF9lfCZQgFFyOSYfMlCJUIAJOBsbYiYAZU5uUIBKPGd1UIBNYgUmSgopaUQEopMODHKyd084-zj81TyG4ohZGlY5ADc5BzcPCRa2iRY4FhYOUjy6tXUAASkBuQwu9aZB2OC-Vb71KTIFOjVJsgwg3wdeg-6dI1F0Bx19DjnRuR5MAAXwAukA
   - title: Express
     file: app-express.py
-    height: 200px
+    height: 200
     shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhCbqNG1WlQB9JUwC8TJVigBzOLpoAbJdIAUqjaa6oFZXRQAeZJ2AAVOF9lfCZQgFFyOSYfMlCJUIAJOBsbYiYAZU5uUIBKPGd1UIBNYgUmSgopaUQEopMODHKyd084-zj81TyG4ohZGlY5ADc5BzcPCRa2iRY4FhYOUjy6tXUAASkBuQwu9aZB2OC-Vb71KTIFOjVJsgwg3wdeg-6dI1F0Bx19DjnRuR5MAAXwAukA
 
 - id: relevant-functions
