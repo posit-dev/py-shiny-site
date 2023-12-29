@@ -30,7 +30,7 @@
 .component-list-header {
   display:flex;
   justify-content: space-between;
-  align-items: center; 
+  align-items: center;
   margin-bottom: 0px;
 /*  height: 30px;*/
 }
@@ -65,7 +65,7 @@ a .component-link-icon:after  {
   transition: all 0.3s !important;
 }
 
-a:hover .component-link-icon:after, 
+a:hover .component-link-icon:after,
 a.component-list-header-text:hover ~ div.component-list-icon p a i.component-link-icon:after {
   content: "\F133";
   font-family: "bootstrap-icons";
@@ -113,6 +113,16 @@ a.component-list-header-text:hover ~ div.component-list-icon p a i.component-lin
 }
 
 /* detail page styling */
+.app-preview .sourceCode {
+  padding: 0;
+  box-shadow: none;
+}
+
+.app-preview .shinylive-wrapper {
+  margin: 0;
+  padding: 1em;
+  background-color: var(--bs-body-bg);
+}
 
 .tab-content {
   margin-top: 0px;

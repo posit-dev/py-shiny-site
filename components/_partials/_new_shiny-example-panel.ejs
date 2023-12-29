@@ -2,6 +2,7 @@
 
 ## Preview
 
+:::{.app-preview}
 ```{shinylive-python}
 #| standalone: true
 #| components: [<%= apps[0].components ? apps[0].components.join(', ') : 'viewer' %>]
@@ -9,6 +10,7 @@
 
 <%= Deno.readTextFileSync((appDir || '') + apps[0].file) %>
 ```
+:::
 
 <% for (const app of apps) { %>
 ## <%= app.title %>
