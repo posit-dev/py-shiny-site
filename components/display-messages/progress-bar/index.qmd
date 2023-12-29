@@ -1,0 +1,92 @@
+---
+title: Progress Bar
+sidebar: components
+appPreview:
+  file: components/display-messages/progress-bar/app-preview.py
+listing:
+- id: example
+  template: ../../_partials/_new_component-example.ejs
+  template-params:
+    dir: components/display-messages/progress-bar/
+  contents:
+  - title: Core
+    file: app-core.py
+    height: 200px
+    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACKAZ2wkJuIB0IAgGaNiMFuwAWNCNhZ0GzFgEF0eFozhRCZGgDc46zRAAmcRuoCuNAQLSoA+tZYBeFtaxQA5nAdCANtYmABQCLOHuNBgyqJZkDtq6pA4ARnFkpKFgaWQZgvgsfGAAwmKxFEUAlHhhER7EceUOFAAeZFkk9HFwVTUQlbamcEIS5gaMwTFx6g1k5erscOzsvP2IteEAArPlGyybxmaMGK1kewdaOvpwGHAG5JMQ5Rg5eQMQEWyc3CxmI53lODBSrrD6fCIAdxoZEkkQwAAVRF5NMtgjAZC4AIzqGBQFpYgCslS+LFQoPBFNJGEW7Xgy28cBcRWKUH8hEs-igSQ+MlJSJR7CK6jMZCgNH8TLAABVpOwWLi5KKANZwNgsCHSfw3DAYKqDSngoRMeTyD6MKAQHzBbEsTFE8kGymYGmTHFLdgMyWlLq6S16sGO8FQCFi1gcLg8YjUrVwVDBAAMGEx7z2n00ZEsjA+RQAIqRVQC4jIvABCIqDeyuFToYL2Jw0BZjcyVMAAXwAukA
+  - title: Express
+    file: app-express.py
+    height: 200px
+    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACKAZ2wkJuIB0IAgGaNiMFuwAWNCNhZ0GzFgEF0eFozhRCZGgDc46zRAAmcRuoCuNAQLSoA+tZYBeFtaxQA5nAdCANtYmABQCLOHuNBgyqJZkDtq6pA4ARnFkpKFgaWQZgvgsfGAAwmKxFEUAlHhhER7EceUOFAAeZFkk9HFwVTUQlbamcEIS5gaMwTFx6g1k5erscOzsvP2IteEAArPlGyybxmaMGK1kewdaOvpwGHAG5JMQ5Rg5eQMQEWyc3CxmI53lODBSrrD6fCIAdxoZEkkQwAAVRF5NMtgjAZC4AIzqGBQFpYgCslS+LFQoPBFNJGEW7Xgy28cBcRWKUH8hEs-igSQ+MlJSJR7CK6jMZCgNH8TLAABVpOwWLi5KKANZwNgsCHSfw3DAYKqDSngoRMeTyD6MKAQHzBbEsTFE8kGymYGmTHFLdgMyWlLq6S16sGO8FQCFi1gcLg8YjUrVwVDBAAMGEx7z2n00ZEsjA+RQAIqRVQC4jIvABCIqDeyuFToYL2Jw0BZjcyVMAAXwAukA
+- id: relevant-functions
+  template: ../../_partials/_new_relevant-functions.ejs
+  template-params:
+    dir: components/display-messages/progress-bar/
+  contents:
+  - title: ui.Progress
+    href: https://shiny.posit.co/py/api/ui.Progress.html
+    signature: ui.Progress(self, min=0, max=1, session=None)
+  - title: ui.Progress.close
+    href: https://shiny.posit.co/py/api/ui.Progress.html
+    signature: ui.Progress.close(self)
+  - title: ui.Progress.inc
+    href: https://shiny.posit.co/py/api/ui.Progress.html
+    signature: ui.Progress.inc(self, amount=0.1, message=None, detail=None)
+  - title: ui.Progress.set
+    href: https://shiny.posit.co/py/api/ui.Progress.html
+    signature: ui.Progress.set(self, value=None, message=None, detail=None)
+---
+
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+With Shiny, you can display a progress bar while a computation runs by running the computation bar within a special computation manager. Here's how: 
+
+1. Use [`ui.Progress()`](https://shiny.posit.co/py/api/ui.Progress.html) to create a computation manager, and use `with` to run the computation within the manager. For example, you might set up a progress bar like this:
+
+```{.python}
+def compute():
+  with ui.Progress(min=1, max=15) as p:
+      #  computation
+```
+
+`ui.Progress()` creates a progress bar object that you can use to update the progress bar that is displayed during the computation.
+
+2. Set the minimum and maximum values of the progress bar when you call `ui.Progress()`. These provide the outer bounds for the progress to display. For example, in the code above, when the bar is at 1, it would appear empty. When it is at 8, it would appear half full. When it is at 15, it would appear complete.
+
+3. Update the progress bar object as the computation runs. Updating the object is simple: you can call its `set()` method to change the location of the progress bar, as well as the message it displays. For example the code below would update the progress bar above to half finished, and change the message that accompanies the bar to "Almost there!".
+
+```{.python}
+p.set(8, message="Almost there")
+```
+
+Finding opportunities to update the bar while the computation runs is more tricky. To have a responsive bar, you will need to interlace `set()` calls with the computation that runs. If the computation is a function from an external package, you may only be able to alert the user when the computation begins and when it finishes, which is unlikely to be satisfying:
+
+```{.python}
+async def compute():
+with ui.Progress(min=1, max=15) as p:
+    p.set(1, message="Here we go")
+    # computation()
+    p.set(15, message="Finished!")
+```
+
+If the computation involves separate functions run in sequence, you can update the progress bar after each function:
+
+```{.python}
+async def compute():
+with ui.Progress(min=1, max=15) as p:
+    p.set(1, message="Here we go")
+    # computation1()
+    p.set(5, message="Working hard")
+    # computation2()
+    p.set(10, message="Almost there")
+    # computation3()
+    p.set(15, message="Finished!")
+```
+
+If the computation is a function that you have written, you can write the function to accept a progress bar object to update as it runs.

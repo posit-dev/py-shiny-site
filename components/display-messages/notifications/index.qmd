@@ -1,0 +1,124 @@
+---
+title: Notifications / Help Text
+sidebar: components
+appPreview:
+  file: components/display-messages/notifications/app-preview.py
+listing:
+- id: example
+  template: ../../_partials/_new_component-example.ejs
+  template-params:
+    dir: components/display-messages/notifications/
+  contents:
+  - title: Core
+    file: app-core.py
+    height: 200px
+    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwdmIAdzV8JliAZTZopgA5YjkaDkIof00wAEo8DQKNDTs4GlY4OkU6B09vCWJvLzIJFjgWFg5SAsQyiFcmAAEpPwU4DABRGho4WWdXMelZSYw4RXIGiDaMSKjSodcKqp0HfqXhlwgDACYr65MIDI4snLydA6dj6+uaWIAFU4LCYUQ41msTDsHBY2mkdCYUBoFERIAgAF9qiQIHYWBhYhJHn8XHZlHRcr1bppftcjlp0IZROgHNo9BwOjU6gUwBiALpAA
+  - title: Express
+    file: app-express.py
+    height: 200px
+    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwdmIAdzV8JliAZTZopgA5YjkaDkIof00wAEo8DQKNDTs4GlY4OkU6B09vCWJvLzIJFjgWFg5SAsQyiFcmAAEpPwU4DABRGho4WWdXMelZSYw4RXIGiDaMSKjSodcKqp0HfqXhlwgDACYr65MIDI4snLydA6dj6+uaWIAFU4LCYUQ41msTDsHBY2mkdCYUBoFERIAgAF9qiQIHYWBhYhJHn8XHZlHRcr1bppftcjlp0IZROgHNo9BwOjU6gUwBiALpAA
+- id: relevant-functions
+  template: ../../_partials/_new_relevant-functions.ejs
+  template-params:
+    dir: components/display-messages/notifications/
+  contents:
+  - title: ui.notification_show
+    href: https://shiny.posit.co/py/api/ui.notification_show.html
+    signature: ui.notification_show(ui, *, action=None, duration=5, close_button=True,
+      id=None, type='default', session=None)
+  - title: ui.notification_remove
+    href: https://shiny.posit.co/py/api/ui.notification_remove.html
+    signature: ui.notification_remove(id, *, session=None)
+- id: variations
+  template: ../../_partials/_new_variations.ejs
+  template-params:
+    dir: components/display-messages/notifications/
+  contents:
+  - title: Warning notification
+    description: Set `type="warning"` to create a warning-colored notification.
+    apps:
+    - title: Core
+      file: app-variation-warning-notification-core.py
+      shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwdmIAdzV8JliAZTZopgB1KDoILjNYgEo8DVyNDTs4GlY4OkU6B09vCWJvLzIJFjgWFg5SXMRiiFcmAAEpPwU4DABRGho4WWdXYelZMYw4RXJaiGaMSKii-tdS8p0HHvmBlwgDACZzi5MIYjkaDkIofwgdXYcmAGIAHn+dwurhosQAKpwWEwohxrNYmHYOCxtNI6EwoDQKOiQBAAL4VEgQOwsDCxCQAoEHEEDOzKOjvLpXCAFak0lxkbCoOAGWJRDJZCA5MCU4GufZadCGUToBzaPQcVqVaq5MB4gC6QA
+    - title: Express
+      file: app-variation-warning-notification-express.py
+      shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwdmIAdzV8JliAZTZopgB1KDoILjNYgEo8DVyNDTs4GlY4OkU6B09vCWJvLzIJFjgWFg5SXMRiiFcmAAEpPwU4DABRGho4WWdXYelZMYw4RXJaiGaMSKii-tdS8p0HHvmBlwgDACZzi5MIYjkaDkIofwgdXYcmAGIAHn+dwurhosQAKpwWEwohxrNYmHYOCxtNI6EwoDQKOiQBAAL4VEgQOwsDCxCQAoEHEEDOzKOjvLpXCAFak0lxkbCoOAGWJRDJZCA5MCU4GufZadCGUToBzaPQcVqVaq5MB4gC6QA
+  - title: Error notification
+    description: Set `type="error"` to create an error-colored notification.
+    apps:
+    - title: Core
+      file: app-variation-error-notification-core.py
+      shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwdmIAdzV8JliAZTZopgBROgY6WIBKPA1sjQ07OBpWODpFOgdPbwliby8yCRY4FhYOUmzEQohXJgABKT8FOAxUmho4WWdXQelZEYw4RXJqiEaMSKiC3tdi0p0HLpm+lwgDACYT05MIYjkaDkIofwgdLadd09OaWIAVTgsJhRDjWaxMOwcFjaaR0JhQGgUOEgCAAXzKJAgdhYGFieS+3z2yjoLw65wg+MJpzI2FQcAMsXKmViTAAxAAednXPo7LToQyidAObR6DjNcqVbJgVEAXSAA
+    - title: Express
+      file: app-variation-error-notification-express.py
+      shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwdmIAdzV8JliAZTZopgBROgY6WIBKPA1sjQ07OBpWODpFOgdPbwliby8yCRY4FhYOUmzEQohXJgABKT8FOAxUmho4WWdXQelZEYw4RXJqiEaMSKiC3tdi0p0HLpm+lwgDACYT05MIYjkaDkIofwgdLadd09OaWIAVTgsJhRDjWaxMOwcFjaaR0JhQGgUOEgCAAXzKJAgdhYGFieS+3z2yjoLw65wg+MJpzI2FQcAMsXKmViTAAxAAednXPo7LToQyidAObR6DjNcqVbJgVEAXSAA
+  - title: Replace/update a notification
+    description: Assign a notification an `id` to replace any existing notification
+      with the same `id`.
+    apps:
+    - title: Core
+      file: app-variation-replace-update-a-notification-core.py
+      shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwdmIAdzV8JliAZTZopgA5YjkaDkIof00wAEo8DQKNDTs4GlY4OkU6B09vCWJvLzIJFjgWFg5SAsQyiFcmAAEpPwU4DABRGho4WWdXMelZSYw4RXIGiDaMSKjSodcKqp0HfqXhlxMIDI4snLydA6dj6+uaWIBNFqZCazZADWcDsTDIbDgTCSKWCZFCQxAjTI+2SUQuAF9wXwuhhYhIrh8Tso6LlehADOkIEpCUTeHYDLF4N1zHBYrTXEctOhDKJ0A5tHoOB0anUCmAMQBdIA
+    - title: Express
+      file: app-variation-replace-update-a-notification-express.py
+      shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwdmIAdzV8JliAZTZopgA5YjkaDkIof00wAEo8DQKNDTs4GlY4OkU6B09vCWJvLzIJFjgWFg5SAsQyiFcmAAEpPwU4DABRGho4WWdXMelZSYw4RXIGiDaMSKjSodcKqp0HfqXhlxMIDI4snLydA6dj6+uaWIBNFqZCazZADWcDsTDIbDgTCSKWCZFCQxAjTI+2SUQuAF9wXwuhhYhIrh8Tso6LlehADOkIEpCUTeHYDLF4N1zHBYrTXEctOhDKJ0A5tHoOB0anUCmAMQBdIA
+  - title: Track and remove notifications
+    description: Track notifications, and use `ui.notification_remove()` to remove
+      notifications one at a time.
+    apps:
+    - title: Core
+      file: app-variation-track-and-remove-notifications-core.py
+      shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwdmIAdzV8JliAZTZopgA5YjkaDkIof00wAEo8Z1cTT29fWQ4A4LJQiHCpGGJFWIlYgCU4ZsU0jI4snLzYoo0CjQ07OBpWODpFOgdysgliby8V2ZYWaogCxBKXDjsWRCZrDhYyYCu6AF1DJmA7w6YIM65hIwAGCYhXJgAASkfgUcAwAFEaDQ4LJXsDpFVFBg4IpyEsIBsMJEouN-q4pjMdA59q8ARBSNZiDlrLwTmTXBSIFSaW8GS4AMRMBJQXpkNhwJgASQAIkwaIJJN0WlBadZcnN2XTHiYKZlsrldjoceEALJwbbmQWxJgAalYZEWewkdmUdE1pAM6QgcDxAIBxxYGG0lEcxzd7pc-1NRgAjH8AQjQcioTC4fiXFGkeDUZQyBisU0Wq7XoSmMTSQn3UyWbK6SwlQNywci4GXKr+oMHRAdFnFEsTlhiKgSXitOhHmIe9o9BwJCw5gsCmAAL53IA
+    - title: Express
+      file: app-variation-track-and-remove-notifications-express.py
+      shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwdmIAdzV8JliAZTZopgA5YjkaDkIof00wAEo8Z1cTT29fWQ4A4LJQiHCpGGJFWIlYgCU4ZsU0jI4snLzYoo0CjQ07OBpWODpFOgdysgliby8V2ZYWaogCxBKXDjsWRCZrDhYyYCu6AF1DJmA7w6YIM65hIwAGCYhXJgAASkfgUcAwAFEaDQ4LJXsDpFVFBg4IpyEsIBsMJEouN-q4pjMdA59q8ARBSNZiDlrLwTmTXBSIFSaW8GS4AMRMBJQXpkNhwJgASQAIkwaIJJN0WlBadZcnN2XTHiYKZlsrldjoceEALJwbbmQWxJgAalYZEWewkdmUdE1pAM6QgcDxAIBxxYGG0lEcxzd7pc-1NRgAjH8AQjQcioTC4fiXFGkeDUZQyBisU0Wq7XoSmMTSQn3UyWbK6SwlQNywci4GXKr+oMHRAdFnFEsTlhiKgSXitOhHmIe9o9BwJCw5gsCmAAL53IA
+  - title: Help Text
+    description: '[`ui.help_text()`](https://shiny.posit.co/py/api/ui.help_text.html)
+      creates stylized help text which can be added to the user interface to provide
+      additional explanation or context. [Tooltips](tooltips.qmd) provides a similar,
+      but alternative way to display information to the user.'
+    apps:
+    - title: Core
+      file: app-variation-help-text-core.py
+      shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwdmIAdzV8JliAZTZopgA5YjkaDkIof00wAEo8Z1cTT29fWQ4A4LJQiHCpGGJFWIlYgCU4ZsU0jI4snLzYoo0CjQ07OBpWODpFOgdysgliby8V2ZYWaogCxBKXDjsWRCZrDhYyYCu6AF1DJmA7w6YIM65hIwAGCYhXJgAASkfgUcAwAFEaDQ4LJXsDpFVFBg4IpyEsIBsMJEouN-q4pjMdA59q8ARBSNZiDlrLwTmTXBSIFSaW8GS4AMRMBJQXpkNhwJgASQAIkwaIJJN0WlBadZcnN2XTHiYKZlsrldjoceEALJwbbmQWxJgAalYZEWewkdmUdE1pAM6QgcDxAIBxxYGG0lEcxzd7pc-1NRgAjH8AQjQcioTC4fiXFGkeDUZQyBisU0Wq7XoSmMTSQn3UyWbK6SwlQNywci4GXKr+oMHRAdFnFEsTlhiKgSXitOhHmIe9o9BwJCw5gsCmAAL53IA
+      height: 200px
+    - title: Express
+      file: app-variation-help-text-express.py
+      shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwdmIAdzV8JliAZTZopgA5YjkaDkIof00wAEo8Z1cTT29fWQ4A4LJQiHCpGGJFWIlYgCU4ZsU0jI4snLzYoo0CjQ07OBpWODpFOgdysgliby8V2ZYWaogCxBKXDjsWRCZrDhYyYCu6AF1DJmA7w6YIM65hIwAGCYhXJgAASkfgUcAwAFEaDQ4LJXsDpFVFBg4IpyEsIBsMJEouN-q4pjMdA59q8ARBSNZiDlrLwTmTXBSIFSaW8GS4AMRMBJQXpkNhwJgASQAIkwaIJJN0WlBadZcnN2XTHiYKZlsrldjoceEALJwbbmQWxJgAalYZEWewkdmUdE1pAM6QgcDxAIBxxYGG0lEcxzd7pc-1NRgAjH8AQjQcioTC4fiXFGkeDUZQyBisU0Wq7XoSmMTSQn3UyWbK6SwlQNywci4GXKr+oMHRAdFnFEsTlhiKgSXitOhHmIe9o9BwJCw5gsCmAAL53IA
+      height: 200px
+---
+
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A notification is a message that appears near the bottom corner of the app. Notifications normally disappear after a short period of time, and should multiple notifications appear together, they will stack on top of one another.
+
+To create a notification, call [`ui.notification_show()`](https://shiny.posit.co/py/api/ui.notification_show.html). Typically, you will want to create a reactive effect to call `ui.show_notification()` whenever a particular event occurs. For example, the reactive effect below will create a notification whenever the value of `input.show()` changes.
+
+```{.python}
+@reactive.Effect
+@reactive.event(input.show)
+def _():
+    ui.notification_show("You've been notified.")
+```
+
+You can call [`ui.notification_remove()`](https://shiny.posit.co/py/api/ui.notification_remove.html) to remove a notification programatically, but usually app developers will let notifications expire on their own. Also, notifications come by default with a button that the user can click to close the notification prematurely.
+
+## Duration
+
+By default, Shiny notifications will disappear after five seconds. To change how long a notification appears for, set the `duration` argument of `ui.notification_show()` to an integer number of seconds. Set `duration` to `None` to have the notification appear until the user closes it.
+
+## Type
+
+Shiny notifications come in three types: messages, warnings and errors. To set the type of a notification, use the `type` argument of `ui.notification_show()`.
+
+See Also: Modal messages](modal.qmd) provide a similar, but alternative way to display information to the user.
+
+:::{#variations}
+:::

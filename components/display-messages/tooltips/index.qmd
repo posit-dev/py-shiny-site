@@ -1,96 +1,56 @@
 ---
-title: "Tooltips"
-sidebar: components 
-previewapp: |
-  from shiny import App, render, ui
-
-  app_ui = ui.page_fluid(
-    ui.tooltip(
-        ui.input_action_button("btn", "A button with a tooltip"),
-        "A message",
-        id="btn_tooltip"
-    ),
-      ui.output_text_verbatim("text"),
-      {"class": "vh-100 d-flex justify-content-center align-items-center px-4"}
-  )
-
-  def server(input, output, session):
-    @render.text
-    def text():
-        return ""
-
-  app = App(app_ui, server)
+title: Tooltips
+sidebar: components
+appPreview:
+  file: components/display-messages/tooltips/app-preview.py
 listing:
-  - id: component
-    template: ../_partials/components-detail.ejs
-    contents:
-      - title: Tooltips
-        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYGOGMsWIWyHVHYgPfjjFyoCmSaUIQepJoARsEuEHZgUWRq+EzKYCJMMWRxTADuHGRsTFBMLm4eqOkAlHj2fmkZTPAsLCZw6XU+DRzSuulJEJrl7p6d9X6oFmFw8OT9YHQcxmxk6fW1E-7EwUEhFAAeIQBuclFQHjAJh2tg1ar3ahCyNKxyp3Q2gcESO2R7EhYcFaHFI1UQ9QAAlJnnJnHAjvUXmUEWQbOCtg4pGQFHQfN8yBhBsNXKMvI91Og9KJ0DYNNoOID3nJqmAAL4AXSAA
-        height: 200px
-        code: |
-          from shiny import App, render, ui
-          
-          app_ui = ui.page_fluid(
-            ui.tooltip( #<<
-                ui.input_action_button("btn", "A button with a tooltip"),
-                "A message", #<<
-                id="btn_tooltip", #<<
-                placement="right" #<<
-            ),
-              ui.output_text_verbatim("text")
-          )
-          
-          def server(input, output, session):
-            @render.text
-            def text():
-                return input.btn_tooltip() #<<
-          
-          app = App(app_ui, server)
-
-        relevantfunctions:
-          - title: ui.tooltip
-            href: https://shiny.posit.co/py/api/ui.tooltip.html
-            signature: ui.tooltip(trigger, *args, id=None, placement='auto', options=None, **kwargs)
-          - title: ui.update_tooltip
-            href: https://shiny.posit.co/py/api/ui.update_tooltip.html
-            signature: ui.update_tooltip(id, *args, show=None, session=None)
-  - id: variations
-    template: ../_partials/components-variations.ejs
-    contents:
-      variations:
-        - title: Update a tooltip message
-          description: Call `ui.update_tooltip()` to update the message of a tooltip with a given id.
-          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDU2McMZYsWtzUTiC4DXDC5UZTIdGTlSHQAjMI8IJzAYsk18JjUwESY4sgSmAHcOMjYmKCYPLx9MgEo8Z0CMrKZ4FhZzOEz6-0aOOwNMlIgdSu8OVC6GwNRrGTh4cgGwOg4zNjJMhrqGkzJzFgwYugdtnt39w+PTlxMQsIjZDmjchKShvVQ7KAoupoBVT7fOAVTxjVAtOBtDq1DQ1DQaOxwGisOB0RTHO5kCTEMKhLEotpPCA1RBTJgAASkkQUcAwAFEaDQ4LIyZTpI9FBg4IpyA5MYdUh8vhQ4T0XIjkToTqSxY0SORKMIjH5GqqmtlMkwANRNJoYABWxC4DmAmQAcnSAOqamiCJg6Xj+OhQCAWPkQPEC4bKQEUE41AC6NW1uta7Qsm1lgVFZMCJh9wssox8b0FyfGv3lFHIEnYxAKBgAKnRlHAY9B0IZROgHNo9Bxc6j0TUwABfANAA
-          code: |
-            from shiny import App, reactive, ui
-
-            app_ui = ui.page_fluid(
-              ui.tooltip(
-                  ui.input_action_button("btn", "A button with a tooltip"),
-                  "A message",
-                  id="btn_tooltip",
-                  placement="right"
-              ),
-              ui.tags.br(),
-              ui.tags.br(),
-              ui.input_action_button("btn_update", "Update tooltip message")
-            )
-            
-            def server(input, output, session):
-                @reactive.Effect
-                @reactive.event(input.btn_update)
-                def _():
-                    content = (
-                        "A " + " ".join(["NEW" for _ in range(input.btn_update())])+ " message"
-                    )
-            
-                    ui.update_tooltip("btn_tooltip", content, show=True) #<<
-            
-            app = App(app_ui, server)
-      
+- id: example
+  template: ../../_partials/_new_component-example.ejs
+  template-params:
+    dir: components/display-messages/tooltips/
+  contents:
+  - title: Core
+    file: app-core.py
+    height: 200px
+    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYGOGMsWIWyHVHYgPfjjFyoCmSaUIQepJoARsEuEHZgUWRq+EzKYCJMMWRxTADuHGRsTFBMLm4eqOkAlHj2fmkZTPAsLCZw6XU+DRzSuulJEJrl7p6d9X6oFmFw8OT9YHQcxmxk6fW1E-7EwUEhFAAeIQBuclFQHjAJh2tg1ar3ahCyNKxyp3Q2gcESO2R7EhYcFaHFI1UQ9QAAlJnnJnHAjvUXmUEWQbOCtg4pGQFHQfN8yBhBsNXKMvI91Og9KJ0DYNNoOID3nJqmAAL4AXSAA
+  - title: Express
+    file: app-express.py
+    height: 200px
+    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYGOGMsWIWyHVHYgPfjjFyoCmSaUIQepJoARsEuEHZgUWRq+EzKYCJMMWRxTADuHGRsTFBMLm4eqOkAlHj2fmkZTPAsLCZw6XU+DRzSuulJEJrl7p6d9X6oFmFw8OT9YHQcxmxk6fW1E-7EwUEhFAAeIQBuclFQHjAJh2tg1ar3ahCyNKxyp3Q2gcESO2R7EhYcFaHFI1UQ9QAAlJnnJnHAjvUXmUEWQbOCtg4pGQFHQfN8yBhBsNXKMvI91Og9KJ0DYNNoOID3nJqmAAL4AXSAA
+- id: relevant-functions
+  template: ../../_partials/_new_relevant-functions.ejs
+  template-params:
+    dir: components/display-messages/tooltips/
+  contents:
+  - title: ui.tooltip
+    href: https://shiny.posit.co/py/api/ui.tooltip.html
+    signature: ui.tooltip(trigger, *args, id=None, placement='auto', options=None,
+      **kwargs)
+  - title: ui.update_tooltip
+    href: https://shiny.posit.co/py/api/ui.update_tooltip.html
+    signature: ui.update_tooltip(id, *args, show=None, session=None)
+- id: variations
+  template: ../../_partials/_new_variations.ejs
+  template-params:
+    dir: components/display-messages/tooltips/
+  contents:
+  - title: Update a tooltip message
+    description: Call `ui.update_tooltip()` to update the message of a tooltip with
+      a given id.
+    apps:
+    - title: Core
+      file: app-variation-update-a-tooltip-message-core.py
+      shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDU2McMZYsWtzUTiC4DXDC5UZTIdGTlSHQAjMI8IJzAYsk18JjUwESY4sgSmAHcOMjYmKCYPLx9MgEo8Z0CMrKZ4FhZzOEz6-0aOOwNMlIgdSu8OVC6GwNRrGTh4cgGwOg4zNjJMhrqGkzJzFgwYugdtnt39w+PTlxMQsIjZDmjchKShvVQ7KAoupoBVT7fOAVTxjVAtOBtDq1DQ1DQaOxwGisOB0RTHO5kCTEMKhLEotpPCA1RBTJgAASkkQUcAwAFEaDQ4LIyZTpI9FBg4IpyA5MYdUh8vhQ4T0XIjkToTqSxY0SORKMIjH5GqqmtlMkwANRNJoYABWxC4DmAmQAcnSAOqamiCJg6Xj+OhQCAWPkQPEC4bKQEUE41AC6NW1uta7Qsm1lgVFZMCJh9wssox8b0FyfGv3lFHIEnYxAKBgAKnRlHAY9B0IZROgHNo9Bxc6j0TUwABfANAA
+    - title: Express
+      file: app-variation-update-a-tooltip-message-express.py
+      shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDU2McMZYsWtzUTiC4DXDC5UZTIdGTlSHQAjMI8IJzAYsk18JjUwESY4sgSmAHcOMjYmKCYPLx9MgEo8Z0CMrKZ4FhZzOEz6-0aOOwNMlIgdSu8OVC6GwNRrGTh4cgGwOg4zNjJMhrqGkzJzFgwYugdtnt39w+PTlxMQsIjZDmjchKShvVQ7KAoupoBVT7fOAVTxjVAtOBtDq1DQ1DQaOxwGisOB0RTHO5kCTEMKhLEotpPCA1RBTJgAASkkQUcAwAFEaDQ4LIyZTpI9FBg4IpyA5MYdUh8vhQ4T0XIjkToTqSxY0SORKMIjH5GqqmtlMkwANRNJoYABWxC4DmAmQAcnSAOqamiCJg6Xj+OhQCAWPkQPEC4bKQEUE41AC6NW1uta7Qsm1lgVFZMCJh9wssox8b0FyfGv3lFHIEnYxAKBgAKnRlHAY9B0IZROgHNo9Bxc6j0TUwABfANAA
 ---
 
-:::{#component}
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
 :::
 
 ## Details
