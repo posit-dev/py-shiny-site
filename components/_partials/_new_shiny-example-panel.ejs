@@ -1,4 +1,4 @@
-::: {.panel-tabset group="shiny-app-mode"}
+::: {.panel-tabset}
 
 ## Preview
 
@@ -12,11 +12,15 @@
 ```
 :::
 
+## Code
+
+::: {.panel-tabset .shiny-mode-tabset group="shiny-app-mode"}
+
 <% for (const app of apps) { %>
 ## <%= app.title %>
 
 ::: {.code-with-shinylive-link}
-```{.python .code-overflow-scroll filename="<%= app.filename || 'app.py' %>" }
+```{.python .code-overflow-scroll}
 <%= Deno.readTextFileSync((appDir || '') + app.file) %>
 ```
 
@@ -30,5 +34,7 @@
 :::
 
 <% } %>
+
+:::
 
 :::

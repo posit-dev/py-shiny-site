@@ -151,7 +151,7 @@ div.sourceCode > pre.sourceCode {
 
 .code-with-shinylive-link .edit-shinylive-button {
   position: absolute;
-  top: 2em;
+  top: 0.35em;
   right: 2.5em;
   --bs-btn-color: rgb(94, 94, 94);
   --bs-btn-padding-x: 0;
@@ -254,4 +254,39 @@ a.nav-link:hover {
 .iframe-border {
   border: 1px solid #E9ECEF;
   border-radius: 10px;
+}
+
+/* Shiny App Mode Tabset (Express/Core) */
+
+.shiny-mode-tabset > .nav-tabs {
+  padding-inline-start: 0.5rem;
+  border-start-end-radius: 0.5rem;
+  border-start-start-radius: 0.5rem;
+  border-bottom: 2px solid var(--bs-blue);
+  justify-content: flex-start !important;
+}
+
+.shiny-mode-tabset > .nav-tabs,
+.shiny-mode-tabset > .nav-tabs > .nav-item > .nav-link,
+.shiny-mode-tabset > .nav-tabs > .nav-item > .nav-link.active {
+  background-color: var(--bs-blue);
+  color: var(--bs-white);
+}
+
+.shiny-mode-tabset > .nav-tabs > .nav-item > .nav-link:hover {
+  border-bottom-color: transparent !important;
+}
+
+.shiny-mode-tabset > .nav-tabs > .nav-item > .nav-link.active {
+  border-bottom-color: var(--bs-white) !important;
+}
+
+.shiny-mode-tabset > .tab-content {
+  padding-top: 0;
+}
+
+.shiny-mode-tabset > .tab-content .sourceCode {
+  border-start-start-radius: 0;
+  border-start-end-radius: 0;
+  border-block-start-width: 0;
 }
