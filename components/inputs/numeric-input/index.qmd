@@ -9,12 +9,12 @@ listing:
   template-params:
     dir: components/inputs/numeric-input/
   contents:
-  - title: Core
-    file: app-core.py
-    height: 200
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOtHQB9JUwC8TJVigBzOOpoAbJdIAUqpnb0cMXVArLqIC+HQ6EbkT3I+yvhMwcESAIwSMFzaUUwwUAAecQAMAJQYUNLS6oRmUCwsfqhkALQArAlJZVCuxEwUSeWElBR0wel4tvb6xK4ubk1uAG5yAEZQZHx+I1AWcJ3dEPZMIMH5hSzBiKFgI2xlEampTABWCizTNNhlJORtd21yTPMchhBlHBQwLE8PdCYqBqFWCAF9VJlsrlNkU-DBbnUyA1hv92p1VLIaKw5GM6FZnK4JP0yIMJCw4EUOKR0ogenYAAJSCCyOgYYb0phYphzBZWWmc1ZSMgKOgrQlkDAeLw+fmqNCoHSidBWBWaDjk3FydJgMEAXSAA
   - title: Express
     file: app-express.py
+    height: 200
+    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOtHQB9JUwC8TJVigBzOOpoAbJdIAUqpnb0cMXVArLqIC+HQ6EbkT3I+yvhMwcESAIwSMFzaUUwwUAAecQAMAJQYUNLS6oRmUCwsfqhkALQArAlJZVCuxEwUSeWElBR0wel4tvb6xK4ubk1uAG5yAEZQZHx+I1AWcJ3dEPZMIMH5hSzBiKFgI2xlEampTABWCizTNNhlJORtd21yTPMchhBlHBQwLE8PdCYqBqFWCAF9VJlsrlNkU-DBbnUyA1hv92p1VLIaKw5GM6FZnK4JP0yIMJCw4EUOKR0ogenYAAJSCCyOgYYb0phYphzBZWWmc1ZSMgKOgrQlkDAeLw+fmqNCoHSidBWBWaDjk3FydJgMEAXSAA
+  - title: Core
+    file: app-core.py
     height: 200
     shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOtHQB9JUwC8TJVigBzOOpoAbJdIAUqpnb0cMXVArLqIC+HQ6EbkT3I+yvhMwcESAIwSMFzaUUwwUAAecQAMAJQYUNLS6oRmUCwsfqhkALQArAlJZVCuxEwUSeWElBR0wel4tvb6xK4ubk1uAG5yAEZQZHx+I1AWcJ3dEPZMIMH5hSzBiKFgI2xlEampTABWCizTNNhlJORtd21yTPMchhBlHBQwLE8PdCYqBqFWCAF9VJlsrlNkU-DBbnUyA1hv92p1VLIaKw5GM6FZnK4JP0yIMJCw4EUOKR0ogenYAAJSCCyOgYYb0phYphzBZWWmc1ZSMgKOgrQlkDAeLw+fmqNCoHSidBWBWaDjk3FydJgMEAXSAA
 - id: relevant-functions

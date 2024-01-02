@@ -9,12 +9,12 @@ listing:
   template-params:
     dir: components/inputs/radio-buttons/
   contents:
-  - title: Core
-    file: app-core.py
-    height: 200
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOtHQB9JUwC8TJVigBzOOpoAbJdIAUqpnb0cMXVArLq6UaR2LqARq7JSFismW3tw5TAPL2JIiTDwu0iAJU9vJn8yQIgWONCIRPsQSIBGSMRQsAB5VDJvArL8SoAmcsqautImVqbIgGY2yI76pgGwAF94gvsASinw-WJXFzclGzAANygLOEi5hKZiojMoFlykSo22AFoSgAY7pmlr8zgADyZtjkMIa44KGAsa6ESgUOhMVBva4AFki41UM1UshorDkGzkVmcrgkSzIKwkLDgZ3qM0QBwAAlIILI6BglAdkUwtjsrKSDuEpGQFHQCliyBhot5Wao0KgdKJ0FZRZoOAS0XJERBVKoJgBdIA
   - title: Express
     file: app-express.py
+    height: 200
+    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOtHQB9JUwC8TJVigBzOOpoAbJdIAUqpnb0cMXVArLq6UaR2LqARq7JSFismW3tw5TAPL2JIiTDwu0iAJU9vJn8yQIgWONCIRPsQSIBGSMRQsAB5VDJvArL8SoAmcsqautImVqbIgGY2yI76pgGwAF94gvsASinw-WJXFzclGzAANygLOEi5hKZiojMoFlykSo22AFoSgAY7pmlr8zgADyZtjkMIa44KGAsa6ESgUOhMVBva4AFki41UM1UshorDkGzkVmcrgkSzIKwkLDgZ3qM0QBwAAlIILI6BglAdkUwtjsrKSDuEpGQFHQCliyBhot5Wao0KgdKJ0FZRZoOAS0XJERBVKoJgBdIA
+  - title: Core
+    file: app-core.py
     height: 200
     shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOtHQB9JUwC8TJVigBzOOpoAbJdIAUqpnb0cMXVArLq6UaR2LqARq7JSFismW3tw5TAPL2JIiTDwu0iAJU9vJn8yQIgWONCIRPsQSIBGSMRQsAB5VDJvArL8SoAmcsqautImVqbIgGY2yI76pgGwAF94gvsASinw-WJXFzclGzAANygLOEi5hKZiojMoFlykSo22AFoSgAY7pmlr8zgADyZtjkMIa44KGAsa6ESgUOhMVBva4AFki41UM1UshorDkGzkVmcrgkSzIKwkLDgZ3qM0QBwAAlIILI6BglAdkUwtjsrKSDuEpGQFHQCliyBhot5Wao0KgdKJ0FZRZoOAS0XJERBVKoJgBdIA
 - id: relevant-functions

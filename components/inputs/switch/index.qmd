@@ -9,12 +9,12 @@ listing:
   template-params:
     dir: components/inputs/switch/
   contents:
-  - title: Core
-    file: app-core.py
-    height: 200
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNLAO4cyhNnbAvHz9lfCZQgGVvXzZQiQAVOhE4AEo8e0cxDGI3V3cxAIA3KCs4ULTVFIwoaWlNQgsoFhYA1ABaAFZy1VVZGlY5QrkbFzcJHLI8iRY4Zo5SFMQMhwABCbzlphWpCFk6DDFNvqZi0ptFzcdJODIROgheCDyMIJjznuh0PSYlVBsNbTiAZ0IZ0FJgAC+AF0gA
   - title: Express
     file: app-express.py
+    height: 200
+    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNLAO4cyhNnbAvHz9lfCZQgGVvXzZQiQAVOhE4AEo8e0cxDGI3V3cxAIA3KCs4ULTVFIwoaWlNQgsoFhYA1ABaAFZy1VVZGlY5QrkbFzcJHLI8iRY4Zo5SFMQMhwABCbzlphWpCFk6DDFNvqZi0ptFzcdJODIROgheCDyMIJjznuh0PSYlVBsNbTiAZ0IZ0FJgAC+AF0gA
+  - title: Core
+    file: app-core.py
     height: 200
     shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNLAO4cyhNnbAvHz9lfCZQgGVvXzZQiQAVOhE4AEo8e0cxDGI3V3cxAIA3KCs4ULTVFIwoaWlNQgsoFhYA1ABaAFZy1VVZGlY5QrkbFzcJHLI8iRY4Zo5SFMQMhwABCbzlphWpCFk6DDFNvqZi0ptFzcdJODIROgheCDyMIJjznuh0PSYlVBsNbTiAZ0IZ0FJgAC+AF0gA
 - id: relevant-functions

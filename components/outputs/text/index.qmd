@@ -11,12 +11,12 @@ listing:
   template-params:
     dir: components/outputs/text/
   contents:
-  - title: Core
-    file: app-core.py
-    height: 200
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhCbqNG1WlQB9JUwC8TJVigBzOLpoAbJdIAUqjaa6oFZXRQAeZJ2AAVOF9lfCZQgFFyOSYfMlCJUIAJOBsbYiYAZU5uUIBKPGd1UIBNYgUmSgopaUQEopMODHKyd084-zj81TyG4ohZGlY5ADc5BzcPCRa2iRY4FhYOUjy6tXUAASkBuQwu9aZB2OC-Vb71KTIFOjVJsgwg3wdeg-6dI1F0Bx19DjnRuR5MAAXwAukA
   - title: Express
     file: app-express.py
+    height: 200
+    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhCbqNG1WlQB9JUwC8TJVigBzOLpoAbJdIAUqjaa6oFZXRQAeZJ2AAVOF9lfCZQgFFyOSYfMlCJUIAJOBsbYiYAZU5uUIBKPGd1UIBNYgUmSgopaUQEopMODHKyd084-zj81TyG4ohZGlY5ADc5BzcPCRa2iRY4FhYOUjy6tXUAASkBuQwu9aZB2OC-Vb71KTIFOjVJsgwg3wdeg-6dI1F0Bx19DjnRuR5MAAXwAukA
+  - title: Core
+    file: app-core.py
     height: 200
     shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhCbqNG1WlQB9JUwC8TJVigBzOLpoAbJdIAUqjaa6oFZXRQAeZJ2AAVOF9lfCZQgFFyOSYfMlCJUIAJOBsbYiYAZU5uUIBKPGd1UIBNYgUmSgopaUQEopMODHKyd084-zj81TyG4ohZGlY5ADc5BzcPCRa2iRY4FhYOUjy6tXUAASkBuQwu9aZB2OC-Vb71KTIFOjVJsgwg3wdeg-6dI1F0Bx19DjnRuR5MAAXwAukA
 
@@ -41,11 +41,11 @@ listing:
     description: Set `inline=True` within `ui.output_text()` to have text appear inline
       with the text that preceeds it.
     apps:
-    - title: Core
-      file: app-variation-inline-text-core.py
-      shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymigA8ydsABU4H2V8JhCAUXI5Jm8yEIkQgAk4CwtiJgBlTm4QgEo8e0cQgE1iBSZKCilpRDDQwzKyNw9Yv1j43ggLLjg9Jn86BThc1RGIRwmwiFkaVjkANzkbV3cJRuaJFjgWFg5SXMRChwABKWm5DHbxxxmYoN8Do8mpMgU6cZWyDECfGzH1dB9MSoGwabQcTYLOS5MAAXwAukA
     - title: Express
       file: app-variation-inline-text-express.py
+      shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymigA8ydsABU4H2V8JhCAUXI5Jm8yEIkQgAk4CwtiJgBlTm4QgEo8e0cQgE1iBSZKCilpRDDQwzKyNw9Yv1j43ggLLjg9Jn86BThc1RGIRwmwiFkaVjkANzkbV3cJRuaJFjgWFg5SXMRChwABKWm5DHbxxxmYoN8Do8mpMgU6cZWyDECfGzH1dB9MSoGwabQcTYLOS5MAAXwAukA
+    - title: Core
+      file: app-variation-inline-text-core.py
       shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymigA8ydsABU4H2V8JhCAUXI5Jm8yEIkQgAk4CwtiJgBlTm4QgEo8e0cQgE1iBSZKCilpRDDQwzKyNw9Yv1j43ggLLjg9Jn86BThc1RGIRwmwiFkaVjkANzkbV3cJRuaJFjgWFg5SXMRChwABKWm5DHbxxxmYoN8Do8mpMgU6cZWyDECfGzH1dB9MSoGwabQcTYLOS5MAAXwAukA
 ---
 

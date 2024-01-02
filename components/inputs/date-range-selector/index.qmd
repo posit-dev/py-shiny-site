@@ -1,20 +1,22 @@
 ---
 title: Date Range Selector
 sidebar: components
+
 appPreview:
   file: components/inputs/date-range-selector/app-preview.py
+
 listing:
 - id: example
   template: ../../_partials/_new_component-example.ejs
   template-params:
     dir: components/inputs/date-range-selector/
   contents:
-  - title: Core
-    file: app-core.py
-    height: 380
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAEygrIEt4nvVi6ZVuzgAdCOPqMmAZwAWnCNl4x+gpgEF0eJnUos4dHQFdO48WlQB9U0wC8TU1igBzOFZoAbUywAU4pkDHTgxFVGMyKzYKKzooCDd-MGjDeLdRfCYMjJ0ZMihBOwyAJgAGMoBaUoBGKuqMgEoMKBYWK0JPKBkZJNQyCoBWJhgADwqoCOImChH+wkoKOka8AKCnYgjwyJmyJIA3KG8xMAaViCCLphAMjq6ZDMQssD25CurS0qYAK2M8zhpsBUSOQFkCFoYmIdOC4IBVOBQYDIwSC6ExUGMBhkAL7iJotNq3bpJGCAiZkKY7ZGLRrmCQQAw0WSGPaGXxhCI6DZkLa5ODdTikBqIVaBAACXK2IqYor09MMGB2UoZTAOR18QqlFz0ZGMdHONAyIHZZAwKTiCTg6uApQAuljplMjRAtqaRObEg1gNU7dk6RZ0PZNOhfJYbJxeXQWXQGmAsTagA
   - title: Express
     file: app-express.py
+    height: 380
+    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAEygrIEt4nvVi6ZVuzgAdCOPqMmAZwAWnCNl4x+gpgEF0eJnUos4dHQFdO48WlQB9U0wC8TU1igBzOFZoAbUywAU4pkDHTgxFVGMyKzYKKzooCDd-MGjDeLdRfCYMjJ0ZMihBOwyAJgAGMoBaUoBGKuqMgEoMKBYWK0JPKBkZJNQyCoBWJhgADwqoCOImChH+wkoKOka8AKCnYgjwyJmyJIA3KG8xMAaViCCLphAMjq6ZDMQssD25CurS0qYAK2M8zhpsBUSOQFkCFoYmIdOC4IBVOBQYDIwSC6ExUGMBhkAL7iJotNq3bpJGCAiZkKY7ZGLRrmCQQAw0WSGPaGXxhCI6DZkLa5ODdTikBqIVaBAACXK2IqYor09MMGB2UoZTAOR18QqlFz0ZGMdHONAyIHZZAwKTiCTg6uApQAuljplMjRAtqaRObEg1gNU7dk6RZ0PZNOhfJYbJxeXQWXQGmAsTagA
+  - title: Core
+    file: app-core.py
     height: 380
     shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAEygrIEt4nvVi6ZVuzgAdCOPqMmAZwAWnCNl4x+gpgEF0eJnUos4dHQFdO48WlQB9U0wC8TU1igBzOFZoAbUywAU4pkDHTgxFVGMyKzYKKzooCDd-MGjDeLdRfCYMjJ0ZMihBOwyAJgAGMoBaUoBGKuqMgEoMKBYWK0JPKBkZJNQyCoBWJhgADwqoCOImChH+wkoKOka8AKCnYgjwyJmyJIA3KG8xMAaViCCLphAMjq6ZDMQssD25CurS0qYAK2M8zhpsBUSOQFkCFoYmIdOC4IBVOBQYDIwSC6ExUGMBhkAL7iJotNq3bpJGCAiZkKY7ZGLRrmCQQAw0WSGPaGXxhCI6DZkLa5ODdTikBqIVaBAACXK2IqYor09MMGB2UoZTAOR18QqlFz0ZGMdHONAyIHZZAwKTiCTg6uApQAuljplMjRAtqaRObEg1gNU7dk6RZ0PZNOhfJYbJxeXQWXQGmAsTagA
 - id: relevant-functions

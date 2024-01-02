@@ -11,12 +11,12 @@ listing:
   template-params:
     dir: components/outputs/verbatim-text/
   contents:
-  - title: Core
-    file: app-core.py
-    height: 200
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymigA8ydsABU4H2V8JhCAUXI5Jm8yEIkQgAk4CwtiJgBlTm4QgEo8e0dDYnc3D1jNADc5ACMoMj4-WLymAGIAHnbVXNVVWRpWOWq6G1d3CRKyMokWOBYWDlJcxEKHAAEpCFk6DFi2ztWmfpig32XDx0k4MgU6CF4IMoxAnxsetWh0PVF0Gw1tDgzIZyXJgAC+AF0gA
   - title: Express
     file: app-express.py
+    height: 200
+    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymigA8ydsABU4H2V8JhCAUXI5Jm8yEIkQgAk4CwtiJgBlTm4QgEo8e0dDYnc3D1jNADc5ACMoMj4-WLymAGIAHnbVXNVVWRpWOWq6G1d3CRKyMokWOBYWDlJcxEKHAAEpCFk6DFi2ztWmfpig32XDx0k4MgU6CF4IMoxAnxsetWh0PVF0Gw1tDgzIZyXJgAC+AF0gA
+  - title: Core
+    file: app-core.py
     height: 200
     shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymigA8ydsABU4H2V8JhCAUXI5Jm8yEIkQgAk4CwtiJgBlTm4QgEo8e0dDYnc3D1jNADc5ACMoMj4-WLymAGIAHnbVXNVVWRpWOWq6G1d3CRKyMokWOBYWDlJcxEKHAAEpCFk6DFi2ztWmfpig32XDx0k4MgU6CF4IMoxAnxsetWh0PVF0Gw1tDgzIZyXJgAC+AF0gA
 
@@ -41,11 +41,11 @@ listing:
     description: Verbatim text with a placeholder when the string to display is empty
       (see Details above).
     apps:
-    - title: Core
-      file: app-variation-placeholder-rectangle-when-string-is-empty-core.py
-      shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymigA8ydsABU4H2V8JhCAUXI5JkDg0JCQgEo8e0dDYnc3D28PADc5ACMoMj4-HJCJVAsoQjg2YgtZOj0YugU4RKYAYgAeHtVE1VVZGlY5fLobV3cJDLIsiRY4FhYOUkTEVIcAASkIJoxyiEcmEaYcmw2tk8k4MgU6Y+myDFjfQbVodBaxVBsNbQcRbjOSJMAAXwAukA
     - title: Express
       file: app-variation-placeholder-rectangle-when-string-is-empty-express.py
+      shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymigA8ydsABU4H2V8JhCAUXI5JkDg0JCQgEo8e0dDYnc3D28PADc5ACMoMj4-HJCJVAsoQjg2YgtZOj0YugU4RKYAYgAeHtVE1VVZGlY5fLobV3cJDLIsiRY4FhYOUkTEVIcAASkIJoxyiEcmEaYcmw2tk8k4MgU6Y+myDFjfQbVodBaxVBsNbQcRbjOSJMAAXwAukA
+    - title: Core
+      file: app-variation-placeholder-rectangle-when-string-is-empty-core.py
       shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymigA8ydsABU4H2V8JhCAUXI5JkDg0JCQgEo8e0dDYnc3D28PADc5ACMoMj4-HJCJVAsoQjg2YgtZOj0YugU4RKYAYgAeHtVE1VVZGlY5fLobV3cJDLIsiRY4FhYOUkTEVIcAASkIJoxyiEcmEaYcmw2tk8k4MgU6Y+myDFjfQbVodBaxVBsNbQcRbjOSJMAAXwAukA
 ---
 

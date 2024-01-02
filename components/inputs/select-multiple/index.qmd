@@ -9,12 +9,12 @@ listing:
   template-params:
     dir: components/inputs/select-multiple/
   contents:
-  - title: Core
-    file: app-core.py
-    height: 200
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZG0wAxAA8wfaOEcpgXj5+URIhYRARkWAAyt6+wsSoZBykLEwARt7EAO6I8UGh4SlMIFEAjCJRiExRAMJsxByEcEzNVU0AQq3tYF09fQOj+OONHWOd3b39C1EAvgk1yXVMMAoWeag+ugAqdAr9ibVMAJTbSRGGxO5uHhQAHv5RAG5QVjgUQeqjuqlUshorDkvzkNlc7gkrzI7wkXhYLHyEDulV2DgAAlIILI6BgvmRbpCmP9ATYcbcIlIyAo6MkaFEQAiyBgYlk6RsouDoOg9KJ0DYNNoOGiYXI7mANgBdIA
   - title: Express
     file: app-express.py
+    height: 200
+    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZG0wAxAA8wfaOEcpgXj5+URIhYRARkWAAyt6+wsSoZBykLEwARt7EAO6I8UGh4SlMIFEAjCJRiExRAMJsxByEcEzNVU0AQq3tYF09fQOj+OONHWOd3b39C1EAvgk1yXVMMAoWeag+ugAqdAr9ibVMAJTbSRGGxO5uHhQAHv5RAG5QVjgUQeqjuqlUshorDkvzkNlc7gkrzI7wkXhYLHyEDulV2DgAAlIILI6BgvmRbpCmP9ATYcbcIlIyAo6MkaFEQAiyBgYlk6RsouDoOg9KJ0DYNNoOGiYXI7mANgBdIA
+  - title: Core
+    file: app-core.py
     height: 200
     shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZG0wAxAA8wfaOEcpgXj5+URIhYRARkWAAyt6+wsSoZBykLEwARt7EAO6I8UGh4SlMIFEAjCJRiExRAMJsxByEcEzNVU0AQq3tYF09fQOj+OONHWOd3b39C1EAvgk1yXVMMAoWeag+ugAqdAr9ibVMAJTbSRGGxO5uHhQAHv5RAG5QVjgUQeqjuqlUshorDkvzkNlc7gkrzI7wkXhYLHyEDulV2DgAAlIILI6BgvmRbpCmP9ATYcbcIlIyAo6MkaFEQAiyBgYlk6RsouDoOg9KJ0DYNNoOGiYXI7mANgBdIA
 - id: relevant-functions
@@ -36,11 +36,11 @@ listing:
       with a dictionary of dictionaries. `ui.input_select()` will use the top-level
       keys as group labels.
     apps:
-    - title: Core
-      file: app-variation-select-list-with-grouped-choices-core.py
-      shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZG0wAxAA8wfaOEcpgXj5+URIhYRARkWAAyt6+wsSoZBykLEwARt7EAO6I8UGh4SlMINVJdXVRAIxRiPVtIh1MUQDCbMQchHBMrT34fWCtAEK9A0MjY3NVbf0LYIPDo+MbYAC+CTXJzakATL0gUeeTnYs7Y7drYOfzSNPby0xvL+f79y2S12-yiB0atRSRwhpzqMAUFjyqB8ugAKnQFGNEpCAJTHJqOQzEdxuDwUAAe-iiADcoFY4FE8aocapVLIaKw5NS5DZXO4JMSyKSJF4WCx8hAcZVYUwAAJSCCyOgYClkSHspi0+k2KWQiJSMgKOjJGhREB8sgYGJZHUHKKs6DoPSidA2DTaDgirlyHGHAC6QA
     - title: Express
       file: app-variation-select-list-with-grouped-choices-express.py
+      shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZG0wAxAA8wfaOEcpgXj5+URIhYRARkWAAyt6+wsSoZBykLEwARt7EAO6I8UGh4SlMINVJdXVRAIxRiPVtIh1MUQDCbMQchHBMrT34fWCtAEK9A0MjY3NVbf0LYIPDo+MbYAC+CTXJzakATL0gUeeTnYs7Y7drYOfzSNPby0xvL+f79y2S12-yiB0atRSRwhpzqMAUFjyqB8ugAKnQFGNEpCAJTHJqOQzEdxuDwUAAe-iiADcoFY4FE8aocapVLIaKw5NS5DZXO4JMSyKSJF4WCx8hAcZVYUwAAJSCCyOgYClkSHspi0+k2KWQiJSMgKOjJGhREB8sgYGJZHUHKKs6DoPSidA2DTaDgirlyHGHAC6QA
+    - title: Core
+      file: app-variation-select-list-with-grouped-choices-core.py
       shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZG0wAxAA8wfaOEcpgXj5+URIhYRARkWAAyt6+wsSoZBykLEwARt7EAO6I8UGh4SlMINVJdXVRAIxRiPVtIh1MUQDCbMQchHBMrT34fWCtAEK9A0MjY3NVbf0LYIPDo+MbYAC+CTXJzakATL0gUeeTnYs7Y7drYOfzSNPby0xvL+f79y2S12-yiB0atRSRwhpzqMAUFjyqB8ugAKnQFGNEpCAJTHJqOQzEdxuDwUAAe-iiADcoFY4FE8aocapVLIaKw5NS5DZXO4JMSyKSJF4WCx8hAcZVYUwAAJSCCyOgYClkSHspi0+k2KWQiJSMgKOjJGhREB8sgYGJZHUHKKs6DoPSidA2DTaDgirlyHGHAC6QA
 ---
 
