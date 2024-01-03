@@ -335,6 +335,10 @@ div.callout-important.callout-style-default .callout-header {
     margin-top: 1.5rem;
     vertical-align: baseline;
   }
+  .breadcrumb .sidebar-subtitle {
+    margin-top: 0;
+    vertical-align: -2px;
+  }
   .sidebar-title:not(.page-navigation .sidebar-title) {
     margin-left: -25px;
     padding-bottom: 0.75em;
