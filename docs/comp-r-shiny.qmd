@@ -82,8 +82,7 @@ While R doesn't have an exact analog to decorators they are similar to [function
 ::: {.g-col-12 .g-col-md-6}
 #### R
 
-```{R}
-#| source-line-numbers: "9-11"
+```{.R source-line-numbers="9-11"}
 library(shiny)
 
 ui <- fluidPage(
@@ -104,8 +103,7 @@ shinyApp(ui, server)
 ::: {.g-col-12 .g-col-md-6}
 #### Python
 
-```{python}
-#| source-line-numbers: "9-13"
+```{.python source-line-numbers="9-13"}
 from shiny import ui, render, App
 
 app_ui = ui.page_fluid(
@@ -140,8 +138,7 @@ In R, we connect outputs to UI elements by assigning into the `output` object bu
 ::: {.g-col-12 .g-col-md-6}
 #### R
 
-```{R}
-#| source-line-numbers: "5,9"
+```{.R source-line-numbers="5,9"}
 library(shiny)
 
 ui <- fluidPage(
@@ -162,8 +159,7 @@ shinyApp(ui, server)
 ::: {.g-col-12 .g-col-md-6}
 #### Python
 
-```{python}
-#| source-line-numbers: "5,11"
+```{.python source-line-numbers="5,11"}
 from shiny import ui, render, App
 
 app_ui = ui.page_fluid(
@@ -203,8 +199,7 @@ For example, instead of `sliderInput()`, you would call `ui.input_slider()`, whe
 ::: {.g-col-12 .g-col-md-6}
 #### R
 
-```{R}
-#| source-line-numbers: "3-6"
+```{.R source-line-numbers="3-6"}
 library(shiny)
 
 ui <- fluidPage(
@@ -225,8 +220,7 @@ shinyApp(ui, server)
 ::: {.g-col-12 .g-col-md-6}
 #### Python
 
-```{python}
-#| source-line-numbers: "3-6"
+```{python source-line-numbers="3-6"}
 from shiny import ui, render, App
 
 app_ui = ui.page_fluid(
@@ -258,8 +252,7 @@ So instead of calling `input.value` you use `input.value()`.
 ::: {.g-col-12 .g-col-md-6}
 ### R
 
-```{R}
-#| source-line-numbers: "10,13"
+```{.R source-line-numbers="10,13"}
 library(shiny)
 
 ui <- fluidPage(
@@ -284,8 +277,7 @@ shinyApp(ui, server)
 ::: {.g-col-12 .g-col-md-6}
 ### Python
 
-```{python}
-#| source-line-numbers: "11,16"
+```{.python source-line-numbers="11,16"}
 from shiny import ui, render, reactive, App
 
 app_ui = ui.page_fluid(
@@ -349,8 +341,7 @@ To help clarify this confusion we've renamed `reactive()` to `@reactive.Calc`, a
 ::: {.g-col-12 .g-col-md-6}
 #### R
 
-```{R}
-#| source-line-numbers: "11,14-17"
+```{.R source-line-numbers="11,14-17"}
 library(shiny)
 
 ui <- fluidPage(
@@ -381,8 +372,7 @@ shinyApp(ui, server)
 ::: {.g-col-12 .g-col-md-6}
 #### Python
 
-```{python}
-#| source-line-numbers: "10-12,14-17"
+```{.python source-line-numbers="10-12,14-17"}
 from shiny import App, reactive, render, ui
 
 app_ui = ui.page_fluid(
@@ -427,7 +417,7 @@ In R, the way that you get values from a `reactiveValues` object differs from ho
 To get the value of an item's in a `reactiveValues` object, you would simply access it with `input$x`.
 However, for a standalone `reactiveVal`, you would invoke it like a function, with `x()`.
 
-```{r}
+```{.R}
 vals <- reactiveValues(x = 1, y = 2)
 z <- reactiveVal(3)
 
@@ -447,7 +437,7 @@ In Shiny for Python, we've simplified things in the following ways:
 
 There is no analog of `reactiveValues` in Python, but you can create something similar by using a dictionary of `reactive.Value` objects.
 
-```{python}
+```{.python}
 vals = {
   "x": reactive.Value(1),
   "y": reactive.Value(2),
@@ -464,8 +454,7 @@ print(z())
 ::: {.g-col-12 .g-col-md-6}
 #### R
 
-```{R}
-#| source-line-numbers: "11,16-17,22-23,28"
+```{.R source-line-numbers="11,16-17,22-23,28"}
 library(shiny)
 
 ui <- fluidPage(
@@ -503,8 +492,7 @@ shinyApp(ui, server)
 ::: {.g-col-12 .g-col-md-6}
 #### Python
 
-```{python}
-#| source-line-numbers: "11,16-17,22-23,28"
+```{.python source-line-numbers="11,16-17,22-23,28"}
 from shiny import *
 
 app_ui = ui.page_fluid(

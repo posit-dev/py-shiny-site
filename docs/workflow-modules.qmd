@@ -52,8 +52,7 @@ You can use this function in combination with list comprehension to further redu
 
 A simple function cleans up your code, but still requires multiple calls to that function.
 
-```{python}
-#| source-line-numbers: "9-13"
+```{.python}
 from shiny import App, render, ui
 
 def my_slider(id):
