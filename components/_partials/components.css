@@ -259,11 +259,13 @@ a.nav-link:hover {
 /* Shiny App Mode Tabset (Express/Core) */
 
 .shiny-mode-tabset > .nav-tabs {
-  padding-inline-start: 0.5rem;
+  padding-inline: 0.5rem;
   border-start-end-radius: 0.5rem;
   border-start-start-radius: 0.5rem;
   border-bottom: 2px solid var(--bs-blue);
   justify-content: flex-start !important;
+  font-size: 0.95em;
+  line-height: 1.33;
 }
 
 .shiny-mode-tabset > .nav-tabs,
