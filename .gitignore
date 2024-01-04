@@ -7,7 +7,7 @@
 .DS_Store
 
 /.luarc.json
-/__pycache__/
+__pycache__/
 .Rproj.user
 .Rhistory
 

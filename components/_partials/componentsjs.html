@@ -3,4 +3,7 @@
 document.querySelectorAll('.tab-pane:first-of-type').forEach((x) => x.classList.add("show"))
 document.querySelectorAll('.tab-pane').forEach((x) => x.classList.add("fade"))
 
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
 </script>
