@@ -211,11 +211,11 @@ pre.console code {
   color: #48505F;
 }
 
-a.nav-link {
+main a.nav-link {
   color: #343A46;
 }
 
-a.nav-link:hover {
+main a.nav-link:hover {
   color: #1D1F21;
 }
 
