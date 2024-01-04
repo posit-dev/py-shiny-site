@@ -1,10 +1,10 @@
 ---
 title: "Action Button"
-sidebar: components 
+sidebar: components
 previewapp: |
   from shiny import App, reactive, render, ui
   app_ui = ui.page_fluid(
-      ui.input_action_button("action_button", "Action"), 
+      ui.input_action_button("action_button", "Action"),
       ui.output_text("counter"),
         {"class": "vh-100 d-flex justify-content-center align-items-center px-4"}
   )
@@ -20,7 +20,7 @@ listing:
     template: ../_partials/components-detail.ejs
     contents:
       - title: Action Button
-        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdaOgD6OpgF4mOrFADmcQzQA2O1QAp9TDxY4YGAdzcQnkFeGCROMBAuAGza3lyoWmSGMnKkhgBGiWSkbiiyHGmZZNkQuvhMZQCSEIRSUCxwTAByWjDpGmUAlJ0S7sEelmGtkTEhxIkJSRQAHmS5JFrkHWCdGFCqqoaEDvUsuaocLKg72AC0AKxMbacADF09ff0gZdu7ZYgVYPJspwCMNzcmAArLQsOQ0M4kJbkU6ESgUOhMKAODjWCCnDgUGAsWHwjRMVDTC5lAC+jyYq3Wm1eLD2ZRmZFxSzoXQ8+k6+nUNFYGkUdBc8USEnGZEmEgatIKEHFZCgQi41kM8mRWka5hunUQ5IW5DMkmk+UUGAAaiq4C4wXK5BBFcqnHAOaVAp4AAJ1Q1wDAAURoNDgsnJboNciNcEU5AFEEma3yhSypEdQS5TEMLk15KCOrIGAacyzaaYAGomL9HYGVOo6BgGeTk1mNGmtc7+lIyFo6IEaGUQPnOmSwPpBwZUHqxKgXGhUMYOOLeRpHWASQBdIA
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdCPrSoA+jqYBeJjqxQA5nGM0ANjtUAKfUy9WOGBgHcPCG8QnwwSFxgINwA2bV8uVC0yYxk5UmMAI2SyUg8UWQ4M7LJcg3wmXTAASQhCKSgWOCYAOS0YTI0qgEpuvE9Qr2sI9ui4sOJkpJSKAA8yfJItci6wbowoVVVjQidGlnzVDhZUPewAWgBWJg7zgAYevoHBkCrd-arESrB5NnOARjudyYACstCw5DQLiQVuRzoRKBQ6EwoE4OLYIOcOBQYCx4YiNExULMrlUAL79YLedabbbvFgHKpzMj4lZ0Hr6br6blqOA0VgaRR0NyJZISSZkaYSJoMooQbqIZ5MJbkCySaSFRQYABqqK0cDcdy5BipXgAAg1NXAMABRGg0OCyJUWjVyLVwRTkEUQaYbQrFHKkY0hdT84xuBVKkIqsgYJoLGMRpgAaiY-2NzpU6joGGZStDysmbIjitNoSkZC0dGCNCqIET3TJVR5hnQarEqDcRlMHGlgo0xrAZIAukA
         height: 200px
         code: |
           from shiny import App, reactive, render, ui
@@ -52,18 +52,18 @@ listing:
 
 ## Details
 
-An action button appears as a button and has a value that increments each time the user presses the button. 
+An action button appears as a button and has a value that increments each time the user presses the button.
 
 Follow these steps to add an action button to your app:
 
   1. Add `ui.input_action_button()` to the UI of your app to create an action button. Where you call this function will determine where the button will appear within the app's layout.
-  
-  2. Specify the `id` and `label` parameters of `ui.input_action_button()` to define the button's identifier and label. 
-  
+
+  2. Specify the `id` and `label` parameters of `ui.input_action_button()` to define the button's identifier and label.
+
 The value of an input component is accessible as a reactive value within the `server()` function. To access the value of an action button:
 
-  1. Use `input.<action_button_id()>` (e.g., `input.action_button()`) to access the value of the action button. The server value of an action button is an integer representing the number of clicks.  
-  
+  1. Use `input.<action_button_id()>` (e.g., `input.action_button()`) to access the value of the action button. The server value of an action button is an integer representing the number of clicks.
+
 See also: [Action Link](action-link.qmd)
 
 
