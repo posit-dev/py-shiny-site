@@ -1,6 +1,6 @@
 ---
-title: "Slider"
-sidebar: components 
+title: Slider
+sidebar: components
 previewapp: |
   from shiny import App, render, ui
 
@@ -17,30 +17,31 @@ previewapp: |
 
   app = App(app_ui, server, debug=True)
 listing:
-  id: component
-  template: ../_partials/components-detail.ejs
-  contents:
-    - title: Slider
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNLCx1l07YT95yyvhMwcESAAwSAIwRUUwArBEAlBhQ0tKahBZQLCx+qGQAtAlMMAAeRVBuxEwU5cWElBR0wcl49o5iGMRuru717gBucgBGUGR8fkNQVnBtHRCOTCDB2bkswYihYENsRbERTABWIiyTNNhFJOTN181yTLMcxhBFHBQwLPe3dEyolQSwQAvqpUulMus8n4YFdqmRaoMfi02qpVLIaKw5CNfC43BJemR+hIWHA8hxSMlEJ0HAABQn9GlMWlSCA+DCDJkYpgzOY2KlM5ZSMgiOhLGjBEB4sgYAI+fmgsBo6DoPRMJSoGwabTiLF0HHJMDAgC6QA
-      height: 200px
-      code: |
-        from shiny import ui, render, App
-        
-        app_ui = ui.page_fluid(
-            ui.input_slider("slider", "Slider", 0, 100, 50), #<<
-            ui.output_text_verbatim("value"),
-        )
-        
-        def server(input, output, session):
-            @render.text
-            def value():
-                return f"{input.slider()}"
-        
-        app = App(app_ui, server)
-      relevantfunctions:
-        - title: ui.input_slider
-          href: https://shiny.posit.co/py/api/ui.input_slider.html
-          signature: ui.input_slider(id, label, min, max, value, *, step=None, ticks=False, animate=False, width=None, sep=',', pre=None, post=None, time_format=None, timezone=None, drag_range=True)
+  - id: component
+    template: ../_partials/components-detail.ejs
+    contents:
+      - title: Slider
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNLCx1l07YT95yyvhMwcESAAwSAIwRUUwArBEAlBhQ0tKahBZQLCx+qGQAtAlMMAAeRVBuxEwU5cWElBR0wcl49o5iGMRuru717gBucgBGUGR8fkNQVnBtHRCOTCDB2bkswYihYENsRbERTABWIiyTNNhFJOTN181yTLMcxhBFHBQwLPe3dEyolQSwQAvqpUulMus8n4YFdqmRaoMfi02qpVLIaKw5CNfC43BJemR+hIWHA8hxSMlEJ0HAABQn9GlMWlSCA+DCDJkYpgzOY2KlM5ZSMgiOhLGjBEB4sgYAI+fmgsBo6DoPRMJSoGwabTiLF0HHJMDAgC6QA
+        height: 200px
+        code: |
+          from shiny import ui, render, App
+
+          app_ui = ui.page_fluid(
+              ui.input_slider("slider", "Slider", 0, 100, 50), #<<
+              ui.output_text_verbatim("value"),
+          )
+
+          def server(input, output, session):
+              @render.text
+              def value():
+                  return f"{input.slider()}"
+
+          app = App(app_ui, server)
+        relevantfunctions:
+          - title: ui.input_slider
+            href: https://shiny.posit.co/py/api/ui.input_slider.html#shiny.ui.input_slider
+            signature: "ui.input_slider(id: str, label: TagChild, min: SliderValueArg, max: SliderValueArg, value: SliderValueArg | Iterable[SliderValueArg], step: Optional = None, ticks: bool = False, animate: bool | AnimationOptions = False, width: Optional = None, sep: str = ',', pre: Optional = None, post: Optional = None, time_format: Optional = None, timezone: Optional = None, drag_range: bool = True)"
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/ui/_input_slider.py#L59-L234
 ---
 
 :::{#component}

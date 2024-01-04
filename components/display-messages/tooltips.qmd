@@ -1,6 +1,6 @@
 ---
-title: "Tooltips"
-sidebar: components 
+title: Tooltips
+sidebar: components
 previewapp: |
   from shiny import App, render, ui
 
@@ -29,7 +29,7 @@ listing:
         height: 200px
         code: |
           from shiny import App, render, ui
-          
+
           app_ui = ui.page_fluid(
             ui.tooltip( #<<
                 ui.input_action_button("btn", "A button with a tooltip"),
@@ -39,21 +39,23 @@ listing:
             ),
               ui.output_text_verbatim("text")
           )
-          
+
           def server(input, output, session):
             @render.text
             def text():
                 return input.btn_tooltip() #<<
-          
+
           app = App(app_ui, server)
 
         relevantfunctions:
           - title: ui.tooltip
-            href: https://shiny.posit.co/py/api/ui.tooltip.html
-            signature: ui.tooltip(trigger, *args, id=None, placement='auto', options=None, **kwargs)
+            href: https://shiny.posit.co/py/api/ui.tooltip.html#shiny.ui.tooltip
+            signature: "ui.tooltip(trigger: TagChild, *args: TagChild | TagAttrs = (), id: Optional = None, placement: Literal = 'auto', options: Optional = None)"
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/ui/_tooltip.py#L13-L154
           - title: ui.update_tooltip
-            href: https://shiny.posit.co/py/api/ui.update_tooltip.html
-            signature: ui.update_tooltip(id, *args, show=None, session=None)
+            href: https://shiny.posit.co/py/api/ui.update_tooltip.html#shiny.ui.update_tooltip
+            signature: 'ui.update_tooltip(id: str, *args: TagChild = (), show: Optional = None, session: Optional = None)'
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/ui/_input_update.py#L904-L946
   - id: variations
     template: ../_partials/components-variations.ejs
     contents:
@@ -75,7 +77,7 @@ listing:
               ui.tags.br(),
               ui.input_action_button("btn_update", "Update tooltip message")
             )
-            
+
             def server(input, output, session):
                 @reactive.Effect
                 @reactive.event(input.btn_update)
@@ -83,11 +85,11 @@ listing:
                     content = (
                         "A " + " ".join(["NEW" for _ in range(input.btn_update())])+ " message"
                     )
-            
+
                     ui.update_tooltip("btn_tooltip", content, show=True) #<<
-            
+
             app = App(app_ui, server)
-      
+
 ---
 
 :::{#component}

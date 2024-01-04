@@ -1,6 +1,6 @@
 ---
-title: "Action Link"
-sidebar: components 
+title: Action Link
+sidebar: components
 previewapp: |
   from shiny import App, reactive, render, ui
   app_ui = ui.page_fluid(
@@ -16,35 +16,37 @@ previewapp: |
           return f""
   app = App(app_ui, server)
 listing:
-  id: component
-  template: ../_partials/components-detail.ejs
-  contents:
-    - title: Action Link
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdaOgD6OpgF4mOrFADmcQzQA2O1QAp9TDxY4YGAdzcQnkFeGCROMBAuAGza3lyoWmSGMnKkhg5cANZuKLIcaRkQmbr4TCUAkhCEUlAscEwAclowAEYaJQCUHRLuwR6WYc2RMSHEiQlJFAAeZDkkWuTtYB0YUKqqhoQOtSw5qhwsqNvYALQArEytJwAMnd29fSAlWzsliGVg8mwnAIzX10wAFZaFhyGinEiLcgnQiUCh0JhQDLWCAnDgUGAsGFwjRMVBTc4lAC+DyYKzWGxeLF2JWmZGxizonQ8+g6+nUNFYGkUdBc8USEjGZAmEjq1PyEFFZCgQi41kM8iRWnq5muHUQpPm5DMkmkeUUGAAakq4C5QTK5BB5YqnHA2RBSQABGr6uAYACiNBocFkTpdcgNcEU5D5EAmqzyBSy9qCHKYhhc6tJQS1ZAwdVmqcTTAA1Ewfva-ZR1HQMHTSXHUxpExrAn1dWQtHRAjQSiAsx0SWB9D2DKgdWJUC40KhjBxRdyNIWHTOwESALpAA
-      height: 200px
-      code: |
-        from shiny import App, reactive, render, ui
-        
-        app_ui = ui.page_fluid(
-            ui.input_action_link("action_link", "Action"), #<<
-            ui.output_text("counter")
-        )
-        
-        def server(input, output, session):
-            @render.text()
-            @reactive.event(input.action_link)
-            def counter():
-                return f"{input.action_link()}"
-        
-        app = App(app_ui, server)
-      relevantfunctions:
-        - title: ui.input_action_link
-          href: https://shiny.posit.co/py/api/ui.input_action_link.html
-          signature: ui.input_action_link(id, label, *, icon=None, **kwargs)
-        - title: reactive.event
-          href: https://shiny.posit.co/py/api/reactive.event.html
-          signature: reactive.event(*args, ignore_none=True, ignore_init=False)
+  - id: component
+    template: ../_partials/components-detail.ejs
+    contents:
+      - title: Action Link
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdaOgD6OpgF4mOrFADmcQzQA2O1QAp9TDxY4YGAdzcQnkFeGCROMBAuAGza3lyoWmSGMnKkhg5cANZuKLIcaRkQmbr4TCUAkhCEUlAscEwAclowAEYaJQCUHRLuwR6WYc2RMSHEiQlJFAAeZDkkWuTtYB0YUKqqhoQOtSw5qhwsqNvYALQArEytJwAMnd29fSAlWzsliGVg8mwnAIzX10wAFZaFhyGinEiLcgnQiUCh0JhQDLWCAnDgUGAsGFwjRMVBTc4lAC+DyYKzWGxeLF2JWmZGxizonQ8+g6+nUNFYGkUdBc8USEjGZAmEjq1PyEFFZCgQi41kM8iRWnq5muHUQpPm5DMkmkeUUGAAakq4C5QTK5BB5YqnHA2RBSQABGr6uAYACiNBocFkTpdcgNcEU5D5EAmqzyBSy9qCHKYhhc6tJQS1ZAwdVmqcTTAA1Ewfva-ZR1HQMHTSXHUxpExrAn1dWQtHRAjQSiAsx0SWB9D2DKgdWJUC40KhjBxRdyNIWHTOwESALpAA
+        height: 200px
+        code: |
+          from shiny import App, reactive, render, ui
 
+          app_ui = ui.page_fluid(
+              ui.input_action_link("action_link", "Action"), #<<
+              ui.output_text("counter")
+          )
+
+          def server(input, output, session):
+              @render.text()
+              @reactive.event(input.action_link)
+              def counter():
+                  return f"{input.action_link()}"
+
+          app = App(app_ui, server)
+        relevantfunctions:
+          - title: ui.input_action_link
+            href: https://shiny.posit.co/py/api/ui.input_action_link.html#shiny.ui.input_action_link
+            signature: 'ui.input_action_link(id: str, label: TagChild, icon: TagChild = None, **kwargs: TagAttrValue = {})'
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/ui/_input_action_button.py#L68-L115
+          - title: reactive.event
+            href: https://shiny.posit.co/py/api/reactive.event.html#shiny.reactive.event
+            signature: 'reactive.event(*args: Callable[[], object] | Callable[[], Awaitable[object]] = (), ignore_none: bool = True, ignore_init: bool = False)'
+
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/reactive/_reactives.py#L736-L871
 ---
 
 :::{#component}

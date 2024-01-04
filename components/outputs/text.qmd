@@ -1,6 +1,6 @@
 ---
-title: "Text"
-sidebar: components 
+title: Text
+sidebar: components
 previewapp: |
   from shiny import App, render, ui
 
@@ -26,37 +26,39 @@ listing:
         preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhCbqNG1WlQB9JUwC8TJVigBzOLpoAbJdIAUqjaa6oFZXRQAeZJ2AAVOF9lfCZQgFFyOSYfMlCJUIAJOBsbYiYAZU5uUIBKPGd1UIBNYgUmSgopaUQEopMODHKyd084-zj81TyG4ohZGlY5ADc5BzcPCRa2iRY4FhYOUjy6tXUAASkBuQwu9aZB2OC-Vb71KTIFOjVJsgwg3wdeg-6dI1F0Bx19DjnRuR5MAAXwAukA
         height: 200px
         code: |
-           from shiny import App, render, ui
-           
-           app_ui = ui.page_fluid(
-               ui.input_text("Text", "Enter text", "Hello Shiny"),
-               "You entered:",
-               ui.output_text("text") #<<
-           )
-                   
-           def server(input, output, session):
-               @render.text #<<
-               def text():
-                   return input.Text() 
-                   
-           app = App(app_ui, server)
+          from shiny import App, render, ui
+
+          app_ui = ui.page_fluid(
+              ui.input_text("Text", "Enter text", "Hello Shiny"),
+              "You entered:",
+              ui.output_text("text") #<<
+          )
+                  
+          def server(input, output, session):
+              @render.text #<<
+              def text():
+                  return input.Text() 
+                  
+          app = App(app_ui, server)
         relevantfunctions:
           - title: ui.output_text
-            href: https://shiny.posit.co/py/api/ui.output_text.html
-            signature: ui.output_text(id, inline=False, container=None)
-          - title: "@render.text"
-            href: https://shiny.posit.co/py/api/render.text.html
-            signature: render.text(fn=None)
+            href: https://shiny.posit.co/py/api/ui.output_text.html#shiny.ui.output_text
+            signature: 'ui.output_text(id: str, inline: bool = False, container: Optional = None)'
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/ui/_output.py#L237-L270
+          - title: '@render.text'
+            href: https://shiny.posit.co/py/api/render.text.html#shiny.render.text
+            signature: render.text()
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/render/_render.py#L77-L98
   - id: variations
     template: ../_partials/components-variations.ejs
     contents:
       variations:
         - title: Inline text
-          description: Set `inline=True` within `ui.output_text()` to have text appear inline with the text that preceeds it.   
+          description: Set `inline=True` within `ui.output_text()` to have text appear inline with the text that preceeds it.
           preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymigA8ydsABU4H2V8JhCAUXI5Jm8yEIkQgAk4CwtiJgBlTm4QgEo8e0cQgE1iBSZKCilpRDDQwzKyNw9Yv1j43ggLLjg9Jn86BThc1RGIRwmwiFkaVjkANzkbV3cJRuaJFjgWFg5SXMRChwABKWm5DHbxxxmYoN8Do8mpMgU6cZWyDECfGzH1dB9MSoGwabQcTYLOS5MAAXwAukA
           code: |
             from shiny import App, render, ui
-            
+
             app_ui = ui.page_fluid(
                 ui.input_text("Text", "Enter text", "Hello Shiny"),
                 "You entered: ", ui.output_text("text", inline = True) #<<

@@ -1,6 +1,6 @@
 ---
-title: "Date Range Selector"
-sidebar: components 
+title: Date Range Selector
+sidebar: components
 previewapp: |
   from shiny import App, render, ui
 
@@ -18,34 +18,35 @@ previewapp: |
   app = App(app_ui, server, debug=True)
 
 listing:
-  id: component
-  template: ../_partials/components-detail.ejs
-  contents:
-    - title: Date Range Selector
-      preview: |
-        https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAEygrIEt4nvVi6ZVuzgAdCOPqMmAZwAWnCNl4x+gpgEF0eJnUos4dHQFdO48WlQB9U0wC8TU1igBzOFZoAbUywAU4pkDHTgxFVGMyKzYKKzooCDd-MGjDeLdRfCYMjJ0ZMihBOwyAJgAGMoBaUoBGKuqMgEoMKBYWK0JPKBkZJNQyCoBWJhgADwqoCOImChH+wkoKOka8AKCnYgjwyJmyJIA3KG8xMAaViCCLphAMjq6ZDMQssD25CurS0qYAK2M8zhpsBUSOQFkCFoYmIdOC4IBVOBQYDIwSC6ExUGMBhkAL7iJotNq3bpJGCAiZkKY7ZGLRrmCQQAw0WSGPaGXxhCI6DZkLa5ODdTikBqIVaBAACXK2IqYor09MMGB2UoZTAOR18QqlFz0ZGMdHONAyIHZZAwKTiCTg6uApQAuljplMjRAtqaRObEg1gNU7dk6RZ0PZNOhfJYbJxeXQWXQGmAsTagA
-      height: 380px
-      code: |
-        from datetime import date
-        
-        from shiny import App, render, ui
-        
-        app_ui = ui.page_fluid(
-            ui.input_date_range("daterange", "Date range", start="2020-01-01"), #<<
-            ui.output_text("value"),
-        )
-        
-        def server(input, output, session):
-            @render.text
-            def value():
-                return f"{input.daterange()[0]} to {input.daterange()[1]}"
-        
-        app = App(app_ui, server)
-      relevantfunctions:
-        - title: ui.input_date_range
-          href: https://shiny.posit.co/py/api/ui.input_date_range.html
-          signature: ui.input_date_range(id, label, *, start=None, end=None, min=None, max=None, format='yyyy-mm-dd', startview='month', weekstart=0, language='en', separator=' to ', width=None, autoclose=True)
+  - id: component
+    template: ../_partials/components-detail.ejs
+    contents:
+      - title: Date Range Selector
+        preview: |
+          https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAEygrIEt4nvVi6ZVuzgAdCOPqMmAZwAWnCNl4x+gpgEF0eJnUos4dHQFdO48WlQB9U0wC8TU1igBzOFZoAbUywAU4pkDHTgxFVGMyKzYKKzooCDd-MGjDeLdRfCYMjJ0ZMihBOwyAJgAGMoBaUoBGKuqMgEoMKBYWK0JPKBkZJNQyCoBWJhgADwqoCOImChH+wkoKOka8AKCnYgjwyJmyJIA3KG8xMAaViCCLphAMjq6ZDMQssD25CurS0qYAK2M8zhpsBUSOQFkCFoYmIdOC4IBVOBQYDIwSC6ExUGMBhkAL7iJotNq3bpJGCAiZkKY7ZGLRrmCQQAw0WSGPaGXxhCI6DZkLa5ODdTikBqIVaBAACXK2IqYor09MMGB2UoZTAOR18QqlFz0ZGMdHONAyIHZZAwKTiCTg6uApQAuljplMjRAtqaRObEg1gNU7dk6RZ0PZNOhfJYbJxeXQWXQGmAsTagA
+        height: 380px
+        code: |
+          from datetime import date
 
+          from shiny import App, render, ui
+
+          app_ui = ui.page_fluid(
+              ui.input_date_range("daterange", "Date range", start="2020-01-01"), #<<
+              ui.output_text("value"),
+          )
+
+          def server(input, output, session):
+              @render.text
+              def value():
+                  return f"{input.daterange()[0]} to {input.daterange()[1]}"
+
+          app = App(app_ui, server)
+        relevantfunctions:
+          - title: ui.input_date_range
+            href: https://shiny.posit.co/py/api/ui.input_date_range.html#shiny.ui.input_date_range
+            signature: "ui.input_date_range(id: str, label: TagChild, start: Optional = None, end: Optional = None, min: Optional = None, max: Optional = None, format: str = 'yyyy-mm-dd', startview: str = 'month', weekstart: int = 0, language: str = 'en', separator: str = ' to ', width: Optional = None, autoclose: bool = True)"
+
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/ui/_input_date.py#L135-L269
 ---
 
 :::{#component}

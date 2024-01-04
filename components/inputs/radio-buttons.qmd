@@ -1,6 +1,6 @@
 ---
-title: "Radio Buttons"
-sidebar: components 
+title: Radio Buttons
+sidebar: components
 previewapp: |
   from shiny import App, render, ui
 
@@ -22,35 +22,36 @@ previewapp: |
 
   app = App(app_ui, server, debug=True)
 listing:
-  id: component
-  template: ../_partials/components-detail.ejs
-  contents:
-    - title: Radio Buttons
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOtHQB9JUwC8TJVigBzOOpoAbJdIAUqpnb0cMXVArLq6UaR2LqARq7JSFismW3tw5TAPL2JIiTDwu0iAJU9vJn8yQIgWONCIRPsQSIBGSMRQsAB5VDJvArL8SoAmcsqautImVqbIgGY2yI76pgGwAF94gvsASinw-WJXFzclGzAANygLOEi5hKZiojMoFlykSo22AFoSgAY7pmlr8zgADyZtjkMIa44KGAsa6ESgUOhMVBva4AFki41UM1UshorDkGzkVmcrgkSzIKwkLDgZ3qM0QBwAAlIILI6BglAdkUwtjsrKSDuEpGQFHQCliyBhot5Wao0KgdKJ0FZRZoOAS0XJERBVKoJgBdIA
-      height: 200px
-      code: |
-        from shiny import App, render, ui
-        
-        app_ui = ui.page_fluid(
-            ui.input_radio_buttons( #<<
-                "radio", #<<
-                "Radio buttons", #<<
-                {"1": "Option 1", "2": "Option 2", "3": "Option 3"}, #<<
-            ), #<<
-            ui.output_ui("value"),
-        )
-        
-        def server(input, output, session):
-            @render.ui
-            def value():
-                return input.radio()
-        
-        app = App(app_ui, server)
-      relevantfunctions:
-        - title: ui.input_radio_buttons
-          href: https://shiny.posit.co/py/api/ui.input_radio_buttons.html
-          signature: ui.input_radio_buttons(id, label, choices, *, selected=None, inline=False, width=None)
+  - id: component
+    template: ../_partials/components-detail.ejs
+    contents:
+      - title: Radio Buttons
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOtHQB9JUwC8TJVigBzOOpoAbJdIAUqpnb0cMXVArLq6UaR2LqARq7JSFismW3tw5TAPL2JIiTDwu0iAJU9vJn8yQIgWONCIRPsQSIBGSMRQsAB5VDJvArL8SoAmcsqautImVqbIgGY2yI76pgGwAF94gvsASinw-WJXFzclGzAANygLOEi5hKZiojMoFlykSo22AFoSgAY7pmlr8zgADyZtjkMIa44KGAsa6ESgUOhMVBva4AFki41UM1UshorDkGzkVmcrgkSzIKwkLDgZ3qM0QBwAAlIILI6BglAdkUwtjsrKSDuEpGQFHQCliyBhot5Wao0KgdKJ0FZRZoOAS0XJERBVKoJgBdIA
+        height: 200px
+        code: |
+          from shiny import App, render, ui
 
+          app_ui = ui.page_fluid(
+              ui.input_radio_buttons( #<<
+                  "radio", #<<
+                  "Radio buttons", #<<
+                  {"1": "Option 1", "2": "Option 2", "3": "Option 3"}, #<<
+              ), #<<
+              ui.output_ui("value"),
+          )
+
+          def server(input, output, session):
+              @render.ui
+              def value():
+                  return input.radio()
+
+          app = App(app_ui, server)
+        relevantfunctions:
+          - title: ui.input_radio_buttons
+            href: https://shiny.posit.co/py/api/ui.input_radio_buttons.html#shiny.ui.input_radio_buttons
+            signature: 'ui.input_radio_buttons(id: str, label: TagChild, choices: ChoicesArg, selected: Optional = None, inline: bool = False, width: Optional = None)'
+
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/ui/_input_check_radio.py#L240-L307
 ---
 
 :::{#component}

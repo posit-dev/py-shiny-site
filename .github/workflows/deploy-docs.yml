@@ -6,21 +6,24 @@ on:
   pull_request:
     branches: [main]
 
+# Limit actions on PRs to a single job
+concurrency:
+  group: ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.10"]
-      fail-fast: false
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
 
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python 3.10
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: "3.10"
 
       - name: Upgrade pip
         run: python -m pip install --upgrade pip
@@ -46,15 +49,72 @@ jobs:
           make deps
 
       # =====================================================
-      # Build
+      # Setup site
       # =====================================================
       - uses: quarto-dev/quarto-actions/setup@v2
         with:
           version: 1.4.533
 
+      - name: Create quartodoc artifacts
+        run: |
+          make quartodoc
+
+      # =====================================================
+      # Notify PR of file updates
+      # =====================================================
+
+      - name: Find updates to components
+        if: ${{github.event_name == 'pull_request'}}
+        id: components
+        shell: bash
+        run: |
+          git diff --quiet -- components && exit 0
+          # Changes detected
+          echo "has-changes=true" >> "$GITHUB_OUTPUT"
+          # Output changes
+          echo "Changed files:"
+          git diff --name-only
+      - name: Push back component updates to repo
+        uses: stefanzweifel/git-auto-commit-action@v5
+        if: |
+          github.event_name == 'pull_request' &&
+          (! github.event.pull_request.head.repo.fork) &&
+          steps.components.outputs.has-changes == 'true'
+        with:
+          commit_message: "`make quartodoc` (GitHub Actions)"
+          file_pattern: components
+
+      - name: Write comment to update components folder
+        if: |
+          github.event_name == 'pull_request' &&
+          github.event.pull_request.head.repo.fork &&
+          steps.components.outputs.has-changes == 'true'
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            Please call `make quartodoc` to update files within the components folder
+
+            - [ ] Call `make quartodoc` in terminal
+            - [ ] Commit & push changes
+          comment_tag: make_quartodoc
+      - name: Remove comment to update components folder
+        if: |
+          github.event_name == 'pull_request' &&
+          github.event.pull_request.head.repo.fork &&
+          steps.components.outputs.has-changes != 'true'
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          # message: |
+          #   Components folder is up to date. Removing comment
+          comment_tag: make_quartodoc
+          mode: delete
+
+      # =====================================================
+      # Build
+      # =====================================================
       - name: Build site
         run: |
-          make all
+          make site
 
       # =====================================================
       # Deploy docs to Netlify

@@ -1,6 +1,6 @@
 ---
-title: "Action Button"
-sidebar: components 
+title: Action Button
+sidebar: components
 previewapp: |
   from shiny import App, reactive, render, ui
   app_ui = ui.page_fluid(
@@ -39,12 +39,14 @@ listing:
           app = App(app_ui, server)
         relevantfunctions:
           - title: ui.input_action_button
-            href: https://shiny.posit.co/py/api/ui.input_action_button.html
-            signature: ui.input_action_button(id, label, *, icon=None, width=None, **kwargs)
+            href: https://shiny.posit.co/py/api/ui.input_action_button.html#shiny.ui.input_action_button
+            signature: 'ui.input_action_button(id: str, label: TagChild, icon: TagChild = None, width: Optional = None, **kwargs: TagAttrValue = {})'
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/ui/_input_action_button.py#L11-L65
           - title: reactive.event
-            href: https://shiny.posit.co/py/api/reactive.event.html
-            signature: reactive.event(*args, ignore_none=True, ignore_init=False)
+            href: https://shiny.posit.co/py/api/reactive.event.html#shiny.reactive.event
+            signature: 'reactive.event(*args: Callable[[], object] | Callable[[], Awaitable[object]] = (), ignore_none: bool = True, ignore_init: bool = False)'
 
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/reactive/_reactives.py#L736-L871
 ---
 
 :::{#component}

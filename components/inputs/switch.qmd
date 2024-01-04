@@ -1,6 +1,6 @@
 ---
-title: "Switch"
-sidebar: components 
+title: Switch
+sidebar: components
 previewapp: |
   from shiny import ui, render, App
   app_ui = ui.page_fluid(
@@ -14,30 +14,31 @@ previewapp: |
           return ""
   app = App(app_ui, server)
 listing:
-  id: component
-  template: ../_partials/components-detail.ejs
-  contents:
-    - title: Switch
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNLAO4cyhNnbAvHz9lfCZQgGVvXzZQiQAVOhE4AEo8e0cxDGI3V3cxAIA3KCs4ULTVFIwoaWlNQgsoFhYA1ABaAFZy1VVZGlY5QrkbFzcJHLI8iRY4Zo5SFMQMhwABCbzlphWpCFk6DDFNvqZi0ptFzcdJODIROgheCDyMIJjznuh0PSYlVBsNbTiAZ0IZ0FJgAC+AF0gA
-      height: 200px
-      code: |
-        from shiny import ui, render, App
-        
-        app_ui = ui.page_fluid(
-            ui.input_switch("switch", "Switch", False), #<<
-            ui.output_ui("value"),
-        )
-        
-        def server(input, output, session):
-            @render.ui
-            def value():
-                return input.switch()
-        
-        app = App(app_ui, server)
-      relevantfunctions:
-        - title: ui.input_switch
-          href: https://shiny.posit.co/py/api/ui.input_switch.html
-          signature: ui.input_switch(id, label, value=False, *, width=None)
+  - id: component
+    template: ../_partials/components-detail.ejs
+    contents:
+      - title: Switch
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNLAO4cyhNnbAvHz9lfCZQgGVvXzZQiQAVOhE4AEo8e0cxDGI3V3cxAIA3KCs4ULTVFIwoaWlNQgsoFhYA1ABaAFZy1VVZGlY5QrkbFzcJHLI8iRY4Zo5SFMQMhwABCbzlphWpCFk6DDFNvqZi0ptFzcdJODIROgheCDyMIJjznuh0PSYlVBsNbTiAZ0IZ0FJgAC+AF0gA
+        height: 200px
+        code: |
+          from shiny import ui, render, App
+
+          app_ui = ui.page_fluid(
+              ui.input_switch("switch", "Switch", False), #<<
+              ui.output_ui("value"),
+          )
+
+          def server(input, output, session):
+              @render.ui
+              def value():
+                  return input.switch()
+
+          app = App(app_ui, server)
+        relevantfunctions:
+          - title: ui.input_switch
+            href: https://shiny.posit.co/py/api/ui.input_switch.html#shiny.ui.input_switch
+            signature: 'ui.input_switch(id: str, label: TagChild, value: bool = False, width: Optional = None)'
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/ui/_input_check_radio.py#L88-L133
 ---
 
 :::{#component}

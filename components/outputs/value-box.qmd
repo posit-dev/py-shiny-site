@@ -1,5 +1,5 @@
 ---
-title: "Value Box"
+title: Value Box
 sidebar: components
 editor: visual
 filters:
@@ -275,153 +275,155 @@ listing:
     contents:
       - title: Value Box
         preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOag4BzJdgD6AIygQA1kwC8UjhgASAFQCyAGQAUcpkwDkAHhYA3JUwAeMADYQWfRkwNjIyVEQAekiAdziMGIBmDEElSIAmAAZsyPclYKY3DjgYgCFiLyCwTKYagEYANiZGgsJfKBZA4I0OJh6AWkUVbH6tXSYCljJsXzgqmg5fX0RCSTo6SjIAYWJfQQBuNjhlUMQ67IBSfYKoOg4ofs4AEyfKKrI6STgChlmqvnyYCYAD5nKgoGQ2EwnlULABWJgNDDpOFQDAAdjhGIR9Wa-TqGBxTGx2NqZLqzUJtQAXjACXVEgAOfEYAAsAE4GiIkQ0GYiMLzEmTceiMJzWUxWYTCAKGk16hhEplkpl2ejKYz2cl0ujEmisUSajVkYyGv0xXDGSJRQ1MukmDa7cKyaLxUxknDCObdRLMizWaz6cr+ukMOdQ+l2el9VTccadUjOelqcFQZFwZDgTI5GCIVCFkt+p8-sE4G5KMQXgUYcELK6GhKCXCdV7Q2r1X6DeiKQT0ZlWf0kYl7VK6ii2Oa4XCRD3nca6hSkYz0qzfMi4Y22Q0oE3KYbyWz0YzKSvEmxkQ1EjKPQyBYzGWKj5S6qyEQSmelfN7I0xQ6z0eiMb7sarIPg2dRsNGhKxs6h51OaiTDmuoHpCyiRwnUMqXlidS6pSiQEukDTqqGmQLheop9h2+H3uaqoIqR6TMsi6KfoSrJCu+rFAXOxKsg0WIEQ0kE8UaZKHsxDZwl+GK8iGhKZA0Wy3oyFLshgmpvlKCIPlO7LNNpDoYIp7KEH6YavnRmTouakZ0ahbIERe8Fhk2mTMURSJ9nC5oBlKBGCYpGl1IFS4hb5uHiek6SJJOyIxb5cnGURaLsliaW8cZ7K2VOGIYnOtl2uaUmErpx5ieZVF0eyD66lidUFYqmKEg06ReslUqnsZy5sg+w4ChuUChgu9rDWOzouSi6khVek6JAOoZygO2qMgO2lpYObKsqh61wtSFihhhTRIkRMqvj5pFyr+so2ckupCliAbMndiHuhZ8pMAaiRNGNEpfU02nbQeKIDgKK7XYGLLEW9K6MqJwrmo0X3SbK124XCE5ioy0mTtlBKgYB0HAcVdkmoy7VyoRsXvup6HZcNcKinTUBIlOx6s5aE3ySFNmKnC6kGo12GKv2MnNm+cGY2q7JrpesUM-DRqI7zcLzZKAocurDb6WJ8GEatLIbk2MFK1tZosRjk7bkTXNslGEWrjlA748JYqIYr4mgcxiRarSY5gy52OE3CAktfuLmqg+6S9v2GL9rb-ag3anqI-x1WI4zys+WGza2TFaIxSd30TcSC687hV7GRy9miu59n0reZFQVkEZOrrxKKaO7LsimYBphmbBpnkwKOHIACUchyGgqBqNIBhGFgUBKHAag0L40hPHYEAONIGDtNgxCSGQagkOvMAQGoMR0GgW8OHfC9uFA68rxoFS3-fH-BAA0gACgAkkwMwHAyCzGCHgewH977BAACQUlKIsXwHBSBMAACK7HaHQFgYCIGQIcMEAAqqgd0mQLhMAAGoAGUmA-wAEoAFEyF-wAPL4KoUqVBIgACaFDsHb1wQ4dgxAYiEA6HMIYqhNDaB0OAvh-DIRwHgFUDQSh+hKGvk8Yo5B+hcA0UoYggw1ioFAfgHBuCaCSCWGoFghANhvDMJ8OAMjIFjycUwCeEB3FT3QPPMQqAbDT1nhwCQLA4B0HLHQfQAA5UgcAx5gAAL4AF0gA
-        code: |4
-            from shiny import App, ui
+        code: |
+          from shiny import App, ui
 
-            app_ui = ui.page_fluid(
-                ui.layout_column_wrap(
-                    ui.value_box( #<<
-                        "KPI Title",
-                        "$1 Billion Dollars",
-                        "Up 30% VS PREVIOUS 30 DAYS",
-                        theme="bg-gradient-indigo-purple",
-                        full_screen=True,
-                    ),
-                )
-            )
+          app_ui = ui.page_fluid(
+              ui.layout_column_wrap(
+                  ui.value_box( #<<
+                      "KPI Title",
+                      "$1 Billion Dollars",
+                      "Up 30% VS PREVIOUS 30 DAYS",
+                      theme="bg-gradient-indigo-purple",
+                      full_screen=True,
+                  ),
+              )
+          )
 
-            app = App(app_ui, server=None)
+          app = App(app_ui, server=None)
 
         relevantfunctions:
           - title: ui.value_box
-            href: https://shiny.posit.co/py/api/ui.value_box.html
-            signature: ui.value_box(title, value, *args, showcase=None, showcase_layout='left center', full_screen=False, theme=None, height=None, max_height=None, fill=True, class_=None, **kwargs)
+            href: https://shiny.posit.co/py/api/ui.value_box.html#shiny.ui.value_box
+            signature: "ui.value_box(title: TagChild, *args: TagChild | TagAttrs = (), showcase: Optional = None, showcase_layout: SHOWCASE_LAYOUTS_STR | ShowcaseLayout = 'left center', theme: Optional = None, full_screen: bool = False, height: Optional = None, fill: bool = True, class_: Optional = None, **kwargs: TagAttrValue = {})"
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/ui/_valuebox.py#L296-L459
           - title: ui.card
             href: https://shiny.posit.co/py/api/ui.card.html#shiny.ui.card
-            signature: ui.card(*args, full_screen=False, height=None, max_height=None, min_height=None, fill=True, class_=None, **kwargs)
+            signature: 'ui.card(*args: TagChild | TagAttrs | CardItem = (), full_screen: bool = False, height: Optional = None, fill: bool = True, class_: Optional = None, **kwargs: TagAttrValue = {})'
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/ui/_card.py#L45-L104
   - id: variations
     template: ../_partials/components-variations.ejs
     contents:
       variations:
         - title: Theme and Layout Examples
-          height: "315px"
+          height: 315px
           description: Value boxes with different `theme` and `showcase_layout` locations. This value box uses multiple files, see how on [Shinylive](https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACAMyhpIgGcAdCG0bEYLHgAsaEbCzoNmLAILo8LAK40BAtKgD6GlgF51NLFADmcXWwA2GgCYAKARow2o2YmrK6SdmBC6AO6MaM4QLCYYAG5QdlYARsQAHuGR6Sx8YADSAAoAkiwAKjRkNnBZeAIZkVkAJACMLABCNDY2NKQsACLE7VCM-PjVNVkAqqgsAMwADACkLABqAMosuQBKAKKL+QDyY6uzPYoAmsuVIxkSxEGEUDxwhhxcpDwYL4E80eaOAOSoNHM5mwAFoElAIABrX6qII0exkcSGLIAVhmqGSWQAlFUIjVEXB4MiwAlzCDzKF7DRKGQQVIqeZiCDUGpGKhypVIgBiAA8PMu6TYanauh4hEYcEohiKjDUcFxkRxI1csXiuiSqQFtRyBWKpQ5wzxGXqTVa7U6EV6-UGFyN6XGk1mCxWay2O32hxmxzOtpqYnENzuDyenG4bw+ou+fwBQNB4KhMJYcIRSNR6MxYCVdsiBKJWQoyVpFMlEE5LF5-Oz-sD9ys7k83mJZGIk0YgPEZDLFa17GFNlF4pL0tl8pGWciKricvVKTSox1hRKZQqhr9JpabQ6XSt7htq-nE2m8yWqw22z2ByP3vO+6uAdutZDH3D3EjP3+gOBYIh0Nh8MRxJohi2IKvi4iEo8WQsmyBqqOWfI9tcD4PLo9ZeGQxJJGQzYwF2CFVkKIpihKUoynKoFZliAhUdA6BGEo6CODo+g0KoDyMNEcCMIYABypBwFiYAAL54OA0DwNQEoAI4aBK8DkG8ZCFvgRCkBQVDIM8YbCQAukAA)
           preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACAMyhpIgGcAdCG0bEYLHgAsaEbCzoNmLAILo8LAK40BAtKgD6GlgF51NLFADmcXWwA2GgCYAKARow2o2YmrK6SdmBC6AO6MaM4QLCYYAG5QdlYARsQAHuGR6Sx8YADSAAoAkiwAKjRkNnBZeAIZkVkAJACMLABCNDY2NKQsACLE7VCM-PjVNVkAqqgsAMwADACkLABqAMosuQBKAKKL+QDyY6uzPYoAmsuVIxkSxEGEUDxwhhxcpDwYL4E80eaOAOSoNHM5mwAFoElAIABrX6qII0exkcSGLIAVhmqGSWQAlFUIjVEXB4MiwAlzCDzKF7DRKGQQVIqeZiCDUGpGKhypVIgBiAA8PMu6TYanauh4hEYcEohiKjDUcFxkRxI1csXiuiSqQFtRyBWKpQ5wzxGXqTVa7U6EV6-UGFyN6XGk1mCxWay2O32hxmxzOtpqYnENzuDyenG4bw+ou+fwBQNB4KhMJYcIRSNR6MxYCVdsiBKJWQoyVpFMlEE5LF5-Oz-sD9ys7k83mJZGIk0YgPEZDLFa17GFNlF4pL0tl8pGWciKricvVKTSox1hRKZQqhr9JpabQ6XSt7htq-nE2m8yWqw22z2ByP3vO+6uAdutZDH3D3EjP3+gOBYIh0Nh8MRxJohi2IKvi4iEo8WQsmyBqqOWfI9tcD4PLo9ZeGQxJJGQzYwF2CFVkKIpihKUoynKoFZliAhUdA6BGEo6CODo+g0KoDyMNEcCMIYABypBwFiYAAL54OA0DwNQEoAI4aBK8DkG8ZCFvgRCkBQVDIM8YbCQAukAA
-          code: |4
-              import faicons
-              from shiny import App, ui
-              app_ui = ui.page_fluid(
-              ui.layout_column_wrap(
-                  ui.value_box(S
-                      "KPI Title",
-                      "$1 Billion Dollars",
-                      "Up 30% VS PREVIOUS 30 DAYS",
-                      showcase=faicons.icon_svg('piggy-bank', width="50px"),
-                      theme="bg-gradient-indigo-purple",  #<<
-                      full_screen=True,
-                  ),
-                  ui.value_box(
-                      "KPI Title",
-                      "$1 Billion Dollars",
-                      "Up 30% VS PREVIOUS 30 DAYS",
-                      showcase=faicons.icon_svg('piggy-bank', width="50px"),
-                      theme="text-green",  #<<
-                      showcase_layout="top right",  #<<
-                      full_screen=True,
-                  ),
-                  ui.value_box(
-                      "KPI Title",
-                      "$1 Billion Dollars",
-                      "Up 30% VS PREVIOUS 30 DAYS",
-                      showcase=faicons.icon_svg('piggy-bank', width="50px"),
-                      theme="purple",  #<<
-                      showcase_layout="bottom",  #<<
-                      full_screen=True,
-                  ),
-              )
-              )
-              app = App(app_ui, server=None)
+          code: |
+            import faicons
+            from shiny import App, ui
+            app_ui = ui.page_fluid(
+            ui.layout_column_wrap(
+                ui.value_box(S
+                    "KPI Title",
+                    "$1 Billion Dollars",
+                    "Up 30% VS PREVIOUS 30 DAYS",
+                    showcase=faicons.icon_svg('piggy-bank', width="50px"),
+                    theme="bg-gradient-indigo-purple",  #<<
+                    full_screen=True,
+                ),
+                ui.value_box(
+                    "KPI Title",
+                    "$1 Billion Dollars",
+                    "Up 30% VS PREVIOUS 30 DAYS",
+                    showcase=faicons.icon_svg('piggy-bank', width="50px"),
+                    theme="text-green",  #<<
+                    showcase_layout="top right",  #<<
+                    full_screen=True,
+                ),
+                ui.value_box(
+                    "KPI Title",
+                    "$1 Billion Dollars",
+                    "Up 30% VS PREVIOUS 30 DAYS",
+                    showcase=faicons.icon_svg('piggy-bank', width="50px"),
+                    theme="purple",  #<<
+                    showcase_layout="bottom",  #<<
+                    full_screen=True,
+                ),
+            )
+            )
+            app = App(app_ui, server=None)
 
         - title: Reactive Value Box
           description: Connecting a reactive input value to a value box. This value box uses multiple files, see how on [Shinylive](https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACAMyhpIgGcAdCG0bEYLHgAsaEbCzoNmLAILo8LAJIRUAVzI9VAeR3bdqgMpwePGqVWNKAEziNVWmgIFpUAfVcsAvCyuWFAA5nBebAA2rvYAFAIsiYE0GFLGXjyRNI6M8ZB8+CwFAHJaMABGTizEbCwAQjSRWaT8hQCMqm0ADF2qAExdAJSqLADELAA8EwlJQQBuUNHh5cQAHvEQSVssZDRkkXB+BQDSAApqLAAqewcFeDPbYuLEAO6EUDyHHFwtqdwZcxCeVQNBCIWwAFpylAIABrO4sF7ZMjiI5gACsXVQqwKwwe2wWSz8QWIRh0XgoqzIeXKjWavFxI3GU3xWxRcHgaPKIQhIUYUHsNEoZAhUkFIWIEO0jFQt3wrKSbC0TQyhDslD8l0YWjg902STxEEG7ggAkctU+jDmTliaR0qlJZGMqk+lmsRsQ+IAAnYIDkMJTWGNJtN9YlzSxaU13TxYoNEIlmaHHok7GQtIxNmwCgASEB2sgYCBxgC+9Tp7pYABFiE0oIxWomQyaPOh-Ep0LFPD4aC6nNbGMaIGAS3hwNB4NQ7ABHVx2eDkHgBqn4IikChUZDfbg8EcAXSAA)
           shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACAMyhpIgGcAdCG0bEYLHgAsaEbCzoNmLAILo8LAJIRUAVzI9VAeR3bdqgMpwePGqVWNKAEziNVWmgIFpUAfVcsAvCyuWFAA5nBebAA2rvYAFAIsiYE0GFLGXjyRNI6M8ZB8+CwFAHJaMABGTizEbCwAQjSRWaT8hQCMqm0ADF2qAExdAJSqLADELAA8EwlJQQBuUNHh5cQAHvEQSVssZDRkkXB+BQDSAApqLAAqewcFeDPbYuLEAO6EUDyHHFwtqdwZcxCeVQNBCIWwAFpylAIABrO4sF7ZMjiI5gACsXVQqwKwwe2wWSz8QWIRh0XgoqzIeXKjWavFxI3GU3xWxRcHgaPKIQhIUYUHsNEoZAhUkFIWIEO0jFQt3wrKSbC0TQyhDslD8l0YWjg902STxEEG7ggAkctU+jDmTliaR0qlJZGMqk+lmsRsQ+IAAnYIDkMJTWGNJtN9YlzSxaU13TxYoNEIlmaHHok7GQtIxNmwCgASEB2sgYCBxgC+9Tp7pYABFiE0oIxWomQyaPOh-Ep0LFPD4aC6nNbGMaIGAS3hwNB4NQ7ABHVx2eDkHgBqn4IikChUZDfbg8EcAXSAA
-          height: "225px"
+          height: 225px
           preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACAMyhpIgGcAdCG0bEYLHgAsaEbCzoNmLAILo8LAJIRUAVzI9VAeR3bdqgMpwePGqVWNKAEziNVWmgIFpUAfVcsAvCyuWFAA5nBebAA2rvYAFAIsiYE0GFLGXjyRNI6M8ZB8+CwFAHJaMABGTizEbCwAQjSRWaT8hQCMqm0ADF2qAExdAJSqLADELAA8EwlJQQBuUNHh5cQAHvEQSVssZDRkkXB+BQDSAApqLAAqewcFeDPbYuLEAO6EUDyHHFwtqdwZcxCeVQNBCIWwAFpylAIABrO4sF7ZMjiI5gACsXVQqwKwwe2wWSz8QWIRh0XgoqzIeXKjWavFxI3GU3xWxRcHgaPKIQhIUYUHsNEoZAhUkFIWIEO0jFQt3wrKSbC0TQyhDslD8l0YWjg902STxEEG7ggAkctU+jDmTliaR0qlJZGMqk+lmsRsQ+IAAnYIDkMJTWGNJtN9YlzSxaU13TxYoNEIlmaHHok7GQtIxNmwCgASEB2sgYCBxgC+9Tp7pYABFiE0oIxWomQyaPOh-Ep0LFPD4aC6nNbGMaIGAS3hwNB4NQ7ABHVx2eDkHgBqn4IikChUZDfbg8EcAXSAA
-          code: |4
-              import faicons
-              from shiny import App, Inputs, Outputs, Session, render, ui
+          code: |
+            import faicons
+            from shiny import App, Inputs, Outputs, Session, render, ui
 
-              app_ui = ui.page_fluid(
-                  ui.input_slider("n", "Number of Billions", 1, 100, 20),  #<<
-                  ui.value_box(
-                      title="KPI Title",
-                      showcase=faicons.icon_svg('piggy-bank', width="50px"),
-                      value=ui.output_text("billions"),  #<<
-                      theme="bg-gradient-indigo-purple",
-                      full_screen=True,
-                  ),
-              )
+            app_ui = ui.page_fluid(
+                ui.input_slider("n", "Number of Billions", 1, 100, 20),  #<<
+                ui.value_box(
+                    title="KPI Title",
+                    showcase=faicons.icon_svg('piggy-bank', width="50px"),
+                    value=ui.output_text("billions"),  #<<
+                    theme="bg-gradient-indigo-purple",
+                    full_screen=True,
+                ),
+            )
 
-              def server(input, output, session):
-                  @render.text  #<<
-                  def billions():  #<<
-                      return f"${input.n()} Billion Dollars"  #<<
+            def server(input, output, session):
+                @render.text  #<<
+                def billions():  #<<
+                    return f"${input.n()} Billion Dollars"  #<<
 
-              app = App(app_ui, server)
+            app = App(app_ui, server)
 
         - title: Sparklines
           description: Interactive sparkline in the value box. This value box uses multiple files, see how on [Shinylive](https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EPgKGtO3AO4cAJgHM4ZFkyj6WquQsHDUAG2JlL2DHAAeqOnBb7DTVI9P9zXqAgNT09UDTl6RgCyNksOACNePyUABSgYuTk0MI46JgBeJjSYgAoAfTKaDks4CoBKLChXckzodDLpAqkORp1K6ssoeJqSuSZujC5CS0kNWsJ3EuyNXKYAeiYZMBYybBqWDAWWLbq8MYmANygZ2vjiR1GIcefNsAAVG2umAGVrt14ngBFABMWwkWwAJMCMAAWACsAFkwecXiAttNDMckK92FANMRVABaCCkOBbAC+ZyeL2UBMIhjg+WMGGIkjIqDZZXU2l0o22qCaAGs4hAyWBTijnuw6QyyoNsKyyPlpBhpap6SxajUaGQyoRKBQ6CVuTF8lsYQAGACkJ3OEupAo0KwgWnyFqp4yqlkGw1qMGI8WqjLedEkZIgdVacxorDgdAucZKXA5ZAkipTEk17g4pDqiHOAAF02zC8zmnM6FzNDoyOdo6wBXRhVw4CU85LxnASCSYBwFl0whhXHi9SwLkt0Cs8hsAORd0iMPsHBYXGeR6kvKpaAeODAi1vzntLiSOfIz4IUGcSbBn1AsKAJoRrjtMLcYSRhdK1Mh0KD6lglPuerENYdBngAxJaABsACiABiACMV5MEBJpsPkCESF6lhnmQxAAF5xsQ2DIdhJCgWedBaPEUAlFBMJ4AhCHusCMKYRaGDAnUyFsMQj5cDQxBmmA2C2huzxvh+F61I4UCOG4JQXBwLAJDU+RwdcmqZrxqhaHQmjqZpcDrjSr4cFo76fhQZTYHJClKSpvqGZYWm0rp+kaM5momTSklWVqUAKmyJRsHA5lsMIhRQe6TC8Y+-pzMJPj4EwMBNFoXD5CshBkCUSoxWBMU4TF8RuqcXjWLq8RaORgiUdRtHuk1eAWtxEgCqgcZlNVtVgTOVE0SUzVNdxPkvK4ZCSHQTxbq02RdGIqATqgHQcJmcaPuuYCUuA0DwNQh6LgshxjvgRCkBQVDINJeCoPqt3EKgt33o+qZhvw8AaHgkiivw1iiRAwIWsDhIWghoOYVBcIAMxwhg0N4MCAAcFoAJwAOxQXgcMMXDSPY+jFpI3IQMgxawIQ3gUFQQhqMYOjiNI0xqPujCGD41BGCYXCSM8yTwMWqD0OU9TvPs4zCGWqjeBs3CVME9D0P82TMIi1B6MIVzEtQwjcuc9zMJM8rgsWnCIuE+jGBY8jCFI+jDNs9LeME3zgMC6DUHmzC0MYNLyPAghwJY472P09jUMIcboPo+b9Fa-70O86HwLy3C6MwujUdE+bqN05h-s68nVPw9jvNK27ZOoyLSNI9Cfu16j0Mp7LRdwlBwJwlHzHVzXnGM03YMy1bxfczDMJd+Dg9QSz0IMcj0PwgjLf6+H0Oo13FNT6j8Jh-P0-B33WNtwvyuT2fVMYwz8+o0DQ-4870XAuXpOT5vkO587yNsdDDu+yPVNE3XhXSewst52z-l-WG7o4YI05ljGmbFT6g1VoPQmYM+5fx5tzUO0t24ayQabSmhMM7xyRobZiQ89Yl3bkHAhntUEWmirvXmjDm4YD1lTQ249gHRyIRadG0IU7IxhmjUO8DxZQyRs-YGk8kZEOYkjCBvM07uk5hzP+xDQQ8LRnwwO4thFkIRgzS2KcNYwi0S-Qk3dUFA0UXPJG0VUb4x9gxS2Rjp7cMsUxeR6slFQQXphNmmFLYMxRhaaRYMrFvzwGYkJjMoaE0oXgRRKda6u1Jm-eR6cS7I3VjXf+djkm2wscDTe0SBG2xyQ43OuNxaKIRrXBCncK6b1AcEp+JjGYaxZjg5JsJknQwtJ40pyCiGDJxl0teDNnaKOlrzXOytN5mxsbXZhmMn7FzlnTOWUiFktI9mMypQi7YOIYpzBiTEBmN0Wbw1BicOL2KZqbUOOy-67ItDc7OqDLSazlsjKR0VQ4MTmYM4Z5NQZVzuajfONcab3zDts5JHdI77OscE72HEr41zttAhFw8pH8Jud475cI6ZYuhYw0ODM6YNLhEDIl5S4R6PxsjRuCFdbsLwHTLGpyPkVzaUQmGPsYWoyZfCrZ+K6V8tJqAxlsMlEY0lmIrlnKHG22VqAtpMTSWFNZdC7mJcyXJJ5sTflozUHt3zizQOcsYGMQ4qkshJTwmg2WcE9uiirXhJhEfcWdM5miszmaxhRC8nD2BCzHmtSsZMU5TfamGrbnBPRonDBLNa6qJLsxQ1YMUUytBnI1BUiW4RuYgI+W2bMI11RlBRNOii2w0RtCpuBqU7ZtSTfPNwNhZopiWQuGV9oVp1qQjbNDE7ZN0TcS4JSNc7huhSjaZ-Ts20sxlO8pN86ZCJvsDeFFyHkDIQkG0mKDz7oycZbOenab7Y3tfin+0rgYoOiSjWm+ib7QygvfO9qSELq2VigrVi7rY3zboEv+7bkkwmhQB81VaiaKJA8Ce2TtDWqqPY+oZrrKZM38WmiNGNQ4I39UiwOsGQ2DyZiQ7dTcNnO0ubXBx5GY6UYDrMptC9-FEb6XM9ltaK4oMLVWjuwqOPdKLlumJudMMoMhVWlt8dG6KqHljblUnkOwd7VI7JIHzGDKSYilGNNNPnydRxXTPqD6YSNeeydAmok4fIZyiNPrt7F2loi2zYK3WOcJmm6DSqfbUv6fbMhytlkvrpZJiNTLnkuJVaYpxmHllAbboimLyMGY+1UyXe2P9wtweSfROGIG4TQfdKJ6WmMBEFcIZR+iPs-aBqGXgH2Er3VMtq-QqtAi2YstFY3a2f8qt0u80m5JDdnM1ttkN1J4t06MNq0JibTd+kRvopaRGeLTEL2aaTZZcmJti36+rfhW3QkhbhDDArWn43zunuW0TiGYmLxu6Zxuii-kYyBll1VnL0Zt34-thzlGa1qYjenaGmEgt9OMchoBpNuuU0jXTfrmMM5Dzm1jQm9Flb0OiSzFmin0a8wYmzFOecYm2zBfQrV0LgTQitUZ1mfdFHGP4c6+hp6uVHr602xjgS+muMDph+hbquUBzhkz6DWMfb40+xfFGeODmDxvpad9E7pauNyzI5X-Dke0fnbOmtrX+n4w1gDvXy3G4B3ffGhG2WhcxLRl2ijh3G5ld3h-MrpueVUzIce4Gnte2NxTWmpxjbHeW1wQIwPIbp1cvuX3QZwM3ONb6bAu2nOQfWdc617tm2YeWz1us5WLHz6ir-SXFPw7TcXaMUxIHwMWME7K2o-PRNyZDyrZy6eGmK4sbpzzKX+fmIByHsCrW6sodl8K9Ngdo+O5k9Z8PL9cJMMsfFzWpl1ewaGyXn0lO6sE0D5V9Z6mbjR8pulnLmJYcHsI+b+NjGaNh6DJPXX2HVPoOz6+dZgH6e7+Qcv24682jCceLG7u560e+eS+suf2xiGGs+IetcWW5Mi6puoBriHSyBFes6lszi4SpsDET2w8vWG+OeXK6a-SgyTcdsvuTu6Oe2u6EMyOjcFW4S6+8B1KMSa+yshaBOzaNB4SGs4GPexi0GcehadOA2wha8Z2oBxitczqha3OucNa4soKTEIBKqri-iUh2Gg8zEpst+oKTcRi82bya8zBXy3W9qZaf8oKV2vqWyxqluFcha5e9hQyYcoK56+MbMk+oSoe-BBalMxh28vhpsQycst+Rq28icoR9amExh3snK4ygyWuYckG2828oRIeNaHEDupsV2tScsY69q-CYKciCeTiQMmhpsJO4ik++MzEMMpqpMNRBOKamK+e0ULW5yd65RgcTGFccmyOJOphrCRMxcbavRIu6SqeoM3R1MfRloKccMwx2RrKHRSxLqquGsCugyki8K0seio6C8tCYxc+vWDReSDM7e7KWs7KZcyskKW+6c7GxxTioBba5OjEMI0Gj+9adhSWnMN+HOlKnMDMR6fcksFsbxz+ZCmsaBkOuCjEMaPqYMiJf+VBNM+emMScIcVeo65CYKkK7uNc8Wgy56PqvSsJrR6+aMiJBRUOjhRMtsqGFy7GTSsMzqVctR28HEsRRMbEpxjEqOjEdKtMLJghTi7JDiisvS9RKR6+Ti-MaK4RAsmshBVJsC8c7oTSQyTe1i0Sxhgyb+aM5MS6rRJGTSTE0i1iWqxhs6WsmRAcGxu8B6TSQMJS1i3OzETEdc+e0K0KnElygxDOzxMMHcGpJs4ugZUOIZn6dMJhMSiM0IpJZCj+1idhgZO+JBaMZWn2Xe4JiMcMfxGcwy1iXhgZZCURGMO8086iLKmZAJTKfpJsy2Y+yMyeaMga9MAO7miMKRPqhscZEKWprEN+gZmMsIqx0JiMRR7Z56E5vazEoKvhG5c6oq6i1smsfxTKJpgsCeG5nuWWbRoq9M9Exc+5UpHJa5Zp4SN8bpZaTM9Mzyls+cmsZx3s45bs06Wp3smxrWzEhR9M2uc8vyAJYMjpr8QFfm0OTEDp8MmMd++5zxic9KAFICWpV2wpoFgcUMsILWV80F7KKagexKAZps4CsuTE3snMT86ifsHEZx1hVFk8CZjCgchF0UlsMxZZtuMaicV2Gpk8eZjCn6mh2hYZDOFhQis8jEa87c4l42zE6sxehFucAl0Gd+CMDOylmMcFYRRh-CwMb+gcQMMC6sd+ily6ic6qOFk5ZlKanqoFrEEaXMtsxcrZyl28ux3i65-CMMr5QcgJXMpKvlS5w87KpK1Z4Mp5IViKUO-s2yGyV8HErRis5MalgcWp9sgioFKeZKvFBBMV5RmRjpmSZlDijOxVtswq56ySMVrR8OVFZSWpoqbWxVissy9sLVb6MJNs1VQsXVO+zi7KQJ8M08fS5RkmgcGso1WGZlGMRqUOn6vii1X+b6KR4VJpSyXVX6llicFpMMfStpEGQc0UGpm8kl28nMDuksYMxebmlO9RFyQcN8t16laM9syeksAcmKDih+jEWlRFbcP1uJTET6r5gJUZASg1hSgcGcXa+VyRjEGl0FUOY50JelKSjEiibVTEzB+V65YFkpONZcvsJOF1EpV1KNP1p5Dp7eUO6+oVipKqMJz2IupsTNZpDFBFbNT80IAObabacSVl6pAFAqRhIu0Ik17R2yoqxco69GrE+CMtyx4Rgca8llV2Kp3socrRnSzM6+GpmqOtDOX5oFgOgirE9JlsMaf6s6FthWQZpsNBTSTMBBV2xcFyNt2hN1WtdWKRKNbM9FOq2WPui5sJYdUM1ZoCeZRFRNoFNMGsGAQyR+4sR6mNAOaNoCtZgcGhF5-iPMg5e5GJcJ7KsMbt0N7KXlKcUOkiRRyGxcMJnMwx8Oddh2LNZZzdRmXMHc0VVeXdhMbt5NbElNGGUZbdj1Vdo6LNE958DFdFoFAivZ5M4iEtzx-CdsE9AtTKMBUO6csaV2kMy6l+zElo1Zp6OtHZ6RR6pKjWGV0Zy65MuVAFz6991MAN9sHNUi+lUpEG3qOZgGOtDW690KJi4Sd+Fy9G4SSuX97tM9llKMrpbGcDwD1KhMfpKCCZvOhSUOtc087Cn5y6EdXK8yGpKCydPtoFZCccPpWDTx+MD1j6ks6lM2QtM27cM15unKTx5+RMNDplYd28bMT11aQWINptwZA2YDLl4jacXt9OFZJul6yl-S8aeDViJse15MT1HuQWC8dlWjPK0mojp51lmsJBtMbc5OoiV9xGVpVjZpQM7coFjZ+sac6FjEwZdsR6GpPmRhQMdJUOucvZ9E2O2RPsHa4SwT2toTRMSlA8VR7ClyMBeicyNMHDKW4Rku9SrWvpFpTRLDqS6+1ZyyAZAcjcmhYT5MnEKtTtmNqqdKUE20eAu0sACAyAOwewbgJ0LAZ03Yl0ZA1AGA8QLAcQ8QhIVwNwhIdwjgTAGA8zYYiz9whIaoGocATAaIEAjozoWgiATAFopz5zCErgMAAA3HIOSHIJM9MwkHM9cOs0sys1YDYHYCswlHADRHQISKM1AC2HkPs+MCsCwFYIFCcySKKLcxAPcxAHIOBI8zMy8ws+86s683ABs44FszpDs4gGwIYCUFgJVHYHUHs8iy8Ic1wMc6c+wlc-C+BIiw8+wFwNgISBwDgNyDWISMWMIGC0wBC1C9gCczQDUI4PC56JKycwhEwPK1AGyMQEwAAIRmBCCBBkDStMBoRyvAxWjwussQCqgqCcvcvYC8u6D8tsgphMAAB8TAAAVFS9SCK-KOK5KzqxK04HKwqwYMqzq3qwqwa0a60Kaxy1yzy9WNawKw686-Gy60K+69C6+F6+cD644H64q4G+cMG8YYa3c+G+y9wFG5azG2QDa+yGyIm7W460m3WMpKK5604N67K-6zm3hEG5oDEPq9aEa9tAALpAA).
           preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EPgKGtO3AO4cAJgHM4ZFkyj6WquQsHDUAG2JlL2DHAAeqOnBb7DTVI9P9zXqAgNT09UDTl6RgCyNksOACNePyUABSgYuTk0MI46JgBeJjSYgAoAfTKaDks4CoBKLChXckzodDLpAqkORp1K6ssoeJqSuSZujC5CS0kNWsJ3EuyNXKYAeiYZMBYybBqWDAWWLbq8MYmANygZ2vjiR1GIcefNsAAVG2umAGVrt14ngBFABMWwkWwAJMCMAAWACsAFkwecXiAttNDMckK92FANMRVABaCCkOBbAC+ZyeL2UBMIhjg+WMGGIkjIqDZZXU2l0o22qCaAGs4hAyWBTijnuw6QyyoNsKyyPlpBhpap6SxajUaGQyoRKBQ6CVuTF8lsYQAGACkJ3OEupAo0KwgWnyFqp4yqlkGw1qMGI8WqjLedEkZIgdVacxorDgdAucZKXA5ZAkipTEk17g4pDqiHOAAF02zC8zmnM6FzNDoyOdo6wBXRhVw4CU85LxnASCSYBwFl0whhXHi9SwLkt0Cs8hsAORd0iMPsHBYXGeR6kvKpaAeODAi1vzntLiSOfIz4IUGcSbBn1AsKAJoRrjtMLcYSRhdK1Mh0KD6lglPuerENYdBngAxJaABsACiABiACMV5MEBJpsPkCESF6lhnmQxAAF5xsQ2DIdhJCgWedBaPEUAlFBMJ4AhCHusCMKYRaGDAnUyFsMQj5cDQxBmmA2C2huzxvh+F61I4UCOG4JQXBwLAJDU+RwdcmqZrxqhaHQmjqZpcDrjSr4cFo76fhQZTYHJClKSpvqGZYWm0rp+kaM5momTSklWVqUAKmyJRsHA5lsMIhRQe6TC8Y+-pzMJPj4EwMBNFoXD5CshBkCUSoxWBMU4TF8RuqcXjWLq8RaORgiUdRtHuk1eAWtxEgCqgcZlNVtVgTOVE0SUzVNdxPkvK4ZCSHQTxbq02RdGIqATqgHQcJmcaPuuYCUuA0DwNQh6LgshxjvgRCkBQVDINJeCoPqt3EKgt33o+qZhvw8AaHgkiivw1iiRAwIWsDhIWghoOYVBcIAMxwhg0N4MCAAcFoAJwAOxQXgcMMXDSPY+jFpI3IQMgxawIQ3gUFQQhqMYOjiNI0xqPujCGD41BGCYXCSM8yTwMWqD0OU9TvPs4zCGWqjeBs3CVME9D0P82TMIi1B6MIVzEtQwjcuc9zMJM8rgsWnCIuE+jGBY8jCFI+jDNs9LeME3zgMC6DUHmzC0MYNLyPAghwJY472P09jUMIcboPo+b9Fa-70O86HwLy3C6MwujUdE+bqN05h-s68nVPw9jvNK27ZOoyLSNI9Cfu16j0Mp7LRdwlBwJwlHzHVzXnGM03YMy1bxfczDMJd+Dg9QSz0IMcj0PwgjLf6+H0Oo13FNT6j8Jh-P0-B33WNtwvyuT2fVMYwz8+o0DQ-4870XAuXpOT5vkO587yNsdDDu+yPVNE3XhXSewst52z-l-WG7o4YI05ljGmbFT6g1VoPQmYM+5fx5tzUO0t24ayQabSmhMM7xyRobZiQ89Yl3bkHAhntUEWmirvXmjDm4YD1lTQ249gHRyIRadG0IU7IxhmjUO8DxZQyRs-YGk8kZEOYkjCBvM07uk5hzP+xDQQ8LRnwwO4thFkIRgzS2KcNYwi0S-Qk3dUFA0UXPJG0VUb4x9gxS2Rjp7cMsUxeR6slFQQXphNmmFLYMxRhaaRYMrFvzwGYkJjMoaE0oXgRRKda6u1Jm-eR6cS7I3VjXf+djkm2wscDTe0SBG2xyQ43OuNxaKIRrXBCncK6b1AcEp+JjGYaxZjg5JsJknQwtJ40pyCiGDJxl0teDNnaKOlrzXOytN5mxsbXZhmMn7FzlnTOWUiFktI9mMypQi7YOIYpzBiTEBmN0Wbw1BicOL2KZqbUOOy-67ItDc7OqDLSazlsjKR0VQ4MTmYM4Z5NQZVzuajfONcab3zDts5JHdI77OscE72HEr41zttAhFw8pH8Jud475cI6ZYuhYw0ODM6YNLhEDIl5S4R6PxsjRuCFdbsLwHTLGpyPkVzaUQmGPsYWoyZfCrZ+K6V8tJqAxlsMlEY0lmIrlnKHG22VqAtpMTSWFNZdC7mJcyXJJ5sTflozUHt3zizQOcsYGMQ4qkshJTwmg2WcE9uiirXhJhEfcWdM5miszmaxhRC8nD2BCzHmtSsZMU5TfamGrbnBPRonDBLNa6qJLsxQ1YMUUytBnI1BUiW4RuYgI+W2bMI11RlBRNOii2w0RtCpuBqU7ZtSTfPNwNhZopiWQuGV9oVp1qQjbNDE7ZN0TcS4JSNc7huhSjaZ-Ts20sxlO8pN86ZCJvsDeFFyHkDIQkG0mKDz7oycZbOenab7Y3tfin+0rgYoOiSjWm+ib7QygvfO9qSELq2VigrVi7rY3zboEv+7bkkwmhQB81VaiaKJA8Ce2TtDWqqPY+oZrrKZM38WmiNGNQ4I39UiwOsGQ2DyZiQ7dTcNnO0ubXBx5GY6UYDrMptC9-FEb6XM9ltaK4oMLVWjuwqOPdKLlumJudMMoMhVWlt8dG6KqHljblUnkOwd7VI7JIHzGDKSYilGNNNPnydRxXTPqD6YSNeeydAmok4fIZyiNPrt7F2loi2zYK3WOcJmm6DSqfbUv6fbMhytlkvrpZJiNTLnkuJVaYpxmHllAbboimLyMGY+1UyXe2P9wtweSfROGIG4TQfdKJ6WmMBEFcIZR+iPs-aBqGXgH2Er3VMtq-QqtAi2YstFY3a2f8qt0u80m5JDdnM1ttkN1J4t06MNq0JibTd+kRvopaRGeLTEL2aaTZZcmJti36+rfhW3QkhbhDDArWn43zunuW0TiGYmLxu6Zxuii-kYyBll1VnL0Zt34-thzlGa1qYjenaGmEgt9OMchoBpNuuU0jXTfrmMM5Dzm1jQm9Flb0OiSzFmin0a8wYmzFOecYm2zBfQrV0LgTQitUZ1mfdFHGP4c6+hp6uVHr602xjgS+muMDph+hbquUBzhkz6DWMfb40+xfFGeODmDxvpad9E7pauNyzI5X-Dke0fnbOmtrX+n4w1gDvXy3G4B3ffGhG2WhcxLRl2ijh3G5ld3h-MrpueVUzIce4Gnte2NxTWmpxjbHeW1wQIwPIbp1cvuX3QZwM3ONb6bAu2nOQfWdc617tm2YeWz1us5WLHz6ir-SXFPw7TcXaMUxIHwMWME7K2o-PRNyZDyrZy6eGmK4sbpzzKX+fmIByHsCrW6sodl8K9Ngdo+O5k9Z8PL9cJMMsfFzWpl1ewaGyXn0lO6sE0D5V9Z6mbjR8pulnLmJYcHsI+b+NjGaNh6DJPXX2HVPoOz6+dZgH6e7+Qcv24682jCceLG7u560e+eS+suf2xiGGs+IetcWW5Mi6puoBriHSyBFes6lszi4SpsDET2w8vWG+OeXK6a-SgyTcdsvuTu6Oe2u6EMyOjcFW4S6+8B1KMSa+yshaBOzaNB4SGs4GPexi0GcehadOA2wha8Z2oBxitczqha3OucNa4soKTEIBKqri-iUh2Gg8zEpst+oKTcRi82bya8zBXy3W9qZaf8oKV2vqWyxqluFcha5e9hQyYcoK56+MbMk+oSoe-BBalMxh28vhpsQycst+Rq28icoR9amExh3snK4ygyWuYckG2828oRIeNaHEDupsV2tScsY69q-CYKciCeTiQMmhpsJO4ik++MzEMMpqpMNRBOKamK+e0ULW5yd65RgcTGFccmyOJOphrCRMxcbavRIu6SqeoM3R1MfRloKccMwx2RrKHRSxLqquGsCugyki8K0seio6C8tCYxc+vWDReSDM7e7KWs7KZcyskKW+6c7GxxTioBba5OjEMI0Gj+9adhSWnMN+HOlKnMDMR6fcksFsbxz+ZCmsaBkOuCjEMaPqYMiJf+VBNM+emMScIcVeo65CYKkK7uNc8Wgy56PqvSsJrR6+aMiJBRUOjhRMtsqGFy7GTSsMzqVctR28HEsRRMbEpxjEqOjEdKtMLJghTi7JDiisvS9RKR6+Ti-MaK4RAsmshBVJsC8c7oTSQyTe1i0Sxhgyb+aM5MS6rRJGTSTE0i1iWqxhs6WsmRAcGxu8B6TSQMJS1i3OzETEdc+e0K0KnElygxDOzxMMHcGpJs4ugZUOIZn6dMJhMSiM0IpJZCj+1idhgZO+JBaMZWn2Xe4JiMcMfxGcwy1iXhgZZCURGMO8086iLKmZAJTKfpJsy2Y+yMyeaMga9MAO7miMKRPqhscZEKWprEN+gZmMsIqx0JiMRR7Z56E5vazEoKvhG5c6oq6i1smsfxTKJpgsCeG5nuWWbRoq9M9Exc+5UpHJa5Zp4SN8bpZaTM9Mzyls+cmsZx3s45bs06Wp3smxrWzEhR9M2uc8vyAJYMjpr8QFfm0OTEDp8MmMd++5zxic9KAFICWpV2wpoFgcUMsILWV80F7KKagexKAZps4CsuTE3snMT86ifsHEZx1hVFk8CZjCgchF0UlsMxZZtuMaicV2Gpk8eZjCn6mh2hYZDOFhQis8jEa87c4l42zE6sxehFucAl0Gd+CMDOylmMcFYRRh-CwMb+gcQMMC6sd+ily6ic6qOFk5ZlKanqoFrEEaXMtsxcrZyl28ux3i65-CMMr5QcgJXMpKvlS5w87KpK1Z4Mp5IViKUO-s2yGyV8HErRis5MalgcWp9sgioFKeZKvFBBMV5RmRjpmSZlDijOxVtswq56ySMVrR8OVFZSWpoqbWxVissy9sLVb6MJNs1VQsXVO+zi7KQJ8M08fS5RkmgcGso1WGZlGMRqUOn6vii1X+b6KR4VJpSyXVX6llicFpMMfStpEGQc0UGpm8kl28nMDuksYMxebmlO9RFyQcN8t16laM9syeksAcmKDih+jEWlRFbcP1uJTET6r5gJUZASg1hSgcGcXa+VyRjEGl0FUOY50JelKSjEiibVTEzB+V65YFkpONZcvsJOF1EpV1KNP1p5Dp7eUO6+oVipKqMJz2IupsTNZpDFBFbNT80IAObabacSVl6pAFAqRhIu0Ik17R2yoqxco69GrE+CMtyx4Rgca8llV2Kp3socrRnSzM6+GpmqOtDOX5oFgOgirE9JlsMaf6s6FthWQZpsNBTSTMBBV2xcFyNt2hN1WtdWKRKNbM9FOq2WPui5sJYdUM1ZoCeZRFRNoFNMGsGAQyR+4sR6mNAOaNoCtZgcGhF5-iPMg5e5GJcJ7KsMbt0N7KXlKcUOkiRRyGxcMJnMwx8Oddh2LNZZzdRmXMHc0VVeXdhMbt5NbElNGGUZbdj1Vdo6LNE958DFdFoFAivZ5M4iEtzx-CdsE9AtTKMBUO6csaV2kMy6l+zElo1Zp6OtHZ6RR6pKjWGV0Zy65MuVAFz6991MAN9sHNUi+lUpEG3qOZgGOtDW690KJi4Sd+Fy9G4SSuX97tM9llKMrpbGcDwD1KhMfpKCCZvOhSUOtc087Cn5y6EdXK8yGpKCydPtoFZCccPpWDTx+MD1j6ks6lM2QtM27cM15unKTx5+RMNDplYd28bMT11aQWINptwZA2YDLl4jacXt9OFZJul6yl-S8aeDViJse15MT1HuQWC8dlWjPK0mojp51lmsJBtMbc5OoiV9xGVpVjZpQM7coFjZ+sac6FjEwZdsR6GpPmRhQMdJUOucvZ9E2O2RPsHa4SwT2toTRMSlA8VR7ClyMBeicyNMHDKW4Rku9SrWvpFpTRLDqS6+1ZyyAZAcjcmhYT5MnEKtTtmNqqdKUE20eAu0sACAyAOwewbgJ0LAZ03Yl0ZA1AGA8QLAcQ8QhIVwNwhIdwjgTAGA8zYYiz9whIaoGocATAaIEAjozoWgiATAFopz5zCErgMAAA3HIOSHIJM9MwkHM9cOs0sys1YDYHYCswlHADRHQISKM1AC2HkPs+MCsCwFYIFCcySKKLcxAPcxAHIOBI8zMy8ws+86s683ABs44FszpDs4gGwIYCUFgJVHYHUHs8iy8Ic1wMc6c+wlc-C+BIiw8+wFwNgISBwDgNyDWISMWMIGC0wBC1C9gCczQDUI4PC56JKycwhEwPK1AGyMQEwAAIRmBCCBBkDStMBoRyvAxWjwussQCqgqCcvcvYC8u6D8tsgphMAAB8TAAAVFS9SCK-KOK5KzqxK04HKwqwYMqzq3qwqwa0a60Kaxy1yzy9WNawKw686-Gy60K+69C6+F6+cD644H64q4G+cMG8YYa3c+G+y9wFG5azG2QDa+yGyIm7W460m3WMpKK5604N67K-6zm3hEG5oDEPq9aEa9tAALpAA
           shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EPgKGtO3AO4cAJgHM4ZFkyj6WquQsHDUAG2JlL2DHAAeqOnBb7DTVI9P9zXqAgNT09UDTl6RgCyNksOACNePyUABSgYuTk0MI46JgBeJjSYgAoAfTKaDks4CoBKLChXckzodDLpAqkORp1K6ssoeJqSuSZujC5CS0kNWsJ3EuyNXKYAeiYZMBYybBqWDAWWLbq8MYmANygZ2vjiR1GIcefNsAAVG2umAGVrt14ngBFABMWwkWwAJMCMAAWACsAFkwecXiAttNDMckK92FANMRVABaCCkOBbAC+ZyeL2UBMIhjg+WMGGIkjIqDZZXU2l0o22qCaAGs4hAyWBTijnuw6QyyoNsKyyPlpBhpap6SxajUaGQyoRKBQ6CVuTF8lsYQAGACkJ3OEupAo0KwgWnyFqp4yqlkGw1qMGI8WqjLedEkZIgdVacxorDgdAucZKXA5ZAkipTEk17g4pDqiHOAAF02zC8zmnM6FzNDoyOdo6wBXRhVw4CU85LxnASCSYBwFl0whhXHi9SwLkt0Cs8hsAORd0iMPsHBYXGeR6kvKpaAeODAi1vzntLiSOfIz4IUGcSbBn1AsKAJoRrjtMLcYSRhdK1Mh0KD6lglPuerENYdBngAxJaABsACiABiACMV5MEBJpsPkCESF6lhnmQxAAF5xsQ2DIdhJCgWedBaPEUAlFBMJ4AhCHusCMKYRaGDAnUyFsMQj5cDQxBmmA2C2huzxvh+F61I4UCOG4JQXBwLAJDU+RwdcmqZrxqhaHQmjqZpcDrjSr4cFo76fhQZTYHJClKSpvqGZYWm0rp+kaM5momTSklWVqUAKmyJRsHA5lsMIhRQe6TC8Y+-pzMJPj4EwMBNFoXD5CshBkCUSoxWBMU4TF8RuqcXjWLq8RaORgiUdRtHuk1eAWtxEgCqgcZlNVtVgTOVE0SUzVNdxPkvK4ZCSHQTxbq02RdGIqATqgHQcJmcaPuuYCUuA0DwNQh6LgshxjvgRCkBQVDINJeCoPqt3EKgt33o+qZhvw8AaHgkiivw1iiRAwIWsDhIWghoOYVBcIAMxwhg0N4MCAAcFoAJwAOxQXgcMMXDSPY+jFpI3IQMgxawIQ3gUFQQhqMYOjiNI0xqPujCGD41BGCYXCSM8yTwMWqD0OU9TvPs4zCGWqjeBs3CVME9D0P82TMIi1B6MIVzEtQwjcuc9zMJM8rgsWnCIuE+jGBY8jCFI+jDNs9LeME3zgMC6DUHmzC0MYNLyPAghwJY472P09jUMIcboPo+b9Fa-70O86HwLy3C6MwujUdE+bqN05h-s68nVPw9jvNK27ZOoyLSNI9Cfu16j0Mp7LRdwlBwJwlHzHVzXnGM03YMy1bxfczDMJd+Dg9QSz0IMcj0PwgjLf6+H0Oo13FNT6j8Jh-P0-B33WNtwvyuT2fVMYwz8+o0DQ-4870XAuXpOT5vkO587yNsdDDu+yPVNE3XhXSewst52z-l-WG7o4YI05ljGmbFT6g1VoPQmYM+5fx5tzUO0t24ayQabSmhMM7xyRobZiQ89Yl3bkHAhntUEWmirvXmjDm4YD1lTQ249gHRyIRadG0IU7IxhmjUO8DxZQyRs-YGk8kZEOYkjCBvM07uk5hzP+xDQQ8LRnwwO4thFkIRgzS2KcNYwi0S-Qk3dUFA0UXPJG0VUb4x9gxS2Rjp7cMsUxeR6slFQQXphNmmFLYMxRhaaRYMrFvzwGYkJjMoaE0oXgRRKda6u1Jm-eR6cS7I3VjXf+djkm2wscDTe0SBG2xyQ43OuNxaKIRrXBCncK6b1AcEp+JjGYaxZjg5JsJknQwtJ40pyCiGDJxl0teDNnaKOlrzXOytN5mxsbXZhmMn7FzlnTOWUiFktI9mMypQi7YOIYpzBiTEBmN0Wbw1BicOL2KZqbUOOy-67ItDc7OqDLSazlsjKR0VQ4MTmYM4Z5NQZVzuajfONcab3zDts5JHdI77OscE72HEr41zttAhFw8pH8Jud475cI6ZYuhYw0ODM6YNLhEDIl5S4R6PxsjRuCFdbsLwHTLGpyPkVzaUQmGPsYWoyZfCrZ+K6V8tJqAxlsMlEY0lmIrlnKHG22VqAtpMTSWFNZdC7mJcyXJJ5sTflozUHt3zizQOcsYGMQ4qkshJTwmg2WcE9uiirXhJhEfcWdM5miszmaxhRC8nD2BCzHmtSsZMU5TfamGrbnBPRonDBLNa6qJLsxQ1YMUUytBnI1BUiW4RuYgI+W2bMI11RlBRNOii2w0RtCpuBqU7ZtSTfPNwNhZopiWQuGV9oVp1qQjbNDE7ZN0TcS4JSNc7huhSjaZ-Ts20sxlO8pN86ZCJvsDeFFyHkDIQkG0mKDz7oycZbOenab7Y3tfin+0rgYoOiSjWm+ib7QygvfO9qSELq2VigrVi7rY3zboEv+7bkkwmhQB81VaiaKJA8Ce2TtDWqqPY+oZrrKZM38WmiNGNQ4I39UiwOsGQ2DyZiQ7dTcNnO0ubXBx5GY6UYDrMptC9-FEb6XM9ltaK4oMLVWjuwqOPdKLlumJudMMoMhVWlt8dG6KqHljblUnkOwd7VI7JIHzGDKSYilGNNNPnydRxXTPqD6YSNeeydAmok4fIZyiNPrt7F2loi2zYK3WOcJmm6DSqfbUv6fbMhytlkvrpZJiNTLnkuJVaYpxmHllAbboimLyMGY+1UyXe2P9wtweSfROGIG4TQfdKJ6WmMBEFcIZR+iPs-aBqGXgH2Er3VMtq-QqtAi2YstFY3a2f8qt0u80m5JDdnM1ttkN1J4t06MNq0JibTd+kRvopaRGeLTEL2aaTZZcmJti36+rfhW3QkhbhDDArWn43zunuW0TiGYmLxu6Zxuii-kYyBll1VnL0Zt34-thzlGa1qYjenaGmEgt9OMchoBpNuuU0jXTfrmMM5Dzm1jQm9Flb0OiSzFmin0a8wYmzFOecYm2zBfQrV0LgTQitUZ1mfdFHGP4c6+hp6uVHr602xjgS+muMDph+hbquUBzhkz6DWMfb40+xfFGeODmDxvpad9E7pauNyzI5X-Dke0fnbOmtrX+n4w1gDvXy3G4B3ffGhG2WhcxLRl2ijh3G5ld3h-MrpueVUzIce4Gnte2NxTWmpxjbHeW1wQIwPIbp1cvuX3QZwM3ONb6bAu2nOQfWdc617tm2YeWz1us5WLHz6ir-SXFPw7TcXaMUxIHwMWME7K2o-PRNyZDyrZy6eGmK4sbpzzKX+fmIByHsCrW6sodl8K9Ngdo+O5k9Z8PL9cJMMsfFzWpl1ewaGyXn0lO6sE0D5V9Z6mbjR8pulnLmJYcHsI+b+NjGaNh6DJPXX2HVPoOz6+dZgH6e7+Qcv24682jCceLG7u560e+eS+suf2xiGGs+IetcWW5Mi6puoBriHSyBFes6lszi4SpsDET2w8vWG+OeXK6a-SgyTcdsvuTu6Oe2u6EMyOjcFW4S6+8B1KMSa+yshaBOzaNB4SGs4GPexi0GcehadOA2wha8Z2oBxitczqha3OucNa4soKTEIBKqri-iUh2Gg8zEpst+oKTcRi82bya8zBXy3W9qZaf8oKV2vqWyxqluFcha5e9hQyYcoK56+MbMk+oSoe-BBalMxh28vhpsQycst+Rq28icoR9amExh3snK4ygyWuYckG2828oRIeNaHEDupsV2tScsY69q-CYKciCeTiQMmhpsJO4ik++MzEMMpqpMNRBOKamK+e0ULW5yd65RgcTGFccmyOJOphrCRMxcbavRIu6SqeoM3R1MfRloKccMwx2RrKHRSxLqquGsCugyki8K0seio6C8tCYxc+vWDReSDM7e7KWs7KZcyskKW+6c7GxxTioBba5OjEMI0Gj+9adhSWnMN+HOlKnMDMR6fcksFsbxz+ZCmsaBkOuCjEMaPqYMiJf+VBNM+emMScIcVeo65CYKkK7uNc8Wgy56PqvSsJrR6+aMiJBRUOjhRMtsqGFy7GTSsMzqVctR28HEsRRMbEpxjEqOjEdKtMLJghTi7JDiisvS9RKR6+Ti-MaK4RAsmshBVJsC8c7oTSQyTe1i0Sxhgyb+aM5MS6rRJGTSTE0i1iWqxhs6WsmRAcGxu8B6TSQMJS1i3OzETEdc+e0K0KnElygxDOzxMMHcGpJs4ugZUOIZn6dMJhMSiM0IpJZCj+1idhgZO+JBaMZWn2Xe4JiMcMfxGcwy1iXhgZZCURGMO8086iLKmZAJTKfpJsy2Y+yMyeaMga9MAO7miMKRPqhscZEKWprEN+gZmMsIqx0JiMRR7Z56E5vazEoKvhG5c6oq6i1smsfxTKJpgsCeG5nuWWbRoq9M9Exc+5UpHJa5Zp4SN8bpZaTM9Mzyls+cmsZx3s45bs06Wp3smxrWzEhR9M2uc8vyAJYMjpr8QFfm0OTEDp8MmMd++5zxic9KAFICWpV2wpoFgcUMsILWV80F7KKagexKAZps4CsuTE3snMT86ifsHEZx1hVFk8CZjCgchF0UlsMxZZtuMaicV2Gpk8eZjCn6mh2hYZDOFhQis8jEa87c4l42zE6sxehFucAl0Gd+CMDOylmMcFYRRh-CwMb+gcQMMC6sd+ily6ic6qOFk5ZlKanqoFrEEaXMtsxcrZyl28ux3i65-CMMr5QcgJXMpKvlS5w87KpK1Z4Mp5IViKUO-s2yGyV8HErRis5MalgcWp9sgioFKeZKvFBBMV5RmRjpmSZlDijOxVtswq56ySMVrR8OVFZSWpoqbWxVissy9sLVb6MJNs1VQsXVO+zi7KQJ8M08fS5RkmgcGso1WGZlGMRqUOn6vii1X+b6KR4VJpSyXVX6llicFpMMfStpEGQc0UGpm8kl28nMDuksYMxebmlO9RFyQcN8t16laM9syeksAcmKDih+jEWlRFbcP1uJTET6r5gJUZASg1hSgcGcXa+VyRjEGl0FUOY50JelKSjEiibVTEzB+V65YFkpONZcvsJOF1EpV1KNP1p5Dp7eUO6+oVipKqMJz2IupsTNZpDFBFbNT80IAObabacSVl6pAFAqRhIu0Ik17R2yoqxco69GrE+CMtyx4Rgca8llV2Kp3socrRnSzM6+GpmqOtDOX5oFgOgirE9JlsMaf6s6FthWQZpsNBTSTMBBV2xcFyNt2hN1WtdWKRKNbM9FOq2WPui5sJYdUM1ZoCeZRFRNoFNMGsGAQyR+4sR6mNAOaNoCtZgcGhF5-iPMg5e5GJcJ7KsMbt0N7KXlKcUOkiRRyGxcMJnMwx8Oddh2LNZZzdRmXMHc0VVeXdhMbt5NbElNGGUZbdj1Vdo6LNE958DFdFoFAivZ5M4iEtzx-CdsE9AtTKMBUO6csaV2kMy6l+zElo1Zp6OtHZ6RR6pKjWGV0Zy65MuVAFz6991MAN9sHNUi+lUpEG3qOZgGOtDW690KJi4Sd+Fy9G4SSuX97tM9llKMrpbGcDwD1KhMfpKCCZvOhSUOtc087Cn5y6EdXK8yGpKCydPtoFZCccPpWDTx+MD1j6ks6lM2QtM27cM15unKTx5+RMNDplYd28bMT11aQWINptwZA2YDLl4jacXt9OFZJul6yl-S8aeDViJse15MT1HuQWC8dlWjPK0mojp51lmsJBtMbc5OoiV9xGVpVjZpQM7coFjZ+sac6FjEwZdsR6GpPmRhQMdJUOucvZ9E2O2RPsHa4SwT2toTRMSlA8VR7ClyMBeicyNMHDKW4Rku9SrWvpFpTRLDqS6+1ZyyAZAcjcmhYT5MnEKtTtmNqqdKUE20eAu0sACAyAOwewbgJ0LAZ03Yl0ZA1AGA8QLAcQ8QhIVwNwhIdwjgTAGA8zYYiz9whIaoGocATAaIEAjozoWgiATAFopz5zCErgMAAA3HIOSHIJM9MwkHM9cOs0sys1YDYHYCswlHADRHQISKM1AC2HkPs+MCsCwFYIFCcySKKLcxAPcxAHIOBI8zMy8ws+86s683ABs44FszpDs4gGwIYCUFgJVHYHUHs8iy8Ic1wMc6c+wlc-C+BIiw8+wFwNgISBwDgNyDWISMWMIGC0wBC1C9gCczQDUI4PC56JKycwhEwPK1AGyMQEwAAIRmBCCBBkDStMBoRyvAxWjwussQCqgqCcvcvYC8u6D8tsgphMAAB8TAAAVFS9SCK-KOK5KzqxK04HKwqwYMqzq3qwqwa0a60Kaxy1yzy9WNawKw686-Gy60K+69C6+F6+cD644H64q4G+cMG8YYa3c+G+y9wFG5azG2QDa+yGyIm7W460m3WMpKK5604N67K-6zm3hEG5oDEPq9aEa9tAALpAA
-          code: |4
-              # see shiny-live page for details on additional files
+          code: |
+            # see shiny-live page for details on additional files
 
-              from pathlib import Path
+            from pathlib import Path
 
-              import pandas as pd
-              import plotly.express as px
-              import shinywidgets as sw
-              from shiny import App, ui
+            import pandas as pd
+            import plotly.express as px
+            import shinywidgets as sw
+            from shiny import App, ui
 
-              appdir = Path(__file__).parent
+            appdir = Path(__file__).parent
 
-              app_ui = ui.page_fillable(
-                  ui.include_css(appdir / "styles.css"),
-                  ui.value_box(
-                      "Total Sales in Q2",
-                      "$2.45M",
-                      {"class": "shadow-none"},
-                      showcase=sw.output_widget("sparkline"),
-                      showcase_layout=ui.showcase_left_center(width="40%"),
-                  ),
-                  padding=0,
-                  fillable_mobile=True,
-              )
+            app_ui = ui.page_fillable(
+                ui.include_css(appdir / "styles.css"),
+                ui.value_box(
+                    "Total Sales in Q2",
+                    "$2.45M",
+                    {"class": "shadow-none"},
+                    showcase=sw.output_widget("sparkline"),
+                    showcase_layout=ui.showcase_left_center(width="40%"),
+                ),
+                padding=0,
+                fillable_mobile=True,
+            )
 
-              def server(input, output, session):
-                  @sw.render_widget
-                  def sparkline():
-                      economics = pd.read_csv(appdir / "economics.csv")
-                      fig = px.line(economics, x="date", y="psavert")
-                      fig.update_traces(
-                          line_color="#406EF1",
-                          line_width=1,
-                          fill="tozeroy",
-                          fillcolor="rgba(64,110,241,0.2)",
-                          hoverinfo="y",
-                      )
-                      fig.update_xaxes(visible=False, showgrid=False)
-                      fig.update_yaxes(visible=False, showgrid=False)
-                      fig.update_layout(
-                          height=60,
-                          hovermode="x",
-                          margin=dict(t=0, r=0, l=0, b=0),
-                          plot_bgcolor="rgba(0,0,0,0)",
-                          paper_bgcolor="rgba(0,0,0,0)",
-                      )
-                      return fig
+            def server(input, output, session):
+                @sw.render_widget
+                def sparkline():
+                    economics = pd.read_csv(appdir / "economics.csv")
+                    fig = px.line(economics, x="date", y="psavert")
+                    fig.update_traces(
+                        line_color="#406EF1",
+                        line_width=1,
+                        fill="tozeroy",
+                        fillcolor="rgba(64,110,241,0.2)",
+                        hoverinfo="y",
+                    )
+                    fig.update_xaxes(visible=False, showgrid=False)
+                    fig.update_yaxes(visible=False, showgrid=False)
+                    fig.update_layout(
+                        height=60,
+                        hovermode="x",
+                        margin=dict(t=0, r=0, l=0, b=0),
+                        plot_bgcolor="rgba(0,0,0,0)",
+                        paper_bgcolor="rgba(0,0,0,0)",
+                    )
+                    return fig
 
-              app = App(app_ui, server)
+            app = App(app_ui, server)
 
 ---
 

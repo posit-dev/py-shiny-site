@@ -1,61 +1,62 @@
 ---
-title: "Checkbox Group"
-sidebar: components 
+title: Checkbox Group
+sidebar: components
 previewapp: |
-    from shiny import App, render, req, ui
-    app_ui = ui.page_fluid(
-        ui.input_checkbox_group( 
-            "checkbox_group", 
-            "", 
-            { 
-                "a": "Watch me Whip", 
-                "b": "Watch me Nae Nae", 
-                "c": "Watch neither", 
-            },
-        ).add_class("mb-0"), 
-        ui.output_text("value"),
-          {"class": "vh-100 d-flex justify-content-center align-items-center px-4"}
-    )
-    def server(input, output, session):
-        @output
-        @render.text
-        def value():
-            return ""
-    app = App(app_ui, server)
+  from shiny import App, render, req, ui
+  app_ui = ui.page_fluid(
+      ui.input_checkbox_group( 
+          "checkbox_group", 
+          "", 
+          { 
+              "a": "Watch me Whip", 
+              "b": "Watch me Nae Nae", 
+              "c": "Watch neither", 
+          },
+      ).add_class("mb-0"), 
+      ui.output_text("value"),
+        {"class": "vh-100 d-flex justify-content-center align-items-center px-4"}
+  )
+  def server(input, output, session):
+      @output
+      @render.text
+      def value():
+          return ""
+  app = App(app_ui, server)
 listing:
-  id: component
-  template: ../_partials/components-detail.ejs
-  contents:
-    - title: Checkbox Group
-      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EqQEcJAVw4AdaOgD6apgF4marFADmcbTQA2a6QApNTJ0Y4YuqFWW2E2cQgGsAI2IAD21TBhVUOyZHZ3j1Il8A4LCI4ijEiTj4p0SAYWSg0KZ0zPxYiFznEErq6sSoRMRYsBEsuvqEsEDm1oAhDpyu1sI+gqGq+oBfbKmnAEo5+OMMsg8vChCyBzAANygbOESlzRBEwisoFhZx-bYAWgBGAAYXpmkH6zgQpkOOUwQB4cCgwFgPQiUCh0JioEIPAAsiWmmgWmlkNFYcj2cjs7k8EjWGwkLDgNw4pAWiGGAAEiZ5aVIILI6BgtmRhhimAcjnYqcN4lIyCo6FUhmAMAArYhcPEQDYYHx+YppSLRBZorSoAyidB2NCoXQcEnYuQLMDTAC6QA
-      height: 200px
-      code: |
-        from shiny import App, render, req, ui
-        
-        app_ui = ui.page_fluid(
-            ui.input_checkbox_group( #<<
-                "checkbox_group", #<<
-                "Checkbox group", #<<
-                { #<<
-                    "a": "A", #<<
-                    "b": "B", #<<
-                    "c": "C", #<<
-                }, #<<
-            ), #<<
-            ui.output_text("value"),
-        )
-        
-        def server(input, output, session):
-            @render.text
-            def value():
-                return ", ".join(input.checkbox_group())
-        
-        app = App(app_ui, server)
-      relevantfunctions:
-        - title: ui.input_checkbox_group
-          href: https://shiny.posit.co/py/api/ui.input_checkbox_group.html
-          signature: ui.input_checkbox_group(id, label, choices, *, selected=None, inline=False, width=None)
+  - id: component
+    template: ../_partials/components-detail.ejs
+    contents:
+      - title: Checkbox Group
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EqQEcJAVw4AdaOgD6apgF4marFADmcbTQA2a6QApNTJ0Y4YuqFWW2E2cQgGsAI2IAD21TBhVUOyZHZ3j1Il8A4LCI4ijEiTj4p0SAYWSg0KZ0zPxYiFznEErq6sSoRMRYsBEsuvqEsEDm1oAhDpyu1sI+gqGq+oBfbKmnAEo5+OMMsg8vChCyBzAANygbOESlzRBEwisoFhZx-bYAWgBGAAYXpmkH6zgQpkOOUwQB4cCgwFgPQiUCh0JioEIPAAsiWmmgWmlkNFYcj2cjs7k8EjWGwkLDgNw4pAWiGGAAEiZ5aVIILI6BgtmRhhimAcjnYqcN4lIyCo6FUhmAMAArYhcPEQDYYHx+YppSLRBZorSoAyidB2NCoXQcEnYuQLMDTAC6QA
+        height: 200px
+        code: |
+          from shiny import App, render, req, ui
 
+          app_ui = ui.page_fluid(
+              ui.input_checkbox_group( #<<
+                  "checkbox_group", #<<
+                  "Checkbox group", #<<
+                  { #<<
+                      "a": "A", #<<
+                      "b": "B", #<<
+                      "c": "C", #<<
+                  }, #<<
+              ), #<<
+              ui.output_text("value"),
+          )
+
+          def server(input, output, session):
+              @render.text
+              def value():
+                  return ", ".join(input.checkbox_group())
+
+          app = App(app_ui, server)
+        relevantfunctions:
+          - title: ui.input_checkbox_group
+            href: https://shiny.posit.co/py/api/ui.input_checkbox_group.html#shiny.ui.input_checkbox_group
+            signature: 'ui.input_checkbox_group(id: str, label: TagChild, choices: ChoicesArg, selected: Optional = None, inline: bool = False, width: Optional = None)'
+
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/ui/_input_check_radio.py#L169-L237
 ---
 
 :::{#component}

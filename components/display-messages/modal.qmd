@@ -1,6 +1,6 @@
 ---
-title: "Modal"
-sidebar: components 
+title: Modal
+sidebar: components
 previewapp: |
   from shiny import App, Inputs, Outputs, Session, reactive, ui
 
@@ -29,11 +29,11 @@ listing:
         preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwdmIAdzV8JliAZTZophhiOyhrJjsOTOIzWIBKPA1CjQ07OBpWODpFOgdPbwliby8yCRY4FhYOUkLEZ1cAASk-BTgMAFEaGjhZIZdR6VkJjDhFckaIdoxIqLKIV2yqph0HAcXj1MM3DDSM6ycj69fYgBVOFl5vqFZGOBRNhQYR8ARCKDkVLdFjmSaxEovV7HORkaxwAyJAFAkG8fiCMiQ4TwHpwhFXZFMaQsbA6QjWYhdAzvOjKJQU5E0YjECh0AwmB6ZIIhMKxAAiHBYMElLCKiMph0pAvSQv2Dhghy06FuYlQDm0eg4nVq9UKYAAvgBdIA
         code: |
           from shiny import App, reactive, ui
-          
+
           app_ui = ui.page_fluid(
               ui.input_action_button("show", "Show modal dialog"),
           )
-          
+
           def server(input, output, session):
               @reactive.Effect
               @reactive.event(input.show)
@@ -44,21 +44,25 @@ listing:
                       easy_close=True #<<
                   ) #<<
                   ui.modal_show(m) #<<
-          
+
           app = App(app_ui, server)
         relevantfunctions:
-          - title: "ui.modal"
-            href: https://shiny.posit.co/py/api/ui.modal.html
-            signature: ui.modal(*args, title=None, footer=MISSING, size='m', easy_close=False, fade=True, **kwargs)
-          - title: "ui.modal_show"
-            href: https://shiny.posit.co/py/api/ui.modal_show.html
-            signature: ui.modal_show(modal, session=None)
-          - title: "ui.modal_remove"
-            href: https://shiny.posit.co/py/api/ui.modal_remove.html
-            signature: ui.modal_remove(session=None)
-          - title: "ui.modal_button"
-            href: https://shiny.posit.co/py/api/ui.modal_button.html
-            signature: ui.modal_button(label, icon=None, **kwargs)
+          - title: ui.modal
+            href: https://shiny.posit.co/py/api/ui.modal.html#shiny.ui.modal
+            signature: "ui.modal(*args: TagChild | TagAttrs = (), title: Optional = None, footer: TagChild | MISSING_TYPE = MISSING, size: Literal = 'm', easy_close: bool = False, fade: bool = True, **kwargs: TagAttrValue = {})"
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/ui/_modal.py#L60-L156
+          - title: ui.modal_show
+            href: https://shiny.posit.co/py/api/ui.modal_show.html#shiny.ui.modal_show
+            signature: 'ui.modal_show(modal: Tag, session: Optional = None)'
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/ui/_modal.py#L159-L185
+          - title: ui.modal_remove
+            href: https://shiny.posit.co/py/api/ui.modal_remove.html#shiny.ui.modal_remove
+            signature: 'ui.modal_remove(session: Optional = None)'
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/ui/_modal.py#L188-L212
+          - title: ui.modal_button
+            href: https://shiny.posit.co/py/api/ui.modal_button.html#shiny.ui.modal_button
+            signature: 'ui.modal_button(label: TagChild, icon: TagChild = None, **kwargs: TagAttrValue = {})'
+            github: https://github.com/posit-dev/py-shiny/blob/a0df2ed/shiny/ui/_modal.py#L19-L57
   - id: variations
     template: ../_partials/components-variations.ejs
     contents:
@@ -68,11 +72,11 @@ listing:
           preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwa2IzLjV8JliAGSiYsABKPA1UjQ07OBpWODpFOgdPbwliby8yCRY4FhYOUlTEZ1cAASk-BTgMAFEaGjhZNpdO6VkejDhFclKIaoxI6IgsiFcmXPydBxbRjaZmIxMYYjsoayd1g5uTMp8KAA8ycOh4WIlYgFU6uje4VppDLXG4bO4Lbw6VBQBoAd0Ejli0LhCI+8TAAAUYSx4XQ7ID0vtQW4PBCfN0AsEyKEIOESBAIMMyGjYgBhUiMkZAomg6QsbA6QiROoGAAqdGUSh5NxoxGIFDoBgAcqQ4NKmGtiSczhcdOxiLCHDBNaD9uNuop+oMmWaupNLTNKC97hh6ZyyCaXFsmDodnsQQdtedrDopKdFLt1QBiJjs3JMUJMN1MpiwjhkNi8MkYf67JhQCB2LOLZE4hGRzTQdCGUToBzaPQcWqFYqpMAAXwAukA
           code: |
             from shiny import App, reactive, ui
-            
+
             app_ui = ui.page_fluid(
                 ui.input_action_button("login", "Login"),
             )
-            
+
             def server(input, output, session):
                 @reactive.Effect
                 @reactive.event(input.login)
@@ -91,7 +95,7 @@ listing:
                 def __(): #<<
                     ui.modal_remove() #<<
                     # Code to connect with input.name() and input.password() #<<
-            
+
             app = App(app_ui, server)
 ---
 
