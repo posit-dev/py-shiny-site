@@ -2,12 +2,13 @@ import os
 import logging
 import yaml as yml
 
-if not "console_handler" in locals():
-    logging.root.setLevel(logging.INFO)
+lg = logging.getLogger("migrate")
+if len(lg.handlers) == 0:
     formatter = logging.Formatter('%(levelname)s %(message)s')
     console_handler = logging.StreamHandler()
     console_handler.setFormatter(formatter)
-    logging.root.addHandler(console_handler)
+    lg.addHandler(console_handler)
+    lg.setLevel(logging.INFO)
 
 def find_qmds(dir, exclude):
     qmd_list = [p for p in os.listdir(dir) if p.endswith(".qmd")]
@@ -50,8 +51,12 @@ def get_qmd_split(path):
             body.append(line)
 
     meta = yml.safe_load("".join(yaml))
-    meta["_slug"] = slug_from_path(path)
-    meta["_dir"] = os.path.join(os.path.dirname(path), meta["_slug"])
+    if (os.path.basename(path) == "index.qmd"):
+        meta["_slug"] = slug_from_path(os.path.dirname(path))
+        meta["_dir"] = os.path.dirname(path)
+    else:
+        meta["_slug"] = slug_from_path(path)
+        meta["_dir"] = os.path.join(os.path.dirname(path), meta["_slug"])
 
     return (meta, "".join(body))
 
@@ -115,7 +120,7 @@ def write_new_component_dir(path):
 
     # Add preview html if needed
     if "preview" in info:
-        logging.info(f"{info['_slug']} has a preview")
+        lg.info(f"{info['_slug']} has a preview")
         new_meta["preview"] = info["preview"]
 
     # Write out app-preview.py
@@ -248,13 +253,79 @@ def write_new_component_dir(path):
 def migrate_directory(dir, exclude = [], clean=False):
     qmd_list = find_qmds(dir, exclude)
     for qmd in qmd_list:
-        logging.info(f"Processing {qmd}")
+        lg.info(f"Processing {qmd}")
         write_new_component_dir(qmd)
         if clean:
             os.remove(qmd)
-        logging.info(f"\u2713 Migrated {qmd}")
+        lg.info(f"\u2713 Migrated {qmd}")
 
 def migrate_all(dirs):
     for dir in dirs:
-        logging.info(f"Migrating {dir} -------------------------")
+        lg.info(f"Migrating {dir} -------------------------")
         migrate_directory(dir)
+
+
+# Step 2: Fix component previews ----------------------------------------------
+def rewrite_preview_app(qmd):
+    meta, body = get_qmd_split(qmd)
+
+    if not "listing" in meta:
+        return
+
+    from shinylive import decode_shinylive_url, encode_shinylive_url
+    import shinylive._url as shlive
+
+    ex_listing = [e for e in meta["listing"] if e["id"] == "example"][0]
+    examples = ex_listing["contents"]
+
+    shinylive_urls = [e["shinylive"] for e in examples if "shinylive" in e]
+
+    app_preview_bundle = decode_shinylive_url(shinylive_urls[0])
+
+    preview = {
+        "title": "Preview",
+        "file": "app-detail-preview.py"
+    }
+
+    if "height" in examples[0]:
+        preview["height"] = examples[0]["height"]
+
+    with open(os.path.join(meta["_dir"], preview["file"]), "w") as f:
+        f.write(shlive.create_shinylive_chunk_contents(app_preview_bundle))
+
+    for ex in examples:
+        if "height" in ex:
+            del ex["height"]
+
+    examples.insert(0, preview)
+
+    for ex in examples:
+        if ex["title"] == "Preview":
+            continue
+        app_path = os.path.join(meta["_dir"], ex["file"])
+        ex["shinylive"] = encode_shinylive_url(app_path)
+
+    path_index = os.path.join(meta["_dir"], "index.qmd")
+    del meta["_slug"]
+    del meta["_dir"]
+
+    with open(path_index, "w") as f:
+        f.write("---\n")
+        f.write(yml.dump(meta, sort_keys=False, indent=2, default_flow_style=False))
+        f.write("---\n\n")
+        f.write(body.strip())
+        f.write("\n")
+
+def step2_migrate_dirs(dirs, exclude = []):
+    index_qmds = []
+
+    for dir in dirs:
+        cdirs = [os.path.join(dir, p) for p in os.listdir(dir)]
+        cdirs = [p for p in cdirs if os.path.isdir(p)]
+        for cdir in cdirs:
+            index_qmds.append(os.path.join(cdir, "index.qmd"))
+
+    for qmd in index_qmds:
+        lg.info(f"Processing {qmd}")
+        rewrite_preview_app(qmd)
+        lg.info(f"\u2713 Migrated {qmd}")
