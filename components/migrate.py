@@ -137,7 +137,7 @@ def write_new_component_dir(path):
     if "example" in info:
         l_example = {
             "id": "example",
-            "template": "../../_partials/_new_component-example.ejs",
+            "template": "../../_partials/components-detail-example.ejs",
             "template-params": {
                 "dir": info["_dir"] + "/",
             },
