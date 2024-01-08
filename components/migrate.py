@@ -195,7 +195,7 @@ def write_new_component_dir(path):
     if "variations" in info:
         l_variations = {
             "id": "variations",
-            "template": "../../_partials/_new_variations.ejs",
+            "template": "../../_partials/components-variations.ejs",
             "template-params": {
                 "dir": info["_dir"] + "/",
             },

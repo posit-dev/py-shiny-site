@@ -28,7 +28,7 @@ listing:
     signature: ui.input_select(id, label, choices, *, selected=None, multiple=False,
       selectize=False, width=None, size=None)
 - id: variations
-  template: ../../_partials/_new_variations.ejs
+  template: ../../_partials/components-variations.ejs
   template-params:
     dir: components/inputs/select-single/
   contents:

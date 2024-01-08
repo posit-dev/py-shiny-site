@@ -38,7 +38,7 @@ listing:
     signature: render.DataTable(self, data, *, width='fit-content', height='500px',
       summary=True, filters=False, row_selection_mode='none')
 - id: variations
-  template: ../../_partials/_new_variations.ejs
+  template: ../../_partials/components-variations.ejs
   template-params:
     dir: components/outputs/datatable/
   contents:
