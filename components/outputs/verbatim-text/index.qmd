@@ -1,25 +1,23 @@
 ---
 title: Verbatim Text
 sidebar: components
-
 appPreview:
   file: components/outputs/verbatim-text/app-preview.py
-
 listing:
 - id: example
   template: ../../_partials/_new_component-example.ejs
   template-params:
     dir: components/outputs/verbatim-text/
   contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
   - title: Express
     file: app-express.py
-    height: 200
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymigA8ydsABU4H2V8JhCAUXI5Jm8yEIkQgAk4CwtiJgBlTm4QgEo8e0dDYnc3D1jNADc5ACMoMj4-WLymAGIAHnbVXNVVWRpWOWq6G1d3CRKyMokWOBYWDlJcxEKHAAEpCFk6DFi2ztWmfpig32XDx0k4MgU6CF4IMoxAnxsetWh0PVF0Gw1tDgzIZyXJgAC+AF0gA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQGJkAxASQA0BZAURQCU4B3AE4BLKsigBncRGScAHukFwJUjOgA6EAGaDSMZBIAWwiLmTCY6UoIrIAgpiJKIAEziCiAV2GbNagPreyAC8yN44UADmcP5aADbeLgAUmshpYcJYJuieFP5UchQpYAAqcIXqhMiVnJTuyAUUlUSVABJwcXGkyADKxqaVAJQEqenhpLk5eY3+AG7uAEZQFBbFjUPIdAA8W5qDvq5wWgbu84JJ2blEExRTRBLKEsLkg4ijaQACzm6CWI2bO3eyDcx0aSVeQPSyCUFE8ghklwoWDKhXBBzUIXsmCSAW891O7n2ECqYAouHQCBQpPKFDAAF8ALpAA
   - title: Core
     file: app-core.py
-    height: 200
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymigA8ydsABU4H2V8JhCAUXI5Jm8yEIkQgAk4CwtiJgBlTm4QgEo8e0dDYnc3D1jNADc5ACMoMj4-WLymAGIAHnbVXNVVWRpWOWq6G1d3CRKyMokWOBYWDlJcxEKHAAEpCFk6DFi2ztWmfpig32XDx0k4MgU6CF4IMoxAnxsetWh0PVF0Gw1tDgzIZyXJgAC+AF0gA
-
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKmqgA8KdsABU4H2VCZBCAUUo5ZG8KEKIQgAk4CwtSZABlLh4QgEoCe0dDUnc3D1jNADc5ACMoCn4-WLzkAGIAHnbVXNVVWTo2OWqGG1d3IhKKMqJWOFZWTnJcxEKHAAEpCFkGLFi2ztXkfpig32XDx2QpCgUGCD4IMqxAnxsetWhMPTFMGw1tTgzIZyd6hMAUXDoBAocGnMAAXwAukA
 - id: relevant-functions
   template: ../../_partials/_new_relevant-functions.ejs
   template-params:
@@ -31,7 +29,6 @@ listing:
   - title: '@render.text'
     href: https://shiny.posit.co/py/api/render.text.html
     signature: render.text(fn=None)
-
 - id: variations
   template: ../../_partials/_new_variations.ejs
   template-params:
@@ -48,7 +45,6 @@ listing:
       file: app-variation-placeholder-rectangle-when-string-is-empty-core.py
       shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymigA8ydsABU4H2V8JhCAUXI5JkDg0JCQgEo8e0dDYnc3D28PADc5ACMoMj4-HJCJVAsoQjg2YgtZOj0YugU4RKYAYgAeHtVE1VVZGlY5fLobV3cJDLIsiRY4FhYOUkTEVIcAASkIJoxyiEcmEaYcmw2tk8k4MgU6Y+myDFjfQbVodBaxVBsNbQcRbjOSJMAAXwAukA
 ---
-
 
 :::{#example}
 :::

@@ -9,14 +9,15 @@ listing:
   template-params:
     dir: components/inputs/checkbox-group/
   contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
   - title: Express
     file: app-express.py
-    height: 200
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EqQEcJAVw4AdaOgD6apgF4marFADmcbTQA2a6QApNTJ0Y4YuqFWW2E2cQgGsAI2IAD21TBhVUOyZHZ3j1Il8A4LCI4ijEiTj4p0SAYWSg0KZ0zPxYiFznEErq6sSoRMRYsBEsuvqEsEDm1oAhDpyu1sI+gqGq+oBfbKmnAEo5+OMMsg8vChCyBzAANygbOESlzRBEwisoFhZx-bYAWgBGAAYXpmkH6zgQpkOOUwQB4cCgwFgPQiUCh0JioEIPAAsiWmmgWmlkNFYcj2cjs7k8EjWGwkLDgNw4pAWiGGAAEiZ5aVIILI6BgtmRhhimAcjnYqcN4lIyCo6FUhmAMAArYhcPEQDYYHx+YppSLRBZorSoAyidB2NCoXQcEnYuQLMDTAC6QA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQGJkAxASQA0BZAURQCU4B3AE4BLKsigBncRGScAHukFwJUjOgA6EAGaDSMZBIAWwiLmTCY6UoIrIAgpiJKIAEziCncAI5EArsM1NNQB9f2QAXmR-HCgAczhgrQAbfxcACk1kLKjhLBN0Xwpg4kM4YgBrACNSOWDY3V90NOQ6AB5WzOyu9TASsqqauoaNQhb2zq6snoBhUorquWR60kaeojaOmUmskDHN7e2eqB6UHrs1vYmDqbBKk+QegCELjavrnuJ7mZfxre2AX3Wvy6AEogftstEVhQCkUqHIKBkwAA3KApOA9MGaEGBVxwLQGdzI9xpfKFIjQ2FECTKCTCcggxBXAACzjcgiw8IoVzcBNR6LSjLe2SUFF8ghkFx6WAAVqQTKSILCsH15oNlo1BTiIEFMBF7Jg0iF-NSie5taMwBRcOgECgrXAEWB-gBdIA
   - title: Core
     file: app-core.py
-    height: 200
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EqQEcJAVw4AdaOgD6apgF4marFADmcbTQA2a6QApNTJ0Y4YuqFWW2E2cQgGsAI2IAD21TBhVUOyZHZ3j1Il8A4LCI4ijEiTj4p0SAYWSg0KZ0zPxYiFznEErq6sSoRMRYsBEsuvqEsEDm1oAhDpyu1sI+gqGq+oBfbKmnAEo5+OMMsg8vChCyBzAANygbOESlzRBEwisoFhZx-bYAWgBGAAYXpmkH6zgQpkOOUwQB4cCgwFgPQiUCh0JioEIPAAsiWmmgWmlkNFYcj2cjs7k8EjWGwkLDgNw4pAWiGGAAEiZ5aVIILI6BgtmRhhimAcjnYqcN4lIyCo6FUhmAMAArYhcPEQDYYHx+YppSLRBZorSoAyidB2NCoXQcEnYuQLMDTAC6QA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGkuAEciAV04AdCJozoA+muQBeZGpxQA5nF10ANmukAKTchcnOWbuhUVdxdnGIAawAjUgAPXXMmFXQHZABiAB5E51c09TA-AJDwyOj0DKIklIg09LAAYX8g0LDkKNIYwoTk1LLkEBaS9vaMqAyUDNFm4raelwzggeQMgCER1tLx1wziaYyKhe6egF8ixbSASn3tl1NGii8fKjCKJzAANyg7OAzjzUPNTVk6NjkHuQOTzeIgXK5EVhwVisTjkQ6IMYAASkEFkDCwNwoYx+yCeLwc8LGaSkFBUDFKzQyWAAVqRuECIFcsFkarkGjECZ8tNBMEYxJgHDp9JwIf85FzCKgKLh0AgUGBMWAdgBdIA
 - id: relevant-functions
   template: ../../_partials/_new_relevant-functions.ejs
   template-params:
@@ -27,7 +28,6 @@ listing:
     signature: ui.input_checkbox_group(id, label, choices, *, selected=None, inline=False,
       width=None)
 ---
-
 
 :::{#example}
 :::

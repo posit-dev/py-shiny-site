@@ -9,14 +9,15 @@ listing:
   template-params:
     dir: components/inputs/selectize-single/
   contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
   - title: Express
     file: app-express.py
-    height: 200
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZDgBecDZMAMQAPOH2jjHKYF4+foFwcRIRURAxsWAAyt6+wlCZxKj+pEwARt7EAO6IqWGR0VlMIHEAjCJxiExxAMJsxByEcEydDR0AQt29YANDI2PT+LPtfTP9g8Oja3EAvmlNmY4AlIcZMYbE7m4eFAAeZHZgAG5QVilgZ6onqqqyNFYchechsrncEmuZFuEi8LBYHFIJ3qxwcAAEpBBZHQMA8yM0mACmG8PjZkQSYlIyAo6JkaHEQOCyBgEgVkmS9nE-tB0HpROgbBptBxYcC5L8IGA9gBdIA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQGJkAxASQA0BZAURQCU4B3AE4BLKsigBncRGScAHukFwJUjOgA6EAGaDSMZBIAWwiLmTCY6UoIrIAgpiJKIAEziCiAV2GbNagPreyAC8yN44UADmcP5aADbeLgAUmshpYcJYJuieFP4ScHFwxBTCAF5wSch0ADw1qemN6mAFRSXlcM1EtfUyjenNAMqFxbZQMqTopeTIAEaFpPyIXdV1Df3IIM0AjHbNKM0AwoakwsRwyLsrOwBC+8hHJ2cX23eED2Dbh-ePp+eX3zAAF9ums+mkAJSg3qNcKkXI5PJUOQUFJgABuUASnTAUM0EN8rjgWgM7nR7iS2VyRHhFERRAKKmE5Ahy3ByAAAs43IIsMiKOtkG4SZjsUlWYLGkoKJ5BDItM0QFSKFhWqMOuKgc1CWoQvZMEkAt4GWT3ASIO8wBRcOgECgrXAUcCALpAA
   - title: Core
     file: app-core.py
-    height: 200
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZDgBecDZMAMQAPOH2jjHKYF4+foFwcRIRURAxsWAAyt6+wlCZxKj+pEwARt7EAO6IqWGR0VlMIHEAjCJxiExxAMJsxByEcEydDR0AQt29YANDI2PT+LPtfTP9g8Oja3EAvmlNmY4AlIcZMYbE7m4eFAAeZHZgAG5QVilgZ6onqqqyNFYchechsrncEmuZFuEi8LBYHFIJ3qxwcAAEpBBZHQMA8yM0mACmG8PjZkQSYlIyAo6JkaHEQOCyBgEgVkmS9nE-tB0HpROgbBptBxYcC5L8IGA9gBdIA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKm1nAtxiFTgBecDbIAMQAPOH2jjHKYF4+foFwcUQRURAxsWAAyt6+IlCZpOj+5MgARt6kAO6IqWGR0VnIIHEAjKJxKHEAwuyknMRwyJ0NHQBC3ch9A0Mj7VOEM2DtvdOzg8Oj62AAvmlNmY4AlIcZMYak7m4eVAAeFHZgAG5QVilgZ6onqqqydDYchechsrncRGuFFuRC8rFYnHIJ3qxwcAAEpBBZAwsA8KM1kADkG8PjZkQSYlIKAoGJk6HEQOCKFgEgVkmS9nE-tBMHoxJgbBptJxYcC5L8IMswBRcOgEChpXBHvsALpAA
 - id: relevant-functions
   template: ../../_partials/_new_relevant-functions.ejs
   template-params:
@@ -43,7 +44,6 @@ listing:
       file: app-variation-selectize-with-grouped-choices-core.py
       shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZDgBecDZMAMQAPOH2jjHKYF4+foFwcRIRURAxsWAAyt6+wlCZxKj+pEwARt7EAO6IqWGR0VlMII0ZLS1xAIxxiK09In1McQDCbMQchHBM3UP4I2DdAELDYxNTMysNPaNrYOOT07N7YAC+aU2ZndkATMMgcbfz-etHM887YLerSIuHmyYPy+t1OrwOG2OoLiZ3azSyFzh1wcAEpLh1HIZiO43B4KAAPMh2MAANygVhSYDRqhRqlUshorDkJLkNlc7gk2LIuIkXhYLA4pBR9WRTAAAlIILI6BgCWR4QymGSKTZhfCYlIyAo6JkaHEQOyyBgEgVkqqznE6dB0HpROgbBptBxecy5CjzgBdIA
 ---
-
 
 :::{#example}
 :::

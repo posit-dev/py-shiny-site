@@ -9,14 +9,15 @@ listing:
   template-params:
     dir: components/inputs/text-area/
   contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
   - title: Express
     file: app-express.py
-    height: 200
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNFAB7uoUqHbAvMl84KGV8JnDwiXCACTgLC2ImAHVBC2lwgEoMKGlpTUILKBYWANQyAFoAViYYT0qoN2SgysJKCjpsvHtHMQxiN1d3IM0ANzkAIygyPgCxqCs4bt6HEHCikpZwxEiwMbZKgEYABhOmACsRFlmabDbSCnI2jrkmRY5jCEqOChgWF7kN6oBrVcIAX1UOTyBU2pQCMHuTTILTg3kBnWyqlUshorDkEzoNhcbgkgzIwwkLDgpQ4pCyiFWTAAAlIILI6BggkzcUwFksbAymY5JHAyCI6BBeBBhly0cE-ILsdB0HomEpUDYNNpxPi6ISsqowOCALpAA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQGJkAxASQA0BZAURQCU4B3AE4BLKsigBncRGScAHukFwJUjOgA6EAGaDSMZBIAWwiLmTCY6UoIrIArsKJKIAEziCiAQUybNagPoOyAC89sI4UADmcP5aADYOLgAUmshpYVgm6HYU-lRyuVBKUClg+RRFcFDqhMg1ACpwBeYQ2RQ1RDUAEnBxcaTIAOrWcS41AJREdAA806npDlikOW15TbkAbu4ARlAUFqUbUAlwEwSa476ucFoG7luCSVk5RMsUbUQSyhLC5OOI8zSAAFnG5BFhyoDkG5bkcTkl-lD0sglBQ7IIZM8KBD1pUSpcIH5MCFkN50EkAg5Pvd3ATamVcOgECgyuswABfAC6QA
   - title: Core
     file: app-core.py
-    height: 200
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNFAB7uoUqHbAvMl84KGV8JnDwiXCACTgLC2ImAHVBC2lwgEoMKGlpTUILKBYWANQyAFoAViYYT0qoN2SgysJKCjpsvHtHMQxiN1d3IM0ANzkAIygyPgCxqCs4bt6HEHCikpZwxEiwMbZKgEYABhOmACsRFlmabDbSCnI2jrkmRY5jCEqOChgWF7kN6oBrVcIAX1UOTyBU2pQCMHuTTILTg3kBnWyqlUshorDkEzoNhcbgkgzIwwkLDgpQ4pCyiFWTAAAlIILI6BggkzcUwFksbAymY5JHAyCI6BBeBBhly0cE-ILsdB0HomEpUDYNNpxPi6ISsqowOCALpAA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAV05EG1ACZwGRAIKYAOhFUZ0AfXHIAvGM44oAczia6AG3HSAFKuQODWbulEVNVAB7uoUqHbAvCl84KGVCZHCAFThvPghXCnCicIAJOAsLUmQAdSELaXCASiIAYgAecvtHcSxSN0SPWPcANzkAIygKfgCWqCs4YoJVItVVWTo2OTaGGxc3InqKRKJWOFZWTnIixGqHAAEpCFkGLCC95AnkPoGbHYvHZCkKUQYIeMSz5pD-UbVoTB6ZBKdA2DTaCRTBgzP4RQK4dAIFCBZpgAC+AF0gA
 - id: relevant-functions
   template: ../../_partials/_new_relevant-functions.ejs
   template-params:
@@ -28,7 +29,6 @@ listing:
       cols=None, rows=None, placeholder=None, resize=None, autoresize=False, autocomplete=None,
       spellcheck=None)
 ---
-
 
 :::{#example}
 :::

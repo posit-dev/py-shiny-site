@@ -1,53 +1,52 @@
 ---
-title: "Modal"
+title: Modal
 sidebar: components
-
 appPreview:
   file: components/display-messages/modal/app-preview.py
-
 listing:
-  - id: example
-    template: ../../_partials/_new_component-example.ejs
-    template-params:
-      dir: components/display-messages/modal/
-    contents:
-      - title: Express
-        file: app-express.py
-      - title: Core
-        file: app-core.py
-        height: 500
-        shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwdmIAdzV8JliAZTZophhiOyhrJjsOTOIzWIBKPA1CjQ07OBpWODpFOgdPbwliby8yCRY4FhYOUkLEZ1cAASk-BTgMAFEaGjhZIZdR6VkJjDhFckaIdoxIqLKIV2yqph0HAcXj1MM3DDSM6ycj69fYgBVOFl5vqFZGOBRNhQYR8ARCKDkVLdFjmSaxEovV7HORkaxwAyJAFAkG8fiCMiQ4TwHpwhFXZFMaQsbA6QjWYhdAzvOjKJQU5E0YjECh0AwmB6ZIIhMKxAAiHBYMElLCKiMph0pAvSQv2Dhghy06FuYlQDm0eg4nVq9UKYAAvgBdIA
-
-  - id: relevant-functions
-    template: ../../_partials/_new_relevant-functions.ejs
-    contents:
-      - title: "ui.modal"
-        href: https://shiny.posit.co/py/api/ui.modal.html
-        signature: ui.modal(*args, title=None, footer=MISSING, size='m', easy_close=False, fade=True, **kwargs)
-      - title: "ui.modal_show"
-        href: https://shiny.posit.co/py/api/ui.modal_show.html
-        signature: ui.modal_show(modal, session=None)
-      - title: "ui.modal_remove"
-        href: https://shiny.posit.co/py/api/ui.modal_remove.html
-        signature: ui.modal_remove(session=None)
-      - title: "ui.modal_button"
-        href: https://shiny.posit.co/py/api/ui.modal_button.html
-        signature: ui.modal_button(label, icon=None, **kwargs)
-
-  - id: variations
-    template: ../../_partials/_new_variations.ejs
-    template-params:
-      dir: components/display-messages/modal/
-    contents:
-      - title: Modal for authentication
-        description: Place inputs inside a modal to collect, and then login with, credentials.
-        apps:
-          - title: Express
-            file: app-variation-modal-express.py
-            shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwa2IzLjV8JliAGSiYsABKPA1UjQ07OBpWODpFOgdPbwliby8yCRY4FhYOUlTEZ1cAASk-BTgMAFEaGjhZNpdO6VkejDhFclKIaoxI6IgsiFcmXPydBxbRjaZmIxMYYjsoayd1g5uTMp8KAA8ycOh4WIlYgFU6uje4VppDLXG4bO4Lbw6VBQBoAd0Ejli0LhCI+8TAAAUYSx4XQ7ID0vtQW4PBCfN0AsEyKEIOESBAIMMyGjYgBhUiMkZAomg6QsbA6QiROoGAAqdGUSh5NxoxGIFDoBgAcqQ4NKmGtiSczhcdOxiLCHDBNaD9uNuop+oMmWaupNLTNKC97hh6ZyyCaXFsmDodnsQQdtedrDopKdFLt1QBiJjs3JMUJMN1MpiwjhkNi8MkYf67JhQCB2LOLZE4hGRzTQdCGUToBzaPQcWqFYqpMAAXwAukA
-          - title: Core
-            file: app-variation-modal-core.py
-            shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwa2IzLjV8JliAGSiYsABKPA1UjQ07OBpWODpFOgdPbwliby8yCRY4FhYOUlTEZ1cAASk-BTgMAFEaGjhZNpdO6VkejDhFclKIaoxI6IgsiFcmXPydBxbRjaZmIxMYYjsoayd1g5uTMp8KAA8ycOh4WIlYgFU6uje4VppDLXG4bO4Lbw6VBQBoAd0Ejli0LhCI+8TAAAUYSx4XQ7ID0vtQW4PBCfN0AsEyKEIOESBAIMMyGjYgBhUiMkZAomg6QsbA6QiROoGAAqdGUSh5NxoxGIFDoBgAcqQ4NKmGtiSczhcdOxiLCHDBNaD9uNuop+oMmWaupNLTNKC97hh6ZyyCaXFsmDodnsQQdtedrDopKdFLt1QBiJjs3JMUJMN1MpiwjhkNi8MkYf67JhQCB2LOLZE4hGRzTQdCGUToBzaPQcWqFYqpMAAXwAukA
+- id: example
+  template: ../../_partials/_new_component-example.ejs
+  template-params:
+    dir: components/display-messages/modal/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQGJkAxASQA0BZAURQCU4B3AE4BLKsmERknAB7pBcAM4KAOhABmg0jGQKAFhNziY6UoIrIAgpiLMI6AK4UFRAPKOHTogGVFC4eSJ5KGIKYQA3OCJ7YVVVDHQAfWjkAF5kaJwoAHM4BLUAG2iAEwAKVWQK9OEsCQ8E4NDyBIAjRwpyMrA9Un5lQmQ+r10e5BhSIqh85CLhSdIsvoBKAnLKkD7ifKglPpQ+sN0AWgBGAAZT6cOCuGlkACt7BVC1XEOySmoKN8+4QWRJ4RZCCHURwGAKb4fP7oaSHAAsfQAvisIItYhBVEU4GodL8IoISrVHChbB5nMhSO5icg3BQyUQFL5-BAUD4lMzFohVhUAAJBELhOBYThqNRwELc5B8uANQVYOARSiEuyOLDdfhoySVLE4hIlTmSyqjVJVLBjCb5Mpao02gZgAAq+gU4mdUB0WgEuig5mExlMFCglFGvmyQr6KNttplClwCU2pEZKXtgnskUNkbUpFIVEEKQAcuQ09abZrI6bzZMEuqSjBNej4iarOgSvEksIGXjfpr+mAKLh0AgUL2bhQwIiALpAA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGjOgD6q5AF5kqnFADmcHXQA2qgCYAKDchfHOWbumUUdMueR0AI28KcicwDlIAdzVCZFiAZXZo5BhSOyhrZDtOTNIzWIBKAg1CjXKIOzg6NjgGRQYHT28iUm8vCiJWOFZWTnJCxGdXAAEpPwU4LABROjo4WWGXMelZSaw4RUomiA6sSKiyiFds6uQdB0Glk9TDNyw0jOsHFwBiZAAeD+ub11iAFS4rD4wKgbGYcCi7CgIn4gmEUEoqR6rHMU1iRGQ7y+P1+yDkFGscAMiQhUJhfAEQgoiJE8F6aIxb0+32OeJO0lYuB0xGspG6Bn+DGUSmZOLZv0KYtZ7JMj0yOgODhgUqxLIqWkwd3E6Ac2j0nC6dQaRziYAouHQCBQ5rgAA8KGAAL4AXSAA
+- id: relevant-functions
+  template: ../../_partials/_new_relevant-functions.ejs
+  contents:
+  - title: ui.modal
+    href: https://shiny.posit.co/py/api/ui.modal.html
+    signature: ui.modal(*args, title=None, footer=MISSING, size='m', easy_close=False,
+      fade=True, **kwargs)
+  - title: ui.modal_show
+    href: https://shiny.posit.co/py/api/ui.modal_show.html
+    signature: ui.modal_show(modal, session=None)
+  - title: ui.modal_remove
+    href: https://shiny.posit.co/py/api/ui.modal_remove.html
+    signature: ui.modal_remove(session=None)
+  - title: ui.modal_button
+    href: https://shiny.posit.co/py/api/ui.modal_button.html
+    signature: ui.modal_button(label, icon=None, **kwargs)
+- id: variations
+  template: ../../_partials/_new_variations.ejs
+  template-params:
+    dir: components/display-messages/modal/
+  contents:
+  - title: Modal for authentication
+    description: Place inputs inside a modal to collect, and then login with, credentials.
+    apps:
+    - title: Express
+      file: app-variation-modal-express.py
+      shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwa2IzLjV8JliAGSiYsABKPA1UjQ07OBpWODpFOgdPbwliby8yCRY4FhYOUlTEZ1cAASk-BTgMAFEaGjhZNpdO6VkejDhFclKIaoxI6IgsiFcmXPydBxbRjaZmIxMYYjsoayd1g5uTMp8KAA8ycOh4WIlYgFU6uje4VppDLXG4bO4Lbw6VBQBoAd0Ejli0LhCI+8TAAAUYSx4XQ7ID0vtQW4PBCfN0AsEyKEIOESBAIMMyGjYgBhUiMkZAomg6QsbA6QiROoGAAqdGUSh5NxoxGIFDoBgAcqQ4NKmGtiSczhcdOxiLCHDBNaD9uNuop+oMmWaupNLTNKC97hh6ZyyCaXFsmDodnsQQdtedrDopKdFLt1QBiJjs3JMUJMN1MpiwjhkNi8MkYf67JhQCB2LOLZE4hGRzTQdCGUToBzaPQcWqFYqpMAAXwAukA
+    - title: Core
+      file: app-variation-modal-core.py
+      shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwa2IzLjV8JliAGSiYsABKPA1UjQ07OBpWODpFOgdPbwliby8yCRY4FhYOUlTEZ1cAASk-BTgMAFEaGjhZNpdO6VkejDhFclKIaoxI6IgsiFcmXPydBxbRjaZmIxMYYjsoayd1g5uTMp8KAA8ycOh4WIlYgFU6uje4VppDLXG4bO4Lbw6VBQBoAd0Ejli0LhCI+8TAAAUYSx4XQ7ID0vtQW4PBCfN0AsEyKEIOESBAIMMyGjYgBhUiMkZAomg6QsbA6QiROoGAAqdGUSh5NxoxGIFDoBgAcqQ4NKmGtiSczhcdOxiLCHDBNaD9uNuop+oMmWaupNLTNKC97hh6ZyyCaXFsmDodnsQQdtedrDopKdFLt1QBiJjs3JMUJMN1MpiwjhkNi8MkYf67JhQCB2LOLZE4hGRzTQdCGUToBzaPQcWqFYqpMAAXwAukA
 ---
 
 :::{#example}

@@ -1,24 +1,23 @@
 ---
 title: Date Range Selector
 sidebar: components
-
 appPreview:
   file: components/inputs/date-range-selector/app-preview.py
-
 listing:
 - id: example
   template: ../../_partials/_new_component-example.ejs
   template-params:
     dir: components/inputs/date-range-selector/
   contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 380
   - title: Express
     file: app-express.py
-    height: 380
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAEygrIEt4nvVi6ZVuzgAdCOPqMmAZwAWnCNl4x+gpgEF0eJnUos4dHQFdO48WlQB9U0wC8TU1igBzOFZoAbUywAU4pkDHTgxFVGMyKzYKKzooCDd-MGjDeLdRfCYMjJ0ZMihBOwyAJgAGMoBaUoBGKuqMgEoMKBYWK0JPKBkZJNQyCoBWJhgADwqoCOImChH+wkoKOka8AKCnYgjwyJmyJIA3KG8xMAaViCCLphAMjq6ZDMQssD25CurS0qYAK2M8zhpsBUSOQFkCFoYmIdOC4IBVOBQYDIwSC6ExUGMBhkAL7iJotNq3bpJGCAiZkKY7ZGLRrmCQQAw0WSGPaGXxhCI6DZkLa5ODdTikBqIVaBAACXK2IqYor09MMGB2UoZTAOR18QqlFz0ZGMdHONAyIHZZAwKTiCTg6uApQAuljplMjRAtqaRObEg1gNU7dk6RZ0PZNOhfJYbJxeXQWXQGmAsTagA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQGJkAxASQA0BZAURQCU4B3AE4BLKsigBncRGScAHukFwJUjOgA6EAGaDSMZABMoVCsPjIz6UoIqHjcTZp17kEgBbCIuCzCs3kAIKYREoQBnCCRACuwo7QmAD6McgAvMgxOFAA5nAJWgA2MQYAFJrI5enCWJ7oURQJRlQJglAQOaVgjRGtOeqEyH0AIvbILW0O-RIUUDYpfQBMAAxLALSLAIxr630AlER0ADwHZRUZpHW19VRyFB0AblCFE3uaO3HhWq4RdxHFNXVEc4US5ECTKCTCcg7RAncoAAVC4UEWGuFFhhjgnweT2K0PRFVGcAoUUEMi0fRA-woWC6Y3aO2AiwAugBfZAUUjISkQS40+x0uC44DrVl9OJqVKBTDFNRJYSg74RN4QfpgCi4dAIFBquA3MAsplAA
   - title: Core
     file: app-core.py
-    height: 380
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAEygrIEt4nvVi6ZVuzgAdCOPqMmAZwAWnCNl4x+gpgEF0eJnUos4dHQFdO48WlQB9U0wC8TU1igBzOFZoAbUywAU4pkDHTgxFVGMyKzYKKzooCDd-MGjDeLdRfCYMjJ0ZMihBOwyAJgAGMoBaUoBGKuqMgEoMKBYWK0JPKBkZJNQyCoBWJhgADwqoCOImChH+wkoKOka8AKCnYgjwyJmyJIA3KG8xMAaViCCLphAMjq6ZDMQssD25CurS0qYAK2M8zhpsBUSOQFkCFoYmIdOC4IBVOBQYDIwSC6ExUGMBhkAL7iJotNq3bpJGCAiZkKY7ZGLRrmCQQAw0WSGPaGXxhCI6DZkLa5ODdTikBqIVaBAACXK2IqYor09MMGB2UoZTAOR18QqlFz0ZGMdHONAyIHZZAwKTiCTg6uApQAuljplMjRAtqaRObEg1gNU7dk6RZ0PZNOhfJYbJxeXQWXQGmAsTagA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAEyiooEt5kf1SDCmw5wAOhAmNmyAM4ALLhFx8YAocgCCmIg2qs4DIgFcuEiRnQB9U8gC8yUzigBzOFboAbU6wAUE5EDHLiwldGMKK3YqKwYoCDd-MGjDeLcxQmQMgBFRZDiE8UzZCighOwyAJgAGGoBaaoBGBsaMgEoiAGIAHm6AoKdSCPDIqgAPCiSANyhvIo6JNvMIAzo5QynDXzCIoiGKEaJZOFlZLnI2xH7AgAE9FcMscYprtjg1mbnfS9eg-LgKMYGBBkHQMiAdhQsCkCok2sBqgBdAC+yAopGQEIgI2holhcG+wEaKIyy0s9i0mF8lhsXCOG0MSwgmTAFFw6AQKFZcAmYGRiKAA
 - id: relevant-functions
   template: ../../_partials/_new_relevant-functions.ejs
   template-params:
@@ -30,7 +29,6 @@ listing:
       format='yyyy-mm-dd', startview='month', weekstart=0, language='en', separator='
       to ', width=None, autoclose=True)
 ---
-
 
 :::{#example}
 :::

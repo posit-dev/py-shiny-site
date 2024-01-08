@@ -9,14 +9,15 @@ listing:
   template-params:
     dir: components/inputs/slider-range/
   contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
   - title: Express
     file: app-express.py
-    height: 200
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNLCx1l07YT95yyvhMwcESMFy6AAwRUAAeugCM0bFMAG5QVnC6wADMAKwSAGwFALoAlBhQ0tKahBZQLCx+qGQAtAVMMPHtUG7ETBTxHYSUFHTBFXj2jmIYxG6u7sPu6XIARlBkfH6Z2VMzEI5MIMENTSzBiKFg6WztKdFMAFYiLDs02O0k5OM-4zkTCyHGMEHaHAoMBYAL+dCYqF6BWCAF9VFUanULs0-DBvv0yINVrCJlNVKpZDRWHJ1r4XG4JIsyMsJCw4M0OKQKohZg4AAJM5a8ph8qQQHwYVbCykZLIiOA2bnCk5SMgiOjHGjBED0sgYAI+RVosDk6DoPRMJSoGwabTial0WkVMAospAA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQGJkAxASQA0BZAURQCU4B3AE4BLKsigBncRGScAHukFwJUjOgA6EAGaDSMZBIAWwiLmTCY6UoIrIArsKJKIAEziCiAQUybNagPoOyAC89sI4UADmcP5aADYOLgAUmshpYVgm6HYU-hJxwm6CKWD5he7qhMiVAMoFRZVEMCbBAAxNUHLBAIyt7cgAblAJcMHAAMwArEQAbJMAugCURHQAPKup6Q5YpDnZuVRyuQPuAEZQFBYlQyOVy5qLvq5wWgbuJ8VZOUS7FPtEEmUEmE5EWiE2aQAAs4ilhDhQIcg3K8bnY4EkwYj0sglBQ7IIZFpKiAvhQsGUihiAL6VJ5qELIbzoJIBBwA97uR4QKpgCi4dAIFC8uBHMBU+ZAA
   - title: Core
     file: app-core.py
-    height: 200
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNLCx1l07YT95yyvhMwcESMFy6AAwRUAAeugCM0bFMAG5QVnC6wADMAKwSAGwFALoAlBhQ0tKahBZQLCx+qGQAtAVMMPHtUG7ETBTxHYSUFHTBFXj2jmIYxG6u7sPu6XIARlBkfH6Z2VMzEI5MIMENTSzBiKFg6WztKdFMAFYiLDs02O0k5OM-4zkTCyHGMEHaHAoMBYAL+dCYqF6BWCAF9VFUanULs0-DBvv0yINVrCJlNVKpZDRWHJ1r4XG4JIsyMsJCw4M0OKQKohZg4AAJM5a8ph8qQQHwYVbCykZLIiOA2bnCk5SMgiOjHGjBED0sgYAI+RVosDk6DoPRMJSoGwabTial0WkVMAospAA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAV05EG1ACZwGRAIKYAOhFUZ0AfXHIAvGM44oAczia6AG3HSAFKuQODWbulEVNrC51kM7YT95yyoTIwQDKXj7BRDDcugAMMVAAHroAjPGJyABuUFZwusAAzACsRABsJQC6AJREAMQAPI32juJYpG6u7lTJ7tlyAEZQFPx+ufnBdao1qqqydGxyA74ubkSdFN1ErHCsrJzkNYitDgACUhA+WL0Up8gLOXmicDbH947IUhSiDBDIdGCIDWFCwAR8bwAvsE5tBMHpkEp0DYNNoJEsGCtZhAQmAKLh0AgUHi4H0wJCqkA
 - id: relevant-functions
   template: ../../_partials/_new_relevant-functions.ejs
   template-params:
@@ -38,7 +39,6 @@ listing:
     signature: render.DataTable(self, data, *, width='fit-content', height='500px',
       summary=True, filters=False, row_selection_mode='none')
 ---
-
 
 :::{#example}
 :::
@@ -65,4 +65,3 @@ The value of an input component is accessible as a reactive value within the `se
   1. Use `input.<slider_id>()` (e.g., `input.slider()`) to access the value of the slider. If `value` is a list and the slider specifies a range, the server value of a slider will be a list of length 2.
 
 See also: [Slider](slider.qmd)
-

@@ -1,23 +1,22 @@
 ---
 title: UI
 sidebar: components
-
 appPreview:
   file: components/outputs/ui/app-preview.py
-
 listing:
 - id: example
   template: ../../_partials/_new_component-example.ejs
   template-params:
     dir: components/outputs/ui/
   contents:
+  - title: Preview
+    file: app-detail-preview.py
   - title: Express
     file: app-express.py
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdCPrSoA+jqYBeJjqxQA5nGM0ANjtUAKfUy9WOGLqi0yYxk5UmMAI0CyUg8UVVUIqNJdfCYUkXimKCYAVQBJJjgnOHhyFIBKPE9va2JAgKCdWJ0AUWLSsgqqiHL9PrU4GlYNRTo3f0CJOrIGiRY4FhYOUnLEaq8AARV1OgwddaYt6VkFOAw4RXJxiAaMKHjEsmieg-Uh1vbKMjdVg+9JOBkLR0CA+Pw3QLGFhODg7WLQ2EaFISFIAYTYxGI8yyTAgWhg4SRqRgXHMAEYJDAoAAPckABgk8igLjg5gArJV+kYLKJ0G4jKYOHMRhpehAwABfAC6QA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQGJkAxASQA0BZAURQCU4B3AE4BLKsigBncRGScAHukFwJUjOgA6EAGaDSMZBIAWwiLmTCY6UoIrIAgpiJKoxCsIBucJ9QAmcQUQArsKammoA+sHIALzIwThQAOZw4VoANsE+ABSayHlxwlgm6IEU4S5u5OEARqUU5DloPj41deTqhMgdds3iyACqzMhwaXDwlB0AlAS5+fGkpSVlwY3BnKPjFFNEdAA8u5qToRB+Wgb+noJZxaVECxRLRBLKEsLkk4izeQACSif+WCiewOMnyvzgFQ8cCwcE8lGuECWWCgzVaFHqEEmyGBX2QpwK6zG1AoWQ+2P2uPyyCUFECghk8RuZQkaWEfiuHRZbP8HSIHQAwoZSKRnn0IIEYNUeZ0YCZogBGIgwKByBUABiI7igGTg0QArNNySCwpgYvZMFkIsEnhd-EcIJ0wBRcOgECgnXA5BQwABfAC6QA
   - title: Core
     file: app-core.py
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdCPrSoA+jqYBeJjqxQA5nGM0ANjtUAKfUy9WOGLqi0yYxk5UmMAI0CyUg8UVVUIqNJdfCYUkXimKCYAVQBJJjgnOHhyFIBKPE9va2JAgKCdWJ0AUWLSsgqqiHL9PrU4GlYNRTo3f0CJOrIGiRY4FhYOUnLEaq8AARV1OgwddaYt6VkFOAw4RXJxiAaMKHjEsmieg-Uh1vbKMjdVg+9JOBkLR0CA+Pw3QLGFhODg7WLQ2EaFISFIAYTYxGI8yyTAgWhg4SRqRgXHMAEYJDAoAAPckABgk8igLjg5gArJV+kYLKJ0G4jKYOHMRhpehAwABfAC6QA
-
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnEnUAJnAZEArpwA6EPRnQB9bcgC8ybTigBzOEboAbbSoAUe5J8ucs3dJoojGTlyIwAjAIpydzQVFXDI8h1CZGTROOQoZABVAElkOEc4eEpkgEoCDy8rUgD-QO0Y7QBRIpKKcqIAYgAeHr0yvT01OjZ1RQZXPwCiWop6olY4VlZOcjLEKs8AASkINQYsU17+iC9kXelZBTgsOEVKKYh6rCg4hIooiDLkE63kEbeVrFagUVwbX59f7nKQUTQMM5WaaBViOTgHGKo9HqZJEZIAYXYpFIS0yyAgmhgYRxKRg3DMAEYiDAoAAPRkABiI8igzjgZgArBVIacDJhzGJMK5DCZOItxupBhAUmAKLh0AgUKq4KyKGAAL4AXSAA
 - id: relevant-functions
   template: ../../_partials/_new_relevant-functions.ejs
   template-params:
@@ -30,7 +29,6 @@ listing:
   - title: '@render.ui'
     href: https://shiny.posit.co/py/api/render.ui.html
     signature: render.ui(_fn=None)
-
 - id: variations
   template: ../../_partials/_new_variations.ejs
   template-params:
@@ -57,7 +55,6 @@ listing:
       file: app-variation-toggle-to-show-or-hide-an-input-core.py
       shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdCPrSoA+jqYBeJjqxQA5nGM0ANjtUAKfUy9WOGLqi0yYxYAdw4yQjYPMHZiEOCnDnU6XXwmVIBlNjjWROTUgEo8T29rYkCAoJ1onQBRJzh4ckLiiAL9DrU4GlYNRTo3f0CJcrJKiRY4FhYOUgLEEq8AARVkjB1FpnUeuoamsjd5ze9eHsGISoxY+JY8jUOjiBPn7ykyLTon6yGg26T71J-fJpVIAYWyxEmTCgTAgWhgACMNKkJDAuOYAIyoqAAD0xAAYJPIoC44OYAKztAzQdAWUToNxGUwcCZ9DQFMAAXwAukA
 ---
-
 
 :::{#example}
 :::

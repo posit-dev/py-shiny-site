@@ -1,24 +1,27 @@
 ---
 title: Data Grid
 sidebar: components
-preview: |
-  <div class="px-4">
+preview: '<div class="px-4">
+
   <img  style="width: 100%;height:auto;max-height:130px;" src="/images/datagrid.png">
+
   </div>
 
+  '
 listing:
 - id: example
   template: ../../_partials/_new_component-example.ejs
   template-params:
     dir: components/outputs/data-grid/
   contents:
+  - title: Preview
+    file: app-detail-preview.py
   - title: Express
     file: app-express.py
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMhSkCGEKofGRKEHycAoT5kJr4TE0AcjUARo5MxDS2xADuomTETAoCwqhsUNhNNgBMAAzReAVFqcQV5ZUKUGRQWXSwcA3hGkoKNE2xEDfaDn0udABujpFlFTabZNvOru6kaKINaFAAC322IKYoLsEAcdAwu32h2OUIeLF4EWEFxoMWBECKhLGeygyTOIgwBjgineEG2GAgMRuRKKdjIfDoBNh8IwABESQBxOgCPJIqB3eKoZJWVCRNCoRICP4vRzRMAAXwAukA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQGJkAxASQA0BZAURQCU4B3AE4BLKsigBncRGScAHukFwJUjOgA6EAGaDSMZOigAbeIPTUA5gFdhEKcJjpSgisiOkoAEwD65iNdsJTR09ZAkAC1tcZAcnF2QAQUwiJQhPOEEiCWUJYXIiG01NPwC7ZABeNw8fEps7AAoASiLoTG8bCuQbHCgLOG8tIxtPes1kca7hLFt0KwpvCCtTYWJRyHVCZA2AOSWAIwzkUi1kXX4pClJkT2EJdCMoXA2iACYABkaCMYnu0jnZ+aeKAUKADQSwOBrWqBbyeLQbRrIOgAHmRmmaEE06RO2UEADcMvUZnMiH8KACsjk8hBGohvuMAAKpdKCLBAkFgiFI1H065wE7QuywrRNOkyCYS9lQTqCiRYcJwLxEiAArAQJoYiUSpQUKyCGTMjJYAAiwKgAHERCMpYiUWjMa10J0kuh6mp2sJKfiMhjNmAKLhzLR-XA5BQwABfAC6QA
   - title: Core
     file: app-core.py
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMhSkCGEKofGRKEHycAoT5kJr4TE0AcjUARo5MxDS2xADuomTETAoCwqhsUNhNNgBMAAzReAVFqcQV5ZUKUGRQWXSwcA3hGkoKNE2xEDfaDn0udABujpFlFTabZNvOru6kaKINaFAAC322IKYoLsEAcdAwu32h2OUIeLF4EWEFxoMWBECKhLGeygyTOIgwBjgineEG2GAgMRuRKKdjIfDoBNh8IwABESQBxOgCPJIqB3eKoZJWVCRNCoRICP4vRzRMAAXwAukA
-
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiINqiuAyIi4IkYPJEhOnWo2jkAF45BRU-IVEACgBKH2hMZSEg5CEcKF44ZTp2IUVInWRClMEsYXR+CmUIfi5BYnzILUJkJoA5GoAjR2RSOmQmAHcxClJkRUERdHYoXCaiACYABmiCAqLU0gryysUoCigshlg4BvDNZUU6JujkAGIAHnudWIgdBz6XBgA3R0iyiqImwo22crnc5GiiDWhQAAnYIA4GFhdvtDsc7o9oWM4H0zqILnQYlCIEVSWM9lBkniRFhDHAlH8INssBAYi8yUU7BR+AwSfDEVgACIUgDiDEEeRRUBuDyer3i6GS1nQkQw6ESglB30cL2aYAouB4tH1cAAHhQwABfAC6QA
 - id: relevant-functions
   template: ../../_partials/_new_relevant-functions.ejs
   template-params:
@@ -34,7 +37,6 @@ listing:
     href: https://shiny.posit.co/py/api/render.DataGrid.html
     signature: render.DataGrid(self, data, *, width='fit-content', height='500px',
       summary=True, filters=False, row_selection_mode='none')
-
 - id: variations
   template: ../../_partials/_new_variations.ejs
   template-params:
@@ -78,10 +80,11 @@ listing:
       shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMhSkCGEKofGRKEHycAoT5kJr4TE0AcjUARo5MxDS2xADuomTETAoCwqhsUNhNNgBMAAzReAVFqcQV5ZUKUGRQWXSwcA3hGkoKNE2xEDfaDn0udABujpFlFTabZNvOru6kaKINaFAAC322IKYoLsEAcdAwu32h2OUIeLF4EWEFxoMWBECKhLGeygyTOIgwBjgineEG2GAgMRuRKKdjIfDoBNh8IwABESQBxOgCPJIqA2AYisgGZJNADMi0WqAAHnMmFSBDwDDJgk15gBWJWqsB3eKoZJWVCRNCoRICP4vRzRMAAXwAukA
       height: 350
   - title: Customize Summary Statement
-    description: >
-      Set `summary` in `render.DataGrid()` to `False` to remove the statement
-      "Viewing rows 1 through 10 of 20". Set it to a string template containing
-      `{start}`, `{end}`, and `{total}` tokens, to customize the message.
+    description: 'Set `summary` in `render.DataGrid()` to `False` to remove the statement
+      "Viewing rows 1 through 10 of 20". Set it to a string template containing `{start}`,
+      `{end}`, and `{total}` tokens, to customize the message.
+
+      '
     apps:
     - title: Express
       file: app-variation-customize-summary-statement-express.py

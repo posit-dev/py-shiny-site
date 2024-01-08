@@ -9,14 +9,15 @@ listing:
   template-params:
     dir: components/inputs/numeric-input/
   contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
   - title: Express
     file: app-express.py
-    height: 200
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOtHQB9JUwC8TJVigBzOOpoAbJdIAUqpnb0cMXVArLqIC+HQ6EbkT3I+yvhMwcESAIwSMFzaUUwwUAAecQAMAJQYUNLS6oRmUCwsfqhkALQArAlJZVCuxEwUSeWElBR0wel4tvb6xK4ubk1uAG5yAEZQZHx+I1AWcJ3dEPZMIMH5hSzBiKFgI2xlEampTABWCizTNNhlJORtd21yTPMchhBlHBQwLE8PdCYqBqFWCAF9VJlsrlNkU-DBbnUyA1hv92p1VLIaKw5GM6FZnK4JP0yIMJCw4EUOKR0ogenYAAJSCCyOgYYb0phYphzBZWWmc1ZSMgKOgrQlkDAeLw+fmqNCoHSidBWBWaDjk3FydJgMEAXSAA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQGJkAxASQA0BZAURQCU4B3AE4BLKsigBncRGScAHukFwJUjOgA6EAGaDSMZBIAWwiLmTCY6UoIrIAgpiJKIAEziCiAV2GbNagPreyAC8yN44UADmcP5aADbeLgAUmshpYcJYJuieFP4QnvAixCmQhe7CxOqEyNUAcuXF5hA5FNVEAIxEMCbBXcgwUHJ9AAwAlER0ADxTqenhpLmt-lRyeQBu7gBGUBQWpetQCXDVE5pjvq5wWgbum4JJ2blEixStRBLKEsLkY4hzaQAAs43IIsKs2jJ0m4bodjkk-gD0mklBRPIIZE8KFgCkVKgjLmoQvZMEkAt4Pnd3BcIDUwBRcOgECh6XA1mAAL4AXSAA
   - title: Core
     file: app-core.py
-    height: 200
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOtHQB9JUwC8TJVigBzOOpoAbJdIAUqpnb0cMXVArLqIC+HQ6EbkT3I+yvhMwcESAIwSMFzaUUwwUAAecQAMAJQYUNLS6oRmUCwsfqhkALQArAlJZVCuxEwUSeWElBR0wel4tvb6xK4ubk1uAG5yAEZQZHx+I1AWcJ3dEPZMIMH5hSzBiKFgI2xlEampTABWCizTNNhlJORtd21yTPMchhBlHBQwLE8PdCYqBqFWCAF9VJlsrlNkU-DBbnUyA1hv92p1VLIaKw5GM6FZnK4JP0yIMJCw4EUOKR0ogenYAAJSCCyOgYYb0phYphzBZWWmc1ZSMgKOgrQlkDAeLw+fmqNCoHSidBWBWaDjk3FydJgMEAXSAA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKmiAvgNOxO5Decn7KhMihAHJBvsR8EG4UoUQAjEQw3LqpyDBQAB6ZAAwAlEQAxAA85faOhqTuCZpUuR4AbnIARlAU-AEtUFZwoSWqRaqqsnRscm0MNq7uRHUUCUSscKysnORFiNUOAAJSELIMWE2JEI7IE8h9AzY7e1fIUhQKDJfzFFhePn4PY2gmD0YkwNg02k4q2mclGEDCYAouHQCBQiLgzTAAF8ALpAA
 - id: relevant-functions
   template: ../../_partials/_new_relevant-functions.ejs
   template-params:
@@ -27,7 +28,6 @@ listing:
     signature: ui.input_numeric(id, label, value, *, min=None, max=None, step=None,
       width=None)
 ---
-
 
 :::{#example}
 :::
@@ -48,5 +48,3 @@ To add a numeric input control to your app:
 The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a numeric input control:
 
   1. Use `input.<numeric_input_id>()` (e.g., `input.numeric()`) to access the specified numeric value. The server value of a numeric input control is a numeric value.
-
-

@@ -9,14 +9,15 @@ listing:
   template-params:
     dir: components/inputs/action-link/
   contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
   - title: Express
     file: app-express.py
-    height: 200
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdaOgD6OpgF4mOrFADmcQzQA2O1QAp9TDxY4YGAdzcQnkFeGCROMBAuAGza3lyoWmSGMnKkhg5cANZuKLIcaRkQmbr4TCUAkhCEUlAscEwAclowAEYaJQCUHRLuwR6WYc2RMSHEiQlJFAAeZDkkWuTtYB0YUKqqhoQOtSw5qhwsqNvYALQArEytJwAMnd29fSAlWzsliGVg8mwnAIzX10wAFZaFhyGinEiLcgnQiUCh0JhQDLWCAnDgUGAsGFwjRMVBTc4lAC+DyYKzWGxeLF2JWmZGxizonQ8+g6+nUNFYGkUdBc8USEjGZAmEjq1PyEFFZCgQi41kM8iRWnq5muHUQpPm5DMkmkeUUGAAakq4C5QTK5BB5YqnHA2RBSQABGr6uAYACiNBocFkTpdcgNcEU5D5EAmqzyBSy9qCHKYhhc6tJQS1ZAwdVmqcTTAA1Ewfva-ZR1HQMHTSXHUxpExrAn1dWQtHRAjQSiAsx0SWB9D2DKgdWJUC40KhjBxRdyNIWHTOwESALpAA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQGJkAxASQA0BZAURQCU4B3AE4BLKsigBncRGScAHukFwJUjOgA6EAGaDSMZBIAWwiLmTCY6UoIrIAgpiJKoxCsIBucJ9QAmcQUQArsKammoA+sHIALzIwThQAOZw4VoANsE+ABSayHlxwlgm6IEU4S5u5OFpJgDWOWiuwlU1ELXqhMgddk3kHQCURHQAPMO5+fGkpSVlVHIUDWSBlP4Dmv2hEH5aBv6eglnFpURTFDNEEsoSzRD9iON5AAJKW-5YcwsbMvnPcBUecCwcE8lEOEBmWH+LTqX3yyG2yCWKwOdwecOQSgogUEMi0HRARwokN6EGqdSy-QAvh1NmoYvZMFkIsELnt-F9OmAKLh0AgUFy4PMwJSALpAA
   - title: Core
     file: app-core.py
-    height: 200
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdaOgD6OpgF4mOrFADmcQzQA2O1QAp9TDxY4YGAdzcQnkFeGCROMBAuAGza3lyoWmSGMnKkhg5cANZuKLIcaRkQmbr4TCUAkhCEUlAscEwAclowAEYaJQCUHRLuwR6WYc2RMSHEiQlJFAAeZDkkWuTtYB0YUKqqhoQOtSw5qhwsqNvYALQArEytJwAMnd29fSAlWzsliGVg8mwnAIzX10wAFZaFhyGinEiLcgnQiUCh0JhQDLWCAnDgUGAsGFwjRMVBTc4lAC+DyYKzWGxeLF2JWmZGxizonQ8+g6+nUNFYGkUdBc8USEjGZAmEjq1PyEFFZCgQi41kM8iRWnq5muHUQpPm5DMkmkeUUGAAakq4C5QTK5BB5YqnHA2RBSQABGr6uAYACiNBocFkTpdcgNcEU5D5EAmqzyBSy9qCHKYhhc6tJQS1ZAwdVmqcTTAA1Ewfva-ZR1HQMHTSXHUxpExrAn1dWQtHRAjQSiAsx0SWB9D2DKgdWJUC40KhjBxRdyNIWHTOwESALpAA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnEnUAJnAZEArpwA6EPRnQB9bcgC8ybTigBzOEboAbbSoAUe5J8ucs3dJoojGTlyI0duAGt3NFlOUPCICJ1CZGTRWPJkgEoiAGIAHnyPLytSAP9AqgAPCmiyTUp1bL0svT01OjZ1RQZXPwCiMooKolY4VlY4iCzEYs8AASkINQYsatrWiC9kRelYxSw4RUo+iAqsYKmwyM3tjuR6xt6Zue3kKQpNBi26ZJB+igXDIQa6JVxZAC+yTa0Ew5jEmFchhMnFG3XUmxSYAouHQCBQ2LgNTAEIAukA
 - id: relevant-functions
   template: ../../_partials/_new_relevant-functions.ejs
   template-params:
@@ -29,7 +30,6 @@ listing:
     href: https://shiny.posit.co/py/api/reactive.event.html
     signature: reactive.event(*args, ignore_none=True, ignore_init=False)
 ---
-
 
 :::{#example}
 :::

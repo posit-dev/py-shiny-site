@@ -9,14 +9,15 @@ listing:
   template-params:
     dir: components/inputs/password-field/
   contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
   - title: Express
     file: app-express.py
-    height: 200
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKym1FBYsA7oNtlMC8ffzppIIkgyKYgmGwQvwCARiCASgwoaWlNQgtvFjtgsgBaAFYmGAAPEqh3YiYKKtLCSgo6dLx7R0NidzcPJo8ANzkAIygyPiLhqCs4Tu6HECC8gqDEWLBhthLkgAZ9pgArBRYpmmwSknI267a5JjmOYwgSjgoYFnvbuiZUGplIIAX1UGSyOTWPiK8Vq9UacGaP3a6VUaIgshorDkozoNlc7gkfTIAwkLDgPg4pDSiCWTAAAsSBnT6VIMXIMEM6ZimLN5jYaXTHJI4GQFHQILwIAMjKEAgL0ep0HpROgbBptBwyTi5GkwMCALpAA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQGJkAxASQA0BZAURQCU4B3AE4BLKsigBncRGScAHukFwJUjOgA6EAGaDSMZBIAWwiLmTCY6UoIrIAgpiJKIAEziCiAV2GbNagPreyAC8yN44UADmcP5aADbeLgAUmshpYcJYJuieFP7okhL81snqYAUqxYIuZURlAAqFVTWEyGUwuBVFJQCMZQCURHQAPMOp6eGkuTl5VHJ5AG7uAEZQFBYpYAtQCXADBJr9vq5wWgbuS4JJ2blEUxQzRBLKEsLk-YjjaQACzm6CWDmFC+yDcZ22uySHxB6WQSgonkEMhuFAilRKUOOahC9kwSQC3ieF3cRwgrTAFE6CBQFLg8zAAF8ALpAA
   - title: Core
     file: app-core.py
-    height: 200
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKym1FBYsA7oNtlMC8ffzppIIkgyKYgmGwQvwCARiCASgwoaWlNQgtvFjtgsgBaAFYmGAAPEqh3YiYKKtLCSgo6dLx7R0NidzcPJo8ANzkAIygyPiLhqCs4Tu6HECC8gqDEWLBhthLkgAZ9pgArBRYpmmwSknI267a5JjmOYwgSjgoYFnvbuiZUGplIIAX1UGSyOTWPiK8Vq9UacGaP3a6VUaIgshorDkozoNlc7gkfTIAwkLDgPg4pDSiCWTAAAsSBnT6VIMXIMEM6ZimLN5jYaXTHJI4GQFHQILwIAMjKEAgL0ep0HpROgbBptBwyTi5GkwMCALpAA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKm9FFasA7kNtlMC8ffwZpIKIggAVvPwDI5CCYXBD48IBGIIBKIgBiAB4C+0dDUnc3DyoADw8ANzkAIygKfjswOqgrOByCVWzVVVk6NjkGhhtXdyJyikqiVjgfTnJsxBKHAAEpCFkGLBqKDeRh5E7umzXjx2QpCgUGCD4ISqNQgMvB6Ew9MUwbDTaTgLMZyAYQQioCipBAoMCHMAAXwAukA
 - id: relevant-functions
   template: ../../_partials/_new_relevant-functions.ejs
   template-params:
@@ -26,7 +27,6 @@ listing:
     href: https://shiny.posit.co/py/api/ui.input_password.html
     signature: ui.input_password(id, label, value='', *, width=None, placeholder=None)
 ---
-
 
 :::{#example}
 :::
@@ -47,4 +47,3 @@ To add a password field to your app:
 The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a password field:
 
   1. Use `input.<password_field_id>()` (e.g., `input.password()`) to access the value of the password field. The server value of a password field is a string.
-

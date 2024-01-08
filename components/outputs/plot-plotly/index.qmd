@@ -1,26 +1,28 @@
 ---
 title: Plot (Plotly)
 sidebar: components
-preview: |
-  <div class="px-3">
+preview: '<div class="px-3">
+
   <img style="width: 100%;height:auto;max-height:130px;" src="/images/plotly.jpg">
+
   </div>
 
+  '
 listing:
 - id: example
   template: ../../_partials/_new_component-example.ejs
   template-params:
     dir: components/outputs/plot-plotly/
   contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 500
   - title: Core
     file: app-core.py
-    height: 500
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACVAG2LPewzgA9UjOAGcRLKONT8AOhABmjYjDZR28RqkoBzAK40I4ug2YtOUACYB9LRD0GRcxcpYiAFgewtjTVgEF0PBZhKEIyGgA3OCD9JyUVd08AdxoLbTgyI3pfFmJdMlR8qxS0jKDhCAs4RmLU9NYWAGIAHma5OTRUK30WAF4WfSwodKt5dn0LAAo5FlmBmgwDQrIrEXZU6unIGXwWHYA5XRgAI2rc+RZjhx2ggEY7gAYHoIAmB4BKPBm5vIKikvqWw4XB2n1mLTaEHe7QgciqFxE1SijEmS3yQV+yyCiLENFI70Q31mAAEKlUagCMuCWK0iSx4WxOGRJgS6XM2Dp9IY+mZiJYbJyHCy2XMRIQoGQKJomTzpBgPCIyMRtIxYNMIOzNXMLBKoKNVfBerZ7IYgvxejtjsQLNgrDBJCIrNobiwIFdDL00WQMBBhRqtSx3hhdKgdRQrOwoNhfuqA5rwtw4L0QDsKPwyDtEHswAAFQUagCyDpdO1kSBYDwwAFYAL5ff1x2bYKD8GiOhPsJM7ADCeXINxFWv4LbbVg7XbAACFrV4i2IWJNtND8IPAzC48IyLpGBqxRKpcCGhCYR10DyAqhJp1ujRsUjqtCIGAawBdIA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5dAG1Io9yzgAe6ZnADOo5FAnoBAHQgAzZqRjsoHeM3TUA5gFc6ECQyatkXKABMA+toj7Do+UpXJRAC0O5kJlmwCCmEQiUMQUdABucEQGzsqqHl4A7nSWOnAUxox+yKR6FOj51ilpGcHUlnDMxanpbMgAxAA8TfLyGOjWBsgAvMgGOFDp1gocBpYAFPLIM-10WIaFFNaiHKlVU5CyhMjbAHJ6MABGVbkKyEeO20QAjLcADPdEAEz3AJQE07N5BUUldZtONxth8Zs1WhA3m0IJVzqIqlFmBNFvkiD8lkR4eI6OQ3ogvjMAAIiGFVGqlerggnIWHsLgUCZ4xotamzdi6AxGXrmUhWWwcxyM1mzUTEKAUKhaencmRYTyiCikHTMWBTCBsjWzSziqAjFXwHp2BxGIgCHrbI6kSy4awwKSiaw6a7ICCXIw9FEULAQIXqzXIN5YPTobVUawcKC4H5q-0a8I8OA9EDbKgCCjbFDbAAKAvVAFl7c7tnJaPcsABWAC+nz9sZmuCgAjoDvjHET2wAwnlKNdhZqBI3m9ZW+2wAAhK3eAviZATHRQwh9gPQ2MiCh6Zjq0XiyVAyksiDtTDcwLoCYdLp0TEIqpQiA7MAUXDaWiPwQUMCVgC6QA
   - title: Express
     file: app-express.py
-    height: 500
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACVAG2LPewzgA9UjOAGcRLKONT8AOhABmjYjDZR28RqkoBzAK40I4ug2YtOUACYB9LRD0GRcxcpYiAFgewtjTVgEF0PBZhKEIyGgA3OCD9JyUVd08AdxoLbTgyI3pfFmJdMlR8qxS0jKDhCAs4RmLU9NYWAGIAHma5OTRUK30WAF4WfSwodKt5dn0LAAo5FlmBmgwDQrIrEXZU6unIGXwWHYA5XRgAI2rc+RZjhx2ggEY7gAYHoIAmB4BKPBm5vIKikvqWw4XB2n1mLTaEHe7QgciqFxE1SijEmS3yQV+yyCiLENFI70Q31mAAEKlUagCMuCWK0iSx4WxOGRJgS6XM2Dp9IY+mZiJYbJyHCy2XMRIQoGQKJomTzpBgPCIyMRtIxYNMIOzNXMLBKoKNVfBerZ7IYgvxejtjsQLNgrDBJCIrNobiwIFdDL00WQMBBhRqtSx3hhdKgdRQrOwoNhfuqA5rwtw4L0QDsKPwyDtEHswAAFQUagCyDpdO1kSBYDwwAFYAL5ff1x2bYKD8GiOhPsJM7ADCeXINxFWv4LbbVg7XbAACFrV4i2IWJNtND8IPAzC48IyLpGBqxRKpcCGhCYR10DyAqhJp1ujRsUjqtCIGAawBdIA
-
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQGJkAxASQA0BZAURQCU4B3AE4BLKsigBncRGScAHukFwJUjOgA6EYTHSlBFZOgA2pCkdxY4CpSvFT0czQDNBpGIahH4g9NQDmAK7CEFLauvrIJlAAJgD6vhCBwRLOru4SABbBuMhhegYAgphESlDEFMIAbnBEQaluyJnZ-MLRfnAUoTr5yKQBFOj9sS1tHSXU0XCCw63tBsh0ADyLmppqsUHIALzIQThQ7bFORkHRABSayFe7wljBgxSxEkatUxeQ6oTInwByATAAIymvScyAByU+RAAjNCAAywogAJlhAEoCJdrn0BkMRnN3sZTJ80VclisICjVhBJqCJFNqoIzvd+kQsQ8iLSVMJyCjEBirgABJRUqYzUbzUl85DUwwmChnHkLZaS66GfxBELbSKkGLxNXJeXK64SYhQChUHyyzUOLBZCQUUh+QSwC4yFVuq7RU1QI5O+BbBJJEJEORbT4A0jRXCxGCSCSxPyQ5AQcEhLZMihYCAG13ulFYALoT1UWJGKC4LEu93uipmOBbECfKhyCifFCfAAKepk7Fjic+jlosKwAFYAL7onNVq64KByYRxmtGOufADCfUokMN7rks-nsUXy7AACEIzke7Yzn4KYQt8gKRBb0oKAFBDJjabzQTxUqH9BMJqinQM51iCdk6Sme8vjAChcF8WhoKsCgwFHABdIA
 - id: relevant-functions
   template: ../../_partials/_new_relevant-functions.ejs
   template-params:
@@ -33,7 +35,6 @@ listing:
     href: https://github.com/posit-dev/py-shinywidgets/blob/main/shinywidgets/_shinywidgets.py#L213
     signature: shinywidgets.render_widget(fn)
 ---
-
 
 :::{#example}
 :::

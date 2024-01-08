@@ -9,14 +9,15 @@ listing:
   template-params:
     dir: components/inputs/date-selector/
   contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 380
   - title: Express
     file: app-express.py
-    height: 380
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAEygrIEt4nvVi6ZVuzgAdCOPqMmAZwAWnCNl4x+gpgEF0eJnUos4dHQFdO48WlQB9U0wC8TU1igBzOFZoAbUywAU4pkDHTgxFVGMyKzYKfzBosXwmUTBkgEoMKBYWK0JPKBkZWNQyAFoAViYYAA8SqAjiJgoq0sJKCjo0vACgp2II8MimsliANyhvBNSuiCCmEGTc-JlkxCSwEbkSgEYABh2mACtjGS4abBKScjaLtsMmcc4XCBLOChgZG6u6JlQasuSAL7idKZbKLAqxGDnOpkBpDT7tNLmCQQAw0WSGEaGXxhCI6PpkAY6GRwAqcUipRDdQIAAQJA2pTBpelRhgwQ0ZaKYYwmvkpjNmejIxjoM1xZAw8T5yIs6HsmnQvksNk4xMxhlSYABAF0gA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQGJkAxASQA0BZAURQCU4B3AE4BLKsigBncRGScAHukFwJUjOgA6EAGaDSMZABMoVCsPjIz6UoIqHjcTZp17kEgBbCIuCzCs3kAIKYREoQBnCCRACuwo7QmAD6McgAvMgxOFAA5nAJWgA2MQYAFJrI5enCWJ7oURQJRlSlYI0OhMjqYAAi9p0AlER0ADxDZRUZpHW19VRyFM0AblCFbX2aaxCa4VquEQsRxTV1RJMU00QSyhLC5H2IY+UAAqHhglizFA+GcDtLK8V3L4VZBKChRQQyI4ULCtAFxNSpQKYYpqJLCC57CIbdpgCi4dAIFC4uBzMAAXwAukA
   - title: Core
     file: app-core.py
-    height: 380
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAEygrIEt4nvVi6ZVuzgAdCOPqMmAZwAWnCNl4x+gpgEF0eJnUos4dHQFdO48WlQB9U0wC8TU1igBzOFZoAbUywAU4pkDHTgxFVGMyKzYKfzBosXwmUTBkgEoMKBYWK0JPKBkZWNQyAFoAViYYAA8SqAjiJgoq0sJKCjo0vACgp2II8MimsliANyhvBNSuiCCmEGTc-JlkxCSwEbkSgEYABh2mACtjGS4abBKScjaLtsMmcc4XCBLOChgZG6u6JlQasuSAL7idKZbKLAqxGDnOpkBpDT7tNLmCQQAw0WSGEaGXxhCI6PpkAY6GRwAqcUipRDdQIAAQJA2pTBpelRhgwQ0ZaKYYwmvkpjNmejIxjoM1xZAw8T5yIs6HsmnQvksNk4xMxhlSYABAF0gA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAEyiooEt5kf1SDCmw5wAOhAmNmyAM4ALLhFx8YAocgCCmIg2qs4DIgFcuEiRnQB9U8gC8yUzigBzOFboAbU6wAUE5EDHLiwldGMKK3YqfzBo8UJkMTAAEVFkgEoiAGIAHlyAoKdSCPDIqgAPCliANyhvBIyJJskIAzo5QxrDXzCIohKKMqJZOFlZLnIMxELAgAE9NsMsSopZtjgOuobfafWg5D0KYwYIPggyrHjd82hMey1MX0sbLhGuwxbEsApcdAQUD84FUwABfAC6QA
 - id: relevant-functions
   template: ../../_partials/_new_relevant-functions.ejs
   template-params:
@@ -28,7 +29,6 @@ listing:
       startview='month', weekstart=0, language='en', width=None, autoclose=True, datesdisabled=None,
       daysofweekdisabled=None)
 ---
-
 
 :::{#example}
 :::

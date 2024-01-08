@@ -9,14 +9,15 @@ listing:
   template-params:
     dir: components/inputs/radio-buttons/
   contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
   - title: Express
     file: app-express.py
-    height: 200
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOtHQB9JUwC8TJVigBzOOpoAbJdIAUqpnb0cMXVArLq6UaR2LqARq7JSFismW3tw5TAPL2JIiTDwu0iAJU9vJn8yQIgWONCIRPsQSIBGSMRQsAB5VDJvArL8SoAmcsqautImVqbIgGY2yI76pgGwAF94gvsASinw-WJXFzclGzAANygLOEi5hKZiojMoFlykSo22AFoSgAY7pmlr8zgADyZtjkMIa44KGAsa6ESgUOhMVBva4AFki41UM1UshorDkGzkVmcrgkSzIKwkLDgZ3qM0QBwAAlIILI6BglAdkUwtjsrKSDuEpGQFHQCliyBhot5Wao0KgdKJ0FZRZoOAS0XJERBVKoJgBdIA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQGJkAxASQA0BZAURQCU4B3AE4BLKsigBncRGScAHukFwJUjOgA6EAGaDSMZBIAWwiLmTCY6UoIrIAgpiJKIAEziCiAV2GbNagPreyAC8yN44UADmcP5aADbeLgAUmshpYcJYJuieFP6CUC7CpP4ARrkU5BJJyHQAPHWp6c3qYAVFpK1E9Y0yzemtPIXFyOUUlRASXbUNTf3IIK0AjK0orQDy6BTFMiuEyK0ATKsHYJvb5MjH+60AzCcbWzvI92AAvt2zfWkAlJ+9zXCpFyOTy3hSYAAblAEnBWn9ND9fK44FoDO5Ie4ktlckRgRRQUQJMoJDsfog5sgAALONyCLDeSluNHQ2FJcmU5pKCieQQyHEULDtYrs5FqEL2TBJALeIkY9xIiD7MAUXDoBAoFVwOQUd4AXSAA
   - title: Core
     file: app-core.py
-    height: 200
-    shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOtHQB9JUwC8TJVigBzOOpoAbJdIAUqpnb0cMXVArLq6UaR2LqARq7JSFismW3tw5TAPL2JIiTDwu0iAJU9vJn8yQIgWONCIRPsQSIBGSMRQsAB5VDJvArL8SoAmcsqautImVqbIgGY2yI76pgGwAF94gvsASinw-WJXFzclGzAANygLOEi5hKZiojMoFlykSo22AFoSgAY7pmlr8zgADyZtjkMIa44KGAsa6ESgUOhMVBva4AFki41UM1UshorDkGzkVmcrgkSzIKwkLDgZ3qM0QBwAAlIILI6BglAdkUwtjsrKSDuEpGQFHQCliyBhot5Wao0KgdKJ0FZRZoOAS0XJERBVKoJgBdIA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKmhlGmdSmgEbuFOSsNsgAxAA8kfaOccpgXj6kCURRMRBx8WAASt6+yIEUwRCsqRHRsVnIIAkAjAkoCQDy6BS+mQ2EyAkATI09YK3t5Mj93QkAzAMtbR3I02AAvmmVmY4AlKsZcYak7m4eSnZgAG5QVnAJW6obqqqydGxyp3I2ru5E+xSHRKxwrFYHQ2iCqyAAAlIILIGFglGDHshzpcbCCwXEpBQFAxMh8KFgkr5UfdoJg9GJMDYNNpOH8XnI7hBumAKLh0AgUCy4AAPCjLAC6QA
 - id: relevant-functions
   template: ../../_partials/_new_relevant-functions.ejs
   template-params:
@@ -27,7 +28,6 @@ listing:
     signature: ui.input_radio_buttons(id, label, choices, *, selected=None, inline=False,
       width=None)
 ---
-
 
 :::{#example}
 :::
