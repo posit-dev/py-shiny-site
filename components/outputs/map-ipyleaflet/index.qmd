@@ -23,7 +23,7 @@ listing:
     file: app-core.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZASzwBs4o6uK2Y6Ug34BxOKQBSAZQDyAOSIBZDMmQBiADyaAOhEbNkAZwAWrCLgFCRyAIKYiAV1Z6DLU+dwB3VgBMA5nAURlbC-KSOFOiRAPo+AUFEDHD+rEZUDHF+gfwa2np6GOgxzsgAvMjOOFCBMbzOvgAUEVGx8TmNOmAwGF0AlH1qWroQer5wdMZwDABu043m0RRELUtERnBGRqzkfYh6amowuDE96OXIKuiNxNQZZY0ArAAMWABsAEyPHwCcAOwADkeAJ+jz+AEYiK8AMwAFmBzx+P2hb2+cNhfSIAC9SMwytDBnkRodkMlUulplkEhROt1eoRkMdThhCcMCtBMBd7NciiVWOtpnMGH09AywBRcOgEChxXAAB4UMAAXwAukA
 - id: relevant-functions
-  template: ../../_partials/_new_relevant-functions.ejs
+  template: ../../_partials/components-detail-relevant-functions.ejs
   template-params:
     dir: components/outputs/map-ipyleaflet/
   contents:

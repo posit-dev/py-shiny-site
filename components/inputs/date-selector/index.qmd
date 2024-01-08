@@ -19,7 +19,7 @@ listing:
     file: app-core.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAEyiooEt5kf1SDCmw5wAOhAmNmyAM4ALLhFx8YAocgCCmIg2qs4DIgFcuEiRnQB9U8gC8yUzigBzOFboAbU6wAUE5EDHLiwldGMKK3YqfzBo8UJkMTAAEVFkgEoiAGIAHlyAoKdSCPDIqgAPCliANyhvBIyJJskIAzo5QxrDXzCIohKKMqJZOFlZLnIMxELAgAE9NsMsSopZtjgOuobfafWg5D0KYwYIPggyrHjd82hMey1MX0sbLhGuwxbEsApcdAQUD84FUwABfAC6QA
 - id: relevant-functions
-  template: ../../_partials/_new_relevant-functions.ejs
+  template: ../../_partials/components-detail-relevant-functions.ejs
   template-params:
     dir: components/inputs/date-selector/
   contents:

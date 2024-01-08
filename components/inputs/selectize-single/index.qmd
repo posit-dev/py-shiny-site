@@ -19,7 +19,7 @@ listing:
     file: app-core.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKm1nAtxiFTgBecDbIAMQAPOH2jjHKYF4+foFwcUQRURAxsWAAyt6+IlCZpOj+5MgARt6kAO6IqWGR0VnIIHEAjKJxKHEAwuyknMRwyJ0NHQBC3ch9A0Mj7VOEM2DtvdOzg8Oj62AAvmlNmY4AlIcZMYak7m4eVAAeFHZgAG5QVilgZ6onqqqydDYchechsrncRGuFFuRC8rFYnHIJ3qxwcAAEpBBZAwsA8KM1kADkG8PjZkQSYlIKAoGJk6HEQOCKFgEgVkmS9nE-tBMHoxJgbBptJxYcC5L8IMswBRcOgEChpXBHvsALpAA
 - id: relevant-functions
-  template: ../../_partials/_new_relevant-functions.ejs
+  template: ../../_partials/components-detail-relevant-functions.ejs
   template-params:
     dir: components/inputs/selectize-single/
   contents:

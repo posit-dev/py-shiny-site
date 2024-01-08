@@ -24,7 +24,7 @@ listing:
     file: app-core.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5AZzigCMWJko7DhHYAdCADNmpGMnRQANvGbpqAcwCudEcgZNWyBaSgATAPqqIm7WMnTZ7ABbbcuxizYBBTEWbUTcMxEWuLiGOhmWsgAvMhaOFBqcGYSClomABTiyDlxdFja6BoUZuwKdAHMWZCihMi1AHIaMNyByKQSyNw2tUQAjP0ADINEAEyDAJQE2bnxpMVFJehGFNXLpBS1UzkAxAA8e+IToRABnZzMAG6BGYXFRPMUi0Sc7Ox05BOIMzkAAn6nQI4FZZfi5cGKCjRWqeZAAZS4vGY-Gc7AopDUzFg7X4lms-F4JlcMEEQm0yExsHYWFqP2QE12BzpZzkIK+jMOYPBOTxWh0sSMpgs6j57Ayxy53KgAA8YsJqainiCTFAKFBorybERpdCwITcGYSW8zGpel0bNE7hQsBBxRLubkZVhOCUKHQKAo4NUAAqKZTIb0inpge0OgTS51wErShQ8OAKaoAWVJyAyamOIbpEIjLrMuFjrQTtQAwvNKFss7k-BQNMjwxyTuE5d50BlwpE6C9AtcgsgAtwNGpogAVZgaOASupgCi4VS0adwaUUMAAXwAukA
 - id: relevant-functions
-  template: ../../_partials/_new_relevant-functions.ejs
+  template: ../../_partials/components-detail-relevant-functions.ejs
   template-params:
     dir: components/outputs/plot-seaborn/
   contents:

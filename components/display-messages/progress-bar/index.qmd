@@ -19,7 +19,7 @@ listing:
     file: app-core.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5KAZ1wmLtIB0IggGbNSMZBwAWdCLmQMmrZAEFMRZnCjEKdAG5wN1ACZxmRAK51BgjOgD6V5AF5kVnFADmce8IA2VsYAFILIYW50WLLoFhT22rrk9gBGsRTkIWCpFOlChMj8YADC4jFUhQCUBKHh7qSxZfZUAB4UmWSMsXCV1RAVNhCmwpJmBsxB0bFE9RRlRBxwHBx8fYg1YQACM2XryBuag2ZYLRS7+1o6+nBYcAaUExBlWNm5-RDh7Fw8yEPIHWVwIIVNbvD7hADudAoUgiWAACmJPJolkEYLJnABGIgwKDNTEAVgqn2Q6BBYPJJKwCza8CWXjgzkKRSgfmIFj8UES71kJMRyI4hSIpgoUDofkZYAAKjIOMgcfIRQBrODsZDgmR+a5YLCVAYUsHCFgKBTvZhQCDeIJY5AYwlk-UU7DUibYxYcekSkqdXQW3Wgh1gqDg0VsTjcXikKmauDoIIABiwGLeuw+mgoFmY70KABFyCr-rFZJ4AISFAZ2FyqTBBOyOOjzUZmN75MAUXDoBAoVtwVpgAC+AF0gA
 - id: relevant-functions
-  template: ../../_partials/_new_relevant-functions.ejs
+  template: ../../_partials/components-detail-relevant-functions.ejs
   template-params:
     dir: components/display-messages/progress-bar/
   contents:

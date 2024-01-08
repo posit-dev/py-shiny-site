@@ -18,7 +18,7 @@ listing:
     file: app-core.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnEnUAJnAZEArpwA6EPRnQB9bcgC8ybTigBzOEboAbbSoAUe5J8ucs3dJoojGTlyIwAjAIpydzQVFXDI8h1CZGTROOQoZABVAElkOEc4eEpkgEoCDy8rUgD-QO0Y7QBRIpKKcqIAYgAeHr0yvT01OjZ1RQZXPwCiWop6olY4VlZOcjLEKs8AASkINQYsU17+iC9kXelZBTgsOEVKKYh6rCg4hIooiDLkE63kEbeVrFagUVwbX59f7nKQUTQMM5WaaBViOTgHGKo9HqZJEZIAYXYpFIS0yyAgmhgYRxKRg3DMAEYiDAoAAPRkABiI8igzjgZgArBVIacDJhzGJMK5DCZOItxupBhAUmAKLh0AgUKq4KyKGAAL4AXSAA
 - id: relevant-functions
-  template: ../../_partials/_new_relevant-functions.ejs
+  template: ../../_partials/components-detail-relevant-functions.ejs
   template-params:
     dir: components/outputs/ui/
   contents:

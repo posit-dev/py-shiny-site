@@ -24,7 +24,7 @@ listing:
     file: app-core.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5GKC9AG1Iu7oAjHLh59kUAM7IeFADoQAZs1IwZUbvGbpqAcwCudCNIZNWyXlAAmAfR0QDRyQuWrkkgBZHcyUyzYAgphEzNRWcMxEhgoKGOg2hsgAvMiGOFC6cDaK3IZWABQKyMWpdFhG6PoUNpIC4cyFkHKEyM0AcvowghHIpIrIgk7NRAAMRACMI2PIAEwjAJQERSVppFWV1WIUjVvNi8UAxAA8RwrzMRDh-ZIRAG4R+RVVRGtcz+5wkpJ05POIy8UAAKhS4RHC8bYaChJZoBZBeSQUUi6ZiwPaHE4A5BXGQQ-J-DGnCAlEnY-opSy2eyOYz4rEkjhfZJk4DNQSkKy4GyMyQ2XTNAC6F1JJUUdF0RCgAA9mbIsJJ9IItpI6cSRRIpVgEdseUQnhQsBB8URwsY6BRcEkACrMfRwc5qkXS+VwaoUc3cOCNAAKGi0yG9ekMxIAslIbs4wA71RqXdUpdwoN1uI0w0z8rpzlH6SVnTdqrhE8nGgARajfC17YXq0IUfTMYli3SEi5xZlBdD5OIJOhEG7Me6RbFwQT6XTW232hQtMAWnS0WdwKUUMAAXwFQA
 - id: relevant-functions
-  template: ../../_partials/_new_relevant-functions.ejs
+  template: ../../_partials/components-detail-relevant-functions.ejs
   template-params:
     dir: components/outputs/plot-matplotlib/
   contents:

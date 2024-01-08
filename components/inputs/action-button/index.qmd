@@ -19,7 +19,7 @@ listing:
     file: app-core.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnEnUAJnAZEArpwA6EPRnQB9bcgC8ybTigBzOEboAbbSoAUe5Jc5Zu6TRSMZOXIjACN-CnJ3NFlOEPCKSP1CZB0wUVjyNIBKIgBiAB4Cjy8sUn8-AKoADwposk1KdRy9bL09NTo2dUUGV19-InKKSqJWOFZWOIhsxBKAASkINQYsGrq2iE9F6VjFLDhFSn6ISqwg6bCI8k3PTuQGpr7Zks9PKQpNBi26NJABijnTIQK6JKLZAC+aXa0Ew5jEmFchhMnDGPXUmxSYAouHQCBQ2LgtTAEIAukA
 - id: relevant-functions
-  template: ../../_partials/_new_relevant-functions.ejs
+  template: ../../_partials/components-detail-relevant-functions.ejs
   template-params:
     dir: components/inputs/action-button/
   contents:

@@ -19,7 +19,7 @@ listing:
     file: app-core.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGkuAEciAV04AdCJozoA+muQBeZGpxQA5nF10ANmukAKTchcnOWbuhUVdxdnGIAawAjUgAPXXMmFXQHZABiAB5E51c09TA-AJDwyOj0DKIklIg09LAAYX8g0LDkKNIYwoTk1LLkEBaS9vaMqAyUDNFm4raelwzggeQMgCER1tLx1wziaYyKhe6egF8ixbSASn3tl1NGii8fKjCKJzAANyg7OAzjzUPNTVk6NjkHuQOTzeIgXK5EVhwVisTjkQ6IMYAASkEFkDCwNwoYx+yCeLwc8LGaSkFBUDFKzQyWAAVqRuECIFcsFkarkGjECZ8tNBMEYxJgHDp9JwIf85FzCKgKLh0AgUGBMWAdgBdIA
 - id: relevant-functions
-  template: ../../_partials/_new_relevant-functions.ejs
+  template: ../../_partials/components-detail-relevant-functions.ejs
   template-params:
     dir: components/inputs/checkbox-group/
   contents:

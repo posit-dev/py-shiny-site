@@ -19,7 +19,7 @@ listing:
     file: app-core.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKmhlGmdSmgEbuFOSsNsgAxAA8kfaOccpgXj6kCURRMRBx8WAASt6+yIEUwRCsqRHRsVnIIAkAjAkoCQDy6BS+mQ2EyAkATI09YK3t5Mj93QkAzAMtbR3I02AAvmmVmY4AlKsZcYak7m4eSnZgAG5QVnAJW6obqqqydGxyp3I2ru5E+xSHRKxwrFYHQ2iCqyAAAlIILIGFglGDHshzpcbCCwXEpBQFAxMh8KFgkr5UfdoJg9GJMDYNNpOH8XnI7hBumAKLh0AgUCy4AAPCjLAC6QA
 - id: relevant-functions
-  template: ../../_partials/_new_relevant-functions.ejs
+  template: ../../_partials/components-detail-relevant-functions.ejs
   template-params:
     dir: components/inputs/radio-buttons/
   contents:

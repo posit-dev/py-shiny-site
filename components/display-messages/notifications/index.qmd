@@ -19,7 +19,7 @@ listing:
     file: app-core.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGjOgD6q5AF5kqnFADmcHXQA2qgCYAKDchfHOWbumUUdMueR0AI28KcicwDlIAdzVCZFiAZXZo5AA5Ujk6TmIof00wAEoCDQKNDTs4OjY4BkUGB09vIlJvLwoiVjhWVk5yAsQyiFdkAAEpPwU4LABROjo4WWdXMelZSaw4RUoGiDasSKjSodcKqp0HfqXhlwgDACYr65MIDM4snLydA4dkAGIAHn+j2urjosQAKlxWMgopxrNZkHZOKxtNIGMgoHQqOiQBAAL7VMgQOysLCxIgAoHHEHDOzKBi5Xq3IaU4GuI5aTCGMSYBzaPScDo1OpHOJgCi4dAIFDiuAADwoYDxAF0gA
 - id: relevant-functions
-  template: ../../_partials/_new_relevant-functions.ejs
+  template: ../../_partials/components-detail-relevant-functions.ejs
   template-params:
     dir: components/display-messages/notifications/
   contents:

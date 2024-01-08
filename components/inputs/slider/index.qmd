@@ -19,7 +19,7 @@ listing:
     file: app-core.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAV05EG1ACZwGRAIKYAOhFUZ0AfXHIAvGM44oAczia6AG3HSAFKuQODWbulEVNrC51kM7YT95yyoTIwQDKXj7BRAAMRACMMXHIAKwxAJREAMQAPDn2juJYpG6u7lQAHu4AbnIARlAU-H7VUFZwwZmq6aqqsnRscrW+Lm5EJRRlRKxwrKyc5OmIBQ4AAlIQPliVFCvI-cit7TZLe47IUhSiDBDIdMEgoxRYAT4nAL7BvdCYeshK6BsGm0EkGDGGPQgITAFFw6AQKBhcCqYHeAF0gA
 - id: relevant-functions
-  template: ../../_partials/_new_relevant-functions.ejs
+  template: ../../_partials/components-detail-relevant-functions.ejs
   template-params:
     dir: components/inputs/slider/
   contents:

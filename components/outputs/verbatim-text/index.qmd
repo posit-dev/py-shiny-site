@@ -19,7 +19,7 @@ listing:
     file: app-core.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKmqgA8KdsABU4H2VCZBCAUUo5ZG8KEKIQgAk4CwtSZABlLh4QgEoCe0dDUnc3D1jNADc5ACMoCn4-WLzkAGIAHnbVXNVVWTo2OWqGG1d3IhKKMqJWOFZWTnJcxEKHAAEpCFkGLFi2ztXkfpig32XDx2QpCgUGCD4IMqxAnxsetWhMPTFMGw1tTgzIZyd6hMAUXDoBAocGnMAAXwAukA
 - id: relevant-functions
-  template: ../../_partials/_new_relevant-functions.ejs
+  template: ../../_partials/components-detail-relevant-functions.ejs
   template-params:
     dir: components/outputs/verbatim-text/
   contents:

@@ -182,7 +182,7 @@ def write_new_component_dir(path):
     if "relevantFunctions" in info:
         l_relevant = {
             "id": "relevant-functions",
-            "template": "../../_partials/_new_relevant-functions.ejs",
+            "template": "../../_partials/components-detail-relevant-functions.ejs",
             "template-params": {
                 "dir": info["_dir"] + "/",
             },

@@ -19,7 +19,7 @@ listing:
     file: app-core.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAV05EG1ACZwGRAIKYAOhFUZ0AfXHIAvGM44oAczia6AG3HSAFKuQODWbulEVNVAB4U7YLxWVCZECAFThvPghXAKDAgFFKOWR-LFTAgEoiAGIAHhz7R3EsUjdoj3D3ADc5ACMoCn5fSqgrOAyCVXTVVVk6NjlqhhsXNyISimiiVjhWVk5ydMQChwABKQhZBix-ZeRe5GbWm0Xdx2QpClEGCEjo7Yrj7uhMPWQldBsNbQl+hkGuiBBPy4dAIFB+CpgAC+AF0gA
 - id: relevant-functions
-  template: ../../_partials/_new_relevant-functions.ejs
+  template: ../../_partials/components-detail-relevant-functions.ejs
   template-params:
     dir: components/inputs/text-box/
   contents:

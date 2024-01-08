@@ -19,7 +19,7 @@ listing:
     file: app-core.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAV05EG1ACZwGRAIKYAOhFUZ0AfXHIAvGM44oAczia6AG3HSAFKuQODWbulEVNrC51kM7YT95yyoTIwQDKXj7BRDDcugAMMVAAHroAjPGJyABuUFZwusAAzACsRABsJQC6AJREAMQAPI32juJYpG6u7lTJ7tlyAEZQFPx+ufnBdao1qqqydGxyA74ubkSdFN1ErHCsrJzkNYitDgACUhA+WL0Up8gLOXmicDbH947IUhSiDBDIdGCIDWFCwAR8bwAvsE5tBMHpkEp0DYNNoJEsGCtZhAQmAKLh0AgUHi4H0wJCqkA
 - id: relevant-functions
-  template: ../../_partials/_new_relevant-functions.ejs
+  template: ../../_partials/components-detail-relevant-functions.ejs
   template-params:
     dir: components/inputs/slider-range/
   contents:

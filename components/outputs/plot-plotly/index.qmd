@@ -24,7 +24,7 @@ listing:
     file: app-express.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQGJkAxASQA0BZAURQCU4B3AE4BLKsigBncRGScAHukFwJUjOgA6EYTHSlBFZOgA2pCkdxY4CpSvFT0czQDNBpGIahH4g9NQDmAK7CEFLauvrIJlAAJgD6vhCBwRLOru4SABbBuMhhegYAgphESlDEFMIAbnBEQaluyJnZ-MLRfnAUoTr5yKQBFOj9sS1tHSXU0XCCw63tBsh0ADyLmppqsUHIALzIQThQ7bFORkHRABSayFe7wljBgxSxEkatUxeQ6oTInwByATAAIymvScyAByU+RAAjNCAAywogAJlhAEoCJdrn0BkMRnN3sZTJ80VclisICjVhBJqCJFNqoIzvd+kQsQ8iLSVMJyCjEBirgABJRUqYzUbzUl85DUwwmChnHkLZaS66GfxBELbSKkGLxNXJeXK64SYhQChUHyyzUOLBZCQUUh+QSwC4yFVuq7RU1QI5O+BbBJJEJEORbT4A0jRXCxGCSCSxPyQ5AQcEhLZMihYCAG13ulFYALoT1UWJGKC4LEu93uipmOBbECfKhyCifFCfAAKepk7Fjic+jlosKwAFYAL7onNVq64KByYRxmtGOufADCfUokMN7rks-nsUXy7AACEIzke7Yzn4KYQt8gKRBb0oKAFBDJjabzQTxUqH9BMJqinQM51iCdk6Sme8vjAChcF8WhoKsCgwFHABdIA
 - id: relevant-functions
-  template: ../../_partials/_new_relevant-functions.ejs
+  template: ../../_partials/components-detail-relevant-functions.ejs
   template-params:
     dir: components/outputs/plot-plotly/
   contents:

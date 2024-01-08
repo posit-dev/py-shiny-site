@@ -19,7 +19,7 @@ listing:
     file: app-core.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQHOWbugUVNrOBbjEKN5ADEADxB9g7hDspgnt6+UUTBoRAREVEAyl4+IqToFJzkrMgARl6kAO6I8YEhYSnIIFEAjKJRKFEAwuyknMRwyM1VTQBCrcgdXT19jSOEY2CN7aPj3b39i2AAvgk1yXXIMAoWeejeugAqDAp9ibXIAJTbSRGGpG6u7lQAHn5RAG5QVjgUQeqjuqlUsjobDkvzkNhcbiIrwo7yInlYrHyEDulV2AAEpBBZAwsF8KLdIch-oCbDjbhEpBQFAxknQoiAERQsDEsrSNlFwdBMHoxJgbBptJw0TC5GCILMwBRcOgEChFXBvpsALpAA
 - id: relevant-functions
-  template: ../../_partials/_new_relevant-functions.ejs
+  template: ../../_partials/components-detail-relevant-functions.ejs
   template-params:
     dir: components/inputs/select-multiple/
   contents:

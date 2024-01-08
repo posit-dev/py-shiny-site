@@ -19,7 +19,7 @@ listing:
     file: app-core.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAV05EG1ACZwGRAIKYAOhFUZ0AfXHIAvGM44oAczia6AG3HSAFKuQODWbulEVNrAO6cKxdnbAvHz9lQmRQgGVvX3ZQogAxKAtWOABKIgBiAB4s+0dxLFI3V3dxAIA3JNE4UPTVVNVVWTo2OXK5Gxc3IiKKEqIU1lZOclTEPIcAASkIWQYscQnkZuRKqzgbMaXHZCkKUQYIPggSrCCYzcboTD1kJXQbDW0JVoZ2hgaIMLAKXHQEFA-OAADwoYAAvgBdIA
 - id: relevant-functions
-  template: ../../_partials/_new_relevant-functions.ejs
+  template: ../../_partials/components-detail-relevant-functions.ejs
   template-params:
     dir: components/inputs/switch/
   contents:
