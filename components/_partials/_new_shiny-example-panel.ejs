@@ -1,3 +1,9 @@
+<% const previews = apps.filter(app => app.title === "Preview") %>
+<% const codeApps = apps.filter(app => app.title !== "Preview") %>
+
+<% if (previews.length) { %>
+<%   const previewApp = previews[0] %>
+
 ::: {.panel-tabset group="component-preview-code"}
 
 ## Preview
@@ -5,18 +11,20 @@
 :::{.app-preview}
 ```{shinylive-python}
 #| standalone: true
-#| components: [<%= apps[0].components ? apps[0].components.join(', ') : 'viewer' %>]
-#| viewerHeight: <%= apps[0].height ? apps[0].height : '300px' %>
+#| components: [<%= previewApp.components ? previewApp.components.join(', ') : 'viewer' %>]
+#| viewerHeight: <%= previewApp.height ? previewApp.height : '300px' %>
 
-<%= Deno.readTextFileSync((appDir || '') + apps[0].file) %>
+<%= Deno.readTextFileSync((appDir || '') + previewApp.file) %>
 ```
 :::
 
 ## Code
 
+<% } %>
+
 ::: {.panel-tabset .shiny-mode-tabset group="shiny-app-mode"}
 
-<% for (const app of apps) { %>
+<% for (const app of codeApps) { %>
 ### <%= app.title %>
 
 ::: {.code-with-shinylive-link}
@@ -37,4 +45,6 @@
 
 :::
 
+<% if (previews.length) { %>
 :::
+<% } %>
