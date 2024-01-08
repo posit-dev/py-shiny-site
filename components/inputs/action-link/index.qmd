@@ -50,4 +50,4 @@ The value of an input component is accessible as a reactive value within the `se
 
   1.  Use `input.<action_link_id()>` (e.g., `input.action_link()`) to access the value of the action link. The server value of an action link is an integer representing the number of clicks.
 
-See also: [Action Button](action-button.qmd)
+See also: [Action Button](../action-button/index.qmd)

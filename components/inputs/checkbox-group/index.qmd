@@ -51,4 +51,4 @@ The value of an input component is accessible as a reactive value within the `se
 
   1. Use `input.<checkbox_group_id>()` (e.g., `input.checkbox_group()`) to access the value of a checkbox group. The server value of a checkbox group is a tuple of string(s) with the selected value(s).
 
-See also: [Checkbox](checkbox.qmd)
+See also: [Checkbox](../checkbox/index.qmd)

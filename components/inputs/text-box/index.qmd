@@ -51,4 +51,4 @@ The value of an input component is accessible as a reactive value within the `se
 
   1. Use `input.<text_id>()` (e.g., `input.text()`) to access the value of the text box. The server value of a text box is a string containing the current text input.
 
-See also: [Text Area](text-area.qmd)
+See also: [Text Area](../text-area/index.qmd)

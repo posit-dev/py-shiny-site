@@ -64,4 +64,4 @@ The value of an input component is accessible as a reactive value within the `se
 
   1. Use `input.<slider_id>()` (e.g., `input.slider()`) to access the value of the slider. If `value` is a list and the slider specifies a range, the server value of a slider will be a list of length 2.
 
-See also: [Slider](slider.qmd)
+See also: [Slider](../slider/index.qmd)

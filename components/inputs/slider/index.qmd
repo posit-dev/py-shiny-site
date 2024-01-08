@@ -54,4 +54,4 @@ The value of an input component is accessible as a reactive value within the `se
 
   1. Use `input.<slider_id>()` (e.g., `input.slider()`) to access the value of the slider. The server value of a slider is a number, date, or date-time (depending on the class of `value`).
 
-See also: [Slider Range](slider-range.qmd)
+See also: [Slider Range](../slider-range/index.qmd)

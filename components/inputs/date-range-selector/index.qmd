@@ -51,4 +51,4 @@ The value of an input component is accessible as a reactive value within the `se
   1. Use `input.<date_range_id>()` to access the value of a daterange selector (e.g., `input.daterange()`). The server value of a daterange selector is a tuple of date objects. You can access the individual tuple elements using square brackets and indices (e.g., `input.daterange()[0]`).
 
 
-See also: [Date Selector](date-selector.qmd)
+See also: [Date Selector](../date-selector/index.qmd)

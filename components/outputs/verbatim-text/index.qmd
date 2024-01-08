@@ -56,11 +56,11 @@ listing:
 
 Verbatim text displays a character string as monospaced code in a shaded rectangle.
 
-To create reactive verbatim text, render the text in the server function with the decorators `@render.text`, just as you would to display [normal text](text.qmd). Then place the rendered text in the ui with `ui.output_verbatim_text()`.
+To create reactive verbatim text, render the text in the server function with the decorators `@render.text`, just as you would to display [normal text](../text/index.qmd). Then place the rendered text in the ui with `ui.output_verbatim_text()`.
 
 By default, `ui.output_verbatim_text()` will display nothing when the string to display is empty. To ensure that `ui.output_verbatim_text()` displays an empty shaded rectangle as a placeholder even when when the string to display is empty, set `placeholder=True`.
 
-See [Text](text.qmd) to display string values as normal text.
+See [Text](../text/index.qmd) to display string values as normal text.
 
 :::{#variations}
 :::
