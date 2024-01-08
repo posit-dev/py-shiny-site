@@ -1,0 +1,50 @@
+<% const previews = apps.filter(app => app.title === "Preview") %>
+<% const codeApps = apps.filter(app => app.title !== "Preview") %>
+
+<% if (previews.length) { %>
+<%   const previewApp = previews[0] %>
+
+::: {.panel-tabset group="component-preview-code"}
+
+## Preview
+
+:::{.app-preview}
+```{shinylive-python}
+#| standalone: true
+#| components: [<%= previewApp.components ? previewApp.components.join(', ') : 'viewer' %>]
+#| viewerHeight: <%= previewApp.height ? previewApp.height : '300px' %>
+
+<%= Deno.readTextFileSync((appDir || '') + previewApp.file) %>
+```
+:::
+
+## Code
+
+<% } %>
+
+::: {.panel-tabset .shiny-mode-tabset group="shiny-app-mode"}
+
+<% for (const app of codeApps) { %>
+### <%= app.title %>
+
+::: {.code-with-shinylive-link}
+```{.python .code-overflow-scroll}
+<%= Deno.readTextFileSync((appDir || '') + app.file) %>
+```
+
+<% if (app.shinylive) { %>
+```{=html}
+<a class="edit-shinylive-button btn btn-link" href="<%= app.shinylive %>" data-bs-toggle="tooltip" data-bs-title="Edit in Shinylive" data-bs-placement="bottom">
+  <i class="bi bi-lightning-fill"></i> <span class="visually-hidden">Edit in Shinylive</span>
+</a>
+```
+<% } %>
+:::
+
+<% } %>
+
+:::
+
+<% if (previews.length) { %>
+:::
+<% } %>

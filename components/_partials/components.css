@@ -113,6 +113,16 @@ a.component-list-header-text:hover ~ div.component-list-icon p a i.component-lin
 }
 
 /* detail page styling */
+.app-preview .sourceCode {
+  padding: 0;
+  box-shadow: none;
+}
+
+.app-preview .shinylive-wrapper {
+  margin: 0;
+  padding: 1em;
+  background-color: var(--bs-body-bg);
+}
 
 .tab-content {
   margin-top: 0px;
@@ -120,6 +130,32 @@ a.component-list-header-text:hover ~ div.component-list-icon p a i.component-lin
   margin-left: 0;
   padding: 1em 0px;
   margin-bottom: 1em;
+}
+
+/* improve position of code copy button */
+div.sourceCode > pre.sourceCode {
+  position: static;
+}
+
+.code-with-filename {
+  position: relative;
+}
+
+.code-with-filename .code-copy-button {
+  top: 2em;
+}
+
+.code-with-shinylive-link {
+  position: relative;
+}
+
+.code-with-shinylive-link .edit-shinylive-button {
+  position: absolute;
+  top: 0.35em;
+  right: 2.5em;
+  --bs-btn-color: rgb(94, 94, 94);
+  --bs-btn-padding-x: 0;
+  --bs-btn-padding-y: 0;
 }
 
 code.sourceCode,
@@ -218,4 +254,41 @@ main a.nav-link:hover {
 .iframe-border {
   border: 1px solid #E9ECEF;
   border-radius: 10px;
+}
+
+/* Shiny App Mode Tabset (Express/Core) */
+
+.shiny-mode-tabset > .nav-tabs {
+  padding-inline: 0.5rem;
+  border-start-end-radius: 0.5rem;
+  border-start-start-radius: 0.5rem;
+  border-bottom: 2px solid var(--bs-blue);
+  justify-content: flex-start !important;
+  font-size: 0.95em;
+  line-height: 1.33;
+}
+
+.shiny-mode-tabset > .nav-tabs,
+.shiny-mode-tabset > .nav-tabs > .nav-item > .nav-link,
+.shiny-mode-tabset > .nav-tabs > .nav-item > .nav-link.active {
+  background-color: var(--bs-blue);
+  color: var(--bs-white);
+}
+
+.shiny-mode-tabset > .nav-tabs > .nav-item > .nav-link:hover {
+  border-bottom-color: transparent !important;
+}
+
+.shiny-mode-tabset > .nav-tabs > .nav-item > .nav-link.active {
+  border-bottom-color: var(--bs-white) !important;
+}
+
+.shiny-mode-tabset > .tab-content {
+  padding-top: 0;
+}
+
+.shiny-mode-tabset > .tab-content .sourceCode {
+  border-start-start-radius: 0;
+  border-start-end-radius: 0;
+  border-block-start-width: 0;
 }

@@ -1,0 +1,57 @@
+---
+title: Slider
+sidebar: components
+appPreview:
+  file: components/inputs/slider/app-preview.py
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/slider/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQGJkAxASQA0BZAURQCU4B3AE4BLKsigBncRGScAHukFwJUjOgA6EAGaDSMZBIAWwiLmTCY6UoIrIArsKJKIAEziCiAQUybNagPoOyAC89sI4UADmcP5aADYOLgAUmshpYVgm6HYU-hJxwm6CKWD5he7qhMiVAMoFRZVEAAxEAIxNLcgArE0AlER0ADyDqekOWKQ52blUcrkAbu4ARlAUFiXzUAlwlf2avb6ucFoG7ovFWTlEkxTTRBLKEsLkvYijaQACzkVYsxTvyDcJ022ySrwB6WQSgodkEMi0lRAlwoWDKRTBAF9Koc1CFkN50EkAg57md3AcIFUwBRcOgEChqXA5mAMQBdIA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAV05EG1ACZwGRAIKYAOhFUZ0AfXHIAvGM44oAczia6AG3HSAFKuQODWbulEVNrC51kM7YT95yyoTIwQDKXj7BRAAMRACMMXHIAKwxAJREAMQAPDn2juJYpG6u7lQAHu4AbnIARlAU-H7VUFZwwZmq6aqqsnRscrW+Lm5EJRRlRKxwrKyc5OmIBQ4AAlIQPliVFCvI-cit7TZLe47IUhSiDBDIdMEgoxRYAT4nAL7BvdCYeshK6BsGm0EkGDGGPQgITAFFw6AQKBhcCqYHeAF0gA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  template-params:
+    dir: components/inputs/slider/
+  contents:
+  - title: ui.input_slider
+    href: https://shiny.posit.co/py/api/ui.input_slider.html
+    signature: ui.input_slider(id, label, min, max, value, *, step=None, ticks=False,
+      animate=False, width=None, sep=',', pre=None, post=None, time_format=None, timezone=None,
+      drag_range=True)
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A slider is a widget that lets you drag to select a number, date, or date-time from a specified range.
+
+To add a slider to your app:
+
+  1. Add `ui.input_slider()` to the UI of your app to create a slider. Where you call this function will determine where the slider will appear within the app's layout.
+
+  2. Specify the `id` and `label` parameters of `ui.input_slider()` to define the identifier and label of the slider.
+
+  3. Use the `min` and `max` parameters to define the minimum and maximum values of the slider.
+
+  4. Set the `value` parameter to define the starting slider value. `min`, `max`, and `value` can be numbers, dates, or date-times. Dates and date-times can be provided from the `datetime` module with the `date()` or `datetime()` functions, respectively.
+
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a slider:
+
+  1. Use `input.<slider_id>()` (e.g., `input.slider()`) to access the value of the slider. The server value of a slider is a number, date, or date-time (depending on the class of `value`).
+
+See also: [Slider Range](../slider-range/index.qmd)

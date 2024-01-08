@@ -1,0 +1,49 @@
+---
+title: Password Field
+sidebar: components
+appPreview:
+  file: components/inputs/password-field/app-preview.py
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/password-field/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQGJkAxASQA0BZAURQCU4B3AE4BLKsigBncRGScAHukFwJUjOgA6EAGaDSMZBIAWwiLmTCY6UoIrIAgpiJKIAEziCiAV2GbNagPreyAC8yN44UADmcP5aADbeLgAUmshpYcJYJuieFP7okhL81snqYAUqxYIuZURlAAqFVTWEyGUwuBVFJQCMZQCURHQAPMOp6eGkuTl5VHJ5AG7uAEZQFBYpYAtQCXADBJr9vq5wWgbuS4JJ2blEUxQzRBLKEsLk-YjjaQACzm6CWDmFC+yDcZ22uySHxB6WQSgonkEMhuFAilRKUOOahC9kwSQC3ieF3cRwgrTAFE6CBQFLg8zAAF8ALpAA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKm9FFasA7kNtlMC8ffwZpIKIggAVvPwDI5CCYXBD48IBGIIBKIgBiAB4C+0dDUnc3DyoADw8ANzkAIygKfjswOqgrOByCVWzVVVk6NjkGhhtXdyJyikqiVjgfTnJsxBKHAAEpCFkGLBqKDeRh5E7umzXjx2QpCgUGCD4ISqNQgMvB6Ew9MUwbDTaTgLMZyAYQQioCipBAoMCHMAAXwAukA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  template-params:
+    dir: components/inputs/password-field/
+  contents:
+  - title: ui.input_password
+    href: https://shiny.posit.co/py/api/ui.input_password.html
+    signature: ui.input_password(id, label, value='', *, width=None, placeholder=None)
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A password field creates a text box for password entry.
+
+To add a password field to your app:
+
+  1. Add `ui.input_password()` to the UI of your app to create a password field. Where you call this function will determine where the password field will appear within the app's layout.
+
+  2. Specify the `id` and `label` parameters of `ui.input_password()` to define the identifier and label of the passsword field. `ui.input_password()` also includes various optional parameters, including `value`, which set the initial value.
+
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a password field:
+
+  1. Use `input.<password_field_id>()` (e.g., `input.password()`) to access the value of the password field. The server value of a password field is a string.
