@@ -1,22 +1,20 @@
-# FIXME: Rewrite as an Express app
-from shiny import App, render, req, ui
+from shiny import render
+from shiny.express import input, ui
 
-app_ui = ui.page_fluid(
-    ui.input_checkbox_group( #<<
-        "checkbox_group", #<<
-        "Checkbox group", #<<
-        { #<<
-            "a": "A", #<<
-            "b": "B", #<<
-            "c": "C", #<<
-        }, #<<
-    ), #<<
-    ui.output_text("value"),
+
+ui.page_opts(full_width=True)
+
+ui.input_checkbox_group(
+    "checkbox_group",
+    "Checkbox group",
+    {
+        "a": "A",
+        "b": "B",
+        "c": "C",
+    },
 )
 
-def server(input, output, session):
-    @render.text
-    def value():
-        return ", ".join(input.checkbox_group())
 
-app = App(app_ui, server)
+@render.text
+def value():
+    return ", ".join(input.checkbox_group())
