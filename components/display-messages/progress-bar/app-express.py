@@ -1,25 +1,19 @@
-# FIXME: Rewrite as an Express app
 import asyncio
 
-from shiny import App, reactive, render, ui
+from shiny import reactive, render
+from shiny.express import input, ui
 
-app_ui = ui.page_fluid(
-    ui.input_action_button("button", "Compute"),
-    ui.output_text("compute"),
-)
+ui.input_action_button("do_compute", "Compute")
 
-def server(input, output, session):
-    @output
-    @render.text
-    @reactive.event(input.button)
-    async def compute():
-        with ui.Progress(min=1, max=15) as p:
-            p.set(message="Calculation in progress", detail="This may take a while...")
 
-            for i in range(1, 15):
-                p.set(i, message="Computing")
-                await asyncio.sleep(0.1)
+@render.ui
+@reactive.event(input.do_compute)
+async def compute():
+    with ui.Progress(min=1, max=15) as p:
+        p.set(message="Calculation in progress", detail="This may take a while...")
 
-        return "Done computing!"
+        for i in range(1, 15):
+            p.set(i, message="Computing")
+            await asyncio.sleep(0.1)
 
-app = App(app_ui, server)
+    return "Done computing!"

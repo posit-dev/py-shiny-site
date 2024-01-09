@@ -1,22 +1,15 @@
-# FIXME: Rewrite in Express
-from shiny import App, Inputs, Outputs, Session, reactive, ui
+from shiny import reactive
+from shiny.express import ui, input
 
-app_ui = ui.page_fluid(
-    ui.input_action_button("show", "Show modal dialog"),
-    {"class": "vh-100 d-flex justify-content-center align-items-center px-4"},
-)
+ui.input_action_button("show", "Show modal dialog")
 
 
-def server(input: Inputs, output: Outputs, session: Session):
-    @reactive.Effect
-    @reactive.event(input.show)
-    def _():
-        m = ui.modal(
-            "This is a somewhat important message.",
-            easy_close=True,
-            footer=None,
-        )
-        ui.modal_show(m)
-
-
-app = App(app_ui, server)
+@reactive.effect
+@reactive.event(input.show)
+def show_important_message():
+    m = ui.modal(  # <<
+        "This is a somewhat important message.",  # <<
+        easy_close=True,  # <<
+        footer=None,  # <<
+    )  # <<
+    ui.modal_show(m)

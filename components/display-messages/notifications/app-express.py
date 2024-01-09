@@ -1,19 +1,18 @@
-# FIXME: Rewrite as an Express app
-from shiny import App, reactive, ui
+from shiny import reactive
+from shiny.express import input, ui
 
-app_ui = ui.page_fluid(
-    ui.input_action_button("show", "Show Notification"),
-)
+types = ["default", "message", "warning", "error"]
 
-def server(input, output, session):
+ui.input_radio_buttons("type", "Notification Type", types, inline=True)
+ui.input_action_button("show", "Show Notification")
 
-    @reactive.Effect
-    @reactive.event(input.show)
-    def _():
-        n=2
-        ui.notification_show( #<<
-            f"This will disappear after {n} seconds.", #<<
-            duration=n #<<
-        )
 
-app = App(app_ui, server)
+@reactive.effect
+@reactive.event(input.show)
+def show_notification():
+    type_txt = "notification" if input.type() == "default" else input.type()
+    ui.notification_show(
+        f"This {type_txt} will disappear after 2 seconds.",
+        type=input.type(),
+        duration=2,
+    )

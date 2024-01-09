@@ -10,7 +10,7 @@ listing:
     dir: components/display-messages/tooltips/
   contents:
   - title: Preview
-    file: app-detail-preview.py
+    file: app-core.py
     height: 200
   - title: Express
     file: app-express.py
@@ -39,6 +39,8 @@ listing:
     description: Call `ui.update_tooltip()` to update the message of a tooltip with
       a given id.
     apps:
+    - title: Preview
+      file: app-variation-update-a-tooltip-message-core.py
     - title: Express
       file: app-variation-update-a-tooltip-message-express.py
       shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDU2McMZYsWtzUTiC4DXDC5UZTIdGTlSHQAjMI8IJzAYsk18JjUwESY4sgSmAHcOMjYmKCYPLx9MgEo8Z0CMrKZ4FhZzOEz6-0aOOwNMlIgdSu8OVC6GwNRrGTh4cgGwOg4zNjJMhrqGkzJzFgwYugdtnt39w+PTlxMQsIjZDmjchKShvVQ7KAoupoBVT7fOAVTxjVAtOBtDq1DQ1DQaOxwGisOB0RTHO5kCTEMKhLEotpPCA1RBTJgAASkkQUcAwAFEaDQ4LIyZTpI9FBg4IpyA5MYdUh8vhQ4T0XIjkToTqSxY0SORKMIjH5GqqmtlMkwANRNJoYABWxC4DmAmQAcnSAOqamiCJg6Xj+OhQCAWPkQPEC4bKQEUE41AC6NW1uta7Qsm1lgVFZMCJh9wssox8b0FyfGv3lFHIEnYxAKBgAKnRlHAY9B0IZROgHNo9Bxc6j0TUwABfANAA
