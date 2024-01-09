@@ -1,18 +1,11 @@
-from shiny import App, render, ui
+from shiny import render
+from shiny.express import input, ui
 
-app_ui = ui.page_fluid(
-  ui.tooltip(
-      ui.input_action_button("btn", "A button with a tooltip"),
-      "A message",
-      id="btn_tooltip"
-  ),
-    ui.output_text_verbatim("text"),
-    {"class": "vh-100 d-flex justify-content-center align-items-center px-4"}
-)
+with ui.tooltip(id="btn_tooltip", placement="right"):  # <<
+    ui.input_action_button("btn", "A button with a tooltip")  # <<
+    "The tooltip message"  # <<
 
-def server(input, output, session):
-  @render.text
-  def text():
-      return ""
 
-app = App(app_ui, server)
+@render.text
+def btn_tooltip_state():
+    return f"Tooltip state: {input.btn_tooltip()}"  # <<
