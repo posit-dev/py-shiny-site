@@ -10,7 +10,7 @@ listing:
     dir: components/display-messages/progress-bar/
   contents:
   - title: Preview
-    file: app-detail-preview.py
+    file: app-core.py
     height: 200
   - title: Express
     file: app-express.py

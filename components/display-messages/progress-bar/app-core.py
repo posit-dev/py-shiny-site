@@ -4,12 +4,13 @@ from shiny import App, reactive, render, ui
 
 app_ui = ui.page_fluid(
     ui.input_action_button("button", "Compute"),
-    ui.output_text("compute"),
+    ui.output_ui("compute"),
 )
+
 
 def server(input, output, session):
     @output
-    @render.text
+    @render.ui
     @reactive.event(input.button)
     async def compute():
         with ui.Progress(min=1, max=15) as p:
@@ -20,5 +21,6 @@ def server(input, output, session):
                 await asyncio.sleep(0.1)
 
         return "Done computing!"
+
 
 app = App(app_ui, server)
