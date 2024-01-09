@@ -1,5 +1,5 @@
 ---
-title: Notifications / Help Text
+title: Notifications
 sidebar: components
 appPreview:
   file: components/display-messages/notifications/app-preview.py
