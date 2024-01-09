@@ -11,6 +11,7 @@ listing:
   contents:
   - title: Preview
     file: app-detail-preview.py
+    height: 400
   - title: Express
     file: app-express.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQGJkAxASQA0BZAURQCU4B3AE4BLKsmERknAB7pBcAM4KAOhABmg0jGQKAFhNziY6UoIrIAgpiLMI6AK4UFRAPKOHTogGVFC4eSJ5KGIKYQA3OCJ7YVVVDHQAfWjkAF5kaJwoAHM4BLUAG2iAEwAKVWQK9OEsCQ8E4NDyBIAjRwpyMrA9Un5lQmQ+r10e5BhSIqh85CLhSdIsvoBKAnLKkD7ifKglPpQ+sN0AWgBGAAZT6cOCuGlkACt7BVC1XEOySmoKN8+4QWRJ4RZCCHURwGAKb4fP7oaSHAAsfQAvisIItYhBVEU4GodL8IoISrVHChbB5nMhSO5icg3BQyUQFL5-BAUD4lMzFohVhUAAJBELhOBYThqNRwELc5B8uANQVYOARSiEuyOLDdfhoySVLE4hIlTmSyqjVJVLBjCb5Mpao02gZgAAq+gU4mdUB0WgEuig5mExlMFCglFGvmyQr6KNttplClwCU2pEZKXtgnskUNkbUpFIVEEKQAcuQ09abZrI6bzZMEuqSjBNej4iarOgSvEksIGXjfpr+mAKLh0AgUL2bhQwIiALpAA
@@ -39,8 +40,11 @@ listing:
     dir: components/display-messages/modal/
   contents:
   - title: Modal for authentication
-    description: Place inputs inside a modal to collect, and then login with, credentials.
+    description: Place inputs inside a modal to collect, and then login with, database credentials.
     apps:
+    - title: Preview
+      file: app-variation-modal-core.py
+      height: 500
     - title: Express
       file: app-variation-modal-express.py
       shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwa2IzLjV8JliAGSiYsABKPA1UjQ07OBpWODpFOgdPbwliby8yCRY4FhYOUlTEZ1cAASk-BTgMAFEaGjhZNpdO6VkejDhFclKIaoxI6IgsiFcmXPydBxbRjaZmIxMYYjsoayd1g5uTMp8KAA8ycOh4WIlYgFU6uje4VppDLXG4bO4Lbw6VBQBoAd0Ejli0LhCI+8TAAAUYSx4XQ7ID0vtQW4PBCfN0AsEyKEIOESBAIMMyGjYgBhUiMkZAomg6QsbA6QiROoGAAqdGUSh5NxoxGIFDoBgAcqQ4NKmGtiSczhcdOxiLCHDBNaD9uNuop+oMmWaupNLTNKC97hh6ZyyCaXFsmDodnsQQdtedrDopKdFLt1QBiJjs3JMUJMN1MpiwjhkNi8MkYf67JhQCB2LOLZE4hGRzTQdCGUToBzaPQcWqFYqpMAAXwAukA
