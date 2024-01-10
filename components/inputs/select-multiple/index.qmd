@@ -10,7 +10,7 @@ listing:
     dir: components/inputs/select-multiple/
   contents:
   - title: Preview
-    file: app-detail-preview.py
+    file: app-core.py
     height: 200
   - title: Express
     file: app-express.py
@@ -37,6 +37,8 @@ listing:
       with a dictionary of dictionaries. `ui.input_select()` will use the top-level
       keys as group labels.
     apps:
+    - title: Preview
+      file: app-variation-select-list-with-grouped-choices-core.py
     - title: Express
       file: app-variation-select-list-with-grouped-choices-express.py
       shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZG0wAxAA8wfaOEcpgXj5+URIhYRARkWAAyt6+wsSoZBykLEwARt7EAO6I8UGh4SlMINVJdXVRAIxRiPVtIh1MUQDCbMQchHBMrT34fWCtAEK9A0MjY3NVbf0LYIPDo+MbYAC+CTXJzakATL0gUeeTnYs7Y7drYOfzSNPby0xvL+f79y2S12-yiB0atRSRwhpzqMAUFjyqB8ugAKnQFGNEpCAJTHJqOQzEdxuDwUAAe-iiADcoFY4FE8aocapVLIaKw5NS5DZXO4JMSyKSJF4WCx8hAcZVYUwAAJSCCyOgYClkSHspi0+k2KWQiJSMgKOjJGhREB8sgYGJZHUHKKs6DoPSidA2DTaDgirlyHGHAC6QA
