@@ -1,14 +1,10 @@
-# FIXME: Rewrite as an Express app
-from shiny import App, render, ui
+from shiny import render
+from shiny.express import input, ui
 
-app_ui = ui.page_fluid(
-    ui.input_numeric("numeric", "Numeric input", 1, min=1, max=10), #<<
-    ui.output_text_verbatim("value"),
-)
 
-def server(input, output, session):
-    @render.text
-    def value():
-        return input.numeric()
+ui.input_numeric("numeric", "Numeric input", 1, min=1, max=10) #<<
 
-app = App(app_ui, server)
+
+@render.text
+def value():
+    return input.numeric()

@@ -1,14 +1,10 @@
-# FIXME: Rewrite as an Express app
-from shiny import App, render, ui
+from shiny import render
+from shiny.express import input, ui
 
-app_ui = ui.page_fluid(
-    ui.input_password("password", "Password", "mypassword1"), #<<
-    ui.output_text_verbatim("value"),
-)
 
-def server(input, output, session):
-    @render.text
-    def value():
-        return input.password()
+ui.input_password("password", "Password", "mypassword1") #<<
 
-app = App(app_ui, server)
+
+@render.text
+def value():
+    return input.password()
