@@ -1,14 +1,10 @@
-# FIXME: Rewrite as an Express app
-from shiny import ui, render, App
+from shiny import render
+from shiny.express import input, ui
 
-app_ui = ui.page_fluid(
-    ui.input_text_area("textarea", "Text input", "Hello World"), #<<
-    ui.output_text_verbatim("value"),
-)
 
-def server(input, output, session):
-    @render.text
-    def value():
-        return input.textarea()
+(ui.input_text_area("textarea", "Text input", "Hello World"),)  # <<
 
-app = App(app_ui, server)
+
+@render.text
+def value():
+    return input.textarea()

@@ -1,14 +1,10 @@
-# FIXME: Rewrite as an Express app
-from shiny import ui, render, App
+from shiny import render
+from shiny.express import input, ui
 
-app_ui = ui.page_fluid(
-    ui.input_switch("switch", "Switch", False), #<<
-    ui.output_ui("value"),
-)
 
-def server(input, output, session):
-    @render.ui
-    def value():
-        return input.switch()
+ui.input_switch("switch", "Switch", False)  # <<
 
-app = App(app_ui, server)
+
+@render.ui
+def value():
+    return input.switch()

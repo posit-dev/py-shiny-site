@@ -1,18 +1,14 @@
-# FIXME: Rewrite as an Express app
-from shiny import App, render, ui
+from shiny import render
+from shiny.express import input, ui
 
-app_ui = ui.page_fluid(
-    ui.input_select( #<<
-        "select", #<<
-        "Select an option below:", #<<
-        {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"}, #<<
-    ), #<<
-    ui.output_text("value"),
-)
 
-def server(input, output, session):
-    @render.text
-    def value():
-        return f"{input.select()}"
+ui.input_select(  # <<
+    "select",  # <<
+    "Select an option below:",  # <<
+    {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"},  # <<
+)  # <<
 
-app = App(app_ui, server)
+
+@render.text
+def value():
+    return f"{input.select()}"

@@ -10,7 +10,7 @@ listing:
     dir: components/inputs/selectize-multiple/
   contents:
   - title: Preview
-    file: app-detail-preview.py
+    file: app-core.py
     height: 200
   - title: Express
     file: app-express.py
@@ -37,6 +37,8 @@ listing:
       with a dictionary of dictionaries. `ui.input_selectize()` will use the top-level
       keys as group labels.
     apps:
+    - title: Preview
+      file: app-variation-selectize-with-grouped-choices-core.py
     - title: Express
       file: app-variation-selectize-with-grouped-choices-express.py
       shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymlnAtxCZDgBecDZMAMQAPOH2jjHKYF4+foFwcRIRURAxsWAAyt6+wsSo-qQsTABG3sQA7oipYZHRWUwgDRnNzXEAjHGILd0ivUxxAMJsxByEcExdg-jDYF0AQkOj45PTy-XdI6tgYxNTM7tgAL5pjZkd2QBMQyBxN3N9a4fTT9tgNytICwcbTG+nxuJxe+3WRxBcVObSaWXOsKuzRgCgs-lQPl0ABU6Appuk4QBKC7tRyGYjuNweCgADzIdjAADcoFYUmBiapCapVLIaKw5Iy5DZXO4JBSyFSJF4WCwOKRCXUkUwAAJSCCyOgYWlkOG8pjM1k2BVwmJSMgKOiZGhxEAisgYBIFZJG05xbnQdB6UToGwabQcKUCuSEs4AXSAA
