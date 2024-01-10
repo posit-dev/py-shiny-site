@@ -2,7 +2,7 @@ from shiny import reactive, render
 from shiny.express import input, ui
 
 
-ui.input_action_link("action_link", "Action") #<<
+ui.input_action_link("action_link", "Action")  # <<
 
 
 @render.text()

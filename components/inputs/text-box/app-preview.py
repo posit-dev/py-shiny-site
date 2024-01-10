@@ -1,4 +1,4 @@
-from shiny import App, render, ui
+from shiny import App, ui
 
 app_ui = ui.page_fluid(
     ui.input_text("x", "", placeholder="Enter text"),
