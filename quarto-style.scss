@@ -468,7 +468,7 @@ main.content a:not(.btn) {
 main.content
   a:hover:not(.component-list-header-text):not(.btn):not(.gallery-entry a):not(a img):not(
     .text-decoration-none
-  ):not(.gallery-meta):not(.link-cards a):not(.dont-index a):not(.anchorjs-link) {
+  ):not(.gallery-meta):not(.link-cards a):not(.dont-index a):not(.anchorjs-link):not(.component-list-card a) {
   border-bottom: 1px solid;
 }
 

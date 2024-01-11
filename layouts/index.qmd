@@ -45,8 +45,10 @@ Shiny Layouts
 ::: {.sticky-xl-top .pt-4}
 
 <h3 class="mt-4"> 
-<img src="/images/navbars-blue.svg" class="me-1" style="height: 34px;margin-bottom:7px;">
-Navbars </h3>
+  <a href="/layouts/navbars.qmd" class="dark text-decoration-none">
+    <img src="/images/navbars-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Navbars
+  </a> 
+</h3>
 
 A navbar adds a navigation bar to your app, allowing users to easily navigate your app.
 
@@ -81,7 +83,7 @@ A navbar adds a navigation bar to your app, allowing users to easily navigate yo
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><img src="/images/navbar-top.png" class="h-100 w-100"></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/navbars.html#navbar-at-top"><img src="/images/navbar-top.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
@@ -99,7 +101,7 @@ A navbar adds a navigation bar to your app, allowing users to easily navigate yo
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><img src="/images/navbar-bottom.png" class="h-100 w-100"></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/navbars.html#navbar-at-bottom"><img src="/images/navbar-bottom.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
@@ -116,8 +118,12 @@ A navbar adds a navigation bar to your app, allowing users to easily navigate yo
 
 ::: {.sticky-xl-top .pt-4}
 
+
 <h3 class="mt-4"> 
-<img src="/images/sidebars-blue.svg" class="me-1" style="height: 34px;margin-bottom:7px;"> Sidebars </h3>
+  <a href="/layouts/sidebars.qmd" class="dark text-decoration-none">
+    <img src="/images/sidebars-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Sidebars
+  </a> 
+</h3>
 
 A sidebar layout creates a sidebar, typically used for inputs, and a large main area, typically used for outputs.
 
@@ -142,7 +148,7 @@ A sidebar layout creates a sidebar, typically used for inputs, and a large main 
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><img src="/images/sidebar-left.png" class="h-100 w-100"></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/sidebars.html#sidebar-on-the-left"><img src="/images/sidebar-left.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
@@ -160,7 +166,7 @@ A sidebar layout creates a sidebar, typically used for inputs, and a large main 
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><img src="/images/sidebar-right.png" class="h-100 w-100"></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/sidebars.html#sidebar-on-the-right"><img src="/images/sidebar-right.png" class="h-100 w-100"></a></p>
 
 </div>
 </div>
@@ -179,7 +185,7 @@ A sidebar layout creates a sidebar, typically used for inputs, and a large main 
 </div>
 <div class="component-list-card layout-list-card">
 
-<p class="my-0 h-100 w-100"><img src="/images/sidebar-left-right.png" class="h-100 w-100"></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/sidebars.html#sidebar-on-the-left-and-right"><img src="/images/sidebar-left-right.png" class="h-100 w-100"></a></p>
 
 </div>
 </div>
@@ -197,7 +203,7 @@ A sidebar layout creates a sidebar, typically used for inputs, and a large main 
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><img src="/images/sidebar-two.png" class="h-100 w-100"></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/sidebars.html#two-sidebars-on-the-left"><img src="/images/sidebar-two.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
@@ -215,7 +221,7 @@ A sidebar layout creates a sidebar, typically used for inputs, and a large main 
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><img src="/images/sidebar-left-card.png" class="h-100 w-100"></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/sidebars.html#sidebar-within-a-card"><img src="/images/sidebar-left-card.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
@@ -232,7 +238,7 @@ A sidebar layout creates a sidebar, typically used for inputs, and a large main 
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><img src="/images/sidebar-collapsed.png" class="h-100 w-100"></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/sidebars.html#collapsed-sidebar"><img src="/images/sidebar-collapsed.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
@@ -247,8 +253,12 @@ A sidebar layout creates a sidebar, typically used for inputs, and a large main 
 :::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
 
+
 <h3 class="mt-4"> 
-<img src="/images/tabs-blue.svg" class="me-1" style="height: 34px;margin-bottom:7px;"> Tabs </h3>
+  <a href="/layouts/tabs.qmd" class="dark text-decoration-none">
+    <img src="/images/tabs-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Tabs
+  </a> 
+</h3>
 
 Tabs and navigation allow you to create apps that have multiple pages.
 
@@ -272,7 +282,7 @@ Tabs and navigation allow you to create apps that have multiple pages.
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><img src="/images/tabset-pill.png" class="h-100 w-100"></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/tabs.html#tabset-with-pill-navigation"><img src="/images/tabset-pill.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
@@ -290,7 +300,7 @@ Tabs and navigation allow you to create apps that have multiple pages.
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><img src="/images/tabset-pill-list.png" class="h-100 w-100"></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/tabs.html#tabset-with-pill-list-navigation"><img src="/images/tabset-pill-list.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
@@ -307,7 +317,7 @@ Tabs and navigation allow you to create apps that have multiple pages.
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><img src="/images/tabset-tab.png" class="h-100 w-100"></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/tabs.html#tabset-with-tab-navigation"><img src="/images/tabset-tab.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
@@ -326,7 +336,7 @@ Tabs and navigation allow you to create apps that have multiple pages.
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><img src="/images/tabset-tab-card.png" class="h-100 w-100"></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/tabs.html#card-with-a-tabbed-tabset"><img src="/images/tabset-tab-card.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
@@ -344,7 +354,7 @@ Tabs and navigation allow you to create apps that have multiple pages.
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><img src="/images/tabset-pill-card.png" class="h-100 w-100"></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/tabs.html#card-with-a-pill-tabset"><img src="/images/tabset-pill-card.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
@@ -361,7 +371,7 @@ Tabs and navigation allow you to create apps that have multiple pages.
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><img src="/images/accordion.png" class="h-100 w-100"></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/tabs.html#vertically-collapsing-accordion-panels"><img src="/images/accordion.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
@@ -376,7 +386,10 @@ Tabs and navigation allow you to create apps that have multiple pages.
 ::: {.sticky-xl-top .pt-4}
 
 <h3 class="mt-4"> 
-<img src="/images/cards-blue.svg" class="me-1" style="height: 34px;margin-bottom:7px;"> Panels & Cards </h3>
+  <a href="/layouts/panels-cards.qmd" class="dark text-decoration-none">
+    <img src="/images/cards-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Panels & Cards
+  </a> 
+</h3>
 
 Use panels and cards to define areas of related content.
 
@@ -400,7 +413,7 @@ Use panels and cards to define areas of related content.
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><img src="/images/drag.png" class="h-100 w-100"></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/panels-cards.html#main-image-with-panel-floating-above"><img src="/images/drag.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
@@ -418,7 +431,7 @@ Use panels and cards to define areas of related content.
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><img src="/images/two-cards.png" class="h-100 w-100"></p>
+<p class="my-0 h-100 w-100"><a class="component-list-header-text" href="/layouts/panels-cards.html#content-divided-by-cards"><img src="/images/two-cards.png" class="h-100 w-100"></a></p>
  
 </div>
 </div>
@@ -436,7 +449,10 @@ Use panels and cards to define areas of related content.
 ::: {.sticky-xl-top .pt-4}
 
 <h3 class="mt-4"> 
-<img src="/images/arrange-blue.svg" class="me-1" style="height: 34px;margin-bottom:7px;"> Arrange Elements </h3>
+  <a href="/layouts/arrange.qmd" class="dark text-decoration-none">
+    <img src="/images/arrange-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Arrange Elements
+  </a> 
+</h3>
 
 Use rows and columns to create your own layout for every device size.
 
@@ -461,7 +477,7 @@ Use rows and columns to create your own layout for every device size.
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><img src="/images/grid-layout.png" class="h-100 w-100"></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/arrange.html#grid-layouts"><img src="/images/grid-layout.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
@@ -479,7 +495,7 @@ Use rows and columns to create your own layout for every device size.
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><img src="/images/column-nesting.png" class="h-100 w-100"></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/arrange.html#column-nesting"><img src="/images/column-nesting.png" class="h-100 w-100"></a></p>
  
 </div>
 </div>
@@ -497,7 +513,7 @@ Use rows and columns to create your own layout for every device size.
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><img src="/images/controlling.png" class="h-100 w-100"></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/arrange.html#controlling-for-page-width-and-height"><img src="/images/controlling.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
