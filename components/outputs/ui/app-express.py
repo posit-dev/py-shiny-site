@@ -1,15 +1,11 @@
-# FIXME: Rewrite as an Express app
-from shiny import App, reactive, render, ui
+from shiny import render
+from shiny.express import input, ui
 
-app_ui = ui.page_fluid(
-    ui.input_action_button("add_button", "Add a UI element"),
-    ui.output_ui("uiElement"), #<<
-)
+ui.input_switch("show_slider", "Show slider", True)
 
-def server(input, output, session):
-    @render.ui #<<
-    @reactive.event(input.add_button) #<<
-    def uiElement(): #<<
-        return ui.input_slider("slider", "Choose a number", min=1, max=10, value=5), #<<
 
-app = App(app_ui, server)
+@render.ui  # <<
+def uiElement():  # <<
+    if input.show_slider():
+        value = input.slider() if "slider" in input else 5
+        return ui.input_slider("slider", "Choose a number", min=1, max=10, value=value)
