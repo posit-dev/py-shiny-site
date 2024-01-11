@@ -8,8 +8,10 @@
   <li>
     <p>
       <a href="<%= item.href %>"><%= item.title %></a>
+      <% if (item.signature) { %>
       <br>
       <code style="text-wr"><%= item.signature %></code>
+      <% } %>
     </p>
   </li>
   <% } %>
