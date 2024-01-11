@@ -20,14 +20,11 @@ A navbar adds a navigation bar to your app, allowing users to easily navigate yo
 
 :::{.column-screen-inset-right style="max-width:800px;"}
 
-::: {.panel-tabset}
 
-## Preview
 
 <iframe style="height:150px;" class="mb-0 w-100 iframe-border" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEugA3AEZQ6ACiZymNzRiNLUUCHAA25mWBGeJngAq6cKJMJOSUZJ4AlL4QtnYOTi7ungBCPlZgAXpMKSGkFORRMXHS9lCGjs5uHmAAwun+gUy1eWGFYNFWsbZkHGSucGqeYqhMAO59bExGpnQN3TYcACZDkOWznl2RXXJLcDSscHSGR+ZcqJJkEsSXF1eHLCwcpJGI1rZOj3IK6Oqi6OZFCoOBIWEcTnRImAAL4AXSAA" title="Navbar at top">
 </iframe> 
 
-## Code
 
 ```{.python filename="app.py" }
 from shiny import App, ui
@@ -45,7 +42,7 @@ def server(input, output, session):
 
 app = App(app_ui, server)
 ```
-:::
+
 
 <p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEugA3AEZQ6ACiZymNzRiNLUUCHAA25mWBGeJngAq6cKJMJOSUZJ4AlL4QtnYOTi7ungBCPlZgAXpMKSGkFORRMXHS9lCGjs5uHmAAwun+gUy1eWGFYNFWsbZkHGSucGqeYqhMAO59bExGpnQN3TYcACZDkOWznl2RXXJLcDSscHSGR+ZcqJJkEsSXF1eHLCwcpJGI1rZOj3IK6Oqi6OZFCoOBIWEcTnRImAAL4AXSAA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 
@@ -57,7 +54,7 @@ Follow these steps to add a navbar to the top of your app:
 
   2. Pass nav items (e.g., [`ui.nav_panel()`](https://shiny.posit.co/py/api/ui.nav.html) and [`ui.nav_menu()`](https://shiny.posit.co/py/api/ui.nav_menu.html)) to `ui.page_navbar()` to control the items displayed in the navbar. 
 
-  3. _Optional:_ Set the `title` argument of `ui.page_navbar()` to set the browser window title.
+  3. Set the `title` argument of `ui.page_navbar()` to set the browser window title.
 
   4. _Optional:_ Pass a string to the `id` argument of `ui.page_navbar()`. This will create an input value that holds the title of the currently selected nav item. For example, `id = "tab"` would create a reactive value accessible as `input.tab()`.
 
@@ -67,15 +64,14 @@ Follow these steps to add a navbar to the top of your app:
 ## Navbar at bottom
 
 :::{.column-screen-inset-right style="max-width:800px;"}
-::: {.panel-tabset}
 
-## Preview
+
 
 <iframe style="height:150px;" class="mb-0 w-100 iframe-border" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEugA3AEZQ6ACiZymNzRiNLUUCHAA25mWBGeJngAq6cKJMJOSUZJ4AlL4QtnYOTi7ungBCPlZgAXpMKSGkFORRMXHS9lCGjs5uHmAAwun+gUy1eWGFYNFWsbZkHGSucGqeYqhMAO59bExGpnQN3TYcACZDkOWz83ECLH0cpKs0HAAecEsAtMbEZGSMPnKRXXJLcDSscHSG7+ZcqJJkEsQ-r9-m8WDtSJFENZbE4wXIFOh1KJ0OZFCoOBIWO9PnRImAAL4AXSAA" title="Navbar at bottom">
 </iframe> 
 
 
-## Code
+
 
 ```{.python filename="app.py" }
 from shiny import App, ui
@@ -94,7 +90,7 @@ def server(input, output, session):
 
 app = App(app_ui, server)
 ```
-:::
+
 <p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEugA3AEZQ6ACiZymNzRiNLUUCHAA25mWBGeJngAq6cKJMJOSUZJ4AlL4QtnYOTi7ungBCPlZgAXpMKSGkFORRMXHS9lCGjs5uHmAAwun+gUy1eWGFYNFWsbZkHGSucGqeYqhMAO59bExGpnQN3TYcACZDkOWz83ECLH0cpKs0HAAecEsAtMbEZGSMPnKRXXJLcDSscHSG7+ZcqJJkEsQ-r9-m8WDtSJFENZbE4wXIFOh1KJ0OZFCoOBIWO9PnRImAAL4AXSAA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
 
@@ -106,7 +102,7 @@ Follow these steps to add a navbar to the bottom of your app:
   
   3. Set the `position` parameter of `ui.page_navbar()` to `"fixed-bottom"` to pin the navbar to the bottom of the app. By default, `position` is `"static-top"`, which causes the navbar to display at the top with normal scrolling behavior. You can also pin the navbar to the top (`position="fixed-top"`).
   
-  4. _Optional:_ Set the `title` argument of `ui.page_navbar()` to set the browser window title.
+  4. Set the `title` argument of `ui.page_navbar()` to set the browser window title.
   
   5. _Optional:_ Pass a string to the `id` argument of `ui.page_navbar()`. This will create an input value that holds the title of the currently selected nav item. For example, `id = "tab"` would create a reactive value accessible as `input.tab()`.
 
