@@ -116,6 +116,7 @@ a.component-list-header-text:hover ~ div.component-list-icon p a i.component-lin
 .app-preview .sourceCode {
   padding: 0;
   box-shadow: none;
+  margin-block: 1em;
 }
 
 .app-preview .shinylive-wrapper {
@@ -265,7 +266,7 @@ main a.nav-link:hover {
   border-bottom: 2px solid var(--bs-blue);
   justify-content: flex-start !important;
   font-size: 0.95em;
-  line-height: 1.33;
+  line-height: 1.5;
 }
 
 .shiny-mode-tabset > .nav-tabs,
@@ -280,6 +281,7 @@ main a.nav-link:hover {
 }
 
 .shiny-mode-tabset > .nav-tabs > .nav-item > .nav-link.active {
+  font-weight: 600;
   border-bottom-color: var(--bs-white) !important;
 }
 
