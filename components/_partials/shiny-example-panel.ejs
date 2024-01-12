@@ -8,7 +8,7 @@
 ```{shinylive-python}
 #| standalone: true
 #| components: [<%= previewApp.components ? previewApp.components.join(', ') : 'viewer' %>]
-#| viewerHeight: <%= previewApp.height ? previewApp.height : '300px' %>
+#| viewerHeight: <%= previewApp.height ? previewApp.height : '300' %>
 
 <%= Deno.readTextFileSync((appDir || '') + previewApp.file) %>
 ```
