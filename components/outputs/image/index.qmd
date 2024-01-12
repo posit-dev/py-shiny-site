@@ -1,10 +1,13 @@
 ---
 title: Image
 sidebar: components
-preview: |
-  <div class="px-4">
+preview: '<div class="px-4">
+
   <img width="90" src="/images/shiny.png">
+
   </div>
+
+  '
 listing:
 - id: example
   template: ../../_partials/components-detail-example.ejs
@@ -16,12 +19,14 @@ listing:
     height: 200
   - title: Express
     file: app-express.py
-    resources: [shiny.png]
-    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQGJkAxASQA0BZAURQCU4B3AE4BLKsigBncRGScAHukFwJUjOgA6EAGaDSMZBIAWwiLmTCY6UoIrIAgpiJKIAEziCiAV2Gadeg8amWBS46Mrmlta2zDAA5gAiUBRQvrr66EmGADbCAEYRVjbIAAqZmobucMgAvCWZABQA+o1awllwzQCUOFDOFJqaao3eNcjePbEdWlneLvWayItjwlgm6J4UjcQVxADWuaRy82BGpPzqhMgXAMqGZxFQkwD8F0QAblAzVbUAKoKecE6BAWS3GpA2602FkecGO0MmF06yDoAB4UZpOgNXHAtAZ3G93PU1hsiOCKJCiBJlBJhOROogQYsAALONyCVYwGHItGM5BuXHw2H03lLCKxUYgC4SQTEC4oCpKAD0UsCuBwEFiryuYH4whcFEMcu1AEYAAym9ByC4AX256JkoqWSgonkEMgs4uEAogkKwp349SRcCyVOQADlyHAsWpRg50PUht5Kfj3JiIJcwCEwrRM3A5BQwNaALpAA
+    resources:
+    - shiny.png
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKCgCwBsBLAI2Q8Y6UgwrIACuw4AdCHMbNkAZw48IuQcNHiG1ACZwGCpi1XrcWOAA90e5cq0ixgiOgCuFIu55y5HIzhkAF5JaQAKAH1Iuh4uOGiAShwoPUo-CB8sdQ8KSOIA4gBrPlJrcJkwVVIAd0qiSoBlDlqtKABzOAB+euQANygudzhggBUGYcSMuQABNMMGbJgOoOQAYmQAHk25Qzo2zvDExDlkM612kOQQSuUGYkqUAL1kAHpkW7UNHAh23sqajx9JxHh8wABGAAMkPQ1kqAF8zhttqdznoKO4GBALoJ9jlPFhqjUjsg4FxlEEAHLkOByQioCi4dAIFBgKjWChgeEAXSAA
   - title: Core
     file: app-core.py
-    resources: [shiny.png]
-    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhEbM2XHlgq50cVnwFCRASRgBzACJQKUVepbpb7ADacARkcHDkABRdVdjk4ZABefxcACgB9GLpOVzg4gEocKClKVVUMdBilcOQldItkulclaSjVZFqizixudAUKGOJg4gBrD1IAD2qwDlIAd2VCZDGAZXYRoyhSgH4xogA3KArQiIAVBgU4FIIauuLSFubW-nm4AcvSsZTkAGIAHmfVFOyIWTo2ORW5KJNFpEU4Uc5EVgGViccgpRBHWoAAUysgYjRgVyerwRyG+c1KUThOLqRgshRAY1YDGIYxQwSkAHpKVpcDgIBZlhMwMNONIKOxaVyAIwABhF6F6YwAvli3hASSSpBQFAx5fwyZwfkCKFghsNCcg4K5IcgAHLkOCfXKFcToKK5fKcCF-OQfCDjMC6fS0T1wXoUMBSgC6QA
+    resources:
+    - shiny.png
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKCgCwBsBLAI2Q8Y6UgwrIACuw4AdCHMbNkAZw48IuQcNHiAgpiINqAEzgMiAVx5y5HM3GQBeSdIAUAfXd0eXOJ4CUOFBGlDbQmO5WTshWQQDmfnRcVsaucsgZMTxY6ugWFO7EdsQA1nykAB5pYKqkAO4yhMiNAMoc9VpQCQD8jUQAblDJcI4AKgwWcP4E6ZmxpPl5BUJdcNUrCY3TGQDEyAA8+3L+YXKmdCpm-WauuflECxRLRMpwyso85P6IsxkAAiFTAwcjBVrsDkcIJlkOdOglXN9ftCtHFoiBGsoGMRGig7EZkAB6Zo1NQaHAQOJ9Yl1HjGTg44kARgADMz0BVGgBfcGHJHQowUCwMKFCVE8C53ChYWp1BHIOBcV7IABy5Dgp3C6Gi+nQrgw6EiPBeVzMJwgTTAFFw6AQKEtcAqFDAnIAukA
 - id: relevant-functions
   template: ../../_partials/components-detail-relevant-functions.ejs
   template-params:

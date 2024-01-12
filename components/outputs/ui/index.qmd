@@ -13,10 +13,10 @@ listing:
     file: app-core.py
   - title: Express
     file: app-express.py
-    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQGJkAxASQA0BZAURQCU4B3AE4BLKsigBncRGScAHukFwJUjOgA6EAGaDSMZBIAWwiLmTCY6UoIrIAgpiJKoxCsIBucJ9QAmcQUQArsKammoA+sHIALzIwThQAOZw4VoANsE+ABSayHlxwlgm6IEU4S5u5OEARqUU5DloPj41deTqhMgdds3iyACqzMhwaXDwlB0AlAS5+fGkpSVlwY3BnKPjFFNEdAA8u5qToRB+Wgb+noJZxaVECxRLRBLKEsLkk4izeQACSif+WCiewOMnyvzgFQ8cCwcE8lGuECWWCgzVaFHqEEmyGBX2QpwK6zG1AoWQ+2P2uPyyCUFECghk8RuZQkaWEfiuHRZbP8HSIHQAwoZSKRnn0IIEYNUeZ0YCZogBGIgwKByBUABiI7igGTg0QArNNySCwpgYvZMFkIsEnhd-EcIJ0wBRcOgECgnXA5BQwABfAC6QA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDagBM4DADoRGzNlx5Y4AD3RjWrPgKEju6AK4UihzrNlmsB4wH1WAd04Vi7ABTSwHUg-sAbTkkZQmRPAGV2HzYAoM8iABUGQzgASgsIWQABMQggrDNkZABiZAAeUtlJOmQzAFE-OHhKNxSUYrKKiELCzmqbCixvX1YYqRbEWW6p5AA3KD9k5ABePggjAZHAsZS+as9N2LBV1fXkOD9WOGQAVknpwrEKQwYuq37-LYYPL1Hgok8AMKRUiXZBQZAQQwwABGUjiyBg3CWAEYiDAoKoUQAGIhzBZwJZ45JpCAhMAUXDoBAoclqChgAC+AF0gA
   - title: Core
     file: app-core.py
-    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnEnUAJnAZEArpwA6EPRnQB9bcgC8ybTigBzOEboAbbSoAUe5J8ucs3dJoojGTlyIwAjAIpydzQVFXDI8h1CZGTROOQoZABVAElkOEc4eEpkgEoCDy8rUgD-QO0Y7QBRIpKKcqIAYgAeHr0yvT01OjZ1RQZXPwCiWop6olY4VlZOcjLEKs8AASkINQYsU17+iC9kXelZBTgsOEVKKYh6rCg4hIooiDLkE63kEbeVrFagUVwbX59f7nKQUTQMM5WaaBViOTgHGKo9HqZJEZIAYXYpFIS0yyAgmhgYRxKRg3DMAEYiDAoAAPRkABiI8igzjgZgArBVIacDJhzGJMK5DCZOItxupBhAUmAKLh0AgUKq4KyKGAAL4AXSAA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnEnUAJnAZEArpwA6EPRnQB9bcgC8ybTigBzOEboAbbSoAUe5J8ucs3dJoojVgB3TgpidncwDlJgoMdONQYdQmQUgGV2WLYEpJSiABUGTTgASgIPLytSAP9A7SjtAFFHOHhKFPLPAGJkAB4+vVK9EYg1OjZ1RQZXPwCiGoo6olY4VlZOclLESs8AASkx9SxTZF6B3eQD6VkFOCw4RUpZiDqsGLjWXPVSnv7BiBeZDjbwtNrUCiubZ-C6AoFeTgTOYUd5ZT7fGbbS7wrzyKDOODmPivALvDFQvgTFJfRLqFLE4l1ZBwRyrZAAVmxOOQUgomgYgKsyPitJmXO5XmpGPyaTAAGEsqQ2VBkBBNDAAEZ01IwbhmACMRBgUAAHgaAAxEPEEszWkri+HDfTOwxE8ToVyGEycFZTH56VJgCi4dAIFBBuAmihgAC+AF0gA
 - id: relevant-functions
   template: ../../_partials/components-detail-relevant-functions.ejs
   template-params:
@@ -35,24 +35,32 @@ listing:
     dir: components/outputs/ui/
   contents:
   - title: Create dependent controls
-    description: |
-      You can use `@render.ui()` and `ui.output_ui()` to create a set of controls that
-      are dependent on a setting in your app. In this example, we show a different set
+    description: 'You can use `@render.ui()` and `ui.output_ui()` to create a set
+      of controls that
+
+      are dependent on a setting in your app. In this example, we show a different
+      set
+
       of options when the app is in "plot" or "table" mode.
 
+
       Note that we use the current input values or a default value when creating the
+
       dependent controls. Without this, the values are re-initialized every time and
+
       forget previous user input.
+
+      '
     apps:
     - title: Preview
       file: app-variation-update-an-input-core.py
       height: 225
     - title: Express
       file: app-variation-update-an-input-express.py
-      shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdCPrSoA+jqYBeJjqxQA5nGM0ANjtUAKfUy9WOGLqi0yYwgteDoOQg9IUIAjDV18JgSAUXINJigmEJg4ukQEiQBGCRguc2KmGCgAD3KABgBKPE9va2JAgKCdKJ1kpzh4cgSm-Qb9cbU4GlYNRTo3f0CJdrJOiRY4FhYOUgb8iG8mAAEVdToMHRavdWne-sGyNz2rw8k4Mi06A+tFoJYnDhnKL-QHxRIJADCnxUwmyuXyiVKEHKJRq9Qk8igLjg5l+GDhGieIwM0HQFlE6DcRlMHHWsw0DTAAF8ALpAA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDagBM4DADoRGzNlx5Y4AD3RjWrPgKEju6AK4UihzrNkB3ThXbIzWADZRcpYwH0yjwzAisAFACUiLLIYfacWAYeDFDinKTuAEbGFOQB0mAwpJKZRJkAIpys6M682bmEyMCZACpQSY5weciZAAqOpBSZALpErHBNxFTiALx1DU2ZgRYQ4cgAAmIQkgxYZqHhknTIFXCe5BRMjgHBm-NhnDvRFFh7Qcijo61g9Y3NSOcX80yW2s83LC-U58HaZYGZPhzG7IQYDZAARgADF9vmEvP8oUZbhiHlcXhjIdwscZYSc4MgACyotFiCiGBhzBz1ADmABlihR-DS0eEHDd3KxHJxVtywBCqpkAEqkP4hKoANyg3jgo2BRBg3FGCI1UFU2qRgQIPN5ESiEGxguFosyhMlYAAwqRvL5WPKiEqVaMMRqtTrdnqDUaTfMZnM0XC4CFw6bkOw4JwWewRACLcYsPHE8m8WCwJmk90wFCSSJI8gAKxIlEx03WcS2R4lrB12w5l4t9hE6Fp0vkitVkPhOkMpmRVkc1hcwfffk9q0iqRi-PJlqZAASCYL7uQnsMquXJl2fqruv1yKrwZrsbCs8tQoXDDFHdXYAA6iLbNvd6qO76IAakVPADDWNK80TDKowAoXB0AQFAoLUCgwAAXx6IA
     - title: Core
       file: app-variation-update-an-input-core.py
-      shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdCPrSoA+jqYBeJjqxQA5nGM0ANjtUAKfUy9WOGLqi0yYwgteDoOQg9IUIAjDV18JgSAUXINJigmEJg4ukQEiQBGCRguc2KmGCgAD3KABgBKPE9va2JAgKCdKJ1kpzh4cgSm-Qb9cbU4GlYNRTo3f0CJdrJOiRY4FhYOUgb8iG8mAAEVdToMHRavdWne-sGyNz2rw8k4Mi06A+tFoJYnDhnKL-QHxRIJADCnxUwmyuXyiVKEHKJRq9Qk8igLjg5l+GDhGieIwM0HQFlE6DcRlMHHWsw0DTAAF8ALpAA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLBai5SCiprJWYEVnYQjsFOWNzonpoMUNKcpJoARp4U5AH2IRnKYDCksllEWQAinKzorrw5eYTIwFkAKlAJFnD5yFkAChakFFkAukSscM3EVNK69Y3NWekZAJQEMyGGHhQRXkp22blmZJRMFqxZ84uzqqdqF7J0bHIAbnI24Z5EK2sDcKyscRCziIsAAlIILIGFglIsrshKjtyBR9gFfotgpxrk8KFhoTZZnp9BMmi0kEiMsgmAB3Vh6PgQNZYMkIvjXLJ0rJUqlrZBDQbIACMAAYiRkfBT9GisEKsQy2mAhSzuGzPByDnBkAAWAUhKQUBQMIKGBrGAAyJQogWJZtCaM0rAsnBBm2Z1SyACVSOS-tVblArHBdHSiDBuLpuf6oAAPIO845Bc0ZQyW622h5ZGWOsAAYVIvn87qInu9uiF-sDwahYYjUZjDnOZs5cD+0Zj7DgnGM7BEIupniwTZbbYlKKlPdbPTArLRiq5AFZefyG+bSbaKOxKaKF9Il-3GWA10vZUFx7XkNPZ5WSXAtTrQvqjawTeqzXHO14E3askO260sgAJZvDnPIPMFB9d8KCLCAI15ENwz5GcK1PRxHzWK0bVfbdF3YT8wAAdXQ-9AJ9Hd2DAiCoIgyMFjnM1zlUdRMEpcR0BsDRtE4d4GHuBhzmqMAKFwdAEBQHi4FDCgwAAX16IA
 ---
 
 :::{#example}
