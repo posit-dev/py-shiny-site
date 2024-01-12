@@ -1,6 +1,139 @@
 ---
-title: Tabs and navigation
+title: Layouts
 ---
+
+## Page layouts
+
+As we learned in the [quick start](quick-start.qmd), shiny apps have two main parts: a user interface and server function.
+A user interface typically begins with a `ui.page_*()` function, which defines the overall page-level layout.
+Here are some page functions that come pre-bundled with shiny:
+
+| name | description | filling |
+| ---- | ----------- | ------- |
+| `page_sidebar()` | A page with a sidebar. | ✔ |
+| `page_navbar()` | A multi-page application, with an optional sidebar. | ✔ |
+| `page_fillable()` | A basic fillable page. | ✔ |
+| `page_fluid()` | A "full width" page (with a small gutter on each side). | ✗ |
+| `page_fixed()` | A "restricted width" page (great for "articles"). | ✗ |
+| `page_bootstrap()` | A bare bones [Bootstrap](https://getbootstrap.com/docs/5.3/getting-started/introduction/) page. | ✗ |
+
+The first three page options are designed to fill the page (by default), meaning that if components like plots, cards, widgets, etc. appear as direct children of the page, they grow/shrink to fill the page.
+That behavior works great for small examples, but may not be ideal for apps with lots of content. In those cases, set the `fillable` keyword argument to `False` (or use `page_fluid()`/`page_fixed()`).
+
+### `page_sidebar()`
+
+A great starting page option is `page_sidebar()`, which expects a `ui.sidebar()` as the first argument,
+and passes other positional arguments to the main content area. It also optionally accepts a `title` keyword argument.
+
+::: column-page-inset-right
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 400
+
+from shiny import App, render, ui
+import matplotlib.pyplot as plt
+import numpy as np
+
+app_ui = ui.page_sidebar(
+    ui.sidebar(
+        ui.input_slider("n", "Sample size", 0, 1000, 250),
+        ui.input_numeric("mean", "Mean", 0),
+        ui.input_numeric("std_dev", "Standard deviation", 1),
+        open="always",
+    ),
+    ui.output_plot("plot"),
+    title = "Simulate a normal distribution",
+)
+
+def server(input, output, session):
+    @output
+    @render.plot(alt="A histogram")
+    def plot():
+        x = np.random.normal(input.mean(), input.std_dev(), input.n())
+
+        fig, ax = plt.subplots()
+        ax.hist(x, 30, density=True)
+        return fig
+
+app = App(app_ui, server)
+```
+:::
+
+::: {.callout .callout-info}
+<h3> Sidebar options </h3>
+
+By default, the sidebar is hidden on mobile devices (and can be opened/closed via the caret icon).
+Here, we've set `open="always"` so both the sidebar and main content are always visible, which works great for small examples, but may not be ideal for apps with lots of content.
+:::
+
+
+
+### `page_navbar()`
+
+A multi-page application, with an optional sidebar.
+
+::: column-page-inset-right
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 600
+
+from shiny import App, render, reactive, ui
+import matplotlib.pyplot as plt
+import numpy as np
+
+app_ui = ui.page_navbar(
+    ui.nav_spacer(),
+    ui.nav(
+      "Plot",
+      ui.output_plot("plot")
+    ),
+    ui.nav(
+      "Table",
+      ui.output_table("table")
+    ),
+    sidebar = ui.sidebar(
+        ui.input_selectize("dataset", "Dataset", ["mtcars", "iris"]),
+    ),
+    title = "Plots and tables",
+)
+
+
+def server(input, output, session):
+    @reactive.calc
+    def df():
+        import datasets
+
+        return getattr(datasets, input.dataset)()
+
+
+    @output
+    @render.plot
+    def plot():
+        return df().plot()
+
+    @output
+    @render.table
+    def table():
+        return df()
+
+app = App(app_ui, server)
+```
+:::
+
+
+
+## Multi-column layouts
+
+
+
+
+## Multi-panel layouts
+
+
 
 Tabs and navigation allow you to produce apps that have multiple pages.
 
@@ -211,4 +344,3 @@ app = App(app_ui, None)
 ```
 
 Note that clicking into the menu ("Other links"), and then clicking the nav "b", will change the content.
-

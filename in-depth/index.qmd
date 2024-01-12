@@ -1,7 +1,0 @@
----
-title: "In Depth"
-format: html
----
-
-This page should have some detail or graph about py-shiny's design / key pieces.
-

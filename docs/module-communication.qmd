@@ -1,5 +1,7 @@
 ---
 title: Module Communication
+aliases:
+  - workflow-module-communication.html
 ---
 
 ## Communication Between Modules
@@ -44,9 +46,9 @@ Next, you would add an argument to the server function which specifies the start
 ```{.python}
 @module.server
 def counter_server(input, output, session, starting_value = 0):
-    count = reactive.Value(starting_value)
+    count =  reactive.value(starting_value)
 
-    @reactive.Effect
+    @reactive.effect
     @reactive.event(input.button)
     def _():
         count.set(count() + 1)
@@ -99,9 +101,9 @@ def counter_ui(label: str = "Increment counter"):
 
 @module.server
 def counter_server(input, output, session, starting_value = 0):
-    count = reactive.Value(starting_value)
+    count =  reactive.value(starting_value)
 
-    @reactive.Effect
+    @reactive.effect
     @reactive.event(input.button)
     def _():
         count.set(count() + 1)
@@ -263,14 +265,14 @@ def counter_ui(label: str = "Increment counter"):
 
 @module.server
 def counter_server(input, output, session, global_clear, starting_value=0):
-    count = reactive.Value(starting_value)
+    count =  reactive.value(starting_value)
 
-    @reactive.Effect
+    @reactive.effect
     @reactive.event(global_clear)
     def clear_all():
         count.set(0)
 
-    @reactive.Effect
+    @reactive.effect
     @reactive.event(input.button)
     def iterate_counter():
         count.set(count() + 1)
@@ -294,9 +296,9 @@ One intuitive way to do this is to define a state-modifying function at the appl
 When the function is called within the module code, it will update the global application state.
 
 For example, let's add a text output that adds up the total number of button clicks for a session.
-To do this we create a `reactive.Value` and a function which increments that value by one.
+To do this we create a ` reactive.value` and a function which increments that value by one.
 We then pass this function down to the module and call it whenever the module button is clicked.
-This updates the `reactive.Value` at the application level.
+This updates the ` reactive.value` at the application level.
 
 :::{.column-page}
 ```{shinylive-python}
@@ -316,7 +318,7 @@ app_ui = ui.page_fluid(
 
 
 def server(input, output, session):
-    global_tally = reactive.Value(0)
+    global_tally =  reactive.value(0)
 
     def increment_counter():
         global_tally.set(global_tally() + 1)
@@ -348,9 +350,9 @@ def counter_ui(label: str = "Increment counter"):
 
 @module.server
 def counter_server(input, output, session, _on_click, starting_value=0):
-    count = reactive.Value(starting_value)
+    count =  reactive.value(starting_value)
 
-    @reactive.Effect
+    @reactive.effect
     @reactive.event(input.button)
     def increment_button():
         _on_click()
@@ -553,5 +555,3 @@ Named tuples are similar to tuples except that they allow you to set specific na
 Modules are the main way to grow and scale your Shiny application code.
 They let you break up your app into tractable parts, define how those parts communicate with one another, and reuse components across applications.
 While mastering modules takes quite a bit of time, you can accomplish almost anything with the four patterns listed in this article.
-
-

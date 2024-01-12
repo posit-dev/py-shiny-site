@@ -14,7 +14,7 @@ This strategy leads to a great initial user experience, but quickly becomes cons
 Shiny and Streamlit differ in a few key ways:
 
 1)  Shiny's reactive execution means that elements are minimally re-rendered.
-2)  You can build lare Shiny applications without manually managing application state or caching data.
+2)  You can build large Shiny applications without manually managing application state or caching data.
 3)  Shiny allows you to easily customize the look and feel of your application.
 
 Shiny is designed to support your application's growth without extensive rewriting; the patterns you learn when developing a simple app are robust enough to handle a complicated one.
@@ -120,7 +120,7 @@ def server(input, output, session):
     infile = Path(__file__).parent / "penguins.csv"
     df = pd.read_csv(infile)
 
-    @reactive.Calc
+    @reactive.calc
     def filtered_data():
         filt_df = df.copy()
         filt_df = filt_df.loc[df["Body Mass (g)"] < input.mass()]
@@ -576,7 +576,7 @@ Shiny's UI uses pure functions which return a value instead of rendering themsel
 This means that UI can be defined independently of the server logic, which makes maintaining and modifying the UI much easier. All you have to do to move a graph in the UI is change the location of the `ui.output_plot` call.
 
 This also means that the UI can be broken up into informative pieces to improve code readability.
-For example, if you want to move pieces of the UI code to another file you can do that either by storing them in variables, or using Shiny [modules](workflow-modules.qmd).
+For example, if you want to move pieces of the UI code to another file you can do that either by storing them in variables, or using Shiny [modules](modules.qmd).
 
 ``` {shinylive-python}
 #| standalone: true
@@ -623,7 +623,7 @@ In order to benefit from Shiny's execution model, you need to organize your code
 For example, take this part of the application code:
 
 ``` python
-@reactive.Calc
+@reactive.calc
 def filtered_data():
     filt_df = df.copy()
     filt_df = filt_df.loc[df["Body Mass (g)"] < input.mass()]
@@ -641,7 +641,7 @@ def scatter():
 ```
 
 These functions define the three main nodes of the application, as well as the relationships between them.
-The `@render.plot` and `@reactive.Calc` decorators identify the functions as reactive functions which need to re-execute in response to upstream changes, and the `filtered_data()` and `input.*` calls define the relationships between these components.
+The `@render.plot` and `@reactive.calc` decorators identify the functions as reactive functions which need to re-execute in response to upstream changes, and the `filtered_data()` and `input.*` calls define the relationships between these components.
 These decorators help Shiny to construct a computational graph of the application as it runs, and only rerender an element when one of its upstream dependencies changes.
 
 ```{mermaid}
@@ -656,7 +656,7 @@ flowchart LR
 
 The benefit of Shiny's structure is that you can extend the application without having to rewrite it.
 For example, let's add a button which resets the slider.
-In Shiny you can do this by adding a a `reactive.Effect` function which calls the `ui.update_slider()` function.
+In Shiny you can do this by adding a a `reactive.effect` function which calls the `ui.update_slider()` function.
 This adds a node to the computation graph and everything works as you'd expect it to.
 Importantly, we can extend the application without changing how we think about the overall application.
 
@@ -703,7 +703,7 @@ def server(input, output, session):
     infile = Path(__file__).parent / "penguins.csv"
     df = pd.read_csv(infile)
 
-    @reactive.Calc
+    @reactive.calc
     def filtered_data():
         filt_df = df.copy()
         filt_df = filt_df.loc[df["Body Mass (g)"] < input.mass()]
@@ -719,7 +719,7 @@ def server(input, output, session):
     def scatter():
         return scatter_plot(filtered_data(), input.smoother())
 
-    @reactive.Effect
+    @reactive.effect
     @reactive.event(input.reset)
     def _():
         ui.update_slider("mass", value=6000)
@@ -1271,10 +1271,10 @@ Streamlit collects [user information](https://docs.streamlit.io/library/advanced
 The data is sent to a American server owned by Snowflake so that the company can analyze user behavior.
 This can cause legal and security problems because your application may be subject to data governance policies which forbid this type of data collection.
 For example, if your users do not explicitly provide consent to transfer data to a US company, sending data to Snowflake might be a [GDPR violation](https://github.com/streamlit/streamlit/issues/4747).
-In order to prevent data collection you need to set `gatherUsageStats = false` in your Streamlit config file, which is an easy thing to forget to include in a given Streamlit deployment. 
+In order to prevent data collection you need to set `gatherUsageStats = false` in your Streamlit config file, which is an easy thing to forget to include in a given Streamlit deployment.
 
 Shiny does not collect or report user data of any kind, and it never will.
-We do not believe that open-source tools should collect user data without explicit consent. 
+We do not believe that open-source tools should collect user data without explicit consent.
 
 
 # Conclusion

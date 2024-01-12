@@ -1,0 +1,151 @@
+---
+title: "Foundations"
+format: html
+aliases:
+  - reactive-programming.html
+  - reactive-calculations.html
+  - reactive-events.html
+  - reactive-values.html
+---
+
+At the heart of Shiny is a reactive programming framework.
+We often refer to this framework as "good magic" because it's easy to get started with, but also decomposes into simple pieces which combine in powerful ways.
+
+In [Quick Start](quick-start.qmd), we covered the most common form of reactivity: changes in `input` causing relevant `render` functions to re-execute (aka **invalidate**).
+More generally, Shiny knows to re-execute **reactive functions** (e.g., `render` functions) when relevant **reactive dependencies** (e.g., `input`) change.
+In this section, we'll cover the other main forms of reactive functions and dependencies:
+
+* [Calculations with `@reactive.calc`](#calculations)
+  * Write your reactive calculation once, then call it as needed.
+* [Side effects with `@reactive.effect`](#effects)
+  * Effects are similar to `@render.*` functions, but they don't return anything. They're used for their side-effects (e.g., writing to a database, sending an email, etc.)
+* [Reactive values with `reactive.value`](#values)
+  * Create `input`-like values that aren't tied to input controls and can be updated. They're often used to maintain state in an app.
+
+In the [next article](reactive-patterns.qmd), we'll build on these foundational concepts to cover some useful reactivity patterns.
+
+
+### Calculations {#calculations}
+
+Often times it's useful to perform a calculation based on reactive dependencies (e.g., `input` values), then reuse that calculation in multiple places.
+`@reactive.calc` is designed for this purpose: it allows you to define a calculation once, then efficiently recall it as needed.
+
+For a basic example, say we need the square of an input value and display the result in multiple places.
+The `@reactive.calc`, `x2`, encapsulates the calculation, and the `@render.*` functions call for its value like an `input` value.
+And, although we call `x2()` multiple times, the calculation is only performed once per invalidation.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 200
+
+from shiny import reactive, render
+from shiny.express import input, ui
+
+ui.input_slider("x", "Slider value", min=0, max=100, value=10)
+
+@reactive.calc
+def x2():
+  return input.x() ** 2
+
+@render.ui
+def out1():
+  return f"Render UI: {x2()}"
+
+@render.text
+def out2():
+  return f"Render text: {x2()}"
+```
+
+::: callout-note
+
+Reactive calculations can read any reactive dependency (e.g., `input`, `reactive.value`, and `@reactive.calc`) as well as be read by any reactive function (i.e., `@render.*`, `@reactive.effect`, and `@reactive.calc`). This makes, itself, both a reactive dependency and a reactive function.
+:::
+
+
+
+## Side effects {#effects}
+
+Often times it's useful to perform side effects (e.g., write to a database, send an email, etc) in response to changes in reactive dependencies (e.g., `input` values).
+`@reactive.effect` is designed for this purpose: it expects a function which doesn't return anything, but get used for its side effect(s).
+In programming lingo, a side effect is when a function modifies state other than its return value.
+
+For a basic example, lets write every value of a slider as it changes to the UI:
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 200
+from shiny import reactive
+from shiny.express import input, ui
+
+ui.input_slider("x", "Slider value", min=0, max=100, value=10)
+
+@reactive.effect
+def _():
+    ui.insert_ui(ui.p(input.x()), selector="#x", where="afterEnd")
+```
+
+
+
+::: callout-note
+### Event-based side effects
+
+Often times, you'll want to perform a side effect in response to a specific event (e.g., a button click).
+In the [next article](reactive-patterns.qmd), we'll cover how to do this with `@reactive.event`.
+:::
+
+::: callout-warning
+A better way to implement the example above, which allows us to keep a history of all values, is covered in [Reactive values with `reactive.value`](#value-dependencies).
+:::
+
+
+## Reactive values {#values}
+
+A `reactive.value`, like an `input` value, is a reactive dependency (i.e., they can be used to invalidate reactive functions).
+Unlike `input` values, they're not necessarily bound to input controls and can have their value updated programmatically.
+This makes them primarily useful for maintaining state in an app.
+
+For example, lets track the history of slider values visited by a user through a `reactive.value`.
+When initialized, it takes an initial value (here, an empty list).
+Then, a `@reactive.effect` appends the slider value whenever it changes.
+Note also, that since we are both getting and setting `vals` in the `@reactive.effect`, we need  `@reactive.event` to prevent an infinite loop.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 200
+
+from shiny import reactive, render
+from shiny.express import input, ui
+
+ui.input_slider("x", "Slider value", min=0, max=100, value=10)
+
+vals = reactive.value([])
+
+# Track the history of the slider
+@reactive.effect
+@reactive.event(input.x)
+def _():
+    vals.set([input.x()] + vals())
+
+@render.ui
+def out():
+    return [ui.p(x) for x in vals()]
+```
+
+::: callout-note
+### Maintaining state
+
+Reactive values are often used to maintain state in an app. Here we're using it to keep track of the history of a slider, but they can be used for many other things as well (what pages/tabs have been visited, what points have been clicked on a plot, etc.).
+:::
+
+
+::: callout-warning
+Be careful when using mutable objects (e.g., lists, dicts, etc.) as reactive values.
+If you modify the object in-place, Shiny won't know that it's changed and won't invalidate any reactive functions that depend on it.
+See the article on [handling mutability](reactive-mutable.qmd) for more.
+:::

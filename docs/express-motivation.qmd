@@ -1,0 +1,27 @@
+---
+title: Motivation
+editor:
+  markdown:
+    wrap: sentence
+format:
+  html:
+    include-in-header: assets/head-content.html
+---
+
+This article covers the difference, overlap, and translation between _Express_ and _Core_ apps.
+As the name suggests, Express is a simpler way to learn and write Shiny apps, but it's also more limited.
+As a result, we recommend Express for learning and simple apps, but Core for more serious projects that require more flexibility and [modularity](modules.qmd).
+
+### Why might I switch? {#why-switch}
+
+There are a few reasons you might want to switch from Express to Core:
+
+* Redirecting outputs (big plot functions -- git diff)
+* Decoupling helps with refactoring UI
+* Programming with UI
+  - Imperative vs functional
+* Code organization
+  - Express is easier to write, but harder to read
+* Modules
+* Understanding lifecycle
+* Session state
