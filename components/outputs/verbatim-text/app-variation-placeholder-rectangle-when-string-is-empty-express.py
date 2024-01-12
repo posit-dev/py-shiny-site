@@ -1,14 +1,11 @@
-# FIXME: Rewrite as an Express app
-from shiny import App, render, ui
+from shiny import render
+from shiny.express import input, suspend_display, ui
 
-app_ui = ui.page_fluid(
-    ui.input_text("Text", "Enter Text", ""),
-    ui.output_text_verbatim("text", placeholder = True) #<<
-)
+ui.input_text("Text", "Enter Text", "")
+ui.output_text_verbatim("text", placeholder=True)  # <<
 
-def server(input, output, session):
-    @render.text #<<
+with suspend_display():  # <<
+
+    @render.text  # <<
     def text():
         return input.Text()
-
-app = App(app_ui, server)
