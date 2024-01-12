@@ -1,64 +1,17 @@
-import os
 import logging
+import os
+
 import yaml as yml
+from _qmd import find_qmds, get_qmd_split
 
 lg = logging.getLogger("migrate")
 if len(lg.handlers) == 0:
-    formatter = logging.Formatter('%(levelname)s %(message)s')
+    formatter = logging.Formatter("%(levelname)s %(message)s")
     console_handler = logging.StreamHandler()
     console_handler.setFormatter(formatter)
     lg.addHandler(console_handler)
     lg.setLevel(logging.INFO)
 
-def find_qmds(dir, exclude):
-    qmd_list = [p for p in os.listdir(dir) if p.endswith(".qmd")]
-    qmd_list = [os.path.join(dir, p) for p in qmd_list if p not in exclude]
-    return qmd_list
-
-
-def slug_from_path(path):
-    return os.path.splitext(os.path.basename(path))[0]
-
-
-def get_qmd_split(path):
-    with open(path, "r") as f:
-        lines = f.readlines()
-
-    yaml = []
-    body = []
-
-    in_yaml = False
-    found_yaml = False
-
-    for i, line in enumerate(lines):
-        # if the line starts with ---, we're in the yaml
-        if line.startswith("---"):
-            if (found_yaml):
-                body.append(line)
-                continue
-
-            if (not in_yaml):
-                in_yaml = True
-                continue
-
-            found_yaml = True
-            in_yaml = False
-            continue
-
-        if in_yaml:
-            yaml.append(line)
-        else:
-            body.append(line)
-
-    meta = yml.safe_load("".join(yaml))
-    if (os.path.basename(path) == "index.qmd"):
-        meta["_slug"] = slug_from_path(os.path.dirname(path))
-        meta["_dir"] = os.path.dirname(path)
-    else:
-        meta["_slug"] = slug_from_path(path)
-        meta["_dir"] = os.path.join(os.path.dirname(path), meta["_slug"])
-
-    return (meta, "".join(body))
 
 def extract_component_parts(path):
     if isinstance(path, str):
@@ -75,15 +28,15 @@ def extract_component_parts(path):
     if "preview" in meta:
         info["preview"] = meta["preview"]
 
-    if ("previewapp" in meta):
+    if "previewapp" in meta:
         info["appPreview"] = {"code": meta["previewapp"]}
 
-    if (not "listing" in meta):
+    if not "listing" in meta:
         return info
 
     # Find the core app from the listing keys
     listing = meta["listing"]
-    if (not isinstance(listing, list)):
+    if not isinstance(listing, list):
         listing = [listing]
 
     # if listing is an array, then it should be the component
@@ -93,7 +46,7 @@ def extract_component_parts(path):
                 info["relevantFunctions"] = l["contents"][0]["relevantfunctions"]
                 info["example"] = {
                     "code": l["contents"][0]["code"],
-                    "shinylive": l["contents"][0]["preview"]
+                    "shinylive": l["contents"][0]["preview"],
                 }
 
                 if "height" in l["contents"][0]:
@@ -107,6 +60,7 @@ def extract_component_parts(path):
                     del variation["preview"]
 
     return info
+
 
 def write_new_component_dir(path):
     meta, body = get_qmd_split(path)
@@ -141,7 +95,7 @@ def write_new_component_dir(path):
             "template-params": {
                 "dir": info["_dir"] + "/",
             },
-            "contents": []
+            "contents": [],
         }
 
         base = {}
@@ -150,15 +104,9 @@ def write_new_component_dir(path):
         if "shinylive" in info["example"]:
             base["shinylive"] = info["example"]["shinylive"]
 
-        core = {
-            "title": "Core",
-            "file": "app-core.py"
-        }
+        core = {"title": "Core", "file": "app-core.py"}
 
-        express = {
-            "title": "Express",
-            "file": "app-express.py"
-        }
+        express = {"title": "Express", "file": "app-express.py"}
 
         core.update(base)
         express.update(base)
@@ -186,7 +134,7 @@ def write_new_component_dir(path):
             "template-params": {
                 "dir": info["_dir"] + "/",
             },
-            "contents": info["relevantFunctions"]
+            "contents": info["relevantFunctions"],
         }
 
         new_meta["listing"].append(l_relevant)
@@ -199,7 +147,7 @@ def write_new_component_dir(path):
             "template-params": {
                 "dir": info["_dir"] + "/",
             },
-            "contents": []
+            "contents": [],
         }
 
         for variation in info["variations"]:
@@ -214,13 +162,17 @@ def write_new_component_dir(path):
                 {
                     "title": "Core",
                     "file": f"app-variation-{var_slug}-core.py",
-                    "shinylive": variation.get("shinylive", "#FIXME: Add shinylive link")
+                    "shinylive": variation.get(
+                        "shinylive", "#FIXME: Add shinylive link"
+                    ),
                 },
                 {
                     "title": "Express",
                     "file": f"app-variation-{var_slug}-express.py",
-                    "shinylive": variation.get("shinylive", "#FIXME: Add shinylive link")
-                }
+                    "shinylive": variation.get(
+                        "shinylive", "#FIXME: Add shinylive link"
+                    ),
+                },
             ]
 
             if "height" in variation:
@@ -239,7 +191,6 @@ def write_new_component_dir(path):
                 f.write("# FIXME: Rewrite as an Express app\n")
                 f.write(variation["code"])
 
-
         new_meta["listing"].append(l_variations)
 
     # Write out index.qmd
@@ -248,9 +199,15 @@ def write_new_component_dir(path):
         f.write("---\n")
         f.write(yml.dump(new_meta, sort_keys=False, indent=2, default_flow_style=False))
         f.write("---\n\n")
-        f.write(body.replace(":::{#component}\n:::", ":::{#example}\n:::\n\n:::{#relevant-functions}\n:::"))
+        f.write(
+            body.replace(
+                ":::{#component}\n:::",
+                ":::{#example}\n:::\n\n:::{#relevant-functions}\n:::",
+            )
+        )
 
-def migrate_directory(dir, exclude = [], clean=False):
+
+def migrate_directory(dir, exclude=[], clean=False):
     qmd_list = find_qmds(dir, exclude)
     for qmd in qmd_list:
         lg.info(f"Processing {qmd}")
@@ -258,6 +215,7 @@ def migrate_directory(dir, exclude = [], clean=False):
         if clean:
             os.remove(qmd)
         lg.info(f"\u2713 Migrated {qmd}")
+
 
 def migrate_all(dirs):
     for dir in dirs:
@@ -272,8 +230,8 @@ def rewrite_preview_app(qmd):
     if not "listing" in meta:
         return
 
-    from shinylive import decode_shinylive_url, encode_shinylive_url
     import shinylive._url as shlive
+    from shinylive import decode_shinylive_url, encode_shinylive_url
 
     ex_listing = [e for e in meta["listing"] if e["id"] == "example"][0]
     examples = ex_listing["contents"]
@@ -282,10 +240,7 @@ def rewrite_preview_app(qmd):
 
     app_preview_bundle = decode_shinylive_url(shinylive_urls[0])
 
-    preview = {
-        "title": "Preview",
-        "file": "app-detail-preview.py"
-    }
+    preview = {"title": "Preview", "file": "app-detail-preview.py"}
 
     if "height" in examples[0]:
         preview["height"] = examples[0]["height"]
@@ -316,7 +271,8 @@ def rewrite_preview_app(qmd):
         f.write(body.strip())
         f.write("\n")
 
-def step2_migrate_dirs(dirs, exclude = []):
+
+def step2_migrate_dirs(dirs, exclude=[]):
     index_qmds = []
 
     for dir in dirs:
