@@ -42,6 +42,9 @@ function addShinyliveEditLinks() {
       }
     }
 
+    if (window.bootstrap?.Tooltip) {
+      new bootstrap.Tooltip(link)
+    }
     el.removeAttribute('data-shinylive')
   })
 }
