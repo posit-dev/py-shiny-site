@@ -1757,3 +1757,12 @@ pre.console code {
 .tab-content pre.console {
   margin-bottom: 0px;
 }
+
+// Tweak line highlights styles
+body:not(.modal-open) div.sourceCode:hover pre {
+  &, &.highlight {
+    code.has-line-highlights > span:not(.highlight-line) {
+      opacity: 0.8;
+    }
+  }
+}
