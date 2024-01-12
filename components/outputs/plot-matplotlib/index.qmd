@@ -15,7 +15,7 @@ listing:
     dir: components/outputs/plot-matplotlib/
   contents:
   - title: Preview
-    file: app-detail-preview.py
+    file: app-core.py
     height: 500
   - title: Express
     file: app-express.py
@@ -47,6 +47,9 @@ listing:
       from within your computations to filter tables, perform calculations, and so
       on.
     apps:
+    - title: Preview
+      file: app-variation-plot-as-input-core.py
+      height: 720
     - title: Express
       file: app-variation-plot-as-input-express.py
       shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQgAzRsRjSoXeI1SUA5gFcaEKXQbMWPKABMA+toj7DE+UpUsJAC0PYWJpqwCC6HgsjJSWcIzBBvLyaKjWBiwAvCwGWFA6cNYKXAaWABTyLMWpNBjEepyVtjxkhRAljSyyYKJy+M0NTcWE-IQA1kkAKox6cMEAxAA8U0XdLJYCXL00A8Oj4yzTs13d7sQAbhHrY5Mzc90Cox4ncFvnuywAlHgXzWAAwn39iC2vj2kKlUyNYKAAPEFHRgCDh0QpELj9P7SLhQQhwfZccKMW4vN4tAAiFSWdy+qx+fzegMqqGq4MhERhZDhLUWy0RyO4aIxxCxxxGYzxjxaAAlDhFfvgqWUgbSQfTrFCmSywO4DoxOaj0Zjsbj-o0WgAha7uSkAmU0ulwCGKxmwmDwq4eTXcnX8jZCp4xCDhBRuCJQ-KGOXBWWVYISOASCQ0UhPX6PAACoR9ESwtXy6jISRa-hYngkZGIOkYsBaXsevpRvHy8bejUsfpSFhsdgcRlr9ZK7GjyQWCmALQExEs2GsPYk1h0LQAul3igIaFwuH3G4OwIvl9YuLoyO5xzBZ975iiyBgJIQOBRGPkJ8FN1wKyeZBgwaiBHAuPCALKSKT5HQvTAJ95hfbB30-eFDSXFcABld3cFhbxgICQO6F9mT4OB4QABV0AwGl-XsDikaDlxYeD7D3ctjxKZMwjTek3irXp+lrBMT1CMg9EYBpg0qdNeGsFYBk7CA3no1NGAwJjKzgP02VY9j5xCOBuN4nwIDlQSQUU74xIklNsRk605Dkv01RvOtHkaLieL4rSBLaax9kDCtDIY6TZIbeSWCddxlJsko7I0-iz2cq49A8MST29OI+0CVBM3QBIaAjAMImCcIBD0HRcTAABfGcgA

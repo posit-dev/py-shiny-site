@@ -1,3 +1,4 @@
+# ruff: noqa
 ## file: app.py
 from shiny import App, render, ui
 from shiny.types import ImgData

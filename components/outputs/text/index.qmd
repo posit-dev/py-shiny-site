@@ -10,7 +10,7 @@ listing:
     dir: components/outputs/text/
   contents:
   - title: Preview
-    file: app-detail-preview.py
+    file: app-core.py
     height: 200
   - title: Express
     file: app-express.py
@@ -38,6 +38,8 @@ listing:
     description: Set `inline=True` within `ui.output_text()` to have text appear inline
       with the text that preceeds it.
     apps:
+    - title: Preview
+      file: app-variation-inline-text-core.py
     - title: Express
       file: app-variation-inline-text-express.py
       shinylive: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKymigA8ydsABU4H2V8JhCAUXI5Jm8yEIkQgAk4CwtiJgBlTm4QgEo8e0cQgE1iBSZKCilpRDDQwzKyNw9Yv1j43ggLLjg9Jn86BThc1RGIRwmwiFkaVjkANzkbV3cJRuaJFjgWFg5SXMRChwABKWm5DHbxxxmYoN8Do8mpMgU6cZWyDECfGzH1dB9MSoGwabQcTYLOS5MAAXwAukA

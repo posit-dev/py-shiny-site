@@ -1,21 +1,27 @@
-# FIXME: Rewrite as an Express app
 import faicons
-from shiny import App, Inputs, Outputs, Session, render, ui
+from shiny import render
+from shiny.express import input, ui
 
-app_ui = ui.page_fluid(
-    ui.input_slider("n", "Number of Billions", 1, 100, 20),  #<<
-    ui.value_box(
-        title="KPI Title",
-        showcase=faicons.icon_svg('piggy-bank', width="50px"),
-        value=ui.output_text("billions"),  #<<
-        theme="bg-gradient-indigo-purple",
-        full_screen=True,
-    ),
-)
+with ui.layout_columns():
+    ui.h2("Spend Jeff's 2023 Earnings")
+    ui.input_slider("pct", "Percent of $70 Billion to donate", 0, 100, 20)  # <<
 
-def server(input, output, session):
-    @render.text  #<<
-    def billions():  #<<
-        return f"${input.n()} Billion Dollars"  #<<
+    with ui.value_box(
+        showcase=faicons.icon_svg("piggy-bank", width="50px"),
+        theme="bg-gradient-orange-red",
+    ):
+        "Save"
 
-app = App(app_ui, server)
+        @render.ui  # <<
+        def save():  # <<
+            return f"${(1 - input.pct() / 100) * 70:.1f} Billion"  # <<
+
+    with ui.value_box(
+        showcase=faicons.icon_svg("hand-holding-dollar", width="50px"),
+        theme="bg-gradient-blue-purple",
+    ):
+        "Donate"
+
+        @render.ui  # <<
+        def donate():  # <<
+            return f"${input.pct() / 100 * 70:.1f} Billion"  # <<
