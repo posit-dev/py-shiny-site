@@ -1657,3 +1657,44 @@ btn.action-button:hover {
 .border-bottom.blue {
   border-bottom: 1px solid #007BB7 !important;
 }
+
+// Shiny Mode Tabset Code Window
+.shiny-mode-tabset {
+  > .nav-tabs,
+  > .nav-tabs > .nav-item > .nav-link,
+  > .nav-tabs > .nav-item > .nav-link.active {
+    background-color: var(--bs-blue);
+    color: var(--bs-white);
+  }
+
+	> .nav-tabs {
+		padding-inline: 0.5rem;
+		border-start-end-radius: 0.5rem;
+		border-start-start-radius: 0.5rem;
+		border-bottom: 2px solid var(--bs-blue);
+		justify-content: flex-start !important;
+		font-size: 0.95em;
+		line-height: 1.5;
+
+		> .nav-item {
+			> .nav-link {
+				&:hover {
+					border-bottom-color: transparent !important;
+				}
+				&.active {
+					font-weight: 600;
+					border-bottom-color: var(--bs-white) !important;
+				}
+			}
+		}
+	}
+
+	> .tab-content {
+		padding-top: 0;
+		.sourceCode {
+			border-start-start-radius: 0;
+			border-start-end-radius: 0;
+			border-block-start-width: 0;
+		}
+	}
+}

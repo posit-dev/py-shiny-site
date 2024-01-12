@@ -202,9 +202,9 @@ pre.console code {
 /* Tab styling */
 
 .panel-tabset .nav-tabs {
-  display: flex !important;
-  align-items: flex-end !important;
-  justify-content: flex-end !important;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
   border-bottom: 1px solid #E9ECEF;
   border-top: none;
   border-left: none;
@@ -255,42 +255,4 @@ main a.nav-link:hover {
 .iframe-border {
   border: 1px solid #E9ECEF;
   border-radius: 10px;
-}
-
-/* Shiny App Mode Tabset (Express/Core) */
-
-.shiny-mode-tabset > .nav-tabs {
-  padding-inline: 0.5rem;
-  border-start-end-radius: 0.5rem;
-  border-start-start-radius: 0.5rem;
-  border-bottom: 2px solid var(--bs-blue);
-  justify-content: flex-start !important;
-  font-size: 0.95em;
-  line-height: 1.5;
-}
-
-.shiny-mode-tabset > .nav-tabs,
-.shiny-mode-tabset > .nav-tabs > .nav-item > .nav-link,
-.shiny-mode-tabset > .nav-tabs > .nav-item > .nav-link.active {
-  background-color: var(--bs-blue);
-  color: var(--bs-white);
-}
-
-.shiny-mode-tabset > .nav-tabs > .nav-item > .nav-link:hover {
-  border-bottom-color: transparent !important;
-}
-
-.shiny-mode-tabset > .nav-tabs > .nav-item > .nav-link.active {
-  font-weight: 600;
-  border-bottom-color: var(--bs-white) !important;
-}
-
-.shiny-mode-tabset > .tab-content {
-  padding-top: 0;
-}
-
-.shiny-mode-tabset > .tab-content .sourceCode {
-  border-start-start-radius: 0;
-  border-start-end-radius: 0;
-  border-block-start-width: 0;
 }
