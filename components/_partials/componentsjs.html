@@ -5,4 +5,46 @@ document.querySelectorAll('.tab-pane:first-of-type').forEach((x) => x.classList.
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
+function addShinyliveEditLinks() {
+  const codeWithLink = document.querySelectorAll('.sourceCode[data-shinylive]')
+  codeWithLink.forEach(el => {
+    el.classList.add("code-with-shinylive-link")
+    const url = el.dataset.shinylive
+
+    // <a class="edit-shinylive-button btn btn-link" href="<%= app.shinylive %>" data-bs-toggle="tooltip" data-bs-title="Edit in Shinylive" data-bs-placement="bottom">
+    //  <i class="bi bi-lightning-fill"></i> <span class="visually-hidden">Edit in Shinylive</span>
+    // </a>
+
+    const link = document.createElement('a')
+    link.classList.add('edit-shinylive-button', 'btn', 'btn-link')
+    link.href = url
+    link.dataset.bsToggle = 'tooltip'
+    link.dataset.bsTitle = 'Edit in Shinylive'
+    link.dataset.bsPlacement = 'bottom'
+
+    const icon = document.createElement('i')
+    icon.classList.add('bi', 'bi-lightning-fill')
+    link.appendChild(icon)
+
+    const span = document.createElement('span')
+    span.classList.add('visually-hidden')
+    span.innerText = 'Edit in Shinylive'
+    link.appendChild(span)
+
+    const btnCopy = el.querySelector('.code-copy-button')
+    if (btnCopy) {
+      btnCopy.parentElement.insertBefore(link, btnCopy)
+    } else {
+      if (el.matches('pre')) {
+        el.appendChild(link)
+      } else {
+        el.querySelector('pre').appendChild(link)
+      }
+    }
+
+    el.removeAttribute('data-shinylive')
+  })
+}
+
+addShinyliveEditLinks()
 </script>

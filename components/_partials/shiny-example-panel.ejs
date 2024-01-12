@@ -21,19 +21,9 @@
 <% for (const app of codeApps) { %>
 ### <%= app.title %>
 
-::: {.code-with-shinylive-link}
-```{.python .code-overflow-scroll}
+```{.python .code-overflow-scroll <%=app.shinylive ? `shinylive="${app.shinylive}"` : '' %>}
 <%= Deno.readTextFileSync((appDir || '') + app.file) %>
 ```
-
-<% if (app.shinylive) { %>
-```{=html}
-<a class="edit-shinylive-button btn btn-link" href="<%= app.shinylive %>" data-bs-toggle="tooltip" data-bs-title="Edit in Shinylive" data-bs-placement="bottom">
-  <i class="bi bi-lightning-fill"></i> <span class="visually-hidden">Edit in Shinylive</span>
-</a>
-```
-<% } %>
-:::
 
 <% } %>
 
