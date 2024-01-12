@@ -1,5 +1,8 @@
 ---
 title: "Custom JavaScript component"
+format:
+  html:
+    include-in-header: assets/head-content.html
 ---
 
 In this post, you will learn how to create a custom element and accompanying output binding in Shiny. This is useful if you want to create an output that is not currently in Shiny for your app.
@@ -190,7 +193,7 @@ def output_tabulator(id, height="200px"):
 
 
 :::{.callout-note}
-We use the `HTMLDependency` function to bind up the assets needed for tabulator that we made in the previous step to make sure th at they're included in our app whenever the `output_tabulator()` function is called (but not more than once).
+We use the `HTMLDependency` function to bind up the assets needed for tabulator that we made in the previous step to make sure that they're included in our app whenever the `output_tabulator()` function is called (but not more than once).
 
 Note the use of `all_files=True` here. This makes it so we can do the ESM import of the Tabulator library. Otherwise `tabulator_esm.min.js` would not be hosted and the JS library wouldn't be able to find it.
 :::
@@ -214,7 +217,7 @@ from shiny.render.transformer import (
 )
 
 
-@output_transformer
+@output_transformer(default_ui=output_tabulator)
 async def render_tabulator(
     _meta: TransformerMetadata,
     _fn: ValueFn[pd.DataFrame | None],
@@ -292,10 +295,32 @@ This returned value is then what gets sent to the client side and is available i
 
 Now we have all the components neccesary to use our tabulator output component. Here's an app that uses it to render some number of rows of the indomitable `mtcars` dataset.
 
+::: {.panel-tabset .panel-underline .border-0 .justify-content-center}
+
+### Express
+
 ```{.python filename="app.py"}
-from shiny import ui, App
 from pathlib import Path
 import pandas as pd
+from shiny.express import input, ui
+
+# Code for the custom output
+...
+
+# App code
+ui.input_slider("n", "Number of rows to show", 1, 20, 10)
+
+@render_tabulator
+def tabulatorTable():
+    return pd.read_csv(Path(__file__).parent / "mtcars.csv").head(input.n())
+```
+
+### Core
+
+```{.python filename="app.py"}
+from pathlib import Path
+import pandas as pd
+from shiny import ui, App
 
 # Code for the custom output
 ...
@@ -315,6 +340,10 @@ def server(input, output, session):
 
 app = App(app_ui, server)
 ```
+
+:::
+
+
 
 Which results in the following app:
 

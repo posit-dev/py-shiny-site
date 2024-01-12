@@ -1,61 +1,102 @@
 ---
-title: "UI and HTML"
+title: "UI as HTML"
+format: html
 ---
 
-The user interface (UI) of a Shiny application is HTML, but in most cases, you will use wrapper functions that make it easier to create the HTML. To get the most out of user interfaces, it's important to understand the relationship between Shiny's UI functions and the HTML that they generate.
 
-UI components are available via the `shiny.ui` submodule. At the most basic level, you can create HTML tags by calling a correspondingly named function. For example, to create a `<div>` tag, you would call `ui.div()`.
+Underneath the hood, Shiny UI stands on a foundation of HTML, CSS, and JavaScript.
+In fact, if you print a UI component in a Python REPL, you'll see its HTML representation:
 
 ```{shinylive-python}
 #| components: [editor, cell]
-
 from shiny import ui
-ui.div("Hello!")
+ui.input_action_button("btn", "Button")
 ```
 
-Tags can be nested:
+## Creating HTML
+
+Shiny provides some convenience for creating HTML, like `ui.markdown()`:
 
 ```{shinylive-python}
 #| components: [editor, cell]
-
-ui.div("Hello", ui.span("World"), "!")
+from shiny import ui
+ui.markdown("Hello **world**!")
 ```
 
-You can provide tag attributes (like `href`) with named arguments. Note that in Python, named arguments must go after unnamed arguments.
+Also, `ui.HTML()` for raw HTML:
 
 ```{shinylive-python}
 #| components: [editor, cell]
-
-ui.a("Help", href="help.html")
+from shiny import ui
+ui.HTML("<p>Hello <strong>world</strong>!</p>")
 ```
 
-Another way to do it is by passing in a dictionary of attributes. You can use the `{}` syntax or `dict()`:
+As well as common HTML tags like `ui.div()`, `ui.span()`, `ui.p()`, `ui.h2()`, etc.
 
 ```{shinylive-python}
 #| components: [editor, cell]
+from shiny import ui
+ui.div("Hello", ui.span("world"), "!")
+```
 
+Also, less common tags are available under `ui.tags`:
+
+```{shinylive-python}
+#| components: [editor, cell]
+from shiny import ui
+ui.tags.video(src="video.mp4")
+```
+
+## HTML tag objects
+
+One benefit working with formal `Tag` object (e.g., `ui.div()`) is that you can use its methods and attributes to:
+
+1. Add/remove HTML attributes like `class` and `style`.
+2. Add/remove child tags.
+3. `show()` to view the HTML in a browser:
+
+```{shinylive-python}
+#| components: [editor, cell]
+from shiny import ui
+x = ui.div("Hello")
+x.add_style("color:red;")
+# x.show()
+```
+
+That said, you can also provide HTML attributes when creating the `Tag` (via either named arguments or a dictionary):
+
+```{shinylive-python}
+#| components: [editor, cell]
+from shiny import ui
 # Both of these are equivalent:
+ui.a("Help", href="help.html")
 ui.a({"href": "help.html"}, "Help")
-ui.a(dict(href="help.html"), "Help")
 ```
 
-In Python, there are some reserved keywords which can't be used as argument names, such as `class`. To get around this, you can either use a dictionary as above, or append an underscore to the argument. If there's a trailing `_`, it will be stripped off when creating the tag object.
+::: {.callout-tip collapse="true"}
+### Reserved keywords like class
+
+In Python, there are some reserved keywords which can't be used as argument names, such as `class`.
+To get around this, you can either use a dictionary as above, or append an underscore to the argument.
+If there's a trailing `_`, it will be stripped off when creating the tag object.
 
 ```{shinylive-python}
 #| components: [editor, cell]
-
+from shiny import ui
 # Two ways of doing the same thing
 ui.a({"href": "help.html", "class": "help-link"}, "Help")
 ui.a("Help", href="help.html", class_="help-link")
+<a href="help.html">Help</a>
 ```
+:::
 
-For convenience, common tags like `div`, `span`, and `a` are available directly from the `ui` submodule. All HTML tags are also available via `ui.tags`, so if you need to use a less common tag like `li`, you can use `ui.tags.li()`
+## List fragments
 
-Sometimes it it useful to return several tag objects together, but in a way where they are not nested within another tag. You can use a `TagList()` for this:
+Sometimes it's useful to create a list fragment of HTML -- use a `TagList()` for this.
 
 ```{shinylive-python}
 #| components: [editor, cell]
-
+from shiny import ui
 ui.TagList(
     ui.div("Hello"),
     ui.span("World"),
@@ -63,55 +104,48 @@ ui.TagList(
 )
 ```
 
+## `<head>` content
 
-## UI components
+Sometimes it's useful to include content in the `<head>` of the document, like CSS, JavaScript, `<meta>` tags, etc.
+To do this, use `ui.head_content()`, which can be placed anywhere in the UI to include content in the `<head>` of the document.
 
-Most Shiny UI code doesn't require you to use functions like `div()` to write raw HTML. Instead, there are convenience functions that wrap up the HTML tags.
-
-For example, `ui.input_checkbox()` generates the following HTML:
-
-```{shinylive-python}
-#| components: [editor, cell]
-
-ui.input_checkbox("enable", "Enable?")
-```
-
-A complete UI for a Shiny app will put components in a `page_` function. Here is a simple page with a checkbox input and a text output.
-
-```{shinylive-python}
-#| components: [editor, cell]
-
+```python
 from shiny import ui
 
-ui.page_fluid(
-    ui.input_checkbox("enable", "Enable?"),
-    ui.output_text_verbatim("txt"),
+ui.head_content(
+    ui.tags.meta(name="robots", content="noindex")
 )
 ```
 
-Broadly speaking, there are three categories of UI components: layout components, inputs, and outputs. The `page_fluid()` is a layout component, and it contains one input and one output.
+Note that if you find yourself using `ui.head_content()` to import CSS and JavaScript that should only be included once, you might want to consider using `HTMLDependency()` instead (see below).
 
-:::{.callout-tip}
-## Shiny for Python compared to R
+## HTML Dependencies
 
-In Shiny for Python, the page-related functions start with `page_`, the input-related functions start with `input_`, and the output-related functions start with `output_`. This is different from Shiny for R, where the functions are named `fluidPage`, `checkboxInput`, and `textOutput`.
-:::
+Sometimes it's useful to have more reassurance that CSS/Javascript files are only loaded once, even they happen to be included in multiple places in the UI (e.g., loading a framework like React).
+The `HTMLDependency()` class helps with this, and can be included as a child of any `Tag`/`TagList` object.
+When rendered, the `HTMLDependency()` will be included in the `<head>` of the document with the appropriate `<link>` and `<script>` tags.
+Here's some pseudo-code to illustrate how one might use it:
 
+```python
+from shiny import ui
 
-This is what the application looks like. Note that there's no server logic, so it doesn't actually _do_ anything yet.
-
-```{shinylive-python}
-#| standalone: true
-#| components: [editor, viewer]
-#| layout: vertical
-
-from shiny import App, ui
-
-app_ui = ui.page_fluid(
-    ui.input_checkbox("enable", "Enable?"),
-    ui.h3("Is it enabled?"),
-    ui.output_text_verbatim("txt", placeholder=True),
-)
-
-app = App(app_ui, None)
+def my_ui(x):
+    return ui.TagList(
+        x,
+        ui.HTMLDependency(
+            name="my-ui",
+            version="0.1.0",
+            source={"subdir": ...},
+            stylesheet=[{"href": "my-ui.css"}],
+            script=[{"src": "my-ui.js"}],
+        )
+    )
 ```
+
+For concrete examples, and to learn more, see the articles on creating [custom Shiny bindings](custom-component-one-off.qmd).
+
+
+## HTML-like objects
+
+If you've created a custom Python object that you'd like to be able to render as a Shiny UI object, you can either create a full-blown [Shiny binding](custom-component-one-off.qmd) and/or implement a [`_repr_html_` method](https://ipython.readthedocs.io/en/stable/config/integrating.html#rich-display).
+The former approach is recommended if it's important to access the object's state from Python, while the latter is recommended if the object is just a simple container for HTML (plus, it should also work in Jupyter notebooks).

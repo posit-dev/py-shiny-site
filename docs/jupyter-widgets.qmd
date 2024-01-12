@@ -1,0 +1,263 @@
+---
+title: "Jupyter widgets"
+aliases:
+  - ipywidgets.html
+---
+
+The [shinywidgets](https://github.com/posit-dev/py-shinywidgets) package enables rendering of [ipywidgets](https://ipywidgets.readthedocs.io/en/latest/) (i.e., Jupyter Widgets) in Shiny.
+Many Python packages are compatible with ipywidgets, including:
+
+- Interactive graphs, like [plotly](https://plotly.com/python/figurewidget/) and [altair](https://pypi.org/project/altair).
+- Maps, like [ipyleaflet](https://ipyleaflet.readthedocs.io/en/latest/usage/index.html) and [pydeck](https://deckgl.readthedocs.io/en/latest/index.html).
+- Tables, [ipydatagrid](https://pypi.org/project/ipydatagrid) and [ipysheet](https://pypi.org/project/ipysheet).
+- 3D visualizations, like [ipyvolume](https://pypi.org/project/ipyvolume) and [pythreejs](https://pypi.org/project/pythreejs).
+- Media streaming, like [ipywebrtc](https://pypi.org/project/ipywebrtc).
+
+In this article, we'll learn how to leverage ipywidgets in Shiny, including how to [render](#get-started) them, [efficiently update](#efficient-updates) them, and [access user interaction](#access-user-interaction).
+
+
+## Installation
+
+To leverage ipywidgets in Shiny, start by installing [shinywidgets](https://github.com/posit-dev/py-shinywidgets), then install any ipywidget implementations you'd like to use.
+In this article, we'll use `plotly` and `ipyleaflet`:
+
+```bash
+pip install shinywidgets
+pip install plotly ipyleaflet
+```
+
+## Get started {#get-started}
+
+Rendering ipywidgets with `{shinywidgets}` works like most other Shiny [outputs](quick-start.qmd#outputs).
+The main difference is that, instead of using a `@render.*` decorator, you'll use a `@render_widget` decorator.
+Let's consider an example of displaying a [plotly](https://plotly.com/python/plotly-express/) graph that reacts to changes in Shiny input controls:
+
+```{shinylive-python}
+#| standalone: true
+#| layout: vertical
+#| components: [editor, viewer]
+#| viewerHeight: 350
+from shiny import ui
+from shiny.express import input
+from shinywidgets import render_widget
+import plotly.express as px
+
+df = px.data.tips()
+
+ui.layout_columns(
+    ui.input_select("x", "Variable", choices=["total_bill", "tip", "size"]),
+    ui.input_select("color", "Color", choices=["smoker", "sex", "day", "time"])
+)
+
+@render_widget
+def histogram():
+    fig = px.histogram(df, x=input.x(), color=input.color(), marginal="rug")
+    fig.layout.height = 275
+    return fig
+
+## file: requirements.txt
+plotly
+pandas
+```
+
+::: callout-tip
+## Rendering ipywidgets-compatible objects
+
+Although `@render_widget` expects a return value that subclasses `ipywidgets.Widget`, it has special awareness of some known classes that can be coerced to a `Widget` subclass (e.g., it coerces `plotly`'s `Figure`->`FigureWidget`, `altair`'s `Chart` -> `JupyterChart`, etc).
+:::
+
+
+In the example above, the `histogram` gets _fully re-rendered_ every time the input values change.
+This is fine for simple cases, but can be unnecessairly slow and cause flickering in some cases.
+In the next section, we'll learn how to make more efficient updates.
+
+
+## Efficient updates {#efficient-updates}
+
+If you've used ipywidgets before, you may know that widgets have [properties](https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20Basics.html#widget-properties) (aka "traitlets") that can be updated in-place.
+For example, in a notebook, you may have written a code cell like this to first display a map:
+
+```python
+import ipyleaflet as ipyl
+map = ipyl.Map()
+```
+
+Then, in a later cell, you may have updated the map's `center` property to change the map's location:
+
+```python
+map.center = (51, 0)
+```
+
+With shinywidgets, we can do the same property updates _reactively_ in Shiny.
+The main thing to know is to access the widget instance through the `widget` property of the `@render_widget`-decorated function.
+For example, the following code creates a map, then updates the map's center whenever the dropdown changes.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 400
+from shiny import ui, reactive
+from shiny.express import input
+from shinywidgets import render_widget
+import ipyleaflet as ipyl
+
+city_centers = {
+    "London": (51.5074, 0.1278),
+    "Paris": (48.8566, 2.3522),
+    "New York": (40.7128, -74.0060)
+}
+
+ui.input_select("center", "Center", choices=list(city_centers.keys()))
+
+@render_widget
+def map():
+    return ipyl.Map(zoom=4)
+
+@reactive.effect
+def _():
+    map.widget.center = city_centers[input.center()]
+## file: requirements.txt
+ipyleaflet
+```
+
+::: callout-note
+## Re-render vs update in-place
+
+If the app above had used `@render_widget` instead of `@reactive.effect` to perform the update, then the map gets re-rendered from stratch every time `input.center` changes, which causes the map to flicker (instead of a smooth transition to the new location).
+:::
+
+
+
+## Access user interaction {#access-user-interaction}
+
+There are two main ways to access user interaction with ipywidgets in Shiny:
+
+1. [Reactive properties](#reactive-read)
+2. [Capturing widget events](#capturing-widget-events)
+
+Assuming the user interaction you're interested in is available through a widget property, then the first approach is usually the best/easiest choice.
+
+
+### Reactive properties {#reactive-read}
+
+If you've used ipywidgets before, you may know that widgets have [properties](https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20Basics.html#widget-properties) (aka "traitlets") that can be accessed and observed.
+For example, in a notebook, you may have written a code cell like this to first display a map:
+
+```python
+import ipyleaflet as ipyl
+map = ipyl.Map()
+```
+
+Then, in a later cell, you may have read the map's `center` property to get the current map's location:
+
+```python
+map.center
+```
+
+With shinywidgets, we can do the same property reads _reactively_ in Shiny.
+The main thing to know is to access the widget instance through the `widget` property of the `@render_widget`-decorated function.
+For example, the following example creates a `map`, then displays the current `center` location via `@render.text`:
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 450
+import ipyleaflet as ipyl
+from shinywidgets import reactive_read, render_widget
+from shiny import render
+import shiny.express
+
+@render_widget
+def map():
+    return ipyl.Map(zoom=2)
+
+@render.text
+def center():
+    cntr = reactive_read(map.widget, 'center')
+    return f"Current center: {cntr}"
+## file: requirements.txt
+ipyleaflet
+```
+
+::: callout-note
+
+Pan and zoom on the map above to see the center location update reactively.
+:::
+
+::: callout-warning
+## Observable properties
+
+Only [observable](https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20Events.html#traitlet-events) properties can be used with `reactive_read()`.
+To see which properties are observable, you can use the `has_trait()` method on the `widget` instance.
+:::
+
+
+### Capturing widget events
+
+Sometimes, you may want to capture user interaction that isn't available through a widget property.
+For example, `ipyleaflet.CircleMarker` has an `.on_click()` method that allows you to execute a callback when a marker is clicked. In this case, you'll want to define a callback that updates some `reactive.value` everytime its triggered to capture the relevant information. That way, the callback information can be used to cause invalidation of other outputs (or trigger reactive side-effects):
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 450
+import ipyleaflet as ipyl
+from shinywidgets import render_widget
+import shiny.express
+from shiny import reactive, render
+
+# Stores the number of clicks
+n_clicks = reactive.value(0)
+
+# A click callback that updates the reactive value
+def on_click(**kwargs):
+    n_clicks.set(n_clicks() + 1)
+
+# Create the map, add the CircleMarker, and register the map with Shiny
+@render_widget
+def map():
+    cm = ipyl.CircleMarker(location=(55, 360))
+    cm.on_click(on_click)
+    m = ipyl.Map(center=(53, 354), zoom=5)
+    m.add_layer(cm)
+    return m
+
+@render.text
+def nClicks():
+    return f"Number of clicks: {n_clicks.get()}"
+## file: requirements.txt
+ipyleaflet
+```
+
+
+## Troubleshooting
+
+If after [installing](#installation) `{shinywidgets}`, you have trouble rendering widgets,
+first try running this "hello world" ipywidgets [example](https://github.com/rstudio/py-shinywidgets/blob/main/examples/ipywidgets/app.py).
+If that doesn't work, it could be that you have an unsupported version of a dependency like `{ipywidgets}` or `{shiny}`.
+
+If you can run the "hello world" example, but "3rd party" widget(s) don't work, first
+check that the extension is properly configured with `jupyter nbextension list`.
+Even if the extension is properly configured, it still may not work right away, here are some possible reasons why:
+
+1. The widget requires initialization code to work in a notebook environment.
+  * In this case, `{shinywidgets}` probably won't work without providing the equivalent setup information to Shiny. A known case of this is bokeh, which is why shinywidgets includes a [`bokeh_dependency()` function](https://github.com/posit-dev/py-shinywidgets/blob/255a0d15d74828c28999cdce3fe9a0b5c2795016/examples/outputs/app.py#L26).
+2. Not all widgets are compatible with ipywidgets!
+  * Some web-based widgets in Python aren't compatible with the ipywidgets framework, but do provide a `repr_html` method for getting the HTML representation (e.g., [folium](https://python-visualization.github.io/folium/latest/)). It may be possible to display these widgets using Shiny's [`@render.ui`](../api/ui.render_ui.html) decorator, but be aware that, you may not be able to: (1) access user interactions or (2) efficiently update the widget.
+3. The widget itself is broken.
+  * If you think this is the case, try running the code in a notebook to see if it works there. If it doesn't work in a notebook, then it's likely a problem with the widget itself (and the issue should be reported to the widget's maintainers).
+4. The widget is otherwise misconfigured (or your offline).
+  * `{shinywidgets}` tries its best to load widget dependencies from local files, but if it fails to do so, it will try to load them from a CDN. If you're offline, then the CDN won't work, and the widget will fail to load. If you're online, and the widget still fails to load, then please let us know by [opening an issue](https://github.com/posit-dev/py-shinywidgets/issues/new).
+
+## Examples
+
+For more shinywidgets examples, see the `examples/` directory in the [shinywidgets repo](https://github.com/posit-dev/py-shinywidgets/) (the [outputs](https://github.com/posit-dev/py-shinywidgets/tree/main/examples/outputs) shows many different types of ipywidgets).
+
+
+### For widget developers
+
+If you'd like to create your own widget that works with shinywidgets, we highly recommend using the [anywidget](https://anywidget.dev/) framework to develop your widget.
+Also, if only care about Shiny integration, and not Jupyter, then you may want to consider using a [custom Shiny binding](custom-component-one-off.qmd) instead of shinywidgets.

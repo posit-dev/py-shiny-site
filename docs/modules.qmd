@@ -1,5 +1,7 @@
 ---
 title: Shiny Modules
+aliases:
+  - workflow-modules.html
 ---
 ## Introduction
 
@@ -13,6 +15,12 @@ This article explains the basics of why we need modules and how to use them, and
 ::: callout-note
 Note that while Shiny modules are analogous to [Python modules](https://docs.python.org/3/tutorial/modules.html), they are not the same.
 Python modules are a generic way to organize objects in a namespace, while Shiny modules are used to encapsulate reactive components in a namespace.
+:::
+
+::: callout-warning
+### Shiny core only
+
+Modules currently aren't usable in [Shiny Express](express-vs-core.qmd) apps.
 :::
 
 
@@ -283,4 +291,4 @@ This allows you to break your app up into building blocks of various sizes, comp
 Whenever you find that your Shiny code is repetitive, you should consider whether it's worth extracting some logic into a function or a module.
 This article has gone through the basics of modules to explain what they are, why we need them, and how to include them in your application.
 Once you start using modules, the natural next question is how to communicate between different modules and the rest of the application.
-To learn more about that see the [module communication](workflow-module-communication.qmd) article.
+To learn more about that see the [module communication](module-communication.qmd) article.
