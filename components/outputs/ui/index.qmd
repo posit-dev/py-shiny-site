@@ -29,28 +29,22 @@ listing:
   - title: '@render.ui'
     href: https://shiny.posit.co/py/api/render.ui.html
     signature: render.ui(_fn=None)
+  - title: '@render.display'
+    href: https://shiny.posit.co/py/api/render.display.html
+    signature: render.display(_fn=None)
 - id: variations
   template: ../../_partials/components-variations.ejs
   template-params:
     dir: components/outputs/ui/
   contents:
   - title: Create dependent controls
-    description: 'You can use `@render.ui()` and `ui.output_ui()` to create a set
-      of controls that
-
-      are dependent on a setting in your app. In this example, we show a different
-      set
-
-      of options when the app is in "plot" or "table" mode.
-
+    description: 'You can use `@render.ui` or `@render.display` and `ui.output_ui()`
+      to create a set of controls that are dependent on a setting in your app. In this
+      example, we show a different set of options when the app is in "plot" or "table" mode.
 
       Note that we use the current input values or a default value when creating the
-
       dependent controls. Without this, the values are re-initialized every time and
-
-      forget previous user input.
-
-      '
+      forget previous user input.'
     apps:
     - title: Preview
       file: app-variation-update-an-input-core.py
