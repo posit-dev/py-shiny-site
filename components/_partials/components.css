@@ -113,71 +113,12 @@ a.component-list-header-text:hover ~ div.component-list-icon p a i.component-lin
 }
 
 /* detail page styling */
-.app-preview .sourceCode {
-  padding: 0;
-  box-shadow: none;
-  margin-block: 1em;
-}
-
-.app-preview .shinylive-wrapper {
-  margin: 0;
-  padding: 1em;
-  background-color: var(--bs-body-bg);
-}
-
 .tab-content {
   margin-top: 0px;
   border: 0px;
   margin-left: 0;
   padding: 1em 0px;
   margin-bottom: 1em;
-}
-
-/* improve position of code copy button */
-div.sourceCode > pre.sourceCode {
-  position: static;
-}
-
-.code-with-filename {
-  position: relative;
-}
-
-.code-with-filename .code-copy-button {
-  top: 2em;
-}
-
-.code-with-shinylive-link {
-  position: relative;
-}
-
-.code-with-shinylive-link .edit-shinylive-button {
-  position: absolute;
-  top: 0.35em;
-  right: 2.5em;
-  --bs-btn-color: rgb(94, 94, 94);
-  --bs-btn-padding-x: 0;
-  --bs-btn-padding-y: 0;
-}
-
-code.sourceCode,
-pre.console code {
-  padding: 0.25rem 1rem 0.25rem 0.25rem;
-}
-
-.code-with-filename div.sourceCode,
-.reveal .code-with-filename div.sourceCode {
-  margin-top: 0;
-  border-top-left-radius: 0%;
-  border-top-right-radius: 0%;
-}
-
-.tab-pane div.sourceCode {
-  margin-top: 0px;
-}
-
-.tab-content div.sourceCode,
-.tab-content pre.console {
-  margin-bottom: 0px;
 }
 
 .component-hr:last-of-type {
