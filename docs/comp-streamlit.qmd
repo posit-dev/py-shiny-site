@@ -260,9 +260,9 @@ st.pyplot(dist_plot(filt_df))
 
 # Customizing UI
 
-Since Shiny embraces [UI as HTML](ui-html.qmd), it's relatively easy to do bespoke [UI customizations](ui-customize.html).
+Shiny embraces [UI as HTML](ui-html.qmd), and as a result it's relatively easy to implement bespoke [UI customizations](ui-customize.html).
 For example, lets change the color of one button without changing the colors of any other buttons in our app.
-Since Shiny allow you to add HTML attributes like `class`/`style`, and provides a CSS framework ([Bootstrap](https://getbootstrap.com/docs/5.3/getting-started/introduction/)), we can make primary button by just adding an appropriate `class` attribute.
+Since Shiny allows you to add HTML attributes like `class`/`style`, and provides a CSS framework ([Bootstrap](https://getbootstrap.com/docs/5.3/getting-started/introduction/)), we can make primary button by just adding an appropriate `class` attribute.
 
 ```{shinylive-python}
 #| standalone: true
