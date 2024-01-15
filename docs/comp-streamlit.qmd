@@ -116,10 +116,10 @@ In order to benefit from Shiny's execution model, you need to organize your code
 For example, take this part of the application code:
 
 ``` python
-@reactive.Calc
+@reactive.calc
 def filtered_data():
     filt_df = df.copy()
-    filt_df = filt_df.loc[df["Body Mass (g)"] < input.mass()]
+    filt_df = filt_df.loc[df["body_mass_g"] < input.mass()]
     return filt_df
 
 @render.plot
@@ -132,7 +132,7 @@ def scatter():
 ```
 
 These functions define the three main nodes of the application, as well as the relationships between them.
-The `@render.plot` and `@reactive.Calc` decorators identify the functions as reactive functions which need to re-execute in response to upstream changes, and the `filtered_data()` and `input.*` calls define the relationships between these components.
+The `@render.plot` and `@reactive.calc` decorators identify the functions as reactive functions which need to re-execute in response to upstream changes, and the `filtered_data()` and `input.*` calls define the relationships between these components.
 The decorators allow Shiny to construct a computation graph of the application as it runs, and only rerender an element when one of its upstream dependencies changes.
 
 ```{mermaid}
@@ -147,7 +147,7 @@ flowchart LR
 
 Organizing your app this way means that you can extend the application without rewriting it.
 For example, let's add a button which resets the slider.
-In Shiny you can do this by adding a `@reactive.Effect` function which calls the `ui.update_slider()` function.
+In Shiny you can do this by adding a `@reactive.effect` function which calls the `ui.update_slider()` function.
 This adds a node to the computation graph and everything works as you'd expect it to.
 Importantly, we can extend the application without changing how we think about the overall application.
 
@@ -258,26 +258,21 @@ st.pyplot(dist_plot(filt_df))
 ```
 
 
-## Changing the button style
+# Customizing UI
 
-Some common web development tasks are quite difficult in Streamlit.
-For example, let's say we want to change the color of one button without changing the colors of any other buttons in our app.
-The UI structure that you use to define your Shiny app is designed to work seamlessly with CSS and JavaScript, so all that's required to change the button color is to pass a `style` argument with CSS attributes.
-In addition to including inline CSS like this, you can add a CSS class to any element, or include global CSS or JavaScript assets using `include_css()` or `include_js()`.
+Since Shiny embraces [UI as HTML](ui-html.qmd), it's relatively easy to do bespoke [UI customizations](ui-customize.html).
+For example, lets change the color of one button without changing the colors of any other buttons in our app.
+Since Shiny allow you to add HTML attributes like `class`/`style`, and provides a CSS framework ([Bootstrap](https://getbootstrap.com/docs/5.3/getting-started/introduction/)), we can make primary button by just adding an appropriate `class` attribute.
 
-```{.python}
-from shiny import ui
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 100
+from shiny.express import ui
 
-app_ui = ui.page_fluid(
-    ui.input_action_button(
-        "red",
-        "Red Button",
-        style="background: red",
-    ),
-    ui.input_action_button("gray", "Gray Button"),
-)
-
-app = App(app_ui, None)
+ui.input_action_button("default", "Default Button")
+ui.input_action_button("primary", "Primary Button", class_="btn-outline-primary")
 ```
 
 You might not need to customize the CSS of your app that often, but it's important to have the option if your application calls for it.
@@ -314,7 +309,7 @@ def ChangeButtonColour(widget_label, font_color, background_color="transparent")
 ChangeButtonColour("red", "white", "red")
 ```
 
-Despite its complexity, this is the best way to change the style of an individual element in Streamlit
+Despite its complexity, this is the best way to change the style of an individual element in Streamlit.
 How this pattern works is:
 
 - Return an empty html component with a script tag

@@ -4,11 +4,11 @@ import pandas as pd
 from palmerpenguins import load_penguins
 from plots import dist_plot, scatter_plot
 from shiny import reactive, render, ui
-from shiny.express import input, layout
+from shiny.express import input, ui
 
 df = load_penguins()
 
-with layout.sidebar():
+with ui.sidebar():
     ui.input_slider("mass", "Mass", 2000, 8000, 6000)
     ui.input_checkbox("smoother", "Add Smoother")
 
@@ -16,18 +16,18 @@ with layout.sidebar():
 @reactive.Calc
 def filtered_data():
     filt_df = df.copy()
-    filt_df = filt_df.loc[df["Body Mass (g)"] < input.mass()]
+    filt_df = filt_df.loc[df["body_mass_g"] < input.mass()]
     return filt_df
 
 
-with layout.card():
+with ui.card():
 
     @render.plot
     def scatter():
         return scatter_plot(filtered_data(), input.smoother())
 
 
-with layout.card():
+with ui.card():
 
     @render.plot
     def mass_distribution():

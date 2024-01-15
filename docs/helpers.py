@@ -98,7 +98,7 @@ def include_shiny_folder(
     )
 
 
-def express_tabs(path: str, viewer_height: str) -> None:
+def express_tabs(path: str, viewer_height: str = "400px") -> None:
     """
     This function creates a tabbed view of the Shiny Express and Classic versions.
     You should point it to a folder with two shiny app files, `express.py` which
