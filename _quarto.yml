@@ -64,7 +64,7 @@ website:
     logo-alt: The logo for Shiny for Python
     search: true
     left:
-      - text: "Learn Shiny"
+      - text: "Learn"
         file: docs/overview.qmd
       - text: "Install"
         href: docs/install.qmd
@@ -82,7 +82,7 @@ website:
       - text: "Examples"
         href: https://shinylive.io/py/examples/
         target: _blank
-      - text: "Function Reference"
+      - text: "Reference"
         href: api/index.qmd
       - text: "Help"
         href: docs/help.qmd

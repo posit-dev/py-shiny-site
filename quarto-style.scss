@@ -1663,3 +1663,14 @@ btn.action-button:hover {
 .border-bottom.blue {
   border-bottom: 1px solid #007BB7 !important;
 }
+
+
+// TODO Remove this lil hack after rc-express is merged. 
+
+@media only screen and (max-width: 1020px) and (min-width: 992px) {
+  .navbar-expand-lg .navbar-nav .nav-link {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+
