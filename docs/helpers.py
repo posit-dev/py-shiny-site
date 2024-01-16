@@ -29,7 +29,7 @@ def _include_shiny_folder(
     path: str,
     file_name: str = "app.py",
     exclusions: List[str] = [],
-    components: str = "editor, viewer",
+    components: Sequence[str] = ("editor", "viewer"),
     viewer_height: str = "800",
     extra_object: Any = "",
 ) -> QuartoPrint:
@@ -40,7 +40,7 @@ def _include_shiny_folder(
         [
             "```{shinylive-python}",
             "#| standalone: true",
-            f"#| components: [{components}]",
+            f"#| components: [{', '.join(components)}]",
             "#| layout: horizontal",
             f"#| viewerHeight: {viewer_height}",
         ]
@@ -113,7 +113,7 @@ def express_tabs(path: str, viewer_height: str = "400px") -> None:
     """
     block = QuartoPrint(
         [
-            "::: {.panel-tabset group='express-switcher'}",
+            "::: {.panel-tabset .shiny-mode-tabset group='shiny-app-mode'}",
             "## Express",
         ]
     )
