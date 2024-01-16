@@ -19,10 +19,10 @@ If you want to use a virtual environment, feel free to create/activate one now:
 
 ```bash
 # Create a virtual environment in the .venv subdirectory
-python3 -m venv venv
+python3 -m venv .venv
 
 # Activate the virtual environment
-source venv/bin/activate
+source .venv/bin/activate
 ```
 
 It is also a good idea to upgrade `pip` and install `wheel`:

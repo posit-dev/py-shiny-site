@@ -55,6 +55,7 @@ $font-family-sans-serif: "Open Sans", Roboto, "Helvetica Neue", Arial,
   "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 $font-family-monospace: "Source Code Pro", SFMono-Regular, Menlo, Monaco,
   Consolas, "Liberation Mono", "Courier New", monospace;
+$code-font-size: 0.9em;
 $gradient: linear-gradient(
   180deg,
   rgba(255, 255, 255, 0.15),
@@ -103,12 +104,12 @@ $box-shadow:
   0px 3px 7px rgba(29, 31, 33,.1),
   0px 12px 30px rgba(29, 31, 33,.08) !default;
 
-$box-shadow-sm: 
-  0px 1px 2px rgba(29,31,33,.1), 
-  0px 2px 3px rgba(29,31,33,.1), 
+$box-shadow-sm:
+  0px 1px 2px rgba(29,31,33,.1),
+  0px 2px 3px rgba(29,31,33,.1),
   0px 3px 8px rgba(29,31,33,.08) !default;
 
-  
+
 // A shiny-preset-specific variable, hoping Bootstrap adds something like this
 $box-shadow-dark:
   0px 1px 2px rgba(0, 0, 0,.1),
@@ -237,7 +238,6 @@ h6 {
 
 code {
   color: inherit;
-  font-size: 80%;
   padding: 4px 0;
 }
 
@@ -340,6 +340,10 @@ div.callout-important.callout-style-default .callout-header {
   .sidebar-subtitle {
     margin-top: 1.5rem;
     vertical-align: baseline;
+  }
+  .breadcrumb .sidebar-subtitle {
+    margin-top: 0;
+    vertical-align: -2px;
   }
   .sidebar-title:not(.page-navigation .sidebar-title) {
     margin-left: -25px;
@@ -1361,6 +1365,11 @@ a.gallery-meta {
   width: 33%;
 }
 
+// Special colwidths for first column of api index tables
+.doc-index table td:first-child {
+  text-wrap: nowrap;
+}
+
 // tables without borders
 .table-simple {
   border: none !important;
@@ -1517,6 +1526,27 @@ code .parameter-default a {
   color: $link-color;
 }
 
+// Indent parameter descriptions in API docs
+#parameters {
+  dt code {
+    font-size: 0.95em;
+    background: none;
+  }
+
+  dd {
+    margin-top: 0.25rem;
+    margin-left: 2rem;
+  }
+
+  dd, dt {
+    p:first-child {
+      margin-top: 0;
+    }
+  }
+}
+
+
+
 // badge shenanigans
 .badge {
   padding: 0.675rem 2rem;
@@ -1612,7 +1642,7 @@ div.hero-carousel {
 }
 
 // Shiny Components library
- 
+
 // Replicate Action Buttons
 
 btn.action-button {
