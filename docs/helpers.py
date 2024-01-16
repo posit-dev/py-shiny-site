@@ -98,11 +98,11 @@ def include_shiny_folder(
     )
 
 
-def express_tabs(path: str, viewer_height: str = "400px") -> None:
+def express_editor_tabs(path: str, viewer_height: str = "400px") -> None:
     """
-    This function creates a tabbed view of the Shiny Express and Classic versions.
-    You should point it to a folder with two shiny app files, `express.py` which
-    defines the express implementation and `classic.py` which defines the classic one.
+    This function creates a tabbed view of the Shiny Express and Core versions.
+    You should point it to a folder with two shiny app files, `app-express.py` which
+    defines the express implementation and `app-core.py` which defines the core one.
 
     This function is designed to be called within a python chunk whose output is set
     to be "asis" with `#| output: asis`.
@@ -121,14 +121,14 @@ def express_tabs(path: str, viewer_height: str = "400px") -> None:
         _include_shiny_folder(
             path,
             "app-express.py",
-            exclusions=["app-classic.py"],
+            exclusions=["app-core.py"],
         )
     )
-    block.append("## Classic")
+    block.append("## Core")
     block.extend(
         _include_shiny_folder(
             path,
-            "app-classic.py",
+            "app-core.py",
             exclusions=["app-express.py"],
         )
     )

@@ -10,7 +10,7 @@ include-in-header:
 
 ```{python}
 #| echo: false
-from helpers import express_tabs
+from helpers import express_editor_tabs
 ```
 
 The idea of Streamlit is to simplify application development by rerunning the entire application script whenever any user input changes.
@@ -103,7 +103,7 @@ The framework does this automatically when the application is run, and so you do
 #| output: asis
 #| echo: false
 
-express_tabs("apps/comp-streamlit/penguins")
+express_editor_tabs("apps/comp-streamlit/penguins")
 
 ```
 :::
@@ -165,7 +165,7 @@ flowchart LR
 #| echo: false
 #| output: asis
 
-express_tabs("apps/comp-streamlit/slider-update")
+express_editor_tabs("apps/comp-streamlit/slider-update")
 ```
 :::
 
