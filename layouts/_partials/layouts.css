@@ -9,6 +9,7 @@
 @media only screen and (min-width: 992px) {
   #quarto-sidebar>* {
       padding: 1.5em 0.75em 1.5em 2em;
+      margin-right: 1.5em;
   }
 }
 
@@ -127,6 +128,34 @@ a.component-list-header-text:hover ~ div.component-list-icon p a i.component-lin
   }
 }
 
+@media only screen and (min-width:992px) {
+  .components-hero-img {
+    margin-left: -60px;
+    width: 550px;
+  }
+  .components-hero-img-container {
+    margin-top: auto;
+    margin-bottom: auto;
+    overflow: hidden;
+    margin-right: -2.5rem;
+    margin-left: -1.5rem;
+  }
+}
+
+@media only screen and (min-width:1350px) {
+  .components-hero-img {
+    margin-left: -60px;
+    width: 650px;
+  }
+  .components-hero-img-container {
+    margin-top: auto;
+    margin-bottom: auto;
+    overflow: hidden;
+    margin-right: -2.5rem;
+    margin-left: 1.5rem;
+  }
+}
+
 /* detail page styling */
 
 .tab-content {
@@ -144,7 +173,8 @@ pre.console code {
 
 .code-with-filename div.sourceCode,
 .reveal .code-with-filename div.sourceCode {
-  margin-top: 0;
+  margin-top: 0px;
+  margin-bottom: 1em;
   border-top-left-radius: 0%;
   border-top-right-radius: 0%;
 }

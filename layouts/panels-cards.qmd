@@ -63,7 +63,7 @@ def server(input, output, session):
 app = App(app_ui, server)
 ```
 
-<p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGPjosRrT1nUJqZYNmTKoWiAPT+LMSSrnAYkhAsqIZQ7BgkMP5QALQAbhxwAO4pxDQpqTAh5FBcKXRQEHopWRxkbCksZFB0LCll9XCNANbYKQAcAIocAJIADJJwAJowAMyDHhKWzla1JvXuYACMY2MApIvLK2xwHDobHjv7HkdMAJR4t9LaEHCGSlAARsHGFA4rVmeqEqbyUWTehn+AKcQJB7zIdUMcAsYAAIhUdDovkimMDXoYPA9btCPCITCYmG84PByCwmCc6HAbo4AUSWSs1hcwLNdqgAB6HdnOOhnLybACsY35guhZGIqAlUoF+GJ1hMGKxnyRagAKnRJrc2Xc5CaICY4DRWHA6GlrWYuKhJGQJCEfE6JCw4CwWBxSHdELdgd7TQp0OpROgzIoVBwPdbbXQ7mAAL4AXSAA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
+<p class="text-end my-0 p-90 me-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGPjosRrT1nUJqZYNmTKoWiAPT+LMSSrnAYkhAsqIZQ7BgkMP5QALQAbhxwAO4pxDQpqTAh5FBcKXRQEHopWRxkbCksZFB0LCll9XCNANbYKQAcAIocAJIADJJwAJowAMyDHhKWzla1JvXuYACMY2MApIvLK2xwHDobHjv7HkdMAJR4t9LaEHCGSlAARsHGFA4rVmeqEqbyUWTehn+AKcQJB7zIdUMcAsYAAIhUdDovkimMDXoYPA9btCPCITCYmG84PByCwmCc6HAbo4AUSWSs1hcwLNdqgAB6HdnOOhnLybACsY35guhZGIqAlUoF+GJ1hMGKxnyRagAKnRJrc2Xc5CaICY4DRWHA6GlrWYuKhJGQJCEfE6JCw4CwWBxSHdELdgd7TQp0OpROgzIoVBwPdbbXQ7mAAL4AXSAA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
   
 Follow these steps to create an app that has a panel floating over a main image. 
@@ -116,7 +116,7 @@ def server(input, output, session):
 app = App(app_ui, server)
 ```
 
-<p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwkBJCKklkWAHQhq0qAPrSmAXikcsUAOZwtNADbSAJgAo1TJ4YyEode4+ffpr9za02OCgbODoHMABhfyYARiYgkLCVMABKPC9vJ19UCOiPOKYAI2IbbBT0zKzfLkUyLRZLDlDwlMbm5PwmFIBlJpaUiQAGCViRpgBWSohvaZ8jNw8HGazshf9A4Ja8mIAmBK3OudWXXJT8myZ9krKKjJXVmoUlLQoADzII97JB7rARGyXb6-FIVKrTVJqNShGisMIANzCdlqSgkxCUdQkLDgLBYHFIqUQVVQUFxUOg6H0onQdk0OhkcLoiLoqTAAF8ALpAA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
+<p class="text-end my-0 p-90 me-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwkBJCKklkWAHQhq0qAPrSmAXikcsUAOZwtNADbSAJgAo1TJ4YyEode4+ffpr9za02OCgbODoHMABhfyYARiYgkLCVMABKPC9vJ19UCOiPOKYAI2IbbBT0zKzfLkUyLRZLDlDwlMbm5PwmFIBlJpaUiQAGCViRpgBWSohvaZ8jNw8HGazshf9A4Ja8mIAmBK3OudWXXJT8myZ9krKKjJXVmoUlLQoADzII97JB7rARGyXb6-FIVKrTVJqNShGisMIANzCdlqSgkxCUdQkLDgLBYHFIqUQVVQUFxUOg6H0onQdk0OhkcLoiLoqTAAF8ALpAA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 
 :::
 

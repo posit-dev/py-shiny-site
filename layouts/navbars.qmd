@@ -44,7 +44,7 @@ app = App(app_ui, server)
 ```
 
 
-<p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEugA3AEZQ6ACiZymNzRiNLUUCHAA25mWBGeJngAq6cKJMJOSUZJ4AlL4QtnYOTi7ungBCPlZgAXpMKSGkFORRMXHS9lCGjs5uHmAAwun+gUy1eWGFYNFWsbZkHGSucGqeYqhMAO59bExGpnQN3TYcACZDkOWznl2RXXJLcDSscHSGR+ZcqJJkEsSXF1eHLCwcpJGI1rZOj3IK6Oqi6OZFCoOBIWEcTnRImAAL4AXSAA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
+<p class="text-end my-0 p-90 me-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEugA3AEZQ6ACiZymNzRiNLUUCHAA25mWBGeJngAq6cKJMJOSUZJ4AlL4QtnYOTi7ungBCPlZgAXpMKSGkFORRMXHS9lCGjs5uHmAAwun+gUy1eWGFYNFWsbZkHGSucGqeYqhMAO59bExGpnQN3TYcACZDkOWznl2RXXJLcDSscHSGR+ZcqJJkEsSXF1eHLCwcpJGI1rZOj3IK6Oqi6OZFCoOBIWEcTnRImAAL4AXSAA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 
 :::
 
@@ -91,7 +91,7 @@ def server(input, output, session):
 app = App(app_ui, server)
 ```
 
-<p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEugA3AEZQ6ACiZymNzRiNLUUCHAA25mWBGeJngAq6cKJMJOSUZJ4AlL4QtnYOTi7ungBCPlZgAXpMKSGkFORRMXHS9lCGjs5uHmAAwun+gUy1eWGFYNFWsbZkHGSucGqeYqhMAO59bExGpnQN3TYcACZDkOWz83ECLH0cpKs0HAAecEsAtMbEZGSMPnKRXXJLcDSscHSG7+ZcqJJkEsQ-r9-m8WDtSJFENZbE4wXIFOh1KJ0OZFCoOBIWO9PnRImAAL4AXSAA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
+<p class="text-end my-0 p-90 me-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEugA3AEZQ6ACiZymNzRiNLUUCHAA25mWBGeJngAq6cKJMJOSUZJ4AlL4QtnYOTi7ungBCPlZgAXpMKSGkFORRMXHS9lCGjs5uHmAAwun+gUy1eWGFYNFWsbZkHGSucGqeYqhMAO59bExGpnQN3TYcACZDkOWz83ECLH0cpKs0HAAecEsAtMbEZGSMPnKRXXJLcDSscHSG7+ZcqJJkEsQ-r9-m8WDtSJFENZbE4wXIFOh1KJ0OZFCoOBIWO9PnRImAAL4AXSAA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
 
 Follow these steps to add a navbar to the bottom of your app: 

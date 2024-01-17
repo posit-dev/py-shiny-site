@@ -35,7 +35,7 @@ Tabs and navigation allow you to create apps that have multiple pages.
 
 :::{.column-screen-inset-right style="max-width:800px;"}
 
-<iframe style="height:150px;" class="mb-0 w-100 iframe-border" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGaADcWcMktQdDhixGveb9l1Ag4DxkwERCJEIAFXThRJhJySjIQgEo8Sx8raVsoO39A4LAAIXCmKJimIvjSCnJU9K9M31z8oIswAGFS8r0mDurEurA0jMzsv3gISU8mnxCAeTI2ODomQy4AaxZw0dnmvNQAtpCAEW6waN6Tgdrk4Ya96xCAWlfnncbH07gWQjoOVBkDikRAfR5ZLR+BJkBjBT7giEYKDtADqcAARusIBtSmw6HAaGoQgBVABKABlSmQoHQ9GQiWAlJiAjjhrtZiN4d5ObMOCZ1GUwNT0SFdik5OL5BATATWCs7CszFxUJIyBJiKqVWq5SwWMCIClQfDDrq5Ap0AKxKgzIoVBwJI46Aq6JKwABfAC6QA" title="Tabset with pill navigation">
+<iframe style="height:190px;" class="mb-0 w-100 iframe-border" src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGaADcWcMktQdDhixGveb9l1Ag4DxkwERCJEIAFXThRJhJySjIQgEo8Sx8raVsoO39A4LAAIXCmKJimIvjSCnJU9K9M31z8oIswAGFS8r0mDurEurA0jMzsv3gISU8mnxCAeTI2ODomQy4AaxZw0dnmvNQAtpCAEW6waN6Tgdrk4Ya96xCAWlfnncbH07gWQjoOVBkDikRAfR5ZLR+BJkBjBT7giEYKDtADqcAARusIBtSmw6HAaGoQgBVABKABlSmQoHQ9GQiWAlJiAjjhrtZiN4d5ObMOCZ1GUwNT0SFdik5OL5BATATWCs7CszFxUJIyBJiKqVWq5SwWMCIClQfDDrq5Ap0AKxKgzIoVBwJI46Aq6JKwABfAC6QA" title="Tabset with pill navigation">
 </iframe> 
 
 
@@ -66,7 +66,7 @@ def server(input, output, session):
 app = App(app_ui, server)
 ```
 
-<p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGaADcWcMktQdDhixGveb9l1Ag4DxkwERCJEIAFXThRJhJySjIQgEo8Sx8raVsoO39A4LAAIXCmKJimIvjSCnJU9K9M31z8oIswAGFS8r0mDurEurA0jMzsv3gISU8mnxCAeTI2ODomQy4AaxZw0dnmvNQAtpCAEW6waN6Tgdrk4Ya96xCAWlfnncbH07gWQjoOVBkDikRAfR5ZLR+BJkBjBT7giEYKDtADqcAARusIBtSmw6HAaGoQgBVABKABlSmQoHQ9GQiWAlJiAjjhrtZiN4d5ObMOCZ1GUwNT0SFdik5OL5BATATWCs7CszFxUJIyBJiKqVWq5SwWMCIClQfDDrq5Ap0AKxKgzIoVBwJI46Aq6JKwABfAC6QA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
+<p class="text-end my-0 p-90 me-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGaADcWcMktQdDhixGveb9l1Ag4DxkwERCJEIAFXThRJhJySjIQgEo8Sx8raVsoO39A4LAAIXCmKJimIvjSCnJU9K9M31z8oIswAGFS8r0mDurEurA0jMzsv3gISU8mnxCAeTI2ODomQy4AaxZw0dnmvNQAtpCAEW6waN6Tgdrk4Ya96xCAWlfnncbH07gWQjoOVBkDikRAfR5ZLR+BJkBjBT7giEYKDtADqcAARusIBtSmw6HAaGoQgBVABKABlSmQoHQ9GQiWAlJiAjjhrtZiN4d5ObMOCZ1GUwNT0SFdik5OL5BATATWCs7CszFxUJIyBJiKqVWq5SwWMCIClQfDDrq5Ap0AKxKgzIoVBwJI46Aq6JKwABfAC6QA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
 
 Follow these steps to create an app with a tabset with pill navigation layout: 
@@ -117,7 +117,7 @@ def server(input, output, session):
 app = App(app_ui, server)
 ```
 
-<p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGaADcWcMktQdDhpYY4syFiNYCbexcoCDhDCzARGXwmGIAFXThRJhJySjIYgEo8S0CraVsoOxCwiJiAIRiJBKSmCtTSCnJs3P98oOLS8MiAYWq4sES9Jl7G9JawHLz8wuD4CEk-DsCYgHkyNjg6Ji8IAGsWapmVzpLUUJ6YgBEB2pHr8ebMqbbT6xiAWm-P4-b3m5wFiEOgcVBkDikRB-d4FLTBNJkBjlf6wuEYKCRADqcAARnt9gM2HQ4DQ1DEAKoAJQAMgMyFA6HoyOSwEp8aFCVMTitpqiAnyVhwTOpBgzcTETlk5NL5BATKTWNs7NszFxUJIyBJiJqNVqlSwWJCIFloaiSWRJHR-AA5UhwOQKdCisSoMyKFQcCSOOgquhZMAAXwAukA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
+<p class="text-end my-0 p-90 me-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGaADcWcMktQdDhpYY4syFiNYCbexcoCDhDCzARGXwmGIAFXThRJhJySjIYgEo8S0CraVsoOxCwiJiAIRiJBKSmCtTSCnJs3P98oOLS8MiAYWq4sES9Jl7G9JawHLz8wuD4CEk-DsCYgHkyNjg6Ji8IAGsWapmVzpLUUJ6YgBEB2pHr8ebMqbbT6xiAWm-P4-b3m5wFiEOgcVBkDikRB-d4FLTBNJkBjlf6wuEYKCRADqcAARnt9gM2HQ4DQ1DEAKoAJQAMgMyFA6HoyOSwEp8aFCVMTitpqiAnyVhwTOpBgzcTETlk5NL5BATKTWNs7NszFxUJIyBJiJqNVqlSwWJCIFloaiSWRJHR-AA5UhwOQKdCisSoMyKFQcCSOOgquhZMAAXwAukA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
 
 Follow these steps to create an app with a pill list navigation layout. A pill list is a vertical pillset navigation. 
@@ -169,7 +169,7 @@ def server(input, output, session):
 app = App(app_ui, server)
 ```
 
-<p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGaADcWcMkrJQARhYjXvN+0tRQEHCGFmAiMvhMEQAKunCiTCTklGQRAJR4lj5W0rZQdv6BwaEAQhESMXFMJYmkFOTpmV7ZvvmFQSERAMLlUWCxekxdtckNYBlZ2bl+8BCSni0+EQDyZGxwdEyGXADWLOWTi60FAR2hACK9lYPnI-Wp401H1hEAtO+vB83PEedwLIQ6BxUGQOKREF9njktH4kmQGJ1vlDoRgoKEAOpwNzbCA7XpsOhwGhqCIAVQASgAZXquOh6MgksBKbGBPHjQ6LCZI7xcxYcEzqPquNwRQ5pOTi+QQExE1gbOwbMxcVCSMgSYiqlVquUsFhgiBpCFIgK6uQKdCCsSoMyKFQcCSOOgKuhpMAAXwAukA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
+<p class="text-end my-0 p-90 me-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGaADcWcMkrJQARhYjXvN+0tRQEHCGFmAiMvhMEQAKunCiTCTklGQRAJR4lj5W0rZQdv6BwaEAQhESMXFMJYmkFOTpmV7ZvvmFQSERAMLlUWCxekxdtckNYBlZ2bl+8BCSni0+EQDyZGxwdEyGXADWLOWTi60FAR2hACK9lYPnI-Wp401H1hEAtO+vB83PEedwLIQ6BxUGQOKREF9njktH4kmQGJ1vlDoRgoKEAOpwNzbCA7XpsOhwGhqCIAVQASgAZXquOh6MgksBKbGBPHjQ6LCZI7xcxYcEzqPquNwRQ5pOTi+QQExE1gbOwbMxcVCSMgSYiqlVquUsFhgiBpCFIgK6uQKdCCsSoMyKFQcCSOOgKuhpMAAXwAukA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
 
 Follow these steps to create an app with a tab navigation layout:
@@ -220,7 +220,7 @@ def server(input, output, session):
 app = App(app_ui, server)
 ```
 
-<p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGaADcWcMksJQ6JpWSgAjCxGsBNvZKqFAQcIYWYCIy+EyxAAq6cKJMJOSUZLEAlHiWgVbStlB2IWERUQBCsRKJyUyVaaQU5Dl5-gVBJWXhkbEAwjXxYEl6TP1NGa1gufkFRcHwEJJ+nYGxAPJkbHB0TIZcANYsNXNrXaWhvVEAIkN1YzeTLVkz7efWsQC0P1+nHR9Yjc4CxCHQOKgyBxSIh-h9ClpgukyAw+gD4QiMFAogB1ODeA4QQ5DNh0OA0NSxACqACUADJDLx0PRkSlgJQEsLEmZnNazdEBflrDgmdTDLzeWJnbJyGXyCAmcmsXZ2XZmLioSRkCTELWa7XKlgsaEQbKw9GhI1yBToMViVBmRQqDgSRx0VV0bJgAC+AF0gA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
+<p class="text-end my-0 p-90 me-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGaADcWcMksJQ6JpWSgAjCxGsBNvZKqFAQcIYWYCIy+EyxAAq6cKJMJOSUZLEAlHiWgVbStlB2IWERUQBCsRKJyUyVaaQU5Dl5-gVBJWXhkbEAwjXxYEl6TP1NGa1gufkFRcHwEJJ+nYGxAPJkbHB0TIZcANYsNXNrXaWhvVEAIkN1YzeTLVkz7efWsQC0P1+nHR9Yjc4CxCHQOKgyBxSIh-h9ClpgukyAw+gD4QiMFAogB1ODeA4QQ5DNh0OA0NSxACqACUADJDLx0PRkSlgJQEsLEmZnNazdEBflrDgmdTDLzeWJnbJyGXyCAmcmsXZ2XZmLioSRkCTELWa7XKlgsaEQbKw9GhI1yBToMViVBmRQqDgSRx0VV0bJgAC+AF0gA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
 
 Follow these steps to add a card with a tabbed tabset to your app: 
@@ -271,7 +271,7 @@ def server(input, output, session):
 app = App(app_ui, server)
 ```
 
-<p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGaADcWcMksJQ6Jpag6HDFiNYCbe08oCDhfGTARSIlIgAVdOFEmEnJKMkiASjxLQKtpWyg7ELCIsAAhGKZ4xKZylNIKciyc-zygopLwizAAYSqavSZehrTmsGzcvILg+AhJP3bAyIB5MjY4OiZDLgBrFhippY7i1FDuyIARAbAEocvRpoyJ1uPrSIBaL4-DtreruAsQh0DioMgcUiIX5vfJaYKpMgMCJ-GGwjBQHoAdTgACMdhBdlU2HQ4DQ1JEAKoAJQAMlUyG49GRyWAlHjQoSJkclpMUQFeUsOCZ1NUwAycZEjpk5NL5BATKTWJs7JszFxUJIyBJiJqNVqlSwWBCIJkoSizoa5Ap0CKxKgzIoVBwJI46Cq6JkwABfAC6QA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
+<p class="text-end my-0 p-90 me-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGaADcWcMksJQ6Jpag6HDFiNYCbe08oCDhfGTARSIlIgAVdOFEmEnJKMkiASjxLQKtpWyg7ELCIsAAhGKZ4xKZylNIKciyc-zygopLwizAAYSqavSZehrTmsGzcvILg+AhJP3bAyIB5MjY4OiZDLgBrFhippY7i1FDuyIARAbAEocvRpoyJ1uPrSIBaL4-DtreruAsQh0DioMgcUiIX5vfJaYKpMgMCJ-GGwjBQHoAdTgACMdhBdlU2HQ4DQ1JEAKoAJQAMlUyG49GRyWAlHjQoSJkclpMUQFeUsOCZ1NUwAycZEjpk5NL5BATKTWJs7JszFxUJIyBJiJqNVqlSwWBCIJkoSizoa5Ap0CKxKgzIoVBwJI46Cq6JkwABfAC6QA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
 
 Follow these steps to add a card with a pill tabset to your app: 
@@ -316,7 +316,7 @@ def server(input, output, session):
 app = App(app_ui, server)
 ```
 
-<p class="text-end my-0 p-90 me-2 pt-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGKIRJ0THUhYjX3Nuw6eklqKBBwhhZgAMpwhGTObiIy+Exx4ZHRokwk5JRkcQCUeJYeVtK29oI+EH4BQSFJUaRMAEJxEokRtW71aaQU5Dl5bgWeJY7RFYHBLcl1AMJNCWGtKVOdGT1gufkFRV6lI-5j1Qt1ACKzE21MR8vdWWt9A4Peu5Xj85NuAKKnr+fvV5m9Gw8HBMajiXiagPcxFQlHUcxqKViYEB6wg2TkchMcBorDgdAAbnizFxUJIyBJiGTSeTcSwWNFsohAf46RjoOg4WJUGZFCoOBIWHjCXRsmAAL4AXSAA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
+<p class="text-end my-0 p-90 me-2"><a  href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpoAbaQBMAFHKZXNGKIRJ0THUhYjX3Nuw6eklqKBBwhhZgAMpwhGTObiIy+Exx4ZHRokwk5JRkcQCUeJYeVtK29oI+EH4BQSFJUaRMAEJxEokRtW71aaQU5Dl5bgWeJY7RFYHBLcl1AMJNCWGtKVOdGT1gufkFRV6lI-5j1Qt1ACKzE21MR8vdWWt9A4Peu5Xj85NuAKKnr+fvV5m9Gw8HBMajiXiagPcxFQlHUcxqKViYEB6wg2TkchMcBorDgdAAbnizFxUJIyBJiGTSeTcSwWNFsohAf46RjoOg4WJUGZFCoOBIWHjCXRsmAAL4AXSAA"><i class="bi bi-pencil me-1"></i> Edit in Shinylive</a></p>
 :::
 
 Follow these steps to add vertically collapsing accordion panels to your app:

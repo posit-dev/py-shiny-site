@@ -26,7 +26,7 @@ Shiny Layouts
 ::::
 :::: {.g-col-md-5 .g-col-10 .g-start-4 .components-hero-img-container}
 
-<div class="ps-4 pt-5 components-hero-img" >
+<div class="ps-5 pt-5 components-hero-img" >
 <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
 <dotlottie-player src="_partials/layouts.lottie" background="transparent" speed="1" style="width: 100%; height: auto;" autoplay></dotlottie-player>
 </div>
