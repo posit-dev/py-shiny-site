@@ -57,19 +57,6 @@ A navbar adds a navigation bar to your app, allowing users to easily navigate yo
 ::::
 :::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
 ::: {#navbar .grid}
- 
-<style>
-  .layout-list-card {
-    align-content: flex-start;
-    justify-content: space-evenly;
-        overflow: hidden;
-  }
-  .container-fluid {
-        padding-right: 0px;
-    padding-left: 0px;
-  }
-</style>
-
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
