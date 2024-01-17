@@ -91,6 +91,11 @@ a.component-list-header-text:hover ~ div.component-list-icon p a i.component-lin
   color: #000000;
 }
 
+.layout-list-card {
+  align-content: flex-start;
+  justify-content: space-evenly;
+  overflow: hidden;
+}
 /* Hero area of list page */
 
 @media only screen and (max-width:767px) {
@@ -220,11 +225,11 @@ pre.console code {
   color: #48505F;
 }
 
-a.nav-link {
+main a.nav-link {
   color: #343A46;
 }
 
-a.nav-link:hover {
+main a.nav-link:hover {
   color: #1D1F21;
 }
 
@@ -268,3 +273,4 @@ a.nav-link:hover {
   border: 1px solid #E9ECEF;
   border-radius: 10px;
 }
+
