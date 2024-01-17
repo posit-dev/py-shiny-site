@@ -22,7 +22,7 @@ format:
 Shiny Layouts
 :::
 
-##### Layouts allow the simplest or most complicated app to be useable and scalable.  Is it bursting at the seams with content? Quickly change the layout for a fresh start. Fill these layouts with [Shiny Components](https://shiny.posit.co/py/docs/ui-page-layouts.html) to make your app reactive and interactive.
+##### Layouts allow the simplest or most complicated app to be useable and scalable.  Is it bursting at the seams with content? Quickly change the layout for a fresh start. Fill these layouts with [Shiny Components](/components/index.qmd) to make your app reactive and interactive.
 ::::
 :::: {.g-col-md-5 .g-col-10 .g-start-4 .components-hero-img-container}
 

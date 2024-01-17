@@ -38,7 +38,7 @@ listing:
 Shiny Components
 :::
 
-##### Inputs, outputs and display messages to make your data interactive on every device. Add these components to [Shiny Layouts](https://shiny.posit.co/py/docs/ui-page-layouts.html) to make your app a dashboard, article and more.
+##### Inputs, outputs and display messages to make your data interactive on every device. Add these components to [Shiny Layouts](/layouts/index.qmd) to give your app a navbar, sidebar, cards and more.
 
 ::::
 :::: {.g-col-md-5 .g-col-10 .g-start-4 .components-hero-img-container}
