@@ -566,7 +566,7 @@ header.headroom {
 
 @media only screen and (max-width: 991px) {
   .navbar .navbar-toggler {
-    order: 0;
+    order: 4;
     margin-right: initial;
   }
 
@@ -1667,10 +1667,10 @@ btn.action-button:hover {
 
 // TODO Remove this lil hack after rc-express is merged. 
 
-@media only screen and (max-width: 1020px) and (min-width: 992px) {
+@media only screen and (max-width: 1030px) and (min-width: 992px) {
   .navbar-expand-lg .navbar-nav .nav-link {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding-left: 0.4rem !important;
+    padding-right: 0.4rem !important;
   }
 }
 
