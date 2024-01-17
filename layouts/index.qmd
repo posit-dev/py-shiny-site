@@ -157,43 +157,6 @@ A sidebar layout creates a sidebar, typically used for inputs, and a large main 
 
 </div>
 </div>
-
-
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/sidebars.html#sidebar-on-the-left-and-right">
-<h5>Sidebars: Left & Right</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/sidebars.html#sidebar-on-the-left-and-right">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/sidebars.html#sidebar-on-the-left-and-right"><img src="/images/sidebar-left-right.png" class="h-100 w-100"></a></p>
-
-</div>
-</div>
-
-
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/sidebars.html#two-sidebars-on-the-left">
-<h5>Two Sidebars on Left</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/sidebars.html#two-sidebars-on-the-left">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/sidebars.html#two-sidebars-on-the-left"><img src="/images/sidebar-two.png" class="h-100 w-100"></a></p>
-</div>
-</div>
-
  
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
