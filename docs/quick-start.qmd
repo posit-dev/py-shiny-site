@@ -29,8 +29,7 @@ Shiny apps typically start with [input components](/components/#inputs) to gathe
 #| components: [editor, viewer]
 #| layout: vertical
 #| viewerHeight: 150
-from shiny import render
-from shiny.express import input, ui
+from shiny.express import input, render, ui
 
 ui.input_slider("val", "Slider label", min=0, max=100, value=50)
 
@@ -78,8 +77,7 @@ Note that packages like [seaborn](https://seaborn.pydata.org/), [plotnine](https
 #| layout: vertical
 #| viewerHeight: 480
 
-from shiny import render
-from shiny.express import input, ui
+from shiny.express import input, render, ui
 
 ui.input_selectize(
     "var", "Select variable",
@@ -112,8 +110,7 @@ For more sophisticated tables, give the DataFrame to [`render.DataGrid`](https:/
 #| layout: vertical
 #| viewerHeight: 480
 
-from shiny import render
-from shiny.express import input, ui
+from shiny.express import input, render, ui
 
 ui.input_selectize(
     "var", "Select variable",
@@ -132,38 +129,10 @@ palmerpenguins
 
 ##### Widgets
 
-Render any [ipywidget](https://ipywidgets.readthedocs.io/en/stable/) (aka Jupyter Widget) with `@render_widget` from the shinywidgets package.
+The shinywidgets package enables usage of any [ipywidget](https://ipywidgets.readthedocs.io/en/stable/) (aka Jupyter Widget) in Shiny.
 Below are a few examples, but you can learn more in the [Jupyter Widgets article](jupyter-widgets.qmd).
 
 ::: {.panel-tabset .panel-underline .border-0 .p-0 .justify-content-center}
-
-##### Plotly
-
-```{shinylive-python}
-#| standalone: true
-#| components: [editor, viewer]
-#| layout: vertical
-#| viewerHeight: 480
-
-from shiny.express import input, ui
-from shinywidgets import render_widget
-
-ui.input_selectize(
-    "var", "Select variable",
-    choices=["bill_length_mm", "body_mass_g"]
-)
-
-@render_widget
-def hist():
-    import plotly.express as px
-    from palmerpenguins import load_penguins
-    df = load_penguins()
-    return px.histogram(df, x=input.var())
-
-## file: requirements.txt
-palmerpenguins
-plotly
-```
 
 ##### Altair
 
@@ -174,14 +143,14 @@ plotly
 #| viewerHeight: 480
 
 from shiny.express import input, ui
-from shinywidgets import render_widget
+from shinywidgets import render_altair
 
 ui.input_selectize(
     "var", "Select variable",
     choices=["bill_length_mm", "body_mass_g"]
 )
 
-@render_widget
+@render_altair
 def hist():
     import altair as alt
     from palmerpenguins import load_penguins
@@ -206,16 +175,14 @@ jsonschema
 #| viewerHeight: 480
 
 from shiny.express import input, ui
-from shinywidgets import render_widget, bokeh_dependency
+from shinywidgets import render_bokeh
 
 ui.input_selectize(
     "var", "Select variable",
     choices=["bill_length_mm", "body_mass_g"]
 )
 
-bokeh_dependency()
-
-@render_widget
+@render_bokeh
 def hist():
     from bokeh.plotting import figure
     from palmerpenguins import load_penguins
@@ -235,6 +202,34 @@ jupyter_bokeh
 xyzservices
 ```
 
+##### Plotly
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 480
+
+from shiny.express import input, ui
+from shinywidgets import render_plotly
+
+ui.input_selectize(
+    "var", "Select variable",
+    choices=["bill_length_mm", "body_mass_g"]
+)
+
+@render_plotly
+def hist():
+    import plotly.express as px
+    from palmerpenguins import load_penguins
+    df = load_penguins()
+    return px.histogram(df, x=input.var())
+
+## file: requirements.txt
+palmerpenguins
+plotly
+```
+
 ##### Pydeck
 
 ```{shinylive-python}
@@ -243,11 +238,11 @@ xyzservices
 #| layout: vertical
 #| viewerHeight: 480
 
-import shiny.express
-from shinywidgets import render_widget
 import pydeck as pdk
+import shiny.express
+from shinywidgets import render_pydeck
 
-@render_widget
+@render_pydeck
 def map():
     UK_ACCIDENTS_DATA = "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/3d-heatmap/heatmap-data.csv"
 
@@ -313,9 +308,8 @@ Shiny provides a handful of [layout components](/layouts) which help with arrang
 #| components: [editor, viewer]
 #| layout: vertical
 #| viewerHeight: 350
-from shiny import render
-from shiny.express import input, ui
 import plotly.express as px
+from shiny.express import input, render, ui
 from shinywidgets import render_widget
 
 ui.page_opts(title="Sidebar layout", fillable=True)
@@ -339,9 +333,8 @@ pandas
 #| layout: vertical
 #| viewerHeight: 350
 
-from shiny import render
-from shiny.express import input, ui
 import plotly.express as px
+from shiny.express import input, render, ui
 from shinywidgets import render_widget
 
 ui.page_opts(title="Multi-page example", fillable=True)
@@ -371,9 +364,8 @@ pandas
 #| layout: vertical
 #| viewerHeight: 350
 
-from shiny import render
-from shiny.express import input, ui
 import plotly.express as px
+from shiny.express import input, render, ui
 from shinywidgets import render_widget
 
 ui.page_opts(title="Multi-tab example", fillable=True)
@@ -403,9 +395,8 @@ pandas
 #| components: [editor, viewer]
 #| layout: vertical
 #| viewerHeight: 350
-from shiny import render
-from shiny.express import input, ui
 import plotly.express as px
+from shiny.express import input, render, ui
 from shinywidgets import render_widget
 
 ui.page_opts(title="Multi-column example")
@@ -453,8 +444,8 @@ For a quick example, typically `input`s cause _invalidation_ of a reactive funct
 #| layout: vertical
 #| viewerHeight: 50
 from datetime import datetime
-from shiny import reactive, render
-import shiny.express
+from shiny import reactive
+from shiny.express import render
 
 @render.ui
 def clock():
