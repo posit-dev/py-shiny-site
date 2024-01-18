@@ -74,7 +74,7 @@ conda update -c conda-forge shiny
 In the same directory you created above, run:
 
 ```bash
-shiny create .
+shiny create
 ```
 
 This will create a basic Shiny application in the current directory, in a file named `app.py`.
