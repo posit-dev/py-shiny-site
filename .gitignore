@@ -1,6 +1,7 @@
 .ipynb_checkpoints
 /.quarto/
 /venv/
+/.venv/
 /pypi-tmp/
 /pypi/
 /_build/
@@ -13,3 +14,4 @@
 
 /_inv/
 /objects.json
+**/__pycache__
