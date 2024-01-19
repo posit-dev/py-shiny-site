@@ -28,7 +28,7 @@ app_ui = ui.page_fluid(
     ui.hr(),
     ui.input_numeric("x", "x", value=1),
     ui.input_numeric("y", "y", value=2),
-    ui.input_action_button("btn", "Add numbers"),
+    ui.input_task_button("btn", "Add numbers"),
     ui.output_text("sum"),
 )
 
@@ -100,7 +100,7 @@ app_ui = ui.page_fluid(
     ui.hr(),
     ui.input_numeric("x", "x", value=1),
     ui.input_numeric("y", "y", value=2),
-    ui.input_action_button("btn", "Add numbers"),
+    ui.input_task_button("btn", "Add numbers"),
     ui.output_text("sum"),
 )
 
@@ -110,6 +110,7 @@ def server(input, output, session):
         reactive.invalidate_later(1)
         return datetime.datetime.now().strftime("%H:%M:%S %p")
 
+    @ui.bind_task_button(button_id="btn")
     @reactive.extended_task
     async def sum_values(x, y):
         await asyncio.sleep(5)
@@ -205,16 +206,15 @@ app_ui = ui.page_fluid(
 pool = concurrent.futures.ThreadPoolExecutor()
 
 def slow_sum(x, y):
-    time.sleep(3)  # Simulate a slow synchronous task
+    time.sleep(5)  # Simulate a slow synchronous task
     return x + y
 
 def server(input, output, session):
+    @ui.bind_task_button(button_id="btn")
     @reactive.extended_task
     async def sum_values(x, y):
         loop = asyncio.get_event_loop()
         return await loop.run_in_executor(pool, slow_sum, x, y)
-
-    sum_values.bind_task_button("btn")
 
     @reactive.effect
     @reactive.event(input.btn)
@@ -250,16 +250,15 @@ app_ui = ui.page_fluid(
 pool = concurrent.futures.ProcessPoolExecutor()
 
 def slow_sum(x, y):
-    time.sleep(3)  # Simulate a slow synchronous task
+    time.sleep(5)  # Simulate a slow synchronous task
     return x + y
 
 def server(input, output, session):
+    @ui.bind_task_button(button_id="btn")
     @reactive.extended_task
     async def sum_values(x, y):
         loop = asyncio.get_event_loop()
         return await loop.run_in_executor(pool, slow_sum, x, y)
-
-    sum_values.bind_task_button("btn")
 
     @reactive.effect
     @reactive.event(input.btn)
