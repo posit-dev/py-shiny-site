@@ -84,7 +84,9 @@ To achieve true non-blocking behavior in Shiny applications, and retain the abil
 2. Perform the task asynchronously and concurrently, outside of the reactive graph.
 3. When the task completes, bring the resulting value (or error, if the operation failed) back into the reactive graph.
 
-We've created a high-level class called `ExtendedTask` to make all of this pretty easy. To create an `ExtendedTask`, use the `@reactive.extended_task` decorator on an async function. Let's adapt the example above to use an `ExtendedTask`:
+We've created a high-level class called `ExtendedTask` to make all of this pretty easy.
+To create an `ExtendedTask`, use the `@reactive.extended_task` decorator on an async function.
+Let's adapt the example above to use an `ExtendedTask`:
 
 ```{shinylive-python}
 #| standalone: true
@@ -131,9 +133,16 @@ app = App(app_ui, server)
 Note the `sum_values` function, which is where the actual (slow) work is done.
 It is decorated with `@reactive.extended_task`, which means that it will be run asynchronously and concurrently with other tasks, and that its result will be available as `sum_values.result()`.
 
+We've also added a `@ui.bind_task_button` decorator on top of the `@reactive.extended_task` decorator.
+This synchronizes the `ExtendedTask` object with the `ui.input_task_button` in the UI, so that the button will be in its "Processing..." state while the task is running.
+It _does not_ cause button clicks to invoke the task; we still need to do that manually, which we'll talk about next.
+
+If you use some other UI gesture or condition besides `ui.input_task_button` to invoke the task, don't include the `@ui.bind_task_button` decorator--it doesn't work with `ui.input_action_button`, for example.
+
 ### Invoking an extended task
 
-Unlike a reactive effect, simply creating an extended task does not cause it to run. It needs to be invoked (called like a function).
+Unlike a reactive effect, simply creating an extended task does not cause it to run.
+It needs to be invoked (called like a function).
 
 In this case, the `sum_values` extended task is called from the `btn_click` reactive effect (`@reactive.effect`), which runs whenever the button is clicked (`@reactive.event(input.btn)`).
 
@@ -185,7 +194,9 @@ The examples below work well in Shiny Core, but a naive port to Shiny Express wi
 The `ThreadPoolExecutor` and `ProcessPoolExecutor` objects need to be created as module-level variables, not as session-level variables, since we'd ideally like to pool resources across all sessions.
 :::
 
-The following example shows how to run a task on a different thread. This is a good strategy for code that does synchronous I/O, like reading from disk, a database, or a remote API endpoint. It's not as good of a strategy for CPU-bound code, because Python's [global interpreter lock](https://realpython.com/python-gil/) will prevent the task from running concurrently with other Python code.
+The following example shows how to run a task on a different thread.
+This is a good strategy for code that does synchronous I/O, like reading from disk, a database, or a remote API endpoint.
+It's not as good of a strategy for CPU-bound code, because Python's [global interpreter lock](https://realpython.com/python-gil/) will prevent the task from running concurrently with other Python code.
 
 ```{shinylive-python}
 #| standalone: true
@@ -229,7 +240,8 @@ app = App(app_ui, server)
 app.on_shutdown(pool.shutdown)
 ```
 
-With a small tweak, we can run the task on a different process instead of a different thread. This is a good strategy for CPU-bound code, because it allows the task to run concurrently with other Python code.
+With a small tweak, we can run the task on a different process instead of a different thread.
+This is a good strategy for CPU-bound code, because it allows the task to run concurrently with other Python code.
 
 ```{shinylive-python}
 #| standalone: true
