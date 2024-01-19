@@ -67,7 +67,7 @@ The [VS Code debugger](https://code.visualstudio.com/docs/editor/debugging) is a
 
 ### Breakpoints
 
-A `breakpoint()` is a point in your code where you want to pause execution and inspect the program state.
+A `breakpoint()` is a point in your code where you want to pause execution and inspect the program state via the [Python debugger (pdb)](https://docs.python.org/3/library/pdb.html).
 
 ```python
 @render.text
@@ -75,6 +75,9 @@ def bad():
     breakpoint()
     return str(a_missing_variable)
 ```
+
+When a breakpoint is hit, the program will pause and you can them send commands like `break` (i.e., exit) and `continue` to the debugger. `Ctrl+D` will also exit the debugger.
+
 
 ### Print statements
 

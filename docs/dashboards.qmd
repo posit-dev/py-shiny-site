@@ -80,6 +80,7 @@ To create a sidebar layout with multiple pages, just put each page's content in 
 
 Cards are great for visually grouping together related content, and it's best practice to place related components together in a card.
 Here you'll also have an opportunity to add a header, footer, add `full_screen` capability, and more.
+As we'll see later, cards are also useful for making outputs stand out from one another when there are multiple outputs to display.
 
 ```{shinylive-python}
 #| standalone: true
@@ -203,7 +204,9 @@ Did you know the app viewer above is resizable? Try resizing it to see how the l
 
 ### Tooltips and popovers
 
-Tooltips and popovers are a useful means for both displaying (tooltips) and interacting with (popovers) additional information in a non-obtrusive way. In the [actual dashboard](#altogether-now), we'll leverage a popover to effectively add a toolbar with additional inputs controls to card headers.
+Tooltips and popovers are a useful means for both displaying and interacting with additional information in a non-obtrusive way.
+Tooltips are shown on hover, whereas popovers are shown on click, making them more suitable for interactive content like inputs.
+In the [actual dashboard](#altogether-now), we'll leverage a popover to effectively add a toolbar with additional inputs controls to card headers.
 
 ```{shinylive-python}
 #| standalone: true
@@ -232,6 +235,8 @@ with ui.popover(title="Popover title"):
 ### Altogether now
 
 Let's put it all together to create a dashboard for exploring restaurant tipping data.
+
+Here we use a [sidebar](#sidebar-layout) to hold our "global" inputs, and place outputs in [cards](#cards). These cards are laid out [column-wise](#multi-column-layout), and [value boxes](#value-boxes) highlight the most important numbers. Finally, inputs that are specific to each are placed in a [popover](#tooltips-and-popovers) so that they are unobtrusive and don't distract the user from the main application content.
 
 ::: {.column-page-right}
 
