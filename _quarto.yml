@@ -164,9 +164,9 @@ website:
         - section: "![](/images/navbars-blue.svg){.sidebar-icon .sidebar-subtitle}__Navbars__"
           contents:
             - text: "Navbar at Top"
-              href: "/layouts/navbars.html#navbar-at-top"
+              href: "/layouts/navbars/index.html#navbar-at-top"
             - text: "Navbar at Bottom"
-              href: "/layouts/navbars.html#navbar-at-bottom"
+              href: "/layouts/navbars/index.html#navbar-at-bottom"
         - section: "![](/images/sidebars-blue.svg){.sidebar-icon .sidebar-subtitle}__Sidebars__"
           contents:
             - text: "Sidebar on Left"

@@ -48,14 +48,14 @@ Shiny Layouts
 ::: {.sticky-xl-top .pt-4}
 
 <h3 class="mt-4">
-  <a href="/layouts/navbars.qmd" class="dark text-decoration-none">
+  <a href="/layouts/navbars/index.qmd" class="dark text-decoration-none">
     <img src="/images/navbars-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Navbars
   </a>
 </h3>
 
 A navbar adds a navigation bar to your app, allowing users to easily navigate your app.
 
-<a href="/layouts/navbars.qmd" class="fw-500">Learn Navbars <i class="bi bi-chevron-right"></i></a>
+<a href="/layouts/navbars/index.qmd" class="fw-500">Learn Navbars <i class="bi bi-chevron-right"></i></a>
 :::
 ::::
 :::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
@@ -63,17 +63,17 @@ A navbar adds a navigation bar to your app, allowing users to easily navigate yo
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/navbars.html#navbar-at-top">
+<a class="component-list-header-text" href="/layouts/navbars/index.html#navbar-at-top">
 <h5>Navbar at Top</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/navbars.html#navbar-at-top">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/navbars/index.html#navbar-at-top">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/navbars.html#navbar-at-top"><img src="/images/navbar-top.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/navbars/index.html#navbar-at-top"><img src="/images/navbar-top.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
@@ -81,17 +81,17 @@ A navbar adds a navigation bar to your app, allowing users to easily navigate yo
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/navbars.html#navbar-at-bottom">
+<a class="component-list-header-text" href="/layouts/navbars/index.html#navbar-at-bottom">
 <h5>Navbar at Bottom</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/navbars.html#navbar-at-bottom">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/navbars/index.html#navbar-at-bottom">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/navbars.html#navbar-at-bottom"><img src="/images/navbar-bottom.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/navbars/index.html#navbar-at-bottom"><img src="/images/navbar-bottom.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
