@@ -226,7 +226,7 @@ def server(input, output, session):
         return str(sum_values.result())
 
 app = App(app_ui, server)
-app.enter_context(pool)
+app.on_shutdown(pool.shutdown)
 ```
 
 With a small tweak, we can run the task on a different process instead of a different thread. This is a good strategy for CPU-bound code, because it allows the task to run concurrently with other Python code.
@@ -271,12 +271,12 @@ def server(input, output, session):
         return str(sum_values.result())
 
 app = App(app_ui, server)
-app.enter_context(pool)
+app.on_shutdown(pool.shutdown)
 ```
 
 In both of these examples, the `slow_sum` function is defined at the module level, outside of the Shiny server function.
 This is critically important for `ProcessPoolExecutor` to work correctly because of how Python's `multiprocessing` module works: only module-level functions can survive the trip to a worker Python subprocess.
 
-There's also the `app.enter_context(pool)` line at the end of each example.
+There's also the `app.on_shutdown(pool.shutdown)` line at the end of each example.
 This is necessary to ensure that the pool is shut down when the app stops running.
-In particular, if you're using `ProcessPoolExecutor` and neglect to shut down the pool, you may end up with orphaned Python processes hanging around.
+In particular, if you're using `ProcessPoolExecutor` and neglect to shut down the pool, you can end up with orphaned Python processes hanging around.
