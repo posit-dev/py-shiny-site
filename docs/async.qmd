@@ -194,13 +194,17 @@ The examples below work well in Shiny Core, but a naive port to Shiny Express wi
 The `ThreadPoolExecutor` and `ProcessPoolExecutor` objects need to be created as module-level variables, not as session-level variables, since we'd ideally like to pool resources across all sessions.
 :::
 
+::: {.callout-note}
+`ProcessPoolExecutor` is not available in Shinylive (e.g. WASM mode).
+`ThreadPoolExecutor` is available in Shinylive and appears to work, but doesn't: it actually performs all of its work on the main thread.
+:::
+
 The following example shows how to run a task on a different thread.
 This is a good strategy for code that does synchronous I/O, like reading from disk, a database, or a remote API endpoint.
 It's not as good of a strategy for CPU-bound code, because Python's [global interpreter lock](https://realpython.com/python-gil/) will prevent the task from running concurrently with other Python code.
 
-```{shinylive-python}
-#| standalone: true
-#| components: [editor, viewer]
+```{python}
+#| eval: false
 import asyncio
 import concurrent.futures
 import time
@@ -243,9 +247,8 @@ app.on_shutdown(pool.shutdown)
 With a small tweak, we can run the task on a different process instead of a different thread.
 This is a good strategy for CPU-bound code, because it allows the task to run concurrently with other Python code.
 
-```{shinylive-python}
-#| standalone: true
-#| components: [editor, viewer]
+```{python}
+#| eval: false
 import asyncio
 import concurrent.futures
 import time
