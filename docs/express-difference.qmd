@@ -8,11 +8,12 @@ format:
     include-in-header: assets/head-content.html
 ---
 
-### What's the difference? {#difference}
+In the [previous article](express-motivation.qmd), we outlined some situations where your Express app might benefit from switching to Core.
+This article digs into the syntax differences translation _Express_ and _Core_ apps as well as a [translation guide](#translation-guide) to help you move from Express to Core.
 
 The quickest way to tell whether an app is an Express app is the presence of `shiny.express` in the import statements.
 Common Express imports like `from shiny.express import ui, input` highlight the main difference from Core: expression of user interfaces (`ui`) and where `input` values come from.
-You'll also commonly see Core imports like `from shiny import reactive, render` in Express apps, highlighting the fact that things like reactivity and rendering work the same way in both modes.
+You'll also commonly see Core imports like `from shiny import reactive` in Express apps, highlighting the fact that things like reactivity work the same way in both modes.
 
 To dig into more specifics, consider the following app that just displays a slider value, and notice the following:
 
@@ -132,16 +133,13 @@ In Express, [HTML tags](ui-html.qmd) can be used as both context managers and/or
 
 
 
-
-
 ### Translation guide
 
-As your app starts to get more complex, you may find yourself wanting to switch from Express to Core.
-Now that we've seen the [differences](#whats-the-difference) between the two modes, here's a summary of actionable tips to help translate from Express to Core:
+When translating an Express app to Core, the following steps are recommended:
 
-1. Remove all `shiny.express` imports.
-2. Add `from shiny import App, ui` to your imports.
-3. Add the following to the end of your script:
+1. Replace Express imports with Core imports (e.g., `from shiny.express import ui` -> `from shiny import ui`).
+2. Add `from shiny import App`.
+3. Add the following just below the imports:
 
 ```python
 app_ui = ui.page_fixed(
@@ -155,10 +153,9 @@ def server(input, output, session):
 app = App(app_ui, server)
 ```
 
-Then:
-
-* Identify `@render` and `@reactive` functions and move them inside `server` function.
-* Add `ui.output_*()` containers to `app_ui` for each `@render` function.
-* Move `ui` components (i.e., inputs and layout) and move them inside the `app_ui`.
-  * Remember that, in Core, layout components like `ui.layout_columns()` are pure functions, not context managers.
-* If your Express app has top-level `ui.sidebar()` and/or `ui.nav_panel()` components, you'll need to also change `ui.page_fixed()` to `ui.page_sidebar()`/`ui.page_navbar()`.
+4. Then, start moving the "top-level" Express logic into the UI/server:
+  * Identify `@render` and `@reactive` functions and move them inside `server` function.
+  * Add `ui.output_*()` containers to `app_ui` for each `@render` function.
+  * Move `ui` components (i.e., inputs and layout) and move them inside the `app_ui`.
+    * Remember that, in Core, layout components like `ui.layout_columns()` are pure functions, not context managers.
+  * If your Express app has top-level `ui.sidebar()` and/or `ui.nav_panel()` components, you'll need to also change `ui.page_fixed()` to `ui.page_sidebar()`/`ui.page_navbar()`.

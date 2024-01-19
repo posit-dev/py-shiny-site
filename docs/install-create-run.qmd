@@ -148,13 +148,13 @@ shiny create
 ::: callout-tip
 ### Copy/paste examples
 
-If you find an example on this site that you want to run/edit locally, you can use `shiny create -t basic-app` to get a basic app template, and then copy/paste the code from the example into the template.
+If you find an example on this site that you want to run/edit locally, you can use `shiny create -t basic-app -m express` to get a basic app template, and then copy/paste the code from the example into the template.
 :::
 
 
 ## Run
 
-Shiny apps can be launched from VSCode, the command line (via `shiny run`), and the RStudio IDE.
+Shiny apps can be launched from VSCode or the command line (via `shiny run`).
 
 ### VS Code
 
@@ -171,7 +171,7 @@ Next to the Run button is a dropdown menu that lets you "Debug Shiny App". This 
 To run a Shiny app from the command line, use the `shiny run` command. This command takes a single argument, the path to the app's entry point. For example, if your app's entry point is `app.py` in the current directory, you can run it like this:
 
 ```bash
-shiny run --reload app_dir/app.py
+shiny run --reload --launch-browser app_dir/app.py
 ```
 
 This should start your app and also automatically launch a web browser.
@@ -179,22 +179,3 @@ This should start your app and also automatically launch a web browser.
 The `--reload` flag means that file changes in the current directory tree will cause the Python process to restart and the browser to reload. Update and save changes to `app.py` and then wait a moment for the changes to appear in the browser.
 
 With these two `shiny` commands, you now have a project that you can run in your terminal. You can use any text editor or Python IDE to write Shiny apps, but we've taken special care to ensure a smooth workflow for [Visual Studio Code][vscode]. The next section will help you set up VS Code for Shiny for Python.
-
-### RStudio IDE
-
-::: callout-note
-RStudio IDE integration is currently a work in progress.
-:::
-
-To run a Shiny application from the RStudio IDE, click on "Tools" in the menu bar.
-Then, select "Terminal" followed by "New Terminal".
-This will open a terminal tab next to your R console.
-
-In the terminal pane, enter the commands from the "Running with the shiny CLI" section:
-
-```sh
-shiny run --reload my_app/app.py
-```
-
-
-[vscode-shiny]: https://marketplace.visualstudio.com/items?itemName=posit.shiny-python

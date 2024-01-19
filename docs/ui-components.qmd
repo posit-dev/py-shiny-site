@@ -25,7 +25,7 @@ The [component gallery](/components) is great resource for getting a visual over
 ::: callout-note
 ### Express vs Core
 
-As you'll learn more about in [Express vs Core](express-vs-core.qmd), when it comes to UI, there are two main differences:
+As you'll learn more about in [Express vs Core](express-difference.qmd), when it comes to UI, there are two main differences:
 
 1. In Express, the page layout is implicit (in Core, it's explicit).
     * To customize the page layout in Express, use `ui.page_opts()`.
@@ -209,8 +209,8 @@ See the [layout gallery](/layouts) for an overview of available layout mechanism
 ### Page layouts
 
 A special type of layout is the page layout, which is used to start a new UI.
-In [Shiny Express](express-vs-core.qmd), the page layout is implicit, and automatically inferred from the top-level UI components.
-In [Shiny Core](express-vs-core.qmd), the page layout is explicit, meaning that the UI starts with a page layout component (e.g. `ui.page_fluid()`, `ui.page_sidebar()`, etc).
+In [Shiny Express](express-difference.qmd), the page layout is implicit, and automatically inferred from the top-level UI components.
+In [Shiny Core](express-difference.qmd), the page layout is explicit, meaning that the UI starts with a page layout component (e.g. `ui.page_fluid()`, `ui.page_sidebar()`, etc).
 
 ::: {.column-body-outset-right .panel-tabset .panel-underline .border-0 .justify-content-center}
 

@@ -92,14 +92,20 @@ def result():
 ```
 
 
+::: callout-warning
+## Render UI vs display
+
+Shiny Express code that works via side-effects needs to be used with `@render.display`, not `@render.ui`. See [this section](express-motivation.qmd#reactive-express-displays) to learn more.
+:::
+
 ::: callout-tip
 
-Anything that's statically renderable can be rendered dynamically (e.g.,
+Anything that's statically renderable can also be rendered dynamically (e.g.,
 `ui.markdown()`, `ui.HTML()`, `ui.div()`, inputs, outputs, etc).
 :::
 
 
-:::{.callout-warning}
+::: callout-warning
 ## Dynamic UI vs. updating inputs vs. conditional UI
 
 Dynamic UI is a more general mechanism than the updating inputs and conditional UI patterns, and can be used to update any UI component(s) (not just inputs). However, updating inputs is more efficient than dynamic UI, and should be preferred when possible.

@@ -51,8 +51,8 @@ Now let's work up to a more sophisticated dashboard by walking through component
 
 ### Sidebar layout
 
-Create a sidebar layout by just wrapping sidebar content in `ui.sidebar()`.
-Most often, it's best to place [inputs](/components/#inputs) in the sidebar and [outputs](/components/#outputs) in the main content area.
+Create a sidebar layout by giving content to `ui.sidebar()`.
+It's usually a good idea to place [inputs](/components/#inputs) in the sidebar and [outputs](/components/#outputs) in the main content area.
 
 ```{shinylive-python}
 #| standalone: true
@@ -78,8 +78,7 @@ To create a sidebar layout with multiple pages, just put each page's content in 
 
 ### Cards
 
-Cards are great for visually grouping together related content.
-It's often best to wrap an output (or multiple related outputs) in a `ui.card()`.
+Cards are great for visually grouping together related content, and it's best practice to place related components together in a card.
 Here you'll also have an opportunity to add a header, footer, add `full_screen` capability, and more.
 
 ```{shinylive-python}
@@ -168,8 +167,7 @@ However, `col_widths` also accepts a dictionary of column widths for different s
 ### Filling layout
 
 Set `ui.page_opts(fillable=True)` to encourage content to fill the screen.
-Many of Shiny's layouts and components automatically fill the screen when this option is set, which is often desirable for dashboards, but may not be desirable when certain content wants a fixed size (e.g., a value box or card with a textual description). In this situation, you can override this behavior on a per-component basis by setting `fill=False` (and/or specifying a `height`):
-
+Many of Shiny's layouts and components automatically fill the screen when this option is set, which is often desirable for dashboards, but may not be what you want for things like value boxes or cards with a textual description. You can override the filling behavior on a per-component basis by setting `fill=False` or by specifying a `height`:
 
 ::: column-body-outset-right
 
