@@ -44,7 +44,7 @@ conda install -c conda-forge shiny
 ```
 :::
 
-3.  Call `shiny create` to create an example shiny app in your directory
+3.  Call `shiny create -t basic-app -d .` to create an example shiny app in your directory. You can also call `shiny create` without arguments to select a different template.
 4.  Call `shiny run --reload` to run the app and reload when the source code changes
 
 ::: callout-tip
