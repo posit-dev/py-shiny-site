@@ -11,6 +11,7 @@ project:
     - inputs
     - outputs
     - display-messages
+    - layouts
     - docs
     - in-depth
     - development
@@ -63,7 +64,7 @@ website:
     logo-alt: The logo for Shiny for Python
     search: true
     left:
-      - text: "Learn Shiny"
+      - text: "Learn"
         file: docs/overview.qmd
       - text: "Install"
         href: docs/install.qmd
@@ -74,12 +75,14 @@ website:
           - docs/shinylive.qmd
       - text: "Components"
         file: components/index.qmd
+      - text: "Layouts"
+        file: layouts/index.qmd
       - text: "Gallery"
         file: gallery/index.qmd
       - text: "Examples"
         href: https://shinylive.io/py/examples/
         target: _blank
-      - text: "Function Reference"
+      - text: "Reference"
         href: api/index.qmd
       - text: "Help"
         href: docs/help.qmd
@@ -152,6 +155,56 @@ website:
             - components/display-messages/notifications/index.qmd
             - components/display-messages/progress-bar/index.qmd
             - components/display-messages/tooltips/index.qmd
+
+    - id: layouts
+      collapse-level: 2
+      contents:
+        - text: "![](/images/blank-pixel.png){.sidebar-title}__LAYOUTS__"
+          href: "layouts/index.qmd"
+        - section: "![](/images/navbars-blue.svg){.sidebar-icon .sidebar-subtitle}__Navbars__"
+          contents:
+            - text: "Navbar at Top"
+              href: "/layouts/navbars.html#navbar-at-top"
+            - text: "Navbar at Bottom"
+              href: "/layouts/navbars.html#navbar-at-bottom"
+        - section: "![](/images/sidebars-blue.svg){.sidebar-icon .sidebar-subtitle}__Sidebars__"
+          contents:
+            - text: "Sidebar on Left"
+              href: "/layouts/sidebars.html#sidebar-on-the-left"
+            - text: "Sidebar on Right"
+              href: "/layouts/sidebars.html#sidebar-on-the-right"
+            - text: "Sidebar Within a Card"
+              href: "/layouts/sidebars.html#sidebar-within-a-card"
+            - text: "Collapsed Sidebar"
+              href: "/layouts/sidebars.html#collapsed-sidebar"
+        - section: "![](/images/tabs-blue.svg){.sidebar-icon .sidebar-subtitle}__Tabs__"
+          contents:
+            - text: "Tabset with Pill Navigation"
+              href: "/layouts/tabs.html#tabset-with-pill-navigation"
+            - text: "Tabset with Pill List Navigation"
+              href: "/layouts/tabs.html#tabset-with-pill-list-navigation"
+            - text: "Tabset with Tab Navigation"
+              href: "/layouts/tabs.html#tabset-with-tab-navigation"
+            - text: "Card with a Tabbed Tabset"
+              href: "/layouts/tabs.html#card-with-a-tabbed-tabset"
+            - text: "Card with a Pill Tabset"
+              href: "/layouts/tabs.html#card-with-a-pill-tabset"
+            - text: "Vertically Collapsing Accordions"
+              href: "/layouts/tabs.html#vertically-collapsing-accordion-panels"
+        - section: "![](/images/cards-blue.svg){.sidebar-icon .sidebar-subtitle}__Panels & Cards__"
+          contents:
+            - text: "Main Image w/ Floating Panel"
+              href: "/layouts/panels-cards.html#main-image-with-panel-floating-above"
+            - text: "Content Divided by Cards"
+              href: "/layouts/panels-cards.html#content-divided-by-cards"
+        - section: "![](/images/arrange-blue.svg){.sidebar-icon .sidebar-subtitle}__Arrange Elements__"
+          contents:
+            - text: "Grid Layouts"
+              href: "/layouts/arrange.html#grid-layouts"
+            - text: "Column Nesting"
+              href: "/layouts/arrange.html#column-nesting"
+            - text: "Controlling for Page Size"
+              href: "/layouts/arrange.html#controlling-for-page-width-and-height"
 
     - id: docs
       style: "floating"

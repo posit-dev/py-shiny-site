@@ -1,37 +1,22 @@
-/* make space for sidebar icons */
-@media only screen and (min-width:992px) {
-  .components-hero-img {
-    margin-left: -60px;
-    width: 550px;
-  }
-  .components-hero-img-container {
-    margin-top: auto;
-    margin-bottom: auto;
-    overflow: hidden;
-    margin-right: -2.5rem;
-    margin-left: -1.5rem;
-  }
+/*Make code in Relavent Functions wrap*/
+
+#relevant-functions ul li code {
+  white-space: normal;
 }
 
-@media only screen and (min-width:1350px) {
-  .components-hero-img {
-    margin-left: -60px;
-    width: 650px;
-  }
-  .components-hero-img-container {
-    margin-top: auto;
-    margin-bottom: auto;
-    overflow: hidden;
-    margin-right: -2.5rem;
-    margin-left: 1.5rem;
-  }
-}/* make space for sidebar icons */
+/* make space for sidebar icons */
 
 @media only screen and (min-width: 992px) {
   #quarto-sidebar>* {
       padding: 1.5em 0.75em 1.5em 2em;
       margin-right: 1.5em;
   }
+}
+
+/*remove extra space under header*/
+
+#title-block-header {
+  margin-block-end: 0px;
 }
 
 /* list page styling */
@@ -58,9 +43,12 @@
 .component-list-header {
   display:flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; 
   margin-bottom: 0px;
-/*  height: 30px;*/
+}
+
+.component-list-header a {
+  cursor: pointer;
 }
 
 .component-list-header-text h5 {
@@ -93,7 +81,7 @@ a .component-link-icon:after  {
   transition: all 0.3s !important;
 }
 
-a:hover .component-link-icon:after,
+a:hover .component-link-icon:after, 
 a.component-list-header-text:hover ~ div.component-list-icon p a i.component-link-icon:after {
   content: "\F133";
   font-family: "bootstrap-icons";
@@ -103,6 +91,11 @@ a.component-list-header-text:hover ~ div.component-list-icon p a i.component-lin
   color: #000000;
 }
 
+.layout-list-card {
+  align-content: flex-start;
+  justify-content: space-evenly;
+  overflow: hidden;
+}
 /* Hero area of list page */
 
 @media only screen and (max-width:767px) {
@@ -127,10 +120,23 @@ a.component-list-header-text:hover ~ div.component-list-icon p a i.component-lin
 @media only screen and (min-width:992px) {
   .components-hero-img {
     margin-left: -60px;
-    width: 550px;
+    width: 650px;
   }
-    .hero-area {
+  .hero-area {
     height:500px;
+  }
+  .components-hero-img-container {
+    margin-top: auto;
+    margin-bottom: auto;
+    overflow: hidden;
+    margin-right: -2.5rem;
+  }
+}
+
+@media only screen and (min-width:992px) {
+  .components-hero-img {
+    margin-left: -60px;
+    width: 550px;
   }
   .components-hero-img-container {
     margin-top: auto;
@@ -156,12 +162,35 @@ a.component-list-header-text:hover ~ div.component-list-icon p a i.component-lin
 }
 
 /* detail page styling */
+
 .tab-content {
   margin-top: 0px;
   border: 0px;
   margin-left: 0;
   padding: 1em 0px;
   margin-bottom: 1em;
+}
+
+code.sourceCode,
+pre.console code {
+  padding: 0.25rem 1rem 0.25rem 0.25rem;
+}
+
+.code-with-filename div.sourceCode,
+.reveal .code-with-filename div.sourceCode {
+  margin-top: 0px;
+  margin-bottom: 1em;
+  border-top-left-radius: 0%;
+  border-top-right-radius: 0%;
+}
+
+.tab-pane div.sourceCode {
+  margin-top: 0px;
+}
+
+.tab-content div.sourceCode,
+.tab-content pre.console {
+  margin-bottom: 0px;
 }
 
 .component-hr:last-of-type {
@@ -186,9 +215,9 @@ a.component-list-header-text:hover ~ div.component-list-icon p a i.component-lin
 /* Tab styling */
 
 .panel-tabset .nav-tabs {
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: flex-end !important;
   border-bottom: 1px solid #E9ECEF;
   border-top: none;
   border-left: none;
@@ -236,7 +265,12 @@ main a.nav-link:hover {
   margin-bottom: 0px;
 }
 
+.panel-tabset .tab-content {
+  padding-bottom: 0px;
+}
+
 .iframe-border {
   border: 1px solid #E9ECEF;
   border-radius: 10px;
 }
+
