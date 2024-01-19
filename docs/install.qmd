@@ -82,7 +82,7 @@ This will create a basic Shiny application in the current directory, in a file n
 To run the app, run this command from the shell:
 
 ```bash
-shiny run --reload
+shiny run --reload --launch-browser
 ```
 
 This should start your app and also automatically launch a web browser.
