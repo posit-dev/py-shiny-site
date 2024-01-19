@@ -25,8 +25,7 @@ Before we walk through a more sophisticated dashboard, consider this basic dashb
 #| components: [viewer, editor]
 #| layout: vertical
 #| viewerHeight: 500
-from shiny import render
-from shiny.express import input, ui
+from shiny.express import input, render, ui
 from shinywidgets import render_widget
 
 ui.page_opts(title="Penguins dashboard", fillable=True)
@@ -88,8 +87,7 @@ Here you'll also have an opportunity to add a header, footer, add `full_screen` 
 #| components: [editor, viewer]
 #| layout: vertical
 #| viewerHeight: 300
-from shiny import render
-from shiny.express import ui
+from shiny.express import render, ui
 
 with ui.card(full_screen=True):
     ui.card_header("A card with a header")
@@ -114,8 +112,7 @@ The `showcase` argument can technically be any UI element, but is often a [faico
 #| components: [editor, viewer]
 #| layout: vertical
 #| viewerHeight: 300
-from shiny import render
-from shiny.express import ui
+from shiny.express import render, ui
 from faicons import icon_svg as icon
 
 with ui.value_box(showcase=icon("piggy-bank")):

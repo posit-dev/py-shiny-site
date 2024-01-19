@@ -347,8 +347,7 @@ This file is used to configure typescript, which we are using to write our compo
 
 ```{.python}
 from fancy_color_picker import fancy_color_picker
-from shiny import render
-import shiny.express
+from shiny.express import render
 
 fancy_color_picker("myComponent")
 

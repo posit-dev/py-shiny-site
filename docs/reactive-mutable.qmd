@@ -118,8 +118,8 @@ This demo app demonstrates that when an object that is stored in a `reactive.val
 #| layout: vertical
 #| viewerHeight: 250
 
-from shiny import reactive, render
-from shiny.express import input, ui
+from shiny import reactive
+from shiny.express import input, render, ui
 
 ui.input_numeric("x", "Enter a value to add to the list:", 1)
 ui.input_action_button("submit", "Add Value")
@@ -148,8 +148,8 @@ Switching to the "copy on update" technique fixes the problem. The app below is 
 #| layout: vertical
 #| viewerHeight: 250
 
-from shiny import reactive, render
-from shiny.express import input, ui
+from shiny import reactive
+from shiny.express import input, render, ui
 
 ui.input_numeric("x", "Enter a value to add to the list:", 1)
 ui.input_action_button("submit", "Add Value")
@@ -177,8 +177,8 @@ Let's further modify our example; now, we will output not just the values entere
 #| layout: vertical
 #| viewerHeight: 250
 
-from shiny import reactive, render
-from shiny.express import input, ui
+from shiny import reactive
+from shiny.express import input, render, ui
 
 ui.input_numeric("x", "Enter a value to add to the list:", 1)
 ui.input_action_button("submit", "Add Value")
@@ -211,8 +211,8 @@ This is because `doubled_values` does its doubling by modifying the values of th
 #| layout: vertical
 #| viewerHeight: 250
 
-from shiny import reactive, render
-from shiny.express import input, ui
+from shiny import reactive
+from shiny.express import input, render, ui
 
 ui.input_numeric("x", "Enter a value to add to the list:", 1)
 ui.input_action_button("submit", "Add Value")

@@ -106,8 +106,7 @@ Here's a basic example of using a text output (reacting to changes in a text inp
 ### Express
 
 ```python
-from shiny import render
-from shiny.express import ui
+from shiny.express import render, ui
 
 ui.input_text("text", label="Enter some text")
 

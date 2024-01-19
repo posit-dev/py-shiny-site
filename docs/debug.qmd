@@ -17,8 +17,7 @@ This most commonly happens when an output reads a non-existent input, for exampl
 #| layout: vertical
 #| viewerHeight: 120
 
-from shiny import render
-from shiny.express import input, ui
+from shiny.express import input, render, ui
 
 ui.input_slider("val", "Slider value", min=0, max=10, value=5)
 
@@ -39,8 +38,7 @@ When an error occurs inside a `render` function, the relevant error message is d
 #| components: [editor, viewer]
 #| layout: vertical
 #| viewerHeight: 120
-from shiny import render
-import shiny.express
+from shiny.express import render
 
 @render.text
 def good():

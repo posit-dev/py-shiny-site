@@ -27,9 +27,8 @@ Simply choose a theme and add `shinyswatch.theme.<theme_name>()` anywhere in the
 #| layout: vertical
 #| viewerHeight: 200
 
-from shiny import render
 from shinyswatch import theme
-from shiny.express import ui
+from shiny.express import render, ui
 
 ui.page_opts(title="Hello shinyswatch theme")
 

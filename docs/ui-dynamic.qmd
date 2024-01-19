@@ -70,8 +70,7 @@ Here, for a starting example, we'll recreate the previous example using dynamic 
 #| components: [editor, viewer]
 #| layout: vertical
 #| viewerHeight: 250
-from shiny import render
-from shiny.express import input, ui
+from shiny.express import input, render, ui
 
 ui.input_text("message", "Message", value="Hello, world!")
 

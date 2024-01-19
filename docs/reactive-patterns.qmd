@@ -42,8 +42,8 @@ The `@reactive.event()` decorator restricts re-exectue to only changes in one (o
 #| components: [editor, viewer]
 #| layout: vertical
 import asyncio
-from shiny import reactive, render
-from shiny.express import input, ui
+from shiny import reactive
+from shiny.express import input, render, ui
 
 ui.input_slider("n", "N", min=1, max=100, value=1)
 ui.input_action_button("compute", "Compute!")
@@ -72,8 +72,8 @@ In the example below, the `result` takes a dependency on `input.button()`, but n
 #| components: [editor, viewer]
 #| layout: vertical
 import asyncio
-from shiny import reactive, render
-from shiny.express import input, ui
+from shiny import reactive
+from shiny.express import input, render, ui
 
 ui.input_slider("n", "N", min=1, max=100, value=1)
 ui.input_action_button("compute", "Compute!")
@@ -103,8 +103,8 @@ Notice how the reactive calculation, `df`, uses `req()` to stop execution until 
 ```{python}
 #| eval: false
 import pandas as pd
-from shiny import reactive, render, req
-from shiny.express import input, ui
+from shiny import reactive, req
+from shiny.express import input, renderm ui
 
 ui.input_file("file", "Upload a csv file", accept=".csv")
 
@@ -135,8 +135,8 @@ For example, to implement a clock that updates every second, you can use `reacti
 #| layout: vertical
 #| viewerHeight: 50
 from datetime import datetime
-from shiny import reactive, render
-import shiny.express
+from shiny import reactive
+from shiny.express import render
 
 # Get the current time every second
 @reactive.calc
@@ -161,8 +161,8 @@ For example, lets extend the example from above to write the current time to a f
 #| layout: vertical
 #| viewerHeight: 50
 from datetime import datetime
-import shiny.express
-from shiny import reactive, render
+from shiny import reactive
+from shiny.express import render
 
 # Get the current time every second
 @reactive.calc
@@ -203,8 +203,8 @@ For example, lets extend the example from above to write the current time to a f
 #| viewerHeight: 50
 import os
 from datetime import datetime
-from shiny import reactive, render
-from shiny.express import input, ui
+from shiny import reactive
+from shiny.express import input, render, ui
 
 # Get the current time every 0.5 seconds
 @reactive.calc
