@@ -1,7 +1,6 @@
 import glob
 from pathlib import Path
-from typing import Any, Iterable, List, Optional
-from typing import Sequence
+from typing import Any, Iterable, List, Optional, Sequence
 
 
 class QuartoPrint(List[str]):
