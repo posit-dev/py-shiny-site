@@ -8,20 +8,25 @@ format:
     include-in-header: assets/head-content.html
 ---
 
-Up until this point the documentation has focused on the Shiny Express syntax which is great for learning Shiny and writing small applications.
-We've optimized Shiny Express for these applications, and as a result you may find the syntax limiting as your application gets bigger.
-Shiny Core is a more explicit and scalable way to write Shiny apps which lets you build and maintain complex apps using the same components and reactive concepts that you learned in Express.
-This article explains why we think that does a better job at handling complex applications, and is mostly aimed at someone who is new to Shiny and has build a few apps with Shiny Express.
+So far, we've really only seen Shiny _Express_: a simple way to learn and create basic apps.
+As we'll discuss here, the same things that make Express simple also make it difficult to manage complexity when your app grows in size and sophistication.[^streamlit-comp]
+And, although we'll cover some techniques for managing complexity and adding sophistication to Express, when you find yourself reaching for these techniques, it might be time to switch to Shiny Core.
+Shiny Core is a slightly more involved way to write apps using the same [components](ui-components.qmd) and [reactivity](reactive-foundations.qmd) you've already learned.
+The main difference is that Shiny Core embraces concepts like [decoupling](#decoupling) and [functional programming](#functional) which enforces programming patterns that, although require more effort upfront, will make it easier to manage complexity as your app grows.
 
-## Motivation
+If you're already convinced that Shiny Core is right for your app, the [next article](express-difference.qmd) outlines the syntax differences and provides a guide for transitioning from Express to Core.
 
-The main way that Express apps differ from Core apps is that rendering functions produce their output as a side effect.
-This limits _where_ you can place your rendering function in the application code, because the function is called in the context where you want the output to be rendered.
-For example consider this Express app which displays a plot and a selector in one card, and a table in the other.
-The Express format allows you to write this application quickly, but it makes the overall page layout difficult to understand.
-In particular, since the plotting code is quite involved and takes up most of the applicatin, it's difficult to get a quick sense of how the app is laid out.
-For example you might not notice the `ui.input.select()` call below the function, and it might be tricky to get the context manager indentations to line up properly.
+[^streamlit-comp]: [Streamlit](https://streamlit.io/) is similar to Express in that it's easy to get started with, but difficult to manage complexity. See [this article](https://www.shinyapps.io/articles/streamlit-vs-shiny/) for a comparison between Streamlit and Shiny.
 
+## Decoupling {#decoupling}
+
+A big reason for Express' simplicity is that things like render functions get displayed exactly where they appear in the code.
+This is great for basic apps, since you don't have to separate backend from frontend (aka server from UI) logic.
+However, this can lead to code that's harder to reason about when it grows in size and complexity.
+For example, consider this snippet Express app -- can you visualize, at a glance, how the overall UI is structured?
+
+<details open>
+  <summary style="margin-bottom: -1em;">Hide code</summary>
 ```{.python}
 with ui.layout_columns():
     with ui.card():
@@ -62,317 +67,277 @@ with ui.layout_columns():
             return fig
         ui.input_select("species", "Species", ["Chinstrap", "Adelie", "Gentoo"])
 ```
+</details>
 
-Shiny Core takes a different approach by breaking your app into `ui` and `server` objects.
-Using this structure requires more up-front work than Shiny Express, but lets you reason about the UI structure of your application separately from the server logic which powers it.
-There are three main things which you need to understand to use Shiny Core effectively.
+The `render.plot` function above has a lot going on, and so it's easy to overlook that there's a `ui.input_select()` which appears just below the plot, inside the same card.
+Also, with multiple levels of indentation, it's easy to mess up the identation; and as a result, have the input appear in the wrong place, or not work at all.
 
-### The UI object
-
-In Shiny Core you create an `app_ui` object using functions from the `shiny.ui` module.
-
-
-:::::: {.callout-caution}
-To smooth the transition from Shiny Express to Shiny Core, almost all the functions in `shiny.ui` have a corresponding function in `shiny.express`, and the functions do the same thing, but they differ in their implementations. The Shiny Express functions are designed to be called as context managers, while the Shiny Core ones are designed to be called as functions. As a user the only thing you need to do is remember to import the right `ui` submodule. When using Core, import it from `shiny` instead of `shiny.express`.
-
-Shiny Express                 |Shiny Core            |
-------------------------------|----------------------|
-`from shiny.express import ui`|`from shiny import ui`|
-:::
-
-Instead of rendering outputs directly, Shiny Core uses `ui.output_` functions to declare where the output should be rendered.
-The rendering functions are defined on the server side and send values to the output location.
-This makes the layout of the app more explicit and allows you to organize your rendering functions in a more meaningful way.
-For example you could keep related rendering functions together even if their outputs appeared in different locations in the app.
-The UI object for the above application would look like this:
-```{.python}
-from shiny import ui
-
-
-app_ui = ui.page_fillable(
-    ui.layout_columns(
-        ui.card(
-          ui.output_plot("pair_plot"),
-          ui.input_select("species", "Species", ["Chinstrap", "Adelie", "Gentoo"]),
-        ),
-        ui.card(
-          ui.output_data_frame("table"),
-        ),
-        col_widths=[8, 4]
-    )
-)
-```
-
-There are a few benefits to this object.
-First, since it's more compact, it's easier to get an overall sense of the application structure.
-The function calls closely mirror the HTML which will be generated by the application, and it's easy to see how many components there are and where they're structured.
-Secondly, changing the application is a lot easier.
-For example if we wanted to switch the locations of the plot and the table, we would only have to switch the two lines of code which define the output, instead of having to move the entire rendering function.
-
-### The Server function
-
-Shiny Core rendering functions are defind inside of the server function which looks like this:
+Express does offer a way to workaround this problem: the `ui.hold()` context manager, which allows you to define a `render` function in one place, then display it in another.
+This, in a sense, is similar to what Shiny Core forces you to do: separate server from UI logic, and then connect them together with an `ui.output_*()` container element.
+As a result, it's a lot more clear how the overall UI is structured:
 
 ```{.python}
-def server(input, output, session):
-  @render.plot
-  def pair_plot():
-    ...
-```
-
-The server function defines what happens during a session, and we'll explore it a bit more in the [sessions and lifecycle](#Managing lifecycles) section below.
-For the most part rendering functions in Shiny Core are exactly the same as those in Express, and you can copy them directly into the server function.
-
-:::::: {.callout-note}
-The @render.display decorator is Express-specific and cannot be used in Shiny Core.
-:::
-
-Since we've separated the UI and Server logic of the pair plot, we need some way to connect the renderer to its app location.
-This is done by matching the `id` paramater of the `ui.ouput` funciton with the name of the rendering function.
-In this case we use `ui.output_plot("pair_plot") on the UI side, and `def pair_plot()` on the server side.
-
-The UI and server logic for the app would look like this:
-
-```{.python}
-from shiny import render, ui, App, Inputs, Outputs, Session
-from palmerpenguins import load_penguins
-import matplotlib.pyplot as plt
-import numpy as np
-
-penguins = load_penguins()
-
-app_ui = ui.page_fillable(
-    ui.layout_columns(
-        ui.card(ui.output_plot("pair_plot"),
-        ui.input_select("species", "Species", ["Chinstrap", "Adelie", "Gentoo"]),
-        ),
-        ui.card(ui.output_data_frame("table")),
-        col_widths=[8, 4]
-    )
-)
-
-def server(input: Inputs, output: Outputs, session: Session):
-    @render.plot()
+with ui.hold():
+    @render.plot
     def pair_plot():
-        df = load_penguins()
-        if df is None:
-            print("Dataframe is empty")
-            return
+        ... # code here
 
-        # Drop rows with missing values
-        df = df.dropna()
 
-        # Get list of features
-        features = df.select_dtypes(include=[np.number]).columns.tolist()
-
-        # Create a figure and axes with a subplot for each pair of features
-        fig, axs = plt.subplots(len(features), len(features), figsize=(15, 15))
-
-        # Create scatter plots for each pair of features
-        for i in range(len(features)):
-            for j in range(len(features)):
-                if i != j:
-                    for species in df['species'].unique():
-                        axs[i, j].scatter(df[df['species']==species][features[i]],
-                                            df[df['species']==species][features[j]],
-                                            label=species)
-                    axs[i, j].set_xlabel(features[i])
-                    axs[i, j].set_ylabel(features[j])
-                else:
-                    axs[i, j].text(0.5, 0.5, features[i], ha='center', va='center')
-
-        # Add a legend
-        handles, labels = axs[0, 1].get_legend_handles_labels()
-        fig.legend(handles, labels, loc='upper center')
-
-        fig.tight_layout()
-        return fig
-
-    def table():
-        return penguins
+# Overall UI structure is now more clear
+with ui.layout_columns():
+    with ui.card():
+        ui.output_plot("pair_plot")
+        ui.input_select("species", "Species", ["Chinstrap", "Adelie", "Gentoo"])
 ```
 
-### Initiating the app
+::: callout-note
+### Decoupling in Shiny Core
 
-The final piece of of a Shiny Core app is the app initiation call.
-This happens implicitly when you run a Shiny Express app, but for Shiny core you apps you need to explicitly define the app object.
-
-```{.python}
-app = App(app_ui, server)
-```
-The `App` class lets you set things like static assets, or the debug flag, but for the most part you can just treat this as a piece of boilerplate.
-
-:::::: {.callout-caution}
-The `shiny run` function expects that your app is assigned to an object named `app` so you should always use `app = App(ui, server)`. If you want to use a different name for some reason you should run your app with `uvicorn <file_name>:<object_name>`.
+In the [next article](express-difference.qmd), we'll see how to actually define your UI and server logic in Shiny Core.
 :::
 
-## Other benefits of Shiny Core
+::: callout-note
+### Holding other express code
 
-The main benefit of Shiny Core is that it lets you maniputate your app's UI and Server code separately, but the explicit nature of Shiny Core gives rise to a few other benefits.
+You can also use `ui.hold()` to hold other Express code, not just `render` functions.
+For example:
 
-### Programming with ui
+```python
+with ui.hold() as hello_card:
+    with ui.card():
+        "Hello world!"
 
-The ui object is generated by pure functions, and only rendered when it is  passed to the `App` function.
-This means you have a lot of options for generating the object.
-You can break your UI up into variables and compose them together, create functions which return parts of your UI object, or use those function in loops or list comprehension to produce multiple elements.
-You can do most of these things in Express as well, but they tend to be easier and more natural when you are working with an explicit UI object instead of one that is rendered by side effect.
-
-::: {.panel-tabset}
-
-#### Using variables
-Breaking your ui object into variables can make it easier to work with.
-```{python}
-# | source-line-numbers: "9-13"
-from shiny import App, render, ui
-
-nav1 = ui.nav("First tab", ui.input_checkbox("n1"))
-nav2 = ui.nav(
-    "Second tab", ui.input_select("letter", "Letter", choices=["A", "B", "C"])
-)
-
-app_ui = ui.page_navbar(
-    nav1,
-    nav2,
-)
-
-app = App(app_ui, None)
+hello_card
+hello_card
 ```
 
-#### Using a function
-
-A function which returns a UI element lets you define repeated settings in one place.
-
-```{python}
-#| source-line-numbers: "9-13"
-from shiny import App, render, ui
-
-def my_slider(id):
-    return ui.input_slider(id, "N", 0, 100, 20)
-
-app_ui = ui.page_fluid(
-    my_slider("n1"),
-    my_slider("n2"),
-    my_slider("n3"),
-    my_slider("n4"),
-    my_slider("n5"),
-)
-
-app = App(app_ui, None)
-```
-
-#### Iterating across a list
-
-List comprehension allows you to apply a ui-generating function to a list of ids.
-
-```{.python}
-from shiny import App, render, ui
-
-def my_slider(id):
-    return ui.input_slider(id, "N", 0, 100, 20)
-
-ids = ["n1", "n2", "n3", "n4", "n5"]
-
-app_ui = ui.page_fluid(
-    [my_slider(x) for x in ids]
-)
-
-app = App(app_ui, None)
-```
-
-#### Iterating across two lists
-For more complicated functions you can use the `zip` function to turn multiple lists into a list of tuples which allows you to use list comprehension to generate UI elements.
-
-```{.python}
-from shiny import App, render, ui
-
-def my_slider(id, label):
-    return ui.input_slider(id, label + " Number", 0, 100, 20)
-
-numbers = ["n1", "n2", "n3", "n4", "n5"]
-labels = ["First", "Second", "Third", "Fourth", "Fifth"]
-
-app_ui = ui.page_fluid(
-    [my_slider(x, y) for x, y in zip(numbers, labels)]
-)
-
-app = App(app_ui, None)
-```
+In this way, it's related to the `@expressify` decorator, which allows you to reuse Express code in a parameterized way.
 :::
 
-You can accomplish similar things with Shiny Express, but it's easier to manipulate the functional-style of UI which Shiny Core uses.
+
+## Functional programming {#functional}
+
+Another reason why Express feels _expressive_ is that it promotes an imperative ([opposed to functional](https://en.wikipedia.org/wiki/Functional_programming#Comparison_to_imperative_programming)) programming style that is easier to get started with, but again, can make it difficult to manage complexity and reason about your app.
+In particular, keeping track of UI state throughout the app can be difficult since imperative commands can change that state at any point in the code.
+For example, consider this snippet of Express code -- understanding the state of the UI requires mentally parsing the code, and keeping track of the side-effects.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 50
+import shiny.express
+
+for i in range(5):
+    if i % 2 == 0:
+        f"Even: {i} "
+```
+
+That said, you can certainly write functional code in Express, which at least limits the amount of side-effects to keep track of, and also provides a means for storing UI state in an inspectable object.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 50
+import shiny.express
+
+x = [f"Even: {i} " for i in range(5) if i % 2 == 0]
+x
+```
+
+::: callout-note
+### Shiny Core avoids side-effects
+
+In a sense, Shiny Core _forces_ you to avoid using imperative code to define your UI, since you're expected to define your UI as a single, tree-like, object.
+:::
+
+### Reusable express code
+
+Another problem that arises from building UIs via side-effects is that it's not always clear how create reusable side-effects (i.e., avoid repeating yourself).
+Express does provide a solution for this: wrap your Express code in a function decorated with `@expressify`.
+Just make sure to call this function for it's side-effects, and not for its return value.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 50
+from shiny.express import expressify
+
+@expressify
+def evens(n = 5):
+    for i in range(n):
+        if i % 2 == 0:
+            f"Even: {i} "
+
+evens(3)
+"--- "
+evens(6)
+```
+
+::: callout-note
+### Shiny Core embraces reusable functions
+
+Since Shiny Core embraces functional programming, creating reusable code is as simple as defining a function.
+:::
+
+
+### Reactive express code {#reactive-displays}
+
+In a basic Express app, essentially just render functions are reactive.
+That is, other UI components like inputs, strings, etc. are static: they don't change once the app is rendered.
+In order to make those otherwise static components reactive, you have to wrap them in a function decorated with `@render.express`.
+This decorator is a bit of an exception to the rule compared to other `render` decorators since it's called for its side-effects, and not for its return value.
+
+For example, suppose we want a checkbox to toggle whether to display even or odd numbers.
+We can do this by wrapping the Express code in a function and decorating it with `@render.express`.
+As a result, you can read reactive dependencies (e.g., `input.even()`), and function will be re-run whenever those dependencies change.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 100
+
+from shiny.express import input, render, ui
+
+ui.input_switch("even", "Even", True)
+
+@render.express
+def numbers():
+    remain = 0 if input.even() else 1
+    label = "Even" if input.even() else "Odd"
+    for i in range(5):
+        if i % 2 == remain:
+            f"{label}: {i} "
+```
+
 
 ## Modules
 
 Shiny Core allows you to break your app into [modules](#modules) to reuse both UI and server code.
 Currently modules are not supported in Shiny Express.
 
-## Managing lifecycles
 
-Sometimes you want some code to run just once when the application is initiated, so that it doesn't run every time a new user connects to your app.
-The Shiny Core server function provides an inutitive way to manage when your code executes because the server function reexecutes whenever a new session connects to the application.
-This means that anything _inside_ of the server function will be session-specific while everything outside of it will execute when the application starts up.
+## Lifecycle
 
-### Example, file reading
+For better perfomance, it's often useful to have some code run _once_ when the app initializes, not every time a new connection (i.e., session) is made.
+Normal Express code is re-executed everytime a new connection is made, so it's not a good place to do expensive work that only needs to be done once.
+Fortunately, if you move expensive code to a separate module, it will only be executed once (and objects can then be shared across sessions).
 
-An intuitive example of this is reading a file.
-If you read a file inside of the server function, the file will be read every time a new user connects to the app which is a waste of resources if the file doesn't change between sessions.
-Instead you can read the file at the top of the file and refer to it in the server function.
-The file will only be only be read in once, and each session will use the same in-memory object.
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 120
 
+from shiny.express import render
+import shared
+# Runs once per session
+@render.data_frame
+def df():
+    return shared.df
+
+## file: shared.py
+# Runs once per startup
+import pandas as pd
+from pathlib import Path
+df = pd.read_csv(Path(__file__).parent / "data.csv")
+## file: data.csv
+col1,col2
+1,2
+3,4
+```
+
+
+::: callout-note
+### Shiny Core lifecycle
+
+In Shiny Core, code outside of the `server` function scope runs once per startup (not per user session).
+See the code below for the equivalent Shiny Core app.
+
+<details>
+  <summary>Show code</summary>
 ```{.python}
-from palmerpenguins import load_penguins
+from shiny import App, render, ui
+import pandas as pd
+from pathlib import Path
 
-from palmerpenguins import load_penguins
-from shiny import App, Inputs, Outputs, Session, render, ui
+df = pd.read_csv(Path(__file__).parent / "data.csv") # Read in once
 
-df = load_penguins()  # Read in once
+app_ui = ui.page_fixed(ui.output_data_frame("dat"))
 
-app_ui = ui.page_fillable(ui.output_data_frame("penguins"))
-
-
-def server(input: Inputs, output: Outputs, session: Session):
+def server(input, output, session):
     @render.data_frame
-    def penguins():
+    def dat():
         # Returned to each session
         return df
 
-
 app = App(app_ui, server)
 ```
+</details>
+:::
 
-You can do the same thing with reactive objects.
-For example Shiny allows you to reactively poll an external data source to see whether its changed using `reactive.file_reader` and `reactive.poll`.
-This polling operation can be expensive so it's often a good idea to remove it from the server function so that each session is not constantly polling the data source.
+::: callout-tip
+### Shared reactive objects
 
-
-```{.python}
-from pathlib import Path
-
-import pandas as pd
-from shiny import App, Inputs, Outputs, Session, reactive, render, ui
+It's also possible to share reactive objects across sessions.
+This can be potentially dangerous since one users activity could impact another's, but also quite useful in combination [`reactive.file_reader`](../api/reactive.file_reader.qmd) and [`reactive.poll`](../api/reactive.poll.qmd) to create a reactive data source that's only polled once, no matter how many users are connected.
+:::
 
 
-# One polling operation for the whole app
-@reactive.file_reader(filepath=Path("penguins.csv"))
-def df():
-    return pd.read_csv(Path("penguins.csv"))
+## Session object
 
+Shiny apps have an object that represent a particular user's [session](../api/Session.html).
+This object is useful for a variety of more advanced tasks like [sending messages to the client](../api/Session.html#shiny.Session.send_custom_message) and [serving up session-specific data](../api/Session.html#shiny.Session.dynamic_route).
+In Express, it's possible to access the session object, but it's a bit trickier to use.
+That's because, Express gets executed once before any session is created, then again once a session is established.[^execute-twice]
+As a result, you have to check if the session object exists before using it.
 
-app_ui = ui.page_fillable(ui.output_data_frame("penguins"))
+[^execute-twice]: Another potential reason to prefer Shiny Core is that you have to worry about expensive UI code getting executed twice.
 
+```{shinylive-python}
+#| standalone: true
+#| components: [edi#| tor, viewer]
+#| layout: vertical
+#| viewerHeight: 75
+from shiny import reactive
+from shiny.express import session, ui
 
-def server(input: Inputs, output: Outputs, session: Session):
-    @render.data_frame
-    def penguins():
-        # Returned to each session
-        return df()
+@reactive.effect
+async def _():
+    if session:
+        x = {"message": "Hello from Python!"}
+        await session.send_custom_message("send_alert", x)
 
-
-app = App(app_ui, server)
+ui.tags.script(
+    """
+    Shiny.addCustomMessageHandler("send_alert", function(x) {
+        document.body.innerHTML = x.message;
+    });
+    """
+)
 ```
 
-Since Shiny Express doesn't use the server function construct, it can be more difficult to manage and understand the lifecycle of your application, and your applications will tend to do everything in the server.
+::: callout-note
+### Shiny Core sessions
+
+In Shiny Core, the session object is always fully defined in the `server` function.
+:::
+
+
+## Explicit UI containers
+
+In [decoupling](#decoupling), we first saw how decoupling server from UI logic requires a `ui.output_*()` container element connect the two.
+Power users will find that having explicit control over these containers gives them more control over those component styling (since [UI is HTML](ui-components.qmd), HTML/CSS can be used to customise the component containers).
+
+Express has one other important place where an implicit UI container is used: the overall page layout.
+This is often convenient, since Express can infer a sensible layout based on the top-level UI components, but it can also be limiting to not have explicit control over the page layout.
+Express does offer a `ui.page_opts()` to add a title and other page options, but it's not as flexible working directly with an explicit page container.
+
 
 ## Conclusion
-Shiny Express does a great job of simplifying the Shiny development process, but it does so by hiding some options which are useful for building and maintaining large applications.
-As you grow as a Shiny developer and build larger more involved applications, you should consider using Shiny Core to take advantage of these features.
+
+Shiny Express does a great job of simplifying the Shiny development process, but it does so by hiding some options which are useful for building and maintaining large apps.
+As you grow as a Shiny developer and build larger more involved apps, you should consider using Shiny Core to take advantage of these features.
