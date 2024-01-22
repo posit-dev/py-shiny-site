@@ -339,14 +339,14 @@ Tabs and navigation allow you to create apps that have multiple pages.
 ::: {.sticky-xl-top .pt-4}
 
 <h3 class="mt-4">
-  <a href="/layouts/panels-cards.qmd" class="dark text-decoration-none">
+  <a href="/layouts/panels-cards/index.qmd" class="dark text-decoration-none">
     <img src="/images/cards-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Panels & Cards
   </a>
 </h3>
 
 Use panels and cards to define areas of related content.
 
-<a href="/layouts/panels-cards.qmd" class="fw-500">Learn Panels & Cards <i class="bi bi-chevron-right"></i></a>
+<a href="/layouts/panels-cards/index.qmd" class="fw-500">Learn Panels & Cards <i class="bi bi-chevron-right"></i></a>
 :::
 ::::
 :::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
@@ -356,17 +356,17 @@ Use panels and cards to define areas of related content.
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/panels-cards.html#main-image-with-panel-floating-above">
+<a class="component-list-header-text" href="/layouts/panels-cards/index.html#main-image-with-panel-floating-above">
 <h5>Main image with panel floating above</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/panels-cards.html#main-image-with-panel-floating-above">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/panels-cards/index.html#main-image-with-panel-floating-above">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/panels-cards.html#main-image-with-panel-floating-above"><img src="/images/drag.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/panels-cards/index.html#main-image-with-panel-floating-above"><img src="/images/drag.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
@@ -374,17 +374,17 @@ Use panels and cards to define areas of related content.
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/panels-cards.html#content-divided-by-cards">
+<a class="component-list-header-text" href="/layouts/panels-cards/index.html#content-divided-by-cards">
 <h5>Content divided by bounding boxes (cards)</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/panels-cards.html#content-divided-by-cards">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/panels-cards/index.html#content-divided-by-cards">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="component-list-header-text" href="/layouts/panels-cards.html#content-divided-by-cards"><img src="/images/two-cards.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="component-list-header-text" href="/layouts/panels-cards/index.html#content-divided-by-cards"><img src="/images/two-cards.png" class="h-100 w-100"></a></p>
 
 </div>
 </div>
