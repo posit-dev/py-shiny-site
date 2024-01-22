@@ -28,10 +28,9 @@ class QuartoPrint(List[str]):
         else:
             app_file = files.pop(0)
 
-        bundle = shinylive._url.create_shinylive_bundle_file(app_file, files, language)
-        contents = shinylive._url.create_shinylive_chunk_contents(bundle)
+        bundle = shinylive.url_encode(app_file, files, language)
 
-        self.append(shinylive_chunk(contents, **kwargs))
+        self.append(bundle.chunk(**kwargs))
 
 
 def shinylive_chunk(
@@ -226,11 +225,11 @@ def express_core_preview(
         if app_file is None:
             continue
 
-        shinylive_url = shinylive.encode_shinylive_url(app_file, files, language)
+        sl_app = shinylive.url_encode(app_file, files, language)
 
         block.append("### " + tab_name)
         block.append(
-            '```{.python .code-overflow-scroll shinylive="' + shinylive_url + '"}'
+            '```{.python .code-overflow-scroll shinylive="' + sl_app.url() + '"}'
         )
         block.append_file(app_file)
         block.extend(["```", ""])

@@ -5,8 +5,6 @@ description: "A navbar adds a navigation bar, allowing users to easily navigate 
 
 ```{python}
 #| include: false
-import shinylive
-
 import sys
 sys.path.append("../..")
 
