@@ -208,14 +208,14 @@ A sidebar layout creates a sidebar, typically used for inputs, and a large main 
 
 
 <h3 class="mt-4">
-  <a href="/layouts/tabs.qmd" class="dark text-decoration-none">
+  <a href="/layouts/tabs/index.qmd" class="dark text-decoration-none">
     <img src="/images/tabs-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Tabs
   </a>
 </h3>
 
 Tabs and navigation allow you to create apps that have multiple pages.
 
-<a href="/layouts/tabs.qmd" class="fw-500">Learn Tabs <i class="bi bi-chevron-right"></i></a>
+<a href="/layouts/tabs/index.qmd" class="fw-500">Learn Tabs <i class="bi bi-chevron-right"></i></a>
 :::
 ::::
 :::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
@@ -225,17 +225,17 @@ Tabs and navigation allow you to create apps that have multiple pages.
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/tabs.html#tabset-with-pill-navigation">
+<a class="component-list-header-text" href="/layouts/tabs/index.html#tabset-with-pill-navigation">
 <h5>Tabset with Pill Nav</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/tabs.html#tabset-with-pill-navigation">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/tabs/index.html#tabset-with-pill-navigation">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/tabs.html#tabset-with-pill-navigation"><img src="/images/tabset-pill.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/tabs/index.html#tabset-with-pill-navigation"><img src="/images/tabset-pill.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
@@ -243,34 +243,34 @@ Tabs and navigation allow you to create apps that have multiple pages.
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/tabs.html#tabset-with-pill-list-navigation">
+<a class="component-list-header-text" href="/layouts/tabs/index.html#tabset-with-pill-list-navigation">
 <h5>Tabset with Pill List Nav</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/tabs.html#tabset-with-pill-list-navigation">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/tabs/index.html#tabset-with-pill-list-navigation">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/tabs.html#tabset-with-pill-list-navigation"><img src="/images/tabset-pill-list.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/tabs/index.html#tabset-with-pill-list-navigation"><img src="/images/tabset-pill-list.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/tabs.html#tabset-with-tab-navigation">
+<a class="component-list-header-text" href="/layouts/tabs/index.html#tabset-with-tab-navigation">
 <h5>Tabset with Tab Nav</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/tabs.html#tabset-with-tab-navigation">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/tabs/index.html#tabset-with-tab-navigation">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/tabs.html#tabset-with-tab-navigation"><img src="/images/tabset-tab.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/tabs/index.html#tabset-with-tab-navigation"><img src="/images/tabset-tab.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
@@ -278,18 +278,18 @@ Tabs and navigation allow you to create apps that have multiple pages.
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/tabs.html#card-with-a-tabbed-tabset">
+<a class="component-list-header-text" href="/layouts/tabs/index.html#card-with-a-tabbed-tabset">
 <h5>Card with a tabbed tabset
 </h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/tabs.html#card-with-a-tabbed-tabset">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/tabs/index.html#card-with-a-tabbed-tabset">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/tabs.html#card-with-a-tabbed-tabset"><img src="/images/tabset-tab-card.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/tabs/index.html#card-with-a-tabbed-tabset"><img src="/images/tabset-tab-card.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
@@ -297,34 +297,34 @@ Tabs and navigation allow you to create apps that have multiple pages.
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/tabs.html#card-with-a-pill-tabset">
+<a class="component-list-header-text" href="/layouts/tabs/index.html#card-with-a-pill-tabset">
 <h5>Card with a pill tabset</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/tabs.html#card-with-a-pill-tabset">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/tabs/index.html#card-with-a-pill-tabset">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/tabs.html#card-with-a-pill-tabset"><img src="/images/tabset-pill-card.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/tabs/index.html#card-with-a-pill-tabset"><img src="/images/tabset-pill-card.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/tabs.html#vertically-collapsing-accordion-panels">
+<a class="component-list-header-text" href="/layouts/tabs/index.html#vertically-collapsing-accordion-panels">
 <h5>Collapsing accordion panels</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/tabs.html#vertically-collapsing-accordion-panels">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/tabs/index.html#vertically-collapsing-accordion-panels">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/tabs.html#vertically-collapsing-accordion-panels"><img src="/images/accordion.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/tabs/index.html#vertically-collapsing-accordion-panels"><img src="/images/accordion.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
