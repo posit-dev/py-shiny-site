@@ -170,13 +170,13 @@ website:
         - section: "![](/images/sidebars-blue.svg){.sidebar-icon .sidebar-subtitle}__Sidebars__"
           contents:
             - text: "Sidebar on Left"
-              href: "/layouts/sidebars.html#sidebar-on-the-left"
+              href: "/layouts/sidebars/index.html#sidebar-on-the-left"
             - text: "Sidebar on Right"
-              href: "/layouts/sidebars.html#sidebar-on-the-right"
+              href: "/layouts/sidebars/index.html#sidebar-on-the-right"
             - text: "Sidebar Within a Card"
-              href: "/layouts/sidebars.html#sidebar-within-a-card"
+              href: "/layouts/sidebars/index.html#sidebar-within-a-card"
             - text: "Collapsed Sidebar"
-              href: "/layouts/sidebars.html#collapsed-sidebar"
+              href: "/layouts/sidebars/index.html#collapsed-sidebar"
         - section: "![](/images/tabs-blue.svg){.sidebar-icon .sidebar-subtitle}__Tabs__"
           contents:
             - text: "Tabset with Pill Navigation"

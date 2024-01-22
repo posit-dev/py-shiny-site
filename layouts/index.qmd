@@ -110,14 +110,14 @@ A navbar adds a navigation bar to your app, allowing users to easily navigate yo
 
 
 <h3 class="mt-4">
-  <a href="/layouts/sidebars.qmd" class="dark text-decoration-none">
+  <a href="/layouts/sidebars/index.qmd" class="dark text-decoration-none">
     <img src="/images/sidebars-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Sidebars
   </a>
 </h3>
 
 A sidebar layout creates a sidebar, typically used for inputs, and a large main area, typically used for outputs.
 
-<a href="/layouts/sidebars.qmd" class="fw-500">Learn Sidebars <i class="bi bi-chevron-right"></i></a>
+<a href="/layouts/sidebars/index.qmd" class="fw-500">Learn Sidebars <i class="bi bi-chevron-right"></i></a>
 
 :::
 ::::
@@ -128,17 +128,17 @@ A sidebar layout creates a sidebar, typically used for inputs, and a large main 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/sidebars.html#sidebar-on-the-left">
+<a class="component-list-header-text" href="/layouts/sidebars/index.html#sidebar-on-the-left">
 <h5>Sidebar on the Left</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/sidebars.html#sidebar-on-the-left">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/sidebars/index.html#sidebar-on-the-left">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/sidebars.html#sidebar-on-the-left"><img src="/images/sidebar-left.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/sidebars/index.html#sidebar-on-the-left"><img src="/images/sidebar-left.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
@@ -146,17 +146,17 @@ A sidebar layout creates a sidebar, typically used for inputs, and a large main 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/sidebars.html#sidebar-on-the-right">
+<a class="component-list-header-text" href="/layouts/sidebars/index.html#sidebar-on-the-right">
 <h5>Sidebar on the Right</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/sidebars.html#sidebar-on-the-right">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/sidebars/index.html#sidebar-on-the-right">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/sidebars.html#sidebar-on-the-right"><img src="/images/sidebar-right.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/sidebars/index.html#sidebar-on-the-right"><img src="/images/sidebar-right.png" class="h-100 w-100"></a></p>
 
 </div>
 </div>
@@ -164,34 +164,34 @@ A sidebar layout creates a sidebar, typically used for inputs, and a large main 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/sidebars.html#sidebar-within-a-card">
+<a class="component-list-header-text" href="/layouts/sidebars/index.html#sidebar-within-a-card">
 <h5>Sidebar Within a Card</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/sidebars.html#sidebar-within-a-card">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/sidebars/index.html#sidebar-within-a-card">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/sidebars.html#sidebar-within-a-card"><img src="/images/sidebar-left-card.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/sidebars/index.html#sidebar-within-a-card"><img src="/images/sidebar-left-card.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/sidebars.html#collapsed-sidebar">
+<a class="component-list-header-text" href="/layouts/sidebars/index.html#collapsed-sidebar">
 <h5>Collapsed Sidebar</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/sidebars.html#collapsed-sidebar">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/sidebars/index.html#collapsed-sidebar">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/sidebars.html#collapsed-sidebar"><img src="/images/sidebar-collapsed.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/sidebars/index.html#collapsed-sidebar"><img src="/images/sidebar-collapsed.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
