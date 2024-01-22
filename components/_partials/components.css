@@ -156,34 +156,12 @@ a.component-list-header-text:hover ~ div.component-list-icon p a i.component-lin
 }
 
 /* detail page styling */
-
 .tab-content {
   margin-top: 0px;
   border: 0px;
   margin-left: 0;
   padding: 1em 0px;
   margin-bottom: 1em;
-}
-
-code.sourceCode,
-pre.console code {
-  padding: 0.25rem 1rem 0.25rem 0.25rem;
-}
-
-.code-with-filename div.sourceCode,
-.reveal .code-with-filename div.sourceCode {
-  margin-top: 0;
-  border-top-left-radius: 0%;
-  border-top-right-radius: 0%;
-}
-
-.tab-pane div.sourceCode {
-  margin-top: 0px;
-}
-
-.tab-content div.sourceCode,
-.tab-content pre.console {
-  margin-bottom: 0px;
 }
 
 .component-hr:last-of-type {
@@ -208,9 +186,9 @@ pre.console code {
 /* Tab styling */
 
 .panel-tabset .nav-tabs {
-  display: flex !important;
-  align-items: flex-end !important;
-  justify-content: flex-end !important;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
   border-bottom: 1px solid #E9ECEF;
   border-top: none;
   border-left: none;
