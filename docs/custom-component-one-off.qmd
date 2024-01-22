@@ -46,7 +46,7 @@ tabulator/
 Both `tabulator_esm.min.js` and `tabulator.min.css` are downloaded from [tabulator's website.](https://tabulator.info/docs/5.5/install#sources-download) `tableComponent.js` is the script that we will write that contains the code for rendering the table to our Shiny app.
 
 :::{.callout-note}
-The code in this article will be abbreviated to show the relevant parts. If you want to see the full code, see the [accompanying repo.](https://github.com/posit-dev/pyshiny-output-binding-example)
+The code in this article will be abbreviated to show the relevant parts. If you want to see the full code, see the [accompanying repo.](https://github.com/posit-dev/py-shiny-output-binding-example)
 :::
 
 
@@ -157,7 +157,7 @@ if (Shiny) {
 ```
 :::
 
-To see the full JavaScript code, see `tabulator/tableComponent.js` in the [accompanying repo.](https://github.com/posit-dev/pyshiny-output-binding-example/blob/main/tabulator/tableComponent.js)
+To see the full JavaScript code, see `tabulator/tableComponent.js` in the [accompanying repo.](https://github.com/posit-dev/py-shiny-output-binding-example/blob/main/tabulator/tableComponent.js)
 
 ## The `output_tabulator()` function
 
@@ -352,4 +352,4 @@ Which results in the following app:
 :::
 
 
-To see the full app script, see `app.py` in the accompanying repo for this post [here.](https://github.com/posit-dev/pyshiny-output-binding-example/blob/main/app.py)
+To see the full app script, see `app.py` in the accompanying repo for this post [here.](https://github.com/posit-dev/py-shiny-output-binding-example/blob/main/app.py)
