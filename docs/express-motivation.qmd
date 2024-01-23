@@ -287,19 +287,19 @@ This can be potentially dangerous since one users activity could impact another'
 :::
 
 
-## Session object
+## Sessions
 
 Shiny apps have an object that represent a particular user's [session](../api/Session.html).
 This object is useful for a variety of more advanced tasks like [sending messages to the client](../api/Session.html#shiny.Session.send_custom_message) and [serving up session-specific data](../api/Session.html#shiny.Session.dynamic_route).
 In Express, it's possible to access the session object, but it's a bit trickier to use.
-That's because, Express gets executed once before any session is created, then again once a session is established.[^execute-twice]
+That's because, on startup, Express code gets executed once before the actual session gets established, then once for each session.[^execute-twice]
 As a result, you have to check if the session object exists before using it.
 
-[^execute-twice]: Another potential reason to prefer Shiny Core is that you have to worry about expensive UI code getting executed twice.
+[^execute-twice]: Another potential reason to prefer Shiny Core is that you have to worry about expensive UI code having execute multiple times.
 
 ```{shinylive-python}
 #| standalone: true
-#| components: [edi#| tor, viewer]
+#| components: [editor, viewer]
 #| layout: vertical
 #| viewerHeight: 75
 from shiny import reactive
@@ -327,7 +327,7 @@ In Shiny Core, the session object is always fully defined in the `server` functi
 :::
 
 
-## Explicit UI containers
+## UI containers
 
 In [decoupling](#decoupling), we first saw how decoupling server from UI logic requires a `ui.output_*()` container element connect the two.
 Power users will find that having explicit control over these containers gives them more control over those component styling (since [UI is HTML](ui-components.qmd), HTML/CSS can be used to customise the component containers).

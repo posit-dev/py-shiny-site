@@ -4,7 +4,7 @@ format: html
 ---
 
 
-Underneath the hood, Shiny UI stands on a foundation of HTML, CSS, and JavaScript.
+Under the hood, Shiny UI stands on a foundation of HTML, CSS, and JavaScript.
 In fact, if you print a UI component in a Python REPL, you'll see its HTML representation:
 
 ```{shinylive-python}
@@ -90,24 +90,13 @@ ui.a("Help", href="help.html", class_="help-link")
 ```
 :::
 
-## List fragments
 
-Sometimes it's useful to create a list fragment of HTML -- use a `TagList()` for this.
-
-```{shinylive-python}
-#| components: [editor, cell]
-from shiny import ui
-ui.TagList(
-    ui.div("Hello"),
-    ui.span("World"),
-    "!"
-)
-```
 
 ## `<head>` content
 
-Sometimes it's useful to include content in the `<head>` of the document, like CSS, JavaScript, `<meta>` tags, etc.
-To do this, use `ui.head_content()`, which can be placed anywhere in the UI to include content in the `<head>` of the document.
+The `<head>` of an HTML document is a special place where you can load CSS, JavaScript, and add other "meta" content that should only be loaded once.
+`head_content()` provides an easy easy way to add to the `<head>`, and can be placed anywhere in the UI.
+For example, to add a [`robots` meta tag](https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag):
 
 ```python
 from shiny import ui
@@ -117,14 +106,16 @@ ui.head_content(
 )
 ```
 
-Note that if you find yourself using `ui.head_content()` to import CSS and JavaScript that should only be included once, you might want to consider using `HTMLDependency()` instead (see below).
+If `head_content()` wants to import local files, see [here](ui-customize.qmd#serve-local-files) to learn how to serve local files.
+If you find yourself using `ui.head_content()` to import CSS and JavaScript, you may instead want to use `ui.include_css()` and `ui.include_js()`, which are covered [here](ui-customize.qmd#css-file).
+Lastly, if you're loading files for a framework like Bootstrap, Svelte, etc. consider using `HTMLDependency()` instead (see below).
+
 
 ## HTML Dependencies
 
-Sometimes it's useful to have more reassurance that CSS/Javascript files are only loaded once, even they happen to be included in multiple places in the UI (e.g., loading a framework like React).
-The `HTMLDependency()` class helps with this, and can be included as a child of any `Tag`/`TagList` object.
-When rendered, the `HTMLDependency()` will be included in the `<head>` of the document with the appropriate `<link>` and `<script>` tags.
-Here's some pseudo-code to illustrate how one might use it:
+`HTMLDependency()` provides a useful way to include CSS, JavaScript, other files which should _only ever be loaded once_.
+Most Shiny apps don't need to worry about this problem, but if you're creating UI components that you expect other people to use, then it's important to be aware of `HTMLDependency()`.
+It's typically used to load frameworks like Bootstrap or Svelte, and can also be included as a child of any `Tag`/`TagList` object, so may see it used in the wild like this:
 
 ```python
 from shiny import ui
@@ -142,7 +133,31 @@ def my_ui(x):
     )
 ```
 
-For concrete examples, and to learn more, see the articles on creating [custom Shiny bindings](custom-component-one-off.qmd).
+::: callout-note
+### Resolving dependencies
+
+If multiple `HTMLDependency()` objects with the same `name` are included in the UI, then only the latest version is loaded.
+:::
+
+::: callout-note
+### Custom bindings
+
+Learn more about HTMLDependencies in the [custom component guide](custom-component-one-off.qmd).
+:::
+
+## List fragments
+
+When you need a collaction of HTML tags, you can usually just use a Python list or tuple. However, in some more advanced situations, it's helpful to use a `TagList`, which has some additional attributes and methods (e.g., `.render()`, `.get_dependencies()`, etc).
+
+```{shinylive-python}
+#| components: [editor, cell]
+from shiny import ui
+ui.TagList(
+    ui.div("Hello"),
+    ui.span("World"),
+    "!"
+)
+```
 
 
 ## HTML-like objects

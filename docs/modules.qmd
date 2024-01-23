@@ -20,7 +20,7 @@ Python modules are a generic way to organize objects in a namespace, while Shiny
 ::: callout-warning
 ### Shiny core only
 
-Modules currently aren't usable in [Shiny Express](express-difference.qmd) apps.
+Modules are not currently supported in [Shiny Express](express-difference.qmd) apps.
 :::
 
 

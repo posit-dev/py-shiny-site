@@ -7,27 +7,28 @@ aliases:
   - ipywidgets.html
 ---
 
-The [shinywidgets](https://github.com/posit-dev/py-shinywidgets) package enables rendering of [ipywidgets](https://ipywidgets.readthedocs.io/en/latest/) (i.e., Jupyter Widgets) in Shiny.
-Many Python packages interface with the ipywidgets framework, including:
+Shiny fully supports [ipywidgets](https://ipywidgets.readthedocs.io/en/latest/) (aka Jupyter Widgets) via the [shinywidgets](https://github.com/posit-dev/py-shinywidgets) package.
+Many notable Python packages build on ipywidgets to provide highly interactive widgets in Jupyter notebooks, including:
 
-- Interactive graphs, like [altair](https://altair-vipiz.github.io/) and [plotly](https://plotly.com/python/).
+- Plots, like [altair](https://altair-vipiz.github.io/), [bokeh](https://docs.bokeh.org/en/latest/index.html), and [plotly](https://plotly.com/python/).
 - Maps, like [pydeck](https://deckgl.readthedocs.io/en/latest/index.html) and [ipyleaflet](https://ipyleaflet.readthedocs.io/en/latest/usage/index.html).
 - Tables, [ipydatagrid](https://pypi.org/project/ipydatagrid) and [ipysheet](https://pypi.org/project/ipysheet).
 - 3D visualizations, like [ipyvolume](https://pypi.org/project/ipyvolume) and [pythreejs](https://pypi.org/project/pythreejs).
 - Media streaming, like [ipywebrtc](https://pypi.org/project/ipywebrtc).
+- Other [awesome widgets](https://github.com/ml-tooling/best-of-jupyter#interactive-widgets--visualization)
 
 In this article, we'll learn how to leverage ipywidgets in Shiny, including how to [render](#get-started) them, [efficiently update](#efficient-updates) them, and [respond to user input](#user-input).
 
 ::: callout-note
 ### Not all Jupyter Widgets are ipywidgets
 
-Although the term "Jupyter Widgets" is often used to refer to ipywidgets, it's important to note that not all Jupyter Widgets are ipywidgets. For example, packages like [folium](https://python-visualization.github.io/folium/latest/) and [ipyvizzu](https://ipyvizzu.vizzuhq.com/latest/) aren't compatible with ipywidgets, but do provide a [`_repr_html_` method](https://ipython.readthedocs.io/en/stable/config/integrating.html#rich-display) for getting the HTML representation. It may be possible to display these widgets using Shiny's
+Although the term "Jupyter Widgets" is often used to refer to ipywidgets, it's important to note that not all Jupyter Widgets are ipywidgets. For example, packages like [folium](https://python-visualization.github.io/folium/latest/) and [ipyvizzu](https://ipyvizzu.vizzuhq.com/latest/) aren't compatible with ipywidgets, but do provide a [`_repr_html_` method](https://ipython.readthedocs.io/en/stable/config/integrating.html#rich-display) for getting the HTML representation. It may be possible to display these widgets using Shiny's [`@render.ui`](../api/render.ui.html) decorator.
 :::
 
 
 ## Installation
 
-To leverage ipywidgets in Shiny, start by installing `shinywidgets`:
+To use ipywidgets in Shiny, start by installing `shinywidgets`:
 
 ```bash
 pip install shinywidgets
@@ -42,8 +43,7 @@ pip install altair bokeh plotly pydeck ipyleaflet
 
 ## Get started {#get-started}
 
-Rendering ipywidgets with `shinywidgets` works like most other Shiny [outputs](quick-start.qmd#outputs).
-That is, you'll define a (reactive) function that returns a widget, then decorate it with `@render_widget` (or a more specific decorator like `@render_altair`).
+To render an ipywidget you first define a reactive function that returns the widget and then decorate it with `@render_widget`. Some popular widgets like `altair` have specially-designed decorators for better ergonomics and we recommend using them if they exist.
 
 ::: {.panel-tabset .panel-underline .border-0 .p-0 .justify-content-center}
 
@@ -80,86 +80,26 @@ jsonschema
 
 :::
 
-## Layout & styling {#layout-styling}
-
-Layout and styling of ipywidgets can get a bit convoluted, partially due to potentially 3 levels of customization:
-
-1. The [ipywidgets API](https://ipywidgets.readthedocs.io/en/7.6.3/examples/Widget%20Styling.html).
-2. The widget implementation's API (e.g., `altair`'s `Chart`, `plotly`'s `Figure`, etc).
-3. Shiny's UI layer.
-
-Generally speaking, when (2) is available, it's preferrable since it's designed specifically for the widget. For example, if you want to set the size and theme of a plotly figure, can use its `update_layout` method:
-
-```{shinylive-python}
-#| standalone: true
-#| components: [editor, viewer]
-#| layout: vertical
-#| viewerHeight: 285
-
-import plotly.express as px
-from shiny.express import input, ui
-from shinywidgets import render_plotly
-
-ui.input_selectize(
-    "theme", "Choose a theme",
-    choices=["plotly", "plotly_white", "plotly_dark"]
-)
-
-@render_plotly
-def plot():
-    p = px.histogram(px.data.tips(), x="tip")
-    p.update_layout(template=input.theme(), height=200)
-    return p
-## file: requirements.txt
-pandas
-plotly
-```
 
 
-### Arranging widgets
+## Widget object
 
-When arranging multiple widgets, it's recommended to use Shiny UI components.
-In addition to being quite expressive and flexible, these components make it easy to implement filling and responsive layouts.
-For example, the following code arranges two widgets side-by-side, and fills the available space:
-
-```{shinylive-python}
-#| standalone: true
-#| components: [editor, viewer]
-#| layout: vertical
-#| viewerHeight: 250
-
-import plotly.express as px
-from shiny.express import input, ui
-from shinywidgets import render_plotly
-
-ui.page_opts(title = "Filling layout", fillable = True)
-
-with ui.layout_columns():
-  @render_plotly
-  def plot1():
-      return px.histogram(px.data.tips(), y="tip")
-
-  @render_plotly
-  def plot2():
-      return px.histogram(px.data.tips(), y="total_bill")
-## file: requirements.txt
-pandas
-plotly
-```
+In order to create rich user experiences like linked brushing, editable tables, and smooth transitions, it's useful to know how to [efficiently update](#efficient-updates) and [respond to user input](#user-input).
+In either case, we'll need access to the Python object underlying the rendered widget.
+This object is available as a property, named `widget`, on the render function.
+From this widget object, you can then access its attributes and methods.
+As we'll see later, [special widget attributes](https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20Basics.html#widget-properties) known as _traits_, can be used to [efficiently update](#efficient-updates) and [respond to user input](#user-input).
 
 ::: callout-tip
-#### Layout gallery
+## Discovering traits
 
-For more layout inspiration, check out the [Layout Gallery](/layouts).
+If you're not sure what traits are available, you can use the `widget.traits()` method to list them.
 :::
 
-## The widget property
 
-In the upcoming sections ([efficiently update](#efficient-updates) & [respond to user input](#user-input)), we'll need access to the rendered widget object.
-Turns out, the render function provides this object as a property, named `widget`.
-This `widget` property is always a subclass of `ipywidgets.Widget` and may not be the same as the class returned by the render function.
-For example, the `hist` function above returns `Figure`, but the `widget` property returns a `FigureWidget` (a subclass of `ipywidgets.Widget`).
-In many cases, this is useful since only `ipywidgets.Widget` subclasses support [efficient updating](#efficient-updates) or [responding to user input](#user-input).
+This `widget` object is always a subclass of `ipywidgets.Widget` and may be different from the object returned by the render function.
+For example, the `hist` function below returns `Figure`, but the `widget` property is a `FigureWidget` (a subclass of `ipywidgets.Widget`).
+In many cases, this is useful since `ipywidgets.Widget` provides a standard way to [efficiently update](#efficient-updates) and [respond to user input](#user-input) that shinywidgets knows how to handle.
 If you need the actual return value of the render function, you can access it via the `value` property.
 
 ```{shinylive-python}
@@ -197,8 +137,8 @@ As long as you're using the dedicated decorators for these packages (e.g., `@ren
 
 ## Efficient updates {#efficient-updates}
 
-If you've used ipywidgets before, you may know that widgets have [properties](https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20Basics.html#widget-properties) (aka, traitlets) that can be updated after the widget is created.
-And, when performance is paramount, it's often much more performant to update properties (i.e., mutate the widget) instead of re-creating the widget from scratch.
+If you've used ipywidgets before, you may know that widgets have traits that can be updated after the widget is created.
+It's often much more performant to update a widget's traits instead of re-creating it from from scratch, and so you should update a widget's traits when performance is critical.
 
 For example, in a notebook, you may have written a code cell like this to first display a map:
 
@@ -207,7 +147,7 @@ import ipyleaflet as ipyl
 map = ipyl.Map()
 ```
 
-Then, in a later cell, you may have updated the map's `center` property to change the map's location:
+Then, in a later cell, you may have updated the map's `center` trait to change the map's location:
 
 ```python
 map.center = (51, 0)
@@ -251,39 +191,34 @@ ipyleaflet
 If the app above had used `@render_widget` instead of `@reactive.effect` to perform the update, then the map would be re-rendered from stratch every time `input.center` changes, which causes the map to flicker (instead of a smooth transition to the new location).
 :::
 
-::: callout-tip
-## Discovering properties
-
-If you're not sure what properties (aka, traitlets) are available/eligible for updating, you can use the `widget.traits()` method to list them.
-:::
 
 
 ## Respond to user input {#user-input}
 
 There are two different ways to respond to user input:
 
-1. [Reactive properties](#reactive-read)
+1. [Reactive traits](#reactive-read)
 2. [Widget event callbacks](#event-callbacks)
 
-The first approach is usually the best/easiest, but the second approach may be necessary if the event information isn't available as a widget property.
+It's usually easiest to use reactive traits but you may need to use event callbacks if the event information isn't available as a trait.
 
-### Reactive properties {#reactive-read}
+### Reactive traits {#reactive-read}
 
-If you've used ipywidgets before, you may know that widgets have [properties](https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20Basics.html#widget-properties) (aka "traitlets") that can be accessed and observed.
-For example, in a notebook, you may have written a code cell like this to first display a map:
+If you've used ipywidgets before, you may know that widgets have traits that can be accessed and observed.
+For example, in a notebook, you may have written a code cell like this to display a map:
 
 ```python
 import ipyleaflet as ipyl
 map = ipyl.Map()
 ```
 
-Then, in a later cell, you may have read the map's `center` property to get the current map's location:
+Then, in a later cell, you may have read the map's `center` trait to get the current map's location:
 
 ```python
 map.center
 ```
 
-With shinywidgets, we can do the same thing _reactively_ in Shiny by using the `reactive_read()` function to read the property in a reactive context.
+With shinywidgets, we can do the same thing _reactively_ in Shiny by using the `reactive_read()` function to read the trait in a reactive context.
 For example, the following example creates a `map`, then displays/updates the map's current center whenever the map is panned.
 
 ```{shinylive-python}
@@ -310,13 +245,13 @@ ipyleaflet
 ```
 
 ::: callout-warning
-## Observable properties
+## Observable traits
 
-Only [observable](https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20Events.html#traitlet-events) properties (i.e., traits) can be used with `reactive_read()`.
-For a list of which properties are observable, use the `widget.traits()` method.
+Under the hood, `reactive_read()` uses [ipywidgets' `observe()` method](https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20Events.html#traitlet-events) to observe changes to the relevant trait. So, any observable trait can be used with `reactive_read()`.
+:::
 
-Also, be aware that some more complex widgets have attributes that contain observable properties.
-One practical example of this is the `selections` attribute of altair's `JupyterChart` class, which has an [observable `point` property](https://altair-viz.github.io/user_guide/jupyter_chart.html#point-selections).
+Some widgets have attributes that _contain_ observable traits.
+One practical example of this is the `selections` attribute of altair's `JupyterChart` class, which has an [observable `point` trait](https://altair-viz.github.io/user_guide/jupyter_chart.html#point-selections).
 
 ```{shinylive-python}
 #| standalone: true
@@ -349,12 +284,10 @@ anywidget
 vega_datasets
 ```
 
-:::
-
 
 ### Widget event callbacks {#event-callbacks}
 
-Sometimes, you may want to capture user interaction that isn't available through a widget property.
+Sometimes, you may want to capture user interaction that isn't available through a widget trait.
 For example, `ipyleaflet.CircleMarker` has an `.on_click()` method that allows you to execute a callback when a marker is clicked. In this case, you'll want to define a callback that updates some `reactive.value` everytime its triggered to capture the relevant information. That way, the callback information can be used to cause invalidation of other outputs (or trigger reactive side-effects):
 
 ```{shinylive-python}
@@ -393,9 +326,82 @@ ipyleaflet
 ::: callout-tip
 #### Widgets can contain other widgets
 
-In the example above, we created a `CircleMarker` object, then added it to a `Map` object. Both of these objects subclass `ipywidgets.Widget`, so they both have properties (aka, traitlets) that can be updated and read reactively.
+In the example above, we created a `CircleMarker` object, then added it to a `Map` object. Both of these objects subclass `ipywidgets.Widget`, so they both have traits that can be updated and read reactively.
 :::
 
+
+## Layout & styling {#layout-styling}
+
+Layout and styling of ipywidgets can get a bit convoluted, partially due to potentially 3 levels of customization:
+
+1. The [ipywidgets API](https://ipywidgets.readthedocs.io/en/7.6.3/examples/Widget%20Styling.html).
+2. The widget implementation's API (e.g., `altair`'s `Chart`, `plotly`'s `Figure`, etc).
+3. Shiny's UI layer.
+
+Generally speaking, it's preferable to use the widget's layout API if it is available since the API is designed specifically for the widget. For example, if you want to set the size and theme of a plotly figure, can use its `update_layout` method:
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 285
+
+import plotly.express as px
+from shiny.express import input, ui
+from shinywidgets import render_plotly
+
+ui.input_selectize(
+    "theme", "Choose a theme",
+    choices=["plotly", "plotly_white", "plotly_dark"]
+)
+
+@render_plotly
+def plot():
+    p = px.histogram(px.data.tips(), x="tip")
+    p.update_layout(template=input.theme(), height=200)
+    return p
+## file: requirements.txt
+pandas
+plotly
+```
+
+
+### Arranging widgets
+
+The best way to include widgets in your application is to wrap them in one of Shiny's UI components.
+In addition to being quite expressive and flexible, these components make it easy to implement filling and responsive layouts.
+For example, the following code arranges two widgets side-by-side, and fills the available space:
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 250
+
+import plotly.express as px
+from shiny.express import input, ui
+from shinywidgets import render_plotly
+
+ui.page_opts(title = "Filling layout", fillable = True)
+
+with ui.layout_columns():
+  @render_plotly
+  def plot1():
+      return px.histogram(px.data.tips(), y="tip")
+
+  @render_plotly
+  def plot2():
+      return px.histogram(px.data.tips(), y="total_bill")
+## file: requirements.txt
+pandas
+plotly
+```
+
+::: callout-tip
+#### Layout gallery
+
+For more layout inspiration, check out the [Layout Gallery](/layouts).
+:::
 
 
 ## Shinylive

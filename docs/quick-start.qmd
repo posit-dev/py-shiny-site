@@ -22,7 +22,7 @@ In later articles, we'll build on these concepts to create more advanced apps, l
 
 ### Basics {#basics}
 
-Shiny apps typically start with [input components](/components/#inputs) to gather information from a user, which are then used to reactively render [output components](/components/#outputs). Here's a basic example that just displays a slider's value as formatted text.
+Shiny apps typically start with [input components](/components/#inputs) to gather information from a user, which are then used to reactively render [output components](/components/#outputs). Here's a basic example that displays a slider's value as formatted text.
 
 ```{shinylive-python}
 #| standalone: true
@@ -61,15 +61,15 @@ Shiny includes many useful user interface (`ui`) components for creating inputs,
 #### Outputs {#outputs}
 
 Shiny makes it easy to create dynamic plots, tables, and other interactive widgets.
-Just apply a `@render` decorator to a function that returns a suitable object.
-Shiny itself provides a `render` module with it's decorators, but Shiny [extensions](custom-component-one-off.qmd) like [shinywidgets](jupyter-widgets.qmd) provide additional decorators for rendering other kinds of outputs, like [Jupyter Widgets](jupyter-widgets.qmd).
+All you need to do is apply a `@render` decorator to a function that returns a suitable object.
+Shiny includes a wide variety of these decorators in its `render` module, but Shiny [extensions](custom-component-one-off.qmd) like [shinywidgets](jupyter-widgets.qmd) provide additional decorators for rendering other kinds of outputs, like [Jupyter Widgets](jupyter-widgets.qmd).
 
 ::: {.panel-tabset .panel-underline .border-0 .p-0 .justify-content-center}
 
 ##### Plots
 
-Apply `@render.plot` to any code that creates a [matplotlib](https://matplotlib.org/) visual.
-Note that packages like [seaborn](https://seaborn.pydata.org/), [plotnine](https://plotnine.readthedocs.io/en/stable/), [pandas](https://pandas.pydata.org/), etc., are all compatible (as long as they return a matplotlib object).
+To include a plot in an application, apply `@render.plot` to a function that creates a [matplotlib](https://matplotlib.org/) visual.
+Note that packages like [seaborn](https://seaborn.pydata.org/), [plotnine](https://plotnine.readthedocs.io/en/stable/), [pandas](https://pandas.pydata.org/), etc., are all compatible (as long as they create a matplotlib visual).
 
 ```{shinylive-python}
 #| standalone: true
@@ -102,7 +102,7 @@ palmerpenguins
 ##### Tables
 
 Apply `@render.data_frame` to any code that returns a [pandas](https://pandas.pydata.org/) DataFrame for a basic table.
-For more sophisticated tables, give the DataFrame to [`render.DataGrid`](https://shiny.posit.co/py/components/outputs/data-grid.html)
+For more sophisticated tables, you can use [`render.DataGrid`](https://shiny.posit.co/py/components/outputs/data-grid.html) to add things like filters to your table.
 
 ```{shinylive-python}
 #| standalone: true
@@ -129,7 +129,7 @@ palmerpenguins
 
 ##### Widgets
 
-The shinywidgets package enables usage of any [ipywidget](https://ipywidgets.readthedocs.io/en/stable/) (aka Jupyter Widget) in Shiny.
+Shiny supports [Jupyter Widgets](https://ipywidgets.readthedocs.io/en/stable/) through the `shinywidgets` package.
 Below are a few examples, but you can learn more in the [Jupyter Widgets article](jupyter-widgets.qmd).
 
 ::: {.panel-tabset .panel-underline .border-0 .p-0 .justify-content-center}
@@ -278,7 +278,7 @@ pydeck
 ##### Other
 
 Many [other awesome Python packages](https://github.com/markusschanta/awesome-jupyter#visualization) provide widgets that are compatible with Shiny.
-In general, you can render them like so:
+In general, you can render them by applying the `@render_widget` decorator.
 
 ```python
 import shiny.express
@@ -297,7 +297,7 @@ def widget():
 
 #### Layouts {#layouts}
 
-Shiny provides a handful of [layout components](/layouts) which help with arranging multiple inputs and outputs in a variety of ways. As seen below, with `shiny.express`, layout components (e.g., `ui.sidebar()`) can be used as context managers to help with nesting and readability.
+Shiny provides a full suite of [layout components](/layouts) which help with arranging multiple inputs and outputs in a variety of ways. As seen below, with `shiny.express`, layout components (e.g., `ui.sidebar()`) can be used as context managers to help with nesting and readability.
 
 ::: {.panel-tabset .panel-underline .border-0 .p-0 .justify-content-center}
 
@@ -428,30 +428,98 @@ Shiny also integrates well with [Quarto](https://quarto.org/), allowing you to l
 
 ### Reactivity {#reactivity}
 
-Shiny's reactive programming model is perhaps its most powerful and proven concept[^reactive-signals].
-Compared to Python frameworks like [streamlit](comp-streamlit.qmd) or dash, reactivity allows Shiny to automatically determine the minimal amount of work to keep things up-to-date, meaning you don't need to manually cache computations (which can be tedious and error-prone) to keep your apps performant.
-Also, by learning how reactivity powers basic apps, you'll find those same concepts extend naturally to more advanced apps.
-In short, Shiny knows to re-execute a _reactive functions_ (e.g., `render` functions) when any of its _reactive dependencies_ (i.e., `input`) change.
-In [later articles](reactive-foundations.qmd), you'll learn how to create different kinds of reactive functions and dependencies to create more sophisticated and performant apps.
+Shiny uses something called [transparent reactivity](https://blog.machinezoo.com/transparent-reactive-programming) to automatically infer relationships between components, and minimally re-render as needed when dependencies change.[^reactive-signals]
+As a result, apps naturally retain performance as they grow in size, without workarounds like caching or memoization.
+All Shiny apps are also built on the same small set of [reactive foundations](reactive-foundations.qmd), each of which are simple and easy to learn, but can be
+combined in novel ways to create seriously sophisticated and performant apps.
 
-[^reactive-signals]: If you're familiar with JavaScript, you may find a lot of similarities between Shiny and reactivity in popular JS frameworks like [svelte](https://svelte.dev/blog/runes) and [solidjs](https://www.solidjs.com/).
+[^reactive-signals]: If you're familiar with JavaScript, you may find a lot of similarities between Shiny and reactivity in modern JS frameworks like [solidjs](https://www.solidjs.com/), [mobx](https://mobx.js.org/computeds.html), and [svelte](https://svelte.dev/blog/runes).
 
-For a quick example, typically `input`s cause _invalidation_ of a reactive function, but other things like `reactive.invalidate_later()` can cause invalidation (in this case, every second).
+To demonstrate how Shiny minimally re-renders, consider the following app which contains two different plots, each of which depends on a different input.
+When the first input changes, Shiny knows to only re-render the first plot, and vice versa.
+
+::: column-body-outset-right
 
 ```{shinylive-python}
 #| standalone: true
 #| components: [editor, viewer]
 #| layout: vertical
-#| viewerHeight: 50
-from datetime import datetime
-from shiny import reactive
-from shiny.express import render
+#| viewerHeight: 325
+import plotly.express as px
+from shiny.express import input, render, ui
+from shinywidgets import render_plotly
 
-@render.ui
-def clock():
-    reactive.invalidate_later(1)
-    return f"Current time: {datetime.now().strftime('%H:%M:%S')}"
+tips = px.data.tips()
+
+with ui.layout_columns():
+    @render_plotly
+    def plot1():
+        p = px.histogram(tips, x=input.var1())
+        p.update_layout(height=200, xaxis_title=None)
+        return p
+
+    @render_plotly
+    def plot2():
+        p = px.histogram(tips, x=input.var2())
+        p.update_layout(height=200, xaxis_title=None)
+        return p
+
+with ui.layout_columns():
+    ui.input_select("var1", None, choices=["total_bill", "tip"], width="100%")
+    ui.input_select("var2", None, choices=["tip", "total_bill"], width="100%")
+## file: requirements.txt
+palmerpenguins
+plotly
+pandas
 ```
+
+:::
+
+Shiny also knows when outputs are visible or not, and so, will only call `render` functions when needed.
+For example, in the app below, the `table` function doesn't get called until the "Table" page is selected.
+
+::: column-body-outset-right
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 325
+import plotly.express as px
+from shiny.express import input, render, ui
+from shinywidgets import render_plotly
+
+tips = px.data.tips()
+
+with ui.sidebar():
+    ui.input_selectize("var", "Select variable", choices=["total_bill", "tip"])
+
+ui.nav_spacer()
+
+with ui.nav_panel("Plot"):
+    @render_plotly
+    def plot():
+        p = px.histogram(tips, x=input.var())
+        p.update_layout(height=225)
+        return p
+
+with ui.nav_panel("Table"):
+    @render.data_frame
+    def table():
+        return tips[[input.var()]]
+## file: requirements.txt
+palmerpenguins
+plotly
+pandas
+```
+
+:::
+
+::: callout-note
+#### Learn more
+
+For a more in-depth look at reactivity, check out the [reactivity article](reactive-foundations.qmd).
+:::
 
 ### Starter templates {#templates}
 
@@ -472,7 +540,8 @@ For more inspiring examples, check out the [example gallery](/gallery).
 
 ### Extensible foundation {#extensible}
 
-Shiny is built on a foundation of web standards, allowing you to incrementally adopt custom HTML, CSS, and/or JavaScript as needed. In fact, Shiny UI components themselves are built on a Python representation of HTML/CSS/JavaScript, which you can see by printing them in a Python REPL:
+Shiny is built on a foundation of web standards, allowing you to incrementally adopt custom HTML, CSS, and/or JavaScript as needed.
+In fact, Shiny UI components themselves are built on a Python representation of HTML/CSS/JavaScript, which you can see by printing them in a Python REPL:
 
 ```python
 >>> from shiny import ui
@@ -480,9 +549,10 @@ Shiny is built on a foundation of web standards, allowing you to incrementally a
 <button class="btn btn-default action-button" id="btn" type="button">Button</button>
 ```
 
-As you'll learn more about in [later articles](custom-component-one-off.html), inputs and outputs communicate with the Python backend via Shiny's binding API, which can work in tandem with any JavaScript framework like React, Vue, Angular, etc.
-Also, since [UI is HTML](ui-html.qmd), you can gently introduce HTML/CSS/JavaScript as needed in your apps to customize without having to learn complicated build tooling and frameworks.
+And, since [UI is HTML](ui-html.qmd), you can gently introduce HTML/CSS/JavaScript as needed in your apps to customize without having to learn complicated build tooling and frameworks.
+However, if you're versed in front-end development, you can also use Shiny to create [custom components](custom-component-one-off.qmd) that leverage your favorite JavaScript framework.
 
 ### Next steps {#next-steps}
 
-In the next article, we'll learn how to create [dashboards](dashboards.qmd) with Shiny, then after, learn more about Shiny's integration with the [Jupyter Widgets ecosystem](jupyter-widgets.qmd). If you're interested in just getting started developing Shiny apps locally, skip ahead to the [workflow articles](install-create-run.qmd).
+In the next few articles, we'll learn how to create [dashboards](dashboards.qmd) with Shiny as well as how to integrate [Jupyter Widgets](jupyter-widgets.qmd) into your apps.
+If you're interested in just getting started developing Shiny apps locally, skip ahead to the [workflow articles](install-create-run.qmd).

@@ -9,9 +9,9 @@ Amongst these [dynamic UI](#dynamic-ui) is the most general and powerful, but al
 
 ### Conditional UI
 
-Often times it's useful to show or hide UI components based on some condition.
-`ui.panel_conditional()` enables this by showing/hiding UI based on a whether a JavaScript condition is truthy.
-This condition can reference input values, and used to make any sort of UI conditional (not just a string as done here).
+The most basic way to create dynamic UIs is by conditionally hiding a UI element on the client side.
+`ui.panel_conditional()` enables this by showing/hiding UI based on a JavaScript condition.
+This condition can reference input values, and can be used to make any sort of UI conditional.
 
 ```{shinylive-python}
 #| standalone: true
@@ -32,7 +32,7 @@ with ui.panel_conditional("input.display === 'shown'"):
 
 ### Updating inputs
 
-Updating inputs server-side is useful for updating input parameters that are usually hard-coded in the UI.
+In addition to hiding elements on the client side, you can also update input elements from the server. This is used in cases where you want to change on part of an input without regenerating it entirely. For example you might want to change `ui.input_select` choices when a user takes a particular action.
 
 ```{shinylive-python}
 #| standalone: true
@@ -60,10 +60,8 @@ def _():
 
 ### Dynamic UI {#dynamic-ui}
 
-Dynamic UI is a powerful feature that enables dynamic (i.e., server-side) rendering of any UI component(s).
-Like any other output, start with a container for output (via `ui.output_ui()`), and then apply `@render.ui` to a function that returns UI component(s).
-Here, for a starting example, we'll recreate the previous example using dynamic UI.
-
+Finally, `@render.ui` lets you generate UI element(s) entirely on the server, which is an extremely flexible way to dynamically generate UIs.
+This is the most general mechanism for dynamic UI, but also comes with the most overhead.
 
 ```{shinylive-python}
 #| standalone: true
@@ -108,5 +106,6 @@ Anything that's statically renderable can also be rendered dynamically (e.g.,
 ::: callout-warning
 ## Dynamic UI vs. updating inputs vs. conditional UI
 
-Dynamic UI is a more general mechanism than the updating inputs and conditional UI patterns, and can be used to update any UI component(s) (not just inputs). However, updating inputs is more efficient than dynamic UI, and should be preferred when possible.
+Dynamic UI is a more general mechanism than the updating inputs and conditional UI patterns, and can be used to update any UI component(s) (not just inputs).
+However, updating inputs is more efficient than dynamic UI, and should be preferred where possible.
 :::

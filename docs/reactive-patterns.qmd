@@ -35,7 +35,7 @@ The more idiomatic way to do this is with `@reactive.event()`:
 
 ### reactive.event
 
-The `@reactive.event()` decorator restricts re-exectue to only changes in one (or more) reactive dependency. Any other reactive dependencies inside the function being decorated are ignored.
+The `@reactive.event()` decorator restricts re-execution to only changes in one (or more) reactive dependency. Any other reactive dependencies inside the function being decorated are ignored.
 
 ```{shinylive-python}
 #| standalone: true
@@ -92,8 +92,7 @@ async def result():
 
 ## Requiring input {#req}
 
-Sometimes you want to require an input before executing a reactive function and/or displaying output. The `req()` is designed for this purpose. It effectively stops execution until the statement provided is truthy.
-
+When input must be provided or a certain condition must be met before displaying output, you can use `req()` to effectively stop execution for the current reactive cycle.
 For example, the app below allows a user to upload a csv file, which is then used to render a table.
 Notice how the reactive calculation, `df`, uses `req()` to stop execution until the user has uploaded a file.
 
@@ -119,6 +118,7 @@ def table():
     # Output won't render until input.file() is truthy
     return render.DataGrid(df())
 ```
+
 :::
 
 ![A gif of uploading a csv file and seeing the text and table outputs update](assets/file-upload.mp4){class="img-fluid shadow rounded" style="margin-top: -1.5rem;"}
@@ -126,7 +126,8 @@ def table():
 
 ## Scheduled invalidation {#invalidate-later}
 
-Sometimes its useful invalidate a reactive function on a schedule.
+To repeatedly invalidate a reactive function on a schedule, use `reactive.invalidate_later()`.
+This is useful for implementing things like streaming data, or updating a clock.
 For example, to implement a clock that updates every second, you can use `reactive.invalidate_later(1)`:
 
 ```{shinylive-python}
@@ -152,7 +153,7 @@ def clock():
 
 ## Reactive file reading {#file}
 
-Sometimes its useful invalidate a reactive function when a file changes.
+If your app reads input files, you can use `@reactive.file_reader()` to invalidate the result when the file changes.
 For example, lets extend the example from above to write the current time to a file every second, and then read and display the contents of that file:
 
 ```{shinylive-python}
@@ -185,6 +186,12 @@ def time():
     with open("time.txt") as f:
         return f"Current time {f.read()}"
 ```
+
+::: callout-tip
+#### More compelling example
+
+See [here](https://github.com/posit-dev/py-shiny-templates/blob/main/monitor-file/app-core.py) for a more compelling example of monitoring a file for changes.
+:::
 
 ## Reactive polling {#poll}
 
@@ -230,3 +237,12 @@ def time():
     with open("time2.txt") as f:
         return f"Current time {f.read()}"
 ```
+
+
+::: callout-tip
+#### Monitoring a database / folder
+
+See [here](https://github.com/posit-dev/py-shiny-templates/blob/main/monitor-database/app-core.py) for an example of monitoring a database for changes.
+
+See [here](https://github.com/posit-dev/py-shiny-templates/blob/main/monitor-folder/app-core.py) for an example of monitoring a folder for changes.
+:::

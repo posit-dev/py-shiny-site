@@ -154,6 +154,12 @@ with ui.card():
     "Card body"
 ```
 
+::: callout-tip
+### Bootstrap CSS variables
+
+To learn more about Bootstrap's CSS variables, check out the [Bootstrap docs](https://getbootstrap.com/docs/5.3/customize/css-variables/).
+:::
+
 
 ### Fonts
 
@@ -186,7 +192,7 @@ with ui.card():
 That said, if you want your app to work properly offline, you'll want to serve the font files with the app, which is covered next.
 
 
-## Serve local files
+## Serve local files {#serve-local-files}
 
 When customizing UI with CSS (and/or JavaScript), it's often useful to serve local files (e.g., fonts, images, CSS, etc) to the app.
 The most generic way to do this is via `static_assets` argument of `shiny.App()`, which mounts a local directory to the app's root path (i.e., `/`).
