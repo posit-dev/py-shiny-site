@@ -86,13 +86,13 @@ website:
         href: api/index.qmd
       - text: "Help"
         href: docs/help.qmd
-    tools:
+    right:
       - icon: discord
         href: https://discord.gg/yMGCamUMnS
-        text: Shiny Discord
+        aria-label: Shiny Discord
       - icon: github
         href: https://github.com/posit-dev/py-shiny/
-        text: Shiny for Python Github
+        aria-label: Shiny for Python Github
 
   page-footer:
     left: 'Proudly supported by <a href="https://www.posit.co/" class="no-icon"><img src="/images/posit-logo-black.svg" alt="Posit" width="80" style="padding-left: 3px;vertical-align:text-top;"></a>'
