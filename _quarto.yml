@@ -200,11 +200,11 @@ website:
         - section: "![](/images/arrange-blue.svg){.sidebar-icon .sidebar-subtitle}__Arrange Elements__"
           contents:
             - text: "Grid Layouts"
-              href: "/layouts/arrange.html#grid-layouts"
+              href: "/layouts/arrange/index.html#grid-layouts"
             - text: "Column Nesting"
-              href: "/layouts/arrange.html#column-nesting"
+              href: "/layouts/arrange/index.html#column-nesting"
             - text: "Controlling for Page Size"
-              href: "/layouts/arrange.html#controlling-for-page-width-and-height"
+              href: "/layouts/arrange/index.html#controlling-for-page-width-and-height"
 
     - id: docs
       style: "floating"

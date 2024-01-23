@@ -402,14 +402,14 @@ Use panels and cards to define areas of related content.
 ::: {.sticky-xl-top .pt-4}
 
 <h3 class="mt-4">
-  <a href="/layouts/arrange.qmd" class="dark text-decoration-none">
+  <a href="/layouts/arrange/index.qmd" class="dark text-decoration-none">
     <img src="/images/arrange-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Arrange Elements
   </a>
 </h3>
 
 Use rows and columns to create your own layout for every device size.
 
-<a href="/layouts/arrange.qmd" class="fw-500">Arrange Elements <i class="bi bi-chevron-right"></i></a>
+<a href="/layouts/arrange/index.qmd" class="fw-500">Arrange Elements <i class="bi bi-chevron-right"></i></a>
 
 :::
 ::::
@@ -420,17 +420,17 @@ Use rows and columns to create your own layout for every device size.
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/arrange.html#grid-layouts">
+<a class="component-list-header-text" href="/layouts/arrange/index.html#grid-layouts">
 <h5>Grid Layouts</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/arrange.html#grid-layouts">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/arrange/index.html#grid-layouts">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/arrange.html#grid-layouts"><img src="/images/grid-layout.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/arrange/index.html#grid-layouts"><img src="/images/grid-layout.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
@@ -438,17 +438,17 @@ Use rows and columns to create your own layout for every device size.
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/arrange.html#column-nesting">
+<a class="component-list-header-text" href="/layouts/arrange/index.html#column-nesting">
 <h5>Column nesting</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/arrange.html#column-nesting">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/arrange/index.html#column-nesting">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/arrange.html#column-nesting"><img src="/images/column-nesting.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/arrange/index.html#column-nesting"><img src="/images/column-nesting.png" class="h-100 w-100"></a></p>
 
 </div>
 </div>
@@ -456,17 +456,17 @@ Use rows and columns to create your own layout for every device size.
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/arrange.html#controlling-for-page-width-and-height">
+<a class="component-list-header-text" href="/layouts/arrange/index.html#controlling-for-page-width-and-height">
 <h5>Control for page size</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/arrange.html#controlling-for-page-width-and-height">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/arrange/index.html#controlling-for-page-width-and-height">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/arrange.html#controlling-for-page-width-and-height"><img src="/images/controlling.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/arrange/index.html#controlling-for-page-width-and-height"><img src="/images/controlling.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
