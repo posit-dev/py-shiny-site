@@ -14,8 +14,8 @@ app_ui = ui.page_fillable(
                 ui.a("Shiny", href="https://shiny.posit.co", target="_blank")
             ),
         ),
-        id="tab",
-    )
+        id="tab",  # <<
+    )  # <<
 )
 
 

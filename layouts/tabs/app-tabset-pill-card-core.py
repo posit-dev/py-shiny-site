@@ -15,7 +15,7 @@ app_ui = ui.page_fillable(
             ),
         ),
         id="tab",
-    )
+    )  # <<
 )
 
 

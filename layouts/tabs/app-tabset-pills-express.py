@@ -1,6 +1,6 @@
 from shiny.express import ui
 
-with ui.navset_pill(id="tab"):
+with ui.navset_pill(id="tab"):  # <<
     with ui.nav_panel("A"):
         "Panel A content"
 

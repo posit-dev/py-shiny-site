@@ -2,7 +2,7 @@ import glob
 from pathlib import Path
 from typing import Any, Iterable, List, Literal, Optional, Sequence
 
-import shinylive
+from shinylive import ShinyliveApp
 
 
 class QuartoPrint(List[str]):
@@ -21,16 +21,20 @@ class QuartoPrint(List[str]):
             self.append(app_contents)
 
     def append_shinylive_chunk(
-        self, files: list[str] | str, language: str = "py", **kwargs
+        self,
+        files: list[str] | str,
+        language: str = "py",
+        **kwargs,
     ):
         if isinstance(files, str):
             app_file = files
+            files = []
         else:
             app_file = files.pop(0)
 
-        bundle = shinylive.url_encode(app_file, files, language)
+        app = ShinyliveApp.from_local(app_file, files, language)
 
-        self.append(bundle.chunk(**kwargs))
+        self.append(app.chunk(**kwargs))
 
 
 def shinylive_chunk(
@@ -225,7 +229,7 @@ def express_core_preview(
         if app_file is None:
             continue
 
-        sl_app = shinylive.url_encode(app_file, files, language)
+        sl_app = ShinyliveApp.from_local(app_file, files, language)
 
         block.append("### " + tab_name)
         block.append(

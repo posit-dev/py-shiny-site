@@ -1,7 +1,7 @@
 from shiny import App, ui
 
 app_ui = ui.page_fluid(
-    ui.navset_tab(
+    ui.navset_tab(  # <<
         ui.nav_panel("A", "Panel A content"),
         ui.nav_panel("B", "Panel B content"),
         ui.nav_panel("C", "Panel C content"),
@@ -14,8 +14,8 @@ app_ui = ui.page_fluid(
                 ui.a("Shiny", href="https://shiny.posit.co", target="_blank")
             ),
         ),
-        id="tab",
-    )
+        id="tab",  # <<
+    )  # <<
 )
 
 

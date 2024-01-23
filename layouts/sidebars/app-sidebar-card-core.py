@@ -1,10 +1,11 @@
 from shiny import App, ui
 
-app_ui = ui.page_fluid(
+app_ui = ui.page_fillable(
     ui.card(  # <<
+        ui.card_header("Card with sidebar"),
         ui.layout_sidebar(  # <<
             ui.sidebar("Sidebar", bg="#f8f8f8"),  # <<
-            "Card content",
+            "Card content",  # <<
         ),  # <<
     )  # <<
 )
