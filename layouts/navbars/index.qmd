@@ -1,6 +1,10 @@
 ---
 title: "Navbars"
-description: "A navbar adds a navigation bar, allowing users to easily navigate your Shiny app."
+description: >
+  A navbar adds a navigation bar, allowing users to easily navigate your
+  Shiny app.
+aliases:
+  - "../navbars.html"
 ---
 
 ```{python}

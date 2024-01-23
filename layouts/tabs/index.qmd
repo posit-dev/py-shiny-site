@@ -2,6 +2,8 @@
 title: "Tabs"
 description: >
   Tabs and navigation allow you to create Shiny apps with multiple pages.
+aliases:
+  - "../tabs.html"
 ---
 
 ```{python}

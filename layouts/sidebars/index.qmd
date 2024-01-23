@@ -3,6 +3,8 @@ title: "Sidebars"
 description: >
   A sidebar layout creates a sidebar in your Shiny app, typically used for inputs, and a
   large main area, typically used for outputs.
+aliases:
+  - "../sidebars.html"
 ---
 
 ```{python}
