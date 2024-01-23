@@ -285,22 +285,26 @@ By using the `resolve_id(id)` function here when declaring our ID, we make sure 
 Like with the JavaScript, the process for setting up the python code for an output binding is not too different. Although there is a bit of extra work because we need to build both the ui _and_ server components. Here's how we would do that for the color shower output binding we defined above:
 
 ```{.python filename="fancy_color_picker.py"}
-@output_transformer(default_ui=output_color)
-async def render_color(
-    _meta: TransformerMetadata,
-    _fn: ValueFn[str | None],
-):
-    res = await resolve_value_fn(_fn)
-    if res is None:
-        return None
+from shiny.render.renderer import Renderer, Jsonifiable
 
-    if not isinstance(res, str):
-        # Throw an error if the value is not a string
-        raise TypeError(f"Expected a string, got {type(res)}. ")
+class render_color(Renderer[str]):
+    """
+    Render a color
+    """
 
-    # Send the results to the client. Make sure that this is a serializable
-    # object and matches what is expected in the JavaScript code.
-    return {"value": res}
+    # Express mode UI
+    def auto_output_ui(self, id: str) -> Tag:
+        return output_color(self.output_id)
+
+    # Transform the app value into a JSONifiable object
+    async def transform(self, value: str) -> Jsonifiable:
+        if not isinstance(res, str):
+            # Throw an error if the value is not a string
+            raise TypeError(f"Expected a string, got {type(res)}. ")
+
+        # Send the results to the client. Make sure that this is a serializable
+        # object and matches what is expected in the JavaScript code.
+        return {"value": value}
 
 
 def output_color(id: str):
