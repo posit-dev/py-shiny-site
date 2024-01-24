@@ -20,8 +20,6 @@ listing:
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKm4uzjEA1gCNSAA87MC8fAODlQmRogGFvP0Cg6KIAMSgLVjgASiJkAGJkAB5i+0dDUnc3DyVQgDdMhThovNUc1U6IWTo2OXq5G1d3IiqKGqJs1lZOchzEcocAASluuSwlReQe5EarOBt5rcdkKQoFBgg+CBqscKTgw671TD0xTBsNbU5J-rkOiAxMAUXDoBAoYFwIIUMAAXwAukA
 - id: relevant-functions
   template: ../../_partials/components-detail-relevant-functions.ejs
-  template-params:
-    dir: components/inputs/checkbox/
   contents:
   - title: ui.input_checkbox()
     href: https://shiny.posit.co/py/api/ui.input_checkbox.html

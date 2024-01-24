@@ -20,8 +20,6 @@ listing:
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQB0IAzAJ1JmQGcALASwl2Q8Y6UswrIAgpiLNqAEzjMiAVx4MGGdAH1VyALzJVOKAHM4WxgBtVcgBQNkjwzyx90yilrlQqW5lAgzezBvKn9AuDpCZCiAER84ZHCzKKIOCigxPSiAJgAGfIBaPIBGYpKogEoiZABiZAAeBocnI1IPd08qAA8KYIA3KGtIsGqGSvUIBgVGTkV+xVs3DyJ2ik60uA4OHnJKxBbHAAFZCAVmLB6KQ+QZ5EHh232bpyS4CmVmCGRGKJBlihYUKKAJBSrAPIAXQAvsgKKRkP8IJ0gQlknAnsASjCopMNJh9JJMLZNDoeJtmAtmBMINEwBRcOgECh6XBemBoZCgA
 - id: relevant-functions
   template: ../../_partials/components-detail-relevant-functions.ejs
-  template-params:
-    dir: components/inputs/date-range-selector/
   contents:
   - title: ui.input_date_range
     href: https://shiny.posit.co/py/api/ui.input_date_range.html

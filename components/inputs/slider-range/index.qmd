@@ -20,8 +20,6 @@ listing:
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAV05EG1ACZwGRAIKYAOhFUZ0AfXHIAvGM44oAczia6AG3HSAFKuQODWbulEVNrC51kM7YT95yyoTIwQDKXj7BRDDcugAMMVAAHroAjPGJyABuUFZwusAAzACsRABsJQC6AJREyADEyAA8zfaO4likbq7uVMnu2XIARlAU-H65+cF1qjWqCxCydGxyQ74ubkTdFL1ErHCsrJzkNYjtDgACUktyWP0UF8jLOXmicDZnT47IUhSiDAgyDowRAmwoWACPk+AF9got1Jg9MglOgbBptBJVgx1vMICEwBRcOgEChCXABmAYVUgA
 - id: relevant-functions
   template: ../../_partials/components-detail-relevant-functions.ejs
-  template-params:
-    dir: components/inputs/slider-range/
   contents:
   - title: ui.input_slider
     href: https://shiny.posit.co/py/api/ui.input_slider.html
