@@ -72,8 +72,33 @@
     })
   }
 
-  document.readyState === 'loading'
-    ? document.addEventListener('DOMContentLoaded', addShinyliveEditLinks)
-    : addShinyliveEditLinks()
+  function addPanelUnderlineNav() {
+    document.querySelectorAll(".panel-underline .nav").forEach((x) => {
+      x.classList.remove("nav-tabs");
+      x.classList.add("nav-underline");
+      x.classList.add("justify-content-center");
+    });
+  }
+
+  function onLoad() {
+    addShinyliveEditLinks();
+    addPanelUnderlineNav();
+  }
+
+  document.readyState === "loading"
+    ? document.addEventListener("DOMContentLoaded", onLoad)
+    : onLoad();
 })()
 </script>
+
+<div class="alert alert-primary text-center mb-0 border-0 p-2" role="alert">
+  <p class="d-md-inline my-0 me-4">
+    <strong>🎉 Introducing Shiny Express</strong>
+  </p>
+  <p class="d-inline my-0 p-90 me-4">A simpler way to write and learn Shiny.</p>
+  <p class="d-inline my-0 p-90 me-4">
+    <a href="/docs/express-introduction.qmd" style="color: #00314e"
+      >Read more</a
+    >
+  </p>
+</div>
