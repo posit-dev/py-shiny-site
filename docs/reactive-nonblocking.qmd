@@ -1,15 +1,26 @@
 ---
-title: Asynchronous programming
+title: Non-blocking operations
 ---
 
-Shiny's reactive programming framework makes it easy for changes to an input or reactive value to automatically and efficiently propagate to the rest of the application.
-In order for this system to behave predictably, the framework is single-threaded; that is, only one operation can be performed at a time.
-This means that if one operation takes a long time to complete, it will block all other operations from completing.
+Sometimes in a Shiny app, you need to perform a long-running operation, like loading a large dataset or doing an expensive computation.
+If you do this in a reactive context, it will block the rest of the application from running until the operation completes.
+This can be frustrating for users, who may think that the app has crashed.
 
-However, Shiny is also based on [asyncio](https://docs.python.org/3/library/asyncio.html), which provides a way to perform asynchronous operations--that is, long-running operations that don't block the rest of the application.
-This article describes the use and limitations of asyncio in Shiny, and also describes how you can accomplish truly non-blocking tasks in your application.
+Worse, if you have multiple users, then one user's long-running operation will block the other users' apps from running as well.
+These other users will not even be aware that their slow performance is due to another user's actions.
+
+In this article, we'll look at how to make your Shiny apps more responsive by using non-blocking operations.
+We'll also go out of our way to explain why the usual Python async techniques don't work the way you expect in Shiny.
 
 ## Using async/await in Shiny
+
+Asynchronous programming is a technique used in Python to increase scalability and responsiveness, usually in networked apps.
+Python supports async programming at the language level, using the `async`/`await` keywords; in the standard library, with the [`asyncio`](https://docs.python.org/3/library/asyncio.html) module; and in third-party libraries, like [FastAPI](https://fastapi.tiangolo.com/) and [aiohttp](https://docs.aiohttp.org/).
+
+Shiny has async support as well, but it's a bit different from your typical async Python framework.
+On the one hand, Shiny is built on top of [Starlette](https://www.starlette.io/), which is an async web framework, so it's possible to use async functions in many parts of your Shiny app. On the other hand, Shiny is also designed around reactive programming concepts, and that creates constraints on how async functions can be used.
+
+### Reactive async/await
 
 Shiny supports the use of `async` and `await` in your reactive code.
 You can use `async` functions in `@reactive.effect`, `@reactive.calc`, and render functions, and within those async functions you can use `await` to wait for the results of other async functions.
@@ -51,10 +62,12 @@ def server(input, output, session):
 app = App(app_ui, server)
 ```
 
-However, this does _not_ mean that your application is truly asynchronous!
+However, you may be surprised to learn that this technique alone does not result in improved responsiveness in Shiny apps!
+
 In the app above, the first thing in the UI is a reactive output that displays the current time.
 Click the button and notice that, during the five seconds that the app is waiting for the (artificially slow) sum calculation to complete, the time does not update.
 Despite being defined as an asynchronous function, the sum logic is still blocking the time output.
+You could replace `await asyncio.sleep(5)` with its synchronous equivalent, `time.sleep(5)`, and you'd get exactly the same result.
 
 ### When async is not async
 
@@ -294,3 +307,10 @@ This is critically important for `ProcessPoolExecutor` to work correctly because
 There's also the `app.on_shutdown(pool.shutdown)` line at the end of each example.
 This is necessary to ensure that the pool is shut down when the app stops running.
 In particular, if you're using `ProcessPoolExecutor` and neglect to shut down the pool, you can end up with orphaned Python processes hanging around.
+
+## Summary
+
+Only use async functions in your reactive code if you need to call async-only functions.
+Don't expect your application to run faster, more responsively, or more efficiently.
+
+To achieve true non-blocking behavior in Shiny applications, factor your slow/async code into an `ExtendedTask` callable object, call it from a reactive effect, and read its `result()` from a render function or reactive calc.
