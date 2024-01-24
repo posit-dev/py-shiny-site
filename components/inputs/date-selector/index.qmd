@@ -20,8 +20,6 @@ listing:
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQB0IAzAJ1JmQGcALASwl2Q8Y6UswrIAgpiLNqAEzjMiAVx4MGGdAH1VyALzJVOKAHM4WxgBtVcgBQNkjwzyx90yilrlQq9sN6o6QmQggBEfOCCASiJkAGJkAB5EhycjUg93TyoADwo-ADcoa0iwGIYo9QgGBUZORQLFWzcPIgyKLKIOOA4OHnIoxFTHAAFZCAVmLFyKYeRa5CKS20G5p2RZCmVmCEEILKwAuBWqjUx9SUxbTR0eLobFSohgsApcdAQUV7g8sABfAC6QA
 - id: relevant-functions
   template: ../../_partials/components-detail-relevant-functions.ejs
-  template-params:
-    dir: components/inputs/date-selector/
   contents:
   - title: ui.input_date
     href: https://shiny.posit.co/py/api/ui.input_date.html

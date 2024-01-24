@@ -20,8 +20,6 @@ listing:
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnEnUAJnAZEArpwA6EPRnQB9bcgC8ybTigBzOEboAbbSoAUe5J8ucs3dJoojGTlyI0duAGt3NFlOUPCICJ1CZGSASQhiKShWOGQAOU0YACN1ZIBKImQAYmQAHjqPLytSAP9AqgAPCmiyTUoysEq9cr0xiDU6NnVFBlc-AKJWinaiXNZWOIhyxCbPAAEpCfUsLp7RiC9kQ+lYxSw4RUp5iHasYK2wyPLPWoa95CTZB9AZzHYAq5SCiaBiXOjJEALCjvWLxSKucoAX2S4wMmHMYkwrkMJk4axm6guKTAFFw6AQKBpcG6YExAF0gA
 - id: relevant-functions
   template: ../../_partials/components-detail-relevant-functions.ejs
-  template-params:
-    dir: components/inputs/action-link/
   contents:
   - title: ui.input_action_link
     href: https://shiny.posit.co/py/api/ui.input_action_link.html

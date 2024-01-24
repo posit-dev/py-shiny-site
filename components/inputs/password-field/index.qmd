@@ -20,8 +20,6 @@ listing:
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKm9FFasA7kNtlMC8ffwZpIKIggAVvPwDI5CCYXBD48IBGIIBKImQAYmQAHiL7R0NSdzcPKgAPDwA3OQAjKAp+OzAGqCs4HIJVbNVhiFk6NjkmhhtXdyJKimqiVjgfTnJsxDKHAAEpUbksOopt5DHkbt6bTdPHZCkKBQYIPghqo1CA65H1TD0xTA2DTaTjLSZyIYQQioCipBAoMDHMAAXwAukA
 - id: relevant-functions
   template: ../../_partials/components-detail-relevant-functions.ejs
-  template-params:
-    dir: components/inputs/password-field/
   contents:
   - title: ui.input_password
     href: https://shiny.posit.co/py/api/ui.input_password.html

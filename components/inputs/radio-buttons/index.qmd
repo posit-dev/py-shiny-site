@@ -20,8 +20,6 @@ listing:
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKmhlGmdSmgEbuFOSsNg4AxMgAPFH2jvHKYF4+pIlEyJExcfEOiQBK3r7IgRTBEKxpEdGxEDmOIIkAjIkoiQDy6BS+tc2EyIkATC39YB1d5MhDfYkAzMPtnd3Ic2AAvumZNfEAlBvV2U5YpO5uHkp2YABuUFZwibuq26rPELJ0bHKXcjau7kTHFFORFYcFYrG620QBwAAlJXnIsEoDm9kNdbjZIQd4lIKAoGLVfhQsMlfBiXupMHoxJgbBptJxgZ85E8IH0wBRcOgECh2XAAB4UNYAXSAA
 - id: relevant-functions
   template: ../../_partials/components-detail-relevant-functions.ejs
-  template-params:
-    dir: components/inputs/radio-buttons/
   contents:
   - title: ui.input_radio_buttons
     href: https://shiny.posit.co/py/api/ui.input_radio_buttons.html
