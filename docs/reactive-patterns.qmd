@@ -93,14 +93,10 @@ When input must be provided or a certain condition must be met before displaying
 For example, the app below allows a user to upload a csv file, which is then used to render a table.
 Notice how the reactive calculation, `df`, uses `req()` to stop execution until the user has uploaded a file.
 
-
-::: {data-shinylive="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACVKCAEygGcXe2nADoQAZo2IwWPABY0I2FnQbMWjOFEJkaANzh41lTnEYH1ARwMBXGiPGTpchRjgAPVOp59lTVvNRWZCIiNhj+gQD6ojQANnAAFEJg0XFJBkkAqqgxxFCc-CyEPDosKXBp-ISEcKhkALxJGEU6SQCUwRAAAuqa2npNUDGEIsaiLJyi8a2IIixzpSx1hubx4WQYZVPtEPOGZFaMO6icGD2cEc3xosAADAC6wADk3GRoUGQyj3fbIt1GJhgKK4glw4GMgWQpjMdvN1PtDqUkgBBFggCZTDCyNBwW53AC+rjRk1amJk2OAAEZ8eN3lBxLBymAOn9QYwMC8oFFGAyRmCWK8AEZxKGzWFweE7dSsjAAEVpAHFGDROPF0a1WmA8XcgA"}
-
-```{python}
-#| eval: false
+```{.python shinylive="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACVKCAEygGcXe2nADoQAZo2IwWPABY0I2FnQbMWjOFEJkaANzh41cAI4jxk6XIUY4AD1TqefZU1bzUAVzIH1XOIwPuNCIigRhungD6ojQANnAAFEJg0XFJBkkAqqgxxFCc-CyEPDosKXBp-ISEcKhkALxJGEU6SQCUwRAAAuqa2npNUDGEIpxwoiycovGtiCIs8ywAxIZG09JkxKh8tnCEnjSkLO7ksUoQHmQYZWs0fGSMnjLYcwvjdSvx4ZfXre0QC4YyO5GP9UJwMD1OBFmvFRMAAAwAXWAAHJuGQ0FAyDIUYi-iJupRRowMOioFFGLByr5xhiAEZxaazf4LZYAeU8FxYAHdSCjWD5iUcTjEzhcrrEEq0lHcHtjniz5uogSDDL4SQARLFQADijBonHik2mrTAAF9EUA"}
 import pandas as pd
 from shiny import reactive, req
-from shiny.express import input, renderm ui
+from shiny.express import input, render, ui
 
 ui.input_file("file", "Upload a csv file", accept=".csv")
 
@@ -115,8 +111,6 @@ def table():
     # Output won't render until input.file() is truthy
     return render.DataGrid(df())
 ```
-
-:::
 
 ![A gif of uploading a csv file and seeing the text and table outputs update](assets/file-upload.mp4){class="img-fluid shadow rounded" style="margin-top: -1.5rem;"}
 
