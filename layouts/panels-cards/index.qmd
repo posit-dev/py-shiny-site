@@ -2,8 +2,37 @@
 title: "Panels and cards"
 description: >
   Use panels and cards to define areas of related content in your Shiny app.
+
 aliases:
   - "../panels-cards.html"
+
+listing:
+- id: relevant-functions
+  template: ../../components/_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.card
+    href: https://shiny.posit.co/py/api/ui.card.html
+    signature: ui.card(*args, full_screen=False, height=None, max_height=None, min_height=None, fill=True, class_=None, **kwargs)
+
+  - title: ui.card_footer
+    href: https://shiny.posit.co/py/api/ui.card_footer.html
+    signature: ui.card_footer(*args, **kwargs)
+
+  - title: ui.card_header
+    href: https://shiny.posit.co/py/api/ui.card_header.html
+    signature: ui.card_header(*args, container=tags.div, **kwargs)
+
+  - title: ui.panel_absolute
+    href: https://shiny.posit.co/py/api/ui.panel_absolute.html
+    signature: ui.panel_absolute(*args, top=None, left=None, right=None, bottom=None, width=None, height=None, draggable=False, fixed=False, cursor='auto', **kwargs)
+
+  - title: ui.panel_fixed
+    href: https://shiny.posit.co/py/api/ui.panel_fixed.html
+    signature: ui.panel_fixed(*args, **kwargs)
+
+  - title: ui.panel_well
+    href: https://shiny.posit.co/py/api/ui.panel_well.html
+    signature: ui.panel_well(*args, **kwargs)
 ---
 
 ```{python}
@@ -16,25 +45,8 @@ from docs.helpers import express_core_preview, shinylive_app_preview
 
 Use panels and cards to define areas of related content.
 
-## Relevant functions
-
-- [ui.card](https://shiny.posit.co/py/api/ui.card.html)
-  `ui.card(*args, full_screen=False, height=None, max_height=None, min_height=None, fill=True, class_=None, **kwargs)`
-
-- [ui.card_footer](https://shiny.posit.co/py/api/ui.card_footer.html)
-  `ui.card_footer(*args, **kwargs)`
-
-- [ui.card_header](https://shiny.posit.co/py/api/ui.card_header.html)
-  `ui.card_header(*args, container=tags.div, **kwargs)`
-
-- [ui.panel_absolute](https://shiny.posit.co/py/api/ui.panel_absolute.html)
-  `ui.panel_absolute(*args, top=None, left=None, right=None, bottom=None, width=None, height=None, draggable=False, fixed=False, cursor='auto', **kwargs)`
-
-- [ui.panel_fixed](https://shiny.posit.co/py/api/ui.panel_fixed.html)
-  `ui.panel_fixed(*args, **kwargs)`
-
-- [ui.panel_well](https://shiny.posit.co/py/api/ui.panel_well.html)
-  `ui.panel_well(*args, **kwargs)`
+:::{#relevant-functions}
+:::
 
 :::{.border-bottom .blue .mt-6 .mb-5}
 :::

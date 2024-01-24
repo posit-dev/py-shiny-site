@@ -3,8 +3,20 @@ title: "Navbars"
 description: >
   A navbar adds a navigation bar, allowing users to easily navigate your
   Shiny app.
+
 aliases:
   - "../navbars.html"
+
+listing:
+- id: relevant-functions
+  template: ../../components/_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.page_navbar
+    href: https://shiny.posit.co/py/api/ui.page_navbar.html
+    signature: ui.page_navbar(*args, title=None, id=None, selected=None, sidebar=None, fillable=True, fillable_mobile=False, gap=None, padding=None, position='static-top', header=None, footer=None, bg=None, inverse=False, underline=True, collapsible=True, fluid=True, window_title=MISSING, lang=None)
+  - title: ui.nav
+    href: https://shiny.posit.co/py/api/ui.nav.html
+    signature: ui.nav_panel(title, *args, value=None, icon=None)
 ---
 
 ```{python}
@@ -17,12 +29,8 @@ from docs.helpers import express_core_preview, shinylive_app_preview
 
 A navbar adds a navigation bar to your app, allowing users to easily navigate your app.
 
-## Relevant functions
-
-- [ui.page_navbar](https://shiny.posit.co/py/api/ui.page_navbar.html)
-  `ui.page_navbar(*args, title=None, id=None, selected=None, sidebar=None, fillable=True, fillable_mobile=False, gap=None, padding=None, position='static-top', header=None, footer=None, bg=None, inverse=False, underline=True, collapsible=True, fluid=True, window_title=MISSING, lang=None)`
-- [ui.nav](https://shiny.posit.co/py/api/ui.nav.html)
-  `ui.nav_panel(title, *args, value=None, icon=None)`
+:::{#relevant-functions}
+:::
 
 :::{.border-bottom .blue .mt-6 .mb-5}
 :::

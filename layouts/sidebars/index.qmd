@@ -3,8 +3,21 @@ title: "Sidebars"
 description: >
   A sidebar layout creates a sidebar in your Shiny app, typically used for inputs, and a
   large main area, typically used for outputs.
+
 aliases:
   - "../sidebars.html"
+
+listing:
+- id: relevant-functions
+  template: ../../components/_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.layout_sidebar
+    href: https://shiny.posit.co/py/api/ui.layout_sidebar.html
+    signature: ui.layout_sidebar(sidebar, *args, fillable=True, fill=True, bg=None, fg=None, border=None, border_radius=None, border_color=None, gap=None, padding=None, height=None, **kwargs)
+
+  - title: ui.sidebar
+    href: https://shiny.posit.co/py/api/ui.sidebar.html#shiny.ui.sidebar
+    signature: ui.sidebar(*args, width=250, position='left', open='desktop', id=None, title=None, bg=None, fg=None, class_=None, max_height_mobile=None, gap=None, padding=None)
 ---
 
 ```{python}
@@ -17,13 +30,8 @@ from docs.helpers import express_core_preview, shinylive_app_preview
 
 A sidebar layout creates a sidebar, typically used for inputs, and a large main area, typically used for outputs.
 
-## Relevant functions
-
-- [ui.layout_sidebar](https://shiny.posit.co/py/api/ui.layout_sidebar.html)
-  `ui.layout_sidebar(sidebar, *args, fillable=True, fill=True, bg=None, fg=None, border=None, border_radius=None, border_color=None, gap=None, padding=None, height=None, **kwargs)`
-
-- [ui.sidebar](https://shiny.posit.co/py/api/ui.sidebar.html#shiny.ui.sidebar)
-  `ui.sidebar(*args, width=250, position='left', open='desktop', id=None, title=None, bg=None, fg=None, class_=None, max_height_mobile=None, gap=None, padding=None)`
+::: {#relevant-functions}
+:::
 
 
 :::{.border-bottom .blue .mt-6 .mb-5}
