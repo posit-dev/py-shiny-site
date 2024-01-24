@@ -82,6 +82,7 @@
     document.querySelectorAll('.panel-tabset[data-group="shiny-app-mode"]').forEach(function(tabset) {
       const trigger = document.createElement('div')
       trigger.classList.add('what-shiny-express', 'text-white')
+      trigger.tabIndex = 0
       trigger.innerHTML = tooltipDisplay
       tabset.appendChild(trigger)
 
