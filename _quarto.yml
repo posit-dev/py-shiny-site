@@ -228,8 +228,9 @@ website:
             - docs/ui-customize.qmd
         - section: "Express vs Core"
           contents:
-            - docs/express-motivation.qmd
-            - docs/express-difference.qmd
+            - docs/express-introduction.qmd
+            - docs/express-in-depth.qmd
+            - docs/express-to-core.qmd
         - section: "Modules"
           contents:
             - docs/modules.qmd

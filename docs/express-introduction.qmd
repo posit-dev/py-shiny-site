@@ -1,0 +1,41 @@
+---
+title: Introduction
+editor:
+  markdown:
+    wrap: sentence
+format:
+  html:
+    include-in-header: assets/head-content.html
+---
+
+Up until now, these docs have focused on Shiny _Express_, which compared to Shiny _Core_, offers a simpler way to learn and write basic apps.
+The simplicity that Express offers, however, can come at the cost of reduced flexibility and maintainability.
+In other words, Express is quicker to get started with, but can eventually lead to code that's  more difficult for others (or your future self) to read, maintain, and extend.
+Fortunately, it's straightforward to [transition](express-to-core.qmd) from Express to Core since many of the foundations (i.e., [components](ui-components.qmd), [reactivity](reactive-foundations.qmd), etc.) are the same.
+
+Compared to Express, Core enforces a more structured approach that requires more initial effort to use.
+However, we believe that investment pays off on projects where increased flexibility and maintainability are important.
+This is because Shiny Core enforces:
+
+1. **Decoupling of UI and server**. Decoupling forces you to separate concerns in such a way that it's easier refactor and reason about a large amount of code.
+2. **Functional programming**. Express encourages a more imperative (less functional) style, which can be easier to write, but also harder to read. This is especially true when you need to create [reusable extractions](express-in-depth.qmd##expressify).
+3. **More explicit UI**. Express has magical defaults that make things simpler, but can also mask what's actually going on behind-the-scenes, and offers less opportunities to customize behavior.
+
+The next article illustrates how these downsides can be mitigated to some extent in Express with some advanced tooling.
+However, if you feel yourself reaching for these tools, it might be time to switch to Core.
+If you're already convinced that Shiny Core is right for your app, feel free to skip ahead to the [transitioning](express-to-core.qmd) article.
+
+::: callout-note
+### Shiny Core is a superset of Express
+
+Shiny Core is a superset of Express, meaning that anything you can do in Express, you can also do in Core.
+The reverse is not true, however.
+One example of this [Shiny Modules](modules.qmd), which are not currently supported in Express.
+:::
+
+::: callout-note
+### Shiny Core is more mature
+
+Shiny Express is still relatively new, and is still being actively developed.
+As such, you can expect the Express experience to keep improving over time.
+:::

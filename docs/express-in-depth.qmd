@@ -1,0 +1,366 @@
+---
+title: Express in depth
+editor:
+  markdown:
+    wrap: sentence
+format:
+  html:
+    include-in-header: assets/head-content.html
+---
+
+This article digs into some more advanced topics in Shiny Express.
+It also highlights how some of these topics are less of a concern in Shiny Core.
+
+## Holding
+
+One way to avoid repeating yourself in Express is to use the `ui.hold()` context manager.
+
+```python
+with ui.hold() as hello_card:
+    with ui.card():
+        "Hello world!"
+
+hello_card
+hello_card
+```
+
+::: callout-note
+### Parameterized reuse
+
+As we'll see later, `@expressify` allows facilitates reuse of Express code, but in a parameterized way.
+:::
+
+`ui.hold()` is also useful for decoupling UI and server logic.
+To understand why decoupling is useful, let's first look at how Express normally couples UI and server logic.
+
+## Decoupling {#decoupling}
+
+In Express, things like render functions get displayed exactly where they appear in the code.
+This is great for simple apps, but can lead to code that's harder to reason about as your application grows in size and complexity.
+For example, consider this snippet of an Express app -- can you visualize, at a glance, how the overall UI is structured?
+
+<details open>
+  <summary style="margin-bottom: -1em;">Hide code</summary>
+```{.python}
+with ui.layout_columns():
+    with ui.card():
+        @render.plot
+        def pair_plot():
+            df = load_penguins()
+            if df is None:
+                print("Dataframe is empty")
+                return
+
+            # Drop rows with missing values
+            df = df.dropna()
+
+            # Get list of features
+            features = df.select_dtypes(include=[np.number]).columns.tolist()
+
+            # Create a figure and axes with a subplot for each pair of features
+            fig, axs = plt.subplots(len(features), len(features), figsize=(15, 15))
+
+            # Create scatter plots for each pair of features
+            for i in range(len(features)):
+                for j in range(len(features)):
+                    if i != j:
+                        for species in df['species'].unique():
+                            axs[i, j].scatter(df[df['species']==species][features[i]],
+                                              df[df['species']==species][features[j]],
+                                              label=species)
+                        axs[i, j].set_xlabel(features[i])
+                        axs[i, j].set_ylabel(features[j])
+                    else:
+                        axs[i, j].text(0.5, 0.5, features[i], ha='center', va='center')
+
+            # Add a legend
+            handles, labels = axs[0, 1].get_legend_handles_labels()
+            fig.legend(handles, labels, loc='upper center')
+
+            fig.tight_layout()
+            return fig
+        ui.input_select("species", "Species", ["Chinstrap", "Adelie", "Gentoo"])
+```
+</details>
+
+The `render.plot` function above has a lot going on, and so it's easy to overlook that there's a `ui.input_select()` which appears just below the plot, inside the same card.
+
+Express does offer a way to workaround this problem: the `ui.hold()` context manager, which allows you to define a `render` function in one place, then display it in another.
+As a result, it's a lot more clear how the overall UI is structured:
+
+```{.python}
+with ui.hold():
+    @render.plot
+    def pair_plot():
+        ... # code here
+
+
+# Overall UI structure is now more clear
+with ui.layout_columns():
+    with ui.card():
+        ui.output_plot("pair_plot")
+        ui.input_select("species", "Species", ["Chinstrap", "Adelie", "Gentoo"])
+```
+
+::: callout-note
+### Decoupling in Shiny Core
+
+Shiny Core enforces decoupling of UI and server in a similar way.
+:::
+
+
+## Implicit UI
+
+In [decoupling](#decoupling), we first saw how decoupling server from UI logic requires a `ui.output_*()` container element connect the two.
+Power users will find that having explicit control over these containers gives them more control over those component styling (since [UI is HTML](ui-components.qmd), HTML/CSS can be used to customise the component containers).
+
+Express has one other important place where an implicit UI container is used: the overall page layout.
+This is often convenient, since Express can infer a sensible layout based on the top-level UI components, but it can also be limiting to not have explicit control over the page layout.
+Express does offer a `ui.page_opts()` to add a title and other page options, but it's not as flexible working directly with an explicit page container.
+
+
+## Reusable abstractions {#expressify}
+
+In [holding](#holding), we learned how `ui.hold()` helps to avoid repeating Express code verbatim.
+This is great, but it doesn't allow for code parameterization, which is useful for creating reusable abstractions that manage complexity.
+For example, suppose we want to create many cards that each contain a plot and a title.
+Instead of repeating card logic over and over, we can wrap it in a function decorated with `@expressify`.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 300
+import numpy as np
+import matplotlib.pyplot as plt
+from shiny.express import expressify, output, render, ui
+
+@expressify
+def custom_card(i):
+    with ui.card():
+        f"Card {i}"
+
+        @output(id=f"hist_{i}")
+        @render.plot(alt="A histogram", height=150)
+        def _():
+            np.random.seed(19680801)
+            x = 100 + 15 * np.random.randn(437)
+            plt.hist(x, 20, density=True)
+
+for i in range(3):
+    custom_card(i)
+```
+
+::: callout-note
+### Shiny Core embraces reusable functions
+
+Since Shiny Core embraces functional programming, creating reusable code is as simple as defining a function.
+Reusable abstractions in Shiny Core are often simpler to understand since it's easier to see/remember just the inputs and output of a function, rather its implementation details.
+:::
+
+
+## Reactive Express code {#reactive-displays}
+
+In Shiny, just `render` and `reactive` functions are reactive.
+That is, other UI components like `ui.input_*()`, `ui.card()`, etc. are static: they don't change once the app is rendered.
+In order to make those otherwise static components reactive in Express, you have to wrap them in a function decorated with `@render.express`.
+This decorator is a bit of an exception to the rule compared to other `render` decorators since it's called for its side-effects, and not for its return value.
+
+For example, suppose we want a checkbox to toggle whether to display even or odd numbers.
+We can do this by wrapping the Express code in a function and decorating it with `@render.express`.
+As a result, you can read reactive dependencies (e.g., `input.even()`), and function will be re-run whenever those dependencies change.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 300
+import numpy as np
+import matplotlib.pyplot as plt
+from shiny.express import input, expressify, output, render, ui
+
+@expressify
+def custom_card(i):
+    with ui.card():
+        f"Card {i}"
+
+        @output(id=f"hist_{i}")
+        @render.plot(alt="A histogram", height=150)
+        def _():
+            np.random.seed(19680801)
+            x = 100 + 15 * np.random.randn(437)
+            plt.hist(x, 20, density=True)
+
+
+@render.express
+def cards():
+    for i in range(input.n()):
+        custom_card(i)
+```
+
+
+
+## Shared objects
+
+For better performance, it's often useful to have some code run _once_ when the app initializes, not every time a new connection (i.e., session) is made.
+Normal Express code is re-executed everytime a new connection is made, so it's not a good place to do expensive work that only needs to be done once.
+Fortunately, if you move expensive code to a separate module, it will only be executed once (and objects can then be shared across sessions).
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 120
+
+from shiny.express import render
+import shared
+# Runs once per session
+@render.data_frame
+def df():
+    return shared.df
+
+## file: shared.py
+# Runs once per startup
+import pandas as pd
+from pathlib import Path
+df = pd.read_csv(Path(__file__).parent / "data.csv")
+## file: data.csv
+col1,col2
+1,2
+3,4
+```
+
+
+::: callout-note
+In Shiny Core, code outside of the `server` function scope runs once per startup (not per user session).
+See the code below for the equivalent Shiny Core app.
+
+<details>
+  <summary>Show code</summary>
+```{.python}
+from shiny import App, render, ui
+import pandas as pd
+from pathlib import Path
+
+df = pd.read_csv(Path(__file__).parent / "data.csv") # Read in once
+
+app_ui = ui.page_fixed(ui.output_data_frame("dat"))
+
+def server(input, output, session):
+    @render.data_frame
+    def dat():
+        # Returned to each session
+        return df
+
+app = App(app_ui, server)
+```
+</details>
+:::
+
+::: callout-tip
+### Shared reactive objects
+
+It's also possible to share reactive objects across sessions.
+This can be potentially dangerous since one users activity could impact another's, but also quite useful in combination [`reactive.file_reader`](../api/reactive.file_reader.qmd) and [`reactive.poll`](../api/reactive.poll.qmd) to create a reactive data source that's only polled once, no matter how many users are connected.
+:::
+
+## Sessions
+
+Shiny apps have an object that represent a particular user's [session](../api/Session.html).
+This object is useful for a variety of more advanced tasks like [sending messages to the client](../api/Session.html#shiny.Session.send_custom_message) and [serving up session-specific data](../api/Session.html#shiny.Session.dynamic_route).
+In Express, you'll need to import `session` from `shiny.express` and only use it inside a reactive function, like a `@reactive.effect`:
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 75
+from shiny import reactive
+from shiny.express import session, ui
+
+@reactive.effect
+async def _():
+    x = {"message": "Hello from Python!"}
+    await session.send_custom_message("send_alert", x)
+
+ui.tags.script(
+    """
+    Shiny.addCustomMessageHandler("send_alert", function(x) {
+        document.body.innerHTML = x.message;
+    });
+    """
+)
+```
+
+::: callout-note
+### Shiny Core sessions
+
+In Shiny Core, the session object is available through `server` function, and can be used anywhere in the server function scope.
+:::
+
+
+
+<!--
+## Functional programming {#functional}
+
+Express promotes an imperative ([opposed to functional](https://en.wikipedia.org/wiki/Functional_programming#Comparison_to_imperative_programming)) programming style that is easier to get started with, but again, can make it difficult to manage complexity and reason about your app.
+In particular, keeping track of UI state throughout the app can be difficult since imperative commands can change that state at any point in the code.
+For example, consider this snippet of Express code -- understanding the state of the UI requires mentally parsing the code, and keeping track of the side-effects.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 50
+import shiny.express
+
+for i in range(5):
+    if i % 2 == 0:
+        f"Even: {i} "
+```
+
+That said, you can certainly write functional code in Express, which at least limits the amount of side-effects to keep track of, and also provides a means for storing UI state in an inspectable object.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 50
+import shiny.express
+
+x = [f"Even: {i} " for i in range(5) if i % 2 == 0]
+x
+```
+
+::: callout-note
+### Shiny Core avoids side-effects
+
+In a sense, Shiny Core _forces_ you to avoid using imperative code to define your UI, since you're expected to define your UI as a single, tree-like, object.
+:::
+
+### Reusable express code
+
+Another problem that arises from building UIs via side-effects is that it's not always clear how create reusable side-effects (i.e., avoid repeating yourself).
+Express does provide a solution for this: wrap your Express code in a function decorated with `@expressify`.
+Just make sure to call this function for it's side-effects, and not for its return value.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 50
+from shiny.express import expressify
+
+@expressify
+def evens(n = 5):
+    for i in range(n):
+        if i % 2 == 0:
+            f"Even: {i} "
+
+evens(3)
+"--- "
+evens(6)
+```
+
+
+-->

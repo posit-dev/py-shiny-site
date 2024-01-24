@@ -1,5 +1,5 @@
 ---
-title: Syntax differences
+title: Transition to Core
 editor:
   markdown:
     wrap: sentence
@@ -8,7 +8,6 @@ format:
     include-in-header: assets/head-content.html
 ---
 
-In the [previous article](express-motivation.qmd), we outlined some situations where your Express app might benefit from switching to Core.
 This article digs into the syntax differences translation _Express_ and _Core_ apps as well as a [translation guide](#translation-guide) to help you move from Express to Core.
 
 The quickest way to tell whether an app is an Express app is the presence of `shiny.express` in the import statements.
