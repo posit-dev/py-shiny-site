@@ -34,7 +34,7 @@ class QuartoPrint(List[str]):
 
         app = ShinyliveApp.from_local(app_file, files, language)
 
-        self.append(app.chunk(**kwargs))
+        self.append(app.to_chunk(**kwargs))
 
 
 def shinylive_chunk(
@@ -233,7 +233,7 @@ def express_core_preview(
 
         block.append("### " + tab_name)
         block.append(
-            '```{.python .code-overflow-scroll shinylive="' + sl_app.url() + '"}'
+            '```{.python .code-overflow-scroll shinylive="' + sl_app.to_url() + '"}'
         )
         block.append_file(app_file)
         block.extend(["```", ""])
