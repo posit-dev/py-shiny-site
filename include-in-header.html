@@ -72,9 +72,22 @@
     })
   }
 
-  document.readyState === 'loading'
-    ? document.addEventListener('DOMContentLoaded', addShinyliveEditLinks)
-    : addShinyliveEditLinks()
+  function addPanelUnderlineNav() {
+    document.querySelectorAll(".panel-underline .nav").forEach((x) => {
+      x.classList.remove("nav-tabs");
+      x.classList.add("nav-underline");
+      x.classList.add("justify-content-center");
+    });
+  }
+
+  function onLoad() {
+    addShinyliveEditLinks();
+    addPanelUnderlineNav();
+  }
+
+  document.readyState === "loading"
+    ? document.addEventListener("DOMContentLoaded", onLoad)
+    : onLoad();
 })()
 </script>
 

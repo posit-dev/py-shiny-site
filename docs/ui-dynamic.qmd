@@ -93,7 +93,7 @@ def result():
 ::: callout-warning
 ## Render UI vs display
 
-Shiny Express code that works via side-effects needs to be used with `@render.express`, not `@render.ui`. See [this section](express-advanced.qmd#reactive-displays) to learn more.
+Shiny Express code that works via side-effects needs to be used with `@render.express`, not `@render.ui`. See [this section](express-in-depth.qmd#reactive-displays) to learn more.
 :::
 
 ::: callout-tip

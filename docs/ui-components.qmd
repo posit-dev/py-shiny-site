@@ -1,8 +1,5 @@
 ---
 title: "Components"
-format:
-  html:
-    include-in-header: assets/head-content.html
 aliases:
   - ui-page-layouts.html
   - ui-navigation.html

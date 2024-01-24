@@ -1,8 +1,5 @@
 ---
 title: "Jupyter Widgets"
-format:
-  html:
-    include-in-header: assets/head-content.html
 aliases:
   - ipywidgets.html
 ---
@@ -45,6 +42,8 @@ pip install altair bokeh plotly pydeck ipyleaflet
 
 To render an ipywidget you first define a reactive function that returns the widget and then decorate it with `@render_widget`. Some popular widgets like `altair` have specially-designed decorators for better ergonomics and we recommend using them if they exist.
 
+<!-- Note: this is copy/pasted from quick-start.qmd -->
+
 ::: {.panel-tabset .panel-underline .border-0 .p-0 .justify-content-center}
 
 ##### Altair
@@ -54,6 +53,7 @@ To render an ipywidget you first define a reactive function that returns the wid
 #| components: [editor, viewer]
 #| layout: vertical
 #| viewerHeight: 480
+
 from shiny.express import input, ui
 from shinywidgets import render_altair
 
@@ -76,6 +76,130 @@ altair
 anywidget
 palmerpenguins
 jsonschema
+```
+
+##### Bokeh
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 480
+
+from shiny.express import input, ui
+from shinywidgets import render_bokeh
+
+ui.input_selectize(
+    "var", "Select variable",
+    choices=["bill_length_mm", "body_mass_g"]
+)
+
+@render_bokeh
+def hist():
+    from bokeh.plotting import figure
+    from palmerpenguins import load_penguins
+
+    p = figure(x_axis_label=input.var(), y_axis_label="count")
+    bins = load_penguins()[input.var()].value_counts().sort_index()
+    p.quad(
+        top=bins.values,
+        bottom=0,
+        left=bins.index - 0.5,
+        right=bins.index + 0.5,
+    )
+    return p
+## file: requirements.txt
+bokeh
+jupyter_bokeh
+xyzservices
+```
+
+##### Plotly
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 480
+
+from shiny.express import input, ui
+from shinywidgets import render_plotly
+
+ui.input_selectize(
+    "var", "Select variable",
+    choices=["bill_length_mm", "body_mass_g"]
+)
+
+@render_plotly
+def hist():
+    import plotly.express as px
+    from palmerpenguins import load_penguins
+    df = load_penguins()
+    return px.histogram(df, x=input.var())
+
+## file: requirements.txt
+palmerpenguins
+plotly
+```
+
+##### Pydeck
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 480
+
+import pydeck as pdk
+import shiny.express
+from shinywidgets import render_pydeck
+
+@render_pydeck
+def map():
+    UK_ACCIDENTS_DATA = "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/3d-heatmap/heatmap-data.csv"
+
+    layer = pdk.Layer(
+        "HexagonLayer",  # `type` positional argument is here
+        UK_ACCIDENTS_DATA,
+        get_position=["lng", "lat"],
+        auto_highlight=True,
+        elevation_scale=50,
+        pickable=True,
+        elevation_range=[0, 3000],
+        extruded=True,
+        coverage=1,
+    )
+
+    # Set the viewport location
+    view_state = pdk.ViewState(
+        longitude=-1.415,
+        latitude=52.2323,
+        zoom=6,
+        min_zoom=5,
+        max_zoom=15,
+        pitch=40.5,
+        bearing=-27.36,
+    )
+
+    # Combined all of it and render a viewport
+    return pdk.Deck(layers=[layer], initial_view_state=view_state)
+## file: requirements.txt
+pydeck
+```
+
+##### Other
+
+Many [other awesome Python packages](https://github.com/markusschanta/awesome-jupyter#visualization) provide widgets that are compatible with Shiny.
+In general, you can render them by applying the `@render_widget` decorator.
+
+```python
+import shiny.express
+from shinywidgets import render_widget
+
+@render_widget
+def widget():
+    # Widget code goes here
+    ...
 ```
 
 :::

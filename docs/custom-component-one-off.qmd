@@ -1,8 +1,5 @@
 ---
 title: "Custom JavaScript component"
-format:
-  html:
-    include-in-header: assets/head-content.html
 ---
 
 In this post, you will learn how to create a custom element and accompanying output binding in Shiny. This is useful if you want to create an output that is not currently in Shiny for your app.

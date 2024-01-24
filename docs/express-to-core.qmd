@@ -3,9 +3,6 @@ title: Transition to Core
 editor:
   markdown:
     wrap: sentence
-format:
-  html:
-    include-in-header: assets/head-content.html
 ---
 
 This article digs into the syntax differences translation _Express_ and _Core_ apps as well as a [translation guide](#translation-guide) to help you move from Express to Core.

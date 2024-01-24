@@ -3,9 +3,6 @@ title: Express in depth
 editor:
   markdown:
     wrap: sentence
-format:
-  html:
-    include-in-header: assets/head-content.html
 ---
 
 This article digs into some more advanced topics in Shiny Express.

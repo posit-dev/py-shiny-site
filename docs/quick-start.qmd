@@ -3,14 +3,12 @@ title: Quick start
 editor:
   markdown:
     wrap: sentence
-format:
-  html:
-    include-in-header: assets/head-content.html
 aliases:
   - overview.html
   - inputs.html
   - outputs.html
   - server.html
+  - get-started.html
 ---
 
 Welcome to the Shiny quick start guide!
@@ -62,7 +60,7 @@ Shiny includes many useful user interface (`ui`) components for creating inputs,
 
 Shiny makes it easy to create dynamic plots, tables, and other interactive widgets.
 All you need to do is apply a `@render` decorator to a function that returns a suitable object.
-Shiny includes a wide variety of these decorators in its `render` module, but Shiny [extensions](custom-component-one-off.qmd) like [shinywidgets](jupyter-widgets.qmd) provide additional decorators for rendering other kinds of outputs, like [Jupyter Widgets](jupyter-widgets.qmd).
+Shiny includes a wide variety of these decorators in its `render` module, but Shiny [extensions](custom-component-one-off.qmd) like `shinywidgets` provide additional decorators for rendering other kinds of outputs, like [Jupyter Widgets](jupyter-widgets.qmd).
 
 ::: {.panel-tabset .panel-underline .border-0 .p-0 .justify-content-center}
 
@@ -129,8 +127,7 @@ palmerpenguins
 
 ##### Widgets
 
-Shiny supports [Jupyter Widgets](https://ipywidgets.readthedocs.io/en/stable/) through the `shinywidgets` package.
-Below are a few examples, but you can learn more in the [Jupyter Widgets article](jupyter-widgets.qmd).
+See the [Jupyter Widgets article](jupyter-widgets.qmd) for more information on rendering Jupyter Widgets in Shiny.
 
 ::: {.panel-tabset .panel-underline .border-0 .p-0 .justify-content-center}
 
@@ -550,7 +547,7 @@ In fact, Shiny UI components themselves are built on a Python representation of 
 ```
 
 And, since [UI is HTML](ui-html.qmd), you can gently introduce HTML/CSS/JavaScript as needed in your apps to customize without having to learn complicated build tooling and frameworks.
-However, if you're versed in front-end development, you can also use Shiny to create [custom components](custom-component-one-off.qmd) that leverage your favorite JavaScript framework.
+However, if you're versed in web programming, you can also use Shiny to create [custom components](custom-component-one-off.qmd) that leverage your favorite JavaScript framework from Python.
 
 ### Next steps {#next-steps}
 

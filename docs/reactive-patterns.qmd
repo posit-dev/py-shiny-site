@@ -1,8 +1,5 @@
 ---
 title: "Patterns"
-format:
-  html:
-    include-in-header: assets/head-content.html
 ---
 
 In the previous article, we learned the foundations of reactive programming in Shiny.

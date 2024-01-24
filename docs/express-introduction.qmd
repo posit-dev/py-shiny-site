@@ -3,9 +3,6 @@ title: Introduction
 editor:
   markdown:
     wrap: sentence
-format:
-  html:
-    include-in-header: assets/head-content.html
 ---
 
 Up until now, these docs have focused on Shiny _Express_, which compared to Shiny _Core_, offers a simpler way to learn and write basic apps.
@@ -30,7 +27,7 @@ If you're already convinced that Shiny Core is right for your app, feel free to 
 
 Shiny Core is a superset of Express, meaning that anything you can do in Express, you can also do in Core.
 The reverse is not true, however.
-One example of this [Shiny Modules](modules.qmd), which are not currently supported in Express.
+For example [Shiny Modules](modules.qmd) are not currently supported in Express.
 :::
 
 ::: callout-note
