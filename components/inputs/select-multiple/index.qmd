@@ -20,8 +20,6 @@ listing:
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKm1nAtxiFGw4AxMgAPCH2jpHKYF4+ftFEyMFhEZEO0QDK3r4ipOgUnOSsyABG3qQA7ogJQaHhEGmOINEAjKLRKNEAwuyknMRwyG01rQBCHcjdvf2DLeOEk2AtXRNTfQNDK2AAvonJ9Y0OMAoWBeg+ugAqDApwe3WpyACU9ykNjoak7m4eVAAe-miADcoFY4NEXqonqoYRBZHQ2HIgXIbK53EQvhQfkQvKxWIUIE9qu8HAABKRwuRYf4UR7w5AgsE2ImPSJSCgKBgNOjREBoihYWI5ZnbaKw9SYPRiTA2DTaTg4pFyaEQBZgCi4dAIFDquAAnYAXSAA
 - id: relevant-functions
   template: ../../_partials/components-detail-relevant-functions.ejs
-  template-params:
-    dir: components/inputs/select-multiple/
   contents:
   - title: ui.input_select
     href: https://shiny.posit.co/py/api/ui.input_select.html

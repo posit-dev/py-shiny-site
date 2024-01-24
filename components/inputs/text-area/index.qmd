@@ -20,8 +20,6 @@ listing:
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAV05EG1ACZwGRAIKYAOhFUZ0AfXHIAvGM44oAczia6AG3HSAFKuQODWbulEVNVAB7uoUqHbAvCl84KGVCZHCAFThvPghXCnCicIAJOAsLUmQAdSELaXCASiJkAGJkAB5K+0dxLFI3RI9Y9wA3OQAjKAp+ALaoKzhiglUi1QmIWTo2OQ6GGxc3IkaKRKJWOFZWTnIixFqHAAEpKbksIMPkaeQBoZt9q8dkKQpRBgh4xIvWkP9xtSAjR6ZBKdA2DTaCSzBjzAERQK4dAIFCBVpgAC+AF0gA
 - id: relevant-functions
   template: ../../_partials/components-detail-relevant-functions.ejs
-  template-params:
-    dir: components/inputs/text-area/
   contents:
   - title: ui.input_text_area
     href: https://shiny.posit.co/py/api/ui.input_text_area.html
