@@ -1,0 +1,280 @@
+---
+title: Non-blocking operations
+---
+
+Sometimes in a Shiny app, you need to perform a long-running operation, like loading a large dataset or doing an expensive computation.
+If you do this in a reactive context, it will block the rest of the application from running until the operation completes.
+This can be frustrating for users, who may think that the app has crashed.
+
+Worse, if you have multiple users, then one user's long-running operation will block the other users' apps from running as well.
+These other users will not even be aware that their slow performance is due to another user's actions.
+
+In this article, we'll learn how to make Shiny apps more responsive by using non-blocking operations.
+We'll also go out of our way to explain why the usual Python async techniques don't work the same way in Shiny as in other web frameworks.
+
+## Using async/await in Shiny
+
+Asynchronous programming is a technique used in many programming languages to increase scalability and responsiveness, usually in programs that do a lot of networking like web servers and clients.
+Python supports async programming at the language level, using the `async`/`await` keywords; in the standard library, with the [`asyncio`](https://docs.python.org/3/library/asyncio.html) module; and in third-party libraries, like [FastAPI](https://fastapi.tiangolo.com/) and [aiohttp](https://docs.aiohttp.org/).
+
+Shiny has async support as well, but it's a bit different from your typical async Python framework.
+On the one hand, Shiny is built on top of [Starlette](https://www.starlette.io/), which is an async web framework, so it's possible to use async functions in many parts of your Shiny app.
+On the other hand, Shiny is also designed around reactive programming concepts, and that creates constraints on how async functions can be used.
+
+### Reactive async/await
+
+Shiny supports the use of `async` and `await` in your reactive code.
+You can use `async` functions in `@reactive.effect`, `@reactive.calc`, and render functions, and within those async functions you can use `await` to wait for the results of other async functions.
+
+However, you may be surprised to learn that this technique alone does not result in improved responsiveness in Shiny apps!
+
+In the app below, the first thing in the UI is a reactive output that displays the current time.
+Click the button and notice that, during the five seconds that the app is waiting for the (artificially slow) sum calculation to complete, the time does not update.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+import asyncio
+import datetime
+from shiny import App, reactive, render, ui
+
+app_ui = ui.page_fluid(
+    ui.p("The time is ", ui.output_text("current_time", inline=True)),
+    ui.hr(),
+    ui.input_numeric("x", "x", value=1),
+    ui.input_numeric("y", "y", value=2),
+    ui.input_task_button("btn", "Add numbers"),
+    ui.output_text("sum"),
+)
+
+def server(input, output, session):
+    @render.text
+    def current_time():
+        reactive.invalidate_later(1)
+        return datetime.datetime.now().strftime("%H:%M:%S %p")
+
+    @reactive.calc
+    @reactive.event(input.btn)
+    async def sum_values():
+        await asyncio.sleep(5)
+        return input.x() + input.y()
+
+    @render.text
+    async def sum():
+        return str(await sum_values())
+
+app = App(app_ui, server)
+```
+
+Despite being defined as an asynchronous function, the sum logic is still blocking the time output.
+You could replace `await asyncio.sleep(5)` with its synchronous equivalent, `time.sleep(5)`, and you'd get exactly the same result.
+
+### Why does async block?
+
+While surprising, this behavior is intentional.
+Shiny goes out of its way to ensure that reactive functions are run in a serial fashion, never concurrently--even if they are asynchronous.
+This means that if you have two (async) reactive effects that both call `await asyncio.sleep(1)`, the second one will not even begin to start executing until the first one has finished.
+This is true even if the two reactive effects belong to two different Shiny sessions and one Python process is serving those sessions.
+
+This may seem like a strange decision on the part of Shiny: why support async at all if the code is not going to run concurrently?
+
+The reason for supporting async is simple: there are functions you may need to call from reactive contexts that are only available as async functions.
+This includes some functions in Shiny itself that are used to communicate with the browser, like [`Session.send_custom_message`](api/Session.html#shiny.Session.send_custom_message).
+
+The reason for not allowing (reactive) async code to run concurrently is more nuanced.
+The main reason is that it would be very difficult to ensure that the application behaves predictably if async code were allowed to run concurrently.
+Concurrent code works best when tasks are largely independent of each other, and do not read or modify the same shared state.
+But Shiny reactive code is all about shared state and interconnected tasks.
+
+So in summary, use async functions in your reactive code if you need to call async-only functions.
+Don't expect your application to run faster, more responsively, or more efficiently.
+
+## True non-blocking behavior with `ExtendedTask`
+
+To achieve true non-blocking behavior in Shiny applications, and retain the ability to reason about how our apps will behave, we use the following strategy:
+
+1. Read whatever reactive inputs and calcs will be needed to perform the task.
+2. Perform the task asynchronously and concurrently, outside of the reactive graph.
+3. When the task completes, bring the resulting value (or error, if the operation failed) back into the reactive graph.
+
+We've created a high-level class called `ExtendedTask` to make all of this pretty easy.
+To create an `ExtendedTask`, use the `@reactive.extended_task` decorator on an async function.
+Let's adapt the example above to use an `ExtendedTask`:
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+import asyncio
+import datetime
+from shiny import App, reactive, render, ui
+
+app_ui = ui.page_fluid(
+    ui.p("The time is ", ui.output_text("current_time", inline=True)),
+    ui.hr(),
+    ui.input_numeric("x", "x", value=1),
+    ui.input_numeric("y", "y", value=2),
+    ui.input_task_button("btn", "Add numbers"),
+    ui.output_text("sum"),
+)
+
+def server(input, output, session):
+    @render.text
+    def current_time():
+        reactive.invalidate_later(1)
+        return datetime.datetime.now().strftime("%H:%M:%S %p")
+
+    @ui.bind_task_button(button_id="btn")
+    @reactive.extended_task
+    async def sum_values(x, y):
+        await asyncio.sleep(5)
+        return x + y
+
+    @reactive.effect
+    @reactive.event(input.btn)
+    def btn_click():
+        sum_values(input.x(), input.y())
+
+    @render.text
+    def sum():
+        return str(sum_values.result())
+
+app = App(app_ui, server)
+```
+
+Note the `sum_values` function, which is where the actual (slow) work is done.
+It is decorated with `@reactive.extended_task`, which means that it will be run asynchronously and concurrently with other tasks, and that its result will be available as `sum_values.result()`.
+
+We've also added a `@ui.bind_task_button` decorator on top of the `@reactive.extended_task` decorator.
+
+::: {.callout-note}
+This synchronizes the `ExtendedTask` object with the `ui.input_task_button` in the UI, so that the button will be in its "Processing..." state while the task is running.
+It _does not_ cause button clicks to invoke the task; we still need to do that manually, which we'll talk about next.
+
+If you use some other UI gesture or condition besides `ui.input_task_button` to invoke the task, don't include the `@ui.bind_task_button` decorator--it doesn't work with `ui.input_action_button`, for example.
+:::
+
+### Invoking the task
+
+Unlike a reactive effect, simply creating an extended task does not cause it to run.
+It needs to be invoked (called like a function).
+
+In this case, the `sum_values` extended task is called from the `btn_click` reactive effect (`@reactive.effect`), which runs whenever the button is clicked (`@reactive.event(input.btn)`).
+
+Notice also that the `sum_values` logic no longer reads `input.x()` and `input.y()` directly in the function body.
+Because it is now an extended task, attempting to do so would result in an error.
+Instead, it takes `x` and `y` as arguments, which are passed in by `btn_click` based on reactive inputs.
+
+### Retrieving results
+
+The `sum` output is now a regular reactive calc, which reads `sum_values.result()` to get the result of the extended task.
+This output actually does not "wait for" the extended task to complete, exactly; instead, it will run multiple times, as the extended task goes through different states.
+For each state, `sum_values.result()` will behave differently:
+
+* **Not yet invoked:** Raises a silent exception, which will cause the `sum` output to display nothing.
+* **Running:** Raises a special type of exception that tells Shiny to keep the output in the "in progress" state.
+* **Successfully completed:** Returns the return value of `sum_values`, in this case an integer.
+* **Completed with an exception:** If `sum_values` raised an exception while processing, then re-raises that same exception, causing it to be displayed to the user in the `sum` output.
+
+It's not necessary to memorize these states.
+Just remember that `sum_values.result()` is a reactive, synchronous method that knows how to do right thing based on the state of the extended task.
+
+### Other features of extended tasks
+
+#### Cancel a running task
+
+Although it's not shown in the example above, you can also cancel an extended task by calling the `cancel()` method (for example, `sum_values.cancel()`).
+This will attempt to cancel the asyncio task that is running the extended task, and will cause `sum_values.result()` to raise a silent exception.
+
+Calling `sum_values.cancel()` on a task that isn't running will have no effect.
+
+#### Multiple invocations
+
+An extended task can run concurrently to reactive code and to other extended tasks--that's its whole purpose.
+However, a single extended task object cannot run itself multiple times concurrently. If you call `sum_values()` while it is already running, it will enqueue the new invocation and run it after the first one completes.
+
+This is often not the behavior you want, especially if the task takes a long time to complete.
+A user may accidentally click an action button twice, or they may click it again because they think the first click didn't work.
+To prevent this, use `ui.input_task_button` instead of `ui.input_action_button` to invoke the task, since the former automatically prevents subsequent clicks until the task completes.
+
+### Executing on a different thread/process
+
+Extended task objects run their tasks using [`asyncio.create_task`](https://docs.python.org/3/library/asyncio-task.html#asyncio.create_task), which means that they will run on the same thread as the rest of the application.
+This is fine for logic that is truly asynchronous, like making a network request via an asyncio-aware library like [aiohttp](https://docs.aiohttp.org/en/stable/), but it's not ideal for CPU-bound tasks or when performing I/O synchronously.
+Because CPU-bound or synchronous tasks will block the main thread, we're back to where we started: the rest of the application cannot proceed until the task completes.
+
+Fortunately, we can rely on Python's built-in support for running asyncio tasks on different threads or processes.
+
+::: {.callout-note}
+The examples below work well in Shiny Core, but a naive port to Shiny Express will not work as well.
+The `ThreadPoolExecutor` and `ProcessPoolExecutor` objects need to be created as module-level variables, not as session-level variables, since we'd ideally like to pool resources across all sessions.
+:::
+
+::: {.callout-note}
+`ProcessPoolExecutor` is not available in Shinylive (e.g. WASM mode).
+`ThreadPoolExecutor` is available in Shinylive and appears to work, but doesn't: it actually performs all of its work on the main thread.
+:::
+
+The following example shows how to run a task on a different thread.
+This is a good strategy for code that does synchronous I/O, like reading from disk, a database, or a remote API endpoint.
+It's not as good of a strategy for CPU-bound code, because Python's [global interpreter lock](https://realpython.com/python-gil/) will prevent the task from running concurrently with other Python code.
+
+```{python}
+#| eval: false
+import asyncio
+import concurrent.futures
+import time
+
+from shiny import App, reactive, render, ui
+
+app_ui = ui.page_fluid(
+    ui.input_numeric("x", "x", value=1),
+    ui.input_numeric("y", "y", value=2),
+    ui.input_task_button("btn", "Add numbers"),
+    ui.output_text("sum"),
+)
+
+# Execute the extended task logic on a different thread. To use a different
+# process instead, use concurrent.futures.ProcessPoolExecutor.
+pool = concurrent.futures.ThreadPoolExecutor()
+
+def slow_sum(x, y):
+    time.sleep(5)  # Simulate a slow synchronous task
+    return x + y
+
+def server(input, output, session):
+    @ui.bind_task_button(button_id="btn")
+    @reactive.extended_task
+    async def sum_values(x, y):
+        loop = asyncio.get_event_loop()
+        return await loop.run_in_executor(pool, slow_sum, x, y)
+
+    @reactive.effect
+    @reactive.event(input.btn)
+    def btn_click():
+        sum_values(input.x(), input.y())
+
+    @render.text
+    def sum():
+        return str(sum_values.result())
+
+app = App(app_ui, server)
+app.on_shutdown(pool.shutdown)
+```
+
+With a small tweak, we can run the task on a different process instead of a different thread: just replace `concurrent.futures.ThreadPoolExecutor` with `concurrent.futures.ProcessPoolExecutor`.
+This is a good strategy for CPU-bound code, because it allows the task to run concurrently with other Python code.
+
+In this example, the `slow_sum` function is defined at the module level, outside of the Shiny server function.
+This is critically important for `ProcessPoolExecutor` to work correctly because of how Python's `multiprocessing` module works: only module-level functions can survive the trip to a worker Python subprocess.
+(It's less critical for `ThreadPoolExecutor`, but still a good programming practice to define such logic at the module level when possible.)
+
+There's also the `app.on_shutdown(pool.shutdown)` line at the end of each example.
+This is necessary to ensure that the pool is shut down when the app stops running.
+In particular, if you're using `ProcessPoolExecutor` and neglect to shut down the pool, you can end up with orphaned Python processes hanging around.
+
+## Summary
+
+Only use async functions in your reactive code if you need to call async-only functions.
+Don't expect your application to run faster, more responsively, or more efficiently.
+
+To achieve true non-blocking behavior in Shiny applications, factor your slow/async code into an `ExtendedTask` callable object, call it from a reactive effect, and read its `result()` from a render function or reactive calc.
