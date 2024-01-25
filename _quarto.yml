@@ -63,20 +63,24 @@ website:
     logo-alt: The logo for Shiny for Python
     search: true
     left:
-      - text: "Learn"
+      - text: "Learn Shiny"
         file: docs/quick-start.qmd
+      - text: "Components"
+        menu:
+          - text: "Components"
+            file: components/index.qmd
+            icon: sliders
+          - text: "Layouts"
+            file: layouts/index.qmd
+            icon: layout-text-window-reverse
       - text: "Deploy"
         menu:
           - docs/deploy-cloud.qmd
           - docs/deploy-on-prem.qmd
           - docs/shinylive.qmd
-      - text: "Components"
-        file: components/index.qmd
-      - text: "Layouts"
-        file: layouts/index.qmd
       - text: "Gallery"
         file: gallery/index.qmd
-      - text: "Examples"
+      - text: "Playground"
         href: https://shinylive.io/py/examples/
         target: _blank
       - text: "Reference"
