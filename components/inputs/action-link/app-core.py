@@ -7,10 +7,16 @@ app_ui = ui.page_fluid(
 
 
 def server(input, output, session):
-    @render.text()
+    count = reactive.value(0)
+
+    @reactive.effect
     @reactive.event(input.action_link)  # <<
+    def _():
+        count.set(count() + 1)
+
+    @render.text()
     def counter():
-        return f"{input.action_link()}"
+        return f"{count()}"
 
 
 app = App(app_ui, server)

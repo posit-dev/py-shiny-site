@@ -1,10 +1,18 @@
-from shiny import reactive, render
-from shiny.express import input, ui
+from shiny import reactive
+from shiny.express import input, render, ui
 
 ui.input_action_link("action_link", "Increase Number")  # <<
 
 
+count = reactive.value(0)
+
+
+@reactive.effect
+@reactive.event(input.action_link)
+def _():
+    count.set(count() + 1)
+
+
 @render.text()
-@reactive.event(input.action_link)  # <<
 def counter():
-    return f"{input.action_link()}"
+    return f"{count()}"

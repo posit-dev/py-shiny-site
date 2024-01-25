@@ -10,15 +10,15 @@ app_ui = ui.page_fluid(
 )
 
 
-def server(input, output, session, starting_value=0):
-    count = reactive.Value(starting_value)
+def server(input, output, session):
+    count = reactive.value(0)
 
-    @reactive.Effect
+    @reactive.effect
     @reactive.event(input.action_link)
     def _():
         count.set(count() + 1)
 
-    @render.text
+    @render.text()
     def counter():
         return f"{count()}"
 
