@@ -1710,15 +1710,40 @@ btn.action-button:hover {
 	}
 }
 
+.app-preview {
+  padding: 1em;
+  border: 1px solid rgba(233,236,239,.9);
+  border-radius: 0.5em;
+  margin-block: 1em;
+
+  &.resize-inline,
+  &.resize-block {
+    .shinylive-viewer {
+      background-color: var(--bs-gray-800);
+    }
+  }
+
+  &.resize-inline .app-frame {
+    resize: inline;
+    min-width: var(--min-width, 200px);
+    max-width: var(--max-width, 100%);
+  }
+  &.resize-block .app-frame {
+    resize: block;
+    min-height: var(--min-height, 100px);
+  }
+}
+
 .app-preview .sourceCode {
   padding: 0;
   box-shadow: none;
-  margin-block: 1em;
+  margin: 0;
+  border: none;
 }
 
 .app-preview .shinylive-wrapper {
   margin: 0;
-  padding: 1em;
+  padding: 0;
   background-color: var(--bs-body-bg);
 }
 
