@@ -1585,8 +1585,8 @@ code .parameter-default a {
     background-color: inherit;
   }
 }
-// Homepage Carousel
 
+// Homepage Carousel
 div.hero-carousel {
   margin-right: -230px;
   margin-top: -35px;
@@ -1708,6 +1708,59 @@ btn.action-button:hover {
 			border-block-start-width: 0;
 		}
 	}
+}
+
+[data-group="shiny-app-mode"] {
+  position: relative;
+}
+
+.what-shiny-express {
+  position: absolute;
+  top: 0.7em;
+  right: 1.2em;
+  font-size: 0.85em;
+  cursor: pointer;
+}
+
+.shiny-mode-tabset[data-group="shiny-app-mode"] > .what-shiny-express {
+  color: white;
+}
+
+.popover-header {
+  margin-top: 0;
+}
+
+.popover-body {
+  > :first-child {
+    margin-top: 0;
+  }
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+.app-preview {
+  padding: 1em;
+  border: 1px solid rgba(233,236,239,.9);
+  border-radius: 0.5em;
+  margin-block: 1em;
+
+  &.resize-inline,
+  &.resize-block {
+    .shinylive-viewer {
+      background-color: var(--bs-gray-800);
+    }
+  }
+
+  &.resize-inline .app-frame {
+    resize: inline;
+    min-width: var(--min-width, 200px);
+    max-width: var(--max-width, 100%);
+  }
+  &.resize-block .app-frame {
+    resize: block;
+    min-height: var(--min-height, 100px);
+  }
 }
 
 .app-preview {
