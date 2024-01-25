@@ -1,10 +1,28 @@
 ---
 title: "Arrange Elements"
 description: >
-  Shiny's premade layouts, such as ui.page_sidebar() and ui.page_navbar() make use of
-  Shiny's lower-level grid layout functions.
+  Layout elements into rows and columns that responsively adapt to a wide range of
+  screen sizes.
+
 aliases:
   - "../arrange.html"
+
+listing:
+- id: relevant-functions
+  template: ../../components/_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.layout_columns
+    href: https://shiny.posit.co/py/api/ui.layout_columns.html
+    signature: ui.layout_columns(*args, col_widths=None, row_heights=None, fill=True, fillable=True, gap=None, class_=None, height=None, **kwargs)
+  - title: ui.layout_column_wrap
+    href: https://shiny.posit.co/py/api/ui.layout_column_wrap.html
+    signature: ui.layout_columns(*args, col_widths=None, row_heights=None, fill=True, fillable=True, gap=None, class_=None, height=None, **kwargs)
+  - title: ui.page_fixed
+    href: https://shiny.posit.co/py/api/ui.page_fixed.html
+    signature: ui.page_fixed(*args, title=None, lang=None, **kwargs)
+  - title: ui.page_fillable
+    href: https://shiny.posit.co/py/api/ui.page_fillable.html
+    signature: ui.page_fillable(*args, padding=None, gap=None, fillable_mobile=False, title=None, lang=None, **kwargs)
 ---
 
 ```{python}
@@ -15,84 +33,137 @@ sys.path.append("../..")
 from docs.helpers import express_core_preview, shinylive_app_preview
 ```
 
-Shiny's premade layouts, such as [ui.layout_sidebar](https://shiny.posit.co/py/api/ui.layout_sidebar.html) and [ui.page_navbar](https://shiny.posit.co/py/api/ui.page_navbar.html) make use of Shiny's lower-level grid layout functions:
+Shiny provides two core functions for arranging elements into rows and columns:
 
--   Rows are created by the `ui.row()` function and include columns.
--   Columns are defined by the `ui.column()` function. Column widths are based on the [Bootstrap](https://getbootstrap.com/) 12-wide grid system, so column widths should add up to 12 within a row.
+-   `ui.layout_columns()` uses [Bootstrap's 12-column CSS Grid](https://getbootstrap.com/docs/5.3/layout/grid/) to create responsive and highly customizable layouts;
+
+-   `ui.layout_column_wrap()` arranges elements into a grid with equally-sized cells.
 
 You can use these functions directly to create your own layout.
 Grid layouts can be used within a page, panel, or card and can even be nested within each other.
 
-## Relevant functions
-
--   [ui.row](https://shiny.posit.co/py/api/ui.row.html) `ui.row(*args, **kwargs)`
-
--   [ui.column](https://shiny.posit.co/py/api/ui.column.html) `ui.column(width, *args, offset=0, **kwargs)`
-
--   [ui.page_fluid](https://shiny.posit.co/py/api/ui.page_fluid.html) `ui.page_fluid(*args, title=None, lang=None, **kwargs)`
-
--   [ui.page_fixed](https://shiny.posit.co/py/api/ui.page_fixed.html) `ui.page_fixed(*args, title=None, lang=None, **kwargs)`
-
--   [ui.page_fillable](https://shiny.posit.co/py/api/ui.page_fillable.html) `ui.page_fillable(*args, padding=None, gap=None, fillable_mobile=False, title=None, lang=None, **kwargs)`
+::: {#relevant-functions}
+:::
 
 ::: {.border-bottom .blue .mt-6 .mb-5}
 :::
 
 ## Grid Layouts
 
-To create a layout using the grid system, first build a grid by interlacing calls to [ui.row](https://shiny.posit.co/py/api/ui.row.html) and [ui.column](https://shiny.posit.co/py/api/ui.column.html).
-Then place UI elements within the grid by passing them to a `ui.row()` or `ui.column()` function.
-For example, the app below arranges three cards into a simple pattern.
+Both `ui.layout_columns()` and `ui.layout_column_wrap()` follow the same general pattern: pass each function a series of elements to have them arranged into a grid layout.
 
 ::: {.column-screen-inset-right style="max-width:800px;"}
 ```{python}
 #| output: asis
 #| echo: false
 
-shinylive_app_preview("app-grid-core.py", viewer_height=175, div_attrs=".p-0")
-express_core_preview(None, "app-grid-core.py")
+shinylive_app_preview("app-layout-columns-core.py", viewer_height=175, div_attrs='.p-0 .resize-inline')
+express_core_preview("app-layout-columns-express.py", "app-layout-columns-core.py")
+```
+
+```{python}
+#| output: asis
+#| echo: false
+
+shinylive_app_preview("app-layout-column-wrap-core.py", viewer_height=175, div_attrs='.p-0 .resize-inline')
+express_core_preview("app-layout-column-wrap-express.py", "app-layout-column-wrap-core.py")
 ```
 :::
 
-Notice three things about the app:
+Notice two things about the above apps:
 
-1.  You always create rows before columns, and then embed columns within the rows.
+1.  Both approaches create one or more rows, filling the rows with columns to hold its children.
 
-2.  Rows are always as wide as the container they appear in, but columns take a `width` parameter.
-    `width` should be an integer from 1 to 12.
-    Bootstrap uses `width` to determine the width of the column relative to the row that contains it:
+2.  Use the handle in the bottom right corner of the apps above to view each layout at different screen sizes (this works best on desktop screens).
+    How do the layouts shift as the screen gets smaller or larger?
 
-    -   A column of `width=12` will span the entire row.
-    -   A column of `width=6` will span half the row.
-    -   A column of `width=3` will span a quarter of the row.
-    -   And so on.
+### How to choose between `layout_columns()` and `layout_column_wrap()`
 
-3.  You pass UI elements to `ui.row()` or `ui.column()` to place them in the grid.
-    Here we pass `ui.card()`s to various parts of the grid.
-    Each element is fitted to the column or row that it appears in.
+For simple layouts, it can be hard to tell `ui.layout_columns()` and `ui.layout_column_wrap()` apart.
+Here's a short set of questions to ask yourself to help you decide which function to use:
 
-In addition to setting a column's width, you can also set its offset with the `offset` parameter.
-`offset` controls how many units of padding appear to the left of the column.
-Once again, `offset` should be an integer from 1 to 12.
-The app below uses offsets to make a new arrangement:
+1.  Are all of the items in your arrangement the same, such as a set of cards or plots?
+    And do you want them all to have the same width and height?
+
+    **If yes**: `ui.layout_column_wrap()` is best for a regularly-sized grid for a homogenous collection of elements.
+
+2.  Do you want to customize the layout's column widths, or to have different layouts at different screen sizes (mobile vs desktop vs ultrawide)?
+
+    **If yes:** `ui.layout_columns()` give you the tools to create highly customized, resposive column layouts.
+
+3.  For all other uses, pick the function you like the most.
+    I happen to like `ui.layout_columns()` but you might prefer `ui.layout_column_wrap()`.
+
+### Responsive, configurable column layouts
+
+In the example above, we saw that, without your intervention, `ui.layout_columns()` will arrange the elements given to it into evenly sized columns.
+In the default case, `ui.layout_columns()` makes a choice about the column widths that make the most sense based on the number of items provided.
+
+For example, when given three items, `ui.layout_columns()` places each item in a column with 4 width units.
+You can use the `col_widths` argument to choose a different allocation of column width units.
+Keep in mind that [Bootstrap's CSS Grid uses 12 units per row](https://getbootstrap.com/docs/5.3/layout/grid/).
+In the example below, we use `col_widths=(2, 4, 6)` to create a row with a small, medium, and large card.
 
 ::: {.column-screen-inset-right style="max-width:800px;"}
 ```{python}
 #| output: asis
 #| echo: false
 
-shinylive_app_preview("app-grid-offset-core.py", viewer_height=300, div_attrs=".p-0")
-express_core_preview(None, "app-grid-offset-core.py")
+shinylive_app_preview("app-layout-columns-col-widths-core.py", viewer_height=240, div_attrs=".p-0 .resize-inline")
+express_core_preview("app-layout-columns-col-widths-express.py", "app-layout-columns-col-widths-core.py")
 ```
+:::
+
+::: callout-tip
+#### Advanced layouts
+
+There's a lot more that `layout_columns()` can do with `col_widths` to make highly customized layouts.
+
+-   Choose different layouts with a dictionary of column widths at specific breakpoints, e.g. `col_widths={"sm": 4, "md": (2, 4, 6)}`.
+
+-   Insert empty space between items with a negative column width, e.g. `col_widths=c(4, -4, 4)` creates two columns 4 units wide with an empty space of 4 units between them.
+
+Learn more in the API reference: [Express](https://shiny.posit.co/py/api/express/ui.layout_columns.html) \| [Core](https://shiny.posit.co/py/api/core/ui.layout_columns.html)
 :::
 
 ::: {.border-bottom .blue .mt-6 .mb-5}
 :::
 
+### Uniform grid layouts
+
+`ui.layout_column_wrap()` arranges elements into a uniform grid, so its `width` argument applies a single value to all elements in the grid.
+
+When `width` is a fractional each item is given an equal portion of the row's width.
+For example, `width=1 / 2` gives each item half of the row width.
+
+::: {.column-screen-inset-right style="max-width:800px;"}
+```{python}
+#| output: asis
+#| echo: false
+
+shinylive_app_preview("app-layout-column-wrap-half-core.py", viewer_height=240, div_attrs=".p-0 .resize-inline")
+express_core_preview("app-layout-column-wrap-half-express.py", "app-layout-column-wrap-half-core.py")
+```
+:::
+
+When `width` is a CSS unit, like `"300px"`, `ui.layout_column_wrap()` ensures that every item is *at least as wide* as `width`.
+The items in the grid expand to fill horizontal space or contract when the layout container is smaller than `width`.
+
+Try resizing the app preview below to see how the layout shifts at different container widths.
+
+::: {.column-screen-inset-right style="max-width:800px;"}
+```{python}
+#| output: asis
+#| echo: false
+
+shinylive_app_preview("app-layout-column-wrap-dynamic-core.py", viewer_height=240, div_attrs='.p-0 .resize-inline style="--max-width:1300px"')
+express_core_preview("app-layout-column-wrap-dynamic-express.py", "app-layout-column-wrap-dynamic-core.py")
+```
+:::
+
 ## Column nesting
 
-When you nest rows and columns within a column, each nested level of column widths should add up to 12.
-This is because Bootstrap divides every row into 12 units, no matter the actual width of the row.
+Both `ui.layout_columns()` and `ui.layout_column_wrap()` can be nested, even within each other.
 
 Consider this page layout:
 
@@ -101,8 +172,8 @@ Consider this page layout:
 #| output: asis
 #| echo: false
 
-shinylive_app_preview("app-column-nest-core.py", viewer_height=300, div_attrs=".p-0")
-express_core_preview(None, "app-column-nest-core.py")
+shinylive_app_preview("app-column-nest-core.py", viewer_height=200, div_attrs=".p-0")
+express_core_preview("app-column-nest-express.py", "app-column-nest-core.py")
 ```
 :::
 
