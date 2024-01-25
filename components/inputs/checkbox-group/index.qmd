@@ -1,0 +1,52 @@
+---
+title: Checkbox Group
+sidebar: components
+appPreview:
+  file: components/inputs/checkbox-group/app-preview.py
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/checkbox-group/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDagBM4DADoRGzNlx5Y4AD3RjWrPgKEju6AK4UihzrIsQzWA8YD6xdnGIBrAEalVdgOZND6AApkZABiZAAecNlg4OkwR2d3Tx8-dDiiUIioiBjkOIBhJ1cPVWRfUn904LDI6JiQaqy63Ni0OJQ4gEEqzNqclta3drywACEemuyB1uJhgomm-uCAXwzJ2QBKRr7LAAExCEkGLCpVCllJOmQANygAG0M4AI3EZtE4CkMGHKq4rAArUjcAK2ChYBLFZLlfzPDayQioCi4dAIFBgU4UMDLAC6QA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKm4uzjEA1gCNSAA9NYyYFdBsHAGJkAB44+0dk5TAvHwDg0PD0VKJkWISk5IdUgGFvP0Cg5DDSCLyY+MSIEscQJqLWtpLUqFSUVNFGgubintKwfwHkVIAhEcKWiZS0mfLFse62gF98pfGASn2t5MN6ijcPKiCKOzAANygrOFTj1UPVL4hZOjY5B5yGyudxEC5XIisOCsVicciHRDjAACUh+ciwNwo41+yCeLxsCPGySkFAUDFajVSWAAVqRuMCIFcsOkqlk6hECZ81NyNHoxJgbBptJxIQC5FzCKgKLh0AgUGBMWAdgBdIA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.input_checkbox_group
+    href: https://shiny.posit.co/py/api/ui.input_checkbox_group.html
+    signature: ui.input_checkbox_group(id, label, choices, *, selected=None, inline=False,
+      width=None)
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A checkbox group creates a group of checkboxes that can be used to toggle multiple choices independently.
+
+Follow these steps to display a checkbox group in your app:
+
+  1. Add `ui.input_checkbox_group()` to the UI of your app to create a checkbox group. Where you call this function will determine where the checkbox group will appear within the app's layout.
+
+  2. Specify the `id` and `label` parameters of `ui.input_checkbox_group()` to define the identifier and label of the checkbox group.
+
+  3. Supply the `choices` parameter with either a list or dictionary of choices. If `choices` is a list, its elements become the select list values and labels. If `choices` is a dictionary, `ui.input_checkbox_group()` uses the dictionary keys as the checkbox values and the dictionary values as the checkbox labels.
+
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a checkbox group:
+
+  1. Use `input.<checkbox_group_id>()` (e.g., `input.checkbox_group()`) to access the value of a checkbox group. The server value of a checkbox group is a tuple of string(s) with the selected value(s).
+
+See also: [Checkbox](../checkbox/index.qmd)

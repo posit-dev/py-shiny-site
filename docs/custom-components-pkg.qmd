@@ -272,7 +272,7 @@ This is the actual UI function for our component. Aka the one that gets called b
 Because `makeReactInput()` [works by creating a webcomponent](#srctsindex.tsx), to render our input we just need to pass the tag name we set up in the  `tagName` argument to `makeReactInput().` Next, we pass the `fancy_color_picker_deps` html dependency we just made and the ID of the binding and we’re good to go!
 
 ::: {.callout-note}
-By using the `resolve_id(id)` function here when declaring our ID, we make sure that the component works [Shiny modules](docs/workflow-modules) where the ID of the component needs to be prefixed with the module name.
+By using the `resolve_id(id)` function here when declaring our ID, we make sure that the component works [Shiny modules](modules.qmd) where the ID of the component needs to be prefixed with the module name.
 :::
 
 
@@ -282,22 +282,26 @@ By using the `resolve_id(id)` function here when declaring our ID, we make sure 
 Like with the JavaScript, the process for setting up the python code for an output binding is not too different. Although there is a bit of extra work because we need to build both the ui _and_ server components. Here's how we would do that for the color shower output binding we defined above:
 
 ```{.python filename="fancy_color_picker.py"}
-@output_transformer()
-async def render_color(
-    _meta: TransformerMetadata,
-    _fn: ValueFn[str | None],
-):
-    res = await resolve_value_fn(_fn)
-    if res is None:
-        return None
+from shiny.render.renderer import Renderer, Jsonifiable
 
-    if not isinstance(res, str):
-        # Throw an error if the value is not a string
-        raise TypeError(f"Expected a string, got {type(res)}. ")
+class render_color(Renderer[str]):
+    """
+    Render a color
+    """
 
-    # Send the results to the client. Make sure that this is a serializable
-    # object and matches what is expected in the JavaScript code.
-    return {"value": res}
+    # Express mode UI
+    def auto_output_ui(self, id: str) -> Tag:
+        return output_color(self.output_id)
+
+    # Transform the app value into a JSONifiable object
+    async def transform(self, value: str) -> Jsonifiable:
+        if not isinstance(res, str):
+            # Throw an error if the value is not a string
+            raise TypeError(f"Expected a string, got {type(res)}. ")
+
+        # Send the results to the client. Make sure that this is a serializable
+        # object and matches what is expected in the JavaScript code.
+        return {"value": value}
 
 
 def output_color(id: str):
@@ -338,6 +342,23 @@ This file is used to configure typescript, which we are using to write our compo
 
 ### `example-app/app.py`
 
+::: {.panel-tabset .panel-underline .border-0 .justify-content-center}
+
+#### Express
+
+```{.python}
+from fancy_color_picker import fancy_color_picker
+from shiny.express import render
+
+fancy_color_picker("myComponent")
+
+@render.text
+def valueOut():
+    return f"Value from input is {input.myComponent()}"
+```
+
+#### Core
+
 ```{.python}
 from fancy_color_picker import fancy_color_picker
 
@@ -356,6 +377,7 @@ def server(input, output, session):
 app = App(app_ui, server)
 ```
 
+:::
 
 This is a simple example app that can be used to test the component while developing. It uses the `fancy_color_picker` function we defined in `fancy_color_picker.py` to add the component to the app. It also uses the `render.text` decorator to render the value of the input to the page.
 
@@ -368,6 +390,23 @@ This is a simple example app that can be used to test the component while develo
 ## What about an output binding?
 
 In our output binding example we defined an output that conveniently _displays_ colors. If we were packaging up two components like this we could/should modify the example app to showcase both of them.
+
+::: {.panel-tabset .panel-underline .border-0 .justify-content-center}
+
+#### Express
+
+```{.python filename="app.py"}
+from fancy_color_picker import fancy_color_picker, render_color
+import shiny.express
+
+fancy_color_picker("myComponent")
+
+@render_color
+def myColor():
+    return input.myComponent()
+```
+
+#### Core
 
 ```{.python filename="app.py"}
 from fancy_color_picker import fancy_color_picker, output_color, render_color
@@ -386,6 +425,8 @@ def server(input, output, session):
 
 app = App(app_ui, server)
 ```
+
+:::
 
 :::
 
