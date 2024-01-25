@@ -1,0 +1,9 @@
+# Shiny Core API
+
+This page outlines Shiny _Core_'s API reference.
+
+[Compared to Shiny Express](/docs/express-introduction.qmd), Shiny Core is more structured and verbose, but also more flexible and powerful.
+
+Newcomers may want to start with [Shiny Express](../express/index.qmd) Shiny Core API.
+
+{{< include _api_index.qmd >}}

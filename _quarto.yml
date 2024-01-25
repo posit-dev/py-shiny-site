@@ -15,7 +15,8 @@ project:
     - docs
     - development
     - gallery
-    - api
+    - api/express
+    - api/core
   resources:
     - /pypi/**
     - /robots.txt
@@ -28,7 +29,8 @@ project:
     - scripts/post-render.py
 
 metadata-files:
-  - api/_sidebar.yml
+  - api/express/_sidebar.yml
+  - api/core/_sidebar.yml
 
 filters:
   - shinylive
@@ -84,8 +86,12 @@ website:
         href: https://shinylive.io/py/examples/
         target: _blank
       - text: "Reference"
-        href: api/index.qmd
-    right:
+        menu:
+          - text: "Shiny Express"
+            href: api/express/index.qmd
+          - text: "Shiny Core"
+            href: api/core/index.qmd
+    tools:
       - icon: discord
         href: https://discord.gg/yMGCamUMnS
         aria-label: Shiny Discord
