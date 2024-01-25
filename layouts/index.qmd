@@ -48,14 +48,14 @@ Shiny Layouts
 ::: {.sticky-xl-top .pt-4}
 
 <h3 class="mt-4">
-  <a href="/layouts/navbars/index.qmd" class="dark text-decoration-none">
+  <a href="/layouts/navbars" class="dark text-decoration-none">
     <img src="/images/navbars-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Navbars
   </a>
 </h3>
 
 A navbar adds a navigation bar to your app, allowing users to easily navigate your app.
 
-<a href="/layouts/navbars/index.qmd" class="fw-500">Learn Navbars <i class="bi bi-chevron-right"></i></a>
+<a href="/layouts/navbars" class="fw-500">Learn Navbars <i class="bi bi-chevron-right"></i></a>
 :::
 ::::
 :::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
@@ -110,14 +110,14 @@ A navbar adds a navigation bar to your app, allowing users to easily navigate yo
 
 
 <h3 class="mt-4">
-  <a href="/layouts/sidebars/index.qmd" class="dark text-decoration-none">
+  <a href="/layouts/sidebars" class="dark text-decoration-none">
     <img src="/images/sidebars-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Sidebars
   </a>
 </h3>
 
 A sidebar layout creates a sidebar, typically used for inputs, and a large main area, typically used for outputs.
 
-<a href="/layouts/sidebars/index.qmd" class="fw-500">Learn Sidebars <i class="bi bi-chevron-right"></i></a>
+<a href="/layouts/sidebars" class="fw-500">Learn Sidebars <i class="bi bi-chevron-right"></i></a>
 
 :::
 ::::
@@ -208,14 +208,14 @@ A sidebar layout creates a sidebar, typically used for inputs, and a large main 
 
 
 <h3 class="mt-4">
-  <a href="/layouts/tabs/index.qmd" class="dark text-decoration-none">
+  <a href="/layouts/tabs" class="dark text-decoration-none">
     <img src="/images/tabs-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Tabs
   </a>
 </h3>
 
 Tabs and navigation allow you to create apps that have multiple pages.
 
-<a href="/layouts/tabs/index.qmd" class="fw-500">Learn Tabs <i class="bi bi-chevron-right"></i></a>
+<a href="/layouts/tabs" class="fw-500">Learn Tabs <i class="bi bi-chevron-right"></i></a>
 :::
 ::::
 :::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
@@ -339,14 +339,14 @@ Tabs and navigation allow you to create apps that have multiple pages.
 ::: {.sticky-xl-top .pt-4}
 
 <h3 class="mt-4">
-  <a href="/layouts/panels-cards/index.qmd" class="dark text-decoration-none">
+  <a href="/layouts/panels-cards" class="dark text-decoration-none">
     <img src="/images/cards-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Panels & Cards
   </a>
 </h3>
 
 Use panels and cards to define areas of related content.
 
-<a href="/layouts/panels-cards/index.qmd" class="fw-500">Learn Panels & Cards <i class="bi bi-chevron-right"></i></a>
+<a href="/layouts/panels-cards" class="fw-500">Learn Panels & Cards <i class="bi bi-chevron-right"></i></a>
 :::
 ::::
 :::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
@@ -402,14 +402,14 @@ Use panels and cards to define areas of related content.
 ::: {.sticky-xl-top .pt-4}
 
 <h3 class="mt-4">
-  <a href="/layouts/arrange/index.qmd" class="dark text-decoration-none">
+  <a href="/layouts/arrange" class="dark text-decoration-none">
     <img src="/images/arrange-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Arrange Elements
   </a>
 </h3>
 
 Use rows and columns to create your own layout for every device size.
 
-<a href="/layouts/arrange/index.qmd" class="fw-500">Arrange Elements <i class="bi bi-chevron-right"></i></a>
+<a href="/layouts/arrange" class="fw-500">Arrange Elements <i class="bi bi-chevron-right"></i></a>
 
 :::
 ::::
