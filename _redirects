@@ -1,0 +1,2 @@
+/api/express/*      /api/express/:splat
+/api/*              /api/core/:splat
