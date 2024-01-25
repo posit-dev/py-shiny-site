@@ -15,7 +15,7 @@ The code shown here is simplified to get the point across, but before you use it
 
 # The problem
 
-You found a new table library that you really want to use in your Shiny app. The library is [Tabulator](https://tabulator.info/), which is a JavaScript library for making tables with data. But there's a problem: there's no way to easily use it from a Shiny app. To do this, we'll need to write some Python code that will let us use the library from the Python side of Shiny, and wrap the library's JavaScript code to make it talk to JavaScript side of Shiny.
+You found a new table library that you really want to use in your Shiny app. The library is [Tabulator](https://tabulator.info/), which is a JavaScript library for making tables with data. But there's a problem: there's (currently) no way to easily use it from a Shiny app. To do this, we'll need to write some Python code that will let us use the library from the Python side of Shiny, and wrap the library's JavaScript code to make it talk to JavaScript side of Shiny.
 
 # The solution
 
@@ -46,7 +46,7 @@ tabulator/
 Both `tabulator_esm.min.js` and `tabulator.min.css` are downloaded from [tabulator's website.](https://tabulator.info/docs/5.5/install#sources-download) `tableComponent.js` is the script that we will write that contains the code for rendering the table to our Shiny app.
 
 :::{.callout-note}
-The code in this article will be abbreviated to show the relevant parts. If you want to see the full code, see the [accompanying repo.](https://github.com/posit-dev/pyshiny-output-binding-example)
+The code in this article will be abbreviated to show the relevant parts. If you want to see the full code, see the [accompanying repo.](https://github.com/posit-dev/py-shiny-output-binding-example)
 :::
 
 
@@ -157,14 +157,14 @@ if (Shiny) {
 ```
 :::
 
-To see the full JavaScript code, see `tabulator/tableComponent.js` in the [accompanying repo.](https://github.com/posit-dev/pyshiny-output-binding-example/blob/main/tabulator/tableComponent.js)
+To see the full JavaScript code, see `tabulator/tableComponent.js` in the [accompanying repo.](https://github.com/posit-dev/py-shiny-output-binding-example/blob/main/tabulator/tableComponent.js)
 
 ## The `output_tabulator()` function
 
 Next we need an HTML element to target with our JavaScript code. When we set up [the find method](#the-find-method) for our binding, we chose the class `shiny-tabulator-output` as the mark of a tabualtor output, so we need to add that class. We also need to allow the user to set the ID of the element so that Shiny knows which element to target with which output. By wrapping the `id` argument in `resolve_id()` we make sure it will work in the context of modules. We'll also add a height argument so that the user can set the height of the table.
 
 ```{.python filename="app.py"}
-from shiny import ui, App
+from shiny import App, Inputs, ui
 from shiny.module import resolve_id
 
 from htmltools import HTMLDependency
@@ -190,7 +190,7 @@ def output_tabulator(id, height="200px"):
 
 
 :::{.callout-note}
-We use the `HTMLDependency` function to bind up the assets needed for tabulator that we made in the previous step to make sure th at they're included in our app whenever the `output_tabulator()` function is called (but not more than once).
+We use the `HTMLDependency` function to bind up the assets needed for tabulator that we made in the previous step to make sure that they're included in our app whenever the `output_tabulator()` function is called (but not more than once).
 
 Note the use of `all_files=True` here. This makes it so we can do the ESM import of the Tabulator library. Otherwise `tabulator_esm.min.js` would not be hosted and the JS library wouldn't be able to find it.
 :::
@@ -203,74 +203,66 @@ Now we've got the client-side logic finished, we need to write a custom render d
 
 A render function's job is to take the result of calling the decorated function, transform it into the format our client-side code wants (in many cases this may be as simple as just returning the object unchanged), and then returning that client-side friendly data which will be passed to our client's `renderValue()` method.
 
-To do this we can leverage some tools provided by Shiny in the `shiny.render.transformer` subpackage.
+To do this we can leverage some tools provided by Shiny in the `shiny.render.renderer` subpackage.
 
 ```{.python filename="app.py"}
-from shiny.render.transformer import (
-    output_transformer,
-    resolve_value_fn,
-    TransformerMetadata,
-    ValueFn,
-)
+from shiny.render.renderer import Jsonifiable, Renderer
 
 
-@output_transformer
-async def render_tabulator(
-    _meta: TransformerMetadata,
-    _fn: ValueFn[pd.DataFrame | None],
-):
-    res = await resolve_value_fn(_fn)
-    if res is None:
-        return None
+class render_tabulator(Renderer[pd.DataFrame]):
+    """
+    Render a pandas dataframe as a tabulator table.
+    """
 
-    if not isinstance(res, pd.DataFrame):
-        # Throw an error if the value is not a dataframe
-        raise TypeError(f"Expected a pandas.DataFrame, got {type(res)}. ")
+    def auto_output_ui(self):
+        """
+        Express UI for the tabulator renderer
+        """
+        return ui.output_tabulator(self.output_name)
 
-    # Get data from dataframe as a list of lists where each inner list is a
-    # row, column names as array of strings and types of each column as an
-    # array of strings
-    return {
-        "data": res.values.tolist(),
-        "columns": res.columns.tolist(),
-        "type_hints": res.dtypes.astype(str).tolist(),
-    }
+    async def transform(self, value: pd.DataFrame) -> Jsonifiable:
+        """
+        Transform a pandas dataframe into a JSONifiable object that can be
+        passed to the tabulator HTML dependency.
+        """
+        if not isinstance(value, pd.DataFrame):
+            # Throw an error if the value is not a dataframe
+            raise TypeError(f"Expected a pandas.DataFrame, got {type(value)}. ")
+
+        # Get data from dataframe as a list of lists where each inner list is a
+        # row, column names as array of strings and types of each column as an
+        # array of strings
+        return {
+            "data": value.values.tolist(),
+            "columns": value.columns.tolist(),
+            "type_hints": value.dtypes.astype(str).tolist(),
+        }
 ```
 :::{.callout-note}
 In the code above we use types so that we can get some type checking in our IDE, but these are not required.
 :::
 
-The `output_transformer` decorator is a decorator factory (it's a decorator that creates decorators!) that takes a function that returns a dictionary of data to be passed to the client side. The function that it decorates is passed two arguments: `_meta` and `_fn`.
+An implementation of `Renderer` produces a class which is intended to be used as a decorator, which is why a `render_*` naming convention is recommended. An implementation requires at least 3 things:  (1) `auto_output_ui`, (2) either a `transform` or `render` function, and (3) an value type for the `Renderer` class.
 
-`_meta` is a dictionary of metadata about the function that is being decorated. We don't use it in our example.
+Here, the value type we've used is `pd.DataFrame`, which helps users know if they've returned a suitable object in their render function.
 
-`_fn` is the decorated function, i.e. the function that goes below the `@render_tabulator()` decorator in your app's server code. In this case we are expecting the function to return either a pandas dataframe or `None`.
+The `auto_output_ui()` method is used to generate the UI for the output if the renderer were to be used in Express mode. In this case we just use the `output_tabulator()` function we wrote earlier.
 
-
-```{.python}
-...
-    res = await resolve_value_fn(_fn)
-...
-```
-
-`resolve_value_fn()` is a helper provided in `shiny.render.transformer` for resolving the value of a function that may or may not be async.
-
+Finally, renderers use either the `transform(self, value: IT)` or `render(self)` methods to retrieve and transform the result of an output value function into an object that can be sent to the client. `render_tabulator`'s `transform` method returns a dictionary of data (which is JSON-like, e.g. `Jsonifiable`) to be passed to the client side. The `transform` method is called when the output value function returns a non-`None` value. If the value is `None`, the `render` method quits early, returning `None`.
 
 :::{.callout-note}
-# Why an asynchronous function?
-It is required by Shiny that the output decorator function be `async`. This allows users of the render bindings to provide either synchronous or asynchronous functions to the decorator. This ensures that the function will work whether or not the end user has defined their render function asynchronously.
-
-If you don't need any async behavior you can simply write your function as you would a standard synchronous function after `await`ing `resolve_value_fn()`.
+# Why an asynchronous `transform` function?
+It is required by Shiny `Renderer` that the `transform` be `async`. This allows for asynchronous transformations to occur even if the output value function is synchronous. By providing an async function, `Renderer` can then handle either an async or sync function provided by the user.
 :::
 
 
-Next, we check to make sure that the value returned by the function is a dataframe. If it's not, we throw an error. This is not strictly required, but is a best practice.
+When first transforming an output value, we check to make sure that the value returned by the function is a dataframe. If it's not, we throw an error. This is not required, but it's good practice to do so.
 
 ```python
 ...
-if not isinstance(res, pd.DataFrame):
+if not isinstance(value, pd.DataFrame):
     # Throw an error if the value is not a dataframe
-    raise TypeError(f"Expected a pandas.DataFrame, got {type(res)}. ")
+    raise TypeError(f"Expected a pandas.DataFrame, got {type(value)}. ")
 ...
 ```
 
@@ -279,9 +271,9 @@ Finally, we return a dictionary of data that we want to pass to the client side.
 ```python
 ...
 return {
-    "data": res.values.tolist(),
-    "columns": res.columns.tolist(),
-    "type_hints": res.dtypes.astype(str).tolist(),
+    "data": value.values.tolist(),
+    "columns": value.columns.tolist(),
+    "type_hints": value.dtypes.astype(str).tolist(),
 }
 ...
 ```
@@ -292,12 +284,34 @@ This returned value is then what gets sent to the client side and is available i
 
 Now we have all the components neccesary to use our tabulator output component. Here's an app that uses it to render some number of rows of the indomitable `mtcars` dataset.
 
+::: {.panel-tabset .panel-underline .border-0 .justify-content-center}
+
+### Express
+
 ```{.python filename="app.py"}
-from shiny import ui, App
 from pathlib import Path
 import pandas as pd
+from shiny.express import input, ui
 
 # Code for the custom output
+...
+
+# App code
+ui.input_slider("n", "Number of rows to show", 1, 20, 10)
+
+@render_tabulator
+def tabulatorTable():
+    return pd.read_csv(Path(__file__).parent / "mtcars.csv").head(input.n())
+```
+
+### Core
+
+```{.python filename="app.py"}
+from pathlib import Path
+import pandas as pd
+from shiny import App, Inputs, ui
+
+# Code for the custom output: output_tabulator and render_tabulator
 ...
 
 # App code
@@ -307,14 +321,19 @@ app_ui = ui.page_fluid(
 )
 
 
-def server(input, output, session):
+def server(input: Inputs):
     @render_tabulator
     def tabulatorTable():
-        return pd.read_csv(Path(__file__).parent / "mtcars.csv").head(input.n())
+        csv_file = Path(__file__).parent / "mtcars.csv"
+        return pd.read_csv(csv_file).head(input.n())
 
 
 app = App(app_ui, server)
 ```
+
+:::
+
+
 
 Which results in the following app:
 
@@ -359,4 +378,4 @@ Which results in the following app:
 :::
 
 
-To see the full app script, see `app.py` in the accompanying repo for this post [here.](https://github.com/posit-dev/pyshiny-output-binding-example/blob/main/app.py)
+To see the full app script, see `app.py` in the accompanying repo for this post [here.](https://github.com/posit-dev/py-shiny-output-binding-example/blob/main/app.py)

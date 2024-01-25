@@ -13,7 +13,6 @@ project:
     - display-messages
     - layouts
     - docs
-    - in-depth
     - development
     - gallery
     - api
@@ -65,9 +64,7 @@ website:
     search: true
     left:
       - text: "Learn"
-        file: docs/overview.qmd
-      - text: "Install"
-        href: docs/install.qmd
+        file: docs/quick-start.qmd
       - text: "Deploy"
         menu:
           - docs/deploy-cloud.qmd
@@ -84,15 +81,13 @@ website:
         target: _blank
       - text: "Reference"
         href: api/index.qmd
-      - text: "Help"
-        href: docs/help.qmd
-    tools:
+    right:
       - icon: discord
         href: https://discord.gg/yMGCamUMnS
-        text: Shiny Discord
+        aria-label: Shiny Discord
       - icon: github
         href: https://github.com/posit-dev/py-shiny/
-        text: Shiny for Python Github
+        aria-label: Shiny for Python Github
 
   page-footer:
     left: 'Proudly supported by <a href="https://www.posit.co/" class="no-icon"><img src="/images/posit-logo-black.svg" alt="Posit" width="80" style="padding-left: 3px;vertical-align:text-top;"></a>'
@@ -211,37 +206,35 @@ website:
       collapse-level: 2
       align: left
       contents:
-        - section: "Essentials"
+        - section: "Get Started"
           contents:
-            - docs/overview.qmd
-            - docs/inputs.qmd
-            - docs/outputs.qmd
-            - docs/server.qmd
-        - section: "Reactivity"
-          contents:
-            - docs/reactive-programming.qmd
-            - docs/reactive-calculations.qmd
-            - docs/reactive-events.qmd
-            - docs/reactive-values.qmd
-            - docs/reactive-mutable.qmd
-        - section: "Page Layout and Style"
-          contents:
-            - docs/ui-page-layouts.qmd
-            - docs/ui-styling.qmd
-            - docs/ui-navigation.qmd
-            - docs/ui-dynamic.qmd
-            - docs/ui-feedback.qmd
-            - docs/ui-static.qmd
+            - docs/quick-start.qmd
+            - docs/dashboards.qmd
+            - docs/jupyter-widgets.qmd
         - section: "Workflow"
           contents:
-            - docs/workflow-modules.qmd
-            - docs/workflow-module-communication.qmd
-            - docs/running-debugging.qmd
-        - section: "In Depth"
+            - docs/install-create-run.qmd
+            - docs/debug.qmd
+        - section: "Reactivity"
           contents:
-            - docs/ipywidgets.qmd
+            - docs/reactive-foundations.qmd
+            - docs/reactive-patterns.qmd
+            - docs/reactive-mutable.qmd
+        - section: "User interfaces"
+          contents:
+            - docs/ui-components.qmd
+            - docs/ui-dynamic.qmd
             - docs/ui-html.qmd
-            - docs/workflow-server.qmd
+            - docs/ui-customize.qmd
+        - section: "Express vs Core"
+          contents:
+            - docs/express-introduction.qmd
+            - docs/express-in-depth.qmd
+            - docs/express-to-core.qmd
+        - section: "Modules"
+          contents:
+            - docs/modules.qmd
+            - docs/module-communication.qmd
         - section: "Extending"
           contents:
             - docs/custom-component-one-off.qmd
@@ -250,6 +243,9 @@ website:
           contents:
             - docs/comp-streamlit.qmd
             - docs/comp-r-shiny.qmd
+        - section: "Miscellaneous"
+          contents:
+            - docs/routing.qmd
     # TODO: if the sidebar only has 1 entry, then it displays for the entire site...
     # added entry below to prevent this.
     - id: deploy

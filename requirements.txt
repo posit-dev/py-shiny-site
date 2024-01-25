@@ -1,11 +1,11 @@
 jupyter
 jupyter_client < 8.0.0
 tabulate
-shinylive @ git+https://github.com/posit-dev/py-shinylive.git@shinylive-bundle-class
+shinylive @ git+https://github.com/posit-dev/py-shinylive.git
 matplotlib==3.8.1
 shiny
 seaborn==0.13.0
 plotly
-shinywidgets==0.2.2
+shinywidgets
 ipyleaflet==0.17.4
 favicons

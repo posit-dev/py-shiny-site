@@ -20,8 +20,6 @@ listing:
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAV05EG1ACZwGRAIKYAOhFUZ0AfXHIAvGM44oAczia6AG3HSAFKuQODWbulEVNrAO6cKxdnbAvHz9lQmRQgGVvX3ZQogAxKAtWOABKImQAYmQAHhz7R3EsUjdXd3EAgDck0ThQ9NVU1WaIWTo2OUq5Gxc3IhKKMqIU1lZOclTEAocAASlWuSxxaeQ25GqrOBtJlcdkKQpRBgg+CDKsIJjtlvVMPWQldBsNbQkOhi6GJogwsApcdAIFB-OAADwoYAAvgBdIA
 - id: relevant-functions
   template: ../../_partials/components-detail-relevant-functions.ejs
-  template-params:
-    dir: components/inputs/switch/
   contents:
   - title: ui.input_switch
     href: https://shiny.posit.co/py/api/ui.input_switch.html

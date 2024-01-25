@@ -20,8 +20,6 @@ listing:
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKmiAvgNOxO5Decn7KhMihAHJBvsR8EG4UoUQAjEQw3LqpyDBQAB6ZAAwAlETIAMTIADyV9o6GpO4JmlS5HgBucgBGUBT8AW1QVnChJapFqhMQsnRsch0MNq7uRA0UCUSscKysnORFiLUOAAJSU3JYLYkQjsjTyANDNvuHN8hSFAoM10sUWF4+fiek3UmD0YkwNg02k4GzmcnGEDCYAouHQCBQyLgrTAAF8ALpAA
 - id: relevant-functions
   template: ../../_partials/components-detail-relevant-functions.ejs
-  template-params:
-    dir: components/inputs/numeric-input/
   contents:
   - title: ui.input_numeric
     href: https://shiny.posit.co/py/api/ui.input_numeric.html
