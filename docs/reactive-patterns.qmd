@@ -112,7 +112,7 @@ def table():
     return render.DataGrid(df())
 ```
 
-![A gif of uploading a csv file and seeing the text and table outputs update](assets/file-upload.mp4){class="img-fluid shadow rounded" style="margin-top: -1.5rem;"}
+![A gif of uploading a csv file and seeing the text and table outputs update](assets/file-upload.mp4){class="img-shadow" style="margin-top: -1.5rem;"}
 
 
 ## Scheduled invalidation {#invalidate-later}

@@ -1218,6 +1218,14 @@ pre.console {
     0px 12px 30px rgb(0 0 0 / 8%);
 }
 
+// For some reason, quarto wants to add classes to both img and figure when
+// classes are provided. This is a hack to just get a shadow on the image, if requested.
+img, video {
+  &.img-shadow {
+    @extend .shadow;
+  }
+}
+
 code.sourceCode,
 pre.console code {
   padding: 0.5rem;
@@ -1865,4 +1873,3 @@ body:not(.modal-open) div.sourceCode:hover pre {
     padding-right: 0.4rem !important;
   }
 }
-

@@ -143,7 +143,7 @@ The best way to create a new Shiny app is with the `shiny create` command line i
 shiny create
 ```
 
-![Running the shiny create command from a terminal](assets/shiny-create.mp4){class="img-fluid shadow rounded"}
+![Running the shiny create command from a terminal](assets/shiny-create.mp4){class="img-shadow"}
 
 ::: callout-tip
 ### Copy/paste examples

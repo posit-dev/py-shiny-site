@@ -8,7 +8,7 @@ editor:
 Shiny's UI [components](/components) and [layouts](/layouts) can be used to create a wide range of apps, including dashboards.
 In this article, we'll highlight some of the most useful components for creating dashboard, and eventally show how to create [this sophisticated dashboard](#altogether-now):
 
-![A Shiny dashboard with visuals for exploring restaurant tips (see [here](#altogether-now) for the code).](assets/tipping-dashboard.png){class="img-fluid shadow rounded"}
+![A Shiny dashboard with visuals for exploring restaurant tips (see [here](#altogether-now) for the code).](assets/tipping-dashboard.png){class="img-shadow"}
 
 ::: callout-tip
 ## Different layouts
