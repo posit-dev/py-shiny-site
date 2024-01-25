@@ -64,9 +64,9 @@ def create_shinylive_link(app, meta):
     app = os.path.join(meta["_dir"], app["file"])
 
     if "resources" not in app:
-        return shinylive.encode_shinylive_url(app, language="py")
+        return shinylive.url_encode(app, language="py")
 
-    return shinylive.encode_shinylive_url(
+    return shinylive.url_encode(
         app,
         [os.path.join(meta["_dir"], r) for r in app["resources"]],
         language="py",
