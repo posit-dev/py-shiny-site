@@ -1,0 +1,15 @@
+from shiny.express import ui
+
+ui.page_opts(fillable=True)
+
+with ui.layout_columns(col_widths=(4, 8)):
+    with ui.card():
+        "Card 1"
+    with ui.card():
+        "Card 2"
+
+        with ui.layout_column_wrap(width=1 / 2):
+            with ui.card():
+                "Card 2.1"
+            with ui.card():
+                "Card 2.2"

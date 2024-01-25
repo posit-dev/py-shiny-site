@@ -1,6 +1,8 @@
 import glob
 from pathlib import Path
-from typing import Any, Iterable, List, Optional, Sequence
+from typing import Any, Iterable, List, Literal, Optional, Sequence
+
+from shinylive import ShinyliveApp
 
 
 class QuartoPrint(List[str]):
@@ -17,6 +19,48 @@ class QuartoPrint(List[str]):
         with open(file_path, "r") as app_file:
             app_contents = app_file.read()
             self.append(app_contents)
+
+    def append_shinylive_chunk(
+        self,
+        files: list[str] | str,
+        language: str = "py",
+        **kwargs,
+    ):
+        if isinstance(files, str):
+            app_file = files
+            files = []
+        else:
+            app_file = files.pop(0)
+
+        app = ShinyliveApp.from_local(app_file, files, language)
+
+        self.append(app.to_chunk(**kwargs))
+
+
+def shinylive_chunk(
+    contents: list[str] | str,
+    components: Sequence[str] = ("editor", "viewer"),
+    viewer_height: str = "400",
+    layout: Literal["horizontal", "vertical"] = "horizontal",
+):
+    block = QuartoPrint(
+        [
+            "```{shinylive-python}",
+            "#| standalone: true",
+            f"#| components: [{', '.join(components)}]",
+            f"#| layout: {layout}",
+            f"#| viewerHeight: {viewer_height}",
+            "",
+        ]
+    )
+
+    if isinstance(contents, str):
+        block.append(contents.strip())
+    else:
+        block.extend(contents)
+
+    block.append("```")
+    return block
 
 
 def list_files(path: str) -> List[str]:
@@ -132,6 +176,67 @@ def express_editor_tabs(path: str, viewer_height: str = "400px") -> None:
             exclusions=["app-express.py"],
         )
     )
+
+    block.append(":::")
+    print(block)
+
+
+def shinylive_app_preview(
+    files: list[str] | str,
+    viewer_height: str | int = 400,
+    div_attrs="",
+    **kwargs,
+) -> None:
+    block = QuartoPrint([f"::: {{.app-preview {div_attrs}}}"])
+
+    block.append_shinylive_chunk(
+        files,
+        viewer_height=str(viewer_height),
+        components=["viewer"],
+        **kwargs,
+    )
+
+    block.append(":::")
+    print(block)
+
+
+def express_core_preview(
+    app_express: str | None = None,
+    app_core: str | None = None,
+    files: list[str] | str | None = None,
+    div_attrs=".shiny-mode-tabset",
+    group="shiny-app-mode",
+    language="py",
+    **kwargs,
+) -> None:
+    if app_express is None and app_core is None:
+        return
+
+    if files is None:
+        files = []
+    elif isinstance(files, str):
+        files = [files]
+
+    header_attrs = ".panel-tabset"
+    header_attrs += " " + div_attrs if div_attrs else ""
+    header_attrs += f" group='{group}'" if group else ""
+
+    block = QuartoPrint(["::: {" + header_attrs + "}"])
+
+    apps = zip([app_express, app_core], ["Express", "Core"])
+
+    for app_file, tab_name in apps:
+        if app_file is None:
+            continue
+
+        sl_app = ShinyliveApp.from_local(app_file, files, language)
+
+        block.append("### " + tab_name)
+        block.append(
+            '```{.python .code-overflow-scroll shinylive="' + sl_app.to_url() + '"}'
+        )
+        block.append_file(app_file)
+        block.extend(["```", ""])
 
     block.append(":::")
     print(block)

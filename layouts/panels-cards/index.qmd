@@ -1,0 +1,107 @@
+---
+title: "Panels and cards"
+description: >
+  Use panels and cards to define areas of related content in your Shiny app.
+
+aliases:
+  - "../panels-cards.html"
+
+listing:
+- id: relevant-functions
+  template: ../../components/_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.card
+    href: https://shiny.posit.co/py/api/ui.card.html
+    signature: ui.card(*args, full_screen=False, height=None, max_height=None, min_height=None, fill=True, class_=None, **kwargs)
+
+  - title: ui.card_footer
+    href: https://shiny.posit.co/py/api/ui.card_footer.html
+    signature: ui.card_footer(*args, **kwargs)
+
+  - title: ui.card_header
+    href: https://shiny.posit.co/py/api/ui.card_header.html
+    signature: ui.card_header(*args, container=tags.div, **kwargs)
+
+  - title: ui.panel_absolute
+    href: https://shiny.posit.co/py/api/ui.panel_absolute.html
+    signature: ui.panel_absolute(*args, top=None, left=None, right=None, bottom=None, width=None, height=None, draggable=False, fixed=False, cursor='auto', **kwargs)
+
+  - title: ui.panel_fixed
+    href: https://shiny.posit.co/py/api/ui.panel_fixed.html
+    signature: ui.panel_fixed(*args, **kwargs)
+
+  - title: ui.panel_well
+    href: https://shiny.posit.co/py/api/ui.panel_well.html
+    signature: ui.panel_well(*args, **kwargs)
+---
+
+```{python}
+#| include: false
+import sys
+sys.path.append("../..")
+
+from docs.helpers import express_core_preview, shinylive_app_preview
+```
+
+Use panels and cards to define areas of related content.
+
+:::{#relevant-functions}
+:::
+
+:::{.border-bottom .blue .mt-6 .mb-5}
+:::
+
+## Main image with panel floating above
+
+:::{.column-screen-inset-right style="max-width:800px;"}
+```{python}
+#| output: asis
+#| echo: false
+
+shinylive_app_preview("app-panel-absolute-core.py", viewer_height=320, div_attrs=".p-0")
+express_core_preview("app-panel-absolute-express.py", "app-panel-absolute-core.py")
+```
+:::
+
+Follow these steps to create an app that has a panel floating over a main image.
+
+First, to create the image:
+
+  1. Pass `ui.img()` to any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.img()` creates an image.
+
+  2. Pass the path or URL of your desired image to `ui.img()`'s `src` parameter. Set additional parameters to control the appearance of the image (e.g., `width` and `height`).
+
+Then, to create the floating panel:
+
+  1. Pass `ui.panel_absolute()` as the second argument of your Shiny UI page method, after `ui.img()`. Pass elements that you want to appear inside the panel to `ui.panel_absolute()`.
+
+  2. Position the panel using the `top`, `bottom`, `left`, and/or `right` parameters. Set the size of the panel using the `height` and/or `width` parameters.
+
+  3. If you want the panel to be draggable, set the `draggable` parameter to `True`.
+
+See also: [`ui.panel_fixed()`](https://shiny.posit.co/py/api/ui.panel_fixed.html). `ui.panel_fixed()` is equivalent to calling `ui.panel_absolute()` with `fixed=True` (i.e., the panel does not scroll with the rest of the page).
+
+:::{.border-bottom .blue .my-5}
+:::
+
+## Content divided by cards
+
+:::{.column-screen-inset-right style="max-width:800px;"}
+```{python}
+#| output: asis
+#| echo: false
+
+shinylive_app_preview("app-two-cards-core.py", viewer_height=320, div_attrs=".p-0")
+express_core_preview("app-two-cards-express.py", "app-two-cards-core.py")
+```
+:::
+
+Cards are general purpose containers used to group related UI elements together with a border and optional padding.
+
+Follow these steps to create an app with content separated into cards:
+
+  1. Add `ui.card()` inside any Shiny UI page method (e.g., `ui.page_fluid()`) to create a card. Add additional cards by adding additional calls to `ui.card()`.
+
+  2. Define the contents of each card. Inside `ui.card()`, pass elements that you would like to appear inside the card (e.g., inputs, text). You can also use `ui.card_header()` and `ui.card_footer()` to create a card header and footer.
+
+  3. Control the appearance and functionality of each card by passing additional  arguments to `ui.card()`. For example, you can set `full_screen` to `True` to allow the user to expand the card to fullscreen, or control the height of the card with the `height` parameter.
