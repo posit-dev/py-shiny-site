@@ -4,9 +4,6 @@ description: >
   A navbar adds a navigation bar, allowing users to easily navigate your
   Shiny app.
 
-aliases:
-  - "../navbars.html"
-
 listing:
 - id: relevant-functions
   template: ../../components/_partials/components-detail-relevant-functions.ejs
@@ -89,4 +86,3 @@ Follow these steps to add a navbar to the bottom of your app:
   4. Set the `title` argument of `ui.page_navbar()` to set the browser window title.
 
   5. _Optional:_ Pass a string to the `id` argument of `ui.page_navbar()`. This will create an input value that holds the title of the currently selected nav item. For example, `id = "tab"` would create a reactive value accessible as `input.tab()`.
-

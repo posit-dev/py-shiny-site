@@ -3,9 +3,6 @@ title: "Tabs"
 description: >
   Tabs and navigation allow you to create Shiny apps with multiple pages.
 
-aliases:
-  - "../tabs.html"
-
 listing:
 - id: relevant-functions
   template: ../../components/_partials/components-detail-relevant-functions.ejs

@@ -3,9 +3,6 @@ title: "Panels and cards"
 description: >
   Use panels and cards to define areas of related content in your Shiny app.
 
-aliases:
-  - "../panels-cards.html"
-
 listing:
 - id: relevant-functions
   template: ../../components/_partials/components-detail-relevant-functions.ejs

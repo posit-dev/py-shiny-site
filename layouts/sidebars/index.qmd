@@ -4,8 +4,6 @@ description: >
   A sidebar layout creates a sidebar in your Shiny app, typically used for inputs, and a
   large main area, typically used for outputs.
 
-aliases:
-  - "../sidebars.html"
 
 listing:
 - id: relevant-functions
@@ -138,4 +136,3 @@ The other options for `open` are:
   * `"desktop"`: The default. The sidebar starts open on a desktop screen and closed on mobile.
   * `"open"`: The sidebar starts open and can be closed.
   * `"always"`: The sidebar is always open and cannot be closed.
-

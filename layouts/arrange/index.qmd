@@ -4,9 +4,6 @@ description: >
   Layout elements into rows and columns that responsively adapt to a wide range of
   screen sizes.
 
-aliases:
-  - "../arrange.html"
-
 listing:
 - id: relevant-functions
   template: ../../components/_partials/components-detail-relevant-functions.ejs
