@@ -1209,6 +1209,11 @@ pre.console {
 .shadow img {
   margin-top: 2rem;
   margin-bottom: 2.5rem;
+}
+
+// add shadow to homepage hero carousel images
+
+.hero-carousel .shadow img {
   box-shadow: 0px 1px 2px rgb(0 0 0 / 10%), 0px 3px 7px rgb(0 0 0 / 10%),
     0px 12px 30px rgb(0 0 0 / 8%);
 }
