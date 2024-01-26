@@ -62,7 +62,7 @@ Shiny makes it easy to create dynamic plots, tables, and other interactive widge
 All you need to do is apply a `@render` decorator to a function that returns a suitable object.
 Shiny includes a wide variety of these decorators in its `render` module, but Shiny [extensions](custom-component-one-off.qmd) like `shinywidgets` provide additional decorators for rendering other kinds of outputs, like [Jupyter Widgets](jupyter-widgets.qmd).
 
-::: {.panel-tabset .panel-underline .border-0 .p-0 .justify-content-center}
+::: {.panel-tabset .panel-pills .border-0 .p-0 .justify-content-center}
 
 ##### Plots
 
@@ -129,7 +129,7 @@ palmerpenguins
 
 See the [Jupyter Widgets article](jupyter-widgets.qmd) for more information on rendering Jupyter Widgets in Shiny.
 
-::: {.panel-tabset .panel-underline .border-0 .p-0 .justify-content-center}
+::: {.panel-tabset .panel-pills .border-0 .p-0 .justify-content-center}
 
 ##### Altair
 
@@ -303,7 +303,7 @@ def widget():
 
 Shiny provides a full suite of [layout components](/layouts) which help with arranging multiple inputs and outputs in a variety of ways. As seen below, with `shiny.express`, layout components (e.g., `ui.sidebar()`) can be used as context managers to help with nesting and readability.
 
-::: {.panel-tabset .panel-underline .border-0 .p-0 .justify-content-center}
+::: {.panel-tabset .panel-pills .border-0 .p-0 .justify-content-center}
 
 #### Sidebar
 
@@ -558,5 +558,5 @@ However, if you're versed in web programming, you can also use Shiny to create [
 
 ### Next steps {#next-steps}
 
-In the next few articles, we'll learn how to create [dashboards](dashboards.qmd) with Shiny as well as how to integrate [Jupyter Widgets](jupyter-widgets.qmd) into your apps.
-If you're interested in just getting started developing Shiny apps locally, skip ahead to the [workflow articles](install-create-run.qmd).
+Next, we'll learn how to create [dashboards](dashboards.qmd) and more about Shiny's [Jupyter Widgets](jupyter-widgets.qmd) integration.
+If you want to start developing Shiny apps locally, skip ahead to the [workflow articles](install-create-run.qmd).

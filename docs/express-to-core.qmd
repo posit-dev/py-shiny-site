@@ -19,7 +19,7 @@ To dig into more specifics, consider the following app that just displays a slid
 
 [^express-implicit]: In Express, page layout options can be controlled via `ui.page_opts()` and (at least some, for now) output containers can be controlled through their respective `@render.*()` decorators.
 
-::: {.panel-tabset .panel-underline .border-0 .p-0 .justify-content-center}
+::: {.panel-tabset .panel-pills .border-0 .p-0 .justify-content-center}
 
 ### Core
 
@@ -67,7 +67,7 @@ Now, suppose we add a UI component that takes other components as children, like
 In Core, this is done by nesting [pure function](https://en.wikipedia.org/wiki/Pure_function) calls.
 However, in Express, UI components that take other UI components as children are context managers, so we use `with` statements instead.
 
-::: {.panel-tabset .panel-underline .border-0 .p-0 .justify-content-center}
+::: {.panel-tabset .panel-pills .border-0 .p-0 .justify-content-center}
 
 ### Core
 

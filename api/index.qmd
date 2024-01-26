@@ -4,7 +4,7 @@ This page details the Shiny's full API.
 New users are encouraged to start from the [Quick Start tutorial](../docs/quick-start.qmd), and then come back here when you're ready to learn more.
 We recommend newcomers start with [Shiny Express](../docs/express-introduction.qmd) instead of the more structured Shiny Core API.
 
-::: {.panel-tabset .panel-underline .border-0 .p-0 .justify-content-center}
+::: {.panel-tabset .panel-pills .border-0 .p-0 .justify-content-center}
 
 ### Express
 

@@ -284,7 +284,7 @@ This returned value is then what gets sent to the client side and is available i
 
 Now we have all the components neccesary to use our tabulator output component. Here's an app that uses it to render some number of rows of the indomitable `mtcars` dataset.
 
-::: {.panel-tabset .panel-underline .border-0 .justify-content-center}
+::: {.panel-tabset .panel-pills .border-0 .justify-content-center}
 
 ### Express
 

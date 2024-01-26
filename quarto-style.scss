@@ -1870,6 +1870,14 @@ pre.console code {
   margin-bottom: 0px;
 }
 
+.panel-pills {
+  .nav-link {
+    cursor: pointer;
+    border-bottom: none !important;
+  }
+}
+
+
 // Tweak line highlights styles
 body:not(.modal-open) div.sourceCode:hover pre {
   &, &.highlight {
