@@ -56,7 +56,6 @@ To render an ipywidget you first define a reactive function that returns the wid
 
 from shiny.express import input, ui
 from shinywidgets import render_altair
-import soft_dependencies
 
 ui.input_selectize(
     "var", "Select variable",
@@ -77,12 +76,6 @@ altair
 anywidget
 palmerpenguins
 jsonschema
-## file: soft_dependencies.py
-# Temporary workaround to inform shinylive of soft dependencies
-import anywidget
-import jsonschema
-import mypy_extensions
-import toolz
 ```
 
 ##### Bokeh
