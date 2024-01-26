@@ -253,7 +253,6 @@ website:
         - section: "Miscellaneous"
           contents:
             - docs/nonblocking.qmd
-            - docs/routing.qmd
     # TODO: if the sidebar only has 1 entry, then it displays for the entire site...
     # added entry below to prevent this.
     - id: deploy
