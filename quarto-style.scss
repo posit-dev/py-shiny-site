@@ -1724,21 +1724,36 @@ btn.action-button:hover {
 
 .what-shiny-express {
   position: absolute;
-  top: 0.7em;
+  top: 0.78em;
   right: 1.2em;
   font-size: 0.85em;
   cursor: pointer;
 }
 
 .shiny-mode-tabset[data-group="shiny-app-mode"] > .what-shiny-express {
-  color: white;
+  color: $gray-900;
 }
+
+.popover {
+  max-width: 300px;
+  border: 1px solid $gray-400;
+  box-shadow: 0px 1px 2px rgba(29,31,33,.1),
+  0px 2px 3px rgba(29,31,33,.1),
+  0px 3px 8px rgba(29,31,33,.08);
+}
+
 
 .popover-header {
   margin-top: 0;
+  background-color: $gray-900;
+  color: $gray-100;
+  padding: .6rem 1rem;
+  font-size: .8rem;
+  font-weight: 700;
 }
 
 .popover-body {
+  font-size: .85rem;
   > :first-child {
     margin-top: 0;
   }
