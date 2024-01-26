@@ -1,12 +1,12 @@
-sidebar: components
+sidebar: components 
 format:
   html:
     css: _partials/components.css
     toc: false
     code-line-numbers: true
-    code-overflow: scroll
     include-after-body: _partials/componentsjs.html
 filters:
   - quarto
   - line-highlight
-  - shinylive
+  - shinylive 
+ 

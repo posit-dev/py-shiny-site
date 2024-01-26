@@ -22,7 +22,7 @@ format:
 ##### with the power of Python's data and scientific stack.
 
 ::: {.pt-4 style="z-index:999;"}
-[Get Started](docs/quick-start.qmd){.btn .btn-dark .btn-lg .m-2 .ms-0 .px-5 role="button"}
+[Get Started](docs/overview.qmd){.btn .btn-dark .btn-lg .m-2 .ms-0 .px-5 role="button"}
 [Gallery](gallery/index.qmd){.btn .btn-dark .m-2 .px-5 .btn-lg role="button"}
 :::
 
@@ -100,10 +100,11 @@ Create highly interactive visualizations, realtime dashboards, data explorers, m
 :::
 
 :::{.g-col-12 .g-col-md-5 .g-start-md-8 .feature-section}
-### Easy yet flexible
+### Customizable
 
-Shiny comes pre-packaged with many easy to use [components](components/) as well as an elegant way to express interactive yet performant apps.
-Its foundations are also highly flexible and extensible, so your code can grow with your needs.
+Shiny is built from the ground up to support [custom layouts](docs/ui-page-layouts.qmd), as simple or complex as you like.
+Get started with Bootstrap and add your own customizations. Or for ultimate flexibility, write your own HTML markup and CSS.
+
 :::
 
 :::
@@ -119,7 +120,7 @@ Its foundations are also highly flexible and extensible, so your code can grow w
 ### Compatible
 
 Shiny works with the Python data science packages you already use, like [Pandas](https://shinylive.io/py/examples/#read-local-csv), [NumPy](https://shinylive.io/py/examples/#cpu-info), [scikit-learn](https://scikit-learn.org/), and [Polars](https://www.pola.rs/).
-It's designed to work integrate with popular visualization packages like [Matplotlib](https://shinylive.io/py/examples/#app-with-plot), [Seaborn](https://seaborn.pydata.org/), [Plotnine](https://shinylive.io/py/examples/#basic-plot-interaction), and [Plotly](docs/jupyter-widgets.qmd). You can even embed live [Jupyter widgets](docs/jupyter-widgets.qmd) in your Shiny apps.
+It's designed to work integrate with popular visualization packages like [Matplotlib](https://shinylive.io/py/examples/#app-with-plot), [Seaborn](https://seaborn.pydata.org/), [Plotnine](https://shinylive.io/py/examples/#basic-plot-interaction), and [Plotly](docs/outputs.qmd#interactive-plots-1). You can even embed live [Jupyter widgets](docs/ipywidgets.qmd) in your Shiny apps.
 
 And any data source that's available to Python is also available to Shiny, from the smallest [SQLite](https://docs.python.org/3/library/sqlite3.html) file to the largest [Snowflake](https://docs.snowflake.com/developer-guide/python-connector/python-connector) data lake.
 
@@ -136,7 +137,7 @@ You have lots of deployment options including our own [cloud hosting](docs/deplo
 ::::
 
 ::: {.text-center .pt-3 .pb-4 style="z-index:1;"}
-[Get Started](docs/quick-start.qmd){.btn .btn-dark .btn-lg .m-2 .px-5 role="button"}
+[Get Started](docs/overview.qmd){.btn .btn-dark .btn-lg .m-2 .px-5 role="button"}
 [Gallery](gallery/index.qmd){.btn .btn-dark .btn-lg .m-2 .px-5 role="button"}
 :::
 

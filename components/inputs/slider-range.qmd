@@ -1,0 +1,75 @@
+---
+title: "Slider Range"
+sidebar: components 
+previewapp: |
+  from shiny import App, render, ui
+
+  app_ui = ui.page_fluid(
+      ui.input_slider("range", label="", value=[25, 70], min=1, max=100),
+        {"class": "vh-100 d-flex justify-content-center align-items-center px-4"}
+  )
+  def server(input, output, session):
+      @render.plot
+      def hist():
+          print(input.range())
+
+  app = App(app_ui, server)
+listing:
+  id: component
+  template: ../_partials/components-detail.ejs
+  contents:
+    - title: Slider Range
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlNLCx1l07YT95yyvhMwcESMFy6AAwRUAAeugCM0bFMAG5QVnC6wADMAKwSAGwFALoAlBhQ0tKahBZQLCx+qGQAtAVMMPHtUG7ETBTxHYSUFHTBFXj2jmIYxG6u7sPu6XIARlBkfH6Z2VMzEI5MIMENTSzBiKFg6WztKdFMAFYiLDs02O0k5OM-4zkTCyHGMEHaHAoMBYAL+dCYqF6BWCAF9VFUanULs0-DBvv0yINVrCJlNVKpZDRWHJ1r4XG4JIsyMsJCw4M0OKQKohZg4AAJM5a8ph8qQQHwYVbCykZLIiOA2bnCk5SMgiOjHGjBED0sgYAI+RVosDk6DoPRMJSoGwabTial0WkVMAospAA
+      height: 200px
+      code: |
+        from shiny import ui, render, App
+        
+        app_ui = ui.page_fluid(
+            ui.input_slider("slider", "Slider", min=0, max=100, value=[35, 65]), #<<
+            ui.output_text_verbatim("value"),
+        )
+        
+        def server(input, output, session):
+            @render.text
+            def value():
+                return f"{input.slider()}"
+        
+        app = App(app_ui, server)
+      relevantfunctions:
+        - title: ui.input_slider
+          href: https://shiny.posit.co/py/api/ui.input_slider.html
+          signature: ui.input_slider(id, label, min, max, value, *, step=None, ticks=False, animate=False, width=None, sep=',', pre=None, post=None, time_format=None, timezone=None, drag_range=True)
+        - title: ui.output_data_frame
+          href: https://shiny.posit.co/py/api/ui.output_data_frame.html
+          signature: ui.output_data_frame(id)
+        - title: render.data_frame
+          href: https://shiny.posit.co/py/api/render.data_frame.html
+          signature: render.data_frame(fn=None)
+        - title: render.DataTable
+          href: https://shiny.posit.co/py/api/render.DataTable.html
+          signature: render.DataTable(self, data, *, width='fit-content', height='500px', summary=True, filters=False, row_selection_mode='none')
+---
+
+:::{#component}
+:::
+
+## Details
+
+A slider is a widget that lets you drag to select numbers, dates, or date-tifrom a specified range. You can use a slider to select either a single value or a range of values.
+
+To add a slider that lets the user select a range of values: 
+
+  1. Add `ui.input_slider()` to the UI of your app to create a slider. Where you call this function will determine where the slider will appear within the app's layout. 
+
+  2. Specify the `id` and `label` parameters of `ui.input_slider()` to define the identifier and label of the slider. 
+
+  3. Use the `min` and `max` parameters to define the minimum and maximum values of the slider. `min` and `max` can be numbers, dates, or date-times. Dates and date-times can be provided from the `datetime` module with the `date()` or `datetime()` functions, respectively.
+
+  4. Pass a list with two elements to the `value` parameter. These elements define the initial range. `value` can be a list of numbers, dates, or date-times.
+
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a slider:
+
+  1. Use `input.<slider_id>()` (e.g., `input.slider()`) to access the value of the slider. If `value` is a list and the slider specifies a range, the server value of a slider will be a list of length 2.
+
+See also: [Slider](slider.qmd)
+

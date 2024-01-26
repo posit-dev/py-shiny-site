@@ -1,0 +1,66 @@
+---
+title: "Date Selector"
+sidebar: components 
+previewapp: |
+  from shiny import App, render, ui
+
+  app_ui = ui.page_fluid(
+      ui.input_date("x", ""),
+      ui.output_text_verbatim("txt"),
+        {"class": "vh-100 d-flex justify-content-center align-items-center px-4 flex-column"}
+  )
+
+  def server(input, output, session):
+      @render.text
+      def txt():
+          return f""
+
+  app = App(app_ui, server, debug=True)
+listing:
+  id: component
+  template: ../_partials/components-detail.ejs
+  contents:
+    - title: Date Selector
+      preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAEygrIEt4nvVi6ZVuzgAdCOPqMmAZwAWnCNl4x+gpgEF0eJnUos4dHQFdO48WlQB9U0wC8TU1igBzOFZoAbUywAU4pkDHTgxFVGMyKzYKfzBosXwmUTBkgEoMKBYWK0JPKBkZWNQyAFoAViYYAA8SqAjiJgoq0sJKCjo0vACgp2II8MimsliANyhvBNSuiCCmEGTc-JlkxCSwEbkSgEYABh2mACtjGS4abBKScjaLtsMmcc4XCBLOChgZG6u6JlQasuSAL7idKZbKLAqxGDnOpkBpDT7tNLmCQQAw0WSGEaGXxhCI6PpkAY6GRwAqcUipRDdQIAAQJA2pTBpelRhgwQ0ZaKYYwmvkpjNmejIxjoM1xZAw8T5yIs6HsmnQvksNk4xMxhlSYABAF0gA
+      height: 380px
+      code: |
+        from datetime import date
+        
+        from shiny import App, render, ui
+        
+        app_ui = ui.page_fluid(
+            ui.input_date("date", "Date"), #<<
+            ui.output_text("value")
+        )
+        
+        def server(input, output, session):
+            @render.text
+            def value():
+                return input.date()
+        
+        app = App(app_ui, server)
+      relevantfunctions:
+        - title: ui.input_date
+          href: https://shiny.posit.co/py/api/ui.input_date.html
+          signature: ui.input_date(id, label, *, value=None, min=None, max=None, format='yyyy-mm-dd', startview='month', weekstart=0, language='en', width=None, autoclose=True, datesdisabled=None, daysofweekdisabled=None)
+---
+
+:::{#component}
+:::
+
+## Details
+
+A date selector allows you to select a date from a calendar.
+
+To add a date selector to your app:
+
+  1. Add `ui.input_date()` to the UI of your app to create a date selector. Where you call this function will determine where the date selector will appear within the app's layout. 
+
+  2. Specify the `id` and `label` parameters of `ui.input_date()` to define the identifier and label of the date selector. `ui.input_date()` also includes various optional parameters, including `min` and `max`, which set the minimum and maximum allowed dates.
+
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a date selector:
+
+  1. Use `input.<date_id>()` to access the value of a daterange selector (e.g., `input.date()`). The server value of a date selector is a date object. 
+
+
+See also: [Date Range Selector](date-range-selector.qmd)

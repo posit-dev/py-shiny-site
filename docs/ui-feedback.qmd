@@ -41,7 +41,7 @@ app_ui = ui.page_fluid(
 
 def server(input, output, session):
 
-    @reactive.effect
+    @reactive.Effect
     @reactive.event(input.show)
     async def _():
         ui.notification_show("Message")
@@ -113,7 +113,7 @@ app_ui = ui.page_fluid(
 
 def server(input, output, session):
 
-    @reactive.effect
+    @reactive.Effect
     @reactive.event(input.show)
     def _():
         m = ui.modal(

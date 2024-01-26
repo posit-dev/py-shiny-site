@@ -1,0 +1,37 @@
+---
+title: "Get started"
+subtitle: "Learn Shiny in the browser (no installation needed!) or install on your computer."
+format:
+  html:
+    toc: false
+---
+
+
+::: {.grid .column-page-inset-right}
+
+::: {.g-col-12 .get-started-box}
+
+#### Option 1: Learn in the browser
+
+Example Shiny apps can run in your web browser.
+
+You can skip installing Shiny, and go straight to the [next page](overview.qmd).
+
+:::
+
+::: {.g-col-12 .get-started-box}
+
+#### Option 2: Install on your computer
+
+
+```bash
+pip install shiny
+shiny create my_app
+shiny run --reload my_app/app.py
+```
+
+For instructions on installing Shiny and keeping current with the latest updates, please see the [installation page](install.qmd).
+
+:::
+
+:::

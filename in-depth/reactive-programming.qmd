@@ -1,0 +1,273 @@
+---
+title: "Reactive Programming"
+format: html
+---
+
+At the heart of Shiny is a reactive programming engine. So far we've seen some very basic reactive programming. When a (reactive) input is modified, it causes a (reactive) output function to re-execute. Shiny does this automatically; you don't need to explicitly tell it that a function should re-execute when a particular value changes.
+
+The previous example is the simplest sort of reactive program, but there are more complex programs that can be built with reactive programming. We'll learn about the following:
+
+* `reactive.Value`: An object that causes reactive functions to run when its value changes.
+* `reactive.Calc`: Create a reactive function that is used for its return value.
+* `reactive.Effect`: Create a reactive function that is used for its side effects (and not its return value).
+* `@output`: outputs (wrapped up in a `reactive.Effect`)
+
+There are a few utility functions that help with managing reactivity:
+
+* `with isolate():` Run blocks of code inside a reactive function, but _without_ taking a reactive dependency on code inside the block.
+* `@reactive.event()`: A decorator that controls what causes a reactive function to invalidate.
+
+
+### Reactive Calculations
+
+Sometimes we want to compute values based on inputs. For example, if we have a numeric input `x`, we could compute 2 times x with a _reactive calculation_:
+
+```python
+@reactive.Calc
+def double_x():
+    return input.x() * 2
+```
+
+Then we can use the reactive calculation in an output:
+
+```python
+@output
+@render.text
+def txt():
+    return f"x * 2 is {double_x()}"
+```
+
+:::{.callout-tip}
+## Shiny for Python compared to R
+
+A `reactive.Calc` in Shiny for Python is equivalent to a `shiny::reactive()` in R. The R version is also sometimes also called a _reactive expression_.
+:::
+
+How does a `reactive.Calc` differ from an ordinary function? The primary difference is that a `reactive.Calc` tries to minimize the amount of work it does, by using caching. When it runs, it caches its most recent value and simply returns that cached value until the `Calc` is _invalidated_.
+
+What does it mean to be invalidated? Reactive objects like `reactive.Calc`s and `reactive.Effect`s (and `@output` functions) are invalidated when their reactive inputs change. For example `double_x()` uses `input.x()`, so if the user changes the value of `input.x()`, then `double_x()` gets invalidated. And in turn, `double_x()` invalidates any reactive objects that use it. In our example, it invalidates the output `txt`.
+
+After the output `txt` is invalidated, it will re-execute, and when it does, it will call `double_x()`. Since `double_x()` was invalidated, it will re-execute (and not simply return a cached value), and it in turn will read `input.x()`.
+
+
+### Reactive Effects
+
+A `reactive.Effect` wraps a function that runs when its reactive inputs change. They differ from  `reactive.Calc`s in important ways:
+
+* A `reactive.Calc` is used for its return value: it is meant to be called from another `reactive.Calc` or a `reactive.Effect`, which then uses the return value from the first `reactive.Calc`. A `reactive.Effect`, on the other hand, does not have a return value, and cannot be called like a function. Once created, a `reactive.Effect` continues to exist, and it automatically re-executes after it has been invalidated.
+* As the name implies, a `reactive.Effect` is used for its _side effect_. In programming lingo, a _side effect_ is when a function modifies state other than its return value. These side effects may include: writing to a file, printing to the console, or modifying a global variable.
+
+:::{.callout-tip}
+## Shiny for Python compared to R
+
+A `reactive.Effect` in Shiny for Python is equivalent to a `shiny::observe()` in R. The R version is also sometimes also called a _reactive observer_.
+:::
+
+
+### More about outputs
+
+In Shiny, outputs are created with the `@output` decorator. Although this may not look like it's reactive, (since it doesn't start with `reactive.`), it actually creates a `reactive.Effect` under the hood. The `reactive.Effect` has the side effect of putting a message into the outbound message queue.
+
+In the example below, the user-provided function returns a string. That function is wrapped with `@render.text`, and then with `@output`. The `@output` decorator creates a `reactive.Effect` that puts the resulting string into the outbound message queue; each time the reactive inputs change, it re-executes and puts the new string in the message queue.
+
+```python
+@output
+@render.text
+def txt():
+    return f"The value of x is {input.x()}"
+```
+
+
+### Controlling reactivity with `isolate()` and `@reactive.event()`
+
+Normally, a reactive function will be invalidated (and re-execute) when any of its reactive inputs change. When we talk about _reactive inputs_ we're referring not just to inputs from the user, as in `input.x()`, but also values from `reactive.Calc` objects.
+
+Sometimes these dependencies cause a function to be  re-executed too often. For example, suppose we have an output that depends on the value of a slider, but is computationally expensive. We might want it to re-execute it only when the user presses a button.
+
+There are two ways of doing this: one is ` with isolate()`, and the other is `@reactive.event()`.
+
+Using `with isolate()`, a block of code is run inside a reactive function, but without taking a reactive dependency on the code inside the block. This means that any reactive inputs in that block will not cause the function to re-execute. In the example below, the `output` takes a dependency on `input.button()`, but not `input.x()`:
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+
+from shiny import App, reactive, render, ui
+import asyncio
+
+app_ui = ui.page_fluid(
+    ui.input_slider("n", "N", min=1, max=100, value=1),
+    ui.input_action_button("compute", "Compute!"),
+    ui.output_text_verbatim("result", placeholder=True),
+)
+
+def server(input, output, session):
+
+    @output
+    @render.text
+    async def result():
+        input.compute()        # Take a dependency on the button
+        await asyncio.sleep(2) # Wait 2 seconds (to simulate a long computation)
+
+        with reactive.isolate():
+            # Inside this block, we can use input.n() without taking a
+            # dependency on it.
+            return f"Result: {input.n()}"
+
+app = App(app_ui, server)
+
+```
+
+The other way is to use `@reactive.event()`. This decorator takes one or more reactive functions that cause the decorated function to re-execute. Everything in the decorated function is ignored for the sake of reactive dependencies; this is equivalent to the entire function body being in `with isolate()`.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+
+from shiny import App, reactive, render, ui
+import asyncio
+
+app_ui = ui.page_fluid(
+    ui.input_slider("n", "N", min=1, max=100, value=1),
+    ui.input_action_button("compute", "Compute!"),
+    ui.output_text_verbatim("result", placeholder=True),
+)
+
+def server(input, output, session):
+
+    @output
+    @render.text
+    @reactive.event(input.compute) # Take a dependency on the button
+    async def result():
+        # Because of the @reactive.event(), everything in this function is ignored
+        # for reactive dependencies.
+        await asyncio.sleep(2) # Wait 2 seconds (to simulate a long computation)
+        return f"Result: {input.n()}"
+
+app = App(app_ui, server)
+
+```
+
+:::{callout-note}
+In the `@reactive.event()` example above, the function does _not_ execute the first time when the session starts; it will wait until the user presses the button. If you want it to execute once when the session starts, you can use `@reactive.event(input.compute, ignore_none=False)`.
+
+Note that in the future, we may change the way this works.
+:::
+
+
+### Reactive Values
+
+A `reactive.Value` is an object that cause reactive functions to re-execute when their value changes. For example, the user inputs to a Shiny application (like `input.x`) are `reactive.Value` objects.
+
+In the example below, the reactive value `input.x()` is used in an output; when it changes, it causes the output function to re-execute.
+
+```python
+@output
+@render.text
+def txt():
+    return str(input.x())
+```
+
+But input values are not the only `reactive.Value` objects one can use in an application. `reactive.Value`s can also be created explicitly, like so:
+
+```python
+# Create a reactive value with a starting value of "Hello"
+x = reactive.Value("Hello")
+```
+
+With this reactive value, you can access its value with `x()` (or equivalently, `x.get()`, if you want to be more explicit). You can set its value with `x.set(<value>)`.
+
+:::{.callout-note}
+Although the inputs for a Shiny application are `reactive.Value`s, they are read-only. If you call `input.x.set(1)`, it will throw an error. Input values can only be set by interacting with the application in the client web browser.
+:::
+
+Reactive values are useful when you want to do more sophisticated things with reactivity. Here's an example. In this application, there is a button; when it's clicked it causes a reactive value `x` to toggle between `True` and `False`.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+
+from shiny import App, reactive, render, ui
+
+app_ui = ui.page_fluid(
+    ui.input_action_button("toggle", "Toggle value"),
+    ui.output_text_verbatim("txt"),
+)
+
+def server(input, output, session):
+    x = reactive.Value(True)
+
+    @reactive.Effect
+    @reactive.event(input.toggle)
+    def _():
+        x.set(not x())
+
+    @output
+    @render.text
+    def txt():
+        return str(x())
+
+app = App(app_ui, server)
+
+```
+
+Notice that we used some of the other reactive components that we discussed previously: there is a `reactive.Effect` that's used to change `x`'s value, with the call to `x.set()`.
+
+That function also uses the `@reactive.event()` decorator so that it runs only when the `input.toggle` button is pressed. If we didn't do that, then the `reactive.Effect` would re-execute whenever `x()` changed --- but since it is itself changing `x()`, it would trigger itself, resulting in an infinite loop. The `@reactive.event(input.toggle)` therefore does two things for us: it prevents the infinite loop, and it makes sure that the function executes only when the `input.toggle` button is pressed.
+
+
+### Reactivity and mutable objects
+
+To successfully use Shiny for all but the simplest applications, it is important to understand _mutability_ in Python objects. Simple objects like number, strings, and bools are immutable, but most other objects, like lists and dicts, are mutable. This means that they can be modified in place --- modifying an object in one part of a program can cause it to be (unexpectedly) different in another part of the program.
+
+Mutability can cause unexpected behavior when used with reactive programming. For example, if you modify a `reactive.Value` or the result of a `reactive.Calc`, it can alter that value elsewhere. This can cause two different problems. First, the altered value will probably be unexpected. Second, even if the the change in value is expected and desired, it will not trigger downstream reactive objects to re-execute.
+
+:::{.callout-tip}
+## Shiny for Python compared to R
+
+If you've used Shiny for R, you probably haven't had to worry about mutable objects; almost all objects in R are immutable. If you try to modify them, R will create a copy of the object behind the scenes. If you want to use Shiny for Python, it's important to understand the reference semantics of Python objects.
+:::
+
+In the example below, `input.n()` returns a list with two values: the high and low values of the range slider. By default, this is `[1, 25]`. There are two `render.text`s, each of which reads `input.n()` and modifies the list in place, adding 50 to each value. Each of them does exactly the same thing, so you might expect the output text to be the same, but it is not --- the first one modifies the list returned by `input.n()` in place, and so when the second one reads `input.n`, it gets the modified values.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+
+from shiny import App, reactive, render, ui
+
+app_ui = ui.page_fluid(
+    ui.input_slider("n", "Slider range", min=1, max=100, value=[1, 25]),
+    ui.output_text_verbatim("result1", placeholder=True),
+    ui.output_text_verbatim("result2", placeholder=True),
+)
+
+def server(input, output, session):
+
+    @output
+    @render.text
+    def result1():
+        x = input.n()
+        x[0] = x[0] + 50
+        x[1] = x[1] + 50
+        return f"Slider range + 50 is {x}"
+
+    @output
+    @render.text
+    def result2():
+        x = input.n()
+        x[0] = x[0] + 50
+        x[1] = x[1] + 50
+        return f"Slider range + 50 is {x}"
+
+
+app = App(app_ui, server)
+```
+
+In order to avoid the problem of `input.n()` being altered, you will need to make a copy of the object before modifying it.
+
+In the example above, try replacing each instance of `input.n()` with `input.n().copy()` and then click on the icon to re-run the app. If you do that, then you'll see that the two text outputs display the same thing.

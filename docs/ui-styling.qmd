@@ -1,0 +1,221 @@
+---
+title: "Styling Shiny apps"
+editor: visual
+---
+
+The front end of every Shiny app is HTML, which means that you can use CSS to customize the look and feel of your app.
+Shiny fully supports CSS styling, and styles are applied predictably across all application components.
+
+::: callout-tip
+If you are familiar with customizing websites you can skip this document and add CSS files by placing them in a `www` directory and adding this snippet to your UI code.
+
+``` python
+ui.page_fluid(
+    ui.include_css("my-styles.css")
+  )
+```
+:::
+
+# One-line styling with Shinyswatch
+
+You can change the look of your app without writing any CSS code by using the [shinyswatch](https://github.com/posit-dev/py-shinyswatch) package.
+This package wraps up about a dozen [bootswatch](https://bootswatch.com/) themes to allow you to change your apps style in one line.
+You can add a shinyswatch theme by calling `shinyswatch.theme.<theme_name>()` in your UI code.
+By convention this code is usually placed at the top of your UI code, but it can technically be inserted anywhere.
+
+Note that while this is a very convenient way to quickly style your app, the bootswatch themes are not optimized for dashboards and so you may need to tweak them to accommodate your application.
+
+``` {shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+
+from shiny import App, Inputs, Outputs, Session, render, ui
+
+import shinyswatch
+
+app_ui = ui.page_fluid(
+    shinyswatch.theme.darkly(),
+    ui.input_slider("num", "Number:", min=10, max=100, value=30),
+    ui.output_text_verbatim("slider_val"),
+)
+
+
+def server(input: Inputs, output: Outputs, session: Session):
+    @output
+    @render.text
+    def slider_val():
+        return f"{input.num()}"
+
+
+app = App(app_ui, server)
+## file: requirements.txt
+shinyswatch
+```
+
+# Inline styling
+
+Container UI functions like `div`, `page_fluid`, `row`, and `column` can accept inline CSS directly.
+To do this all you do is pass a dictionary with a `style` element to the ui function with the CSS code you want to apply to that element.
+
+Inline CSS is handy because you don't need to switch back and forth between your CSS file and you application code, and it also allows you to easily apply CSS to one element rather than all of the elements of a particular class.
+If you want to apply inline styles to a function like `output_text` which does not accept a dictionary, the best approach is to wrap it in `div` and pass the dictionary to the parent div.
+
+::: callout-tip
+You can use the `htmltools.css` function to conveniently create CSS.
+This is particularly useful if you're creating the CSS programatically.
+
+``` python
+from htmltools import css
+
+style=css(font_weight="bold", color="red)
+# equivalent to style="font-weight: bold; color: red;"
+```
+:::
+
+
+``` {shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+
+from shiny import App, Inputs, Outputs, Session, render, ui
+
+app_ui = ui.page_fluid(
+  {"style": "background-color: rgba(0, 128, 255, 0.1)"},
+    ui.input_slider("num", "Number:", min=10, max=100, value=30),
+  ui.div(
+    {"style": "font-weight: bold;"},
+    ui.output_text("slider_val"),
+  ),
+)
+
+
+def server(input: Inputs, output: Outputs, session: Session):
+    @output
+    @render.text
+    def slider_val():
+        return f"{input.num()}"
+
+
+app = App(app_ui, server)
+```
+
+# Global styling
+
+If you have styling which you would like to apply globally across your app you can do that by inserting it with `ui.tags.style`.
+This function applies CSS across the application, and can be more convenient than an external file.
+
+``` {shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+
+from shiny import App, Inputs, Outputs, Session, render, ui
+
+app_ui = ui.page_fluid(
+    ui.tags.style(
+        """
+        body {
+            font-family: Times
+            }
+        """
+    ),
+    ui.input_slider("num", "Number:", min=10, max=100, value=30),
+    ui.output_text("slider_val"),
+)
+
+
+def server(input: Inputs, output: Outputs, session: Session):
+    @output
+    @render.text
+    def slider_val():
+        return f"{input.num()}"
+
+
+app = App(app_ui, server)
+
+```
+
+
+# Using an external CSS file
+
+If you find yourself copying CSS code between several components your best solution is to switch to an external CSS file.
+The CSS file is imported into the app with the `ui.include_css()` function.
+You can either modify existing classes like `row` or `column` or add additional classes with the same attribute dictionary you used for styles.
+If you're not sure which class to change, open up your app in Chrome, right-click on the element you're interested in and select "Inspect".
+
+::: callout-tip
+If you have an existing CSS file which you use to customize an R Shiny app, you should be able to use it in a Python app without modification.
+Note that Shiny for Python does not yet support [bslib](https://rstudio.github.io/bslib/) so transferring styles from a bslib styles R app may cause issues.
+:::
+
+``` {shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+
+from pathlib import Path
+
+from shiny import App, Inputs, Outputs, Session, render, ui
+
+css_path = Path(__file__).parent / "www" / "my-styles.css"
+
+app_ui = ui.page_fluid(
+    {"class": "blue-body"},
+    ui.include_css(css_path),
+    ui.input_slider("num", "Number:", min=10, max=100, value=30),
+    ui.div(
+        {"class": "bold-output;"},
+        ui.output_text("slider_val"),
+    ),
+)
+
+
+def server(input: Inputs, output: Outputs, session: Session):
+    @output
+    @render.text
+    def slider_val():
+        return f"{input.num()}"
+
+
+app = App(app_ui, server)
+## file: www/my-styles.css
+.blue-body {
+  background-color: rgba(0, 128, 255, 0.5);
+}
+
+.bold-output {
+  font-weight: bold;
+}
+```
+
+# Sharing styles with other users
+
+The [shinyswatch](https://github.com/posit-dev/py-shinyswatch) package provides a good template for sharing Shiny styles.
+To share styles with a Python package you need two main things:
+
+1)  Include the CSS and JavaScript assets in a subdirectory in your Python package.
+    It is a good idea to [minify](https://www.minifier.org/) these assets to improve app performance.
+
+2)  Have a function which points to those assets and returns an HTMLDependency
+    You can also point the source to a CDN-hosted CSS file if you want the CSS to be loaded dynamically.
+
+``` python
+from htmltools import HTMLDependency
+
+def acme_theme():
+    subdir = os.path.join(os.path.dirname(__file__), "bsw5", name)
+
+    # Contains both bootstrap and bootswatch css
+    html_dep = HTMLDependency(
+        name=f"acme_theme",
+        version="0.01",
+        source={"package": <package-name>, "subdir": subdir},
+        stylesheet=[{"href": "acme-theme.css"}],
+    )
+
+    return html_dep
+```
+
+After the user installs your package, they will be able to call this function anywhere in their UI code to insert the theme.
