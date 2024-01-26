@@ -1,0 +1,130 @@
+---
+title: "Modal"
+sidebar: components 
+previewapp: |
+  from shiny import App, Inputs, Outputs, Session, reactive, ui
+
+  app_ui = ui.page_fluid(
+      ui.input_action_button("show", "Show modal dialog"),
+      {"class": "vh-100 d-flex justify-content-center align-items-center px-4"}
+  )
+
+  def server(input: Inputs, output: Outputs, session: Session):
+      @reactive.Effect
+      @reactive.event(input.show)
+      def _():
+          m = ui.modal(
+              "This is a somewhat important message.",
+              easy_close=True,
+              footer=None,
+          )
+          ui.modal_show(m)
+
+  app = App(app_ui, server)
+listing:
+  - id: component
+    template: ../_partials/components-detail.ejs
+    contents:
+      - title: Modal Message
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwdmIAdzV8JliAZTZophhiOyhrJjsOTOIzWIBKPA1CjQ07OBpWODpFOgdPbwliby8yCRY4FhYOUkLEZ1cAASk-BTgMAFEaGjhZIZdR6VkJjDhFckaIdoxIqLKIV2yqph0HAcXj1MM3DDSM6ycj69fYgBVOFl5vqFZGOBRNhQYR8ARCKDkVLdFjmSaxEovV7HORkaxwAyJAFAkG8fiCMiQ4TwHpwhFXZFMaQsbA6QjWYhdAzvOjKJQU5E0YjECh0AwmB6ZIIhMKxAAiHBYMElLCKiMph0pAvSQv2Dhghy06FuYlQDm0eg4nVq9UKYAAvgBdIA
+        code: |
+          from shiny import App, reactive, ui
+          
+          app_ui = ui.page_fluid(
+              ui.input_action_button("show", "Show modal dialog"),
+          )
+          
+          def server(input, output, session):
+              @reactive.Effect
+              @reactive.event(input.show)
+              def _():
+                  m = ui.modal( #<<
+                      "This is a somewhat important message.", #<<
+                      title="Somewhat important message", #<<
+                      easy_close=True #<<
+                  ) #<<
+                  ui.modal_show(m) #<<
+          
+          app = App(app_ui, server)
+        relevantfunctions:
+          - title: "ui.modal"
+            href: https://shiny.posit.co/py/api/ui.modal.html
+            signature: ui.modal(*args, title=None, footer=MISSING, size='m', easy_close=False, fade=True, **kwargs)
+          - title: "ui.modal_show"
+            href: https://shiny.posit.co/py/api/ui.modal_show.html
+            signature: ui.modal_show(modal, session=None)
+          - title: "ui.modal_remove"
+            href: https://shiny.posit.co/py/api/ui.modal_remove.html
+            signature: ui.modal_remove(session=None)
+          - title: "ui.modal_button"
+            href: https://shiny.posit.co/py/api/ui.modal_button.html
+            signature: ui.modal_button(label, icon=None, **kwargs)
+  - id: variations
+    template: ../_partials/components-variations.ejs
+    contents:
+      variations:
+        - title: Modal for authentication
+          description: Place inputs inside a modal to collect, and then login with, credentials.
+          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDUxfGOGLqmVkdMuaR0AI28yUicwa2IzLjV8JliAGSiYsABKPA1UjQ07OBpWODpFOgdPbwliby8yCRY4FhYOUlTEZ1cAASk-BTgMAFEaGjhZNpdO6VkejDhFclKIaoxI6IgsiFcmXPydBxbRjaZmIxMYYjsoayd1g5uTMp8KAA8ycOh4WIlYgFU6uje4VppDLXG4bO4Lbw6VBQBoAd0Ejli0LhCI+8TAAAUYSx4XQ7ID0vtQW4PBCfN0AsEyKEIOESBAIMMyGjYgBhUiMkZAomg6QsbA6QiROoGAAqdGUSh5NxoxGIFDoBgAcqQ4NKmGtiSczhcdOxiLCHDBNaD9uNuop+oMmWaupNLTNKC97hh6ZyyCaXFsmDodnsQQdtedrDopKdFLt1QBiJjs3JMUJMN1MpiwjhkNi8MkYf67JhQCB2LOLZE4hGRzTQdCGUToBzaPQcWqFYqpMAAXwAukA
+          code: |
+            from shiny import App, reactive, ui
+            
+            app_ui = ui.page_fluid(
+                ui.input_action_button("login", "Login"),
+            )
+            
+            def server(input, output, session):
+                @reactive.Effect
+                @reactive.event(input.login)
+                def _():
+                    m = ui.modal(
+                        ui.input_text("name", "Username:"), #<<
+                        ui.input_password("password", "Password:"), #<<
+                        ui.input_action_button("connect", "Connect"), #<<
+                        easy_close=True, #<<
+                        footer=None #<<
+                    )
+                    ui.modal_show(m)
+                    
+                @reactive.Effect #<<
+                @reactive.event(input.connect) #<<
+                def __(): #<<
+                    ui.modal_remove() #<<
+                    # Code to connect with input.name() and input.password() #<<
+            
+            app = App(app_ui, server)
+---
+
+:::{#component}
+:::
+
+## Details
+
+A modal is a dialog box that appears in front of the app. You can use modals to display messages, curate the user experience, or collect user input, like passwords and usernames. 
+
+To create a modal, first assemble the components of the modal with [`ui.modal()`](https://shiny.posit.co/py/api/ui.modal.html) and save them to an object. Then call [`ui.modal_show()`](https://shiny.posit.co/py/api/ui.modal_show.html) on the object to display the modal.
+
+Typically, you will want to create a reactive effect to call `ui.modal_show()` whenever a particular event occurs. For example, the reactive effect below will open a modal whenever the value of `input.show()` changes.
+
+```python
+@reactive.Effect
+@reactive.event(input.show)
+def _():
+    m = ui.modal( #<<
+        "This is a somewhat important message.", 
+        title="Somewhat important message", 
+        easy_close=True 
+    ) 
+    ui.modal_show(m)
+```
+
+## Modal contents
+
+To add elements to a modal, pass them as unnamed arguments to `ui.modal()`. Modals can contain any UI elements recognized by Shiny.
+
+Modals come in four sizes: small (`'s'`), medium (`'m'`) (the default), large (`'l'`), and extra-large (`'xl'`). Set the size of a modal with the `size` argument of `ui.modal()`.
+
+See Also:[Notifications](notifications.qmd) provide a similar, but alternative way to display information to the user.
+
+:::{#variations}
+:::

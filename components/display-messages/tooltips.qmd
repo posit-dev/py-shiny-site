@@ -1,0 +1,145 @@
+---
+title: "Tooltips"
+sidebar: components 
+previewapp: |
+  from shiny import App, render, ui
+
+  app_ui = ui.page_fluid(
+    ui.tooltip(
+        ui.input_action_button("btn", "A button with a tooltip"),
+        "A message",
+        id="btn_tooltip"
+    ),
+      ui.output_text_verbatim("text"),
+      {"class": "vh-100 d-flex justify-content-center align-items-center px-4"}
+  )
+
+  def server(input, output, session):
+    @render.text
+    def text():
+        return ""
+
+  app = App(app_ui, server)
+listing:
+  - id: component
+    template: ../_partials/components-detail.ejs
+    contents:
+      - title: Tooltips
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYGOGMsWIWyHVHYgPfjjFyoCmSaUIQepJoARsEuEHZgUWRq+EzKYCJMMWRxTADuHGRsTFBMLm4eqOkAlHj2fmkZTPAsLCZw6XU+DRzSuulJEJrl7p6d9X6oFmFw8OT9YHQcxmxk6fW1E-7EwUEhFAAeIQBuclFQHjAJh2tg1ar3ahCyNKxyp3Q2gcESO2R7EhYcFaHFI1UQ9QAAlJnnJnHAjvUXmUEWQbOCtg4pGQFHQfN8yBhBsNXKMvI91Og9KJ0DYNNoOID3nJqmAAL4AXSAA
+        height: 200px
+        code: |
+          from shiny import App, render, ui
+          
+          app_ui = ui.page_fluid(
+            ui.tooltip( #<<
+                ui.input_action_button("btn", "A button with a tooltip"),
+                "A message", #<<
+                id="btn_tooltip", #<<
+                placement="right" #<<
+            ),
+              ui.output_text_verbatim("text")
+          )
+          
+          def server(input, output, session):
+            @render.text
+            def text():
+                return input.btn_tooltip() #<<
+          
+          app = App(app_ui, server)
+
+        relevantfunctions:
+          - title: ui.tooltip
+            href: https://shiny.posit.co/py/api/ui.tooltip.html
+            signature: ui.tooltip(trigger, *args, id=None, placement='auto', options=None, **kwargs)
+          - title: ui.update_tooltip
+            href: https://shiny.posit.co/py/api/ui.update_tooltip.html
+            signature: ui.update_tooltip(id, *args, show=None, session=None)
+  - id: variations
+    template: ../_partials/components-variations.ejs
+    contents:
+      variations:
+        - title: Update a tooltip message
+          description: Call `ui.update_tooltip()` to update the message of a tooltip with a given id.
+          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAkBXDgB0IGtKgD6qpgF4mqrFADmcHTQA2qgCYAKDU2McMZYsWtzUTiC4DXDC5UZTIdGTlSHQAjMI8IJzAYsk18JjUwESY4sgSmAHcOMjYmKCYPLx9MgEo8Z0CMrKZ4FhZzOEz6-0aOOwNMlIgdSu8OVC6GwNRrGTh4cgGwOg4zNjJMhrqGkzJzFgwYugdtnt39w+PTlxMQsIjZDmjchKShvVQ7KAoupoBVT7fOAVTxjVAtOBtDq1DQ1DQaOxwGisOB0RTHO5kCTEMKhLEotpPCA1RBTJgAASkkQUcAwAFEaDQ4LIyZTpI9FBg4IpyA5MYdUh8vhQ4T0XIjkToTqSxY0SORKMIjH5GqqmtlMkwANRNJoYABWxC4DmAmQAcnSAOqamiCJg6Xj+OhQCAWPkQPEC4bKQEUE41AC6NW1uta7Qsm1lgVFZMCJh9wssox8b0FyfGv3lFHIEnYxAKBgAKnRlHAY9B0IZROgHNo9Bxc6j0TUwABfANAA
+          code: |
+            from shiny import App, reactive, ui
+
+            app_ui = ui.page_fluid(
+              ui.tooltip(
+                  ui.input_action_button("btn", "A button with a tooltip"),
+                  "A message",
+                  id="btn_tooltip",
+                  placement="right"
+              ),
+              ui.tags.br(),
+              ui.tags.br(),
+              ui.input_action_button("btn_update", "Update tooltip message")
+            )
+            
+            def server(input, output, session):
+                @reactive.Effect
+                @reactive.event(input.btn_update)
+                def _():
+                    content = (
+                        "A " + " ".join(["NEW" for _ in range(input.btn_update())])+ " message"
+                    )
+            
+                    ui.update_tooltip("btn_tooltip", content, show=True) #<<
+            
+            app = App(app_ui, server)
+      
+---
+
+:::{#component}
+:::
+
+## Details
+
+A tooltip is a box that appears next to an element when a user hovers over the element. To add a tooltip to a UI component, wrap the component in [`ui.tooltip()`](https://shiny.posit.co/py/api/ui.tooltip.html). Then pass `ui.tooltip()` one or more elements to display, such as a simple string that contains a message.
+
+Optionally assign the tooltip an `id` to trigger reactions when the tooltip becomes visible or to programmatically update the contents of the tooltip as your user navigates the app. A boolean that describes whether or not the tooltip is visible will be accessible as a reactive variable within the server function as `input.<id>()`.
+
+Control the placement of the tooltip relative to the item it highlights with the `placement` argument. `placement` defaults to `'auto'`, but can be set to one of `'top'`, `'bottom'`, `'left'`, or `'right'`.
+
+## Accessibility of Tooltip Triggers
+
+Because the user needs to interact with the `trigger` element to see the `tooltip`, it's best practice to use an element that is typically accessible via keyboard interactions, like a button or a link.
+
+If you use a non-interactive element, like a `<span>` or text, `tooltip()` will automatically add the `tabindex="0"` attribute to the trigger element to make sure that users can reach the element with the keyboard. This means that in most cases you can use any element you want as the trigger.
+
+One place where it's important to consider the accessibility of the trigger is when using an icon without any accompanying text. In these cases, many icon elements are created with the assumption that the icon is decorative, which will make it inaccessible to users of assistive technologies.
+
+When using an icon as the primary trigger, ensure that the icon does not have `aria-hidden="true"` or `role="presentation"` attributes. Icon packages typically provide a way to specify a title for the icon, as well as a way to specify that the icon is not decorative. The title should be a short description of the purpose of the trigger, rather than a description of the icon itself.
+
+For example:
+
+```{.python}
+icon_title = "About tooltips"
+def bs_info_icon(title: str):
+    # Enhanced from https://rstudio.github.io/bsicons/ via `bsicons::bs_icon(&quot;info-circle&quot;, title = icon_title)`
+return ui.HTML(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="bi bi-info-circle " style="height:1em;width:1em;fill:currentColor;" aria-hidden="true" role="img" ><title>{title}</title><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path></svg>')
+
+ui.tooltip(
+    bs_info_icon(icon_title),
+    "Text shown in the tooltip."
+)
+```
+
+```{.python}
+icon_title = "About tooltips"
+def fa_info_circle(title: str):
+    # Enhanced from https://rstudio.github.io/fontawesome/ via `fontawesome::fa(&quot;info-circle&quot;, a11y = &quot;sem&quot;, title = icon_title)`
+return ui.HTML(f'<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><title>{title}</title><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>')
+
+ui.tooltip(
+    fa_info_circle(icon_title),
+    "Text shown in the tooltip."
+)
+```
+
+Compare tooltips to [popovers](https://shiny.posit.co/py/api/ui.popover.html), which are a similar device for organizing the layout of a Shiny app.
+
+See Also: [Modal messages](modal.qmd) and [notications](notifications.qmd) provide a similar, but alternative way to display information to the user.
+
+:::{#variations}
+:::

@@ -1,4 +1,0 @@
-shiny
-palmerpenguins
-plotnine
-pandas

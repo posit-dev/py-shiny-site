@@ -1,0 +1,82 @@
+---
+title: Handling events
+---
+
+
+## Controlling reactivity with `isolate()` and `@reactive.event()`
+
+Normally, a reactive function will be invalidated (and re-execute) when any of its reactive inputs change. When we talk about _reactive inputs_ we're referring not just to inputs from the user, as in `input.x()`, but also values from `reactive.Calc` objects.
+
+Sometimes these dependencies cause a function to be  re-executed too often. For example, suppose we have an output that depends on the value of a slider, but is computationally expensive. We might want it to re-execute it only when the user presses a button.
+
+There are two ways of doing this: one is ` with isolate()`, and the other is `@reactive.event()`.
+
+Using `with isolate()`, a block of code is run inside a reactive function, but without taking a reactive dependency on the code inside the block. This means that any reactive inputs in that block will not cause the function to re-execute. In the example below, the `output` takes a dependency on `input.button()`, but not `input.x()`:
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+
+from shiny import App, reactive, render, ui
+import asyncio
+
+app_ui = ui.page_fluid(
+    ui.input_slider("n", "N", min=1, max=100, value=1),
+    ui.input_action_button("compute", "Compute!"),
+    ui.output_text_verbatim("result", placeholder=True),
+)
+
+def server(input, output, session):
+
+    @output
+    @render.text
+    async def result():
+        input.compute()        # Take a dependency on the button
+        await asyncio.sleep(2) # Wait 2 seconds (to simulate a long computation)
+
+        with reactive.isolate():
+            # Inside this block, we can use input.n() without taking a
+            # dependency on it.
+            return f"Result: {input.n()}"
+
+app = App(app_ui, server)
+
+```
+
+The other way is to use `@reactive.event()`. This decorator takes one or more reactive functions that cause the decorated function to re-execute. Everything in the decorated function is ignored for the sake of reactive dependencies; this is equivalent to the entire function body being in `with isolate()`.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+
+from shiny import App, reactive, render, ui
+import asyncio
+
+app_ui = ui.page_fluid(
+    ui.input_slider("n", "N", min=1, max=100, value=1),
+    ui.input_action_button("compute", "Compute!"),
+    ui.output_text_verbatim("result", placeholder=True),
+)
+
+def server(input, output, session):
+
+    @output
+    @render.text
+    @reactive.event(input.compute) # Take a dependency on the button
+    async def result():
+        # Because of the @reactive.event(), everything in this function is
+        # ignored for reactive dependencies.
+        await asyncio.sleep(2) # Wait 2 seconds (to simulate a long computation)
+        return f"Result: {input.n()}"
+
+app = App(app_ui, server)
+
+```
+
+:::{.callout-note}
+In the `@reactive.event()` example above, the function does _not_ execute the first time when the session starts; it will wait until the user presses the button. If you want it to execute once when the session starts, you can use `@reactive.event(input.compute, ignore_none=False)`.
+
+Note that in the future, we may change the way this works.
+:::

@@ -1,0 +1,174 @@
+---
+title: "Data Grid"
+sidebar: components 
+preview: |
+  <div class="px-4">
+  <img  style="width: 100%;height:auto;max-height:130px;" src="/images/datagrid.png">
+  </div>
+listing:
+  - id: component
+    template: ../_partials/components-detail.ejs
+    contents:
+      - title: Data Grid
+        preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMhSkCGEKofGRKEHycAoT5kJr4TE0AcjUARo5MxDS2xADuomTETAoCwqhsUNhNNgBMAAzReAVFqcQV5ZUKUGRQWXSwcA3hGkoKNE2xEDfaDn0udABujpFlFTabZNvOru6kaKINaFAAC322IKYoLsEAcdAwu32h2OUIeLF4EWEFxoMWBECKhLGeygyTOIgwBjgineEG2GAgMRuRKKdjIfDoBNh8IwABESQBxOgCPJIqB3eKoZJWVCRNCoRICP4vRzRMAAXwAukA
+        shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMhSkCGEKofGRKEHycAoT5kJr4TE0AcjUARo5MxDS2xADuomTETAoCwqhsUNhNNgBMAAzReAVFqcQV5ZUKUGRQWXSwcA3hGkoKNE2xEDfaDn0udABujpFlFTabZNvOru6kaKINaFAAC322IKYoLsEAcdAwu32h2OUIeLF4EWEFxoMWBECKhLGeygyTOIgwBjgineEG2GAgMRuRKKdjIfDoBNh8IwABESQBxOgCPJIqB3eKoZJWVCRNCoRICP4vRzRMAAXwAukA
+        code: |
+          from palmerpenguins import load_penguins
+          from shiny import App, render, session, ui
+          
+          penguins = load_penguins()
+          
+          app_ui = ui.page_fluid(
+              ui.input_numeric("n", "Number of rows to display", 20),
+              ui.output_data_frame("penguins_df") #<<
+          )
+          
+          def server(input, output, session):
+              @render.data_frame #<<
+              def penguins_df():
+                  data = penguins.head(input.n())
+                  return render.DataGrid(data) #<<
+          
+          app = App(app_ui, server)
+        relevantfunctions:
+          - title: ui.output_data_frame
+            href: https://shiny.posit.co/py/api/ui.output_data_frame.html
+            signature: ui.output_data_frame(id)
+          - title: "@render.data_frame"
+            href: https://shiny.posit.co/py/api/render.data_frame.html
+            signature: render.data_frame(fn=None)
+          - title: render.DataGrid
+            href: https://shiny.posit.co/py/api/render.DataGrid.html
+            signature: render.DataGrid(self, data, *, width='fit-content', height='500px', summary=True, filters=False, row_selection_mode='none')
+  - id: variations
+    template: ../_partials/components-variations.ejs
+    contents:
+      variations:
+        - title: Select Rows
+          height: "350px"
+          description: Set `row_selection_mode` in `render.DataGrid()` to `"single"` to allow the user to select one row at a time. Set it to `"multiple"` to allow the user to select multiple rows at a time. Access the selection(s) as `input.<id>_selected_rows()`.
+          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMhSkCGEKofGRKEHycAoT5kJr4TE0AcjUARo5MxDS2xADuomTETAoCwqhsUNhNNgBMAAzReAVFTQBKg6IubHCEFAqILc2pxBXllRQAHmQNDENzYhBsQnCBACp0fHAra4VnC4VJQKKBkKBZOiwOANcIaEE0JqxCDI7QOPouOgAN0ckTKFRs5zIl2crncpGiiH+TAAAkTLtSaXYIA46BhQeDIdDqeiWLwIsIETEqRAimKxmCoMk4SIMAY4Io8RBLhgIDFkeKinYyHw6KLmayMAARSUAcToAjyHKgNgeSl2+zIHggShgxAcgSaMD4bCdUzgSLiYrpQLIjINjgwNzDoqKvIewmF1MKDoOcAUyXxZCw-PhCho9rgezTygTMWTtjgOr1TAA5DZaxgAFbEISRYRkOh46JMGhSMTPfRFx3p1HxVDJKyoSJoVCJASk7GOaJgAC+AF0gA
+          shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMhSkCGEKofGRKEHycAoT5kJr4TE0AcjUARo5MxDS2xADuomTETAoCwqhsUNhNNgBMAAzReAVFTQBKg6IubHCEFAqILc2pxBXllRQAHmQNDENzYhBsQnCBACp0fHAra4VnC4VJQKKBkKBZOiwOANcIaEE0JqxCDI7QOPouOgAN0ckTKFRs5zIl2crncpGiiH+TAAAkTLtSaXYIA46BhQeDIdDqeiWLwIsIETEqRAimKxmCoMk4SIMAY4Io8RBLhgIDFkeKinYyHw6KLmayMAARSUAcToAjyHKgNgeSl2+zIHggShgxAcgSaMD4bCdUzgSLiYrpQLIjINjgwNzDoqKvIewmF1MKDoOcAUyXxZCw-PhCho9rgezTygTMWTtjgOr1TAA5DZaxgAFbEISRYRkOh46JMGhSMTPfRFx3p1HxVDJKyoSJoVCJASk7GOaJgAC+AF0gA
+          code: |
+            from palmerpenguins import load_penguins
+            from shiny import App, render, session, ui
+            
+            penguins = load_penguins()
+            
+            app_ui = ui.page_fluid(
+                ui.input_numeric("n", "Number of rows to display", 20),
+                "Rows selected: ", ui.output_text("rows", inline=True),
+                ui.output_data_frame("penguins_df")
+            )
+            
+            def server(input, output, session):
+                @render.data_frame
+                def penguins_df():
+                    data = penguins.head(input.n())
+                    return render.DataGrid(data, row_selection_mode="multiple") #<<
+            
+                @render.text
+                def rows():
+                  selected = input.penguins_df_selected_rows() #<<
+                  return ', '.join(str(i) for i in selected)
+            
+            app = App(app_ui, server)
+        - title: Filterable Table
+          height: "350px"
+          description: Set `render.DataGrid(filters=True)` to add a row of filter options to the header row. Users can interact with these options to filter the table.
+          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMhSkCGEKofGRKEHycAoT5kJr4TE0AcjUARo5MxDS2xADuomTETAoCwqhsUNhNNgDMACyL0XgFRanEFeWVClBkUFl0sHAN4RpKCjRNsRC32g59LnQAbo6RZRU2W2Q7zq7uUjRRDrQoAAR+O1BTDBdggDjoGD2ByOJ2hjxYvAiwkuNBiIIgRSJY32UGS5xEGAMcEUHwgOwwEBit2JRTsZD4dEJcIRGAAIqSAOJ0AR5ZFQGw0ARsCh0UTBAAqdD4cHu8VQySsqEiaFQiQE-1ejmiYAAvgBdIA
+          code: |
+            from palmerpenguins import load_penguins
+            from shiny import App, render, session, ui
+            
+            penguins = load_penguins()
+            
+            app_ui = ui.page_fluid(
+                ui.input_numeric("n", "Number of rows to display", 344),
+                ui.output_data_frame("penguins_df")
+            )
+            
+            def server(input, output, session):
+                @render.data_frame
+                def penguins_df():
+                    data = penguins.head(input.n())
+                    return render.DataGrid(data, filters = True) #<<
+            
+            app = App(app_ui, server)
+        - title: Set Table Size
+          height: "350px"
+          description: Set the `height` and `width` parameters of `render.DataGrid()` to constrain the output size of the table.
+          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMhSkCGEKofGRKEHycAoT5kJr4TE0AcjUARo5MxDS2xADuomTETAoCwqhsUNhNNgBMAAzReAVFqcQV5ZUKUGRQWXSwcA3hGkoKNE2xEDfaDn0udABujpFlFTabZNvOru6kaKINaFAAC322IKYoLsEAcdAwu32h2OUIeLF4EWEFxoMWBECKhLGeygyTOIgwBjgineEG2GAgMRuRKKdjIfDoBNh8IwABESQBxOgCPJIqA2AYisgGZJNADMi0WqAAHnMmFSBDwDDJgk15gBWJWqsB3eKoZJWVCRNCoRICP4vRzRMAAXwAukA
+          code: |
+            from palmerpenguins import load_penguins
+            from shiny import App, render, session, ui
+            
+            penguins = load_penguins()
+            
+            app_ui = ui.page_fluid(
+                ui.input_numeric("n", "Number of rows to display", 20),
+                ui.output_data_frame("penguins_df")
+            )
+            
+            def server(input, output, session):
+                @render.data_frame
+                def penguins_df():
+                    data = penguins.head(input.n())
+                    return render.DataGrid(data, width = "300px", height = "250px") #<<
+            
+            app = App(app_ui, server)
+        - title: Customize Summary Statement
+          height: "350px"
+          description: Set `summary` in `render.DataGrid()` to `False` to remove the statement “Viewing rows 1 through 10 of 20”. Set it to a string template containing `{start}`, `{end}`, and `{total}` tokens, to customize the message.  
+          preview: https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6lBXDo3hcYcIGkbg7dtXqRTAC8svLKfoIiABQAlD7Q6EqCQUyCWFA8cEo0bIIKkdpMhSkCGEKofGRKEHycAoT5kJr4TE0AcjUARo5MxDS2xADuomTETAoCwqhsUNhNNgBMAAzReAVFqcQV5ZUKUGRQWXSwcA3hGkoKNE2xEDfaDn0udABujpFlFTabZNvOru6kaKINaFAAC322IKYoLsEAcdAwu32h2OUIeLF4EWEFxoMWBECKhLGeygyTOIgwBjgineEG2GAgMRuRKKdjIfDoBNh8IwABESQBxOgCPJQlmFJFQGxi8XCGowKB0EzBJoANQE9lGNAE01EIGE+2kAF8mKSQPYTQ4mCARvs2EamjLCnd4qhklZUJE0KhEgI-i9HNEwEaALpAA
+          code: |
+            from palmerpenguins import load_penguins
+            from shiny import App, render, session, ui
+            
+            penguins = load_penguins()
+            
+            app_ui = ui.page_fluid(
+                ui.input_numeric("n", "Number of rows to display", 20),
+                ui.output_data_frame("penguins_df")
+            )
+            
+            def server(input, output, session):
+                @render.data_frame
+                def penguins_df():
+                    data = penguins.head(input.n())
+                    return render.DataGrid(
+                        data, 
+                        summary = "Viendo filas {start} a {end} de {total}" #<<
+                    )
+            
+            app = App(app_ui, server)
+
+---
+
+:::{#component}
+:::
+
+## Details
+
+A Data Grid presents tabular data in a spreadsheet-like view with cells separated by grid lines.
+
+To make a reactive Data Grid, follow three steps:
+  
+  1. Call `ui.output_data_frame()` in the UI of your app to create a div in which to display the table. Where you call this function within the UI functions will determine where the table will appear within the layout of the app. Set the id argument of `ui.output_data_frame()` to a unique value.
+
+  2. Within the server function, define a new function whose name matches the id used above. The function should assemble the table to display and then return the table wrapped in `render.DataGrid()`. Shiny will rerun this function whenever it needs to build or update the output that has the matching id.
+
+  3. Decorate the function with `@render.data_frame`
+
+A Data Grid can also collect input from the user. To allow this, set `render.DataGrid(row_selection_mode="single")` or `render.DataGrid(row_selection_mode="multiple")` to allow the user to select one or more rows of the Data Grid. 
+
+The indices of the selected rows will be accessible within the server function as a reactive variable returned by `input.<id>_selected_rows()`, where <id> is the id of the `ui.output_data_frame()` associated with the table.
+
+The value returned will be `None` if no rows are selected, or a tuple of integers representing the indices of the selected rows. To filter a pandas data frame down to the selected rows, use `df.iloc[list(input.<id>_selected_rows())]`.
+
+If your table is a data frame that uses the pandas styler, replace `ui.output_data_frame()` with `ui.output_table()` and `@render.data_frame` with `@render.table`.
+
+See also: [DataTables](datatable.qmd)
+
+:::{#variations}
+:::

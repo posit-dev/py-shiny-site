@@ -1,0 +1,147 @@
+---
+title: HTML page layouts
+---
+
+This section will discuss how to customize the overall layout and appearance of shiny apps.
+
+## Common structure
+
+The code below show a common setup for shiny apps---a page with a sidebar and main panel---
+along with a graph of how the pieces get laid out on a webpage.
+
+```{.python}
+app_ui = ui.page_fluid(
+    ui.panel_title(),
+    ui.layout_sidebar(
+        ui.panel_sidebar(
+            ...
+        ),
+        ui.panel_main(
+            ...
+        ),
+    ),
+)
+```
+
+::: {.column-margin}
+
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="361px" viewBox="-0.5 -0.5 361 271" style="max-width:100%;max-height:271px;"><defs/><g><rect x="0" y="30" width="360" height="240" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/><rect x="10" y="0" width="80" height="30" fill="none" stroke="none" pointer-events="all"/><g transform="translate(-0.5 -0.5)"><switch><foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 78px; height: 1px; padding-top: 15px; margin-left: 11px;"><div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;"><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;"><font style="font-size: 16px;">page_fluid()</font></div></div></div></foreignObject><text x="50" y="19" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px" text-anchor="middle">page_fluid()</text></switch></g><rect x="10" y="40" width="340" height="40" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/><g transform="translate(-0.5 -0.5)"><switch><foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe flex-start; width: 338px; height: 1px; padding-top: 60px; margin-left: 12px;"><div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: left;"><div style="display: inline-block; font-size: 18px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;"><font style="font-size: 16px;">  panel_title()</font></div></div></div></foreignObject><text x="12" y="65" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="18px">  panel_title()</text></switch></g><rect x="10" y="90" width="340" height="170" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/><rect x="49" y="90" width="60" height="30" fill="none" stroke="none" pointer-events="all"/><g transform="translate(-0.5 -0.5)"><switch><foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 58px; height: 1px; padding-top: 105px; margin-left: 50px;"><div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;"><div style="display: inline-block; font-size: 18px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;"><font style="font-size: 16px;">layout_sidebar()</font></div></div></div></foreignObject><text x="79" y="110" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="18px" text-anchor="middle">layout_...</text></switch></g><rect x="23" y="130" width="127" height="120" fill="#f5f5f5" stroke="#666666" pointer-events="all"/><rect x="58" y="130" width="60" height="30" fill="none" stroke="none" pointer-events="all"/><g transform="translate(-0.5 -0.5)"><switch><foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 58px; height: 1px; padding-top: 145px; margin-left: 59px;"><div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;"><div style="display: inline-block; font-size: 18px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;"><font style="font-size: 16px;">panel_sidebar()</font></div></div></div></foreignObject><text x="88" y="150" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="18px" text-anchor="middle">panel_s...</text></switch></g><rect x="160" y="130" width="180" height="120" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/><rect x="184" y="130" width="60" height="30" fill="none" stroke="none" pointer-events="all"/><g transform="translate(-0.5 -0.5)"><switch><foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 58px; height: 1px; padding-top: 145px; margin-left: 185px;"><div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;"><div style="display: inline-block; font-size: 18px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;"><font style="font-size: 16px;">panel_main()</font></div></div></div></foreignObject><text x="214" y="150" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="18px" text-anchor="middle">panel_m...</text></switch></g></g><switch><g requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"/><a transform="translate(0,-5)" xlink:href="https://www.diagrams.net/doc/faq/svg-export-text-problems" target="_blank"><text text-anchor="middle" font-size="10px" x="50%" y="100%">Text is not SVG - cannot display</text></a></switch></svg>
+
+:::
+
+Notice that the first piece of each function name gives a hint about what it does:
+
+* **`page_*`** is the outermost piece. `page_fluid` means it will expand to fill the full width of the browser window, rather than stopping at a certain width.
+* **`layout_*`** positions the pieces inside it (e.g. put them side-by-side).
+* **`panel_*`** is used for a range of common pieces used in shiny apps.
+
+Shiny applications often use `page_fluid()`, so we'll focuses on other aspects
+of laying out pages, before discussing choosing between `page_*` functions at the end.
+
+## Page with sidebar
+
+A common approach for shiny applications is to put inputs in a sidebar, and then
+output content on the main section of the page.
+
+This is shown in the application below.
+
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 600
+
+from shiny import App, render, ui
+import matplotlib.pyplot as plt
+import numpy as np
+
+app_ui = ui.page_fluid(
+    ui.panel_title("Simulate a normal distribution"),
+
+    ui.layout_sidebar(
+
+      ui.panel_sidebar(
+        ui.input_slider("n", "Sample size", 0, 1000, 250),
+        ui.input_numeric("mean", "Mean", 0),
+        ui.input_numeric("std_dev", "Standard deviation", 1),
+        ui.input_slider("n_bins", "Number of bins", 0, 100, 20),
+      ),
+
+      ui.panel_main(
+        ui.output_plot("plot")
+      ),
+    ),
+)
+
+
+def server(input, output, session):
+
+    @output
+    @render.plot(alt="A histogram")
+    def plot() -> object:
+        x = np.random.normal(input.mean(), input.std_dev(), input.n())
+
+        fig, ax = plt.subplots()
+        ax.hist(x, input.n_bins(), density=True)
+        return fig
+
+
+app = App(app_ui, server)
+
+```
+
+Note that if the browser window is narrow, the sidebar will be shown on top of the main panel.
+
+
+
+## Adding rows and columns
+
+In addition to defining big pieces---like a sidebar---it's quick to add rows and columns to your content.
+You can set pieces side-by-side, while controlling the width of each piece,
+while ensuring it adapts well to narrow screens (e.g. mobile devices).
+
+This is shown in the app below, which has two rows and columns of different widths.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 200
+
+from shiny import App, ui
+import matplotlib.pyplot as plt
+import numpy as np
+
+style="border: 1px solid #999;"
+
+app_ui = ui.page_fluid(
+    ui.row(
+        ui.column(4, "row-1 col-1", style=style),
+        ui.column(8, "row-1 col-2", style=style),
+    ),
+    ui.row(
+        ui.column(6, "row-2 col-1", style=style),
+        ui.column(6, "row-2 col-2", style=style),
+    ),
+)
+
+
+app = App(app_ui, None)
+```
+
+Notice that we first define rows, then columns inside them.
+Importantly, the first parameter to `ui.column()` is how wide (relative to others in the row) each column should be.
+Rows are defined as 12 units wide.
+
+## Choosing a page function
+
+While `page_fluid()` is the most common page function used, below is a description of the different page function options.
+
+| name | description |
+| ---- | ----------- |
+| `page_fluid()` | Continuously expand width to fit the screen. |
+| `page_fixed()` | Expand width at certain pre-defined breakpoints. (E.g. when shifting from "small" to "medium" width.) |
+| `page_nav()` | Create a page with a top navigation bar. Note that navigation is discussed in detail in the next section. |
+| `page_bootstrap()` | A basic page that makes sure bootstrap is loaded. Customization is left to the user. |
+

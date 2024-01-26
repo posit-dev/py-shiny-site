@@ -1,0 +1,214 @@
+---
+title: Tabs and navigation
+---
+
+Tabs and navigation allow you to produce apps that have multiple pages.
+
+## Common structure
+
+Here is a simple example of an application with two tabs, which users can toggle between.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny import App, ui
+
+app_ui = ui.page_fluid(
+    # style ----
+    ui.navset_tab(
+        # elements ----
+        ui.nav("a", "tab a content"),
+        ui.nav("b", "tab b content"),
+    )
+)
+
+
+app = App(app_ui, None)
+```
+
+Navigation consist of two parts:
+
+* a `navset_*()` style container that determines what the navigation will look like.
+* `nav_*()` elements that create different pieces of content.
+
+The example above only shows a single nav element, `nav()`, which creates a new tab.
+However, other elements exist to control tab spacing, and create dropdown menus.
+
+On this page, we'll look first at options for navigation styles, and then at the different
+navigation elements available.
+
+See these docs/examples:
+
+* [api reference for ui.nav](/api/reference/shiny.ui.nav.html#shiny.ui.nav)
+
+## Navigation styles
+
+Here are examples of the different ways you can style tabs and navigation.
+Note that changing style is a matter of swapping out `ui.navset_*()` functions.
+For example, changing `ui.navset_tab()` to `ui.navset_tab_card()`.
+
+### Tabs
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny import App, ui
+
+app_ui = ui.page_fluid(
+    ui.navset_tab(
+        ui.nav("a", "tab a content"),
+        ui.nav("b", "tab b content"),
+    )
+)
+
+app = App(app_ui, None)
+```
+
+### Pills
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny import App, ui
+
+app_ui = ui.page_fluid(
+    ui.navset_pill(
+        ui.nav("a", "tab a content"),
+        ui.nav("b", "tab b content"),
+    )
+)
+
+app = App(app_ui, None)
+```
+
+### Cards
+
+Both tabs and pills can be turned into cards.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny import App, ui
+
+app_ui = ui.page_fluid(
+    ui.navset_tab_card(
+        ui.nav("a", "tab a content"),
+        ui.nav("b", "tab b content"),
+    )
+)
+
+app = App(app_ui, None)
+```
+
+
+### Lists
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny import App, ui
+
+app_ui = ui.page_fluid(
+    ui.navset_pill_list(
+        ui.nav("a", "tab a content"),
+        ui.nav("b", "tab b content"),
+    )
+)
+
+app = App(app_ui, None)
+```
+
+## Navigation elements
+
+Navigation elements are the pieces that define navigation bar content, such as the tabs themselves,
+spacers to separate left-hand from right-hand side tabs, and dropdown menus.
+
+### Spacing and external links
+
+Use `ui.nav_spacer()` to create a gap between tabs, and `ui.nav_control()` to create a tab
+that doesn't have content associated with it (e.g. an external link on the nav bar).
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny import App, ui
+
+app_ui = ui.page_fluid(
+    ui.navset_tab_card(
+        # left hand side ----
+        ui.nav("c", "tab c content"),
+        ui.nav_control(
+            ui.a("RStudio", href="https://rstudio.com", target="_blank")
+        ),
+
+        # create gap ----
+        ui.nav_spacer(),
+
+        # right hand side ----
+        ui.nav_control(
+            ui.a("Python", href="https://python.org", target="_blank")
+        ),
+    ),
+)
+
+app = App(app_ui, None)
+
+```
+
+### Menus
+
+Use `ui.nav_menu()` to create a dropdown menu on the navbar. Note that you can put other
+nav elements, such as `ui.nav_control()` in the menu. Use `"---"` to create a horizontal line.
+This is useful for grouping items in a menu together.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny import App, ui
+
+app_ui = ui.page_fluid(
+    ui.navset_tab_card(
+       ui.nav("a", "tab a content"),
+       ui.nav_menu(
+           "Other links",
+
+           # body of menu
+           ui.nav("b", "tab b content"),
+           "Plain text",
+
+           # create a horizontal line
+           "----",
+
+           "More text",
+           align="right",
+       ),
+  )
+)
+
+app = App(app_ui, None)
+
+```
+
+Note that clicking into the menu ("Other links"), and then clicking the nav "b", will change the content.
+

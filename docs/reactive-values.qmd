@@ -1,0 +1,66 @@
+---
+title: Reactive values
+---
+
+### Reactive Values
+
+A `reactive.Value` is an object that cause reactive functions to re-execute when their value changes. For example, the user inputs to a Shiny application (like `input.x`) are `reactive.Value` objects.
+
+In the example below, the reactive value `input.x()` is used in an output; when it changes, it causes the output function to re-execute.
+
+```python
+@output
+@render.text
+def txt():
+    return str(input.x())
+```
+
+But input values are not the only `reactive.Value` objects one can use in an application. `reactive.Value`s can also be created explicitly, like so:
+
+```python
+# Create a reactive value with a starting value of "Hello"
+x = reactive.Value("Hello")
+```
+
+With this reactive value, you can access its value with `x()` (or equivalently, `x.get()`, if you want to be more explicit). You can set its value with `x.set(<value>)`.
+
+:::{.callout-note}
+Although the inputs for a Shiny application are `reactive.Value`s, they are read-only. If you call `input.x.set(1)`, it will throw an error. Input values can only be set by interacting with the application in the client web browser.
+:::
+
+Reactive values are useful when you want to do more sophisticated things with reactivity. Here's an example. In this application, there is a button; when it's clicked it causes a reactive value `x` to toggle between `True` and `False`.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+
+from shiny import App, reactive, render, ui
+
+app_ui = ui.page_fluid(
+    ui.input_action_button("toggle", "Toggle value"),
+    ui.output_text_verbatim("txt"),
+)
+
+def server(input, output, session):
+    x = reactive.Value(True)
+
+    @reactive.Effect
+    @reactive.event(input.toggle)
+    def _():
+        x.set(not x())
+
+    @output
+    @render.text
+    def txt():
+        return str(x())
+
+app = App(app_ui, server)
+
+```
+
+Notice that we used some of the other reactive components that we discussed previously: there is a `reactive.Effect` that's used to change `x`'s value, with the call to `x.set()`.
+
+That function also uses the `@reactive.event()` decorator so that it runs only when the `input.toggle` button is pressed. If we didn't do that, then the `reactive.Effect` would re-execute whenever `x()` changed --- but since it is itself changing `x()`, it would trigger itself, resulting in an infinite loop. The `@reactive.event(input.toggle)` therefore does two things for us: it prevents the infinite loop, and it makes sure that the function executes only when the `input.toggle` button is pressed.
+
+

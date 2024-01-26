@@ -1,0 +1,234 @@
+---
+title: Overview
+editor:
+  markdown:
+    wrap: sentence
+---
+
+Shiny makes it easy to build web applications with Python code.
+It enables you to customize the layout and style of your application and dynamically respond to events, such as a button press, or dropdown selection.
+The examples on this site are rendered in the browser using [Pyodide](shinylive.qmd), but you can also [install shiny](install.qmd) to use it with your own projects.
+
+If you have experience with the [Shiny for R](https://shiny.posit.co/r/articles/), we recommend starting with the [quickstart](comp-r-shiny.qmd) to learn the main differences between Shiny for R and Shiny for Python.
+
+Shiny applications consist of two parts: the **user interface** (or **UI**), and the **server** function.
+These are combined using a `shiny.App` object.
+
+This is shown in the interactive example below.
+
+::: column-page-inset-right
+``` {shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+
+from shiny import App, ui
+
+# Part 1: ui ----
+app_ui = ui.page_fluid(
+    "Hello, world!",
+)
+
+# Part 2: server ----
+def server(input, output, session):
+    ...
+
+# Combine into a shiny app.
+# Note that the variable must be "app".
+app = App(app_ui, server)
+
+```
+:::
+
+Notice how the UI part defines what visitors will see on their web page.
+Right now this is just the static text "Hello, world!".
+The dynamic parts of our app happen inside the server function, which is currently empty.
+
+::: {.callout-note .margin-note}
+You can modify the example code, and then re-run it by pressing the play button on the top-right of the code pane.
+
+Try changing the page text to `"Hello, Shiny world!"` and re-running the application.
+:::
+
+In the next sections we'll modify the UI and server to take input from a user, and display some calculations!
+
+## Adding UI inputs and outputs
+
+The first step toward basic interactivity is to add inputs and outputs to the UI.
+
+::: column-page-inset-right
+``` {shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+
+from shiny import App, ui
+
+app_ui = ui.page_fluid(
+    ui.input_slider("n", "Choose a number n:", 0, 100, 40),
+    ui.output_text_verbatim("txt")
+)
+
+def server(input, output, session):
+    ...
+
+app = App(app_ui, server)
+```
+:::
+
+Note the two new UI pieces added:
+
+-   `input_slider()` creates a slider.
+-   `output_text_verbatim()` creates a field to display dynamically generated text. There's no text yet, but we'll add it next.
+
+## Adding server logic
+
+Now we can add to the server function.
+Inside of the server function, we'll define an output function named `txt`.
+This output function provides the content for the `output_text_verbatim("txt")` in the UI.
+
+Try moving the slider below to see the text output automatically change.
+
+::: column-page-inset-right
+``` {shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+
+from shiny import ui, render, App
+
+app_ui = ui.page_fluid(
+    ui.input_slider("n", "N", 0, 100, 40),
+    ui.output_text_verbatim("txt"),
+)
+
+def server(input, output, session):
+    @output
+    @render.text
+    def txt():
+        return f"n*2 is {input.n() * 2}"
+
+# This is a shiny.App object. It must be named `app`.
+app = App(app_ui, server)
+```
+:::
+
+Note that inside of the server function, we do the following:
+
+-   define a function named `txt`, whose output shows up in the UI's `output_text_verbatim("txt")`.
+-   decorate it with `@render.text`, to say the result is text (and not, e.g., an image).
+-   decorate it with `@output`, to say the result should be displayed on the web page.
+
+(Soon we'll see other kinds of `render.*` decorators, like `render.plot`.)
+
+Finally, notice our `txt()` function takes the value of our slider `n`, and returns its valued multiplied by 2.
+To access the value of the slider, we use `input.n()`.
+Notice that this is a callable object (like a function) that must be invoked to get the value.
+
+This reactive flow of data from UI inputs, to server code, and back out to UI outputs is fundamental to how Shiny works.
+
+## Reactive flow
+
+When you moved the slider in the app above, a series of actions were kicked off, resulting in the output on the screen changing.
+This is called reactivity.
+
+The diagram below shows how the updated input flows through a Shiny application.
+
+![Reactive flow of code through a Shiny application](assets/reactive-flow.svg)
+
+Inputs, like our slider `n`, are reactive values: when they change, they automatically cause any the reactive functions that use them (like `txt()`) to recalculate.
+
+## Laying out your UI
+
+So far, our UI has consisted of input and output components.
+Shiny also has layout components that can contain other components and visually arrange them.
+Examples of these are sidebar layouts, tab navigation, and cards.
+
+To show this in action, we'll use a common layout strategy for simple Shiny apps, and put input controls in a narrow sidebar on the left.
+In the following code, we use the function [`ui.layout_sidebar()`](../api/reference/shiny.ui.layout_sidebar.html) to separate the page into two panels.
+This function takes two arguments: a [`ui.panel_sidebar`](../api/reference/shiny.ui.panel_sidebar.html) and a [`ui.panel_main`](../api/reference/shiny.ui.panel_main.html), which each can contain whatever components you want to display on the left and right, respectively.
+
+::: column-page-right
+``` {shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 550
+
+import matplotlib.pyplot as plt
+import numpy as np
+from shiny import ui, render, App
+
+# Create some random data
+t = np.linspace(0, 2 * np.pi, 1024)
+data2d = np.sin(t)[:, np.newaxis] * np.cos(t)[np.newaxis, :]
+
+app_ui = ui.page_fixed(
+    ui.h2("Playing with colormaps"),
+    ui.markdown("""
+        This app is based on a [Matplotlib example][0] that displays 2D data
+        with a user-adjustable colormap. We use a range slider to set the data
+        range that is covered by the colormap.
+
+        [0]: https://matplotlib.org/3.5.3/gallery/userdemo/colormap_interactive_adjustment.html
+    """),
+    ui.layout_sidebar(
+        ui.panel_sidebar(
+            ui.input_radio_buttons("cmap", "Colormap type",
+                dict(viridis="Perceptual", gist_heat="Sequential", RdYlBu="Diverging")
+            ),
+            ui.input_slider("range", "Color range", -1, 1, value=(-1, 1), step=0.05),
+        ),
+        ui.panel_main(
+            ui.output_plot("plot")
+        )
+    )
+)
+
+def server(input, output, session):
+    @output
+    @render.plot
+    def plot():
+        fig, ax = plt.subplots()
+        im = ax.imshow(data2d, cmap=input.cmap(), vmin=input.range()[0], vmax=input.range()[1])
+        fig.colorbar(im, ax=ax)
+        return fig
+
+
+app = App(app_ui, server)
+```
+:::
+
+Notice how Shiny uses nested function calls to indicate parent/child relationships.
+In this example, `ui.input_radio_buttons()` is inside of `ui.panel_sidebar()`, and `ui.panel_sidebar()` is in `ui.layout_sidebar()`, and so on.
+
+This example also includes some explanatory text written in a [Markdown](https://en.wikipedia.org/wiki/Markdown) string literal, and uses the [`ui.markdown()`](../api/reference/shiny.ui.markdown.html) function to render it to HTML.
+
+## Shiny UI is HTML
+
+It's worth noting at this point that Shiny UI is entirely made up of HTML.
+Each of the nested function calls in the previous section returns a snippet of HTML.
+
+It's not important that you know HTML to make good use of Shiny, but if you do know HTML, this fact may be helpful in forming a mental model for how Shiny UI works.
+
+``` {shinylive-python}
+#| components: [editor, cell]
+from shiny import ui
+
+ui.input_numeric("n", "N", 0)
+```
+
+Adding a `ui.panel_sidebar` call around `ui.input_numeric` simply wraps the control with additional HTML (a `<div>` and `<form>`, in this case).
+The nesting of the generated HTML matches the nesting of the Python function calls in your UI.
+
+``` {shinylive-python}
+#| components: [editor, cell]
+ui.panel_sidebar(
+    ui.input_numeric("n", "N", 0)
+)
+```
+
+## Next Steps
+
+In the following sections we'll look more deeply into the **UI**, and then **server logic**.
+Then, we'll **put everything together** using three example apps.
+While these three applications are useful on their own, we'll look next at ways we could improve them using more advanced **reactive programming** concepts.
+
+Finally, we'll cover the best ways to **run and debug** Shiny applications.
