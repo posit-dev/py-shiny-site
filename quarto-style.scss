@@ -1709,7 +1709,8 @@ btn.action-button:hover {
 	}
 
 	> .tab-content {
-		padding-top: 0;
+		padding: 0;
+    border: none;
 		.sourceCode {
 			border-start-start-radius: 0;
 			border-start-end-radius: 0;

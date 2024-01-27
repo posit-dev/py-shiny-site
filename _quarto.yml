@@ -64,7 +64,7 @@ website:
     search: true
     left:
       - text: "Learn Shiny"
-        file: docs/quick-start.qmd
+        file: docs/overview.qmd
       - text: "Components"
         menu:
           - text: "Components"
@@ -210,26 +210,26 @@ website:
       collapse-level: 2
       align: left
       contents:
-        - section: "Get Started"
+        - section: "Essentials"
           contents:
-            - docs/quick-start.qmd
-            - docs/dashboards.qmd
-            - docs/jupyter-widgets.qmd
+            - docs/overview.qmd
+            - docs/user-interfaces.qmd
         - section: "Workflow"
           contents:
             - docs/install-create-run.qmd
             - docs/debug.qmd
+        - section: "User interfaces"
+          contents:
+            - docs/ui-overview.qmd
+            - docs/jupyter-widgets.qmd
+            - docs/ui-dynamic.qmd
+            - docs/ui-html.qmd
+            - docs/ui-customize.qmd
         - section: "Reactivity"
           contents:
             - docs/reactive-foundations.qmd
             - docs/reactive-patterns.qmd
             - docs/reactive-mutable.qmd
-        - section: "User interfaces"
-          contents:
-            - docs/ui-components.qmd
-            - docs/ui-dynamic.qmd
-            - docs/ui-html.qmd
-            - docs/ui-customize.qmd
         - section: "Express vs Core"
           contents:
             - docs/express-introduction.qmd

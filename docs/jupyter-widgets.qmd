@@ -42,7 +42,7 @@ pip install altair bokeh plotly pydeck ipyleaflet
 
 To render an ipywidget you first define a reactive function that returns the widget and then decorate it with `@render_widget`. Some popular widgets like `altair` have specially-designed decorators for better ergonomics and we recommend using them if they exist.
 
-<!-- Note: this is copy/pasted from quick-start.qmd -->
+<!-- Note: this is copy/pasted from overview.qmd -->
 
 ::: {.panel-tabset .panel-pills .border-0 .p-0 .justify-content-center}
 
@@ -52,7 +52,7 @@ To render an ipywidget you first define a reactive function that returns the wid
 #| standalone: true
 #| components: [editor, viewer]
 #| layout: vertical
-#| viewerHeight: 480
+#| viewerHeight: 485
 
 from shiny.express import input, ui
 from shinywidgets import render_altair
@@ -91,7 +91,7 @@ import toolz
 #| standalone: true
 #| components: [editor, viewer]
 #| layout: vertical
-#| viewerHeight: 480
+#| viewerHeight: 485
 
 from shiny.express import input, ui
 from shinywidgets import render_bokeh
@@ -127,7 +127,7 @@ xyzservices
 #| standalone: true
 #| components: [editor, viewer]
 #| layout: vertical
-#| viewerHeight: 480
+#| viewerHeight: 485
 
 from shiny.express import input, ui
 from shinywidgets import render_plotly
@@ -155,7 +155,7 @@ plotly
 #| standalone: true
 #| components: [editor, viewer]
 #| layout: vertical
-#| viewerHeight: 480
+#| viewerHeight: 485
 
 import pydeck as pdk
 import shiny.express

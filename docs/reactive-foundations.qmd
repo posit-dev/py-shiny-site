@@ -11,7 +11,7 @@ aliases:
 At the heart of Shiny is a reactive programming framework.
 We often refer to this framework as "good magic" because it's easy to get started with, but also decomposes into simple pieces which combine in powerful ways.
 
-The [Quick Start](quick-start.qmd) introduced the most common form of reactivity: changes in `input` causing relevant `render` functions to re-execute (aka **invalidate**).
+The [Quick Start](overview.qmd) introduced the most common form of reactivity: changes in `input` causing relevant `render` functions to re-execute (aka **invalidate**).
 For a refresher, here's a basic example that displays a slider's value as formatted text.
 
 ```{shinylive-python}

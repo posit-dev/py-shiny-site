@@ -109,7 +109,7 @@ Shiny Core enforces decoupling of UI and server in a similar way.
 ## Implicit UI
 
 In [decoupling](#decoupling), we first saw how decoupling server from UI logic requires a `ui.output_*()` container element connect the two.
-Power users will find that having explicit control over these containers gives them more control over those component styling (since [UI is HTML](ui-components.qmd), HTML/CSS can be used to customise the component containers).
+Power users will find that having explicit control over these containers gives them more control over those component styling (since [UI is HTML](ui-html.qmd), HTML/CSS can be used to customise the component containers).
 
 Express has one other important place where an implicit UI container is used: the overall page layout.
 This is often convenient, since Express can infer a sensible layout based on the top-level UI components, but it can also be limiting to not have explicit control over the page layout.

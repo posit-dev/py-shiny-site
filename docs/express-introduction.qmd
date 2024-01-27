@@ -8,7 +8,7 @@ editor:
 Up until now, these docs have focused on Shiny _Express_, which compared to Shiny _Core_, offers a simpler way to learn and write basic apps.
 The simplicity that Express offers, however, can come at the cost of reduced flexibility and maintainability.
 In other words, Express is quicker to get started with, but can eventually lead to code that's  more difficult for others (or your future self) to read, maintain, and extend.
-Fortunately, it's straightforward to [transition](express-to-core.qmd) from Express to Core since many of the foundations (i.e., [components](ui-components.qmd), [reactivity](reactive-foundations.qmd), etc.) are the same.
+Fortunately, it's straightforward to [transition](express-to-core.qmd) from Express to Core since many of the foundations (i.e., [components](ui-overview.qmd), [reactivity](reactive-foundations.qmd), etc.) are the same.
 
 Compared to Express, Core enforces a more structured approach that requires more initial effort to use.
 However, we believe that investment pays off on projects where increased flexibility and maintainability are important.
