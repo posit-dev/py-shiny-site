@@ -5,8 +5,18 @@ editor:
     wrap: sentence
 ---
 
-This article digs into some more advanced topics in Shiny Express.
+This article digs into some more challenging aspects of Shiny Express.
 It also highlights how some of these topics are less of a concern in Shiny Core.
+
+One of Shiny Core's principles is that it is built on top of **sturdy abstractions**.
+There may be some learning to do as you get started, but once you understand the foundations, you'll be able to predict how things will work in the future.
+We'll talk more about these principles in the [next article](express-or-core.qmd).
+
+On the other hand, in order to achieve that ease of use, Express goes to much greater lengths to hide the underlying abstractions.
+For advanecd usage, this can make it more difficult to understand what's going on behind the scenes.
+
+This article calls out some of the places where Express's abstractions start to leak.
+Where possible, we've added utilities and techniques to deal with these issues.
 
 ## Holding
 
