@@ -18,7 +18,7 @@ If you're reading this, we expect that you are an existing R Shiny user with som
 ::: callout-tip
 ### Shiny Express
 
-Shiny [express](express-introduction.qmd) is a new, more expressive, way to build PyShiny apps. It is not available in R, so the comparisons drawn below are only relevant to core (i.e., non-express) apps.
+Shiny [express](express-vs-core.qmd) is a new, more expressive, way to build PyShiny apps. It is not available in R, so the comparisons drawn below are only relevant to core (i.e., non-express) apps.
 :::
 
 # Getting started

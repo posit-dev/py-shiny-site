@@ -224,7 +224,7 @@ app = App(app_ui, None, static_assets=app_dir / "www")
 ```
 
 ::: callout-note
-Serving local files is currently only supported with [Shiny Core](express-introduction.qmd) (i.e., it doesn't yet work with Express).
+Serving local files is currently only supported with [Shiny Core](express-vs-core.qmd) (i.e., it doesn't yet work with Express).
 :::
 
 

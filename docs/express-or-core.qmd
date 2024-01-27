@@ -1,0 +1,59 @@
+---
+title: Choosing a syntax
+editor:
+  markdown:
+    wrap: sentence
+---
+
+Now that you are familiar with [the differences between Shiny Express and Shiny Core](express-vs-core.qmd), you might be wondering how to choose between them.
+
+In this article, we'll suggest some guidelines, but it's important to note that there are not many hard and fast rules.
+There is a lot of overlap between the capabilities of the two syntaxes, and it may come down to whatever you find most comfortable.
+
+Shiny Express is designed to get you up and running as quickly as possible.
+It's also designed to let you author your app with a minimum of boilerplate.
+As a result, it really shines in the early stages of both the learning journey and the lifecycle of an app.
+Compared to Express, Core enforces a more structured approach that requires more initial effort to use.
+However, that investment has its own payoff.
+
+The bulk of the rest of this article will focus on the advantages of Shiny Core.
+This isn't because we think it's better, but because Shiny Express's advantages---being more approachable and more concise---are fairly self-evident, while Shiny Core's advantages are more subtle.
+
+## More maintainable
+
+The most important difference between the two syntaxes is that Express allows you to intermingle UI and server code, while Core requires you to separate them.
+This can feel inconvenient while adding features to your app, as each new output requires you to jump between two different sections of the app file.
+
+But for larger and longer-lived apps, this separation of concerns becomes a considerable advantage.
+It is much easier to add, remove, or relocate pieces of your UI when all of its code is in one place, with no server code to confuse things.
+
+Take a look at the following application, written both ways:
+
+TODO
+
+
+1. **Decoupling of UI and server**. Decoupling forces you to separate concerns in such a way that it's easier refactor and reason about a large amount of code.
+2. **Functional programming**. Express encourages a more imperative (less functional) style, which can be easier to write, but also harder to read. This is especially true when you need to create [reusable extractions](express-in-depth.qmd##expressify).
+3. **More explicit UI**. Express has magical defaults that make things simpler, but can also mask what's actually going on behind-the-scenes, and offers less opportunities to customize behavior.
+
+The next article illustrates how these downsides can be mitigated to some extent in Express with some advanced tooling.
+However, if you feel yourself reaching for these tools, it might be time to switch to Core.
+If you're already convinced that Shiny Core is right for your app, feel free to skip ahead to the [transitioning](express-to-core.qmd) article.
+
+## Increased functionality
+
+At this time, Shiny Core's functionality is a superset of Express, meaning that anything you can do in Express, you can also do in Core.
+The reverse is not true, however.
+
+Most importantly, [Shiny Modules](modules.qmd) are supported in Shiny Core but not (yet) in Shiny Express. Shiny Modules are extremely useful for organizing large apps into smaller, more manageable pieces, and are also a mechanism for reusing Shiny application logic.
+
+Shiny Core also has `ui.insert_ui` and `ui.remove_ui`
+
+:::
+
+::: callout-note
+### Shiny Core is more mature
+
+Shiny Express is still relatively new, and is still being actively developed.
+As such, you can expect the Express experience to keep improving over time.
+:::
