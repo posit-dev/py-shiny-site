@@ -50,7 +50,7 @@ This example demonstrates the basic mechanics behind Shiny apps:
 * Outputs are created by decorating a function with `@render.*`.
     * Inside a `render` function, `input` values can be read [reactively](#reactivity).
     * When those `input` values change, Shiny knows how to minimally re-render output.
-* This example happens to use `shiny.express` which, [compared to core Shiny](express-introduction.qmd), reduces the amount of code required.
+* This example happens to use `shiny.express` which, [compared to core Shiny](express-vs-core.qmd), reduces the amount of code required.
 
 ### Components {#components}
 

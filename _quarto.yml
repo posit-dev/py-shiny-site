@@ -237,9 +237,10 @@ website:
             - docs/reactive-foundations.qmd
             - docs/reactive-patterns.qmd
             - docs/reactive-mutable.qmd
-        - section: "Express vs Core"
+        - section: "Syntax modes"
           contents:
-            - docs/express-introduction.qmd
+            - docs/express-vs-core.qmd
+            - docs/express-or-core.qmd
             - docs/express-in-depth.qmd
             - docs/express-to-core.qmd
         - section: "Modules"

@@ -2,8 +2,8 @@
 
 This page outlines Shiny _Express_'s API reference.
 
-[Compared to Shiny Core](/docs/express-introduction.qmd), Shiny Express is a simpler way to learn and create basic apps, but it is less flexible and powerful.
+[Compared to Shiny Core](/docs/express-vs-core.qmd), Shiny Express is a simpler way to learn and create basic apps, but it is less flexible and powerful.
 
-For an introduction to Shiny, see the [Quick Start tutorial](/docs/quick-start.qmd).
+For an introduction to Shiny, see the [tutorial](/docs/overview.qmd).
 
 {{< include _api_index.qmd >}}
