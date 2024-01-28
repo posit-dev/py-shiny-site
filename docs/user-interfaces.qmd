@@ -233,7 +233,7 @@ with ui.popover(title="Popover title"):
 ```
 
 
-### Altogether now
+### All together now
 
 Let's put it all together to create a dashboard for exploring restaurant tipping data.
 
@@ -277,27 +277,27 @@ with ui.layout_columns(fill=False):
 
     with ui.value_box(showcase=ICONS["user"]):
         "Total tippers"
-        @render.ui
+        @render.express
         def total_tippers():
-            return tips_data().shape[0]
+            tips_data().shape[0]
 
     with ui.value_box(showcase=ICONS["wallet"]):
         "Average tip"
-        @render.ui
+        @render.express
         def average_tip():
             d = tips_data()
-            req(d.shape[0] > 0)
-            perc = d.tip / d.total_bill
-            return f"{perc.mean():.1%}"
+            if d.shape[0] > 0:
+                perc = d.tip / d.total_bill
+                f"{perc.mean():.1%}"
 
     with ui.value_box(showcase=ICONS["currency-dollar"]):
         "Average bill"
-        @render.ui
+        @render.express
         def average_bill():
             d = tips_data()
-            req(d.shape[0] > 0)
-            bill = d.total_bill.mean()
-            return f"${bill:.2f}"
+            if d.shape[0] > 0:
+                bill = d.total_bill.mean()
+                f"${bill:.2f}"
 
 
 with ui.layout_columns(col_widths=[6, 6, 12]):

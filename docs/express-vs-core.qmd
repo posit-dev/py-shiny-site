@@ -50,7 +50,7 @@ from shiny.express import input, render, ui
 ```
 
 Note that both import `ui` and `render`, but from different places.
-While Express has almost all of the same UI functions, their function signatures are often different to reflect Express's different usage patterns.
+While Express's `shiny.express.ui` has almost all of the same UI functions as Core's `shiny.ui`, their function signatures often differ slightly, to reflect Express's different usage patterns.
 And the `render` functions---well actually, they are identical right now, but we're planning to add some Express-specific features to the `shiny.express.render` versions in the near future.
 
 Meanwhile, the `reactive` module is unchanged between Core and Express, as the two modes share the same reactive foundations.
@@ -61,9 +61,7 @@ Since Express has no server function, we made it an attribute of `shiny.express`
 
 ### Organization of UI and server code
 
-#### Shiny Core separates UI and server code
-
-Every Shiny Core app file has a UI section, and a server section; the two are separate and distinct.
+**Every Shiny Core app file has a UI section, and a server section;** the two are separate and distinct.
 
 The UI section consists of a single (potentially very long and deeply nested) expression, stored as a variable named `app_ui` by convention.
 The object this produces is actually straight up HTML, which is sent to the browser when it first loads the app.
@@ -76,6 +74,7 @@ You can think of the UI section as a template, with `ui.output_xx()` calls as pl
 ```{shinylive-python}
 #| standalone: true
 #| components: [editor, viewer]
+#| layout: vertical
 # Core
 from shiny import ui, render, reactive, App
 from datetime import datetime
@@ -98,9 +97,8 @@ def server(input, output, session):
 app = App(app_ui, server)
 ```
 
-#### Shiny Express intermingles UI and server code
+**In Shiny Express, there isn't this hard distinction** between UI and server.
 
-In Shiny Express, there isn't this hard distinction between UI and server.
 Instead, everything coexists as top-level code in the app file: input components, layout directives, outputs (including their rendering logic), and reactive functions.
 
 Also, you aren't forced to combine your UI into a single complex object.
@@ -109,6 +107,7 @@ You can use multiple UI objects, and they will be combined together by the frame
 ```{shinylive-python}
 #| standalone: true
 #| components: [editor, viewer]
+#| layout: vertical
 # Express
 from shiny import ui, render, reactive, App
 import shiny.express
@@ -174,11 +173,9 @@ Here are some examples of non-container components:
 - [`ui.input_text()`](../components/inputs/text-box.qmd)
 - [`ui.output_plot()`](../components/outputs/plot-matplotlib.qmd)
 
-#### Shiny Core passes children as args
+**In Shiny Core, to put a component inside of a container, you nest the function calls,** like `ui.sidebar(ui.input_text())`.
 
-Shiny Core's UI components are found in the `shiny.ui` module.
-To put a component inside of a container, you nest the function calls, like `ui.sidebar(ui.input_text())`.
-
+::: {.column-page-right}
 ```{shinylive-python}
 #| standalone: true
 #| components: [editor, viewer]
@@ -189,6 +186,7 @@ from shiny import ui, render, App
 app_ui = ui.page_sidebar(
     ui.sidebar(
         ui.input_text("txt_in", "Type something here:"),
+        open="always",
     ),
     ui.card(
         ui.output_code("result"),
@@ -202,15 +200,12 @@ def server(input, output, session):
 
 app = App(app_ui, server)
 ```
+:::
 
-#### Shiny Express wraps children in a `with` block
-
-Shiny Express's UI components are found in the `shiny.express.ui` module.
-Almost all of the same functions are available, but they are used slightly differently.
-
-Container components like `ui.sidebar()` are _context managers_, and used via `with ui.sidebar()`.
+By contrast, **in Shiny Express, container components like `ui.sidebar()` are _context managers_**, and used via `with` statements.
 Their child components go within the `with` block.
 
+::: {.column-page-right}
 ```{shinylive-python}
 #| standalone: true
 #| components: [editor, viewer]
@@ -227,6 +222,7 @@ with ui.card():
     def result():
         return f"You entered '{input.txt_in()}'."
 ```
+:::
 
 ##### Core advantages
 
@@ -261,6 +257,6 @@ ui.div(
 )
 ```
 
-More complex component functions, such as `sidebar()` and `card()`, can only be used as context managers.
+More complex component functions, such as `ui.sidebar()` and `ui.card()`, can only be used as context managers in Shiny Express.
 
 :::
