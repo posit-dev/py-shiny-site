@@ -1,0 +1,84 @@
+---
+title: Map (ipyleaflet)
+sidebar: components
+preview: '<div class="px-3">
+
+  <img style="width: 100%;height:auto;max-height:130px;" src="/images/ipyleaflet.jpg">
+
+  </div>
+
+  '
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/outputs/map-ipyleaflet/
+  contents:
+  - title: Preview
+    file: app-core.py
+    height: 410
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZASzwBs4o6uK2Y6Ug34BZDMmQBiZAB5ZAHQiNmyAM4ALVhFxY4AD3QM4atQKEjkAV1ZKVLTdtwB3VgBMA5nApnWg4fzGEG5wDAD6rp7ekjLySko2WBoATAAUCmAAghBsnNy80eLoGQCU8RBKAAJBIeGRXvzScorBcHTIMBipJYhKkpLGFFYMOUWpxNRUDAC8qQCsAAxYAGzJc8kAnADsABxzOxtzWwCMREsAzAAs+wsbG+fL61eXJUQAXqTM0+clMc1KhFQFFw6AQKDAVH0FDAAF8ALpAA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZASzwBs4o6uK2Y6Ug34BZDMmQBiZAB5ZAHQiNmyAM4ALVhFwChI5AEFMRAK6slKlpu24A7qwAmAczgU1e4f1KmK6XwD6Di5uRAzUjnAMQU6u-NJyihBKGOgB5sgAvMjmOFCuAbzmjgAUPn6BwXElCmAwGLUAlI2SMvJKHRCRdOpRAG5RJdr+FETlI0RqcGpqrOSNiEqSkgAC4V1RMSHxbUnLyN3I9eglC0v7y+EUpgwQyOInxNRUDJklAKwADFgAbABM7z+AE4AOwADneYKB7xBAEYiN8AMwAFkhnyBQMRP0BKORjSIAC9SMxMoiWgl2skqakskZMCVUulWJN+lFGkpCKgKLh0AgUGAqAAPChgAC+AF0gA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  template-params:
+    dir: components/outputs/map-ipyleaflet/
+  contents:
+  - title: shinywidgets.output_widget
+    href: map-ipyleaflet.html#details
+    signature: null
+  - title: shinywidgets.register_widget
+    href: map-ipyleaflet.html#details
+    signature: null
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/outputs/map-ipyleaflet/
+  contents:
+  - title: GeoJSON and Markers
+    description: Read in country boundaries from a GeoJSON file and add markers to
+      the map.
+    apps:
+    - title: Preview
+      file: app-variation-geojson-and-markers-preview.py
+      height: 300
+    - title: Express
+      file: app-variation-geojson-and-markers-express.py
+      resources:
+      - europe_110.geo.json
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQGJk4APWdAGzmSggBNkeoFKMgBmAJ1IxEAHQgMAFhQroAzogD06gJZ4OUERwpYxcKDwry4PUsRVYtpddXVtBcFRRdRccMSvUA5nCkAPoAVirkWIowbLIKSqoa2rqmBnBGJmYWVjZ2Dk4QXlQeXj5+6jBQYgDWvtEUsbJaMOikYhTIEeTNre2d6ILybFoARr1tHchi3NYwsrLiksg6uHrpnS2TnQDiwQBSAMoA8gByRACyGJfVdWLIyAwAPE+LEjDIKvJaELhYzOgTCoVCs+lMAK5aN7LL4-XAAdy0PCCFBBW3602oPF8IURyIyD2erwgsksJmQAF5kIMLCNRlgAApDAAUIRCIi0HDZAEpZIiLMhSOhqMyyXAcNVqJ11MhpGA4OCJMKQgBGFUABiwQVIWG6JMIsrAYjl3K4IJEMggDweZHBlDEuBCo1IdoEYi07kpXUiECwbFIZmZIl5JND2JE01mkhCZH9YiDpgoirg3Mt1sxSbEVpAsnT6blsfacpQctGrmINTlBFzeYeco5bDYAGFSHHi5HeJIsMR5KQtMQ4MzgHKTDwq4afI3SPDx3KAiZqLOwO1uEE5QBdbnVq3WgC+C1DkOiACZmXKAIJW1brQzIK7oE0H2QAARMvBxeJRhOQL1k4eQVToMyqY1g8gFevezIDpQvgUsyACsmoAGzHvBx4AJwAOwABzwdh6HwZhKpEJqADMAAseHquh6GkUhaEUeRW7IAAXqQkgUqRpqPD+xKgcg2rhD6Xp7KQRxnMy36-jutYCEIFK2vajrOq61QeioRA8dJtYPB4axwBSIBScSOl5nKQpQMQWgULg7bEcZ-GmXKAhfOeYgzLZtByuh45aSZpnWvWnJsMcgxWTZ7aavZfmOTpcrwnAWgBIodmaUSsUPLu26mb2ABuOJ6RwhkFq2RZeWA8LfFQS4ufIbkee2crqkuDYhWF1meSgmrwVlDkyXmhVwDGUCNqMlk1BSMydjAMalWIaW8fx3Hpf1gFYGYPAhK45TMoJerLYtobpm0PydFSVy1L4zL+sQggOBAcFoVgx7quRmG0SRWAqseKrwXhzE8DMAQBFAZYGQAYiNKgpn16ZrRtW3eFdJ2UAd0n8SYmZWuBMUQAaYA2cKtAE8wFBgLu65AA
+    - title: Core
+      file: app-variation-geojson-and-markers-core.py
+      resources:
+      - europe_110.geo.json
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQGJk4APWdAGzmSggBNkeoFKMgBmAJ1IxEAHQgMAFhQroAzogD06gJZ4OUERwpYxcKDwry4PUsRVYtpddXVtBcFRRdRccMSvUA5nCkAPoAVirkWIowbLIKSqoa2rqmBnBGJmYWVjZ2Dk4QXlQeXj5+6jBQYgDWvtEUsbJaMOikYhTIEeTNre2d6ILybFoARr1tHchi3NYwsrLiksg6uHrpnS2TnQDiwQBSAMoA8gByRACyGJfVdWLIyAwAPE+LEjDIKvJaELgrfVMAIKYIgAVy0b2WXx+uAA7loeEEKCp-ttkKRQcpMSF4YiMkQTLxfDiEUiHs9XhBZJYTMgALzIQYWEajLAABSGAAoQiERFoODyAJSyeEWdHoaicmlwHDVaiddTIaRgOCgiQSkIARk1AAYsEFSFhulTCEqwGJlYKuCiRDIIA8HmRQZQxLgQqMMbxqlp3PSupEIFg2KQzJyRMKqZGeHARNNZpIQmRg2Iw6YKGq4IK7Q7phk1faQLIcznlUn2sqUMrRq5iDVlQQi8WHsq+Ww2ABhUjJitx3iSLDEeSkLTEOCc4DKkw8etmnxt0iwmfKgImahLsDtbhBZUAXUFDftDoAvgtIxh0CFwX7wbKgry2OCeJzGw8b-IAEzPsCA+2rdaGZArnQS0DxzDEsQoEk8QoL8qmAsB93JZAXlkCNT2jWMVF8AA3XxOR+dBMSIcDCIoIgsJUFQHAgLMX2QAABQlozEKCyUeZDKRzDDkDgzlaMPJs4L9IDOVHShfDpTkAFY9QANnfKT3wATgAdgADiktSlKklTNSIPUAGYABZNJ1JSlIM2TFOMozEIAL1ISQ6QMq12JQyMmweA1wgDP09lII4zk5JD3M84sBCEOknRdN0PWdAQxB9FQiDcziwodDw1jgOkQBCtL0uLZVSEGYgtAoXAez0vK6IK5swAEL5ATEGYKtoZUlJnVKatqlt+TYY4SrK1qUD1KquoE2q6thOAtACRRKpSiluqbI9QNqodcJYzKOBy0su3LNqwFhb4qHXBr5Calqe2VHV11bfrBvKns9Sk1bqomsLtrgRMoDbUYoFrOkZj7GBE32sRFo45bkFcpaPodOCsDMHgQlccpOW841YahjzPLaH5OgZK5ajw4NiEEajJMUrB3x1IyVIs-SsE1d9NSkzTEJ4GYAgCKBq2ygAxX6sOx0LPMR5HUe8PD8coUXKWhkx0zEe0hPG09zz9YF0E5c9Ly0cicN8CNTTAcqJVoM3mAoMAjx3IA
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+`ipyleaflet` allows us to create interactive maps via [ipywidgets](https://ipywidgets.readthedocs.io/en/stable/).
+
+To insert an `ipyleaflet` map do the following tasks:
+
+  1. Add `shinywidgets.output_widget()` to the UI of your app to create a div in which to display the map.   Where you call this function will determine where the map will appear within the layout of the app.
+
+  2. Provide an argument to the `id` parameter in the `shinywidgets.output_widget()` function call. This argument will be used to identify the map in the server function.
+
+  3. Within the `server()` function, create your `ipyleaflet` map and assign it to a variable.   Your map does not need to be created within a nested function in server() like many other shiny for python components.
+
+  4. Register your map with shiny using `shinywidgets.register_widget()` by passing in the id of the map and the map variable.
+
+ Visit [shiny.posit.co/py/docs/ipywidgets.html](https://shiny.posit.co/py/docs/ipywidgets.html) to learn more about using ipywidgets with Shiny.
+
+:::{#variations}
+:::

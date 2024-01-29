@@ -1,0 +1,77 @@
+---
+title: Selectize (Multiple)
+sidebar: components
+appPreview:
+  file: components/inputs/selectize-multiple/app-preview.py
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/selectize-multiple/
+  contents:
+  - title: Preview
+    file: app-core.py
+    height: 200
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDagBM4DADoRGzNlx5Y4AD3RjWrPgKEju6AK4UihzrIsQzWA8YD6rOABs4xCpwBecABTJkAYmQAHiDZPz9pMEcXN084SKIA4NCIcORIgGVnVxFSdHdybQAjZ1IAd0QEv0CQsPCQSIBGAEFIlEiAYXZSTmI4ZBaqpoAhNvSwLp6+gdHCccaOsc7u3v6FyIBfRJqUtJhDJ3d0FwBeABUGQzht5NkASmrbiEsAATEISQYsKlUKWUk6MgAG5QJxXbx3SqpcJiCiGBipOiREC2ChYaI5OIQjaRWRzMAUXDoBAoAlqChgDYAXSAA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKm1nAtxiFTgBecDYOAMTIADwR9o6xymBePn6BcPFEyOFRMbEO8QDK3r4ipOj+5KzIAEbepADuiGlhkdEQOY4g8QCMovEo8QDC7KScxHDI3Y1dAEK9yANDI2OdM4RzYJ39s-PDo+ObYAC+6ZktbQ4wChb+6D66ACoMCnDHzdnIAJQvWa2OhqTubg8VAAHhQ7GAAG5QKypMCfVTvVRIiCyOhsOQQuQ2VzuIj-CiAoheVisTjkd4NH4OAACUhRciwIIob1RyChMJsFLesSkFAUDFadHiIBxFCwiSKKU5B3iyPUmD0YkwNg02k4RIxckREFWYAouHQCBQergoMOAF0gA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.input_selectize
+    href: https://shiny.posit.co/py/api/ui.input_selectize.html
+    signature: ui.input_selectize(id, label, choices, *, selected=None, multiple=False,
+      width=None)
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/inputs/selectize-multiple/
+  contents:
+  - title: Selectize with grouped choices
+    description: To group the choices into categories, supply the `choices` argument
+      with a dictionary of dictionaries. `ui.input_selectize()` will use the top-level
+      keys as group labels.
+    apps:
+    - title: Preview
+      file: app-variation-selectize-with-grouped-choices-core.py
+    - title: Express
+      file: app-variation-selectize-with-grouped-choices-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDagBM4DADoRGzNlx5Y4AD3RjWrPgKEju6AK4UihzrIsQzWA8YD6rOABs4xCpwBecABTJkAYmQAHiDZPz9pMEcXN084SKIA4NCIcORIgGVnVxFSdHdybQAjZ1IAd0QEv0CQsPCQauS6tIiwAEZIlBBItoBBTvSwAGF2Uk5iOGQ+qp6AIQHIkbGJqfnCQbahheHR8cnNyIBfRJqUlvDIgCYB7rBL-tpF3ZX7mbu1lCflycu1oiuto8dt9kJdAcdGrVUuEIUkoWkYIYnO50C4ALwAFQYhjgJyaEAAlJCUpYAAJiCCSBhYKiqCiySR0ZAANygThx3gJlWhfjEFEMDFSdEiIFsFCw0RycU5h0isnWYAouHQCBQirUFDAhwAukA
+    - title: Core
+      file: app-variation-selectize-with-grouped-choices-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKm1nAtxiFTgBecDYOAMTIADwR9o6xymBePn6BcPFEyOFRMbEO8QDK3r4ipOj+5KzIAEbepADuiGlhkdEQOY4gTVmtbTnxAIzxKCD9ooPI8QDC7KScxHDIfaOE42B9AEJjk9Oz8+uN-RObYFMzcwuHYAC+6ZktPb1gAExjw09LKFun849LRPGPG1onx2yAB+yeFw+x22Z0eF2unTuPQRGWa2RyMAUFn86B8ugAKgwFHAbmjug4AJSkrqxQykdxuDxUAAeFDsYAAblArKkwFTVBTVEKILI6Gw5By5DZXO4iPSKIyiF5WKxOOQKQ1ycgAAJSEVyLAsijo0XILk8mwa9GxKQUBQMVp0eIgGUULCJIopS2XeLC9SYPRiTA2DTaThKiVyQUQZZgCi4dAIFBxuCsq4AXSAA
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A selectize list creates a way to select one or more items from a list.
+
+To use a selectize list that allows you to select <em>multiple</em> items:
+
+  1. Add `ui.input_selectize()` to the UI of your app to create a selectize list. Where you call this function will determine where the selectize list appears within the app's layout.
+
+  2. Specify the `id` and `label` parameters of `ui.input_selectize()` to define the identifier and label of the select list.
+
+  3. Supply the `choices` parameter with either a list or dictionary of choices. If `choices` is a list, its elements become the select list values and labels. If `choices` is a dictionary, `ui.input_selectize()` uses the dictionary keys as the list values and the dictionary values as the list labels.
+
+  You can also supply with `choices` a dictionary of dictionaries. `ui.input_selectize()` will use the top-level keys as group labels. See <em>Selectize with grouped choices</em> variation.
+
+  4. The `multiple` parameter controls whether you can select multiple items at once. Set `multiple=True` to allow the user to select multiple values.
+
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a selectize list:
+
+  1. Use `input.<selectize_id>()` (e.g., `input.selectize()`) to access the selected value(s). The server value of a selectize list is a list of strings.
+
+See also: [Selectize (Single)](../selectize-single/index.qmd) and [Select (Multiple)](../select-multiple/index.qmd). Select inputs and selectize inputs are similar, but have different interfaces and provide different ways of selecting multiple options. Selectize inputs also allow you to deselect items.
+
+:::{#variations}
+:::

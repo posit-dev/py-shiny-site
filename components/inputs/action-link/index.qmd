@@ -1,0 +1,51 @@
+---
+title: Action Link
+sidebar: components
+appPreview:
+  file: components/inputs/action-link/app-preview.py
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/action-link/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDOFGIVOANzgAdCI2ZsuPLHAAe6Ma1Z8BQkd3QBXCkTEQAJnAZETnBQodZjZgPoSp5dwBtuANYAFHJokpw+-hABoUShAJIQxGJQrHDIAHImMABGtqEAlMjIAMTIADzlThAKZCaUyAC8ouLhsljSUL4mcEEADAXVCgACKW1w6nR0cJIjY1LtcLKUQW4UWF4REH6Bg9ZwdMjuQQWICsXFdZRYaRRBV3dFANTIAIx71aPUNgxYVBqPBQ2Q4PWwnM4QC4tCgmBiQuihEAPE4AX1CCkIqAouHQCBQYH+FDAKIAukA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnEnUAJnAZEArpwA6EPRnQB9bcgC8ybTigBzOEboAbbSoAUe5J8ucs3dJoojGTlyI0duAGt3NFlOUPCICJ1CZGSASQhiKShWOGQAOU0YACN1ZIBKImQAYmQAHjqPLytSAP9AqgAPCmiyTUoysEq9cr0xiDU6NnVFBlc-AKJWinaiXNZWOIhyxCbPPspzZGzYxSx5KGc4VwAGUf0IL2QAARO5M7g6OjhZPZe3hRwLBwRSUeYQdpYYJbMKRcqeWoNP6TZBGVw7P5PA4ULC5HrY9HIADUyAAjPc-q9VOosF0evcnijsep0btHk8vFIKJoGI86MkQATygBfZLjAyYI7idCuQwmThrGbqe4pMAUXDoBAoNVwbpgYUAXSAA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.input_action_link
+    href: https://shiny.posit.co/py/api/ui.input_action_link.html
+    signature: ui.input_action_link(id, label, *, icon=None, **kwargs)
+  - title: reactive.event
+    href: https://shiny.posit.co/py/api/reactive.event.html
+    signature: reactive.event(*args, ignore_none=True, ignore_init=False)
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+An action link appears as a link in your app and has a value that increments each time the user presses the link.
+
+Follow these steps to add an action link to your app:
+
+  1. Add `ui.input_action_link()` to the UI of your app to create an action link. Where you call this function will determine where the link appears within the app's layout.
+  2. Specify the `id` and `label` parameters of `ui.input_action_link()` to define the action link's identifier and label.
+
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of an action link:
+
+  1.  Use `input.<action_link_id()>` (e.g., `input.action_link()`) to access the value of the action link. The server value of an action link is an integer representing the number of clicks.
+
+See also: [Action Button](../action-button/index.qmd)

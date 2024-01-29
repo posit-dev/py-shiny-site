@@ -43,7 +43,7 @@
 .component-list-header {
   display:flex;
   justify-content: space-between;
-  align-items: center; 
+  align-items: center;
   margin-bottom: 0px;
 }
 
@@ -81,7 +81,7 @@ a .component-link-icon:after  {
   transition: all 0.3s !important;
 }
 
-a:hover .component-link-icon:after, 
+a:hover .component-link-icon:after,
 a.component-list-header-text:hover ~ div.component-list-icon p a i.component-link-icon:after {
   content: "\F133";
   font-family: "bootstrap-icons";
@@ -214,7 +214,7 @@ pre.console code {
 
 /* Tab styling */
 
-.panel-tabset .nav-tabs {
+.panel-tabset:not(.shiny-mode-tabset) .nav-tabs {
   display: flex !important;
   align-items: flex-end !important;
   justify-content: flex-end !important;

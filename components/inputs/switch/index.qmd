@@ -1,0 +1,49 @@
+---
+title: Switch
+sidebar: components
+appPreview:
+  file: components/inputs/switch/app-preview.py
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/switch/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDagBM4DADoRGzNlx5Y4AD3RjWrPgKEju6AK4UihzrIsQzWA8YD6rAO6cKxdgAppYJy7deiXgDKzq7s-sgAYlAANqxwAJTIyADEyAA8aZayAAJiEJIMWGayknTIAG4xhnDu8YiySUliFIYMEHwQRhRYPqG1soSoFLjoCChgVKoUYAC+ALpAA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAV05EG1ACZwGRAIKYAOhFUZ0AfXHIAvGM44oAczia6AG3HSAFKuQODWbulEVNrAO6cKxdnbAvHz9lQmRQgGVvX3ZQogAxKAtWOABKImQAYmQAHhz7R3EsUjdXd3EAgDck0ThQ9NVU1WaIWTo2OUq5Gxc3IhKKMqIU1lZOclTEAocAASlWuSxxaeQ25GqrOBtJlcdkKQpRBgg+CDKsIJjtlvVMPWQldBsNbQkOhi6GJogwsApcdAIFB-OAADwoYAAvgBdIA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.input_switch
+    href: https://shiny.posit.co/py/api/ui.input_switch.html
+    signature: ui.input_switch(id, label, value=False, *, width=None)
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A switch allows you to select between logical values.
+
+To add a switch to your app:
+
+  1. Add `ui.input_switch()` to the UI of your app to create a switch. Where you call this function will determine where the switch will appear within the app's layout.
+
+  2. Specify the `id` and `label` parameters of `ui.input_switch()` to define the identifier and label of the switch.
+
+  3. By default, the `value` parameter, which defines the switch's initial value, is `False`. If you'd like the initial value to be `True`, set `value` equal to `True`.
+
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a switch:
+
+  1. Use `input.<switch_id>()` (e.g., `input.switch()`) to access the value of the switch. The server value of a switch is `True` if checked and `False` otherwise.

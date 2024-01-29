@@ -13,13 +13,14 @@ project:
     - display-messages
     - layouts
     - docs
-    - in-depth
     - development
     - gallery
-    - api
+    - api/express
+    - api/core
   resources:
     - /pypi/**
     - /robots.txt
+    - /_redirects
     - objects.json
     - "*.png"
     - "*.gif"
@@ -29,7 +30,8 @@ project:
     - scripts/post-render.py
 
 metadata-files:
-  - api/_sidebar.yml
+  - api/express/_sidebar.yml
+  - api/core/_sidebar.yml
 
 filters:
   - shinylive
@@ -64,35 +66,39 @@ website:
     logo-alt: The logo for Shiny for Python
     search: true
     left:
-      - text: "Learn"
+      - text: "Learn Shiny"
         file: docs/overview.qmd
-      - text: "Install"
-        href: docs/install.qmd
+      - text: "Components"
+        menu:
+          - text: "Components"
+            file: components/index.qmd
+            icon: sliders
+          - text: "Layouts"
+            file: layouts/index.qmd
+            icon: layout-text-window-reverse
       - text: "Deploy"
         menu:
           - docs/deploy-cloud.qmd
           - docs/deploy-on-prem.qmd
           - docs/shinylive.qmd
-      - text: "Components"
-        file: components/index.qmd
-      - text: "Layouts"
-        file: layouts/index.qmd
       - text: "Gallery"
         file: gallery/index.qmd
-      - text: "Examples"
+      - text: "Playground"
         href: https://shinylive.io/py/examples/
         target: _blank
       - text: "Reference"
-        href: api/index.qmd
-      - text: "Help"
-        href: docs/help.qmd
+        menu:
+          - text: "Shiny Express"
+            href: api/express/index.qmd
+          - text: "Shiny Core"
+            href: api/core/index.qmd
     tools:
       - icon: discord
         href: https://discord.gg/yMGCamUMnS
-        text: Shiny Discord
+        aria-label: Shiny Discord
       - icon: github
         href: https://github.com/posit-dev/py-shiny/
-        text: Shiny for Python Github
+        aria-label: Shiny for Python Github
 
   page-footer:
     left: 'Proudly supported by <a href="https://www.posit.co/" class="no-icon"><img src="/images/posit-logo-black.svg" alt="Posit" width="80" style="padding-left: 3px;vertical-align:text-top;"></a>'
@@ -118,43 +124,43 @@ website:
           href: components/
         - section: "![](/images/sliders.svg){.sidebar-icon .sidebar-subtitle}__Inputs__"
           contents:
-            - components/inputs/action-button.qmd
-            - components/inputs/action-link.qmd
-            - components/inputs/checkbox.qmd
-            - components/inputs/checkbox-group.qmd
-            - components/inputs/date-range-selector.qmd
-            - components/inputs/date-selector.qmd
-            - components/inputs/numeric-input.qmd
-            - components/inputs/password-field.qmd
-            - components/inputs/radio-buttons.qmd
-            - components/inputs/select-single.qmd
-            - components/inputs/select-multiple.qmd
-            - components/inputs/selectize-single.qmd
-            - components/inputs/selectize-multiple.qmd
-            - components/inputs/slider.qmd
-            - components/inputs/slider-range.qmd
-            - components/inputs/switch.qmd
-            - components/inputs/text-area.qmd
-            - components/inputs/text-box.qmd
+            - components/inputs/action-button/index.qmd
+            - components/inputs/action-link/index.qmd
+            - components/inputs/checkbox/index.qmd
+            - components/inputs/checkbox-group/index.qmd
+            - components/inputs/date-range-selector/index.qmd
+            - components/inputs/date-selector/index.qmd
+            - components/inputs/numeric-input/index.qmd
+            - components/inputs/password-field/index.qmd
+            - components/inputs/radio-buttons/index.qmd
+            - components/inputs/select-single/index.qmd
+            - components/inputs/select-multiple/index.qmd
+            - components/inputs/selectize-single/index.qmd
+            - components/inputs/selectize-multiple/index.qmd
+            - components/inputs/slider/index.qmd
+            - components/inputs/slider-range/index.qmd
+            - components/inputs/switch/index.qmd
+            - components/inputs/text-area/index.qmd
+            - components/inputs/text-box/index.qmd
         - section: "![](/images/bar-chart-line-fill.svg){.sidebar-icon .sidebar-subtitle}__Outputs__"
           contents:
-            - components/outputs/data-grid.qmd
-            - components/outputs/datatable.qmd
-            - components/outputs/image.qmd
-            - components/outputs/map-ipyleaflet.qmd
-            - components/outputs/plot-matplotlib.qmd
-            - components/outputs/plot-plotly.qmd
-            - components/outputs/plot-seaborn.qmd
-            - components/outputs/text.qmd
-            - components/outputs/ui.qmd
-            - components/outputs/value-box.qmd
-            - components/outputs/verbatim-text.qmd
+            - components/outputs/data-grid/index.qmd
+            - components/outputs/datatable/index.qmd
+            - components/outputs/image/index.qmd
+            - components/outputs/map-ipyleaflet/index.qmd
+            - components/outputs/plot-matplotlib/index.qmd
+            - components/outputs/plot-plotly/index.qmd
+            - components/outputs/plot-seaborn/index.qmd
+            - components/outputs/text/index.qmd
+            - components/outputs/ui/index.qmd
+            - components/outputs/value-box/index.qmd
+            - components/outputs/verbatim-text/index.qmd
         - section: "![](/images/chat-dots-fill.svg){.sidebar-icon .sidebar-subtitle}__Display Messages__"
           contents:
-            - components/display-messages/modal.qmd
-            - components/display-messages/notifications.qmd
-            - components/display-messages/progress-bar.qmd
-            - components/display-messages/tooltips.qmd
+            - components/display-messages/modal/index.qmd
+            - components/display-messages/notifications/index.qmd
+            - components/display-messages/progress-bar/index.qmd
+            - components/display-messages/tooltips/index.qmd
 
     - id: layouts
       collapse-level: 2
@@ -164,47 +170,47 @@ website:
         - section: "![](/images/navbars-blue.svg){.sidebar-icon .sidebar-subtitle}__Navbars__"
           contents:
             - text: "Navbar at Top"
-              href: "/layouts/navbars.html#navbar-at-top"
+              href: "/layouts/navbars/index.html#navbar-at-top"
             - text: "Navbar at Bottom"
-              href: "/layouts/navbars.html#navbar-at-bottom"
+              href: "/layouts/navbars/index.html#navbar-at-bottom"
         - section: "![](/images/sidebars-blue.svg){.sidebar-icon .sidebar-subtitle}__Sidebars__"
           contents:
             - text: "Sidebar on Left"
-              href: "/layouts/sidebars.html#sidebar-on-the-left"
+              href: "/layouts/sidebars/index.html#sidebar-on-the-left"
             - text: "Sidebar on Right"
-              href: "/layouts/sidebars.html#sidebar-on-the-right"
+              href: "/layouts/sidebars/index.html#sidebar-on-the-right"
             - text: "Sidebar Within a Card"
-              href: "/layouts/sidebars.html#sidebar-within-a-card"
+              href: "/layouts/sidebars/index.html#sidebar-within-a-card"
             - text: "Collapsed Sidebar"
-              href: "/layouts/sidebars.html#collapsed-sidebar"
+              href: "/layouts/sidebars/index.html#collapsed-sidebar"
         - section: "![](/images/tabs-blue.svg){.sidebar-icon .sidebar-subtitle}__Tabs__"
           contents:
             - text: "Tabset with Pill Navigation"
-              href: "/layouts/tabs.html#tabset-with-pill-navigation"
+              href: "/layouts/tabs/index.html#tabset-with-pill-navigation"
             - text: "Tabset with Pill List Navigation"
-              href: "/layouts/tabs.html#tabset-with-pill-list-navigation"
+              href: "/layouts/tabs/index.html#tabset-with-pill-list-navigation"
             - text: "Tabset with Tab Navigation"
-              href: "/layouts/tabs.html#tabset-with-tab-navigation"
+              href: "/layouts/tabs/index.html#tabset-with-tab-navigation"
             - text: "Card with a Tabbed Tabset"
-              href: "/layouts/tabs.html#card-with-a-tabbed-tabset"
+              href: "/layouts/tabs/index.html#card-with-a-tabbed-tabset"
             - text: "Card with a Pill Tabset"
-              href: "/layouts/tabs.html#card-with-a-pill-tabset"
+              href: "/layouts/tabs/index.html#card-with-a-pill-tabset"
             - text: "Vertically Collapsing Accordions"
-              href: "/layouts/tabs.html#vertically-collapsing-accordion-panels"
+              href: "/layouts/tabs/index.html#vertically-collapsing-accordion-panels"
         - section: "![](/images/cards-blue.svg){.sidebar-icon .sidebar-subtitle}__Panels & Cards__"
           contents:
             - text: "Main Image w/ Floating Panel"
-              href: "/layouts/panels-cards.html#main-image-with-panel-floating-above"
+              href: "/layouts/panels-cards/index.html#main-image-with-panel-floating-above"
             - text: "Content Divided by Cards"
-              href: "/layouts/panels-cards.html#content-divided-by-cards"
+              href: "/layouts/panels-cards/index.html#content-divided-by-cards"
         - section: "![](/images/arrange-blue.svg){.sidebar-icon .sidebar-subtitle}__Arrange Elements__"
           contents:
             - text: "Grid Layouts"
-              href: "/layouts/arrange.html#grid-layouts"
+              href: "/layouts/arrange/index.html#grid-layouts"
             - text: "Column Nesting"
-              href: "/layouts/arrange.html#column-nesting"
+              href: "/layouts/arrange/index.html#column-nesting"
             - text: "Controlling for Page Size"
-              href: "/layouts/arrange.html#controlling-for-page-width-and-height"
+              href: "/layouts/arrange/index.html#controlling-for-page-width-and-height"
 
     - id: docs
       style: "floating"
@@ -214,34 +220,33 @@ website:
         - section: "Essentials"
           contents:
             - docs/overview.qmd
-            - docs/inputs.qmd
-            - docs/outputs.qmd
-            - docs/server.qmd
-        - section: "Reactivity"
-          contents:
-            - docs/reactive-programming.qmd
-            - docs/reactive-calculations.qmd
-            - docs/reactive-events.qmd
-            - docs/reactive-values.qmd
-            - docs/reactive-mutable.qmd
-        - section: "Page Layout and Style"
-          contents:
-            - docs/ui-page-layouts.qmd
-            - docs/ui-styling.qmd
-            - docs/ui-navigation.qmd
-            - docs/ui-dynamic.qmd
-            - docs/ui-feedback.qmd
-            - docs/ui-static.qmd
+            - docs/user-interfaces.qmd
         - section: "Workflow"
           contents:
-            - docs/workflow-modules.qmd
-            - docs/workflow-module-communication.qmd
-            - docs/running-debugging.qmd
-        - section: "In Depth"
+            - docs/install-create-run.qmd
+            - docs/debug.qmd
+        - section: "User interfaces"
           contents:
-            - docs/ipywidgets.qmd
+            - docs/ui-overview.qmd
+            - docs/jupyter-widgets.qmd
+            - docs/ui-dynamic.qmd
             - docs/ui-html.qmd
-            - docs/workflow-server.qmd
+            - docs/ui-customize.qmd
+        - section: "Reactivity"
+          contents:
+            - docs/reactive-foundations.qmd
+            - docs/reactive-patterns.qmd
+            - docs/reactive-mutable.qmd
+        - section: "Syntax modes"
+          contents:
+            - docs/express-vs-core.qmd
+            - docs/express-or-core.qmd
+            - docs/express-in-depth.qmd
+            - docs/express-to-core.qmd
+        - section: "Modules"
+          contents:
+            - docs/modules.qmd
+            - docs/module-communication.qmd
         - section: "Extending"
           contents:
             - docs/custom-component-one-off.qmd
@@ -250,6 +255,10 @@ website:
           contents:
             - docs/comp-streamlit.qmd
             - docs/comp-r-shiny.qmd
+        - section: "Miscellaneous"
+          contents:
+            - docs/nonblocking.qmd
+            - docs/routing.qmd
     # TODO: if the sidebar only has 1 entry, then it displays for the entire site...
     # added entry below to prevent this.
     - id: deploy
