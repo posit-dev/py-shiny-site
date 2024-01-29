@@ -248,7 +248,7 @@ def hist():
 
 @render.code
 def info():
-    return [type(hist.widget), type(hist.value)]
+    return str([type(hist.widget), type(hist.value)])
 ## file: requirements.txt
 pandas
 plotly
