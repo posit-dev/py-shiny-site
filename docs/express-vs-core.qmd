@@ -64,7 +64,7 @@ Since Express has no server function, we made it an attribute of `shiny.express`
 **Every Shiny Core app file has a UI section, and a server section;** the two are separate and distinct.
 
 The UI section consists of a single (potentially very long and deeply nested) expression, stored as a variable named `app_ui` by convention.
-The object this produces is actually straight up HTML, which is sent to the browser when it first loads the app.
+The object this produces is actually simply HTML, which is sent to the browser when it first loads the app.
 
 The server section is a function, named `server` by convention, that always takes the arguments `input`, `output`, and `session`.
 This function contains render functions and reactive functions, which are used to update the UI in response to user input.
@@ -126,7 +126,7 @@ def greeting():
 ```
 
 Again, notice how `greeting` in this app does _not_ have a corresponding call to `output_code("greeting")`.
-This is because in Shiny Express, `render` functions automatically add an output to the page---no need to do it manually.
+This is because in Shiny Express, `render` functions implicitly add an output to the page as a side effect so you don't need the output function.
 
 ##### Core advantages
 
@@ -232,7 +232,7 @@ with ui.card():
 
 ##### Express advantages
 
-- The `with` block syntax is slightly more readable, as it depends only on indentation and not on parentheses and commas.
+- The `with` block syntax is more forgiving to write, as you don't need to separate elements with commas. (Every Shiny Core app author has probably seen the "Perhaps you forgot a comma?" error message many times.)
 - You can put arbitrary Python code inside `with` blocks, including loops, conditionals, import statements, function definitions, reactive functions, and output rendering functions. (In Core, you are limited to Python expressions that generate UI.)
 
 ::: {.callout-note}

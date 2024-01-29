@@ -36,13 +36,14 @@ Compare their respective source code, and consider:
 * Which version makes the structure of the UI more obvious?
 * Which version would make you more confident in moving UI elements around?
 * Which version makes it easier to understand the reactive calcs and outputs?
+* Imagine you were picking up an app that had been written a year ago by someone else. Which version would you prefer?
 
 ## Feature set
 
 **Consider using Shiny Core if you need to use Shiny Modules or dynamic UI.**
 
 At this time, Shiny Core's functionality is a superset of Express, meaning that anything you can do in Express, you can also do in Core.
-The reverse is not true, however.
+However, the reverse is not true.
 
 Most importantly, [Shiny Modules](modules.qmd) are supported in Shiny Core but not (yet) in Shiny Express. Shiny Modules are extremely useful for organizing large apps into smaller, more manageable pieces, and are also a mechanism for reusing Shiny application logic.
 
