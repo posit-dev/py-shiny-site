@@ -296,6 +296,32 @@ It's almost anticlimactically simple to use, considering how much explaining we 
 In Shiny Core, you should use `@render.ui` and skip `@expressify` or `ui.hold()`---they're not needed. Instead, your render function would return a UI object directly.
 :::
 
+### Problem: Display causes a TypeError
+
+When Express currently raises an error when attempting to display an object that is not a valid UI object.
+This can surface in suprising ways, for example, when calling a function to perform a side-effect (like logging) which returns an unknown class of object.
+
+```{.python}
+from shiny.express import session
+
+session.on_ended(lambda: "Session ended!")
+```
+
+```{.python}
+TypeError: Invalid tag item type: <class 'function'>. Consider calling str() on this value before treating it as a tag item.
+```
+
+### Solution: Assign to a variable
+
+In Express, you can assign the result of a function call to a variable to prevent displaying it, so you can use it to work around this issue.
+
+```{.python}
+from shiny.express import session
+
+_ = session.on_ended(lambda: "Session ended!")
+```
+
+
 ### Summary
 
 * When writing a function that contains Shiny Express UI code, always decorate it with `@expressify`. This tells Python to execute the function body in interactive mode, which is necessary for the UI to be displayed.
