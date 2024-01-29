@@ -102,8 +102,8 @@
     })
   }
 
-  function addPanelUnderlineNav() {
-    document.querySelectorAll(".panel-pills .nav").forEach((x) => {
+  function addPanelPillsNav() {
+    document.querySelectorAll(".panel-pills > .nav").forEach((x) => {
       x.classList.remove("nav-tabs");
       x.classList.add("nav-pills");
       x.classList.add("justify-content-center");
@@ -113,7 +113,7 @@
   function onLoad() {
     addShinyliveEditLinks();
     addWhatsShinyExpressTooltip();
-    addPanelUnderlineNav();
+    addPanelPillsNav();
   }
 
   document.readyState === "loading"
