@@ -135,7 +135,7 @@ See [this section of the component gallery](/components/#outputs) for an overvie
 ::: {.callout-tip}
 #### Jupyter Widgets as outputs
 
-In the next article, [Jupyter Widgets](ipywidgets.qmd), you'll learn how to use Jupyter Widgets as outputs.
+In the next article, [Jupyter Widgets](jupyter-widgets.qmd), you'll learn how to use Jupyter Widgets as outputs.
 :::
 
 ::: {.callout-tip}
@@ -145,7 +145,7 @@ Some outputs provide access their client-side state as input values. For example
 
 * [`@render.plot`](https://shiny.posit.co/py/components/outputs/plot-matplotlib.html) provides access to hover, click, and drag events.
 * [`@render.data_frame`](https://shiny.posit.co/py/components/outputs/data-grid.html) provides access to selected rows and more.
-* `{shinywidgets}`'s [`@render_widget()`](ipywidgets.qmd) provides access to the ipywidget traits.
+* `{shinywidgets}`'s [`@render_widget()`](jupyter-widgets.qmd) provides access to the ipywidget traits.
 :::
 
 ### Layouts
@@ -428,5 +428,5 @@ See [this section of the component gallery](/components/#display-messages) for a
 
 ### Next steps
 
-Next up, we'll learn all about Shiny's [Jupyter Widgets](ipywidgets.qmd) integration.
+Next up, we'll learn all about Shiny's [Jupyter Widgets](jupyter-widgets.qmd) integration.
 

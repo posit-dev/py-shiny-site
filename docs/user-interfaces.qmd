@@ -398,5 +398,5 @@ If you'd like to start developing Shiny apps locally, see the next section on [w
 Otherwise, to keep learning more about some of the topics covered here, see the following:
 
 - [User interfaces](ui-overview.qmd): Learn more about the Shiny's UI tooling.
-- [Reactivity](reactivity.qmd): Learn how to manage code execution in response to user input.
+- [Reactivity](reactive-foundations.qmd): Learn how to manage code execution in response to user input.
 - [Jupyter Widgets](jupyter-widgets.qmd): Learn how all about Shiny's Jupyter Widgets integration.

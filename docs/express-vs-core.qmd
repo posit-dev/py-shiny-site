@@ -163,15 +163,15 @@ Broadly speaking, there are two kinds of UI components in Shiny: _container comp
 
 Here are some examples of container components:
 
-- [`ui.sidebar()`](../layouts/sidebars.qmd)
-- [`ui.card()`](../layouts/panels-cards.qmd#content-divided-by-cards)
-- [`ui.layout_columns()`](../layouts/arrange.qmd#grid-layouts)
+- [`ui.sidebar()`](../layouts/sidebars/index.qmd)
+- [`ui.card()`](../layouts/panels-cards/index.qmd#content-divided-by-cards)
+- [`ui.layout_columns()`](../layouts/arrange/index.qmd#grid-layouts)
 - `ui.div()`
 
 Here are some examples of non-container components:
 
-- [`ui.input_text()`](../components/inputs/text-box.qmd)
-- [`ui.output_plot()`](../components/outputs/plot-matplotlib.qmd)
+- [`ui.input_text()`](../components/inputs/text-box/index.qmd)
+- [`ui.output_plot()`](../components/outputs/plot-matplotlib/index.qmd)
 
 **In Shiny Core, to put a component inside of a container, you nest the function calls,** like `ui.sidebar(ui.input_text())`.
 

@@ -366,7 +366,7 @@ app = App(app_ui, server)
 ### Shared reactive objects
 
 It's also possible to share reactive objects across sessions.
-This can be potentially dangerous since one users activity could impact another's, but also quite useful in combination [`reactive.file_reader`](../api/reactive.file_reader.qmd) and [`reactive.poll`](../api/reactive.poll.qmd) to create a reactive data source that's only polled once, no matter how many users are connected.
+This can be potentially dangerous since one users activity could impact another's, but also quite useful in combination [`reactive.file_reader`](../api/express/reactive.file_reader.qmd) and [`reactive.poll`](../api/express/reactive.poll.qmd) to create a reactive data source that's only polled once, no matter how many users are connected.
 :::
 
 ### Sessions
