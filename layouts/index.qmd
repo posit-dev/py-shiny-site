@@ -357,7 +357,7 @@ Use panels and cards to define areas of related content.
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
 <a class="component-list-header-text" href="panels-cards/#main-image-with-panel-floating-above">
-<h5>Main image with panel floating above</h5>
+<h5>Floating panel</h5>
 </a>
 <div class="component-list-icon">
 <p class="my-0"><a class="text-decoration-none dark" href="panels-cards/#main-image-with-panel-floating-above">
@@ -375,7 +375,7 @@ Use panels and cards to define areas of related content.
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
 <a class="component-list-header-text" href="panels-cards/#content-divided-by-cards">
-<h5>Content divided by bounding boxes (cards)</h5>
+<h5>Content in cards</h5>
 </a>
 <div class="component-list-icon">
 <p class="my-0"><a class="text-decoration-none dark" href="panels-cards/#content-divided-by-cards">
