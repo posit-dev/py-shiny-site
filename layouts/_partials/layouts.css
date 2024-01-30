@@ -7,9 +7,9 @@
 /* make space for sidebar icons */
 
 @media only screen and (min-width: 992px) {
-  #quarto-sidebar>* {
-      padding: 1.5em 0.75em 1.5em 2em;
-      margin-right: 1.5em;
+  #quarto-sidebar > * {
+    padding: 1.5em 0.75em 1.5em 2em;
+    margin-right: 1.5em;
   }
 }
 
@@ -22,26 +22,27 @@
 /* list page styling */
 
 .list-section {
-  border-top: 1px solid #CDD4DA;
-  padding-top:3rem;
-  padding-bottom:5rem;
+  border-top: 1px solid #cdd4da;
+  padding-top: 3rem;
+  padding-bottom: 5rem;
 }
 .component-list-column {
   padding-top: 1rem;
 }
 
 .component-list-card {
-  box-shadow:0px 1px 2px rgba(29, 31, 33, .1),0px 2px 3px rgba(29, 31, 33, 0.1),0px 3px 8px rgba(29, 31, 33, 0.1);
-  border-radius:10px;
-  height:150px;
+  box-shadow: 0px 1px 2px rgba(29, 31, 33, 0.1),
+    0px 2px 3px rgba(29, 31, 33, 0.1), 0px 3px 8px rgba(29, 31, 33, 0.1);
+  border-radius: 10px;
+  height: 150px;
   background-color: #ffffff;
-  display:flex;
+  display: flex;
   justify-content: center;
   align-content: center;
   flex-wrap: wrap;
 }
 .component-list-header {
-  display:flex;
+  display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0px;
@@ -54,7 +55,8 @@
 .component-list-header-text h5 {
   margin-bottom: 0.15rem;
 }
-.component-list-header-text, .component-list-icon a {
+.component-list-header-text,
+.component-list-icon a {
   text-decoration: none;
   color: #212529;
 }
@@ -65,24 +67,28 @@
 
 .component-list-header-text a {
   margin-bottom: 0px;
-  margin-top: .25rem;
-  margin-left: .25rem;
-  margin-right: .25rem;
+  margin-top: 0.25rem;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
   border-bottom: none;
 }
 .component-link-icon {
-  margin: 0 .25em .25em 0;
-  white-space: nowrap
+  margin: 0 0.25em 0.25em 0;
+  white-space: nowrap;
 }
 
-a .component-link-icon:after  {
+a .component-link-icon:after {
   content: "\F134";
   font-family: "bootstrap-icons";
   transition: all 0.3s !important;
 }
 
 a:hover .component-link-icon:after,
-a.component-list-header-text:hover ~ div.component-list-icon p a i.component-link-icon:after {
+a.component-list-header-text:hover
+  ~ div.component-list-icon
+  p
+  a
+  i.component-link-icon:after {
   content: "\F133";
   font-family: "bootstrap-icons";
 }
@@ -98,17 +104,17 @@ a.component-list-header-text:hover ~ div.component-list-icon p a i.component-lin
 }
 /* Hero area of list page */
 
-@media only screen and (max-width:767px) {
+@media only screen and (max-width: 767px) {
   .components-hero-img-container {
     display: none;
   }
 }
-@media only screen and (min-width:768px) {
+@media only screen and (min-width: 768px) {
   .components-hero-img-container {
     text-align: right;
   }
 }
-@media only screen and (min-width:768px) {
+@media only screen and (min-width: 768px) {
   .components-hero-img {
     width: 450px;
     margin-left: -80px;
@@ -117,13 +123,13 @@ a.component-list-header-text:hover ~ div.component-list-icon p a i.component-lin
     height: 373px;
   }
 }
-@media only screen and (min-width:992px) {
+@media only screen and (min-width: 992px) {
   .components-hero-img {
     margin-left: -60px;
     width: 650px;
   }
   .hero-area {
-    height:500px;
+    height: 500px;
   }
   .components-hero-img-container {
     margin-top: auto;
@@ -133,7 +139,7 @@ a.component-list-header-text:hover ~ div.component-list-icon p a i.component-lin
   }
 }
 
-@media only screen and (min-width:992px) {
+@media only screen and (min-width: 992px) {
   .components-hero-img {
     margin-left: -60px;
     width: 550px;
@@ -147,7 +153,7 @@ a.component-list-header-text:hover ~ div.component-list-icon p a i.component-lin
   }
 }
 
-@media only screen and (min-width:1350px) {
+@media only screen and (min-width: 1350px) {
   .components-hero-img {
     margin-left: -60px;
     width: 650px;
@@ -209,7 +215,8 @@ pre.console code {
 }
 
 .code-with-filename .code-with-filename-file {
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, .1), 0px 3px 7px rgba(0, 0, 0, .1), 0px 12px 30px rgba(0, 0, 0, .08);
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1), 0px 3px 7px rgba(0, 0, 0, 0.1),
+    0px 12px 30px rgba(0, 0, 0, 0.08);
 }
 
 /* Tab styling */
@@ -218,19 +225,19 @@ pre.console code {
   display: flex !important;
   align-items: flex-end !important;
   justify-content: flex-end !important;
-  border-bottom: 1px solid #E9ECEF;
+  border-bottom: 1px solid #e9ecef;
   border-top: none;
   border-left: none;
   border-right: none;
-  color: #48505F;
+  color: #48505f;
 }
 
 main a.nav-link {
-  color: #343A46;
+  color: #343a46;
 }
 
 main a.nav-link:hover {
-  color: #1D1F21;
+  color: #1d1f21;
 }
 
 .panel-tabset .nav-tabs .nav-link:hover,
@@ -253,7 +260,7 @@ main a.nav-link:hover {
 
 .panel-tabset .nav-tabs .nav-link:hover,
 .panel-tabset .nav-tabs .nav-link:focus {
-  border-bottom: 1px solid #CDD4DA;
+  border-bottom: 1px solid #cdd4da;
   border-left: 1px solid rgba(0, 0, 0, 0);
   border-right: 1px solid rgba(0, 0, 0, 0);
   border-top: 1px solid rgba(0, 0, 0, 0);
@@ -270,7 +277,6 @@ main a.nav-link:hover {
 }
 
 .iframe-border {
-  border: 1px solid #E9ECEF;
+  border: 1px solid #e9ecef;
   border-radius: 10px;
 }
-
