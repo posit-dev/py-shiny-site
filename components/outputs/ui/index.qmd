@@ -29,16 +29,16 @@ listing:
   - title: '@render.ui'
     href: https://shiny.posit.co/py/api/render.ui.html
     signature: render.ui(_fn=None)
-  - title: '@render.display'
-    href: https://shiny.posit.co/py/api/render.display.html
-    signature: render.display(_fn=None)
+  - title: '@render.express'
+    href: https://shiny.posit.co/py/api/express/express.render.express.html
+    signature: express.render.express(self, _fn=None, *, inline=False, container=None, fill=False, fillable=False, **kwargs)
 - id: variations
   template: ../../_partials/components-variations.ejs
   template-params:
     dir: components/outputs/ui/
   contents:
   - title: Create dependent controls
-    description: 'You can use `@render.ui` or `@render.display` and `ui.output_ui()`
+    description: 'You can use `@render.ui` or `@render.express` and `ui.output_ui()`
       to create a set of controls that are dependent on a setting in your app. In
       this example, we show a different set of options when the app is in "plot" or
       "table" mode.
