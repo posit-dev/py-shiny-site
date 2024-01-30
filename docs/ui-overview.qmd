@@ -206,7 +206,7 @@ A special type of layout is the page layout, which is used to start a new UI.
 In [Shiny Express](express-vs-core.qmd), the page layout is implicit, and automatically inferred from the top-level UI components.
 In [Shiny Core](express-vs-core.qmd), the page layout is explicit, meaning that the UI starts with a page layout component (e.g. `ui.page_fluid()`, `ui.page_sidebar()`, etc).
 
-::: {.column-body-outset-right .panel-tabset .panel-pills .border-0 .justify-content-center}
+::: {.column-body-outset-right .panel-tabset .panel-pills}
 
 #### Sidebar
 
@@ -429,4 +429,3 @@ See [this section of the component gallery](/components/#display-messages) for a
 ### Next steps
 
 Next up, we'll learn all about Shiny's [Jupyter Widgets](jupyter-widgets.qmd) integration.
-

@@ -84,7 +84,7 @@
       const tooltipDisplay = `<i class="bi bi-question-circle-fill d-inline d-sm-none"></i><span class="d-none d-sm-inline">What's the difference?</span>`;
 
       document
-        .querySelectorAll('.panel-tabset[data-group="shiny-app-mode"]')
+        .querySelectorAll(".panel-tabset.shiny-mode-tabset")
         .forEach(function (tabset) {
           const trigger = document.createElement("div");
           trigger.classList.add("what-shiny-express", "text-white");
@@ -107,18 +107,25 @@
         });
     }
 
-    function addPanelPillsNav() {
+    function handlePanelVariants() {
       document.querySelectorAll(".panel-pills > .nav").forEach((x) => {
         x.classList.remove("nav-tabs");
         x.classList.add("nav-pills");
-        x.classList.add("justify-content-center");
+      });
+      document.querySelectorAll(".panel-underline > .nav").forEach((x) => {
+        x.classList.remove("nav-tabs");
+        x.classList.add("nav-underline");
+      });
+      document.querySelectorAll(".shiny-mode-tabset > .nav").forEach((x) => {
+        x.classList.remove("nav-tabs");
+        x.classList.add("nav-underline");
       });
     }
 
     function onLoad() {
       addShinyliveEditLinks();
       addWhatsShinyExpressTooltip();
-      addPanelPillsNav();
+      handlePanelVariants();
     }
 
     document.readyState === "loading"

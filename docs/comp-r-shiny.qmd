@@ -29,7 +29,7 @@ To get started you can do the following (or see the [installation instructions](
 1.  In your terminal, create a new directory with `mkdir <my_directory>` and navigate into it with `cd <my_directory>`
 2.  Install Shiny. We strongly recommend using a virtual environment for this as it will eliminate dependency resolution headaches and make deployment easier.
 
-::: panel-tabset
+::: {.panel-tabset .panel-pills}
 ### Install with pip
 
 ``` bash

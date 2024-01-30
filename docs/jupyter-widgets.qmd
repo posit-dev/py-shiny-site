@@ -44,7 +44,7 @@ To render an ipywidget you first define a reactive function that returns the wid
 
 <!-- Note: this is copy/pasted from overview.qmd -->
 
-::: {.panel-tabset .panel-pills .border-0 .p-0 .justify-content-center}
+::: {.panel-tabset .panel-pills}
 
 ##### Altair
 

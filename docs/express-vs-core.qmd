@@ -76,7 +76,7 @@ You can think of the UI section as a template, with `ui.output_xx()` calls as pl
 #| components: [editor, viewer]
 #| layout: vertical
 # Core
-from shiny import ui, render, reactive, App
+from shiny import App, reactive, render, ui
 from datetime import datetime
 
 app_ui = ui.page_fixed(
@@ -85,7 +85,7 @@ app_ui = ui.page_fixed(
 )
 
 def server(input, output, session):
-    @reactive.Calc
+    @reactive.calc
     def time():
         reactive.invalidate_later(1)
         return datetime.now()
@@ -109,13 +109,12 @@ You can use multiple UI objects, and they will be combined together by the frame
 #| components: [editor, viewer]
 #| layout: vertical
 # Express
-from shiny import ui, render, reactive, App
-import shiny.express
+from shiny.express import reactive, render
 from datetime import datetime
 
 ui.h1("Title")
 
-@reactive.Calc
+@reactive.calc
 def time():
     reactive.invalidate_later(1)
     return datetime.now()
@@ -211,8 +210,7 @@ Their child components go within the `with` block.
 #| components: [editor, viewer]
 #| layout: vertical
 # Express
-from shiny import render, App
-from shiny.express import input, ui
+from shiny.express import input, render, ui
 
 with ui.sidebar():
     ui.input_text("txt_in", "Type something here:")

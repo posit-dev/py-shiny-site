@@ -6,7 +6,7 @@ title: Install, create, & run
 
 `shiny` can be installed via `pip` or `conda`.
 
-::: {.panel-tabset .border-0 .p-0 .justify-content-center}
+::: {.panel-tabset .panel-pills}
 
 #### pip
 

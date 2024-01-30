@@ -342,7 +342,7 @@ This file is used to configure typescript, which we are using to write our compo
 
 ### `example-app/app.py`
 
-::: {.panel-tabset .panel-pills .border-0 .justify-content-center}
+::: {.panel-tabset .shiny-mode-tabset group="shiny-app-mode"}
 
 #### Express
 
@@ -391,7 +391,7 @@ This is a simple example app that can be used to test the component while develo
 
 In our output binding example we defined an output that conveniently _displays_ colors. If we were packaging up two components like this we could/should modify the example app to showcase both of them.
 
-::: {.panel-tabset .panel-pills .border-0 .justify-content-center}
+::: {.panel-tabset .shiny-mode-tabset group="shiny-app-mode"}
 
 #### Express
 
