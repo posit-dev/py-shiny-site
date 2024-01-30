@@ -60,7 +60,7 @@ Tabs and navigation allow you to create apps that have multiple pages.
 #| output: asis
 #| echo: false
 
-shinylive_app_preview("app-tabset-pills-core.py", viewer_height=190, div_attrs=".p-0")
+shinylive_app_preview("app-tabset-pills-core.py", viewer_height=190)
 express_core_preview("app-tabset-pills-express.py", "app-tabset-pills-core.py")
 ```
 
@@ -86,7 +86,7 @@ Follow these steps to create an app with a tabset with pill navigation layout:
 #| output: asis
 #| echo: false
 
-shinylive_app_preview("app-tabset-pill-list-core.py", viewer_height=320, div_attrs=".p-0")
+shinylive_app_preview("app-tabset-pill-list-core.py", viewer_height=320)
 express_core_preview("app-tabset-pill-list-express.py", "app-tabset-pill-list-core.py")
 ```
 :::
@@ -111,7 +111,7 @@ Follow these steps to create an app with a pill list navigation layout. A pill l
 #| output: asis
 #| echo: false
 
-shinylive_app_preview("app-tabset-tab-core.py", viewer_height=200, div_attrs=".p-0")
+shinylive_app_preview("app-tabset-tab-core.py", viewer_height=200)
 express_core_preview("app-tabset-tab-express.py", "app-tabset-tab-core.py")
 ```
 :::
@@ -186,7 +186,7 @@ Follow these steps to add a card with a pill tabset to your app:
 #| output: asis
 #| echo: false
 
-shinylive_app_preview("app-accordion-core.py", viewer_height=350, div_attrs=".p-0")
+shinylive_app_preview("app-accordion-core.py", viewer_height=350)
 express_core_preview("app-accordion-express.py", "app-accordion-core.py")
 ```
 :::

@@ -199,8 +199,8 @@ website:
               href: "/layouts/tabs/index.html#vertically-collapsing-accordion-panels"
         - section: "![](/images/cards-blue.svg){.sidebar-icon .sidebar-subtitle}__Panels & Cards__"
           contents:
-            - text: "Main Image w/ Floating Panel"
-              href: "/layouts/panels-cards/index.html#main-image-with-panel-floating-above"
+            - text: "Floating Panel"
+              href: "/layouts/panels-cards/index.html#floating-panel"
             - text: "Content Divided by Cards"
               href: "/layouts/panels-cards/index.html#content-divided-by-cards"
         - section: "![](/images/arrange-blue.svg){.sidebar-icon .sidebar-subtitle}__Arrange Elements__"

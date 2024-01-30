@@ -48,7 +48,7 @@ Use panels and cards to define areas of related content.
 :::{.border-bottom .blue .mt-6 .mb-5}
 :::
 
-## Main image with panel floating above
+## Floating panel
 
 :::{.column-screen-inset-right style="max-width:800px;"}
 ```{python}
@@ -62,19 +62,21 @@ express_core_preview("app-panel-absolute-express.py", "app-panel-absolute-core.p
 
 Follow these steps to create an app that has a panel floating over a main image.
 
-First, to create the image:
-
-  1. Pass `ui.img()` to any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.img()` creates an image.
-
-  2. Pass the path or URL of your desired image to `ui.img()`'s `src` parameter. Set additional parameters to control the appearance of the image (e.g., `width` and `height`).
-
-Then, to create the floating panel:
+First, to create the floating panel:
 
   1. Pass `ui.panel_absolute()` as the second argument of your Shiny UI page method, after `ui.img()`. Pass elements that you want to appear inside the panel to `ui.panel_absolute()`.
 
   2. Position the panel using the `top`, `bottom`, `left`, and/or `right` parameters. Set the size of the panel using the `height` and/or `width` parameters.
 
   3. If you want the panel to be draggable, set the `draggable` parameter to `True`.
+
+In the example above, we used CSS to add [a scaling background image](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_backgrounds_and_borders/Resizing_background_images) to the page.
+You can also use `ui.img()` to create this effect:
+
+  1. Pass `ui.img()` to any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.img()` creates an image.
+
+  2. Pass the path or URL of your desired image to `ui.img()`'s `src` parameter. Set additional parameters to control the appearance of the image (e.g., `width` and `height`).
+
 
 See also: [`ui.panel_fixed()`](https://shiny.posit.co/py/api/ui.panel_fixed.html). `ui.panel_fixed()` is equivalent to calling `ui.panel_absolute()` with `fixed=True` (i.e., the panel does not scroll with the rest of the page).
 
