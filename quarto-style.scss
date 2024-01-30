@@ -1853,12 +1853,12 @@ pre.console code {
 
 
 // Tweak line highlights styles
-body:not(.modal-open) div.sourceCode:hover pre {
-  &, &.highlight {
-    code.has-line-highlights > span:not(.highlight-line) {
-      opacity: 0.8;
-    }
-  }
+body:not(.modal-open) div.sourceCode pre code.has-line-highlights > span:not(.highlight-line) {
+  opacity: 0.5 !important;
+}
+
+body:not(.modal-open) div.sourceCode:hover pre code.has-line-highlights > span:not(.highlight-line) {
+  opacity: 0.7 !important;
 }
 
 
