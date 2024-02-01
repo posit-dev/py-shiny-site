@@ -238,11 +238,6 @@ It is also possible to use other Python packages, provided that they are package
 
 ### Installed packages
 
-The Shinylive distribution includes packages from Pyodide, as well as additional packages
-See [this page](https://pyodide.org/en/latest/usage/packages-in-pyodide.html) for a list of packages included in Pyodide.
-
-In addition to the packages from Pyodide, Shinylive includes the following:
-
 ```{python}
 #| echo: false
 
@@ -251,7 +246,16 @@ from IPython.display import Markdown
 from tabulate import tabulate
 
 repodata = shinylive._deps._pyodide_repodata()
+info = repodata["info"]
 packages = repodata["packages"]
+```
+
+The Shinylive distribution includes packages from Pyodide `{python} info["version"]`, as well as some additional Shiny-related packages. See [this page](https://pyodide.org/en/`{python} info["version"]`/usage/packages-in-pyodide.html) for a list of packages included in Pyodide.
+
+Shinylive includes the following packages. Most are part of the Pyodide distribution, and a few of them are added by Shinylive.
+
+```{python}
+#| echo: false
 
 packages = dict(sorted(packages.items()))
 packages = {name: (info["name"], info["version"]) for name, info in packages.items()}
