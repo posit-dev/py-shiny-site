@@ -28,7 +28,7 @@ We might want it to re-execute it only when the user presses a button.
 In other words, we want to ignore changes in the slider until the button is pressed.
 The more idiomatic way to do this is with `@reactive.event()`:
 
-::: {.panel-tabset .panel-pills .border-0 .p-0 .justify-content-center}
+::: {.panel-tabset .panel-pills}
 
 ### reactive.event
 
