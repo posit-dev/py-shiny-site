@@ -7,7 +7,7 @@ aliases:
 Shiny fully supports [ipywidgets](https://ipywidgets.readthedocs.io/en/latest/) (aka Jupyter Widgets) via the [shinywidgets](https://github.com/posit-dev/py-shinywidgets) package.
 Many notable Python packages build on ipywidgets to provide highly interactive widgets in Jupyter notebooks, including:
 
-- Plots, like [altair](https://altair-vipiz.github.io/), [bokeh](https://docs.bokeh.org/en/latest/index.html), and [plotly](https://plotly.com/python/).
+- Plots, like [altair](https://altair-viz.github.io/), [bokeh](https://docs.bokeh.org/en/latest/index.html), and [plotly](https://plotly.com/python/).
 - Maps, like [pydeck](https://deckgl.readthedocs.io/en/latest/index.html) and [ipyleaflet](https://ipyleaflet.readthedocs.io/en/latest/usage/index.html).
 - Tables, [ipydatagrid](https://pypi.org/project/ipydatagrid) and [ipysheet](https://pypi.org/project/ipysheet).
 - 3D visualizations, like [ipyvolume](https://pypi.org/project/ipyvolume) and [pythreejs](https://pypi.org/project/pythreejs).
