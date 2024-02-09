@@ -109,7 +109,8 @@ You can use multiple UI objects, and they will be combined together by the frame
 #| components: [editor, viewer]
 #| layout: vertical
 # Express
-from shiny.express import reactive, render
+from shiny import reactive
+from shiny.express import render, ui 
 from datetime import datetime
 
 ui.h1("Title")
