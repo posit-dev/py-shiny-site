@@ -61,9 +61,9 @@ To make a plotly figure, we need to do the following steps:
 
       - If your function calls reactive values, Shiny will update your figure whenever those values change, in a [reactive fashion](https://shiny.posit.co/py/docs/reactive-programming.html).
 
-  4. Decorate your plotting function with a `@render.plot()` decorator.
+  4. Decorate your plotting function with a `@render_widget()` decorator.
 
-        - If your plotting function is not the same as the `id` you used in the `ui.output_plot()`, you can add an additional `@output(id=...)` decorator.
-        - If you use the `@output()` decorator, make sure it is __above__ the `@render.plot()` decorator.
+        - If your plotting function is not the same as the `id` you used in the `ui.output_widget()`, you can add an additional `@output(id=...)` decorator.
+        - If you use the `@output()` decorator, make sure it is __above__ the `@render_widget()` decorator.
 
  Visit [shiny.posit.co/py/docs/ipywidgets.html](https://shiny.posit.co/py/docs/ipywidgets.html) to learn more about using ipywidgets with Shiny.
