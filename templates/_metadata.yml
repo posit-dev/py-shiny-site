@@ -1,0 +1,12 @@
+sidebar: layouts
+format:
+  html:
+    css: /layouts/_partials/layouts.css
+    toc: false
+    code-line-numbers: true
+    include-after-body: ../components/_partials/componentsjs.html
+filters:
+  - quarto
+  - line-highlight
+  - shinylive 
+ 

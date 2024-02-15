@@ -1,0 +1,342 @@
+---
+pagetitle: "Shiny Templates"
+anchor-sections: false
+sidebar: false
+pagedescription: Shiny Templates allow you to hit the ground running with dashboards, surveys, and basic apps.
+toc: false
+page-layout: article
+resources:
+  - /components/_partials/animation.lottie
+format:
+  html:
+    css: 
+      - _partials/layouts.css
+      - _partials/layouts-list.css
+    code-overflow: wrap
+---
+<!-- Begin Hero area -->
+:::::::: {.column-screen-inset .mx-auto style="max-width: 1300px;"}
+:::::: {.grid .hero-area .my-md-0 .my-5}
+:::: {.g-col-md-7 .g-col-12 .pe-0 .pe-md-5 .my-auto}
+::: {.display-3 .fw-bold}
+Shiny Templates
+:::
+
+##### Templates blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah.
+::::
+:::: {.g-col-md-5 .g-col-10 .g-start-4 .components-hero-img-container}
+
+<div class="ps-5 pt-5 components-hero-img" >
+<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+<dotlottie-player src="/components/_partials/animation.lottie" background="transparent" speed="1" style="width: 100%; height: auto;" autoplay></dotlottie-player>
+</div>
+
+::::
+
+::::::
+::::::::
+<!-- End Hero area -->
+
+<!-- Begin List area -->
+:::::::: {.column-screen-inset .mx-auto style="max-width: 1300px;"}
+:::::: {.grid .list-section #navbars}
+
+:::: {.g-col-xl-3 .g-col-12}
+::: {.sticky-xl-top .pt-4}
+
+<h3 class="mt-4"> 
+  <a href="/layouts/navbars.qmd" class="dark text-decoration-none">
+    <img src="/images/navbars-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Basic Apps
+  </a> 
+</h3>
+
+Subtitle here
+
+:::
+::::
+:::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
+::: {#navbar .grid}
+
+<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+<div class="component-list-header">
+<a class="component-list-header-text" href="https://github.com/posit-dev/py-shiny-templates/tree/main/basic-app" target="_blank">
+<h5>Basic App</h5>
+</a>
+<div class="component-list-icon">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/navbars.html#navbar-at-top">
+<i class="component-link-icon dark bi fst-normal"></i>
+</a></p>
+</div>
+</div>
+<div class="component-list-card layout-list-card">
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/navbars.html#navbar-at-top"><img src="/images/navbar-top.png" class="h-100 w-100"></a></p>
+</div>
+</div>
+
+
+
+<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+<div class="component-list-header">
+<a class="component-list-header-text" href="/layouts/navbars.html#navbar-at-bottom">
+<h5>Basic App w/ Sidebar</h5>
+</a>
+<div class="component-list-icon">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/navbars.html#navbar-at-bottom">
+<i class="component-link-icon dark bi fst-normal"></i>
+</a></p>
+</div>
+</div>
+<div class="component-list-card layout-list-card">
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/navbars.html#navbar-at-bottom"><img src="/images/navbar-bottom.png" class="h-100 w-100"></a></p>
+</div>
+</div>
+
+<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+<div class="component-list-header">
+<a class="component-list-header-text" href="/layouts/navbars.html#navbar-at-bottom">
+<h5>Survey</h5>
+</a>
+<div class="component-list-icon">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/navbars.html#navbar-at-bottom">
+<i class="component-link-icon dark bi fst-normal"></i>
+</a></p>
+</div>
+</div>
+<div class="component-list-card layout-list-card">
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/navbars.html#navbar-at-bottom"><img src="/images/navbar-bottom.png" class="h-100 w-100"></a></p>
+</div>
+</div>
+
+
+<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+<div class="component-list-header">
+<a class="component-list-header-text" href="/layouts/navbars.html#navbar-at-bottom">
+<h5>Map</h5>
+</a>
+<div class="component-list-icon">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/navbars.html#navbar-at-bottom">
+<i class="component-link-icon dark bi fst-normal"></i>
+</a></p>
+</div>
+</div>
+<div class="component-list-card layout-list-card">
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/navbars.html#navbar-at-bottom"><img src="/images/navbar-bottom.png" class="h-100 w-100"></a></p>
+</div>
+</div>
+
+<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+<div class="component-list-header">
+<a class="component-list-header-text" href="/layouts/navbars.html#navbar-at-bottom">
+<h5>To Do List</h5>
+</a>
+<div class="component-list-icon">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/navbars.html#navbar-at-bottom">
+<i class="component-link-icon dark bi fst-normal"></i>
+</a></p>
+</div>
+</div>
+<div class="component-list-card layout-list-card">
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/navbars.html#navbar-at-bottom"><img src="/images/navbar-bottom.png" class="h-100 w-100"></a></p>
+</div>
+</div>
+
+<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+<div class="component-list-header">
+<a class="component-list-header-text" href="/layouts/navbars.html#navbar-at-bottom">
+<h5>Article</h5>
+</a>
+<div class="component-list-icon">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/navbars.html#navbar-at-bottom">
+<i class="component-link-icon dark bi fst-normal"></i>
+</a></p>
+</div>
+</div>
+<div class="component-list-card layout-list-card">
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/navbars.html#navbar-at-bottom"><img src="/images/navbar-bottom.png" class="h-100 w-100"></a></p>
+</div>
+</div>
+:::
+
+::::
+
+::::::
+:::::: {.grid .list-section style="margin-top: -1px;" #sidebars}
+:::: {.g-col-xl-3 .g-col-12}
+
+::: {.sticky-xl-top .pt-4}
+
+
+<h3 class="mt-4"> 
+  <a href="/layouts/sidebars.qmd" class="dark text-decoration-none">
+    <img src="/images/sidebars-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Dashboards
+  </a> 
+</h3>
+
+Subtitle here
+
+:::
+::::
+:::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
+::: {#sidebar .grid}
+
+
+
+<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+<div class="component-list-header">
+<a class="component-list-header-text" href="/layouts/sidebars.html#sidebar-on-the-left">
+<h5>Basic Dashboard</h5>
+</a>
+<div class="component-list-icon">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/sidebars.html#sidebar-on-the-left">
+<i class="component-link-icon dark bi fst-normal"></i>
+</a></p>
+</div>
+</div>
+<div class="component-list-card layout-list-card">
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/sidebars.html#sidebar-on-the-left"><img src="/images/sidebar-left.png" class="h-100 w-100"></a></p>
+</div>
+</div>
+
+<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+<div class="component-list-header">
+<a class="component-list-header-text" href="/layouts/sidebars.html#sidebar-on-the-left">
+<h5>Multi-Page Dashboard</h5>
+</a>
+<div class="component-list-icon">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/sidebars.html#sidebar-on-the-left">
+<i class="component-link-icon dark bi fst-normal"></i>
+</a></p>
+</div>
+</div>
+<div class="component-list-card layout-list-card">
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/sidebars.html#sidebar-on-the-left"><img src="/images/sidebar-left.png" class="h-100 w-100"></a></p>
+</div>
+</div>
+
+
+<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+<div class="component-list-header">
+<a class="component-list-header-text" href="/layouts/sidebars.html#sidebar-on-the-left">
+<h5>Stonks</h5>
+</a>
+<div class="component-list-icon">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/sidebars.html#sidebar-on-the-left">
+<i class="component-link-icon dark bi fst-normal"></i>
+</a></p>
+</div>
+</div>
+<div class="component-list-card layout-list-card">
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/sidebars.html#sidebar-on-the-left"><img src="/images/sidebar-left.png" class="h-100 w-100"></a></p>
+</div>
+</div>
+
+
+
+<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+<div class="component-list-header">
+<a class="component-list-header-text" href="/layouts/sidebars.html#sidebar-on-the-right">
+<h5>NBA Dashboard</h5>
+</a>
+<div class="component-list-icon">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/sidebars.html#sidebar-on-the-right">
+<i class="component-link-icon dark bi fst-normal"></i>
+</a></p>
+</div>
+</div>
+<div class="component-list-card layout-list-card">
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/sidebars.html#sidebar-on-the-right"><img src="/images/sidebar-right.png" class="h-100 w-100"></a></p>
+
+</div>
+</div>
+ 
+
+
+
+
+:::
+
+::::
+
+::::::
+
+
+:::::: {.grid .list-section style="margin-top: -1px;" #elements}
+:::: {.g-col-xl-3 .g-col-12}
+::: {.sticky-xl-top .pt-4}
+
+<h3 class="mt-4"> 
+  <a href="/layouts/arrange.qmd" class="dark text-decoration-none">
+    <img src="/images/arrange-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Specialty Apps
+  </a> 
+</h3>
+
+Subtitle here
+
+:::
+::::
+:::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
+::: {#element .grid}
+
+
+
+<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+<div class="component-list-header">
+<a class="component-list-header-text" href="/layouts/arrange.html#grid-layouts">
+<h5>Monitoring File</h5>
+</a>
+<div class="component-list-icon">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/arrange.html#grid-layouts">
+<i class="component-link-icon dark bi fst-normal"></i>
+</a></p>
+</div>
+</div>
+<div class="component-list-card layout-list-card">
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/arrange.html#grid-layouts"><img src="/images/grid-layout.png" class="h-100 w-100"></a></p>
+</div>
+</div>
+
+
+
+<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+<div class="component-list-header">
+<a class="component-list-header-text" href="/layouts/arrange.html#column-nesting">
+<h5>Monitoring Database</h5>
+</a>
+<div class="component-list-icon">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/arrange.html#column-nesting">
+<i class="component-link-icon dark bi fst-normal"></i>
+</a></p>
+</div>
+</div>
+<div class="component-list-card layout-list-card">
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/arrange.html#column-nesting"><img src="/images/column-nesting.png" class="h-100 w-100"></a></p>
+ 
+</div>
+</div>
+
+ 
+<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+<div class="component-list-header">
+<a class="component-list-header-text" href="/layouts/arrange.html#controlling-for-page-width-and-height">
+<h5>Database Explorer</h5>
+</a>
+<div class="component-list-icon">
+<p class="my-0"><a class="text-decoration-none dark" href="/layouts/arrange.html#controlling-for-page-width-and-height">
+<i class="component-link-icon dark bi fst-normal"></i>
+</a></p>
+</div>
+</div>
+<div class="component-list-card layout-list-card">
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/arrange.html#controlling-for-page-width-and-height"><img src="/images/controlling.png" class="h-100 w-100"></a></p>
+</div>
+</div>
+
+
+:::
+
+::::
+
+::::::
+
+::::::::
+<!-- End List area -->
