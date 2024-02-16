@@ -1,9 +1,10 @@
 import matplotlib.pyplot as plt
 from palmerpenguins import load_penguins
 from shiny import render
-from shiny.express import input, suspend_display, ui
+from shiny.express import input, ui
+from shiny.ui import output_code, output_plot
 
-ui.output_plot(
+output_plot(
     "plot",
     click=True,  # <<
     dblclick=True,  # <<
@@ -12,19 +13,18 @@ ui.output_plot(
 )
 
 "Click:"
-ui.output_text_verbatim("clk", placeholder=True)
+output_code("clk", placeholder=True)
 "Double Click:"
-ui.output_text_verbatim("dblclk", placeholder=True)
+output_code("dblclk", placeholder=True)
 "Hover:"
-ui.output_text_verbatim("hvr", placeholder=True)
+output_code("hvr", placeholder=True)
 "Brush"
-ui.output_text_verbatim("brsh", placeholder=True)
+output_code("brsh", placeholder=True)
 
 
-with suspend_display():
-    # Note that this Express app uses `suspend_display()` so that we can
-    # manually add the `ui.output_plot()` and others to the page.
-
+with ui.hold():
+    # Note that this Express app uses `ui.hold()` so that we can
+    # manually add the `output_plot()` and `output_code()` to the page.
     @render.plot(alt="A histogram")
     def plot():
         df = load_penguins()
@@ -36,18 +36,18 @@ with suspend_display():
         plt.ylabel("Bill Length (mm)")
         plt.title("Penguin Mass vs Bill Length")
 
-    @render.text
+    @render.code
     def clk():
         return input.plot_click()
 
-    @render.text
+    @render.code
     def dblclk():
         return input.plot_dblclick()
 
-    @render.text
+    @render.code
     def hvr():
         return input.plot_hover()
 
-    @render.text
+    @render.code
     def brsh():
         return input.plot_brush()

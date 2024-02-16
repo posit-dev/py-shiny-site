@@ -5,7 +5,7 @@ from pathlib import Path
 import pandas as pd
 import plotly.express as px
 import shinywidgets as sw
-from shiny.express import suspend_display, ui
+from shiny.express import ui
 
 appdir = Path(__file__).parent
 
@@ -15,7 +15,7 @@ with ui.value_box(showcase=sw.output_widget("sparkline"), showcase_layout="botto
     "Total Sales in Q2"
     "$2.45M"
 
-    with suspend_display():
+    with ui.hold():
 
         @sw.render_widget
         def sparkline():

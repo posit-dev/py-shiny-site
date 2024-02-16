@@ -1,11 +1,11 @@
 from shiny import render
-from shiny.express import input, suspend_display, ui
+from shiny.express import input, ui
 
 ui.input_text("Text", "Enter Text", "")
-ui.output_text_verbatim("text", placeholder=True)  # <<
+ui.output_code("text", placeholder=True)  # <<
 
-with suspend_display():  # <<
+with ui.hold():  # <<
 
-    @render.text  # <<
+    @render.code  # <<
     def text():
         return input.Text()
