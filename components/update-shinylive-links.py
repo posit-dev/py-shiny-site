@@ -61,13 +61,13 @@ def check_for_shinylive_url_problems(index_qmds):
 
 
 def create_shinylive_link(app, meta):
-    app = os.path.join(meta["_dir"], app["file"])
+    app_file = os.path.join(meta["_dir"], app["file"])
 
     if "resources" not in app:
-        return shinylive.url_encode(app, language="py")
+        return shinylive.url_encode(app_file, language="py")
 
     return shinylive.url_encode(
-        app,
+        app_file,
         [os.path.join(meta["_dir"], r) for r in app["resources"]],
         language="py",
     )
