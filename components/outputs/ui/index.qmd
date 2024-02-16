@@ -31,7 +31,8 @@ listing:
     signature: render.ui(_fn=None)
   - title: '@render.express'
     href: https://shiny.posit.co/py/api/express/express.render.express.html
-    signature: express.render.express(self, _fn=None, *, inline=False, container=None, fill=False, fillable=False, **kwargs)
+    signature: express.render.express(self, _fn=None, *, inline=False, container=None,
+      fill=False, fillable=False, **kwargs)
 - id: variations
   template: ../../_partials/components-variations.ejs
   template-params:
