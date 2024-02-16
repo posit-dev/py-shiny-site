@@ -1,12 +1,12 @@
-sidebar: layouts
+sidebar: templates
 format:
   html:
+    template: _partials/gallery-article.template
+    page-layout: article
     css: /layouts/_partials/layouts.css
     toc: false
-    code-line-numbers: true
+    code-line-numbers: false
     include-after-body: ../components/_partials/componentsjs.html
 filters:
-  - quarto
-  - line-highlight
   - shinylive 
  

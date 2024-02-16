@@ -1,0 +1,30 @@
+---
+image:        thumbnail.png
+imagealt:     ""
+title:        "Basic App"
+description:  The most basic Shiny app is a single input and output. Use this to get started.
+date:         2019-05-31
+quarto-column-size: column-page
+appurl:       https://gallery.shinyapps.io/template-basic-app/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/basic-app
+shinylive:   https://rstudio.cloud/project/251957
+---
+
+::: {.panel-tabset .shiny-mode-tabset group="shiny-app-mode"}
+
+## Express 
+``` python
+shiny create -m express \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/basic-app
+```
+## Core
+``` python
+shiny create -m core \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/basic-app
+```
+:::
+
+
+The most basic Shiny app is a single input and output. Use this to get started.
+
+

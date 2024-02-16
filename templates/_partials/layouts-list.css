@@ -6,8 +6,8 @@
 }
 
 /* List page background colors */
-
-body {
+ 
+#quarto-content {
   background: linear-gradient(175deg,
   rgba(250, 250, 250, 1),
   rgba(248, 248, 248, 1),
