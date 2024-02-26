@@ -78,6 +78,7 @@ To add a UI output, follow three steps:
   3. Decorate the function with `@render.ui`. If you're using an action button or link to show the UI element, you'll also need to decorate with `@reactive.event`.
 
 See also: [Dynamic UI](https://shiny.posit.co/py/docs/ui-dynamic.html) and [UI and HTML](https://shiny.posit.co/py/docs/ui-html.html).
+## Variations
 
 :::{#variations}
 :::

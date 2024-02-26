@@ -110,6 +110,7 @@ There is only a UI component for the value box.
 
 Since the value box is only a UI component, if you want to make it interactive (i.e., [reactive](https://shiny.posit.co/py/docs/reactive-programming.html)), you can pair it up with either a [`ui.output_ui()`](https://shiny.posit.co/py/api/ui.output_ui.html) + [`@render.ui()`](https://shiny.posit.co/py/api/render.ui.html) pair or use
 [`ui.output_text()`](https://shiny.posit.co/py/api/ui.output_text.html) as an argument to the `ui.value_box()` function if you only need text changes.
+## Variations
 
 :::{#variations}
 :::

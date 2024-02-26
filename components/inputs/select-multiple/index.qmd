@@ -71,6 +71,7 @@ The value of an input component is accessible as a reactive value within the `se
   1. Use `input.<select_id>()` (e.g., `input.select()`) to access the selected value(s). The server value of a select list is a list of strings.
 
 See also: [Select (Single)](../select-single/index.qmd) and [Selectize (Multiple)](../selectize-multiple/index.qmd). Select inputs and selectize inputs are similar, but have different interfaces and provide different ways of selecting multiple options. Selectize inputs also allow you to deselect items.
+## Variations
 
 :::{#variations}
 :::

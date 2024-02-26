@@ -75,6 +75,7 @@ Follow these steps to display a Seaborn figure in your app:
       - If you use the `@output()` decorator, make sure it is __above__ the `@render.plot()` decorator.
 
 You can use a plot as an input widget, collecting the locations of user clicks, double clicks, hovers, and brushes. To do this, follow the instructions provided for [plots as inputs](plot-matplotlib.html#plots-as-inputs).
+## Variations
 
 :::{#variations}
 :::
