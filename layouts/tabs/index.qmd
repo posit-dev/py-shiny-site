@@ -48,6 +48,7 @@ Tabs and navigation allow you to create apps that have multiple pages.
 
 ::: {#relevant-functions}
 :::
+
 ## Tabset with pill navigation
 
 :::{.column-screen-inset-right style="max-width:800px;"}

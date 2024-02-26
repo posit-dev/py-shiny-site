@@ -44,6 +44,7 @@ Use panels and cards to define areas of related content.
 
 :::{#relevant-functions}
 :::
+
 ## Floating panel
 
 :::{.column-screen-inset-right style="max-width:800px;"}

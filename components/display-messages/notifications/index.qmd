@@ -86,15 +86,16 @@ def _():
 
 You can call [`ui.notification_remove()`](https://shiny.posit.co/py/api/ui.notification_remove.html) to remove a notification programatically, but usually app developers will let notifications expire on their own. Also, notifications come by default with a button that the user can click to close the notification prematurely.
 
-## Duration
+### Duration
 
 By default, Shiny notifications will disappear after five seconds. To change how long a notification appears for, set the `duration` argument of `ui.notification_show()` to an integer number of seconds. Set `duration` to `None` to have the notification appear until the user closes it.
 
-## Type
+### Type
 
 Shiny notifications come in four types: default, messages, warnings and errors. To set the type of a notification, use the `type` argument of `ui.notification_show()`.
 
 See Also: [Modal messages](../modal/index.qmd) provide a similar, but alternative way to display information to the user.
+
 ## Variations
 
 :::{#variations}

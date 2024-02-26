@@ -79,6 +79,7 @@ To insert an `ipyleaflet` map do the following tasks:
   4. Register your map with shiny using `shinywidgets.register_widget()` by passing in the id of the map and the map variable.
 
  Visit [shiny.posit.co/py/docs/ipywidgets.html](https://shiny.posit.co/py/docs/ipywidgets.html) to learn more about using ipywidgets with Shiny.
+
 ## Variations
 
 :::{#variations}

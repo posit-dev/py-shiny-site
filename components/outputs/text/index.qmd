@@ -67,6 +67,7 @@ To make reactive text, follow three steps:
   3. Decorate the function with `@render.text`
 
 See [Verbatim Text](../verbatim-text/index.qmd) to display string values as they would appear in a computer console, in monospaced font on a shaded background.
+
 ## Variations
 
 :::{#variations}

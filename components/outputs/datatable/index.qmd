@@ -138,6 +138,7 @@ The value returned will be `None` if no rows are selected, or a tuple of integer
 If your table is a data frame that uses the pandas styler, replace `ui.output_data_frame()` with `ui.output_table()` and `@render.data_frame` with `@render.table`.
 
 See also [Data Grids](../data-grid/index.qmd)
+
 ## Variations
 
 :::{#variations}
