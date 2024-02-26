@@ -36,11 +36,13 @@ listing:
 :::::::: {.column-screen-inset .mx-auto style="max-width: 1300px;"}
 :::::: {.grid .hero-area .my-md-0 .my-5}
 :::: {.g-col-md-7 .g-col-12 .pe-0 .pe-md-5 .my-auto}
-::: {.display-3 .fw-bold}
-Shiny Components
-:::
 
-##### Inputs, outputs and display messages to make your data interactive on every device. Add these components to [Shiny Layouts](/layouts/index.qmd) to give your app a navbar, sidebar, cards and more.
+<h1 class="display-3 fw-bold">Shiny Components</h1>
+
+::: {.h5}
+Inputs, outputs and display messages to make your data interactive on every device.
+Add these components to [Shiny Layouts](/layouts/index.qmd) to give your app a navbar, sidebar, cards and more.
+:::
 
 ::::
 :::: {.g-col-md-5 .g-col-10 .g-start-4 .components-hero-img-container}
