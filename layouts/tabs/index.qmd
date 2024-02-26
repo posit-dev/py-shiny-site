@@ -48,10 +48,6 @@ Tabs and navigation allow you to create apps that have multiple pages.
 
 ::: {#relevant-functions}
 :::
-
-:::{.border-bottom .blue .mt-6 .mb-5}
-:::
-
 ## Tabset with pill navigation
 
 :::{.column-screen-inset-right style="max-width:800px;"}
@@ -76,8 +72,7 @@ Follow these steps to create an app with a tabset with pill navigation layout:
 
   4. _Optional:_ Pass a string to the `id` argument of `ui.navset_pill()`. This will create an input value that holds the title of the currently selected nav item. For example, `id = "tab"` would create a reactive value accessible as `input.tab()`.
 
-:::{.border-bottom .blue .my-5}
-:::
+
 
 ## Tabset with pill list navigation
 
@@ -101,8 +96,7 @@ Follow these steps to create an app with a pill list navigation layout. A pill l
 
   4. _Optional:_ Pass a string to the `id` argument of `ui.navset_pill_list()`. This will create an input value that holds the title of the currently selected nav item. For example, `id = "tab"` would create a reactive value accessible as `input.tab()`.
 
-:::{.border-bottom .blue .my-5}
-:::
+
 
 ## Tabset with tab navigation
 
@@ -126,8 +120,7 @@ Follow these steps to create an app with a tab navigation layout:
 
   4. _Optional:_ Pass a string to the `id` argument of `ui.navset_tab()`. This will create an input value that holds the title of the currently selected nav item. For example, `id = "tab"` would create a reactive value accessible as `input.tab()`.
 
-:::{.border-bottom .blue .my-5}
-:::
+
 
 ## Card with a tabbed tabset
 
@@ -151,8 +144,7 @@ Follow these steps to add a card with a tabbed tabset to your app:
 
   4. _Optional:_ Pass a string to the `id` argument of `ui.navset_card_tab()`. This will create an input value that holds the title of the currently selected nav item. For example, `id = "tab"` would create a reactive value accessible as `input.tab()`.
 
-:::{.border-bottom .blue .my-5}
-:::
+
 
 ## Card with a pill tabset
 
@@ -176,8 +168,7 @@ Follow these steps to add a card with a pill tabset to your app:
 
   4. _Optional:_ Pass a string to the `id` argument of `ui.navset_card_pill()`. This will create an input value that holds the title of the currently selected nav item. For example, `id = "tab"` would create a reactive value accessible as `input.tab()`.
 
-:::{.border-bottom .blue .my-5}
-:::
+
 
 ## Vertically collapsing accordion panels
 

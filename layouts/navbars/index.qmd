@@ -29,10 +29,6 @@ A navbar adds a navigation bar to your app, allowing users to easily navigate yo
 :::{#relevant-functions}
 :::
 
-:::{.border-bottom .blue .mt-6 .mb-5}
-:::
-
-
 ## Navbar at top
 
 :::{.column-screen-inset-right style="max-width:800px;"}
@@ -57,8 +53,7 @@ Follow these steps to add a navbar to the top of your app:
 
   4. _Optional:_ Pass a string to the `id` argument of `ui.page_navbar()`. This will create an input value that holds the title of the currently selected nav item. For example, `id = "tab"` would create a reactive value accessible as `input.tab()`.
 
-:::{.border-bottom .blue .my-5}
-:::
+
 
 ## Navbar at bottom
 

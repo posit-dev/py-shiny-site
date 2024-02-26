@@ -44,10 +44,6 @@ Use panels and cards to define areas of related content.
 
 :::{#relevant-functions}
 :::
-
-:::{.border-bottom .blue .mt-6 .mb-5}
-:::
-
 ## Floating panel
 
 :::{.column-screen-inset-right style="max-width:800px;"}
@@ -80,8 +76,7 @@ You can also use `ui.img()` to create this effect:
 
 See also: [`ui.panel_fixed()`](https://shiny.posit.co/py/api/ui.panel_fixed.html). `ui.panel_fixed()` is equivalent to calling `ui.panel_absolute()` with `fixed=True` (i.e., the panel does not scroll with the rest of the page).
 
-:::{.border-bottom .blue .my-5}
-:::
+
 
 ## Content divided by cards
 
