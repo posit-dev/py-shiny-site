@@ -31,10 +31,6 @@ A sidebar layout creates a sidebar, typically used for inputs, and a large main 
 ::: {#relevant-functions}
 :::
 
-
-:::{.border-bottom .blue .mt-6 .mb-5}
-:::
-
 ## Sidebar on the left
 
 :::{.column-screen-inset-right style="max-width:800px;"}
@@ -57,8 +53,7 @@ Follow these steps to add a left-side sidebar to your app:
 
   3. Supply additional components (output components, cards, text, etc.) to `ui.layout_sidebar()` to define the contents of the main content area.
 
-:::{.border-bottom .blue .my-5}
-:::
+
 
 ## Sidebar on the right
 
@@ -85,8 +80,7 @@ Follow these steps to add a right-side sidebar to your app:
 
   3. Supply components (e.g., inputs) to `ui.sidebar()` to define the sidebar's contents. Supply additional components (e.g., output components, cards, etc.) to `ui.layout_sidebar()` to define the contents of the main content area.
 
-:::{.border-bottom .blue .my-5}
-:::
+
 
 ## Sidebar within a card
 
@@ -110,8 +104,7 @@ Follow these steps to add a sidebar within a card to your app:
   3. Add `ui.sidebar()` and additional elements to `ui.layout_sidebar()` to define the sidebar and main content as usual.
   4. Add inputs or other components as desired to `ui.sidebar()` to define the sidebar's contents.
 
-:::{.border-bottom .blue .my-5}
-:::
+
 
 ## Collapsed sidebar
 

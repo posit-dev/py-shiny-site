@@ -79,5 +79,7 @@ To add a UI output, follow three steps:
 
 See also: [Dynamic UI](https://shiny.posit.co/py/docs/ui-dynamic.html) and [UI and HTML](https://shiny.posit.co/py/docs/ui-html.html).
 
+## Variations
+
 :::{#variations}
 :::

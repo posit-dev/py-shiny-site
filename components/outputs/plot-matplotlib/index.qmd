@@ -99,7 +99,7 @@ in a [reactive fashion](https://shiny.posit.co/py/docs/reactive-programming.html
       - If you use the `@output()` decorator, make sure it is __above__ the `@render.plot()` decorator.
 
 
-## Plots as Inputs
+### Plots as Inputs
 
 
 You can use a plot as an input widget, collecting the locations of user clicks, double clicks, hovers, and brushes. To do this, set one or more of the following arguments of `ui.output_plot()` to `True`:.
@@ -113,6 +113,8 @@ You can use a plot as an input widget, collecting the locations of user clicks, 
   4. `brush` - When `brush = True`, the plot will allow the user to “brush” in the plotting area, and will send information about the brushed area to the server, where it can be accessed as a reactive variable named `input.<id>_brush()`, where `<id>` is the id of the plot. Brushing means that the user will be able to draw a rectangle in the plotting area and drag it around. The value will be a named list with xmin, xmax, ymin, and ymax elements indicating the brush area. To control the brush behavior, set `brush` to `brush_opts()`.
 
   Multiple `output_image()`/`output_plot()` calls may share the same id value; brushing one image or plot will cause any other brushes with the same id to disappear.
+
+## Variations
 
 :::{#variations}
 :::

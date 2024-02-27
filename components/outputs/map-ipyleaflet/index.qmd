@@ -80,5 +80,7 @@ To insert an `ipyleaflet` map do the following tasks:
 
  Visit [shiny.posit.co/py/docs/ipywidgets.html](https://shiny.posit.co/py/docs/ipywidgets.html) to learn more about using ipywidgets with Shiny.
 
+## Variations
+
 :::{#variations}
 :::

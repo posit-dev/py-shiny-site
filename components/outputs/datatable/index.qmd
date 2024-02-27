@@ -139,5 +139,7 @@ If your table is a data frame that uses the pandas styler, replace `ui.output_da
 
 See also [Data Grids](../data-grid/index.qmd)
 
+## Variations
+
 :::{#variations}
 :::

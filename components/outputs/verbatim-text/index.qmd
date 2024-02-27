@@ -64,5 +64,7 @@ By default, `ui.output_verbatim_text()` will display nothing when the string to 
 
 See [Text](../text/index.qmd) to display string values as normal text.
 
+## Variations
+
 :::{#variations}
 :::

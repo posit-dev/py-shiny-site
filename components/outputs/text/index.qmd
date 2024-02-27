@@ -68,5 +68,7 @@ To make reactive text, follow three steps:
 
 See [Verbatim Text](../verbatim-text/index.qmd) to display string values as they would appear in a computer console, in monospaced font on a shaded background.
 
+## Variations
+
 :::{#variations}
 :::
