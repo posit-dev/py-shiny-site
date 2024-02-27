@@ -10,3 +10,7 @@
 img.thumbnail-image.card-img {
   border-radius: 10px;
 }
+
+.panel-tabset .sourceCode {
+  box-shadow: none;
+}

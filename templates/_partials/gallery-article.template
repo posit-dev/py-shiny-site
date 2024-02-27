@@ -83,8 +83,8 @@
   $if(appurl)$  
 
   <div class="$if(quarto-column-size)$  $quarto-column-size$  $else$ column-screen $endif$ pt-2">
-    <div class="shiny-app-frame position-static px-xl-5 px-0">
-      <iframe src="$appurl$" style="height:1250px" class="border $if(no-app-padding)$  p-0  $else$  p-4 $endif$ ">
+    <div class="shiny-app-frame position-static px-0">
+      <iframe src="$appurl$" style="height:$if(app-height)$  $app-height$  $else$ 1250px $endif$;" class="border $if(no-app-padding)$  p-0  $else$  p-4 $endif$ ">
       </iframe>
     </div>
   </div>

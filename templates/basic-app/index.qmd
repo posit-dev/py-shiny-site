@@ -4,13 +4,14 @@ imagealt:     ""
 title:        "Basic App"
 description:  The most basic Shiny app is a single input and output. Use this to get started.
 date:         2019-05-31
-quarto-column-size: column-page
+quarto-column-size: column-body
 appurl:       https://gallery.shinyapps.io/template-basic-app/
+app-height:   400px
 sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/basic-app
 shinylive:   https://rstudio.cloud/project/251957
 ---
 
-::: {.panel-tabset .shiny-mode-tabset group="shiny-app-mode"}
+::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
 
 ## Express 
 ``` python

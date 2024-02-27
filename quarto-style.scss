@@ -306,10 +306,40 @@ div.callout-important.callout-style-default .callout-header {
   margin-left: 7px;
 }
 @media only screen and (max-width:991px) {
-  .menu-text img, .breadcrumb-item img {
+  .menu-text img {
     display: none;
   }
 }
+
+/*breadcrumb styling */
+
+.breadcrumb-item img {
+  display: none;
+}
+.breadcrumb-item .sidebar-subtitle+strong {
+  margin-left: 0px;
+  font-weight: 600;
+  color: $gray-800;
+  font-size: .875rem;
+}
+li.breadcrumb-item a:hover {
+  border-bottom: 1px solid $gray-600 !important;
+}
+.quarto-page-breadcrumbs .breadcrumb-item::before {
+  padding-right: 0.45em;
+  padding-left: .175em;
+  font-weight: 400;
+  color: $gray-800;
+}
+.quarto-title-breadcrumbs .breadcrumb {
+  margin-bottom: .5em;
+}
+.quarto-title-breadcrumbs .breadcrumb li:last-of-type a {
+  color: $gray-800;
+  font-weight: 400;
+  font-size: .875rem;
+}
+
 
 /* img width for safari bug */
 .sidebar-link img {
@@ -1724,10 +1754,10 @@ btn.action-button:hover {
 
 .popover {
   max-width: 300px;
-  border: 1px solid $gray-400;
-  box-shadow: 0px 1px 2px rgba(29,31,33,.1),
-  0px 2px 3px rgba(29,31,33,.1),
-  0px 3px 8px rgba(29,31,33,.08);
+  border: 1px solid $gray-400; 
+  box-shadow: 0px 1px 2px rgba(29, 31, 33, .05), 
+  0px 2px 3px rgba(29, 31, 33, .05), 
+  0px 4px 8px rgba(29, 31, 33, .08);
 }
 
 

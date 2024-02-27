@@ -3,7 +3,9 @@ format:
   html:
     template: _partials/gallery-article.template
     page-layout: article
-    css: /layouts/_partials/layouts.css
+    css: 
+      - /layouts/_partials/layouts.css
+      - _partials/templates.css
     toc: false
     code-line-numbers: false
     include-after-body: ../components/_partials/componentsjs.html
