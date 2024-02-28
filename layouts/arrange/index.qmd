@@ -42,8 +42,7 @@ Grid layouts can be used within a page, panel, or card and can even be nested wi
 ::: {#relevant-functions}
 :::
 
-::: {.border-bottom .blue .mt-6 .mb-5}
-:::
+
 
 ## Grid Layouts
 
@@ -123,8 +122,7 @@ There's a lot more that `layout_columns()` can do with `col_widths` to make high
 Learn more in the API reference: [Express](https://shiny.posit.co/py/api/express/ui.layout_columns.html) \| [Core](https://shiny.posit.co/py/api/core/ui.layout_columns.html)
 :::
 
-::: {.border-bottom .blue .mt-6 .mb-5}
-:::
+
 
 ### Uniform grid layouts
 
@@ -174,8 +172,7 @@ express_core_preview("app-column-nest-express.py", "app-column-nest-core.py")
 ```
 :::
 
-::: {.border-bottom .blue .mt-6 .mb-5}
-:::
+
 
 ## Controlling for page width and height
 

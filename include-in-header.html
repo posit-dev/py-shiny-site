@@ -60,7 +60,7 @@
 
         const btnCopy = el.querySelector(".code-copy-button");
         if (btnCopy) {
-          btnCopy.parentElement.insertBefore(link, btnCopy);
+          btnCopy.parentElement.appendChild(link);
         } else {
           if (el.matches("pre")) {
             el.appendChild(link);

@@ -31,7 +31,8 @@ listing:
     signature: render.ui(_fn=None)
   - title: '@render.express'
     href: https://shiny.posit.co/py/api/express/express.render.express.html
-    signature: express.render.express(self, _fn=None, *, inline=False, container=None, fill=False, fillable=False, **kwargs)
+    signature: express.render.express(self, _fn=None, *, inline=False, container=None,
+      fill=False, fillable=False, **kwargs)
 - id: variations
   template: ../../_partials/components-variations.ejs
   template-params:
@@ -77,6 +78,8 @@ To add a UI output, follow three steps:
   3. Decorate the function with `@render.ui`. If you're using an action button or link to show the UI element, you'll also need to decorate with `@reactive.event`.
 
 See also: [Dynamic UI](https://shiny.posit.co/py/docs/ui-dynamic.html) and [UI and HTML](https://shiny.posit.co/py/docs/ui-html.html).
+
+## Variations
 
 :::{#variations}
 :::

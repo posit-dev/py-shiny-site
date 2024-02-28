@@ -42,7 +42,7 @@ listing:
       file: app-variation-placeholder-rectangle-when-string-is-empty-core.py
     - title: Express
       file: app-variation-placeholder-rectangle-when-string-is-empty-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDagBM4DADoRGzNlx5Y4AD3RjWrPgKEju6AK4UirQ63QSA+uM4WANlFxFDnWbNdYDxq1VUUACmkwABU1CmCiYIBRSilkMP9I5GDggEoPTixSYyMKX3CrADcpACMoCn4gsD8IwmR0R2I4dlJ7SQYAXhCGQzg05GQAYmQAHlH3CAB3Tgp2NnNLCHEbO0anALSUYbGJiFlBwYABMWWpLFrBkfGDw8k6ZFrNxFvDw7EKQwYIPgg8rESgQyEHqNVwlloNXCYAAvgBdIA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDagBM4DADoRGzNlx5Y4AD3RjWrPgKEju6AK4UihzrNlmsB4wH0qqigAppYACpqKroq4CilKWQPR29kV1cASktOLFJjIwpbMkkXMAcvQmR0ABsoYjh2UmzJBgBeNwZDOAjkZABiZAAeRosIAHdOCnZkK0LipwiUeqaWiFla2oABMQgSrGS4Wobm8YnJOmR0gcRViYmxCkMGCD4IBKxg5yiITLTcdAQUNM8wAF8AXSA
     - title: Core
       file: app-variation-placeholder-rectangle-when-string-is-empty-core.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKmqgA8KdsABU4H2VCZBCAUUo5ZEDg0JCQgEoCe0dDUnc3D28PADc5ACMoCn4-HJCidAsoYjh2UgtZBj0YhgU4ROQAYgAeHtVE1VVZOjY5fIYbV3ciDIosolY4VlZOckTEVIcAASkIJqwc7r6t5BHkHJsN08dkKQoFBgg+CCysWN9BtWhMFvF0GwabScRbjORfUJgCi4dAIFBQoIUMAAXwAukA
@@ -63,6 +63,8 @@ To create reactive verbatim text, render the text in the server function with th
 By default, `ui.output_verbatim_text()` will display nothing when the string to display is empty. To ensure that `ui.output_verbatim_text()` displays an empty shaded rectangle as a placeholder even when when the string to display is empty, set `placeholder=True`.
 
 See [Text](../text/index.qmd) to display string values as normal text.
+
+## Variations
 
 :::{#variations}
 :::

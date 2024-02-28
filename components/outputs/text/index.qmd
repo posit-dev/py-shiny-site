@@ -42,7 +42,7 @@ listing:
       file: app-variation-inline-text-core.py
     - title: Express
       file: app-variation-inline-text-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDagBM4DADoRGzNlx5Y4AD3RjWrPgKEju6AK4UirQ63QSA+uM4WANlFxFDnWbNdYDxq1VUUACmkwABU1CmCiYIBRSilkPwjCZGCACTh7e1JkAGUlXGCASncwAE1SQ2RqKjFxRGCPTiwKiiMKX3CgsETIvgh7bjgAXhCGQzhC5GQAYmQAHjn3CFkAATMLa1sHJwDJmfnFiBWxCEkGLESp2YXZSToEzsL6iCmpsQpDBhfvCiww-12smS3Vwllo3XCYAAvgBdIA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDagBM4DADoRGzNlx5Y4AD3RjWrPgKEju6AK4UihzrNlmsB4wH0qqigAppYACpqKroq4CilKWQHL0JkVwAJOAAbKNJkAGUlXFcASgswAE1SQ2RqKjFxRFcLCFkAATEISQYsYKduKO44AF43BkM4FORkAGJkAB5+2Uk6IM8nFKKIbu6xCkMGaZsKLA9HCdlQsApcdAQUbc8wAF8AXSA
     - title: Core
       file: app-variation-inline-text-core.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKmqgA8KdsABU4H2VCZBCAUUo5ZG8KEKIQgAk4CwtSZABlLh4QgEoCe0cQgE1SBWRqKilpFHinLDKKNw9Yv1i67gtuOD1kfwYFOFzkAGIAHjHVXMLHIohZOjY5ADc5G1d3IkbmolY4VlZOclzEGeQAASl5uSx2iFmFmKDfE7PZqQoFBnuNiixAnw2ab3WZzDS9cToGwabScXYrOTA0JgCi4dAIFAo55gAC+AF0gA
@@ -67,6 +67,8 @@ To make reactive text, follow three steps:
   3. Decorate the function with `@render.text`
 
 See [Verbatim Text](../verbatim-text/index.qmd) to display string values as they would appear in a computer console, in monospaced font on a shaded background.
+
+## Variations
 
 :::{#variations}
 :::

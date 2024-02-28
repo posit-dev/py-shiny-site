@@ -80,7 +80,7 @@ def _():
     ui.modal_show(m)
 ```
 
-## Modal contents
+### Modal contents
 
 To add elements to a modal, pass them as unnamed arguments to `ui.modal()`. Modals can contain any UI elements recognized by Shiny.
 

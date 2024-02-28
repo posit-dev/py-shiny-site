@@ -193,3 +193,14 @@ main a.nav-link:hover {
   border: 1px solid #e9ecef;
   border-radius: 10px;
 }
+
+/* Add rule and spacing between sections */
+section.level2:not(:first-child) h2 {
+  border-top: 1px solid var(--bs-primary);
+  padding-top: 5rem !important;
+  margin-top: 5rem !important;
+}
+
+section.level2:not(:first-child) > :last-child {
+  margin-bottom: 0;
+}
