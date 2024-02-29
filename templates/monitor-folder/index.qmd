@@ -1,0 +1,27 @@
+---
+title:        "Streaming folder updates"
+description:  Use the monitor-folder template as a foundation for your next Shiny app.
+date:         2024-03-04
+image:        thumbnail.png
+imagealt:     "A screenshot of the monitor-folder template"
+quarto-column-size: column-page
+app-height:   600px
+appurl:       https://gallery.shinyapps.io/template-monitor-folder/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/monitor-folder
+---
+
+::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
+## Express
+``` python
+shiny create -m express \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/monitor-folder
+```
+## Core
+``` python
+shiny create -m core \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/monitor-folder
+```
+:::
+
+
+A description of the monitor-folder template.

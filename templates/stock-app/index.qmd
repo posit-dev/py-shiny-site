@@ -1,0 +1,25 @@
+---
+title:        "Stock price tracker"
+description:  Use the stock-app template as a foundation for your next Shiny app.
+date:         2024-03-04
+image:        thumbnail.png
+imagealt:     "A screenshot of the stock-app template"
+appurl:       https://gallery.shinyapps.io/template-stock-app/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/stock-app
+---
+
+::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
+## Express
+``` python
+shiny create -m express \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/stock-app
+```
+## Core
+``` python
+shiny create -m core \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/stock-app
+```
+:::
+
+
+A description of the stock-app template.

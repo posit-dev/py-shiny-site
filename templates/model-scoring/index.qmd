@@ -1,0 +1,20 @@
+---
+title:        "Model scoring"
+description:  Use the model-scoring template as a foundation for your next Shiny app.
+date:         2024-03-04
+image:        thumbnail.png
+imagealt:     "A screenshot of the model-scoring template"
+appurl:       https://gallery.shinyapps.io/template-model-scoring/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/model-scoring
+---
+
+::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
+## Core
+``` python
+shiny create -m core \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/model-scoring
+```
+:::
+
+
+A description of the model-scoring template.

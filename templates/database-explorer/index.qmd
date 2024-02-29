@@ -1,0 +1,20 @@
+---
+title:        "SQL database explorer"
+description:  Use the database-explorer template as a foundation for your next Shiny app.
+date:         2024-03-04
+image:        thumbnail.png
+imagealt:     "A screenshot of the database-explorer template"
+appurl:       https://gallery.shinyapps.io/template-database-explorer/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/database-explorer
+---
+
+::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
+## Core
+``` python
+shiny create -m core \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/database-explorer
+```
+:::
+
+
+A description of the database-explorer template.

@@ -1,0 +1,26 @@
+---
+title:        "Restaurant tips dashboard"
+description:  Use the dashboard-tips template as a foundation for your next Shiny app.
+date:         2024-03-04
+image:        thumbnail.png
+imagealt:     "A screenshot of the dashboard-tips template"
+app-height:   900px
+appurl:       https://gallery.shinyapps.io/template-dashboard-tips1/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/dashboard-tips
+---
+
+::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
+## Express
+``` python
+shiny create -m express \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/dashboard-tips
+```
+## Core
+``` python
+shiny create -m core \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/dashboard-tips
+```
+:::
+
+
+A description of the dashboard-tips template.

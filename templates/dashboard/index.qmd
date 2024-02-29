@@ -1,0 +1,25 @@
+---
+title:        "Basic dashboard"
+description:  Use the dashboard template as a foundation for your next Shiny app.
+date:         2024-03-04
+image:        thumbnail.png
+imagealt:     "A screenshot of the dashboard template"
+appurl:       https://gallery.shinyapps.io/template-dashboard/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/dashboard
+---
+
+::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
+## Express
+``` python
+shiny create -m express \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/dashboard
+```
+## Core
+``` python
+shiny create -m core \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/dashboard
+```
+:::
+
+
+A description of the dashboard template.

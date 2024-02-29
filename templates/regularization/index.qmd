@@ -1,0 +1,26 @@
+---
+title:        "Article on regularization in ML"
+description:  Use the regularization template as a foundation for your next Shiny app.
+date:         2024-03-04
+image:        thumbnail.png
+imagealt:     "A screenshot of the regularization template"
+quarto-column-size: column-page
+appurl:       https://gallery.shinyapps.io/template-regularization/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/regularization
+---
+
+::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
+## Express
+``` python
+shiny create -m express \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/regularization
+```
+## Core
+``` python
+shiny create -m core \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/regularization
+```
+:::
+
+
+A description of the regularization template.

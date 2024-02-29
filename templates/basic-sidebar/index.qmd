@@ -1,0 +1,27 @@
+---
+title:        "Reactive plot in sidebar"
+description:  Use the basic-sidebar template as a foundation for your next Shiny app.
+date:         2024-03-04
+image:        thumbnail.png
+imagealt:     "A screenshot of the basic-sidebar template"
+quarto-column-size: column-page
+app-height:   525px
+appurl:       https://gallery.shinyapps.io/template-basic-sidebar1/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/basic-sidebar
+---
+
+::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
+## Express
+``` python
+shiny create -m express \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/basic-sidebar
+```
+## Core
+``` python
+shiny create -m core \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/basic-sidebar
+```
+:::
+
+
+A description of the basic-sidebar template.

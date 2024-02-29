@@ -1,0 +1,22 @@
+---
+title:        "Survey wizard form"
+description:  Use the survey-wizard template as a foundation for your next Shiny app.
+date:         2024-03-04
+image:        thumbnail.png
+imagealt:     "A screenshot of the survey-wizard template"
+quarto-column-size: column-body
+app-height:   450px
+appurl:       https://gallery.shinyapps.io/template-survey-wizard/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/survey-wizard
+---
+
+::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
+## Core
+``` python
+shiny create -m core \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/survey-wizard
+```
+:::
+
+
+A description of the survey-wizard template.

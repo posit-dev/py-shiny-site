@@ -1,0 +1,20 @@
+---
+title:        "Streaming database updates"
+description:  Use the monitor-database template as a foundation for your next Shiny app.
+date:         2024-03-04
+image:        thumbnail.png
+imagealt:     "A screenshot of the monitor-database template"
+appurl:       https://gallery.shinyapps.io/template-monitor-database/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/monitor-database
+---
+
+::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
+## Core
+``` python
+shiny create -m core \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/monitor-database
+```
+:::
+
+
+A description of the monitor-database template.
