@@ -1,13 +1,30 @@
 ---
 title: Data Grid
 sidebar: components
-preview: '<div class="px-4">
-
-  <img  style="width: 100%;height:auto;max-height:130px;" src="/images/datagrid.png">
-
-  </div>
-
-  '
+preview: '<div class="p-4 w-100 h-100">
+<table class="w-100 h-100 my-0 border">
+<thead>
+<tr>
+<th class="border fw-600 p-90 px-2 py-1 bg-gray" tabindex="0" colspan="1" scope="col">
+<div>This</div>
+</th>
+<th class="border fw-600 p-90 px-2 py-1 bg-gray" tabindex="0" colspan="1" scope="col">
+<div>That</div>
+</th>
+</tr>
+</thead>
+<tbody tabindex="0">
+<tr tabindex="-1" data-index="0" data-key="0">
+<td class="border p-90 px-2 py-1">And</td>
+<td class="border p-90 px-2 py-1">The</td>
+</tr>
+<tr tabindex="-1" data-index="1" data-key="1">
+<td class="border p-90 px-2 py-1">Other</td>
+<td class="border p-90 px-2 py-1">Thing</td>
+</tr>
+</tbody>
+</table>
+</div>'
 listing:
 - id: example
   template: ../../_partials/components-detail-example.ejs

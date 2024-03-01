@@ -2,12 +2,11 @@
 title: Image
 sidebar: components
 preview: '<div class="px-4">
-
-  <img width="90" src="/images/shiny.png">
-
-  </div>
-
-  '
+<p class="mb-0">
+<img width="90" src="/images/shiny.png">
+</p>
+</div>
+'
 listing:
 - id: example
   template: ../../_partials/components-detail-example.ejs
