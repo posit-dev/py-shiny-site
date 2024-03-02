@@ -2,11 +2,10 @@
 title: Plot (Matplotlib)
 sidebar: components
 preview: '<div class="px-3">
-
-  <img style="width: 100%;height:auto;max-height:130px;" src="/images/matplotlib.jpg">
-
-  </div>
-
+<p class="mb-0">
+<img style="width: 100%;height:auto;max-height:130px;" src="/images/matplotlib.jpg">
+</p>
+</div>
   '
 listing:
 - id: example

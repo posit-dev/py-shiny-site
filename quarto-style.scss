@@ -299,6 +299,7 @@ div.callout-important.callout-style-default .callout-header {
   text-decoration: underline;
 }
 
+
 // sidebar styling
 // sidebar icon placement
 
@@ -316,11 +317,11 @@ div.callout-important.callout-style-default .callout-header {
 .breadcrumb-item img {
   display: none;
 }
-.breadcrumb-item .sidebar-subtitle+strong {
+.breadcrumb-item a, .breadcrumb-item .sidebar-subtitle+strong {
   margin-left: 0px;
-  font-weight: 600;
-  color: $gray-800;
-  font-size: .875rem;
+  font-weight: 500;
+  color: $gray-700;
+  font-size: .85rem;
 }
 li.breadcrumb-item a:hover {
   border-bottom: 1px solid $gray-600 !important;
@@ -328,16 +329,16 @@ li.breadcrumb-item a:hover {
 .quarto-page-breadcrumbs .breadcrumb-item::before {
   padding-right: 0.45em;
   padding-left: .175em;
-  font-weight: 400;
-  color: $gray-800;
+  font-weight: 500;
+  color: $gray-700;
 }
 .quarto-title-breadcrumbs .breadcrumb {
-  margin-bottom: .5em;
+  margin-bottom: .25em;
 }
 .quarto-title-breadcrumbs .breadcrumb li:last-of-type a {
-  color: $gray-800;
-  font-weight: 400;
-  font-size: .875rem;
+  color: $gray-700;
+  font-weight: 500;
+  font-size: .85rem;
 }
 
 
@@ -1754,9 +1755,9 @@ btn.action-button:hover {
 
 .popover {
   max-width: 300px;
-  border: 1px solid $gray-400; 
-  box-shadow: 0px 1px 2px rgba(29, 31, 33, .05), 
-  0px 2px 3px rgba(29, 31, 33, .05), 
+  border: 1px solid $gray-400;
+  box-shadow: 0px 1px 2px rgba(29, 31, 33, .05),
+  0px 2px 3px rgba(29, 31, 33, .05),
   0px 4px 8px rgba(29, 31, 33, .08);
 }
 

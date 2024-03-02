@@ -3,7 +3,7 @@ from shiny import App, render, ui
 
 penguins = load_penguins()
 
-app_ui = ui.page_fixed(
+app_ui = ui.page_fluid(
     ui.h2("Palmer Penguins"),
     ui.output_data_frame("penguins_df"),  # <<
 )
