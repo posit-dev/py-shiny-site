@@ -24,4 +24,20 @@ shiny create -m core \
 :::
 
 
-A description of the basic-sidebar template.
+Place numerous input controls in a sidebar and use them to control a plot in the main panel.
+
+**Pro tip:** When dealing with many inputs, consider grouping them into an [accordion](https://shiny.posit.co/py/api/core/ui.accordion.html) (and placing the accordion in the sidebar).
+
+Components:
+
+* [Select input](/components/inputs/select-single)
+* [Switch input](/components/inputs/switch)
+* [Plot output](/components/outputs/plot-seaborn)
+
+Layouts:
+
+* [Sidebar](https://shiny.posit.co/py/layouts/sidebars)
+
+Packages:
+
+* `seaborn`

@@ -17,4 +17,24 @@ shiny create -m core \
 :::
 
 
-A description of the database-explorer template.
+Run queries on an SQL database and view the results in a data grid.
+This app demonstrates how to initialize, populate, and connect to an SQL database using the `duckdb` package.
+It also shows how to run SQL queries and display results in an interactive data grid.
+Note also the use of Shiny [modules](/docs/modules.html) to encapsulate and reuse the logic behind each card.
+
+
+Components:
+
+* [Action button](/components/inputs/action-button)
+* [Text area input](/components/inputs/text-area)
+* [Data grid output](/components/outputs/data-grid)
+
+Layouts:
+
+* [Sidebar](/layouts/sidebars)
+* [Grid layout](/layouts/arrange)
+
+Packages:
+
+* `duckdb`
+* `pandas`

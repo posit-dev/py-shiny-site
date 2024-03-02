@@ -23,4 +23,17 @@ shiny create -m core \
 :::
 
 
-A description of the regularization template.
+An article on regularization in machine learning and statistics.
+The app demonstrates the effect of regularization in linear regression.
+The user can adjust the regularization strength to see it influence the model's coefficients.
+
+Components:
+
+* [Slider input](/components/inputs/slider-range)
+* [Plot output](/components/outputs/plot-seaborn)
+
+Packages:
+
+* `pandas`
+* `scikit-learn`
+* `seaborn`

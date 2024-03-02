@@ -22,4 +22,28 @@ shiny create -m core \
 :::
 
 
-A description of the map-distance template.
+Run queries on an SQL database and view the results in a data grid.
+This app demonstrates how to initialize, populate, and connect to an SQL database using the `duckdb` package.
+It also shows how to run SQL queries and display results in an interactive data grid.
+Note also the use of Shiny [modules](/docs/modules.html) to encapsulate and reuse the logic behind each card.
+
+
+Components:
+
+* [Select input](/components/inputs/selectize-single/)
+* [Value box](/components/outputs/value-box)
+* [Map](/components/outputs/map-ipyleaflet)
+
+Layouts:
+
+* [Sidebar](/layouts/sidebars)
+* [Grid layout](/layouts/arrange)
+* [Cards](/layouts/panels-cards/#content-divided-by-cards)
+
+Packages:
+
+* `faicons`
+* `geopy`
+* `ipyleaflet`
+* `requests`
+* `shinywidgets`

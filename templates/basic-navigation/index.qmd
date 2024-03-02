@@ -24,4 +24,23 @@ shiny create -m core \
 :::
 
 
-A description of the basic-navigation template.
+A basic demonstration of common navigation of multiple panels in Shiny.
+The app has a navigation bar at the top, with two panels: "Page 1" and "Page 2".
+On "Page 1", is card with two panels: "Plot" and "Table".
+On both card panels is a select input to choose the plot/data to display.
+
+Components:
+
+* [Select input](/components/inputs/select-single)
+* [Plot output](/components/outputs/plot-seaborn)
+* [Data grid output](/components/outputs/data-grid)
+
+Layouts:
+
+* [Navbars](https://shiny.posit.co/py/layouts/navbars)
+* [Tabs](https://shiny.posit.co/py/layouts/tabs)
+
+Packages:
+
+* `pandas`
+* `seaborn`
