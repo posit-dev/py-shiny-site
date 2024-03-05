@@ -8,7 +8,7 @@ appurl:       https://gallery.shinyapps.io/template-database-explorer/
 sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/database-explorer
 ---
 
-::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
+::: {.panel-tabset .shiny-mode-tabset}
 ## Core
 ``` python
 shiny create -m core \

@@ -10,7 +10,7 @@ appurl:       https://gallery.shinyapps.io/template-survey-wizard/
 sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/survey-wizard
 ---
 
-::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
+::: {.panel-tabset .shiny-mode-tabset}
 ## Core
 ``` python
 shiny create -m core \
