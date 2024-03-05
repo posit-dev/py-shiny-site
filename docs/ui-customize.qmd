@@ -197,7 +197,7 @@ That said, if you want your app to work properly offline, you'll want to serve t
 When customizing UI with CSS (and/or JavaScript), it's often useful to serve local files (e.g., fonts, images, CSS, etc) to the app.
 
 
-::: {.panel-tabset .shiny-mode-tabset group="shiny-app-mode"}
+::: {.panel-tabset .panel-pills group="shiny-app-mode"}
 
 ### Express
 
