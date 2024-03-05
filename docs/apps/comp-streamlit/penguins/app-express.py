@@ -13,7 +13,7 @@ with ui.sidebar():
     ui.input_checkbox("smoother", "Add Smoother")
 
 
-@reactive.Calc
+@reactive.calc
 def filtered_data():
     filt_df = df.copy()
     filt_df = filt_df.loc[df["body_mass_g"] < input.mass()]

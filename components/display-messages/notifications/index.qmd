@@ -78,7 +78,7 @@ A notification is a message that appears near the bottom corner of the app. Noti
 To create a notification, call [`ui.notification_show()`](https://shiny.posit.co/py/api/ui.notification_show.html). Typically, you will want to create a reactive effect to call `ui.show_notification()` whenever a particular event occurs. For example, the reactive effect below will create a notification whenever the value of `input.show()` changes.
 
 ```{.python}
-@reactive.Effect
+@reactive.effect
 @reactive.event(input.show)
 def _():
     ui.notification_show("You've been notified.")

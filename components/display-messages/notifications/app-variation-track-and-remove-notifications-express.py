@@ -8,7 +8,7 @@ ids: list[str] = []
 n: int = 0
 
 
-@reactive.Effect
+@reactive.effect
 @reactive.event(input.show)
 def _():
     global ids
@@ -19,7 +19,7 @@ def _():
     n += 1
 
 
-@reactive.Effect
+@reactive.effect
 @reactive.event(input.remove)
 def _():
     global ids
