@@ -6,7 +6,7 @@ app_ui = ui.page_fluid(
 
 
 def server(input, output, session):
-    @reactive.Effect
+    @reactive.effect
     @reactive.event(input.show)
     def show_or_update_notification():
         ui.notification_show(
