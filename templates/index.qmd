@@ -22,13 +22,12 @@ format:
 Shiny Templates
 :::
 
-##### Templates blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah.
+##### A collection of useful apps built from a combination [components](https://shiny.posit.co/py/components/), [layouts](https://shiny.posit.co/py/layouts/), and [reactivity](https://shiny.posit.co/py/docs/reactive-foundations.html). Compared to the [gallery](https://shiny.posit.co/py/gallery/), templates provide a more minimal yet useful starting point for your next app.
 ::::
 :::: {.g-col-md-5 .g-col-10 .g-start-4 .components-hero-img-container}
 
 <div class="ps-5 pt-5 components-hero-img" >
-<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
-<dotlottie-player src="/components/_partials/animation.lottie" background="transparent" speed="1" style="width: 100%; height: auto;" autoplay></dotlottie-player>
+
 </div>
 
 ::::
@@ -45,12 +44,11 @@ Shiny Templates
 ::: {.sticky-xl-top .pt-4}
 
 <h3 class="mt-4"> 
-  <a href="/layouts/navbars.qmd" class="dark text-decoration-none">
-    <img src="/images/navbars-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Basic Apps
-  </a> 
+  <img src="/images/navbars-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Basic Apps
 </h3>
 
-Subtitle here
+Basic starting points highlighting common [layouts](https://shiny.posit.co/py/layouts/) and [components](https://shiny.posit.co/py/components/).
+
 
 :::
 ::::
@@ -59,17 +57,17 @@ Subtitle here
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/templates/basic-app/" target="_blank">
-<h5>Basic App</h5>
+<a class="component-list-header-text" href="basic-app-plot" target="_blank">
+<h5>Basic reactive plot</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/navbars.html#navbar-at-top">
+<p class="my-0"><a class="text-decoration-none dark" href="/basic-app-plot">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/templates/basic-app/"><img src="/images/navbar-top.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100 py-1 px-3"><a class="layout-list-image" href="basic-app-plot"><img src="basic-app-plot/thumbnail.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
@@ -77,33 +75,50 @@ Subtitle here
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/navbars.html#navbar-at-bottom">
-<h5>Basic App w/ Sidebar</h5>
+<a class="component-list-header-text" href="basic-sidebar">
+<h5>Reactive plot in sidebar</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/navbars.html#navbar-at-bottom">
+<p class="my-0"><a class="text-decoration-none dark" href="basic-sidebar">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/navbars.html#navbar-at-bottom"><img src="/images/navbar-bottom.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="basic-sidebar"><img src="basic-sidebar/thumbnail.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/navbars.html#navbar-at-bottom">
-<h5>Article</h5>
+<a class="component-list-header-text" href="basic-navigation">
+<h5>Navigating multiple panels</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/navbars.html#navbar-at-bottom">
+<p class="my-0"><a class="text-decoration-none dark" href="basic-navigation">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/navbars.html#navbar-at-bottom"><img src="/images/navbar-bottom.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="basic-navigation"><img src="basic-navigation/thumbnail.png" class="h-100 w-100"></a></p>
+</div>
+</div>
+
+
+<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+<div class="component-list-header">
+<a class="component-list-header-text" href="regularization">
+<h5>Regularization in ML article</h5>
+</a>
+<div class="component-list-icon">
+<p class="my-0"><a class="text-decoration-none dark" href="regularization">
+<i class="component-link-icon dark bi fst-normal"></i>
+</a></p>
+</div>
+</div>
+<div class="component-list-card layout-list-card">
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="regularization"><img src="regularization/thumbnail.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
@@ -120,12 +135,10 @@ Subtitle here
 
 
 <h3 class="mt-4"> 
-  <a href="/layouts/sidebars.qmd" class="dark text-decoration-none">
-    <img src="/images/sidebars-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Dashboards
-  </a> 
+  <img src="/images/sidebars-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Dashboards
 </h3>
 
-Subtitle here
+At their core, dashboards are a combination of [sidebar layout](https://shiny.posit.co/py/layouts/sidebars/) with cards and [value boxes](https://shiny.posit.co/py/components/outputs/value-box/).
 
 :::
 ::::
@@ -136,65 +149,113 @@ Subtitle here
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/sidebars.html#sidebar-on-the-left">
+<a class="component-list-header-text" href="dashboard">
 <h5>Basic Dashboard</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/sidebars.html#sidebar-on-the-left">
+<p class="my-0"><a class="text-decoration-none dark" href="dashboard">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/sidebars.html#sidebar-on-the-left"><img src="/images/sidebar-left.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="dashboard"><img src="dashboard/thumbnail.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/sidebars.html#sidebar-on-the-left">
-<h5>Multi-Page Dashboard</h5>
+<a class="component-list-header-text" href="dashboard-tips">
+<h5>Restaurant tips dashboard</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/sidebars.html#sidebar-on-the-left">
+<p class="my-0"><a class="text-decoration-none dark" href="dashboard-tips">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/sidebars.html#sidebar-on-the-left"><img src="/images/sidebar-left.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="dashboard-tips"><img src="dashboard-tips/thumbnail.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/sidebars.html#sidebar-on-the-left">
-<h5>Stonks</h5>
+<a class="component-list-header-text" href="stock-app">
+<h5>Stock Price Tracker</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/sidebars.html#sidebar-on-the-left">
+<p class="my-0"><a class="text-decoration-none dark" href="stock-app">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/sidebars.html#sidebar-on-the-left"><img src="/images/sidebar-left.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="stock-app"><img src="stock-app/thumbnail.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/sidebars.html#sidebar-on-the-left">
-<h5>NBA Dashboard</h5>
+<a class="component-list-header-text" href="nba-dashboard">
+<h5>NBA player career comparisons</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/sidebars.html#sidebar-on-the-left">
+<p class="my-0"><a class="text-decoration-none dark" href="nba-dashboard">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/sidebars.html#sidebar-on-the-left"><img src="/images/sidebar-left.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="nba-dashboard"><img src="nba-dashboard/thumbnail.png" class="h-100 w-100"></a></p>
+</div>
+</div>
+
+<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+<div class="component-list-header">
+<a class="component-list-header-text" href="model-scoring">
+<h5>Model scoring</h5>
+</a>
+<div class="component-list-icon">
+<p class="my-0"><a class="text-decoration-none dark" href="model-scoring">
+<i class="component-link-icon dark bi fst-normal"></i>
+</a></p>
+</div>
+</div>
+<div class="component-list-card layout-list-card">
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="model-scoring"><img src="model-scoring/thumbnail.png" class="h-100 w-100"></a></p>
+</div>
+</div>
+
+<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+<div class="component-list-header">
+<a class="component-list-header-text" href="map-distance">
+<h5>Location distance calculator</h5>
+</a>
+<div class="component-list-icon">
+<p class="my-0"><a class="text-decoration-none dark" href="map-distance">
+<i class="component-link-icon dark bi fst-normal"></i>
+</a></p>
+</div>
+</div>
+<div class="component-list-card layout-list-card">
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="map-distance"><img src="map-distance/thumbnail.png" class="h-100 w-100"></a></p>
+</div>
+</div>
+
+<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+<div class="component-list-header">
+<a class="component-list-header-text" href="database-explorer">
+<h5>SQL database explorer</h5>
+</a>
+<div class="component-list-icon">
+<p class="my-0"><a class="text-decoration-none dark" href="database-explorer">
+<i class="component-link-icon dark bi fst-normal"></i>
+</a></p>
+</div>
+</div>
+<div class="component-list-card layout-list-card">
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="database-explorer"><img src="database-explorer/thumbnail.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
@@ -211,12 +272,10 @@ Subtitle here
 ::: {.sticky-xl-top .pt-4}
 
 <h3 class="mt-4"> 
-  <a href="/layouts/arrange.qmd" class="dark text-decoration-none">
-    <img src="/images/arrange-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Data Entry
-  </a> 
+  <img src="/images/arrange-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Streaming Updates
 </h3>
 
-Subtitle here
+Reactive [file reading](https://shiny.posit.co/py/docs/reactive-patterns.html#file) and [polling](https://shiny.posit.co/py/docs/reactive-patterns.html#poll) provide an easy and useful way to “stream” updates to files, folders, databases, and more. 
 
 :::
 ::::
@@ -227,17 +286,17 @@ Subtitle here
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/arrange.html#grid-layouts">
-<h5>Survey</h5>
+<a class="component-list-header-text" href="monitor-file">
+<h5>Streaming file updates</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/arrange.html#grid-layouts">
+<p class="my-0"><a class="text-decoration-none dark" href="monitor-file">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/arrange.html#grid-layouts"><img src="/images/grid-layout.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="monitor-file"><img src="monitor-file/thumbnail.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
@@ -245,113 +304,34 @@ Subtitle here
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/arrange.html#column-nesting">
-<h5>To-Do List</h5>
+<a class="component-list-header-text" href="monitor-database">
+<h5>Streaming database updates</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/arrange.html#column-nesting">
+<p class="my-0"><a class="text-decoration-none dark" href="monitor-database">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/arrange.html#column-nesting"><img src="/images/column-nesting.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="monitor-database"><img src="monitor-database/thumbnail.png" class="h-100 w-100"></a></p>
  
 </div>
 </div>
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/arrange.html#column-nesting">
-<h5>Wizard</h5>
+<a class="component-list-header-text" href="monitor-folder">
+<h5>Streaming folder updates</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/arrange.html#column-nesting">
+<p class="my-0"><a class="text-decoration-none dark" href="monitor-folder">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/arrange.html#column-nesting"><img src="/images/column-nesting.png" class="h-100 w-100"></a></p>
- 
-</div>
-</div>
-
- 
-
-
-:::
-
-::::
-
-::::::
-:::::: {.grid .list-section style="margin-top: -1px;" #elements}
-:::: {.g-col-xl-3 .g-col-12}
-::: {.sticky-xl-top .pt-4}
-
-<h3 class="mt-4"> 
-  <a href="/layouts/arrange.qmd" class="dark text-decoration-none">
-    <img src="/images/arrange-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Monitoring
-  </a> 
-</h3>
-
-Subtitle here
-
-:::
-::::
-:::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
-::: {#element .grid}
-
-
-
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/arrange.html#grid-layouts">
-<h5>Log Monitor</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/arrange.html#grid-layouts">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/arrange.html#grid-layouts"><img src="/images/grid-layout.png" class="h-100 w-100"></a></p>
-</div>
-</div>
-
-
-
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/arrange.html#column-nesting">
-<h5>Folder Monitor</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/arrange.html#column-nesting">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/arrange.html#column-nesting"><img src="/images/column-nesting.png" class="h-100 w-100"></a></p>
- 
-</div>
-</div>
-
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/arrange.html#column-nesting">
-<h5>Database Monitor</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/arrange.html#column-nesting">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/arrange.html#column-nesting"><img src="/images/column-nesting.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="monitor-folder"><img src="monitor-folder/thumbnail.png" class="h-100 w-100"></a></p>
  
 </div>
 </div>
@@ -369,12 +349,10 @@ Subtitle here
 ::: {.sticky-xl-top .pt-4}
 
 <h3 class="mt-4"> 
-  <a href="/layouts/arrange.qmd" class="dark text-decoration-none">
-    <img src="/images/arrange-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Other
-  </a> 
+  <img src="/images/arrange-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Data Entry
 </h3>
 
-Subtitle here
+  Validate and record user input to a questionnaire.
 
 :::
 ::::
@@ -385,17 +363,17 @@ Subtitle here
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/arrange.html#grid-layouts">
-<h5>Database Explorer</h5>
+<a class="component-list-header-text" href="survey">
+<h5>Survey form</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/arrange.html#grid-layouts">
+<p class="my-0"><a class="text-decoration-none dark" href="survey">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/arrange.html#grid-layouts"><img src="/images/grid-layout.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="survey"><img src="survey/thumbnail.png" class="h-100 w-100"></a></p>
 </div>
 </div>
 
@@ -403,39 +381,21 @@ Subtitle here
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
 <div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/arrange.html#column-nesting">
-<h5>Map</h5>
+<a class="component-list-header-text" href="survey-wizard">
+<h5>Survey wizard form</h5>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/arrange.html#column-nesting">
+<p class="my-0"><a class="text-decoration-none dark" href="survey-wizard">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/arrange.html#column-nesting"><img src="/images/column-nesting.png" class="h-100 w-100"></a></p>
+<p class="my-0 h-100 w-100"><a class="layout-list-image" href="survey-wizard"><img src="survey-wizard/thumbnail.png" class="h-100 w-100"></a></p>
  
 </div>
 </div>
 
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="/layouts/arrange.html#column-nesting">
-<h5>Multi-page (or Model Monitoring?)</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/layouts/arrange.html#column-nesting">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="/layouts/arrange.html#column-nesting"><img src="/images/column-nesting.png" class="h-100 w-100"></a></p>
- 
-</div>
-</div>
-
- 
 
 
 :::

@@ -28,16 +28,28 @@ Place numerous input controls in a sidebar and use them to control a plot in the
 
 **Pro tip:** When dealing with many inputs, consider grouping them into an [accordion](https://shiny.posit.co/py/api/core/ui.accordion.html) (and placing the accordion in the sidebar).
 
-Components:
+
+:::: {.grid .tags}
+
+::: {.g-col-4}
+**Components:**
 
 * [Select input](/components/inputs/select-single)
 * [Switch input](/components/inputs/switch)
 * [Plot output](/components/outputs/plot-seaborn)
 
-Layouts:
+:::
+::: {.g-col-4}
+**Layouts:**
 
 * [Sidebar](https://shiny.posit.co/py/layouts/sidebars)
 
-Packages:
+:::
+::: {.g-col-4}
+
+**Packages:**
 
 * `seaborn`
+
+:::
+::::

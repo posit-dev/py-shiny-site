@@ -29,20 +29,33 @@ To facilitate, this template makes a clever use of the `watchfiles` package and 
 To trigger a change, you can press the "+" icon to add a new file to the folder, which will then be displayed in the table (listing the files name and their last modification time).
 Additionally, when a file is selected in this table, the contents are displayed and available for download.
 
-Components:
 
-* [Data grid output/components/outputs/data-grid)
-* [Action button/components/inputs/action-button)
+:::: {.grid .tags}
+::: {.g-col-4}
+
+**Components:**
+
+* [Data grid output](/components/outputs/data-grid)
+* [Action button](/components/inputs/action-button)
 * [Popover](https://shiny.posit.co/py/api/core/ui.popover.html)
 * [Download link](https://shiny.posit.co/py/api/core/ui.download_link.html)
 
-Layouts:
+:::
+::: {.g-col-4}
+
+**Layouts:**
 
 * [Grid layout](/layouts/arrange)
 * [Cards](/layouts/panels-cards/#content-divided-by-cards)
 
-Packages:
+:::
+::: {.g-col-4}
+
+**Packages:**
 
 * `faicons`
 * `pandas`
 * `watchfiles`
+
+:::
+::::

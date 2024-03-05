@@ -22,25 +22,34 @@ shiny create -m core \
 ```
 :::
 
-
 Search for NBA players and compare their career statistics.
 The app uses the `nba_api` package to fetch player statistics and the `plotly` package to create interactive plots.
 Note that in addition to searching for players by name, you can also click on the rug plot to select players.
 This provides a useful way to query player(s) based on a specific statistic, then compare their overall career statistics.
 
-Components:
+
+:::: {.grid .tags}
+::: {.g-col-4}
+
+**Components:**
 
 * [Select input](/components/inputs/selectize-multiple/)
 * [Slider input](/components/inputs/slider-range/)
 * [Plotly](/components/outputs/plot-plotly/)
 
-Layouts:
+:::
+::: {.g-col-4}
+
+**Layouts:**
 
 * [Sidebar](/layouts/sidebars)
 * [Grid layout](/layouts/arrange)
 * [Cards](/layouts/panels-cards/#content-divided-by-cards)
 
-Packages:
+:::
+::: {.g-col-4}
+
+**Packages:**
 
 * `pandas`
 * `numpy`
@@ -48,3 +57,6 @@ Packages:
 * `plotly`
 * `shinywidgets`
 * `scipy`
+
+:::
+::::

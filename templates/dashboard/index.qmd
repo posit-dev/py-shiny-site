@@ -26,8 +26,10 @@ A basic dashboard with input filters, value boxes, a plot, and table.
 This particular dashboard visualizes [the `palmerpenguins` dataset](https://github.com/mcnakhaee/palmerpenguins).
 In addition to demonstrating the basics visual components of a dashboard, it also demonstrates how to leverage [reactive calculations](http://localhost:1414/docs/reactive-foundations.html#calculations) to filter the data once and use it as needed in multiple places.
 
+:::: {.grid .tags}
 
-Components:
+::: {.g-col-4}
+**Components:**
 
 * [Slider input](/components/inputs/slider)
 * [Checkbox group input](/components/inputs/checkbox-group)
@@ -35,14 +37,21 @@ Components:
 * [Plot output](/components/outputs/plot-seaborn)
 * [Data grid output](/components/outputs/data-grid)
 
-Layouts:
+:::
+::: {.g-col-4}
+**Layouts:**
 
 * [Sidebar](https://shiny.posit.co/py/layouts/sidebars)
 * [Grid layout](http://localhost:1414/layouts/arrange)
 * [Cards](/layouts/panels-cards/#content-divided-by-cards)
 
-Packages:
+:::
+::: {.g-col-4}
+**Packages:**
 
 * `faicons`
 * `pandas`
 * `seaborn`
+
+:::
+::::

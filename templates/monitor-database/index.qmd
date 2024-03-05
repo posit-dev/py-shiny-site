@@ -16,6 +16,7 @@ shiny create -m core \
 ```
 :::
 
+
 Efficiently monitor a database for updates and visualize the data in real-time.
 In this case, we're monitoring an SQLite database with simulated model accuracy data, but the core logic can easily adapt to other databases and use cases.
 Note also that this template has:
@@ -24,20 +25,30 @@ Note also that this template has:
 * A dynamically updating plot and value box icons (when model accuracy gets above/below a certain threshold).
   * And this all happens without any layout shifts!
 
-Components:
+
+:::: {.grid .tags}
+::: {.g-col-4}
+
+**Components:**
 
 * [Checkbox group input](/components/inputs/checkbox-group)
 * [Switch input](/components/inputs/switch)
 * [Value box](/components/outputs/value-box)
 * [Plotly output](/components/outputs/plot-plotly)
 
-Layouts:
+:::
+::: {.g-col-4}
+
+**Layouts:**
 
 * [Sidebar](/layouts/sidebars)
 * [Grid layout](/layouts/arrange)
 * [Cards](/layouts/panels-cards/#content-divided-by-cards)
 
-Packages:
+:::
+::: {.g-col-4}
+
+**Packages:**
 
 * `faicons`
 * `numpy`
@@ -45,3 +56,6 @@ Packages:
 * `plotly`
 * `shinywidgets`
 * `sqlite3`
+
+:::
+::::

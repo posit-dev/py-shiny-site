@@ -23,21 +23,35 @@ shiny create -m core \
 ```
 :::
 
+
 A simple survey form with a few input fields that simply writes responses to a file and displays a confirmation message when submitted.
 In this example, we use the `shiny_validate` package to validate the form inputs.
 
-Components:
+
+:::: {.grid .tags}
+::: {.g-col-4}
+
+**Components:**
 
 * [Text input](/components/inputs/select-single)
 * [Numeric input](/components/inputs/numeric-input/)
 * [Select input](/components/inputs/select-single)
 * [Radio buttons](/components/inputs/radio-buttons/)
 
-Layouts:
+:::
+::: {.g-col-4}
+
+**Layouts:**
 
 * [Cards](/layouts/panels-cards/#content-divided-by-cards)
 
-Packages:
+:::
+::: {.g-col-4}
+
+**Packages:**
 
 * `pandas`
 * `shiny_validate`
+
+:::
+::::

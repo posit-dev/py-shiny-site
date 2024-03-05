@@ -26,11 +26,21 @@ shiny create -m core \
 
 A basic example of changing a histogram based on a select input control.
 
-Components:
 
-* [Select input](/components/inputs/select-single)
-* [Plot output](/components/outputs/plot-seaborn)
+:::: {.grid .tags}
 
-Packages:
+::: {.g-col-6}
+**Components:**
 
-* `seaborn`
+* [Select input](/components/inputs/select-single)  
+* [Plot output](/components/outputs/plot-seaborn)  
+:::
+
+::: {.g-col-6}
+**Packages:**  
+
+* `seaborn`  
+:::
+
+::::
+

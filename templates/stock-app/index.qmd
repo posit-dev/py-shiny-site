@@ -21,26 +21,37 @@ shiny create -m core \
 ```
 :::
 
+
 A basic stock price tracker app.
 It allows the user to select a stock and a date range, and then displays the stock's price and volume over time.
 The value boxes display the stock's current price and change in price from the previous day.
 Note that the icon for the stock price change is a green arrow pointing up if the price has increased, and a red arrow pointing down if the price has decreased.
 
-Components:
+
+:::: {.grid .tags}
+::: {.g-col-4}
+
+**Components:**
 
 * [Select input](/components/inputs/selectize-single/)
 * [Date range input](/components/inputs/date-range/)
 * [Value box](/components/outputs/value-box/)
 * [Plotly](/components/outputs/plot-plotly)
-* [Data grid output/components/outputs/data-grid)
+* [Data grid output](/components/outputs/data-grid)
 
-Layouts:
+:::
+::: {.g-col-4}
+
+**Layouts:**
 
 * [Sidebar](/layouts/sidebars)
 * [Grid layout](/layouts/arrange)
 * [Cards](/layouts/panels-cards/#content-divided-by-cards)
 
-Packages:
+:::
+::: {.g-col-4}
+
+**Packages:**
 
 * `cufflinks`
 * `faicons`
@@ -48,3 +59,6 @@ Packages:
 * `plotly`
 * `shinywidgets`
 * `yfinance`
+
+:::
+::::

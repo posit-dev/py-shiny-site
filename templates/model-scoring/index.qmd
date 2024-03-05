@@ -20,14 +20,21 @@ shiny create -m core \
 Use a combination of scikit-learn and plotnine to visualize model diagnostics like ROC and precision-recall curves.
 Shiny's reactive programming model makes it easy and performant to update those outputs in response to user input like specific accounts or time periods.
 
-Components:
+
+:::: {.grid .tags}
+::: {.g-col-4}
+
+**Components:**
 
 * [Select input](/components/inputs/selectize-single)
 * [Value box](/components/outputs/value-box)
 * [Plot output](/components/outputs/plot-matplotlib)
 * [Data grid output](/components/outputs/data-grid)
 
-Layouts:
+:::
+::: {.g-col-4}
+
+**Layouts:**
 
 * [Navbar](/layouts/navbars)
 * [Sidebar](/layouts/sidebars)
@@ -35,9 +42,15 @@ Layouts:
 * [Grid layout](/layouts/arrange)
 * [Cards](/layouts/panels-cards/#content-divided-by-cards)
 
-Packages:
+:::
+::: {.g-col-4}
+
+**Packages:**
 
 * `numpy`
 * `pandas`
 * `plotnine`
 * `scikit-learn`
+
+:::
+::::

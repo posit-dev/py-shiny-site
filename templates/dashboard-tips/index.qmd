@@ -30,7 +30,9 @@ Those controls are made available via a popover by clicking on the icon in the t
 Another notable difference is the use of `plotly` for interactive plots.
 
 
-Components:
+:::: {.grid .tags}
+::: {.g-col-4}
+**Components:**
 
 * [Slider input](/components/inputs/slider)
 * [Checkbox group input](/components/inputs/checkbox-group)
@@ -40,15 +42,21 @@ Components:
 * [Plotly output](/components/outputs/plot-plotly)
 * [Data grid output](/components/outputs/data-grid)
 
-Layouts:
+:::
+::: {.g-col-4}
+**Layouts:**
 
 * [Sidebar](/layouts/sidebars)
 * [Grid layout](/layouts/arrange)
 * [Cards](/layouts/panels-cards/#content-divided-by-cards)
 
-Packages:
+:::
+::: {.g-col-4}
+**Packages:**
 
 * `faicons`
 * `pandas`
 * `plotly`
 * `shinywidgets`
+:::
+::::

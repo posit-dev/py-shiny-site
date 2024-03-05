@@ -27,7 +27,7 @@ format:
 :::
 
 ::: {.col-6 style="z-index:999;"}
-<p class="badge rounded-pill bg-light mt-4" style=""><i class="bi bi-discord" style="padding-right:1rem;font-size:1rem;"></i><a target="_blank" class="text-dark" style="font-weight: 400;vertical-align:text-top;border-bottom: none;" href="https://discord.gg/yMGCamUMnS">Join the Shiny community on Discord <i class="ps-2 bi bi-chevron-right"></i></a></p>
+<p class="hero badge rounded-pill bg-light mt-4" style=""><i class="bi bi-discord" style="padding-right:1rem;font-size:1rem;"></i><a target="_blank" class="text-dark" style="font-weight: 400;vertical-align:text-top;border-bottom: none;" href="https://discord.gg/yMGCamUMnS">Join the Shiny community on Discord <i class="ps-2 bi bi-chevron-right"></i></a></p>
 :::
 
 :::

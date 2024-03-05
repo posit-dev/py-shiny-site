@@ -6,6 +6,7 @@ image:        thumbnail.png
 imagealt:     "A screenshot of the regularization template"
 quarto-column-size: column-page
 appurl:       https://gallery.shinyapps.io/template-regularization/
+app-height:   4200px
 sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/regularization
 ---
 
@@ -27,13 +28,23 @@ An article on regularization in machine learning and statistics.
 The app demonstrates the effect of regularization in linear regression.
 The user can adjust the regularization strength to see it influence the model's coefficients.
 
-Components:
+
+:::: {.grid .tags}
+::: {.g-col-6}
+
+**Components:**
 
 * [Slider input](/components/inputs/slider-range)
 * [Plot output](/components/outputs/plot-seaborn)
 
-Packages:
+:::
+::: {.g-col-6}
+
+**Packages:**
 
 * `pandas`
 * `scikit-learn`
 * `seaborn`
+
+:::
+:::: 

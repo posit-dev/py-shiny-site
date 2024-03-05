@@ -28,22 +28,34 @@ It also shows how to run SQL queries and display results in an interactive data 
 Note also the use of Shiny [modules](/docs/modules.html) to encapsulate and reuse the logic behind each card.
 
 
-Components:
+:::: {.grid .tags}
+::: {.g-col-4}
+
+**Components:**
 
 * [Select input](/components/inputs/selectize-single/)
 * [Value box](/components/outputs/value-box)
 * [Map](/components/outputs/map-ipyleaflet)
 
-Layouts:
+:::
+::: {.g-col-4}
+
+**Layouts:**
 
 * [Sidebar](/layouts/sidebars)
 * [Grid layout](/layouts/arrange)
 * [Cards](/layouts/panels-cards/#content-divided-by-cards)
 
-Packages:
+:::
+::: {.g-col-4}
+
+**Packages:**
 
 * `faicons`
 * `geopy`
 * `ipyleaflet`
 * `requests`
 * `shinywidgets`
+
+:::
+::::

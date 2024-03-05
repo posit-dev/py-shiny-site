@@ -497,7 +497,7 @@ main.content a:not(.btn) {
 }
 
 main.content
-  a:hover:not(.component-list-header-text):not(.btn):not(.gallery-entry a):not(a img):not(
+  a:hover:not(.tags li a):not(.badge):not(.component-list-header-text):not(.btn):not(.gallery-entry a):not(a img):not(
     .text-decoration-none
   ):not(.gallery-meta):not(.link-cards a):not(.dont-index a):not(.anchorjs-link):not(.component-list-card a) {
   border-bottom: 1px solid;
@@ -1585,17 +1585,55 @@ code .parameter-default a {
   }
 }
 
-
-
 // badge shenanigans
-.badge {
-  padding: 0.675rem 2rem;
+
+/*.tag.badge, p .code .tag.badge {
+  font-weight: 400;
+  margin-left: .5rem;
+  margin-right: .5rem;
+  padding-left: .75rem;
+  padding-right: .75rem;
+  font-size: .95em;
+  padding-top: .35em;
+  padding-bottom: .35em;
+}*/
+
+.tags {
+ padding-top: 1rem;
+ padding-bottom: 1.5rem;
 }
 
-.badge a:hover {
+.tags li a:not(.tags li code) {
+font-weight: 600 !important;
+text-transform: uppercase;
+font-size: .75rem;
+padding-bottom: .125rem;
+}
+
+/*.tag.badge.text-bg-light {
+  background-color: #f2f8fc !important;
+}*/
+
+.tags p {
+  margin-bottom: .5rem;
+}
+
+.tags p strong {
+  font-weight: 600;
+}
+
+/*.tags p {
+  margin-bottom: .5rem;
+}*/
+
+/*.hero.badge {
+  padding: 0.675rem 2rem;
+}*/
+
+/*.hero.badge a:hover {
   text-decoration: underline !important;
   border-bottom: none !important;
-}
+}*/
 
 // Make dropdown links dark text in nav, white on hover
 @media only screen and (min-width: 992px) {

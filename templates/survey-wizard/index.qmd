@@ -22,18 +22,31 @@ shiny create -m core \
 A simple survey wizard that simply writes responses to a file and displays a confirmation message when submitted.
 In this example, we use the `shiny_validate` package to validate the form inputs, and make clever use of [`navset_hidden()`](https://shiny.posit.co/py/api/core/ui.navset_hidden.html) to show/hide different steps of the form via action buttons.
 
-Components:
+
+:::: {.grid .tags}
+::: {.g-col-4}
+
+**Components:**
 
 * [Text input](/components/inputs/select-single)
 * [Numeric input](/components/inputs/numeric-input/)
 * [Action button](/components/inputs/action-button)
 
-Layouts:
+:::
+::: {.g-col-4}
+
+**Layouts:**
 
 * [Cards](/layouts/panels-cards/#content-divided-by-cards)
 * [Tabs](/layouts/tabs)
 
-Packages:
+:::
+::: {.g-col-4}
+
+**Packages:**
 
 * `pandas`
 * `shiny_validate`
+
+:::
+::::
