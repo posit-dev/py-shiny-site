@@ -195,7 +195,68 @@ That said, if you want your app to work properly offline, you'll want to serve t
 ## Serve local files {#serve-local-files}
 
 When customizing UI with CSS (and/or JavaScript), it's often useful to serve local files (e.g., fonts, images, CSS, etc) to the app.
-The most generic way to do this is via `static_assets` argument of `shiny.App()`, which mounts a local directory to the app's root path (i.e., `/`).
+This can be done by providing a value for `static_assets`; the syntax for doing this is slightly different for Core and Express apps.
+
+::: {.panel-tabset .panel-pills group="shiny-app-mode"}
+
+### Express
+
+In Shiny Express, if you have a subdirectory named `www`, the contents of that directory will automatically be available to the application's UI at `/`.
+
+``` {shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny.express import ui
+
+ui.tags.link(href="my-styles.css", rel="stylesheet")
+
+with ui.card():
+    ui.card_header("Card header")
+    "Card body"
+
+## file: www/my-styles.css
+.card-header {
+    color: white;
+    background: #2A2A2A !important;
+}
+
+```
+
+If you want to mount other directories, you can use the `app_opts()` function:
+
+``` {shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny.express import app_opts, ui
+
+# Mount the local directory css_files at the web path /css
+app_opts(static_assets={ "/css" : "css_files" })
+
+ui.tags.link(href="css/my-styles.css", rel="stylesheet")
+
+with ui.card():
+    ui.card_header("Card header")
+    "Card body"
+
+## file: css_files/my-styles.css
+.card-header {
+    color: white;
+    background: #2A2A2A !important;
+}
+
+```
+
+
+### Core
+
+To make static files available for the UI in Shiny Core, use the `static_assets` argument of `shiny.App()`.
+Unlike Shiny Express, the `www` subdirectory is not automatically mounted at `/` but you can add it manually like any other static asset directory.
 
 ``` {shinylive-python}
 #| standalone: true
@@ -216,15 +277,15 @@ app_ui = ui.page_fixed(
 
 app_dir = Path(__file__).parent
 app = App(app_ui, None, static_assets=app_dir / "www")
+
 ## file: www/my-styles.css
 .card-header {
     color: white;
     background: #2A2A2A !important;
 }
+
 ```
 
-::: callout-note
-Serving local files is currently only supported with [Shiny Core](express-vs-core.qmd) (i.e., it doesn't yet work with Express).
 :::
 
 
