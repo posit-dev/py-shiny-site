@@ -69,7 +69,7 @@ To create a modal, first assemble the components of the modal with [`ui.modal()`
 Typically, you will want to create a reactive effect to call `ui.modal_show()` whenever a particular event occurs. For example, the reactive effect below will open a modal whenever the value of `input.show()` changes.
 
 ```python
-@reactive.Effect
+@reactive.effect
 @reactive.event(input.show)
 def _():
     m = ui.modal( #<<

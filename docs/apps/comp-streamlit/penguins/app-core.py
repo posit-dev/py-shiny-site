@@ -19,7 +19,7 @@ def server(input, output, session):
     df = load_penguins()
     print(df)
 
-    @reactive.Calc
+    @reactive.calc
     def filtered_data():
         filt_df = df.copy()
         filt_df = filt_df.loc[df["body_mass_g"] < input.mass()]
