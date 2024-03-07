@@ -28,7 +28,7 @@ In addition to demonstrating the basics visual components of a dashboard, it als
 
 :::: {.grid .tags}
 
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 **Components:**
 
 * [Slider input](/components/inputs/slider)
@@ -38,7 +38,7 @@ In addition to demonstrating the basics visual components of a dashboard, it als
 * [Data grid output](/components/outputs/data-grid)
 
 :::
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 **Layouts:**
 
 * [Sidebar](https://shiny.posit.co/py/layouts/sidebars)
@@ -46,7 +46,7 @@ In addition to demonstrating the basics visual components of a dashboard, it als
 * [Cards](/layouts/panels-cards/#content-divided-by-cards)
 
 :::
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 **Packages:**
 
 * `faicons`

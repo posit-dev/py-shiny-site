@@ -29,7 +29,7 @@ This provides a useful way to query player(s) based on a specific statistic, the
 
 
 :::: {.grid .tags}
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Components:**
 
@@ -38,7 +38,7 @@ This provides a useful way to query player(s) based on a specific statistic, the
 * [Plotly](/components/outputs/plot-plotly/)
 
 :::
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Layouts:**
 
@@ -47,7 +47,7 @@ This provides a useful way to query player(s) based on a specific statistic, the
 * [Cards](/layouts/panels-cards/#content-divided-by-cards)
 
 :::
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Packages:**
 

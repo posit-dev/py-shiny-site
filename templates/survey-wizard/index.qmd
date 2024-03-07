@@ -24,7 +24,7 @@ In this example, we use the `shiny_validate` package to validate the form inputs
 
 
 :::: {.grid .tags}
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Components:**
 
@@ -33,7 +33,7 @@ In this example, we use the `shiny_validate` package to validate the form inputs
 * [Action button](/components/inputs/action-button)
 
 :::
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Layouts:**
 
@@ -41,7 +41,7 @@ In this example, we use the `shiny_validate` package to validate the form inputs
 * [Tabs](/layouts/tabs)
 
 :::
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Packages:**
 

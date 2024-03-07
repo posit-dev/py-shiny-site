@@ -29,7 +29,7 @@ Note that the icon for the stock price change is a green arrow pointing up if th
 
 
 :::: {.grid .tags}
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Components:**
 
@@ -40,7 +40,7 @@ Note that the icon for the stock price change is a green arrow pointing up if th
 * [Data grid output](/components/outputs/data-grid)
 
 :::
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Layouts:**
 
@@ -49,7 +49,7 @@ Note that the icon for the stock price change is a green arrow pointing up if th
 * [Cards](/layouts/panels-cards/#content-divided-by-cards)
 
 :::
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Packages:**
 

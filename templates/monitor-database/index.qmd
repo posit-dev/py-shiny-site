@@ -27,7 +27,7 @@ Note also that this template has:
 
 
 :::: {.grid .tags}
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Components:**
 
@@ -37,7 +37,7 @@ Note also that this template has:
 * [Plotly output](/components/outputs/plot-plotly)
 
 :::
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Layouts:**
 
@@ -46,7 +46,7 @@ Note also that this template has:
 * [Cards](/layouts/panels-cards/#content-divided-by-cards)
 
 :::
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Packages:**
 

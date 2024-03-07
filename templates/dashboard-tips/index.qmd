@@ -31,7 +31,7 @@ Another notable difference is the use of `plotly` for interactive plots.
 
 
 :::: {.grid .tags}
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 **Components:**
 
 * [Slider input](/components/inputs/slider)
@@ -43,7 +43,7 @@ Another notable difference is the use of `plotly` for interactive plots.
 * [Data grid output](/components/outputs/data-grid)
 
 :::
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 **Layouts:**
 
 * [Sidebar](/layouts/sidebars)
@@ -51,7 +51,7 @@ Another notable difference is the use of `plotly` for interactive plots.
 * [Cards](/layouts/panels-cards/#content-divided-by-cards)
 
 :::
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 **Packages:**
 
 * `faicons`

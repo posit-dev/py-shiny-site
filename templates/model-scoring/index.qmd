@@ -22,7 +22,7 @@ Shiny's reactive programming model makes it easy and performant to update those 
 
 
 :::: {.grid .tags}
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Components:**
 
@@ -32,7 +32,7 @@ Shiny's reactive programming model makes it easy and performant to update those 
 * [Data grid output](/components/outputs/data-grid)
 
 :::
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Layouts:**
 
@@ -43,7 +43,7 @@ Shiny's reactive programming model makes it easy and performant to update those 
 * [Cards](/layouts/panels-cards/#content-divided-by-cards)
 
 :::
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Packages:**
 

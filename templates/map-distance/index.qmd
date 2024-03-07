@@ -29,7 +29,7 @@ Note also the use of Shiny [modules](/docs/modules.html) to encapsulate and reus
 
 
 :::: {.grid .tags}
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Components:**
 
@@ -38,7 +38,7 @@ Note also the use of Shiny [modules](/docs/modules.html) to encapsulate and reus
 * [Map](/components/outputs/map-ipyleaflet)
 
 :::
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Layouts:**
 
@@ -47,7 +47,7 @@ Note also the use of Shiny [modules](/docs/modules.html) to encapsulate and reus
 * [Cards](/layouts/panels-cards/#content-divided-by-cards)
 
 :::
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Packages:**
 

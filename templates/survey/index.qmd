@@ -29,7 +29,7 @@ In this example, we use the `shiny_validate` package to validate the form inputs
 
 
 :::: {.grid .tags}
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Components:**
 
@@ -39,14 +39,14 @@ In this example, we use the `shiny_validate` package to validate the form inputs
 * [Radio buttons](/components/inputs/radio-buttons/)
 
 :::
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Layouts:**
 
 * [Cards](/layouts/panels-cards/#content-divided-by-cards)
 
 :::
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Packages:**
 

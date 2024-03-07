@@ -30,7 +30,7 @@ Note also that this app shows the entire log in a data grid, and the most recent
 
 
 :::: {.grid .tags}
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Components:**
 
@@ -38,7 +38,7 @@ Note also that this app shows the entire log in a data grid, and the most recent
 * [Data grid output/components/outputs/data-grid)
 
 :::
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Layouts:**
 
@@ -46,7 +46,7 @@ Note also that this app shows the entire log in a data grid, and the most recent
 * [Cards](/layouts/panels-cards/#content-divided-by-cards)
 
 :::
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Packages:**
 

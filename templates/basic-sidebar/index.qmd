@@ -31,7 +31,7 @@ Place numerous input controls in a sidebar and use them to control a plot in the
 
 :::: {.grid .tags}
 
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 **Components:**
 
 * [Select input](/components/inputs/select-single)
@@ -39,13 +39,13 @@ Place numerous input controls in a sidebar and use them to control a plot in the
 * [Plot output](/components/outputs/plot-seaborn)
 
 :::
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 **Layouts:**
 
 * [Sidebar](https://shiny.posit.co/py/layouts/sidebars)
 
 :::
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Packages:**
 

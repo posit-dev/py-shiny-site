@@ -31,7 +31,7 @@ Additionally, when a file is selected in this table, the contents are displayed 
 
 
 :::: {.grid .tags}
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Components:**
 
@@ -41,7 +41,7 @@ Additionally, when a file is selected in this table, the contents are displayed 
 * [Download link](https://shiny.posit.co/py/api/core/ui.download_link.html)
 
 :::
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Layouts:**
 
@@ -49,7 +49,7 @@ Additionally, when a file is selected in this table, the contents are displayed 
 * [Cards](/layouts/panels-cards/#content-divided-by-cards)
 
 :::
-::: {.g-col-4}
+::: {.g-col-6 .g-col-sm-4}
 
 **Packages:**
 
