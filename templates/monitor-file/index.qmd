@@ -35,7 +35,7 @@ Note also that this app shows the entire log in a data grid, and the most recent
 **Components:**
 
 * [Value box](/components/outputs/value-box)
-* [Data grid output/components/outputs/data-grid)
+* [Data grid output](/components/outputs/data-grid)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}
