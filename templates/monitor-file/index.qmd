@@ -1,0 +1,57 @@
+---
+title:        "Streaming file updates"
+description:  Use the monitor-file template as a foundation for your next Shiny app.
+date:         2024-03-04
+image:        thumbnail.png
+imagealt:     "A screenshot of the monitor-file template"
+#quarto-column-size: column-page
+app-height:   700px
+appurl:       https://gallery.shinyapps.io/template-monitor-file/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/monitor-file
+---
+
+::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
+## Express
+``` python
+shiny create -m express \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/monitor-file
+```
+## Core
+``` python
+shiny create -m core \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/monitor-file
+```
+:::
+
+
+Efficiently monitor a file for updates and visualize the data in real-time.
+In this case, we're monitoring fake server logs, but you adapt this template to reactively read any file that updates over time.
+Note also that this app shows the entire log in a data grid, and the most recent log entry in value boxes.
+
+
+:::: {.grid .tags}
+::: {.g-col-6 .g-col-sm-4}
+
+**Components:**
+
+* [Value box](/components/outputs/value-box)
+* [Data grid output](/components/outputs/data-grid)
+
+:::
+::: {.g-col-6 .g-col-sm-4}
+
+**Layouts:**
+
+* [Grid layout](/layouts/arrange)
+* [Cards](/layouts/panels-cards/#content-divided-by-cards)
+
+:::
+::: {.g-col-6 .g-col-sm-4}
+
+**Packages:**
+
+* `faicons`
+* `pandas`
+
+:::
+::::

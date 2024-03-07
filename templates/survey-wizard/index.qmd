@@ -1,0 +1,52 @@
+---
+title:        "Survey wizard form"
+description:  Use the survey-wizard template as a foundation for your next Shiny app.
+date:         2024-03-04
+image:        thumbnail.png
+imagealt:     "A screenshot of the survey-wizard template"
+quarto-column-size: column-body
+app-height:   450px
+appurl:       https://gallery.shinyapps.io/template-survey-wizard/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/survey-wizard
+---
+
+::: {.panel-tabset .shiny-mode-tabset}
+## Core
+``` python
+shiny create -m core \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/survey-wizard
+```
+:::
+
+
+A simple survey wizard that simply writes responses to a file and displays a confirmation message when submitted.
+In this example, we use the `shiny_validate` package to validate the form inputs, and make clever use of [`navset_hidden()`](https://shiny.posit.co/py/api/core/ui.navset_hidden.html) to show/hide different steps of the form via action buttons.
+
+
+:::: {.grid .tags}
+::: {.g-col-6 .g-col-sm-4}
+
+**Components:**
+
+* [Text input](/components/inputs/select-single)
+* [Numeric input](/components/inputs/numeric-input/)
+* [Action button](/components/inputs/action-button)
+
+:::
+::: {.g-col-6 .g-col-sm-4}
+
+**Layouts:**
+
+* [Cards](/layouts/panels-cards/#content-divided-by-cards)
+* [Tabs](/layouts/tabs)
+
+:::
+::: {.g-col-6 .g-col-sm-4}
+
+**Packages:**
+
+* `pandas`
+* `shiny_validate`
+
+:::
+::::

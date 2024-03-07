@@ -1,0 +1,50 @@
+---
+title:        "Article on regularization in ML"
+description:  Use the regularization template as a foundation for your next Shiny app.
+date:         2024-03-04
+image:        thumbnail.png
+imagealt:     "A screenshot of the regularization template"
+quarto-column-size: column-page
+appurl:       https://gallery.shinyapps.io/template-regularization/
+app-height:   4200px
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/regularization
+---
+
+::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
+## Express
+``` python
+shiny create -m express \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/regularization
+```
+## Core
+``` python
+shiny create -m core \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/regularization
+```
+:::
+
+
+An article on regularization in machine learning and statistics.
+The app demonstrates the effect of regularization in linear regression.
+The user can adjust the regularization strength to see it influence the model's coefficients.
+
+
+:::: {.grid .tags}
+::: {.g-col-6}
+
+**Components:**
+
+* [Slider input](/components/inputs/slider-range)
+* [Plot output](/components/outputs/plot-seaborn)
+
+:::
+::: {.g-col-6}
+
+**Packages:**
+
+* `pandas`
+* `scikit-learn`
+* `seaborn`
+
+:::
+:::: 

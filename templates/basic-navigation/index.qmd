@@ -1,0 +1,55 @@
+---
+title:        "Navigating multiple panels"
+description:  Use the basic-navigation template as a foundation for your next Shiny app.
+date:         2024-03-04
+image:        thumbnail.png
+imagealt:     "A screenshot of the basic-navigation template"
+quarto-column-size: column-page
+app-height:   800px
+appurl:       https://gallery.shinyapps.io/template-basic-navigation1/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/basic-navigation
+---
+
+::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
+## Express
+``` python
+shiny create -m express \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/basic-navigation
+```
+## Core
+``` python
+shiny create -m core \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/basic-navigation
+```
+:::
+
+
+A basic demonstration of common navigation of multiple panels in Shiny.
+The app has a navigation bar at the top, with two panels: "Page 1" and "Page 2".
+On "Page 1", is card with two panels: "Plot" and "Table".
+On both card panels is a select input to choose the plot/data to display.
+
+::: {.grid .tags}
+::: {.g-col-6 .g-col-sm-4}
+**Components:**
+
+  - [Select input](/components/inputs/select-single)
+  - [Plot output](/components/outputs/plot-seaborn)
+  - [Data grid output](/components/outputs/data-grid)
+:::
+::: {.g-col-6 .g-col-sm-4}
+**Layouts:** 
+
+  - [Navbars](https://shiny.posit.co/py/layouts/navbars)
+  - [Tabs](https://shiny.posit.co/py/layouts/tabs)
+:::
+::: {.g-col-6 .g-col-sm-4}
+**Packages:** 
+
+  - `pandas`
+  - `seaborn`
+
+:::
+
+:::
+

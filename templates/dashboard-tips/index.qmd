@@ -1,0 +1,62 @@
+---
+title:        "Restaurant tips dashboard"
+description:  Use the dashboard-tips template as a foundation for your next Shiny app.
+date:         2024-03-04
+image:        thumbnail.png
+imagealt:     "A screenshot of the dashboard-tips template"
+app-height:   900px
+appurl:       https://gallery.shinyapps.io/template-dashboard-tips1/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/dashboard-tips
+---
+
+::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
+## Express
+``` python
+shiny create -m express \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/dashboard-tips
+```
+## Core
+``` python
+shiny create -m core \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/dashboard-tips
+```
+:::
+
+
+An intermediate dashboard with input filters, value boxes, a plot, and table.
+This particular dashboard visualizes [the `tips` dataset](https://www.angela1c.com/projects/tips-project-files/part1/).
+In terms of the implementation, this dashboard is similar to the [basic dashboard](/templates/dashboard-basic) template, but adds output-specific input controls to card components.
+Those controls are made available via a popover by clicking on the icon in the top-right corner of the card.
+Another notable difference is the use of `plotly` for interactive plots.
+
+
+:::: {.grid .tags}
+::: {.g-col-6 .g-col-sm-4}
+**Components:**
+
+* [Slider input](/components/inputs/slider)
+* [Checkbox group input](/components/inputs/checkbox-group)
+* [Action button](/components/inputs/action-button)
+* [Popover](https://shiny.posit.co/py/api/core/ui.popover.html)
+* [Value box](/components/outputs/value-box)
+* [Plotly output](/components/outputs/plot-plotly)
+* [Data grid output](/components/outputs/data-grid)
+
+:::
+::: {.g-col-6 .g-col-sm-4}
+**Layouts:**
+
+* [Sidebar](/layouts/sidebars)
+* [Grid layout](/layouts/arrange)
+* [Cards](/layouts/panels-cards/#content-divided-by-cards)
+
+:::
+::: {.g-col-6 .g-col-sm-4}
+**Packages:**
+
+* `faicons`
+* `pandas`
+* `plotly`
+* `shinywidgets`
+:::
+::::

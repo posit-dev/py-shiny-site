@@ -1,0 +1,47 @@
+---
+title:        "SQL database explorer"
+description:  Use the database-explorer template as a foundation for your next Shiny app.
+date:         2024-03-04
+image:        thumbnail.png
+imagealt:     "A screenshot of the database-explorer template"
+appurl:       https://gallery.shinyapps.io/template-database-explorer/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/database-explorer
+---
+
+::: {.panel-tabset .shiny-mode-tabset}
+## Core
+``` python
+shiny create -m core \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/database-explorer
+```
+:::
+
+
+Run queries on an SQL database and view the results in a data grid.
+This app demonstrates how to initialize, populate, and connect to an SQL database using the `duckdb` package.
+It also shows how to run SQL queries and display results in an interactive data grid.
+Note also the use of Shiny [modules](/docs/modules.html) to encapsulate and reuse the logic behind each card.
+
+:::: {.grid .tags}
+
+::: {.g-col-6 .g-col-sm-4}
+**Components:**
+
+* [Action button](/components/inputs/action-button)
+* [Text area input](/components/inputs/text-area)
+* [Data grid output](/components/outputs/data-grid)
+
+:::
+::: {.g-col-6 .g-col-sm-4}
+**Layouts:**
+
+* [Sidebar](/layouts/sidebars)
+* [Grid layout](/layouts/arrange)
+:::
+::: {.g-col-6 .g-col-sm-4}
+**Packages:**
+
+* `duckdb`
+* `pandas`
+:::
+::::

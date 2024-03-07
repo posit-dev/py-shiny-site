@@ -17,6 +17,7 @@ project:
     - gallery
     - api/express
     - api/core
+    - templates
   resources:
     - /pypi/**
     - /robots.txt
@@ -76,6 +77,9 @@ website:
           - text: "Layouts"
             file: layouts/index.qmd
             icon: layout-text-window-reverse
+          - text: "Templates"
+            file: templates/index.qmd
+            icon: code-square
       - text: "Deploy"
         menu:
           - docs/deploy-cloud.qmd
