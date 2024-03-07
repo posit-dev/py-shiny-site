@@ -42,10 +42,7 @@ Shiny Templates
 
 :::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
-
-<h3 class="mt-4"> 
-  <img src="/images/navbars-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Basic Apps
-</h3>
+<h2 class="h3 mt-4"> <i class="bi bi-graph-down purple"></i> Basic Apps </h2>
 
 Basic starting points highlighting common [layouts](https://shiny.posit.co/py/layouts/) and [components](https://shiny.posit.co/py/components/).
 
@@ -133,10 +130,7 @@ Basic starting points highlighting common [layouts](https://shiny.posit.co/py/la
 
 ::: {.sticky-xl-top .pt-4}
 
-
-<h3 class="mt-4"> 
-  <img src="/images/sidebars-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Dashboards
-</h3>
+<h2 class="h3 mt-4"> <i class="bi bi-grid-3x3-gap-fill purple"></i> Dashboards </h2>
 
 At their core, dashboards are a combination of [sidebar layout](https://shiny.posit.co/py/layouts/sidebars/) with cards and [value boxes](https://shiny.posit.co/py/components/outputs/value-box/).
 
@@ -271,9 +265,7 @@ At their core, dashboards are a combination of [sidebar layout](https://shiny.po
 :::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
 
-<h3 class="mt-4"> 
-  <img src="/images/arrange-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Streaming Updates
-</h3>
+<h2 class="h3 mt-4"> <i class="bi bi-broadcast purple"></i> Streaming Updates </h2>
 
 Reactive [file reading](https://shiny.posit.co/py/docs/reactive-patterns.html#file) and [polling](https://shiny.posit.co/py/docs/reactive-patterns.html#poll) provide an easy and useful way to “stream” updates to files, folders, databases, and more. 
 
@@ -348,9 +340,7 @@ Reactive [file reading](https://shiny.posit.co/py/docs/reactive-patterns.html#fi
 :::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
 
-<h3 class="mt-4"> 
-  <img src="/images/arrange-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Data Entry
-</h3>
+<h2 class="h3 mt-4"> <i class="bi bi-input-cursor-text purple"></i> Data Entry </h2>
 
   Validate and record user input to a questionnaire.
 

@@ -2,3 +2,7 @@
   box-shadow: none;
   background-color: #ffffff; 
 }
+
+div.sourceCode, pre.console {
+  border: 1px solid #DEE2E6;
+}

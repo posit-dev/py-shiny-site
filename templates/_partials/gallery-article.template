@@ -47,7 +47,7 @@
     $endif$
     $if(title)$
     <header class="title-block-header">
-      <!-- <p class="p-80 pb-3 fw-500"><a href="/templates/" class="text-decoration-none"><i class="bi bi-chevron-left"></i> Back to Templates</a></p> -->
+      <p class="p-80 pb-3 fw-500"><a href="/templates/" class="text-decoration-none"><i class="bi bi-chevron-left"></i> Back to Templates</a></p>
       <h1 class="title d-inline me-3 fw-600 mb-1">$title$</h1>
       $if(author)$
       <p class="gallery-meta author d-inline me-3">$author$</p>
