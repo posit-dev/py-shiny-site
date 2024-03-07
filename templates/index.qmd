@@ -42,9 +42,9 @@ Shiny Templates
  
 :::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
-<h2 class="h3 mt-4"> <i class="bi bi-graph-down purple"></i> Basic Apps </h2>
+<h2 class="h3 mt-4"> <i class="bi bi-graph-down indigo"></i> Basic Apps </h2>
 
-Basic starting points highlighting common [layouts](https://shiny.posit.co/py/layouts/){.purple} and [components](https://shiny.posit.co/py/components/){.purple}.
+Basic starting points highlighting common [layouts](https://shiny.posit.co/py/layouts/) and [components](https://shiny.posit.co/py/components/).
 
 
 :::
@@ -130,9 +130,9 @@ Basic starting points highlighting common [layouts](https://shiny.posit.co/py/la
 
 ::: {.sticky-xl-top .pt-4}
 
-<h2 class="h3 mt-4"> <i class="bi bi-grid-3x3-gap-fill purple"></i> Dashboards </h2>
+<h2 class="h3 mt-4"> <i class="bi bi-grid-3x3-gap-fill indigo"></i> Dashboards </h2>
 
-At their core, dashboards are a combination of [sidebar layout](https://shiny.posit.co/py/layouts/sidebars/){.purple} with cards and [value boxes](https://shiny.posit.co/py/components/outputs/value-box/){.purple}.
+At their core, dashboards are a combination of [sidebar layout](https://shiny.posit.co/py/layouts/sidebars/) with cards and [value boxes](https://shiny.posit.co/py/components/outputs/value-box/).
 
 :::
 ::::
@@ -265,9 +265,9 @@ At their core, dashboards are a combination of [sidebar layout](https://shiny.po
 :::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
 
-<h2 class="h3 mt-4"> <i class="bi bi-broadcast purple"></i> Streaming Updates </h2>
+<h2 class="h3 mt-4"> <i class="bi bi-broadcast indigo"></i> Streaming Updates </h2>
 
-Reactive [file reading](https://shiny.posit.co/py/docs/reactive-patterns.html#file){.purple} and [polling](https://shiny.posit.co/py/docs/reactive-patterns.html#poll){.purple} provide an easy and useful way to “stream” updates to files, folders, databases, and more. 
+Reactive [file reading](https://shiny.posit.co/py/docs/reactive-patterns.html#file) and [polling](https://shiny.posit.co/py/docs/reactive-patterns.html#poll) provide an easy and useful way to “stream” updates to files, folders, databases, and more. 
 
 :::
 ::::
@@ -340,7 +340,7 @@ Reactive [file reading](https://shiny.posit.co/py/docs/reactive-patterns.html#fi
 :::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
 
-<h2 class="h3 mt-4"> <i class="bi bi-input-cursor-text purple"></i> Data Entry </h2>
+<h2 class="h3 mt-4"> <i class="bi bi-input-cursor-text indigo"></i> Data Entry </h2>
 
   Validate and record user input to a questionnaire.
 
