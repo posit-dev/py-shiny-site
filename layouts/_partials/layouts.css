@@ -68,14 +68,10 @@
 }
 
 .component-list-header-text a {
-  margin-bottom: 0px;
-  margin-top: 0.25rem;
-  margin-left: 0.25rem;
-  margin-right: 0.25rem;
   border-bottom: none;
 }
 .component-link-icon {
-  margin: 0 0.25em 0.25em 0;
+  margin: 0.25rem;
   white-space: nowrap;
 }
 
