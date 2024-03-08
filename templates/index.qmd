@@ -10,7 +10,7 @@ resources:
 format:
   html:
     css: 
-      - _partials/layouts.css
+      - /layouts/_partials/layouts.css
       - _partials/layouts-list.css
     code-overflow: wrap
 ---

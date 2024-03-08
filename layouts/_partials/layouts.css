@@ -28,6 +28,7 @@
 }
 .component-list-column {
   padding-top: 1rem;
+  align-self: end;
 }
 
 .component-list-card {
@@ -44,7 +45,7 @@
 .component-list-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
   margin-bottom: 0px;
 }
 
@@ -53,7 +54,7 @@
 }
 
 .component-list-header-text h5 {
-  margin-bottom: 0.15rem;
+  margin-bottom: 0.2rem;
 }
 .component-list-header-text,
 .component-list-icon a {
@@ -63,6 +64,7 @@
 
 .component-list-icon a {
   font-size: 1.25em;
+  margin-bottom: -4px;
 }
 
 .component-list-header-text a {
