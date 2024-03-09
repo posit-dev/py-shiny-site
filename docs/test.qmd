@@ -1,0 +1,121 @@
+---
+title: Component test page
+jupyter: python3
+resources:
+  - assets/custom-component.js
+  - assets/custom-styles.css
+---
+
+
+::::: {.column-screen-inset .mx-auto style="max-width: 1300px;"}
+
+```{python}
+#| echo: false
+from shiny import ui
+```
+
+
+:::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
+::: {.grid}
+
+```{=html}
+<custom-component class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+```
+```{python}
+#| echo: false
+ui.input_text("text", "Text input", "Some text here")
+```
+```{=html}
+</custom-component>
+```
+
+
+```{=html}
+<custom-component class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+```
+```{python}
+#| echo: false
+ui.input_action_button("actionbutton", "Action Button")
+```
+```{=html}
+</custom-component>
+```
+
+
+```{=html}
+<custom-component class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+```
+```{python}
+#| echo: false
+ui.input_action_link("actionlink", "Action Link")
+```
+```{=html}
+</custom-component>
+```
+
+
+```{=html}
+<custom-component class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+```
+```{python}
+#| echo: false
+ui.input_checkbox("checkbox", "Checkbox")
+```
+```{=html}
+</custom-component>
+```
+
+
+```{=html}
+<custom-component class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+```
+```{python}
+#| echo: false
+ui.input_checkbox_group(
+    "checkboxgroup",
+    None,
+    ["Watch me Whip", "Watch me Nae Nae", "Watch neither"]
+)
+```
+```{=html}
+</custom-component>
+```
+
+
+
+```{=html}
+<custom-component class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+```
+```{python}
+#| echo: false
+ui.input_date(
+    "date",
+    None
+)
+```
+```{=html}
+</custom-component>
+```
+
+
+```{=html}
+<custom-component class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+```
+```{python}
+#| echo: false
+ui.input_switch("switch", "Make it switchable", True)
+```
+```{=html}
+</custom-component>
+```
+
+
+
+:::
+::::
+
+
+```{=html}
+<script src="assets/custom-component.js"></script>
+```
+:::::
