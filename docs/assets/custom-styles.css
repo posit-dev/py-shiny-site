@@ -1,5 +1,4 @@
 :host {
-  display: inline-block;
   height: 150px;
   max-width: 300px;
   border: 1px solid #ccc;
@@ -11,6 +10,8 @@
   align-items: center;
 }
 
+/*
 .content {
   min-width: 250px;
 }
+*/

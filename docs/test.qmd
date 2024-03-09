@@ -11,8 +11,10 @@ resources:
 
 ```{python}
 #| echo: false
-SHINY_ASSETS_DIR="assets/shiny_component_assets"
 
+# The directory where we'll copy assets to, afrom the shiny package. This directory won't
+# be committed to git.
+SHINY_ASSETS_DIR="assets/shiny_component_assets"
 
 import re
 from pathlib import Path, PurePath
@@ -199,6 +201,7 @@ display_component_card(
 )
 
 display_component_card(
+    {"style": "min-width: 220px;"},
     ui.input_select(
         "select_multiple",
         "",
@@ -211,6 +214,7 @@ display_component_card(
 )
 
 display_component_card(
+    {"style": "min-width: 220px;"},
     ui.input_select(
         "select",
         "",
@@ -222,6 +226,8 @@ display_component_card(
 )
 
 display_component_card(
+    # TODO: Need a better way to deal with these components that need a set width
+    {"style": "min-width: 220px;"},
     ui.input_selectize(
         "selectize_multiple",
         "",
@@ -250,6 +256,7 @@ display_component_card(
 )
 
 display_component_card(
+    {"style": "min-width: 220px;"},
     ui.input_selectize(
         "selectize",
         "",
@@ -277,6 +284,7 @@ display_component_card(
 )
 
 display_component_card(
+    {"style": "min-width: 220px;"},
     ui.input_slider("slider", None, 0, 20, 10),
     ui.tags.script("""
     (() => {
@@ -291,6 +299,7 @@ display_component_card(
 )
 
 display_component_card(
+    {"style": "min-width: 220px;"},
     ui.input_slider("slider_range", None, 0, 100, [25, 70]),
     ui.tags.script("""
     (() => {
