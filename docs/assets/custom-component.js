@@ -1,3 +1,26 @@
+const cssPaths = [
+  "assets/custom-styles.css",
+  "/site_libs/bootstrap/bootstrap.min.css",
+];
+
+const styleSheetPromises = {};
+
+// Load a CSS file and return a promise that resolves to a CSSStyleSheet. Multiple calls
+// to this function with the same path will return the same promise, so this will not
+// make multiple requests for the same file.
+function loadStyleSheet(cssPath) {
+  if (styleSheetPromises[cssPath] === undefined) {
+    styleSheetPromises[cssPath] = (async () => {
+      const response = await fetch(cssPath);
+      const css = await response.text();
+      const sheet = new CSSStyleSheet();
+      sheet.replaceSync(css);
+      return sheet;
+    })();
+  }
+  return styleSheetPromises[cssPath];
+}
+
 class CustomComponent extends HTMLElement {
   constructor() {
     super(); // Always call super first in constructor
@@ -17,20 +40,9 @@ class CustomComponent extends HTMLElement {
   }
 
   async loadStyles() {
-    // Load CSS from an external file.
-    const cssPaths = [
-      "assets/custom-styles.css",
-      "/site_libs/bootstrap/bootstrap.min.css",
-    ];
-    cssPaths.forEach((cssPath) => this.loadStyle(cssPath));
-  }
-
-  async loadStyle(cssPath) {
-    const response = await fetch(cssPath);
-    const css = await response.text();
-    const style = document.createElement("style");
-    style.textContent = css;
-    this.shadowRoot.appendChild(style);
+    // Load CSS from external files.
+    const loadedStyleSheets = await Promise.all(cssPaths.map(loadStyleSheet));
+    this.shadowRoot.adoptedStyleSheets = loadedStyleSheets;
   }
 }
 
