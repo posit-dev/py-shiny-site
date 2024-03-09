@@ -6,14 +6,11 @@
   border-radius: 5px;
   padding: 15px;
   margin: 20px;
-
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* Make sure overflow content doesn't get clipped. Need to override styles from
-Bootstrap? */
-.cell .cell-output.cell-output-display {
-  overflow-x: visible;
+.content {
+  min-width: 250px;
 }

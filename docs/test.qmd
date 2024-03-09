@@ -4,27 +4,121 @@ jupyter: python3
 resources:
   - assets/custom-component.js
   - assets/custom-styles.css
+  - assets/shiny_component_assets/**
 ---
-
 
 ::::: {.column-screen-inset .mx-auto style="max-width: 1300px;"}
 
 ```{python}
 #| echo: false
-from shiny import ui
+SHINY_ASSETS_DIR="assets/shiny_component_assets"
 
-def custom_component(*args, **kwargs):
+
+import re
+from pathlib import Path, PurePath
+from typing import TypedDict
+
+from htmltools import HTMLDependency, TagList, tags
+
+import shiny.html_dependencies
+from shiny.ui._html_deps_external import bootstrap_deps
+
+# Recursively copy files from here to
+import shutil
+src_dir = shiny.html_dependencies.shiny_deps().source_path_map()["source"]
+dest_dir = Path(SHINY_ASSETS_DIR).resolve()
+shutil.copytree(src_dir, dest_dir, dirs_exist_ok=True)
+
+class DependencyMapping(TypedDict):
+    source: str
+    href: str
+
+
+def get_css_mappings(dep: HTMLDependency) -> list[DependencyMapping]:
+    css_deps: list[DependencyMapping] = []
+    for css_dep in dep.stylesheet:
+        path_map = dep.source_path_map()
+        source_path = Path(path_map["source"]) / css_dep["href"]
+        href = PurePath(path_map["href"]) / css_dep["href"]
+        css_deps.append({"source": str(source_path), "href": str(href)})
+    return css_deps
+
+
+def get_dep_tags(
+    dep: HTMLDependency | list[HTMLDependency], prefix: str = SHINY_ASSETS_DIR
+) -> TagList:
+    if not isinstance(dep, list):
+        dep = [dep]
+
+    res = TagList()
+    for d in dep:
+        res.extend(get_dep_tags_single(d, prefix))
+    return res
+
+
+
+def get_dep_tags_single(dep: HTMLDependency, prefix: str | Path) -> TagList:
+    res = TagList()
+
+    prefix = Path(prefix)
+    if dep.source and "subdir" in dep.source:
+        prefix = prefix / (Path(dep.source["subdir"]).relative_to("www/shared/"))
+
+    for sheet in dep.stylesheet:
+        res.append(tags.link(rel="stylesheet", href=str(prefix / sheet["href"])))
+    for script in dep.script:
+        # If contains jquery.*.js or shiny.*js, skip
+        if re.search(r"jquery.*\.js|shiny.*\.js", script["src"]):
+            continue
+        # TODO: Add extra attrs? maybe splat
+
+        res.append(tags.script(src=str(prefix / script["src"])))
+
+    if dep.head:
+        res.extend(dep.head)
+
+    return res
+```
+
+```{python}
+#| echo: false
+#| output: asis
+
+from htmltools import TagAttrs, TagAttrValue, TagChild
+
+from shiny import ui
+from shiny.ui._html_deps_external import bootstrap_deps
+
+# import htmltools
+# htmltools.html_dependency_render_mode = "json"
+
+
+def custom_component(*args: TagChild | TagAttrs, **kwargs: TagAttrValue):
     return ui.Tag("custom-component", *args, **kwargs)
 
-def component_card(*args, **kwargs):
+
+def component_card(*args: TagChild | TagAttrs, **kwargs: TagAttrValue):
     return custom_component(
         {"class": "g-col-md-4 g-col-sm-6 g-col-12 component-list-column"},
-        *args,
-        **kwargs
+        ui.div(
+            {"class": "content"},
+            *args,
+            **kwargs
+        ),
     )
 
-def display_component_card(*args, **kwargs):
-    display(component_card(*args, **kwargs))
+
+def display_component_card(*args: TagChild | TagAttrs, **kwargs: TagAttrValue):
+    card = component_card(*args, **kwargs)
+
+    card.append(get_dep_tags(bootstrap_deps()))
+    card.append(get_dep_tags(card.get_dependencies()))
+
+    display(card)
+
+# RequireJS needs to be loaded for some components
+display(get_dep_tags(shiny.html_dependencies.require_deps()))
+
 ```
 
 
@@ -34,9 +128,6 @@ def display_component_card(*args, **kwargs):
 ```{python}
 #| echo: false
 #| output: asis
-display_component_card(
-  ui.input_text("text", "Text input", "Some text here")
-)
 
 display_component_card(
     ui.input_action_button("actionbutton", "Action Button")
@@ -59,7 +150,158 @@ display_component_card(
 )
 
 display_component_card(
-    ui.input_date("date", None)
+    ui.input_date_range("daterange", None),
+    ui.tags.script("""
+    (() => {
+        let el = document.currentScript.parentElement;
+
+        setTimeout(() => {
+            let inputEl = $(el).find("#daterange").find("input");
+            inputEl.eq(0).bsDatepicker("setUTCDate", new Date());
+            inputEl.eq(1).bsDatepicker("setUTCDate", new Date());
+        }, 1000);
+    })();
+    """),
+)
+
+display_component_card(
+    ui.input_date("date", None),
+    ui.tags.script("""
+    (() => {
+        let el = document.currentScript.parentElement;
+
+        setTimeout(() => {
+            let inputEl = $(el).find("#date").find("input");
+            inputEl.bsDatepicker("setUTCDate", new Date());
+        }, 1000);
+    })();
+    """),
+)
+
+display_component_card(
+    ui.input_numeric("number", None, value=100),
+)
+
+display_component_card(
+    ui.input_password("password", None, placeholder="Enter password"),
+)
+
+display_component_card(
+  ui.input_text("text", None, placeholder="Enter text")
+)
+
+display_component_card(
+    ui.input_radio_buttons(
+        "radio",
+        "Never gonna:",
+        ["Give you up", "Let you down"]
+    )
+)
+
+display_component_card(
+    ui.input_select(
+        "select_multiple",
+        "",
+        {
+            "1": {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"},
+            "2": {"2A": "Choice 2A", "2B": "Choice 2B", "2C": "Choice 2C"},
+        },
+        multiple=True,
+    ),
+)
+
+display_component_card(
+    ui.input_select(
+        "select",
+        "",
+        {
+            "1": {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"},
+            "2": {"2A": "Choice 2A", "2B": "Choice 2B", "2C": "Choice 2C"},
+        },
+    ),
+)
+
+display_component_card(
+    ui.input_selectize(
+        "selectize_multiple",
+        "",
+        {
+            "1": {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"},
+            "2": {"2A": "Choice 2A", "2B": "Choice 2B", "2C": "Choice 2C"},
+        },
+        multiple=True,
+    ),
+    ui.tags.script("""
+    (() => {
+        let el = document.currentScript.parentElement;
+        let config = {
+            labelField: "label",
+            valueField: "value",
+            searchField: ["label"],
+        }
+
+        setTimeout(() => {
+            let inputEl = $(el).find("#selectize_multiple");
+            inputEl.selectize(config);
+        }, 1000);
+    })();
+    """
+    ),
+)
+
+display_component_card(
+    ui.input_selectize(
+        "selectize",
+        "",
+        {
+            "1": {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"},
+            "2": {"2A": "Choice 2A", "2B": "Choice 2B", "2C": "Choice 2C"},
+        },
+    ),
+    ui.tags.script("""
+    (() => {
+        let el = document.currentScript.parentElement;
+        let config = {
+            labelField: "label",
+            valueField: "value",
+            searchField: ["label"],
+        }
+
+        setTimeout(() => {
+            let inputEl = $(el).find("#selectize");
+            inputEl.selectize(config);
+        }, 1000);
+    })();
+    """
+    ),
+)
+
+display_component_card(
+    ui.input_slider("slider", None, 0, 20, 10),
+    ui.tags.script("""
+    (() => {
+        let el = document.currentScript.parentElement;
+
+        setTimeout(() => {
+            $(el).find("#slider").ionRangeSlider();
+        }, 1000);
+    })();
+    """
+    ),
+)
+
+display_component_card(
+    ui.input_slider("slider_range", None, 0, 100, [25, 70]),
+    ui.tags.script("""
+    (() => {
+        let el = document.currentScript.parentElement;
+
+        setTimeout(() => {
+            $(el).find("#slider_range").ionRangeSlider();
+        }, 1000);
+    })();
+    """
+    ),
 )
 
 display_component_card(

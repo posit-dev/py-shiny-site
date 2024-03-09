@@ -1,6 +1,6 @@
 const cssPaths = [
   "assets/custom-styles.css",
-  "/site_libs/bootstrap/bootstrap.min.css",
+  // "assets/shiny/bootstrap/bootstrap.min.css",
 ];
 
 const styleSheetPromises = {};
