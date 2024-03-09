@@ -12,104 +12,60 @@ resources:
 ```{python}
 #| echo: false
 from shiny import ui
+
+def custom_component(*args, **kwargs):
+    return ui.Tag("custom-component", *args, **kwargs)
+
+def component_card(*args, **kwargs):
+    return custom_component(
+        {"class": "g-col-md-4 g-col-sm-6 g-col-12 component-list-column"},
+        *args,
+        **kwargs
+    )
+
+def display_component_card(*args, **kwargs):
+    display(component_card(*args, **kwargs))
 ```
 
 
 :::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
 ::: {.grid}
 
-```{=html}
-<custom-component class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-```
 ```{python}
 #| echo: false
-ui.input_text("text", "Text input", "Some text here")
-```
-```{=html}
-</custom-component>
-```
+#| output: asis
+display_component_card(
+  ui.input_text("text", "Text input", "Some text here")
+)
 
+display_component_card(
+    ui.input_action_button("actionbutton", "Action Button")
+)
 
-```{=html}
-<custom-component class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-```
-```{python}
-#| echo: false
-ui.input_action_button("actionbutton", "Action Button")
-```
-```{=html}
-</custom-component>
-```
+display_component_card(
+    ui.input_action_link("actionlink", "Action Link")
+)
 
+display_component_card(
+    ui.input_checkbox("checkbox", "Checkbox")
+)
 
-```{=html}
-<custom-component class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-```
-```{python}
-#| echo: false
-ui.input_action_link("actionlink", "Action Link")
-```
-```{=html}
-</custom-component>
-```
+display_component_card(
+    ui.input_checkbox_group(
+        "checkboxgroup",
+        None,
+        ["Watch me Whip", "Watch me Nae Nae", "Watch neither"]
+    )
+)
 
+display_component_card(
+    ui.input_date("date", None)
+)
 
-```{=html}
-<custom-component class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-```
-```{python}
-#| echo: false
-ui.input_checkbox("checkbox", "Checkbox")
-```
-```{=html}
-</custom-component>
-```
-
-
-```{=html}
-<custom-component class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-```
-```{python}
-#| echo: false
-ui.input_checkbox_group(
-    "checkboxgroup",
-    None,
-    ["Watch me Whip", "Watch me Nae Nae", "Watch neither"]
+display_component_card(
+    ui.input_switch("switch", "Make it switchable", True)
 )
 ```
-```{=html}
-</custom-component>
-```
-
-
-
-```{=html}
-<custom-component class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-```
-```{python}
-#| echo: false
-ui.input_date(
-    "date",
-    None
-)
-```
-```{=html}
-</custom-component>
-```
-
-
-```{=html}
-<custom-component class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-```
-```{python}
-#| echo: false
-ui.input_switch("switch", "Make it switchable", True)
-```
-```{=html}
-</custom-component>
-```
-
-
 
 :::
 ::::
