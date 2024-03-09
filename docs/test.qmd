@@ -101,7 +101,6 @@ def custom_component(*args: TagChild | TagAttrs, **kwargs: TagAttrValue):
 
 def component_card(*args: TagChild | TagAttrs, **kwargs: TagAttrValue):
     return custom_component(
-        {"class": "g-col-md-4 g-col-sm-6 g-col-12 component-list-column"},
         ui.div(
             {"class": "content"},
             *args,
@@ -110,13 +109,29 @@ def component_card(*args: TagChild | TagAttrs, **kwargs: TagAttrValue):
     )
 
 
-def display_component_card(*args: TagChild | TagAttrs, **kwargs: TagAttrValue):
+def display_component_card(title: str, *args: TagChild | TagAttrs, **kwargs: TagAttrValue):
     card = component_card(*args, **kwargs)
 
     card.append(get_dep_tags(bootstrap_deps()))
     card.append(get_dep_tags(card.get_dependencies()))
 
-    display(card)
+
+    display(
+        ui.div(
+            {"class": "g-col-md-4 g-col-sm-6 g-col-12 component-list-column"},
+            ui.div(
+                {"class": "component-list-header"},
+                ui.a(
+                    {
+                        "class": "component-list-header-text",
+                        "href": "",
+                    },
+                    ui.div({"class": "h5"}, title),
+                ),
+            ),
+            card
+        )
+    )
 
 # RequireJS needs to be loaded for some components
 display(get_dep_tags(shiny.html_dependencies.require_deps()))
@@ -132,18 +147,22 @@ display(get_dep_tags(shiny.html_dependencies.require_deps()))
 #| output: asis
 
 display_component_card(
+    "Action Button",
     ui.input_action_button("actionbutton", "Action Button")
 )
 
 display_component_card(
+    "Action Link",
     ui.input_action_link("actionlink", "Action Link")
 )
 
 display_component_card(
+    "Checkbox",
     ui.input_checkbox("checkbox", "Checkbox")
 )
 
 display_component_card(
+    "Checkbox Group",
     ui.input_checkbox_group(
         "checkboxgroup",
         None,
@@ -152,6 +171,7 @@ display_component_card(
 )
 
 display_component_card(
+    "Date Range Selector",
     ui.input_date_range("daterange", None),
     ui.tags.script("""
     (() => {
@@ -167,6 +187,7 @@ display_component_card(
 )
 
 display_component_card(
+    "Date Selector",
     ui.input_date("date", None),
     ui.tags.script("""
     (() => {
@@ -181,18 +202,17 @@ display_component_card(
 )
 
 display_component_card(
+    "Numeric Input",
     ui.input_numeric("number", None, value=100),
 )
 
 display_component_card(
+    "Password Field",
     ui.input_password("password", None, placeholder="Enter password"),
 )
 
 display_component_card(
-  ui.input_text("text", None, placeholder="Enter text")
-)
-
-display_component_card(
+    "Radio Buttons",
     ui.input_radio_buttons(
         "radio",
         "Never gonna:",
@@ -201,6 +221,7 @@ display_component_card(
 )
 
 display_component_card(
+    "Select (Multiple)",
     {"style": "min-width: 220px;"},
     ui.input_select(
         "select_multiple",
@@ -214,6 +235,7 @@ display_component_card(
 )
 
 display_component_card(
+    "Select (Single)",
     {"style": "min-width: 220px;"},
     ui.input_select(
         "select",
@@ -226,6 +248,7 @@ display_component_card(
 )
 
 display_component_card(
+    "Selectize (Multiple)",
     # TODO: Need a better way to deal with these components that need a set width
     {"style": "min-width: 220px;"},
     ui.input_selectize(
@@ -256,6 +279,7 @@ display_component_card(
 )
 
 display_component_card(
+    "Selectize (Single)",
     {"style": "min-width: 220px;"},
     ui.input_selectize(
         "selectize",
@@ -284,6 +308,7 @@ display_component_card(
 )
 
 display_component_card(
+    "Slider",
     {"style": "min-width: 220px;"},
     ui.input_slider("slider", None, 0, 20, 10),
     ui.tags.script("""
@@ -299,6 +324,7 @@ display_component_card(
 )
 
 display_component_card(
+    "Slider Range",
     {"style": "min-width: 220px;"},
     ui.input_slider("slider_range", None, 0, 100, [25, 70]),
     ui.tags.script("""
@@ -314,8 +340,20 @@ display_component_card(
 )
 
 display_component_card(
+    "Switch",
     ui.input_switch("switch", "Make it switchable", True)
 )
+
+display_component_card(
+    "Text Area",
+    ui.input_text_area("textarea", None, placeholder="Enter text")
+)
+
+display_component_card(
+    "Text Box",
+    ui.input_text("text", None, placeholder="Enter text")
+)
+
 ```
 
 :::
