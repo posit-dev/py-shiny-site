@@ -1,13 +1,21 @@
 const cssPaths = [
-  "assets/custom-styles.css",
+  // "assets/custom-styles.css",
   // "assets/shiny/bootstrap/bootstrap.min.css",
 ];
 
 const styleSheetPromises = {};
 
-// Load a CSS file and return a promise that resolves to a CSSStyleSheet. Multiple calls
-// to this function with the same path will return the same promise, so this will not
-// make multiple requests for the same file.
+/**
+ * Loads a CSS file and returns a promise that resolves to a CSSStyleSheet. Multiple
+ * calls to this function with the same path will return the same promise, so this will
+ * not make multiple requests for the same file.
+ *
+ * @param {string} path - The path to the CSS file.
+ * @returns {Promise<CSSStyleSheet>} A promise that resolves to a CSSStyleSheet.
+ */
+function loadCSS(path) {
+  // function implementation goes here
+}
 function loadStyleSheet(cssPath) {
   if (styleSheetPromises[cssPath] === undefined) {
     styleSheetPromises[cssPath] = (async () => {
@@ -21,10 +29,17 @@ function loadStyleSheet(cssPath) {
   return styleSheetPromises[cssPath];
 }
 
-class CustomComponent extends HTMLElement {
+/**
+ * `ShadowContainer` is a custom HTML element that encapsulates its content in a Shadow
+ * DOM. This provides style and markup encapsulation, isolating the styling from the
+ * containing document and vice versa.
+ *
+ * @extends {HTMLElement}
+ */
+class ShadowContainer extends HTMLElement {
   constructor() {
-    super(); // Always call super first in constructor
-    this.attachShadow({ mode: "open" }); // Attach a shadow root to the element.
+    super();
+    this.attachShadow({ mode: "open" });
   }
 
   connectedCallback() {
@@ -46,4 +61,4 @@ class CustomComponent extends HTMLElement {
   }
 }
 
-customElements.define("custom-component", CustomComponent);
+customElements.define("shadow-container", ShadowContainer);

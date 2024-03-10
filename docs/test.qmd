@@ -2,9 +2,11 @@
 title: Component test page
 jupyter: python3
 resources:
-  - assets/custom-component.js
-  - assets/custom-styles.css
+  - assets/shadow-container.js
   - assets/shiny_component_assets/**
+format:
+  html:
+    css: ../components/_partials/components.css
 ---
 
 ::::: {.column-screen-inset .mx-auto style="max-width: 1300px;"}
@@ -95,12 +97,12 @@ from shiny.ui._html_deps_external import bootstrap_deps
 # htmltools.html_dependency_render_mode = "json"
 
 
-def custom_component(*args: TagChild | TagAttrs, **kwargs: TagAttrValue):
-    return ui.Tag("custom-component", *args, **kwargs)
+def shadow_container(*args: TagChild | TagAttrs, **kwargs: TagAttrValue):
+    return ui.Tag("shadow-container", *args, **kwargs)
 
 
 def component_card(*args: TagChild | TagAttrs, **kwargs: TagAttrValue):
-    return custom_component(
+    return shadow_container(
         ui.div(
             {"class": "content"},
             *args,
@@ -122,14 +124,14 @@ def display_component_card(title: str, *args: TagChild | TagAttrs, **kwargs: Tag
             ui.div(
                 {"class": "component-list-header"},
                 ui.a(
-                    {
-                        "class": "component-list-header-text",
-                        "href": "",
-                    },
+                    { "class": "component-list-header-text", "href": "" },
                     ui.div({"class": "h5"}, title),
                 ),
             ),
-            card
+            ui.div(
+                {"class": "component-list-card"},
+                card,
+            ),
         )
     )
 
@@ -361,6 +363,6 @@ display_component_card(
 
 
 ```{=html}
-<script src="assets/custom-component.js"></script>
+<script src="assets/shadow-container.js"></script>
 ```
 :::::
