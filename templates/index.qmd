@@ -7,12 +7,59 @@ toc: false
 page-layout: article
 resources:
   - /components/_partials/animation.lottie
+
 format:
   html:
-    css: 
+    css:
       - /layouts/_partials/layouts.css
       - _partials/layouts-list.css
     code-overflow: wrap
+
+listing:
+  - id: _basic-apps
+    template: _partials/template-listing.ejs
+    contents:
+      - title: Basic reactive plot
+        path: basic-app-plot
+      - title: Reactive plot in sidebar
+        path: basic-sidebar
+      - title: Navigating multiple panels
+        path: basic-navigation
+      - title: Regularization in ML article
+        path: regularization
+  - id: _dashboards
+    template: _partials/template-listing.ejs
+    contents:
+      - title: Basic Dashboard
+        path: dashboard
+      - title: Restaurant tips dashboard
+        path: dashboard-tips
+      - title: Stock Price Tracker
+        path: stock-app
+      - title: NBA player career comparisons
+        path: nba-dashboard
+      - title: Model scoring
+        path: model-scoring
+      - title: Location distance calculator
+        path: map-distance
+      - title: SQL database explorer
+        path: database-explorer
+  - id: _streaming
+    template: _partials/template-listing.ejs
+    contents:
+      - title: Streaming file updates
+        path: monitor-file
+      - title: Streaming database updates
+        path: monitor-database
+      - title: Streaming folder updates
+        path: monitor-folder
+  - id: _data-entry
+    template: _partials/template-listing.ejs
+    contents:
+      - title: Survey form
+        path: survey
+      - title: Survey wizard form
+        path: survey-wizard
 ---
 <!-- Begin Hero area -->
 :::::::: {.column-screen-inset .mx-auto style="max-width: 1300px;"}
@@ -22,12 +69,12 @@ format:
 Shiny Templates
 :::
 
-##### A collection of useful apps built from a combination [components](https://shiny.posit.co/py/components/), [layouts](https://shiny.posit.co/py/layouts/), and [reactivity](https://shiny.posit.co/py/docs/reactive-foundations.html). Compared to the [gallery](https://shiny.posit.co/py/gallery/), templates provide a more minimal yet useful starting point for your next app. 
+##### A collection of useful apps built from a combination [components](https://shiny.posit.co/py/components/), [layouts](https://shiny.posit.co/py/layouts/), and [reactivity](https://shiny.posit.co/py/docs/reactive-foundations.html). Compared to the [gallery](https://shiny.posit.co/py/gallery/), templates provide a more minimal yet useful starting point for your next app.
 ::::
 :::: {.g-col-md-5 .g-col-10 .g-start-4 .components-hero-img-container}
 
 <div class="ps-5 pt-5 components-hero-img" >
-<img src="_partials//template-hero.png" style="width: 100%;">
+<img src="_partials/template-hero.png" style="width: 100%;">
 </div>
 
 ::::
@@ -38,361 +85,70 @@ Shiny Templates
 
 <!-- Begin List area -->
 :::::::: {.column-screen-inset .mx-auto style="max-width: 1300px;"}
-:::::: {.grid .list-section #navbars}
- 
+
+:::::: {.grid .list-section #basic-apps}
+
 :::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
 <h2 class="h3 mt-4"> <i class="bi bi-graph-down indigo"></i> Basic Apps </h2>
 
 Basic starting points highlighting common [layouts](https://shiny.posit.co/py/layouts/) and [components](https://shiny.posit.co/py/components/).
-
-
 :::
 ::::
-:::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
-::: {#navbar .grid}
 
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="basic-app-plot" target="_blank">
-<h5>Basic reactive plot</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="/basic-app-plot">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100 py-1 px-3"><a class="layout-list-image" href="basic-app-plot"><img src="basic-app-plot/thumbnail.png" class="h-100 w-100"></a></p>
-</div>
-</div>
-
-
-
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="basic-sidebar">
-<h5>Reactive plot in sidebar</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="basic-sidebar">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="basic-sidebar"><img src="basic-sidebar/thumbnail.png" class="h-100 w-100"></a></p>
-</div>
-</div>
-
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="basic-navigation">
-<h5>Navigating multiple panels</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="basic-navigation">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="basic-navigation"><img src="basic-navigation/thumbnail.png" class="h-100 w-100"></a></p>
-</div>
-</div>
-
-
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="regularization">
-<h5>Regularization in ML article</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="regularization">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="regularization"><img src="regularization/thumbnail.png" class="h-100 w-100"></a></p>
-</div>
-</div>
-
-
+::: {#_basic-apps .g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
 :::
-
-::::
 
 ::::::
-:::::: {.grid .list-section style="margin-top: -1px;" #sidebars}
+
+
+:::::: {.grid .list-section style="margin-top: -1px;" #dashboards}
+
 :::: {.g-col-xl-3 .g-col-12}
-
 ::: {.sticky-xl-top .pt-4}
-
 <h2 class="h3 mt-4"> <i class="bi bi-grid-3x3-gap-fill indigo"></i> Dashboards </h2>
 
 At their core, dashboards are a combination of [sidebar layout](https://shiny.posit.co/py/layouts/sidebars/) with cards and [value boxes](https://shiny.posit.co/py/components/outputs/value-box/).
-
 :::
 ::::
-:::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
-::: {#sidebar .grid}
 
-
-
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="dashboard">
-<h5>Basic Dashboard</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="dashboard">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="dashboard"><img src="dashboard/thumbnail.png" class="h-100 w-100"></a></p>
-</div>
-</div>
-
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="dashboard-tips">
-<h5>Restaurant tips dashboard</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="dashboard-tips">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="dashboard-tips"><img src="dashboard-tips/thumbnail.png" class="h-100 w-100"></a></p>
-</div>
-</div>
-
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="stock-app">
-<h5>Stock Price Tracker</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="stock-app">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="stock-app"><img src="stock-app/thumbnail.png" class="h-100 w-100"></a></p>
-</div>
-</div>
-
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="nba-dashboard">
-<h5>NBA player career comparisons</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="nba-dashboard">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="nba-dashboard"><img src="nba-dashboard/thumbnail.png" class="h-100 w-100"></a></p>
-</div>
-</div>
-
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="model-scoring">
-<h5>Model scoring</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="model-scoring">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="model-scoring"><img src="model-scoring/thumbnail.png" class="h-100 w-100"></a></p>
-</div>
-</div>
-
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="map-distance">
-<h5>Location distance calculator</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="map-distance">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="map-distance"><img src="map-distance/thumbnail.png" class="h-100 w-100"></a></p>
-</div>
-</div>
-
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="database-explorer">
-<h5>SQL database explorer</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="database-explorer">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="database-explorer"><img src="database-explorer/thumbnail.png" class="h-100 w-100"></a></p>
-</div>
-</div>
-
-
+::: {#_dashboards .g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
 :::
-
-::::
 
 ::::::
 
 
-:::::: {.grid .list-section style="margin-top: -1px;" #elements}
+:::::: {.grid .list-section style="margin-top: -1px;" #streaming}
+
 :::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
-
 <h2 class="h3 mt-4"> <i class="bi bi-broadcast indigo"></i> Streaming Updates </h2>
 
-Reactive [file reading](https://shiny.posit.co/py/docs/reactive-patterns.html#file) and [polling](https://shiny.posit.co/py/docs/reactive-patterns.html#poll) provide an easy and useful way to “stream” updates to files, folders, databases, and more. 
-
+Reactive [file reading](https://shiny.posit.co/py/docs/reactive-patterns.html#file) and [polling](https://shiny.posit.co/py/docs/reactive-patterns.html#poll) provide an easy and useful way to “stream” updates to files, folders, databases, and more.
 :::
 ::::
-:::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
-::: {#element .grid}
 
-
-
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="monitor-file">
-<h5>Streaming file updates</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="monitor-file">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="monitor-file"><img src="monitor-file/thumbnail.png" class="h-100 w-100"></a></p>
-</div>
-</div>
-
-
-
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="monitor-database">
-<h5>Streaming database updates</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="monitor-database">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="monitor-database"><img src="monitor-database/thumbnail.png" class="h-100 w-100"></a></p>
- 
-</div>
-</div>
-
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="monitor-folder">
-<h5>Streaming folder updates</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="monitor-folder">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="monitor-folder"><img src="monitor-folder/thumbnail.png" class="h-100 w-100"></a></p>
- 
-</div>
-</div>
-
- 
-
-
+::: {#_streaming .g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
 :::
-
-::::
 
 ::::::
-:::::: {.grid .list-section style="margin-top: -1px;" #elements}
+
+
+:::::: {.grid .list-section style="margin-top: -1px;" #data-entry}
+
 :::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
-
 <h2 class="h3 mt-4"> <i class="bi bi-input-cursor-text indigo"></i> Data Entry </h2>
 
-  Validate and record user input to a questionnaire.
-
+Validate and record user input to a questionnaire.
 :::
 ::::
-:::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
-::: {#element .grid}
 
-
-
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="survey">
-<h5>Survey form</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="survey">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="survey"><img src="survey/thumbnail.png" class="h-100 w-100"></a></p>
-</div>
-</div>
-
-
-
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="survey-wizard">
-<h5>Survey wizard form</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="survey-wizard">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="survey-wizard"><img src="survey-wizard/thumbnail.png" class="h-100 w-100"></a></p>
- 
-</div>
-</div>
-
-
-
+::: {#_data-entry .g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
 :::
-
-::::
 
 ::::::
+
 
 ::::::::
 <!-- End List area -->
