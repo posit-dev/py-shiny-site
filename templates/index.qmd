@@ -44,6 +44,24 @@ listing:
         path: map-distance
       - title: SQL database explorer
         path: database-explorer
+  - id: streaming
+    template: _partials/template-listing.ejs
+    contents:
+      - title: Streaming file updates
+        path: monitor-file
+      - title: Streaming database updates
+        path: monitor-database
+      - title: Streaming folder updates
+        path: monitor-folder
+  - id: data-entry
+    template: _partials/template-listing.ejs
+    contents:
+      - title: Survey form
+        path: survey
+      - title: Survey wizard form
+        path: survey-wizard
+      - title: Survey with file upload
+        path: survey-file
 ---
 <!-- Begin Hero area -->
 :::::::: {.column-screen-inset .mx-auto style="max-width: 1300px;"}
@@ -69,6 +87,7 @@ Shiny Templates
 
 <!-- Begin List area -->
 :::::::: {.column-screen-inset .mx-auto style="max-width: 1300px;"}
+
 :::::: {.grid .list-section #navbars}
 
 :::: {.g-col-xl-3 .g-col-12}
@@ -76,26 +95,22 @@ Shiny Templates
 <h2 class="h3 mt-4"> <i class="bi bi-graph-down indigo"></i> Basic Apps </h2>
 
 Basic starting points highlighting common [layouts](https://shiny.posit.co/py/layouts/) and [components](https://shiny.posit.co/py/components/).
-
-
 :::
 ::::
-
 
 ::: {#basic-apps .g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
 :::
 
-
 ::::::
+
+
 :::::: {.grid .list-section style="margin-top: -1px;" #sidebars}
+
 :::: {.g-col-xl-3 .g-col-12}
-
 ::: {.sticky-xl-top .pt-4}
-
 <h2 class="h3 mt-4"> <i class="bi bi-grid-3x3-gap-fill indigo"></i> Dashboards </h2>
 
 At their core, dashboards are a combination of [sidebar layout](https://shiny.posit.co/py/layouts/sidebars/) with cards and [value boxes](https://shiny.posit.co/py/components/outputs/value-box/).
-
 :::
 ::::
 
@@ -106,137 +121,36 @@ At their core, dashboards are a combination of [sidebar layout](https://shiny.po
 
 
 :::::: {.grid .list-section style="margin-top: -1px;" #elements}
+
 :::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
-
 <h2 class="h3 mt-4"> <i class="bi bi-broadcast indigo"></i> Streaming Updates </h2>
 
 Reactive [file reading](https://shiny.posit.co/py/docs/reactive-patterns.html#file) and [polling](https://shiny.posit.co/py/docs/reactive-patterns.html#poll) provide an easy and useful way to “stream” updates to files, folders, databases, and more.
-
 :::
 ::::
-:::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
-::: {#element .grid}
 
-
-
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="monitor-file">
-<h5>Streaming file updates</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="monitor-file">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="monitor-file"><img src="monitor-file/thumbnail.png" class="h-100 w-100"></a></p>
-</div>
-</div>
-
-
-
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="monitor-database">
-<h5>Streaming database updates</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="monitor-database">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="monitor-database"><img src="monitor-database/thumbnail.png" class="h-100 w-100"></a></p>
-
-</div>
-</div>
-
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="monitor-folder">
-<h5>Streaming folder updates</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="monitor-folder">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="monitor-folder"><img src="monitor-folder/thumbnail.png" class="h-100 w-100"></a></p>
-
-</div>
-</div>
-
-
-
-
+::: {#streaming .g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
 :::
 
 ::::
 
 ::::::
 :::::: {.grid .list-section style="margin-top: -1px;" #elements}
+
 :::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
-
 <h2 class="h3 mt-4"> <i class="bi bi-input-cursor-text indigo"></i> Data Entry </h2>
 
-  Validate and record user input to a questionnaire.
-
+Validate and record user input to a questionnaire.
 :::
 ::::
-:::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
-::: {#element .grid}
 
-
-
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="survey">
-<h5>Survey form</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="survey">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="survey"><img src="survey/thumbnail.png" class="h-100 w-100"></a></p>
-</div>
-</div>
-
-
-
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="survey-wizard">
-<h5>Survey wizard form</h5>
-</a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="survey-wizard">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="survey-wizard"><img src="survey-wizard/thumbnail.png" class="h-100 w-100"></a></p>
-
-</div>
-</div>
-
-
-
+::: {#data-entry .g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
 :::
-
-::::
 
 ::::::
+
 
 ::::::::
 <!-- End List area -->
