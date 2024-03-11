@@ -16,7 +16,7 @@ format:
     code-overflow: wrap
 
 listing:
-  - id: basic-apps
+  - id: _basic-apps
     template: _partials/template-listing.ejs
     contents:
       - title: Basic reactive plot
@@ -27,7 +27,7 @@ listing:
         path: basic-navigation
       - title: Regularization in ML article
         path: regularization
-  - id: dashboards
+  - id: _dashboards
     template: _partials/template-listing.ejs
     contents:
       - title: Basic Dashboard
@@ -44,7 +44,7 @@ listing:
         path: map-distance
       - title: SQL database explorer
         path: database-explorer
-  - id: streaming
+  - id: _streaming
     template: _partials/template-listing.ejs
     contents:
       - title: Streaming file updates
@@ -53,15 +53,13 @@ listing:
         path: monitor-database
       - title: Streaming folder updates
         path: monitor-folder
-  - id: data-entry
+  - id: _data-entry
     template: _partials/template-listing.ejs
     contents:
       - title: Survey form
         path: survey
       - title: Survey wizard form
         path: survey-wizard
-      - title: Survey with file upload
-        path: survey-file
 ---
 <!-- Begin Hero area -->
 :::::::: {.column-screen-inset .mx-auto style="max-width: 1300px;"}
@@ -88,7 +86,7 @@ Shiny Templates
 <!-- Begin List area -->
 :::::::: {.column-screen-inset .mx-auto style="max-width: 1300px;"}
 
-:::::: {.grid .list-section #navbars}
+:::::: {.grid .list-section #basic-apps}
 
 :::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
@@ -98,13 +96,13 @@ Basic starting points highlighting common [layouts](https://shiny.posit.co/py/la
 :::
 ::::
 
-::: {#basic-apps .g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
+::: {#_basic-apps .g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
 :::
 
 ::::::
 
 
-:::::: {.grid .list-section style="margin-top: -1px;" #sidebars}
+:::::: {.grid .list-section style="margin-top: -1px;" #dashboards}
 
 :::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
@@ -114,13 +112,13 @@ At their core, dashboards are a combination of [sidebar layout](https://shiny.po
 :::
 ::::
 
-::: {#dashboards .g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
+::: {#_dashboards .g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
 :::
 
 ::::::
 
 
-:::::: {.grid .list-section style="margin-top: -1px;" #elements}
+:::::: {.grid .list-section style="margin-top: -1px;" #streaming}
 
 :::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
@@ -130,13 +128,13 @@ Reactive [file reading](https://shiny.posit.co/py/docs/reactive-patterns.html#fi
 :::
 ::::
 
-::: {#streaming .g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
+::: {#_streaming .g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
 :::
 
-::::
-
 ::::::
-:::::: {.grid .list-section style="margin-top: -1px;" #elements}
+
+
+:::::: {.grid .list-section style="margin-top: -1px;" #data-entry}
 
 :::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
@@ -146,7 +144,7 @@ Validate and record user input to a questionnaire.
 :::
 ::::
 
-::: {#data-entry .g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
+::: {#_data-entry .g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
 :::
 
 ::::::
