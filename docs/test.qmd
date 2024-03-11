@@ -6,7 +6,9 @@ resources:
   - assets/shiny_component_assets/**
 format:
   html:
-    css: ../components/_partials/components.css
+    css:
+      - ../components/_partials/components.css
+      - assets/custom-styles.css
 ---
 
 ::::: {.column-screen-inset .mx-auto style="max-width: 1300px;"}
