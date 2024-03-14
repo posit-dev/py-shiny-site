@@ -4,6 +4,7 @@ description:  Use the monitor-database template as a foundation for your next Sh
 date:         2024-03-04
 image:        thumbnail.png
 imagealt:     "A screenshot of the monitor-database template"
+app-height:   900px
 appurl:       https://gallery.shinyapps.io/template-monitor-database/
 sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/monitor-database
 ---
