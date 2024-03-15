@@ -35,6 +35,7 @@ with ui.card():
 
 
 with ui.card():
+
     @render.plot
     def mass_distribution():
         return dist_plot(filtered_data())
