@@ -1,11 +1,8 @@
 ---
 title: Map (ipyleaflet)
 sidebar: components
-preview: '<div class="px-3">
-<p class="mb-0">
-<img style="width: 100%;height:auto;max-height:130px;" src="/images/ipyleaflet.jpg"></p>
-</div>
-'
+preview: '<div class="px-3"> <p class="mb-0"> <img style="width: 100%;height:auto;max-height:130px;"
+  src="/images/ipyleaflet.jpg"></p> </div> '
 listing:
 - id: example
   template: ../../_partials/components-detail-example.ejs
