@@ -6,13 +6,14 @@ pagedescription: Shiny Templates allow you to hit the ground running with dashbo
 toc: false
 page-layout: article
 resources:
-  - /components/_partials/animation.lottie
+  - /templates/_partials/templates.mp4
 
 format:
   html:
     css:
-      - /layouts/_partials/layouts.css
-      - _partials/layouts-list.css
+      - /components/_partials/components.css
+      - /components/_partials/components-list.css
+      - _partials/templates-list.css
     code-overflow: wrap
 
 listing:
@@ -71,10 +72,12 @@ Shiny Templates
 
 ##### A collection of useful apps built from a combination [components](https://shiny.posit.co/py/components/), [layouts](https://shiny.posit.co/py/layouts/), and [reactivity](https://shiny.posit.co/py/docs/reactive-foundations.html). Compared to the [gallery](https://shiny.posit.co/py/gallery/), templates provide a more minimal yet useful starting point for your next app.
 ::::
-:::: {.g-col-md-5 .g-col-10 .g-start-4 .components-hero-img-container}
+:::: {.g-col-md-5 .g-col-10 .g-start-4 .d-md-block .d-none}
 
-<div class="ps-5 pt-5 components-hero-img" >
-<img src="_partials/template-hero.png" style="width: 100%;">
+<div class="pe-5 pt-5">
+  <video autoplay="" muted="" playsinline="" style="width: 100%;">
+    <source src="_partials/templates.mp4" type="video/mp4">
+  </video>
 </div>
 
 ::::
@@ -152,3 +155,4 @@ Validate and record user input to a questionnaire.
 
 ::::::::
 <!-- End List area -->
+

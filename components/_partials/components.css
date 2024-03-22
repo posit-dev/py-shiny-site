@@ -1,31 +1,14 @@
-/* make space for sidebar icons */
-@media only screen and (min-width: 992px) {
-  .components-hero-img {
-    margin-left: -60px;
-    width: 550px;
-  }
-  .components-hero-img-container {
-    margin-top: auto;
-    margin-bottom: auto;
-    overflow: hidden;
-    margin-right: -2.5rem;
-    margin-left: -1.5rem;
-  }
-}
+/*
 
-@media only screen and (min-width: 1350px) {
-  .components-hero-img {
-    margin-left: -60px;
-    width: 650px;
-  }
-  .components-hero-img-container {
-    margin-top: auto;
-    margin-bottom: auto;
-    overflow: hidden;
-    margin-right: -2.5rem;
-    margin-left: 1.5rem;
-  }
-} /* make space for sidebar icons */
+The /components/ section is made up of a list page and artcle pages.  
+
+The components list page (/components/index.qmd) gets styling from /components/_partials/components-list.css.
+
+The article pages (/components/_____/index.qmd) get styling from here.
+
+*/
+
+/* make space for sidebar icons */
 
 @media only screen and (min-width: 992px) {
   #quarto-sidebar > * {
@@ -34,129 +17,34 @@
   }
 }
 
-/* list page styling */
 
-.list-section {
-  border-top: 1px solid #cdd4da;
-  padding-top: 3rem;
-  padding-bottom: 5rem;
-}
-.component-list-column {
-  padding-top: 1rem;
-   align-self: end;
+
+/* Add rule and spacing between sections */
+
+section.level2:not(:first-child) h2 {
+  border-top: 1px solid var(--bs-primary);
+  padding-top: 5rem !important;
+  margin-top: 5rem !important;
 }
 
-.component-list-card {
-  box-shadow: 0px 1px 2px rgba(29, 31, 33, 0.1),
-    0px 2px 3px rgba(29, 31, 33, 0.1), 0px 3px 8px rgba(29, 31, 33, 0.1);
-  border-radius: 10px;
-  height: 150px;
-  background-color: #ffffff;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  flex-wrap: wrap;
-}
-.component-list-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 0px;
+section.level2:not(:first-child) > :last-child {
+  margin-bottom: 0;
 }
 
-.component-list-header-text h5 {
-  margin-bottom: 0.2rem;
-}
-.component-list-header-text,
-.component-list-icon a {
-  text-decoration: none;
-  color: #212529;
+/*Make code in Relavent Functions wrap*/
+
+#relevant-functions ul li code {
+  white-space: normal;
 }
 
-.component-list-icon a {
-  font-size: 1.25em;
-  margin-bottom: -4px;
+
+/*remove extra space under header*/
+
+#title-block-header {
+  margin-block-end: 0px;
 }
 
-.component-list-header-text a {
-  border-bottom: none;
-}
-.component-link-icon {
-  margin: 0.25rem;
-  white-space: nowrap;
-}
 
-a .component-link-icon:after {
-  content: "\F134";
-  font-family: "bootstrap-icons";
-  transition: all 0.3s !important;
-}
-
-a:hover .component-link-icon:after,
-a.component-list-header-text:hover
-  ~ div.component-list-icon
-  p
-  a
-  i.component-link-icon:after {
-  content: "\F133";
-  font-family: "bootstrap-icons";
-}
-
-.component-list-header-text:hover {
-  color: #000000;
-}
-
-/* Hero area of list page */
-
-@media only screen and (max-width: 767px) {
-  .components-hero-img-container {
-    display: none;
-  }
-}
-@media only screen and (min-width: 768px) {
-  .components-hero-img-container {
-    text-align: right;
-  }
-}
-@media only screen and (min-width: 768px) {
-  .components-hero-img {
-    width: 450px;
-    margin-left: -80px;
-  }
-  .hero-area {
-    height: 373px;
-  }
-}
-@media only screen and (min-width: 992px) {
-  .components-hero-img {
-    margin-left: -60px;
-    width: 550px;
-  }
-  .hero-area {
-    height: 500px;
-  }
-  .components-hero-img-container {
-    margin-top: auto;
-    margin-bottom: auto;
-    overflow: hidden;
-    margin-right: -2.5rem;
-    margin-left: -1.5rem;
-  }
-}
-
-@media only screen and (min-width: 1350px) {
-  .components-hero-img {
-    margin-left: -60px;
-    width: 650px;
-  }
-  .components-hero-img-container {
-    margin-top: auto;
-    margin-bottom: auto;
-    overflow: hidden;
-    margin-right: -2.5rem;
-    margin-left: 1.5rem;
-  }
-}
 
 .component-hr:last-of-type {
   display: none;
@@ -189,15 +77,4 @@ main a.nav-link:hover {
 .iframe-border {
   border: 1px solid #e9ecef;
   border-radius: 10px;
-}
-
-/* Add rule and spacing between sections */
-section.level2:not(:first-child) h2 {
-  border-top: 1px solid var(--bs-primary);
-  padding-top: 5rem !important;
-  margin-top: 5rem !important;
-}
-
-section.level2:not(:first-child) > :last-child {
-  margin-bottom: 0;
 }

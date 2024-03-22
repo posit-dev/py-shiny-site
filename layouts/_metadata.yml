@@ -1,7 +1,9 @@
 sidebar: layouts
 format:
   html:
-    css: _partials/layouts.css
+    css: 
+      - /components/_partials/components.css
+      - _partials/layouts-list.css
     toc: false
     code-line-numbers: true
     include-after-body: ../components/_partials/componentsjs.html
