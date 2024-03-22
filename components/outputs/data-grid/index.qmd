@@ -1,30 +1,14 @@
 ---
 title: Data Grid
 sidebar: components
-preview: '<div class="p-4 w-100 h-100">
-<table class="w-100 h-100 my-0 border">
-<thead>
-<tr>
-<th class="border fw-600 p-90 px-2 py-1 bg-gray" tabindex="0" colspan="1" scope="col">
-<div>This</div>
-</th>
-<th class="border fw-600 p-90 px-2 py-1 bg-gray" tabindex="0" colspan="1" scope="col">
-<div>That</div>
-</th>
-</tr>
-</thead>
-<tbody tabindex="0">
-<tr tabindex="-1" data-index="0" data-key="0">
-<td class="border p-90 px-2 py-1">And</td>
-<td class="border p-90 px-2 py-1">The</td>
-</tr>
-<tr tabindex="-1" data-index="1" data-key="1">
-<td class="border p-90 px-2 py-1">Other</td>
-<td class="border p-90 px-2 py-1">Thing</td>
-</tr>
-</tbody>
-</table>
-</div>'
+preview: <div class="p-4 w-100 h-100"> <table class="w-100 h-100 my-0 border"> <thead>
+  <tr> <th class="border fw-600 p-90 px-2 py-1 bg-gray" tabindex="0" colspan="1" scope="col">
+  <div>This</div> </th> <th class="border fw-600 p-90 px-2 py-1 bg-gray" tabindex="0"
+  colspan="1" scope="col"> <div>That</div> </th> </tr> </thead> <tbody tabindex="0">
+  <tr tabindex="-1" data-index="0" data-key="0"> <td class="border p-90 px-2 py-1">And</td>
+  <td class="border p-90 px-2 py-1">The</td> </tr> <tr tabindex="-1" data-index="1"
+  data-key="1"> <td class="border p-90 px-2 py-1">Other</td> <td class="border p-90
+  px-2 py-1">Thing</td> </tr> </tbody> </table> </div>
 listing:
 - id: example
   template: ../../_partials/components-detail-example.ejs
@@ -39,7 +23,7 @@ listing:
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyG1RXAY69LIyaxwAHuisixEqTORCdHTUNUWQAXjkFFWChUQAKAEpAiCEsQwAmOK0wAAUOLmQcvljtMCSIZIABKwgbBixFKAooZUZYOGRkAGJkAB5enRs6VmLNZUU6RMQdTs6rCn4GCGQauqwAESaoAHEGQUU4mM0Ezp7+nUJUClweWjAqVwowAF8AXSA
   - title: Core
     file: app-core.py
-    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiINqiuAyJCdOtRtHIAvHIUr3QqIAFACUrtCYykLeyEI4ULxwynSCAB5wikE6yDmxgliGAExZYAAKHFzIpXyB2mAhBNm5caT8FOhtyopQFFDJDLBwJQGaXXRa9UTIAMTIADxzOmEQ4Q50Bo4Abo5Bwh0URK3tbUQicCIiguQhiE05AAJ2EA4MWN29-YM5swt3yGusGqjRR0UK3CC5SHIOwUfgMCFPF5YAAiPSgAHEGIJMiNRCFvvNFitiRh0DFrOggqSooJTltHMtCKgKLgeLQwFRUhQwABfAC6QA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiINqiuAyJCdOtRtHIAvHIUr3QqIAFACUrtCYykLeyEI4ULxwynTsQopBOshZsYJYhgBMGWAAChxcyMV8gdpgIQSZ2XGk-BToLcqKUBRQyQywcEUBmh10WrVEyADEyAA8MzphEOEOdAaOAG6OQcJtFETNrS1EInAiIoLkIYgNWQACdhAODFid3b39WdNzN8grrFXDRR0ULXCDZcHIOwUfgMMEPJ5YAAiXSgAHEGIJ0kNRCFPrN5ktCRh0DFrOggsSooJjhtHItCKgKLgeLQwFQAB4UMAAXwAukA
 - id: relevant-functions
   template: ../../_partials/components-detail-relevant-functions.ejs
   template-params:
