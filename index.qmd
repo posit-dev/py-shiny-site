@@ -27,7 +27,7 @@ format:
 :::
 
 ::: {.col-6 style="z-index:999;"}
-<p class="hero badge rounded-pill bg-light mt-4" style=""><i class="bi bi-discord" style="padding-right:1rem;font-size:1rem;"></i><a target="_blank" class="text-dark" style="font-weight: 400;vertical-align:text-top;border-bottom: none;" href="https://discord.gg/yMGCamUMnS">Join the Shiny community on Discord <i class="ps-2 bi bi-chevron-right"></i></a></p>
+<p class="hero badge rounded-pill bg-light mt-4 py-2 px-3" style=""><i class="bi bi-discord" style="padding-right:1rem;font-size:1rem;"></i><a target="_blank" class="text-dark" style="font-weight: 400;vertical-align:text-top;border-bottom: none;" href="https://discord.gg/yMGCamUMnS">Join the Shiny community on Discord <i class="ps-2 bi bi-chevron-right"></i></a></p>
 :::
 
 :::
@@ -40,9 +40,26 @@ format:
     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 3"></button>
   </div>
   <div class="carousel-inner">
     <div class="carousel-item bg-white shadow p-3 active">
+      <a href="https://gallery.shinyapps.io/template-map-distance/">
+        <img src="/images/map-light.jpg" class="d-block" alt="A screenshot of an dashboard that includes an ipyleaflet map.">
+      </a>
+      <div class="carousel-caption">
+        <p>Run queries on an SQL database and <a href="https://gallery.shinyapps.io/template-map-distance/">view the results</a> in a data grid, <a href="/templates/map-distance/index.qmd">also available as a template</a>.</p>
+      </div>
+    </div>
+    <div class="carousel-item bg-white shadow p-3">
+      <a href="https://gallery.shinyapps.io/template-map-distance/">
+        <img src="/images/map-dark.jpg" class="d-block" alt="A screenshot of an dashboard that includes an ipyleaflet map.">
+      </a>
+      <div class="carousel-caption">
+        <p>Run queries on an SQL database and <a href="https://gallery.shinyapps.io/template-map-distance/">view the results</a> in a data grid, <a href="/templates/map-distance/index.qmd">also available as a template</a>.</p>
+      </div>
+    </div>
+    <div class="carousel-item bg-white shadow p-3">
       <a href="https://shinylive.io/py/app/#orbit-simulation"> <img src="/images/screen24.png" class="d-block" alt="Shiny Orbit Simulation App"></a>
       <div class="carousel-caption">
         <p>Shiny is great for creating interactive visualizations, like this <a href="https://shinylive.io/py/app/#orbit-simulation">three-body problem simulator</a>.</p>
@@ -55,15 +72,7 @@ format:
       <div class="carousel-caption">
         <p>Mix Markdown prose with inputs and outputs to create <a href="https://shinylive.io/py/app/#regularization">interactive explainers</a>.</p>
       </div>
-    </div>
-    <div class="carousel-item bg-white shadow p-3">
-      <a href="https://gallery.shinyapps.io/model-score/">
-        <img src="/images/screen23.png" class="d-block" alt="A screenshot of a dashboard app, with controls on the left, four numeric metrics displayed at the top, and two large plots filling the rest of the image.">
-      </a>
-      <div class="carousel-caption">
-        <p>Shiny makes it easy to create powerful <a href="https://gallery.shinyapps.io/model-score/">metrics dashboards</a> that update in realtime.</p>
-      </div>
-    </div>
+    </div>  
   </div>
   <!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
