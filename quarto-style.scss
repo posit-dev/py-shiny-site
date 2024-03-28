@@ -713,6 +713,11 @@ header.headroom {
   color: #0075b9;
 }
 
+.bg-dark-blue {
+  background-image: linear-gradient(#128ed6, #007bc2);
+  color: #fff;
+}
+
 // show only on mobile
 
 @media only screen and (max-width: 991px) {
@@ -1223,7 +1228,7 @@ h2.header-indigo {
 
 div.sourceCode,
 pre.console {
-  background-color: rgba(250, 250, 250, 0.9);
+  background-color: rgba(250, 250, 250, 0.97);
   border: 1px solid rgba(233, 236, 239, 0.9);
   border-radius: 0.5rem;
   box-shadow: 0px 1px 2px rgb(0 0 0 / 10%), 0px 3px 7px rgb(0 0 0 / 10%),
@@ -1857,7 +1862,20 @@ btn.action-button:hover {
   border: none;
 }
 
+
+/* Make code app name header Shiny blue */
+
+.code-with-filename .code-with-filename-file {
+    background-color: $blue
+}
+
+.code-with-filename-file pre {
+    color: white;
+}
+
+
 /* improve position of code copy button */
+
 div.sourceCode > pre.sourceCode {
   position: static;
 }
