@@ -1,0 +1,49 @@
+---
+title: "Dark Mode Switch"
+sidebar: components
+appPreview:
+  file: components/inputs/dark-mode/app-preview.py
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/dark-mode/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJM6lACZw6AHQj1GrTtwxwAHqlEsWvfoOFdUAVzJ4mBjjIsQzGfUYD6YqHQDWdmMQkAKAJRMmlmTAAXwBdIA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlN0qHQDWmmMVkbAEomVSDVVVkaVjkANzkbFzcJYjdXMgkWOBYWDlIgxHtHVCgciOh0PSYlVBsNbXEYuni6cIgwAF8AXSA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.input_dark_mode
+    href: https://shiny.posit.co/py/api/ui.input_dark_mode.html
+    signature: ui.input_dark_mode(id=None, mode=None, **kwargs)
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A dark mode switch input toggles the app between dark and light modes.
+
+To add a dark mode switch to your app:
+
+  1. Add `ui.input_dark_mode()` to the UI of your app to create a dark mode switch. Where you call this function will determine where the dark mode switch will appear within the app's layout. 
+
+  2. Optionally, specify the `id` parameter of `ui.input_dark_mode()` to define the identifier of the switch. When `id` is specified, you can use it to access the current color mode.
+
+  3. By default, the user’s system settings for the preferred color scheme will be used for the initial mode of the app. To force the initial mode, set the `mode` parameter to `"light"` or `"dark"`. 
+
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a dark mode switch:
+
+  1. Use `input.<dark_mode_switch_id>()` (e.g., `input.mode()`) to access the value of the dark mode switch. The server value of a dark mode switch is a string: either `"light"` or `"dark"`.
