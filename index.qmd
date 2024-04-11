@@ -31,7 +31,6 @@ format:
 
 :::
 
-
 :::{.g-col-12 .g-col-sm-10 .g-start-sm-2 .g-start-lg-0  .g-col-lg-6 .hero-carousel .mb-5}
 ```{=html}
 <div id="carouselExampleCaptions" class="carousel carousel-dark carousel-fade slide" data-bs-ride="carousel">
@@ -128,10 +127,8 @@ You have lots of deployment options including our own [cloud hosting](docs/deplo
 
 :::
 
-
 :::
 ::::
-
 
 ::: {.column-screen .bg-dark-blue .mb-0 .px-3 .px-md-5 }
 
@@ -241,6 +238,93 @@ app = App(app_ui, server)
 :::
 
 :::
+
+:::{.py-5 .my-5}
+:::
+
+:::::: {.column-screen .bg-dark-blue .mb-0 .px-3 .px-md-5 }
+
+::::: {.column-body}
+
+::: {.pt-5 .pb-5 .mx-auto}
+
+## Shiny apps are easy to begin.  run these commands to make your first app:
+<div style="display: flex;
+  align-items: baseline;">
+<p class="mb-0 big-blue-text white">1.</p>
+  <p class="after-big-blue-text d-inline-block mb-4 h4"><code style="background-color:transparent;">pip install shiny</code></p>
+</div>
+<p class="mb-0 big-blue-text white">2.</p>
+<p class="after-big-blue-text d-inline-block mb-4 h4"><code style="background-color:transparent;">shiny create -t dashboard-tips</code></p>
+
+
+::: {.grid .pt-4}
+
+<style>
+
+.big-blue-text {
+  font-size: 45px;
+  font-weight: 700;
+  display: inline-block;
+  color: #4c83b6;
+  padding-right: 15px;
+/*  position: absolute;*/
+}
+
+.big-blue-text .white {
+  color: $white;
+  opacity: .8;
+}
+
+.medium-blue-text {
+  font-size: 32px;
+  font-weight: 600;
+  display: inline-block;
+  color: #4c83b6;
+  padding-right: 15px;
+}
+
+.after-big-blue-text {
+/*padding-left: 60px;*/
+}
+
+@media only screen and (max-width: 768px) {
+
+  .big-blue-text {
+    color: #4c83b6;
+  }
+
+  p .big-blue-text {
+    margin-bottom: 4px !important;
+  }
+
+  .after-big-blue-text { 
+    display: block;
+  }
+}
+
+
+</style>
+
+:::::
+::::::
+::::::
+::::: {.column-screen-inset style="max-width:1600px;"}
+::: {.hello-output .g-col-12 .g-col-xl-12}
+<iframe
+  src="https://gallery.shinyapps.io/template-stock-app/"
+  frameborder="0"
+  width="100%"
+  class="mb-0 card"
+  style="height: 900px;"
+></iframe>
+
+:::
+:::
+
+:::
+
+:::::
 
 
 
