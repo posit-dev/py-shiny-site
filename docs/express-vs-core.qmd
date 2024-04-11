@@ -1,0 +1,261 @@
+---
+title: Express vs. Core
+editor:
+  markdown:
+    wrap: sentence
+---
+
+Shiny is one framework with two different syntax options: _Shiny Express_ and _Shiny Core_.
+Up until now, these docs have focused on Shiny Express.
+In this section, we'll dig into the differences between the two, and why you might choose one or the other.
+
+Don't worry, though.
+There is an enormous amount of overlap between the two, and the vast majority of apps will be well served by either Shiny Express or Shiny Core.
+
+And if you do decide to switch, the process is relatively straightforward---especially in the direction of Express to Core, as the latter supports a superset of the former's capabilities. We go into more detail on this in the [transitioning](express-to-core.qmd) article.
+
+## Background
+
+Shiny for Python was unveiled in 2022 with a single syntax option, which we now call Shiny Core.
+It drew inspiration from the [Shiny framework for R](https://shiny.posit.co/), which has been around for over a decade and is used by hundreds of thousands of data scientists around the world.
+Our goal was to make Shiny Core feel Pythonic, as opposed to a literal port of Shiny for R, but carry over the same core principles and tradeoffs.
+
+In January 2024, we introduced Shiny Express as a second syntax option.
+Express is built on top of Core, and is designed to be extremely easy to write, while preserving most of the power and flexibility of Shiny.
+
+## Differences between Express and Core
+
+The major differences between Shiny Express and Core are the following:
+
+- Slightly different import statements
+- Different organization of UI and server code
+- Implicit vs. explicit placement of outputs
+- Different syntax for UI containers
+
+Let's examine each of these in more detail.
+
+### Import statements
+
+A Shiny Core app file usually contains an import statement like:
+
+```python
+from shiny import App, reactive, render, ui
+```
+
+In Shiny Express, you'll instead see:
+
+```python
+from shiny import reactive
+from shiny.express import input, render, ui
+```
+
+Note that both import `ui` and `render`, but from different places.
+While Express's `shiny.express.ui` has almost all of the same UI functions as Core's `shiny.ui`, their function signatures often differ slightly, to reflect Express's different usage patterns.
+And the `render` functions---well actually, they are identical right now, but we're planning to add some Express-specific features to the `shiny.express.render` versions in the near future.
+
+Meanwhile, the `reactive` module is unchanged between Core and Express, as the two modes share the same reactive foundations.
+
+Finally, notice that Express also imports `input` from `shiny.express`.
+This isn't needed in Core, because the `input` object is passed into the server function as an argument.
+Since Express has no server function, we made it an attribute of `shiny.express`.
+
+### Organization of UI and server code
+
+**Every Shiny Core app file has a UI section, and a server section;** the two are separate and distinct.
+
+The UI section consists of a single (potentially very long and deeply nested) expression, stored as a variable named `app_ui` by convention.
+The object this produces is actually simply HTML, which is sent to the browser when it first loads the app.
+
+The server section is a function, named `server` by convention, that always takes the arguments `input`, `output`, and `session`.
+This function contains render functions and reactive functions, which are used to update the UI in response to user input.
+
+You can think of the UI section as a template, with `ui.output_xx()` calls as placeholders for outputs, and the server section as the instructions for how to populate those outputs.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+# Core
+from shiny import App, reactive, render, ui
+from datetime import datetime
+
+app_ui = ui.page_fixed(
+    ui.h1("Title"),
+    ui.output_code("greeting"),
+)
+
+def server(input, output, session):
+    @reactive.calc
+    def time():
+        reactive.invalidate_later(1)
+        return datetime.now()
+
+    @render.code
+    def greeting():
+        return f"Hello, world!\nIt's currently {time()}."
+
+app = App(app_ui, server)
+```
+
+**In Shiny Express, there isn't this hard distinction** between UI and server.
+
+Instead, everything coexists as top-level code in the app file: input components, layout directives, outputs (including their rendering logic), and reactive functions.
+
+Also, you aren't forced to combine your UI into a single complex object.
+You can use multiple UI objects, and they will be combined together by the framework.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+# Express
+from shiny import reactive
+from shiny.express import render, ui 
+from datetime import datetime
+
+ui.h1("Title")
+
+@reactive.calc
+def time():
+    reactive.invalidate_later(1)
+    return datetime.now()
+
+@render.code
+def greeting():
+    return f"Hello, world!\nIt's currently {time()}."
+```
+
+Again, notice how `greeting` in this app does _not_ have a corresponding call to `output_code("greeting")`.
+This is because in Shiny Express, `render` functions implicitly add an output to the page as a side effect so you don't need the output function.
+
+##### Core advantages
+
+- Because the UI structure is kept separate from the server, it is easier to read, reorder, and restructure. This advantage grows as app UIs grow larger.
+- Explicit server function declaration gives us a natural place to put code that should only execute at startup (top level) versus for each session (server function body). In contrast, in Express, all of the code in the app file is executed for each session.
+
+##### Express advantages
+
+- It's nice for beginners not to have to learn about the difference between UI and server.
+- Avoids having to write code in two different places for a single output, and having to make the IDs match up.
+- No need to write nested function declarations (i.e. functions inside the server function), which can be surprising to Python programmers.
+
+### Implicit vs. explicit placement of outputs
+
+For an output to appear in a Shiny app of any type, the framework needs to know two things: where it should go in the UI, and how it should be rendered.
+
+In Shiny Core, this is done in two separate steps. In the UI, you create a placeholder for the output, using a function like `ui.output_plot("plot1")`. Then, in the server, you create a rendering function, using a decorator like `@render.plot`, and name the function the same as the placeholder, like `def plot1():`.
+
+In Shiny Express, this is done in a single step. You create a rendering function, using a decorator like `@render.plot`, and name the function however you like (as long as it's unique). The framework automatically creates a placeholder in the UI where the function is defined.
+
+##### Core advantages
+
+- Moving an output from one place in the UI to another is as simple as moving the corresponding placeholder function.
+- The `ui.output_xx()` functions currently have some additional arguments that allow you to customize the output's behavior, like enabling plot brushing (with `ui.output_plot("plot1", brush=True)`). This is not as natural in Express, though workarounds do exist---see the [next article](express-in-depth.qmd).
+
+##### Express advantages
+
+- No need to carefully match the names of placeholders and rendering functions.
+
+### Different syntax for UI containers
+
+Broadly speaking, there are two kinds of UI components in Shiny: _container components_, which, as the name suggests, can contain other components, and _non-container components_, which cannot.
+(You can also think of the UI as a tree data structure: container components have children, while non-container components are leaf nodes in the tree.)
+
+Here are some examples of container components:
+
+- [`ui.sidebar()`](../layouts/sidebars/index.qmd)
+- [`ui.card()`](../layouts/panels-cards/index.qmd#content-divided-by-cards)
+- [`ui.layout_columns()`](../layouts/arrange/index.qmd#grid-layouts)
+- `ui.div()`
+
+Here are some examples of non-container components:
+
+- [`ui.input_text()`](../components/inputs/text-box/index.qmd)
+- [`ui.output_plot()`](../components/outputs/plot-matplotlib/index.qmd)
+
+**In Shiny Core, to put a component inside of a container, you nest the function calls,** like `ui.sidebar(ui.input_text())`.
+
+::: {.column-page-right}
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+# Core
+from shiny import ui, render, App
+
+app_ui = ui.page_sidebar(
+    ui.sidebar(
+        ui.input_text("txt_in", "Type something here:"),
+        open="always",
+    ),
+    ui.card(
+        ui.output_code("result"),
+    )
+)
+
+def server(input, output, session):
+    @render.code
+    def result():
+        return f"You entered '{input.txt_in()}'."
+
+app = App(app_ui, server)
+```
+:::
+
+By contrast, **in Shiny Express, container components like `ui.sidebar()` are _context managers_**, and used via `with` statements.
+Their child components go within the `with` block.
+
+::: {.column-page-right}
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+# Express
+from shiny.express import input, render, ui
+
+with ui.sidebar():
+    ui.input_text("txt_in", "Type something here:")
+
+with ui.card():
+    @render.code
+    def result():
+        return f"You entered '{input.txt_in()}'."
+```
+:::
+
+##### Core advantages
+
+- Passing children as arguments is beautifully simple and robust from a programming perspective.
+- Containers and non-containers behave very similarly (in fact, non-containers act no different than containers with no children).
+- All of the Core UI components are simple value-returning functions, without side effects. This makes them easy to compose, reuse, refactor, inspect, and test.
+
+##### Express advantages
+
+- The `with` block syntax is more forgiving to write, as you don't need to separate elements with commas. (Every Shiny Core app author has probably seen the "Perhaps you forgot a comma?" error message many times.)
+- You can put arbitrary Python code inside `with` blocks, including loops, conditionals, import statements, function definitions, reactive functions, and output rendering functions. (In Core, you are limited to Python expressions that generate UI.)
+
+::: {.callout-note}
+In unusual situations, you might want to create HTML content that doesn't use context managers. HTML tag functions, like `div()` and `span()` can actually be used as context managers or as regular functions, so the following are equivalent:
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+# Express
+from shiny.express import ui
+
+with ui.div():
+    with ui.pre(style="background-color: #eff;"):
+        "Hello!"
+
+ui.div(
+    ui.pre(
+        "Hello!",
+        style="background-color: #eff;",
+    ),
+)
+```
+
+More complex component functions, such as `ui.sidebar()` and `ui.card()`, can only be used as context managers in Shiny Express.
+
+:::

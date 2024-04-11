@@ -1,0 +1,268 @@
+---
+title: Choosing a syntax
+editor:
+  markdown:
+    wrap: sentence
+---
+
+Now that you are familiar with [the differences between Shiny Express and Shiny Core](express-vs-core.qmd), you might be wondering how to choose between them.
+
+In this article, we'll suggest some guidelines, but it's important to note that there are not many hard and fast rules.
+There is a lot of overlap between the capabilities of the two syntaxes, so feel free to choose whichever feels more natural and comfortable for you.
+
+Shiny Express is designed to get you up and running as quickly as possible.
+It's also designed to let you author your app with a minimum of boilerplate.
+As a result, it really shines in the early stages of both the learning journey and the lifecycle of an app.
+
+Compared to Express, Core enforces a more structured approach that requires more initial effort to use.
+However, that investment has its own payoff.
+
+The bulk of the rest of this article will focus on the advantages of Shiny Core.
+This isn't because we think it's better, but because Shiny Express's advantages---being more approachable and more concise---are fairly self-evident, while Shiny Core's advantages are more subtle.
+
+## Maintainability
+
+**Consider using Shiny Core if you are building a large or long-lived app.**
+
+The most important difference between the two syntaxes is that Express allows you to intermingle UI and server code, while Core requires you to separate them.
+The separation that Core requires can feel inconvenient while adding features to your app, as each new output requires you to edit two different places in your `app.py` file.
+
+But for larger and longer-lived apps, Shiny Core's more opinionated approach becomes an advantage.
+It is much easier to add, remove, or relocate pieces of your UI when all of its code is in one place, with no server code to confuse things. Similarly, when you're trying to understand the relationship between a reactive calculation and some outputs, it's much easier to do so when you don't have intermingled UI code in the way.
+
+At the [bottom of this page](#appendix), you'll find a Shiny Core version of the [dashboard app from the Essentials section](user-interfaces.qmd#all-together-now){target="_blank"} of this guide.
+Compare their respective source code, and consider:
+
+* Which version makes the structure of the UI more obvious?
+* Which version would make you more confident in moving UI elements around?
+* Which version makes it easier to understand the reactive calcs and outputs?
+* Imagine you were picking up an app that had been written a year ago by someone else. Which version would you prefer?
+
+## Feature set
+
+**Consider using Shiny Core if you need to use Shiny Modules or dynamic UI.**
+
+At this time, Shiny Core's functionality is a superset of Express, meaning that anything you can do in Express, you can also do in Core.
+However, the reverse is not true.
+
+Most importantly, [Shiny Modules](modules.qmd) are supported in Shiny Core but not (yet) in Shiny Express. Shiny Modules are extremely useful for organizing large apps into smaller, more manageable pieces, and are also a mechanism for reusing Shiny application logic.
+
+Shiny Core also has `ui.insert_ui()` and `ui.remove_ui()` functions, which is a way to imperatively add or remove UI elements from the app at any time.
+Despite being available in `shiny.express.ui`, these functions do not currently work well with Shiny Express. The same goes for `ui.modal_show()`.
+
+## Maturity
+
+**Consider using Shiny Core if you care more about maturity and stability than convenience.**
+
+Given its longer history, Shiny Core is naturally more mature than Shiny Express in both syntax and implementation.
+
+We've carefully designed the Shiny Express syntax, and hope not to have to make breaking changes to it.
+However, we don't know what we don't know, and it's possible that user feedback or our own testing will someday require us to make significant changes.
+
+Similarly, we are constantly testing Shiny Express, but as of this writing, it has not has as much real-world use as Shiny Core.
+Therefore, with Shiny Core, you are less likely to encounter bugs.
+
+## Familiarity to R users
+
+**Consider using Shiny Core if you are an R user who is already familiar with Shiny.**
+
+While Shiny Core is not a literal translation of Shiny for R, it is much closer to it than Shiny Express.
+The UI/server separation, the nested UI function calls, the matching of output IDs to render functions, are all going to feel very natural to experienced Shiny for R app authors.
+
+<!--
+The [next article](express-in-depth.qmd) illustrates how these downsides can be mitigated to some extent in Express with some advanced tooling.
+However, if you feel yourself reaching for these tools often, it might be time to [switch to Core](express-to-core.qmd).
+-->
+
+## Appendix
+
+The following is the dashboard application from the Essentials section of this guide, rewritten using Shiny Core.
+Compare it to [the original](user-interfaces.qmd#all-together-now).
+
+::: {.column-page-right}
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 800
+import faicons as fa
+import plotly.express as px
+from shinywidgets import output_widget, render_plotly
+
+from shiny import App, reactive, render, req, ui
+
+# Load data and compute static values
+tips = px.data.tips()
+bill_rng = (min(tips.total_bill), max(tips.total_bill))
+
+ICONS = {
+    "user": fa.icon_svg("user", "regular"),
+    "wallet": fa.icon_svg("wallet"),
+    "currency-dollar": fa.icon_svg("dollar-sign"),
+    "gear": fa.icon_svg("gear")
+}
+
+app_ui = ui.page_sidebar(
+    ui.sidebar(
+        ui.input_slider("total_bill", "Bill amount", min=bill_rng[0], max=bill_rng[1], value=bill_rng, pre="$"),
+        ui.input_checkbox_group("time", "Food service", ["Lunch", "Dinner"], selected=["Lunch", "Dinner"], inline=True),
+        ui.input_action_button("reset", "Reset filter"),
+    ),
+    ui.layout_columns(
+        ui.value_box(
+            "Total tippers",
+            ui.output_ui("total_tippers"),
+            showcase=ICONS["user"],
+            showcase_layout="left center",
+        ),
+        ui.value_box(
+            "Average tip",
+            ui.output_ui("average_tip"),
+            showcase=ICONS["wallet"],
+            showcase_layout="left center",
+        ),
+        ui.value_box(
+            "Average bill",
+            ui.output_ui("average_bill"),
+            showcase=ICONS["currency-dollar"],
+            showcase_layout="left center",
+        ),
+        fill=False,
+    ),
+    ui.layout_columns(
+        ui.card(
+            ui.card_header("Tips data"),
+            ui.output_data_frame("table"),
+            full_screen=True,
+        ),
+        ui.card(
+            ui.card_header(
+                "Total bill vs tip",
+                ui.popover(
+                    ICONS["gear"],
+                    ui.input_radio_buttons(
+                        "scatter_color", None,
+                        ["none", "sex", "smoker", "day", "time"],
+                        inline=True,
+                    ),
+                    title="Add a color variable",
+                    placement="top",
+                ),
+                class_="d-flex justify-content-between align-items-center"
+            ),
+            output_widget("scatterplot"),
+            full_screen=True,
+        ),
+        ui.card(
+            ui.card_header(
+                "Tip percentages",
+                ui.popover(
+                    ICONS["gear"],
+                    ui.input_radio_buttons(
+                        "tip_perc_y", "Split by:",
+                        ["sex", "smoker", "day", "time"],
+                        selected="day",
+                        inline=True,
+                    ),
+                    title="Add a color variable",
+                ),
+                class_="d-flex justify-content-between align-items-center",
+            ),
+            output_widget("tip_perc"),
+            full_screen=True,
+        ),
+        col_widths=[6, 6, 12],
+    ),
+    title="Restaurant tipping",
+    fillable=True,
+)
+
+def server(input, output, session):
+
+    # --------------------------------------------------------
+    # Reactive calculations and effects
+    # --------------------------------------------------------
+
+    @reactive.calc
+    def tips_data():
+        bill = input.total_bill()
+        idx1 = tips.total_bill.between(bill[0], bill[1])
+        idx2 = tips.time.isin(input.time())
+        return tips[idx1 & idx2]
+
+    @reactive.effect
+    @reactive.event(input.reset)
+    def _():
+        ui.update_slider("total_bill", value=bill_rng)
+        ui.update_checkbox_group("time", selected=["Lunch", "Dinner"])
+
+    # --------------------------------------------------------
+    # Outputs
+    # --------------------------------------------------------
+
+    @render.ui
+    def total_tippers():
+        return tips_data().shape[0]
+
+    @render.ui
+    def average_tip():
+        d = tips_data()
+        req(d.shape[0] > 0)
+        perc = d.tip / d.total_bill
+        return f"{perc.mean():.1%}"
+
+    @render.ui
+    def average_bill():
+        d = tips_data()
+        req(d.shape[0] > 0)
+        bill = d.total_bill.mean()
+        return f"${bill:.2f}"
+
+    @render.data_frame
+    def table():
+        return render.DataGrid(tips_data())
+
+
+    @render_plotly
+    def scatterplot():
+        color = input.scatter_color()
+        return px.scatter(
+            tips_data(),
+            x="total_bill",
+            y="tip",
+            color=None if color == "none" else color,
+            trendline="lowess"
+        )
+
+    @render_plotly
+    def tip_perc():
+        from ridgeplot import ridgeplot
+        dat = tips_data().copy()
+        dat.loc[:, "percent"] = dat.tip / dat.total_bill
+        yvar = input.tip_perc_y()
+        uvals = dat[yvar].unique()
+
+        samples = [
+            [ dat.percent[dat[yvar] == val] ]
+            for val in uvals
+        ]
+
+        plt = ridgeplot(
+            samples=samples, labels=uvals, bandwidth=0.01,
+            colorscale="viridis", colormode="row-index"
+        )
+
+        plt.update_layout(
+            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5)
+        )
+
+        return plt
+
+app = App(app_ui, server)
+
+## file: requirements.txt
+ridgeplot
+```
+
+:::

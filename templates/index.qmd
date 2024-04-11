@@ -1,0 +1,158 @@
+---
+pagetitle: "Shiny Templates"
+anchor-sections: false
+sidebar: false
+pagedescription: Shiny Templates allow you to hit the ground running with dashboards, surveys, and basic apps.
+toc: false
+page-layout: article
+resources:
+  - /templates/_partials/templates.mp4
+
+format:
+  html:
+    css:
+      - /components/_partials/components.css
+      - /components/_partials/components-list.css
+      - _partials/templates-list.css
+    code-overflow: wrap
+
+listing:
+  - id: _basic-apps
+    template: _partials/template-listing.ejs
+    contents:
+      - title: Basic reactive plot
+        path: basic-app-plot
+      - title: Reactive plot in sidebar
+        path: basic-sidebar
+      - title: Navigating multiple panels
+        path: basic-navigation
+      - title: Regularization in ML article
+        path: regularization
+  - id: _dashboards
+    template: _partials/template-listing.ejs
+    contents:
+      - title: Basic Dashboard
+        path: dashboard
+      - title: Restaurant tips dashboard
+        path: dashboard-tips
+      - title: Stock Price Tracker
+        path: stock-app
+      - title: NBA player career comparisons
+        path: nba-dashboard
+      - title: Model scoring
+        path: model-scoring
+      - title: Location distance calculator
+        path: map-distance
+      - title: SQL database explorer
+        path: database-explorer
+  - id: _streaming
+    template: _partials/template-listing.ejs
+    contents:
+      - title: Streaming file updates
+        path: monitor-file
+      - title: Streaming database updates
+        path: monitor-database
+      - title: Streaming folder updates
+        path: monitor-folder
+  - id: _data-entry
+    template: _partials/template-listing.ejs
+    contents:
+      - title: Survey form
+        path: survey
+      - title: Survey wizard form
+        path: survey-wizard
+---
+<!-- Begin Hero area -->
+:::::::: {.column-screen-inset .mx-auto style="max-width: 1300px;"}
+:::::: {.grid .hero-area .my-md-0 .my-5}
+:::: {.g-col-md-7 .g-col-12 .pe-0 .pe-md-5 .my-auto}
+::: {.display-3 .fw-bold}
+Shiny Templates
+:::
+
+##### A collection of useful apps built from a combination [components](https://shiny.posit.co/py/components/), [layouts](https://shiny.posit.co/py/layouts/), and [reactivity](https://shiny.posit.co/py/docs/reactive-foundations.html). Compared to the [gallery](https://shiny.posit.co/py/gallery/), templates provide a more minimal yet useful starting point for your next app.
+::::
+:::: {.g-col-md-5 .g-col-10 .g-start-4 .d-md-block .d-none}
+
+<div class="pe-5 pt-5">
+  <video autoplay="" muted="" playsinline="" style="width: 100%;">
+    <source src="_partials/templates.mp4" type="video/mp4">
+  </video>
+</div>
+
+::::
+
+::::::
+::::::::
+<!-- End Hero area -->
+
+<!-- Begin List area -->
+:::::::: {.column-screen-inset .mx-auto style="max-width: 1300px;"}
+
+:::::: {.grid .list-section #basic-apps}
+
+:::: {.g-col-xl-3 .g-col-12}
+::: {.sticky-xl-top .pt-4}
+<h2 class="h3 mt-4"> <i class="bi bi-graph-down indigo"></i> Basic Apps </h2>
+
+Basic starting points highlighting common [layouts](https://shiny.posit.co/py/layouts/) and [components](https://shiny.posit.co/py/components/).
+:::
+::::
+
+::: {#_basic-apps .g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
+:::
+
+::::::
+
+
+:::::: {.grid .list-section style="margin-top: -1px;" #dashboards}
+
+:::: {.g-col-xl-3 .g-col-12}
+::: {.sticky-xl-top .pt-4}
+<h2 class="h3 mt-4"> <i class="bi bi-grid-3x3-gap-fill indigo"></i> Dashboards </h2>
+
+At their core, dashboards are a combination of [sidebar layout](https://shiny.posit.co/py/layouts/sidebars/) with cards and [value boxes](https://shiny.posit.co/py/components/outputs/value-box/).
+:::
+::::
+
+::: {#_dashboards .g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
+:::
+
+::::::
+
+
+:::::: {.grid .list-section style="margin-top: -1px;" #streaming}
+
+:::: {.g-col-xl-3 .g-col-12}
+::: {.sticky-xl-top .pt-4}
+<h2 class="h3 mt-4"> <i class="bi bi-broadcast indigo"></i> Streaming Updates </h2>
+
+Reactive [file reading](https://shiny.posit.co/py/docs/reactive-patterns.html#file) and [polling](https://shiny.posit.co/py/docs/reactive-patterns.html#poll) provide an easy and useful way to “stream” updates to files, folders, databases, and more.
+:::
+::::
+
+::: {#_streaming .g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
+:::
+
+::::::
+
+
+:::::: {.grid .list-section style="margin-top: -1px;" #data-entry}
+
+:::: {.g-col-xl-3 .g-col-12}
+::: {.sticky-xl-top .pt-4}
+<h2 class="h3 mt-4"> <i class="bi bi-input-cursor-text indigo"></i> Data Entry </h2>
+
+Validate and record user input to a questionnaire.
+:::
+::::
+
+::: {#_data-entry .g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
+:::
+
+::::::
+
+
+::::::::
+<!-- End List area -->
+

@@ -13,15 +13,144 @@
 
 <!-- Google Tag Manager -->
 <script>
+  // prettier-ignore
   (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KHBDBW7');
 </script>
 <!-- End Google Tag Manager -->
 
 <!-- Add rel="noopener noreferrer" to each target="_blank" -->
 <script type="text/javascript">
-  window.addEventListener("load",() =>
-    [...document.querySelectorAll("a[target=_blank]")]
-      .forEach(lnk => lnk.setAttribute("rel", "noopener noreferrer"))
+  window.addEventListener("load", () =>
+    [...document.querySelectorAll("a[target=_blank]")].forEach((lnk) =>
+      lnk.setAttribute("rel", "noopener noreferrer")
+    )
   );
 </script>
 <!-- End Add rel="noopener noreferrer" to each target="_blank" -->
+
+<script type="text/javascript">
+  (function () {
+    function addShinyliveEditLinks() {
+      const codeWithLink = document.querySelectorAll(
+        ".sourceCode[data-shinylive]"
+      );
+      codeWithLink.forEach((el) => {
+        el.classList.add("code-with-shinylive-link");
+        const url = el.dataset.shinylive;
+
+        // <a class="edit-shinylive-button btn btn-link" href="<%= app.shinylive %>" data-bs-toggle="tooltip" data-bs-title="Edit in Shinylive" data-bs-placement="bottom">
+        //  <i class="bi bi-lightning-fill"></i> <span class="visually-hidden">Edit in Shinylive</span>
+        // </a>
+
+        const link = document.createElement("a");
+        link.classList.add("edit-shinylive-button", "btn", "btn-link");
+        link.href = url;
+        link.dataset.bsToggle = "tooltip";
+        link.dataset.bsTitle = "Edit in Shinylive";
+        link.dataset.bsPlacement = "bottom";
+
+        const icon = document.createElement("i");
+        icon.classList.add("bi", "bi-lightning-fill");
+        link.appendChild(icon);
+
+        const span = document.createElement("span");
+        span.classList.add("visually-hidden");
+        span.innerText = "Edit in Shinylive";
+        link.appendChild(span);
+
+        const btnCopy = el.querySelector(".code-copy-button");
+        if (btnCopy) {
+          btnCopy.parentElement.appendChild(link);
+        } else {
+          if (el.matches("pre")) {
+            el.appendChild(link);
+          } else {
+            el.querySelector("pre").appendChild(link);
+          }
+        }
+
+        if (window.bootstrap?.Tooltip) {
+          new bootstrap.Tooltip(link);
+        }
+        el.removeAttribute("data-shinylive");
+      });
+    }
+
+    function addWhatsShinyExpressTooltip() {
+      const tooltipContents = `<p><strong>Shiny Express</strong> is a new, streamlined way to write a Shiny app.</p>
+    <p><strong>Shiny Core</strong> refers to the original, functional Shiny syntax, which is still a great way to write Shiny apps.</p>
+    <p class="fw-600" style="font-size:0.85em;"><a href="https://shiny.posit.co/blog/posts/shiny-express/">Read more <i class="bi bi-chevron-right align-text-top"></i></a></p>`;
+
+      const tooltipDisplay = `<i class="bi bi-question-circle-fill d-inline d-sm-none"></i><span class="d-none d-sm-inline">What's this?</span>`;
+
+      document
+        .querySelectorAll(".panel-tabset.shiny-mode-tabset")
+        .forEach(function (tabset) {
+          const trigger = document.createElement("div");
+          trigger.classList.add("what-shiny-express", "text-white");
+          trigger.tabIndex = 0;
+          trigger.innerHTML = tooltipDisplay;
+          tabset.appendChild(trigger);
+
+          if (!window.bootstrap?.Popover) {
+            return;
+          }
+
+          new window.bootstrap.Popover(trigger, {
+            html: true,
+            title: "Express vs Core",
+            content: tooltipContents,
+            placement: "auto",
+            trigger: "focus",
+            container: tabset,
+          });
+        });
+    }
+
+    function handlePanelVariants() {
+      document.querySelectorAll(".panel-pills > .nav").forEach((x) => {
+        x.classList.remove("nav-tabs");
+        x.classList.add("nav-pills");
+      });
+      document.querySelectorAll(".panel-underline > .nav").forEach((x) => {
+        x.classList.remove("nav-tabs");
+        x.classList.add("nav-underline");
+      });
+      document.querySelectorAll(".shiny-mode-tabset > .nav").forEach((x) => {
+        x.classList.remove("nav-tabs");
+        x.classList.add("nav-underline");
+      });
+    }
+
+    function onLoad() {
+      addShinyliveEditLinks();
+      addWhatsShinyExpressTooltip();
+      handlePanelVariants();
+    }
+
+    document.readyState === "loading"
+      ? document.addEventListener("DOMContentLoaded", onLoad)
+      : onLoad();
+  })();
+</script>
+
+<div
+  class="alert alert-primary text-center mb-0 border-0"
+  style="padding: 0.6rem"
+  role="alert"
+>
+  <p class="d-md-inline my-0 me-md-4 p-90">
+    <strong>🎉 Introducing Shiny Express</strong>
+  </p>
+  <p class="d-md-inline my-0 p-90 me-md-4">
+    A simpler way to write and learn Shiny.
+  </p>
+  <p class="d-md-inline my-0 p-90 me-md-4">
+    <a
+      href="https://shiny.posit.co/blog/posts/shiny-express/"
+      target="_blank"
+      style="color: #00314e"
+      >Learn more</a
+    >.
+  </p>
+</div>

@@ -1,0 +1,56 @@
+---
+title:        "Model scoring"
+description:  Use the model-scoring template as a foundation for your next Shiny app.
+date:         2024-03-04
+image:        thumbnail.png
+imagealt:     "A screenshot of the model-scoring template"
+appurl:       https://gallery.shinyapps.io/template-model-scoring/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/model-scoring
+---
+
+::: {.panel-tabset .shiny-mode-tabset}
+## Core
+``` python
+shiny create -m core \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/model-scoring
+```
+:::
+
+
+Use a combination of scikit-learn and plotnine to visualize model diagnostics like ROC and precision-recall curves.
+Shiny's reactive programming model makes it easy and performant to update those outputs in response to user input like specific accounts or time periods.
+
+
+:::: {.grid .tags}
+::: {.g-col-6 .g-col-sm-4}
+
+**Components:**
+
+* [Select input](/components/inputs/selectize-single)
+* [Value box](/components/outputs/value-box)
+* [Plot output](/components/outputs/plot-matplotlib)
+* [Data grid output](/components/outputs/data-grid)
+
+:::
+::: {.g-col-6 .g-col-sm-4}
+
+**Layouts:**
+
+* [Navbar](/layouts/navbars)
+* [Sidebar](/layouts/sidebars)
+* [Tabs](/layouts/tabs)
+* [Grid layout](/layouts/arrange)
+* [Cards](/layouts/panels-cards/#content-divided-by-cards)
+
+:::
+::: {.g-col-6 .g-col-sm-4}
+
+**Packages:**
+
+* `numpy`
+* `pandas`
+* `plotnine`
+* `scikit-learn`
+
+:::
+::::

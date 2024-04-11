@@ -1,0 +1,64 @@
+---
+title:        "Stock price tracker"
+description:  Use the stock-app template as a foundation for your next Shiny app.
+date:         2024-03-04
+image:        thumbnail.png
+imagealt:     "A screenshot of the stock-app template"
+appurl:       https://gallery.shinyapps.io/template-stock-app/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/stock-app
+---
+
+::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
+## Express
+``` python
+shiny create -m express \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/stock-app
+```
+## Core
+``` python
+shiny create -m core \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/stock-app
+```
+:::
+
+
+A basic stock price tracker app.
+It allows the user to select a stock and a date range, and then displays the stock's price and volume over time.
+The value boxes display the stock's current price and change in price from the previous day.
+Note that the icon for the stock price change is a green arrow pointing up if the price has increased, and a red arrow pointing down if the price has decreased.
+
+
+:::: {.grid .tags}
+::: {.g-col-6 .g-col-sm-4}
+
+**Components:**
+
+* [Select input](/components/inputs/selectize-single/)
+* [Date range input](/components/inputs/date-range/)
+* [Value box](/components/outputs/value-box/)
+* [Plotly](/components/outputs/plot-plotly)
+* [Data grid output](/components/outputs/data-grid)
+
+:::
+::: {.g-col-6 .g-col-sm-4}
+
+**Layouts:**
+
+* [Sidebar](/layouts/sidebars)
+* [Grid layout](/layouts/arrange)
+* [Cards](/layouts/panels-cards/#content-divided-by-cards)
+
+:::
+::: {.g-col-6 .g-col-sm-4}
+
+**Packages:**
+
+* `cufflinks`
+* `faicons`
+* `pandas`
+* `plotly`
+* `shinywidgets`
+* `yfinance`
+
+:::
+::::

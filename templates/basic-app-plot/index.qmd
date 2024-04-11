@@ -1,0 +1,46 @@
+---
+title:        "Basic reactive plot"
+description:  Use the basic-app-plot template as a foundation for your next Shiny app.
+date:         2024-03-04
+image:        thumbnail.png
+imagealt:     "A screenshot of the basic-app-plot template"
+quarto-column-size: column-page
+app-height:   650px
+appurl:       https://gallery.shinyapps.io/template-basic-app-plot1/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/basic-app-plot
+---
+
+::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
+## Express
+``` python
+shiny create -m express \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/basic-app-plot
+```
+## Core
+``` python
+shiny create -m core \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/basic-app-plot
+```
+:::
+
+
+A basic example of changing a histogram based on a select input control.
+
+
+:::: {.grid .tags}
+
+::: {.g-col-6}
+**Components:**
+
+* [Select input](/components/inputs/select-single)  
+* [Plot output](/components/outputs/plot-seaborn)  
+:::
+
+::: {.g-col-6}
+**Packages:**  
+
+* `seaborn`  
+:::
+
+::::
+

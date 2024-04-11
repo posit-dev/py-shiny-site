@@ -3,232 +3,560 @@ title: Overview
 editor:
   markdown:
     wrap: sentence
+aliases:
+  - index.html
+  - inputs.html
+  - outputs.html
+  - server.html
+  - get-started.html
 ---
 
-Shiny makes it easy to build web applications with Python code.
-It enables you to customize the layout and style of your application and dynamically respond to events, such as a button press, or dropdown selection.
-The examples on this site are rendered in the browser using [Pyodide](shinylive.qmd), but you can also [install shiny](install.qmd) to use it with your own projects.
+Welcome to the learn Shiny overview!
+Here we'll introduce Shiny's capabilities and link to articles where you can learn more.
+In the [next article](user-interfaces.qmd), we'll cover more user interface (UI) [components](#components) by building this dashboard:
 
-If you have experience with the [Shiny for R](https://shiny.posit.co/r/articles/), we recommend starting with the [quickstart](comp-r-shiny.qmd) to learn the main differences between Shiny for R and Shiny for Python.
+![A Shiny dashboard with visuals for exploring restaurant tips (covered in the [next article](user-interfaces.qmd)).](assets/tipping-dashboard.png){class="img-shadow"}
 
-Shiny applications consist of two parts: the **user interface** (or **UI**), and the **server** function.
-These are combined using a `shiny.App` object.
+::: {.callout-tip}
+## Editable examples
 
-This is shown in the interactive example below.
-
-::: column-page-inset-right
-``` {shinylive-python}
-#| standalone: true
-#| components: [editor, viewer]
-
-from shiny import App, ui
-
-# Part 1: ui ----
-app_ui = ui.page_fluid(
-    "Hello, world!",
-)
-
-# Part 2: server ----
-def server(input, output, session):
-    ...
-
-# Combine into a shiny app.
-# Note that the variable must be "app".
-app = App(app_ui, server)
-
-```
+Many examples on this site have a code editor for modifying the source code for a Shiny app (which runs entirely in the browser, thanks to [shinylive](shinylive.qmd)).
+If you'd like to run any examples locally, first [install and run](install-create-run.qmd) Shiny locally, then copy/paste relevant code into the `app.py` file (created by `shiny create`).
 :::
 
-Notice how the UI part defines what visitors will see on their web page.
-Right now this is just the static text "Hello, world!".
-The dynamic parts of our app happen inside the server function, which is currently empty.
 
-::: {.callout-note .margin-note}
-You can modify the example code, and then re-run it by pressing the play button on the top-right of the code pane.
+### Basics {#basics}
 
-Try changing the page text to `"Hello, Shiny world!"` and re-running the application.
-:::
+Shiny apps typically start with [input components](/components/#inputs) to gather information from a user, which are then used to reactively render [output components](/components/#outputs). Here's a basic example that displays a slider's value as formatted text.
 
-In the next sections we'll modify the UI and server to take input from a user, and display some calculations!
-
-## Adding UI inputs and outputs
-
-The first step toward basic interactivity is to add inputs and outputs to the UI.
-
-::: column-page-inset-right
-``` {shinylive-python}
-#| standalone: true
-#| components: [editor, viewer]
-
-from shiny import App, ui
-
-app_ui = ui.page_fluid(
-    ui.input_slider("n", "Choose a number n:", 0, 100, 40),
-    ui.output_text_verbatim("txt")
-)
-
-def server(input, output, session):
-    ...
-
-app = App(app_ui, server)
-```
-:::
-
-Note the two new UI pieces added:
-
--   `input_slider()` creates a slider.
--   `output_text_verbatim()` creates a field to display dynamically generated text. There's no text yet, but we'll add it next.
-
-## Adding server logic
-
-Now we can add to the server function.
-Inside of the server function, we'll define an output function named `txt`.
-This output function provides the content for the `output_text_verbatim("txt")` in the UI.
-
-Try moving the slider below to see the text output automatically change.
-
-::: column-page-inset-right
-``` {shinylive-python}
-#| standalone: true
-#| components: [editor, viewer]
-
-from shiny import ui, render, App
-
-app_ui = ui.page_fluid(
-    ui.input_slider("n", "N", 0, 100, 40),
-    ui.output_text_verbatim("txt"),
-)
-
-def server(input, output, session):
-    @output
-    @render.text
-    def txt():
-        return f"n*2 is {input.n() * 2}"
-
-# This is a shiny.App object. It must be named `app`.
-app = App(app_ui, server)
-```
-:::
-
-Note that inside of the server function, we do the following:
-
--   define a function named `txt`, whose output shows up in the UI's `output_text_verbatim("txt")`.
--   decorate it with `@render.text`, to say the result is text (and not, e.g., an image).
--   decorate it with `@output`, to say the result should be displayed on the web page.
-
-(Soon we'll see other kinds of `render.*` decorators, like `render.plot`.)
-
-Finally, notice our `txt()` function takes the value of our slider `n`, and returns its valued multiplied by 2.
-To access the value of the slider, we use `input.n()`.
-Notice that this is a callable object (like a function) that must be invoked to get the value.
-
-This reactive flow of data from UI inputs, to server code, and back out to UI outputs is fundamental to how Shiny works.
-
-## Reactive flow
-
-When you moved the slider in the app above, a series of actions were kicked off, resulting in the output on the screen changing.
-This is called reactivity.
-
-The diagram below shows how the updated input flows through a Shiny application.
-
-![Reactive flow of code through a Shiny application](assets/reactive-flow.svg)
-
-Inputs, like our slider `n`, are reactive values: when they change, they automatically cause any the reactive functions that use them (like `txt()`) to recalculate.
-
-## Laying out your UI
-
-So far, our UI has consisted of input and output components.
-Shiny also has layout components that can contain other components and visually arrange them.
-Examples of these are sidebar layouts, tab navigation, and cards.
-
-To show this in action, we'll use a common layout strategy for simple Shiny apps, and put input controls in a narrow sidebar on the left.
-In the following code, we use the function [`ui.layout_sidebar()`](../api/reference/shiny.ui.layout_sidebar.html) to separate the page into two panels.
-This function takes two arguments: a [`ui.panel_sidebar`](../api/reference/shiny.ui.panel_sidebar.html) and a [`ui.panel_main`](../api/reference/shiny.ui.panel_main.html), which each can contain whatever components you want to display on the left and right, respectively.
-
-::: column-page-right
-``` {shinylive-python}
+```{shinylive-python}
 #| standalone: true
 #| components: [editor, viewer]
 #| layout: vertical
-#| viewerHeight: 550
+#| viewerHeight: 150
+from shiny.express import input, render, ui
 
-import matplotlib.pyplot as plt
-import numpy as np
-from shiny import ui, render, App
+ui.input_slider("val", "Slider label", min=0, max=100, value=50)
 
-# Create some random data
-t = np.linspace(0, 2 * np.pi, 1024)
-data2d = np.sin(t)[:, np.newaxis] * np.cos(t)[np.newaxis, :]
+@render.text
+def slider_val():
+    return f"Slider value: {input.val()}"
+```
 
-app_ui = ui.page_fixed(
-    ui.h2("Playing with colormaps"),
-    ui.markdown("""
-        This app is based on a [Matplotlib example][0] that displays 2D data
-        with a user-adjustable colormap. We use a range slider to set the data
-        range that is covered by the colormap.
+This example demonstrates the basic mechanics behind Shiny apps:
 
-        [0]: https://matplotlib.org/3.5.3/gallery/userdemo/colormap_interactive_adjustment.html
-    """),
-    ui.layout_sidebar(
-        ui.panel_sidebar(
-            ui.input_radio_buttons("cmap", "Colormap type",
-                dict(viridis="Perceptual", gist_heat="Sequential", RdYlBu="Diverging")
-            ),
-            ui.input_slider("range", "Color range", -1, 1, value=(-1, 1), step=0.05),
-        ),
-        ui.panel_main(
-            ui.output_plot("plot")
-        )
-    )
+* Inputs are created via `ui.input_*()` functions.
+    * The first argument is the input's `id`, which is used to read the input's value.
+* Outputs are created by decorating a function with `@render.*`.
+    * Inside a `render` function, `input` values can be read [reactively](#reactivity).
+    * When those `input` values change, Shiny knows how to minimally re-render output.
+* This example happens to use `shiny.express` which, [compared to core Shiny](express-vs-core.qmd), reduces the amount of code required.
+
+### Components {#components}
+
+Shiny includes many useful user interface (`ui`) components for creating inputs, outputs, displaying messages, and more. For brevity sake, we'll highlight just a few output and layout components here, but for a more comprehensive list, see the [components gallery](/components).
+
+#### Outputs {#outputs}
+
+Shiny makes it easy to create dynamic plots, tables, and other interactive widgets.
+All you need to do is apply a `@render` decorator to a function that returns a suitable object.
+Shiny includes a wide variety of these decorators in its `render` module, but Shiny [extensions](custom-component-one-off.qmd) like `shinywidgets` provide additional decorators for rendering other kinds of outputs, like [Jupyter Widgets](jupyter-widgets.qmd).
+
+::: {.panel-tabset .panel-pills}
+
+##### Plots
+
+To include a plot in an application, apply `@render.plot` to a function that creates a [matplotlib](https://matplotlib.org/) visual.
+Note that packages like [seaborn](https://seaborn.pydata.org/), [plotnine](https://plotnine.readthedocs.io/en/stable/), [pandas](https://pandas.pydata.org/), etc., are all compatible (as long as they create a matplotlib visual).
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 480
+
+from shiny.express import input, render, ui
+
+ui.input_selectize(
+    "var", "Select variable",
+    choices=["bill_length_mm", "body_mass_g"]
 )
 
-def server(input, output, session):
-    @output
-    @render.plot
-    def plot():
-        fig, ax = plt.subplots()
-        im = ax.imshow(data2d, cmap=input.cmap(), vmin=input.range()[0], vmax=input.range()[1])
-        fig.colorbar(im, ax=ax)
-        return fig
+@render.plot
+def hist():
+    from matplotlib import pyplot as plt
+    from palmerpenguins import load_penguins
 
+    df = load_penguins()
+    df[input.var()].hist(grid=False)
+    plt.xlabel(input.var())
+    plt.ylabel("count")
 
-app = App(app_ui, server)
+## file: requirements.txt
+palmerpenguins
 ```
+
+
+##### Tables
+
+Apply `@render.data_frame` to any code that returns a [pandas](https://pandas.pydata.org/) DataFrame for a basic table.
+For more sophisticated tables, you can use [`render.DataGrid`](https://shiny.posit.co/py/components/outputs/data-grid.html) to add things like filters to your table.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 480
+
+from shiny.express import input, render, ui
+
+ui.input_selectize(
+    "var", "Select variable",
+    choices=["bill_length_mm", "body_mass_g"]
+)
+
+@render.data_frame
+def head():
+    from palmerpenguins import load_penguins
+    df = load_penguins()
+    return df[["species", input.var()]]
+## file: requirements.txt
+palmerpenguins
+```
+
+
+##### Widgets
+
+See the [Jupyter Widgets article](jupyter-widgets.qmd) for more information on rendering Jupyter Widgets in Shiny.
+
+::: {.panel-tabset .panel-pills}
+
+##### Altair
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 480
+
+from shiny.express import input, ui
+from shinywidgets import render_altair
+import soft_dependencies
+
+ui.input_selectize(
+    "var", "Select variable",
+    choices=["bill_length_mm", "body_mass_g"]
+)
+
+@render_altair
+def hist():
+    import altair as alt
+    from palmerpenguins import load_penguins
+    df = load_penguins()
+    return alt.Chart(df).mark_bar().encode(
+        x=alt.X(f"{input.var()}:Q", bin=True),
+        y="count()"
+    )
+## file: requirements.txt
+altair
+anywidget
+palmerpenguins
+jsonschema
+## file: soft_dependencies.py
+# Temporary workaround to inform shinylive of soft dependencies
+import anywidget
+import jsonschema
+import mypy_extensions
+import toolz
+```
+
+##### Bokeh
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 480
+
+from shiny.express import input, ui
+from shinywidgets import render_bokeh
+
+ui.input_selectize(
+    "var", "Select variable",
+    choices=["bill_length_mm", "body_mass_g"]
+)
+
+@render_bokeh
+def hist():
+    from bokeh.plotting import figure
+    from palmerpenguins import load_penguins
+
+    p = figure(x_axis_label=input.var(), y_axis_label="count")
+    bins = load_penguins()[input.var()].value_counts().sort_index()
+    p.quad(
+        top=bins.values,
+        bottom=0,
+        left=bins.index - 0.5,
+        right=bins.index + 0.5,
+    )
+    return p
+## file: requirements.txt
+bokeh
+jupyter_bokeh
+xyzservices
+```
+
+##### Plotly
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 480
+
+from shiny.express import input, ui
+from shinywidgets import render_plotly
+
+ui.input_selectize(
+    "var", "Select variable",
+    choices=["bill_length_mm", "body_mass_g"]
+)
+
+@render_plotly
+def hist():
+    import plotly.express as px
+    from palmerpenguins import load_penguins
+    df = load_penguins()
+    return px.histogram(df, x=input.var())
+
+## file: requirements.txt
+palmerpenguins
+plotly
+```
+
+##### Pydeck
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 480
+
+import pydeck as pdk
+import shiny.express
+from shinywidgets import render_pydeck
+
+@render_pydeck
+def map():
+    UK_ACCIDENTS_DATA = "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/3d-heatmap/heatmap-data.csv"
+
+    layer = pdk.Layer(
+        "HexagonLayer",  # `type` positional argument is here
+        UK_ACCIDENTS_DATA,
+        get_position=["lng", "lat"],
+        auto_highlight=True,
+        elevation_scale=50,
+        pickable=True,
+        elevation_range=[0, 3000],
+        extruded=True,
+        coverage=1,
+    )
+
+    # Set the viewport location
+    view_state = pdk.ViewState(
+        longitude=-1.415,
+        latitude=52.2323,
+        zoom=6,
+        min_zoom=5,
+        max_zoom=15,
+        pitch=40.5,
+        bearing=-27.36,
+    )
+
+    # Combined all of it and render a viewport
+    return pdk.Deck(layers=[layer], initial_view_state=view_state)
+## file: requirements.txt
+pydeck
+```
+
+##### Other
+
+Many [other awesome Python packages](https://github.com/markusschanta/awesome-jupyter#visualization) provide widgets that are compatible with Shiny.
+In general, you can render them by applying the `@render_widget` decorator.
+
+```python
+import shiny.express
+from shinywidgets import render_widget
+
+@render_widget
+def widget():
+    # Widget code goes here
+    ...
+```
+
 :::
 
-Notice how Shiny uses nested function calls to indicate parent/child relationships.
-In this example, `ui.input_radio_buttons()` is inside of `ui.panel_sidebar()`, and `ui.panel_sidebar()` is in `ui.layout_sidebar()`, and so on.
+:::
 
-This example also includes some explanatory text written in a [Markdown](https://en.wikipedia.org/wiki/Markdown) string literal, and uses the [`ui.markdown()`](../api/reference/shiny.ui.markdown.html) function to render it to HTML.
 
-## Shiny UI is HTML
+#### Layouts {#layouts}
 
-It's worth noting at this point that Shiny UI is entirely made up of HTML.
-Each of the nested function calls in the previous section returns a snippet of HTML.
+Shiny provides a full suite of [layout components](/layouts) which help with arranging multiple inputs and outputs in a variety of ways. As seen below, with `shiny.express`, layout components (e.g., `ui.sidebar()`) can be used as context managers to help with nesting and readability.
 
-It's not important that you know HTML to make good use of Shiny, but if you do know HTML, this fact may be helpful in forming a mental model for how Shiny UI works.
+::: {.panel-tabset .panel-pills}
 
-``` {shinylive-python}
-#| components: [editor, cell]
-from shiny import ui
+#### Sidebar
 
-ui.input_numeric("n", "N", 0)
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 350
+import plotly.express as px
+from shiny.express import input, render, ui
+from shinywidgets import render_widget
+
+ui.page_opts(title="Sidebar layout", fillable=True)
+
+with ui.sidebar():
+    ui.input_select("var", "Select variable", choices=["total_bill", "tip"])
+
+@render_widget
+def hist():
+    return px.histogram(px.data.tips(), input.var())
+
+## file: requirements.txt
+pandas
 ```
 
-Adding a `ui.panel_sidebar` call around `ui.input_numeric` simply wraps the control with additional HTML (a `<div>` and `<form>`, in this case).
-The nesting of the generated HTML matches the nesting of the Python function calls in your UI.
+#### Multi-page
 
-``` {shinylive-python}
-#| components: [editor, cell]
-ui.panel_sidebar(
-    ui.input_numeric("n", "N", 0)
-)
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 350
+
+import plotly.express as px
+from shiny.express import input, render, ui
+from shinywidgets import render_widget
+
+ui.page_opts(title="Multi-page example", fillable=True)
+
+with ui.sidebar():
+    ui.input_select("var", "Select variable", choices=["total_bill", "tip"])
+
+with ui.nav_panel("Plot"):
+    @render_widget
+    def hist():
+        return px.histogram(px.data.tips(), input.var())
+
+with ui.nav_panel("Table"):
+    @render.data_frame
+    def table():
+        return px.data.tips()
+
+## file: requirements.txt
+pandas
 ```
 
-## Next Steps
+#### Multi-panel
 
-In the following sections we'll look more deeply into the **UI**, and then **server logic**.
-Then, we'll **put everything together** using three example apps.
-While these three applications are useful on their own, we'll look next at ways we could improve them using more advanced **reactive programming** concepts.
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 350
 
-Finally, we'll cover the best ways to **run and debug** Shiny applications.
+import plotly.express as px
+from shiny.express import input, render, ui
+from shinywidgets import render_widget
+
+ui.page_opts(title="Multi-tab example", fillable=True)
+
+with ui.sidebar():
+    ui.input_select("var", "Select variable", choices=["total_bill", "tip"])
+
+with ui.navset_card_underline(title="Penguins"):
+    with ui.nav_panel("Plot"):
+        @render_widget
+        def hist():
+            return px.histogram(px.data.tips(), input.var())
+
+    with ui.nav_panel("Table"):
+        @render.data_frame
+        def table():
+            return px.data.tips()
+
+## file: requirements.txt
+pandas
+```
+
+#### Multi-column
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 350
+import plotly.express as px
+from shiny.express import input, render, ui
+from shinywidgets import render_widget
+
+ui.page_opts(title="Multi-column example")
+
+ui.input_select("var", "Select variable", choices=["total_bill", "tip"])
+
+with ui.layout_columns(height="300px"):
+    @render_widget
+    def hist():
+        return px.histogram(px.data.tips(), input.var())
+
+    @render.data_frame
+    def table():
+        return px.data.tips()
+
+## file: requirements.txt
+pandas
+```
+
+:::
+
+
+::: {.callout-tip}
+### Quarto integration
+
+Shiny also integrates well with [Quarto](https://quarto.org/), allowing you to leverage its web-based output formats (e.g., [dashboards](https://quarto.org/docs/dashboards/interactivity/shiny-python/index.html)) in combination with Shiny outputs and reactivity.
+:::
+
+
+### Reactivity {#reactivity}
+
+Shiny uses something called [transparent reactivity](https://blog.machinezoo.com/transparent-reactive-programming) to automatically infer relationships between components, and minimally re-render as needed when dependencies change.[^reactive-signals]
+As a result, apps naturally retain performance as they grow in size, without workarounds like caching or memoization.
+All Shiny apps are also built on the same small set of [reactive foundations](reactive-foundations.qmd), each of which are simple and easy to learn, but can be
+combined in novel ways to create seriously sophisticated and performant apps.
+
+[^reactive-signals]: If you're familiar with JavaScript, you may find a lot of similarities between Shiny and reactivity in modern JS frameworks like [solidjs](https://www.solidjs.com/), [mobx](https://mobx.js.org/computeds.html), and [svelte](https://svelte.dev/blog/runes).
+
+To demonstrate how Shiny minimally re-renders, consider the following app which contains two different plots, each of which depends on a different input.
+When the first input changes, Shiny knows to only re-render the first plot, and vice versa.
+
+::: column-body-outset-right
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 325
+import plotly.express as px
+from shiny.express import input, render, ui
+from shinywidgets import render_plotly
+
+tips = px.data.tips()
+
+with ui.layout_columns():
+    @render_plotly
+    def plot1():
+        p = px.histogram(tips, x=input.var1())
+        p.update_layout(height=200, xaxis_title=None)
+        return p
+
+    @render_plotly
+    def plot2():
+        p = px.histogram(tips, x=input.var2())
+        p.update_layout(height=200, xaxis_title=None)
+        return p
+
+with ui.layout_columns():
+    ui.input_select("var1", None, choices=["total_bill", "tip"], width="100%")
+    ui.input_select("var2", None, choices=["tip", "total_bill"], width="100%")
+## file: requirements.txt
+palmerpenguins
+plotly
+pandas
+```
+
+:::
+
+Shiny also knows when outputs are visible or not, and so, will only call `render` functions when needed.
+For example, in the app below, the `table` function doesn't get called until the "Table" page is selected.
+
+::: column-body-outset-right
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 325
+import plotly.express as px
+from shiny.express import input, render, ui
+from shinywidgets import render_plotly
+
+tips = px.data.tips()
+
+with ui.sidebar():
+    ui.input_selectize("var", "Select variable", choices=["total_bill", "tip"])
+
+ui.nav_spacer()
+
+with ui.nav_panel("Plot"):
+    @render_plotly
+    def plot():
+        p = px.histogram(tips, x=input.var())
+        p.update_layout(height=225)
+        return p
+
+with ui.nav_panel("Table"):
+    @render.data_frame
+    def table():
+        return tips[[input.var()]]
+## file: requirements.txt
+palmerpenguins
+plotly
+pandas
+```
+
+:::
+
+::: callout-note
+#### Learn more
+
+For a more in-depth look at reactivity, check out the [reactivity article](reactive-foundations.qmd).
+:::
+
+### Starter templates {#templates}
+
+Once you've [installed](install-create-run.qmd) Shiny, the `shiny create` CLI command provides access to a collection of useful starter templates. This command walks you through a series of prompts to help you get started quickly with a helpful example. One great option is the dashboard template, which can be created with:
+
+```bash
+shiny create -t dashboard
+```
+
+![The resulting dashboard generated by the dashboard template](assets/dashboard-template.png){class="img-shadow"}
+
+::: {.callout-tip}
+## Development workflow
+
+See the [workflow](install-create-run.qmd) section for more information developing Shiny apps locally.
+Also keep in mind you can develop apps in the browser using the [playground](/playground).
+:::
+
+
+### Extensible foundation {#extensible}
+
+Shiny is built on a foundation of web standards, allowing you to incrementally adopt custom HTML, CSS, and/or JavaScript as needed.
+In fact, Shiny UI components themselves are built on a Python representation of HTML/CSS/JavaScript, which you can see by printing them in a Python REPL:
+
+```python
+>>> from shiny import ui
+>>> ui.input_action_button("btn", "Button")
+<button class="btn btn-default action-button" id="btn" type="button">Button</button>
+```
+
+And, since [UI is HTML](ui-html.qmd), you can gently introduce HTML/CSS/JavaScript as needed in your apps to customize without having to learn complicated build tooling and frameworks.
+However, if you're versed in web programming, you can also use Shiny to create [custom components](custom-component-one-off.qmd) that leverage your favorite JavaScript framework from Python.
+
+### Next steps {#next-steps}
+
+Next, we'll learn more about Shiny components and layouts by making a dashboard.

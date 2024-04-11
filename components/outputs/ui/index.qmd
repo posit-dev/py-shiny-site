@@ -1,0 +1,85 @@
+---
+title: UI
+sidebar: components
+appPreview:
+  file: components/outputs/ui/app-preview.py
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/outputs/ui/
+  contents:
+  - title: Preview
+    file: app-core.py
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDagBM4DADoRGzNlx5Y4AD3RjWrPgKEju6AK4UihzrNlmsB4wH1WAd04Vi7ABTSwHUg-sAbTkkZQmRPAGV2HzYAoM8iABUGQzgASgsIWQABMQggrHFOVnQ-KF5kAGJkAB4q2Uk6ZDN-QKk3FJQK6tqIZF6+BpsKLG9fVhjW9tk+6eQANyg-ZOQAXj4IIyGxloY2-tCvceC1tY3kOD9WOGQAVimZ3qtB5qCPA+24-YBhSNJL5ChkBBDDAAEZSD4wbjLACMRBgUFUMIADER5os4Ms0ck0hAQmAKLh0AgUPi1BQwABfAC6QA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnEnUAJnAZEArpwA6EPRnQB9bcgC8ybTigBzOEboAbbSoAUe5J8ucs3dJoojVgB3TgpidncwDlJgoMdONQYdQmQUgGV2WLYEpJSiABUGTTgASgIPLytSAP9A7SjteMT1FPLPAGJkAB5uvVK9QYg1OjZ1RQZXPwCiGoo6olY4VlZOclLESs8AASlh9SxTZC7ereRd6VkFOCw4RUopiDqsGLjWXPVSzp6+iC9kEbeZpJVwbb6nP7-LycUbTCgvLJvD6TDZnKFeeRQZxwcx8J4BF7I0F8UYpd4tZJgPF4urIOCOJbIACsaPRyCkFE0DD+VjhwPU7khbLZZOR+TSYAAwllSIyoMgIJoYAAjVqpGDcMwARiIMCgAA9tQAGIiY7FmM0lVnogb6O2GXHidCuQwmTiLcafPSpMAUXDoBAoX1wfUUMAAXwAukA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  template-params:
+    dir: components/outputs/ui/
+  contents:
+  - title: ui.output_ui
+    href: https://shiny.posit.co/py/api/ui.output_ui.html
+    signature: ui.output_ui(id, inline=False, container=None, fill=False, fillable=False,
+      **kwargs)
+  - title: '@render.ui'
+    href: https://shiny.posit.co/py/api/render.ui.html
+    signature: render.ui(_fn=None)
+  - title: '@render.express'
+    href: https://shiny.posit.co/py/api/express/express.render.express.html
+    signature: express.render.express(self, _fn=None, *, inline=False, container=None,
+      fill=False, fillable=False, **kwargs)
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/outputs/ui/
+  contents:
+  - title: Create dependent controls
+    description: 'You can use `@render.ui` or `@render.express` and `ui.output_ui()`
+      to create a set of controls that are dependent on a setting in your app. In
+      this example, we show a different set of options when the app is in "plot" or
+      "table" mode.
+
+      Note that we use the current input values or a default value when creating the
+      dependent controls. Without this, the values are re-initialized every time and
+      forget previous user input.'
+    apps:
+    - title: Preview
+      file: app-variation-update-an-input-core.py
+      height: 225
+    - title: Express
+      file: app-variation-update-an-input-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDagBM4DADoRGzNlx5Y4AD3RjWrPgKEju6AK4UihzrNkB3ThXbIzWADZRcpYwH0yjwzAisAFACUiLLIYfacWAYeDFDinKTuAEbGFOQB0mAwpJKZRJkAIpys6M682bmEyMCZACpQSY5weciZAAqOpBSZALpErHBNxFTiALx1DU2ZgRYQ4cgAAmIQkgxY8SVloeGSdMgVcJ7kFEyOAcHb82Gce9EUWAdByKOjrWD1jc1Il1fzTJbaV53LD-c58PaZUGZPhzO7IQYDZAARgADD9fmEvICYUZ7linjc3ljodwccZ4Wc4MgACzojEOO7uViOTirfyQ0gAlqZABKnNYISqADcoN44KNQUQYNxRkipVBVLKUTM5hj5gyILimSy2ZliVVMgBhUjeXwCloisWjLFSmVy-YKpUqtUIuAhVVqsLsOCcADm7BEQM1xiw3r9AYJELAYf93TAMLJIldyAArCi0R7PdZxLZnomsNnbJG3oX2CTYcGk5TU+m6b8NVrmaypOzoz7Y9ywAAJdsBwVES2GcUxgO2iBKlHyxWo9POz1hBseJu6sClzsAdVZtn7yEH4tLY4nU4nytkVTAFFw6AQKAvagoYAAvj0gA
+    - title: Core
+      file: app-variation-update-an-input-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLBai5SCiprJWYEVnYQjsFOWNzonpoMUNKcpJoARp4U5AH2IRnKYDCksllEWQAinKzorrw5eYTIwFkAKlAJFnD5yFkAChakFFkAukSscM3EVNK69Y3NWekZAJQEMyGGHhQRXkp22blmZJRMFqxZ84uzqqdqF7J0bHIAbnI24Z5EK2sDcKyscRCziIsAAlIILIGFglIsrshKjtyBR9gFfotgpxrk8KFhoTZZnp9BMmi0kEiMsgmAB3Vh6PgQNZYMkIvjXLJ0rJUqlrZBDQbIACMAAYiRkfBT9GisEKsQy2mAhSzuGzPByDnBkAAWAUhKQUBQMIKGBrGAAyJQogWJZtCaM0rAsnBBm2Z1SyACVSOS-tVblArHBdHSiDBuLpuf6oAAPIO845Bc0ZQyW622h5ZGWOsAAYVIvn87qInu9uiF-sDwahYYjUZjDnOZs5cD+0Zj7DgnGM7BEIupniwTZbbYlKKlPdbPTArLRiq5AFZefyG+bSbaKOxKaKF9Il-3GWA10vZUFx7XkNPZ5WSXAtTrQvqjawTeqzXHO14E3askO260sgAJZvDnPIPMFB9d8KCLCAI15ENwz5GcK1PRxHzWK0bVfbdF3YT8wAAdXQ-9AJ9Hd2DAiCoIgyMFjnM1zlUdRMEpcR0BsDRtE4d4GHuBhzmqMAKFwdAEBQHi4FDCgwAAX16IA
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A UI output creates an output container for a UI (i.e., HTML) element, such as a set of additional controls. Adding a UI output allows you to show, hide, or update input controls within your app.
+
+To add a UI output, follow three steps:
+
+  1. Call `ui.output_ui()` in the UI of your app to create a div in which to display the UI element. Where you call this function within the UI functions will determine where the table will appear within the layout of the app. Set the `id` argument of `ui.output_ui()` to a unique value.
+
+  2. Within the server function, define a new function whose name matches the id used above. The function should return a UI element, like an input control.
+
+  3. Decorate the function with `@render.ui`. If you're using an action button or link to show the UI element, you'll also need to decorate with `@reactive.event`.
+
+See also: [Dynamic UI](https://shiny.posit.co/py/docs/ui-dynamic.html) and [UI and HTML](https://shiny.posit.co/py/docs/ui-html.html).
+
+## Variations
+
+:::{#variations}
+:::

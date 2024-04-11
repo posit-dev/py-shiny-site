@@ -1,0 +1,55 @@
+---
+title:        "Reactive plot in sidebar"
+description:  Use the basic-sidebar template as a foundation for your next Shiny app.
+date:         2024-03-04
+image:        thumbnail.png
+imagealt:     "A screenshot of the basic-sidebar template"
+quarto-column-size: column-page
+app-height:   525px
+appurl:       https://gallery.shinyapps.io/template-basic-sidebar1/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/basic-sidebar
+---
+
+::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
+## Express
+``` python
+shiny create -m express \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/basic-sidebar
+```
+## Core
+``` python
+shiny create -m core \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/basic-sidebar
+```
+:::
+
+
+Place numerous input controls in a sidebar and use them to control a plot in the main panel.
+
+**Pro tip:** When dealing with many inputs, consider grouping them into an [accordion](https://shiny.posit.co/py/api/core/ui.accordion.html) (and placing the accordion in the sidebar).
+
+
+:::: {.grid .tags}
+
+::: {.g-col-6 .g-col-sm-4}
+**Components:**
+
+* [Select input](/components/inputs/select-single)
+* [Switch input](/components/inputs/switch)
+* [Plot output](/components/outputs/plot-seaborn)
+
+:::
+::: {.g-col-6 .g-col-sm-4}
+**Layouts:**
+
+* [Sidebar](https://shiny.posit.co/py/layouts/sidebars)
+
+:::
+::: {.g-col-6 .g-col-sm-4}
+
+**Packages:**
+
+* `seaborn`
+
+:::
+::::

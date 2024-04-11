@@ -1,0 +1,9 @@
+/*
+
+The /layouts/ section is made up of a list page and artcle pages.  
+
+The list page (/layouts/index.qmd) gets styling mostly from /components/_partials/components-list.css, with some additional styling from /layouts/_partials/layouts-list.css
+
+The article pages (/layouts/_____/index.qmd) get styling from /components/_partials/components.css
+
+*/

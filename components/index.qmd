@@ -9,42 +9,46 @@ resources:
   - _partials/animation.lottie
 format:
   html:
-    css: 
+    css:
       - _partials/components.css
       - _partials/components-list.css
     code-overflow: wrap
-listing: 
+listing:
   - id: input
     type: grid
     template: _partials/components-list.ejs
-    contents: 
-      - ../../components/inputs/*.qmd
+    contents:
+      - inputs/*/*.qmd
   - id: output
     type: grid
     template: _partials/components-list.ejs
-    contents: 
-      - ../../components/outputs/*.qmd
+    contents:
+      - outputs/*/*.qmd
   - id: display-message
     type: grid
     template: _partials/components-list.ejs
-    contents: 
-      - ../../components/display-messages/*.qmd
+    contents:
+      - display-messages/*/*.qmd
 ---
+
+
 <!-- Begin Hero area -->
 :::::::: {.column-screen-inset .mx-auto style="max-width: 1300px;"}
 :::::: {.grid .hero-area .my-md-0 .my-5}
 :::: {.g-col-md-7 .g-col-12 .pe-0 .pe-md-5 .my-auto}
-::: {.display-3 .fw-bold}
-Shiny Components
-:::
 
-##### Inputs, outputs and display messages to make your data interactive on every device. Add these components to [Shiny Layouts](https://shiny.posit.co/py/docs/ui-page-layouts.html) to make your app a dashboard, article and more.
+<h1 class="display-3 fw-bold">Shiny Components</h1>
+
+::: {.h5}
+Inputs, outputs and display messages to make your data interactive on every device.
+Add these components to [Shiny Layouts](/layouts/index.qmd) to give your app a navbar, sidebar, cards and more.
+:::
 
 ::::
 :::: {.g-col-md-5 .g-col-10 .g-start-4 .components-hero-img-container}
 
 <div class="ps-4 pt-5 components-hero-img" >
-<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 <dotlottie-player src="_partials/animation.lottie" background="transparent" speed="1" style="width: 100%; height: auto;" autoplay></dotlottie-player>
 </div>
 

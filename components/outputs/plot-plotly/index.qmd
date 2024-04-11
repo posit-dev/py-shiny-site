@@ -1,0 +1,64 @@
+---
+title: Plot (Plotly)
+sidebar: components
+preview: '<div class="px-3"> <p class="mb-0"> <img style="width: 100%;height:auto;max-height:130px;"
+  src="/images/plotly.jpg"> </p> </div> '
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/outputs/plot-plotly/
+  contents:
+  - title: Preview
+    file: app-core.py
+    height: 500
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5dAG1Io9yzgAe6ZnADOo5FAnoBAHQgAzZqRjsoHeM3TUA5gFc6ECQyatkXKABMA+toj7Do+UpXJRAC0O5kJlmwCCmEQGzsqqHl4A7nSWOnAUxox+yKR6FOhp1tGx8UQiEJZwzFkxcWzIAMTIADzV8vJ2DkbIALzmpFa2ugZGABQAlPXQmNYGrcgGOFBx1gocBpa98sgrE3RYhhkU1qIcMUVLkLKEyMcAcnowAEZFKQrIV47HRACMrwAM70QATO-9BMtVql0plsmVDpxuMd-isqrV5IMIENCvdREUAG4HTZpIjArZENHiOjkfqIQErAAC+UKxTB8VhNTqEFWyBR7C4FAGKEqjPJLLcxCgFCoWg54xkWE8ogopB0zFgS2Z-OVliFUFm8vgLUaPVEAKVypZAhaxyupEsuGsMCkomsOmefMNyAgjyMLWxFCwEAG+qd-SwenQqqo1g4UFwwMVTpZFDoPDgLRAxyoAgoxxQxwACt1DMgALI256nMByWjvLAAVgAvr7oytcFABHRbbH4yawABhVKUB0G6MCRvN6ytjgJ44AIXN3gL4mQvR0g0IjtWiOXKxEFD0zGZokFwqKkPKcKZQww6HGgXQvTPozoBIxRURJzAFFw2loL8EFDAVYAukA
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5dAG1Io9yzgAe6ZnADOo5FAnoBAHQgAzZqRjsoHeM3TUA5gFc6ECQyatkXKABMA+toj7Do+UpXJRAC0N9BwsccYsbIboehREBs7Kqh5eAO50ljpwFP6mbCIQlnDM1vGJycjIAMTIADyl8vJ2DkbIALzmpFa2ugZGABQAlJUQBljBodaiHAnZ7bKQE0QTAHJ6MABG2cikCsgLjlPIAIxE2wAM+0QATPvdED0AAhlZOXlJbMVlFZlwa5zcXShP5fKFhaJiFAKFQtFw2A0ZFhPKIKKQdMxYOMIP9UchLMCoNYlLA4HVqm1RAQ-mjCgI6hMFqRLLhrDApKJrDopiTSRANkY6gMKFgIF1iSj-p0sHp0BiqNYOFBcKRQsjSYUKHQeHiQBMqAIKBMUBMAAqtQzIACyDK2EzktH2WAArABfAUK5C4KACOiMpUqilgADCssoLMFpIELrd1g9HDxEwAQtTcMaGch2jpuoRWchzmmRBQ9MwUYDgaCPo8Sr8IIRUBRcNpaGANRQwLaALpAA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  template-params:
+    dir: components/outputs/plot-plotly/
+  contents:
+  - title: shinywidgets.output_widget
+    href: https://github.com/posit-dev/py-shinywidgets/blob/main/shinywidgets/_shinywidgets.py#L58
+    signature: shinywidgets.output_widget(id, width, height)
+  - title: '@shinywidgets.render_widget()'
+    href: https://github.com/posit-dev/py-shinywidgets/blob/main/shinywidgets/_shinywidgets.py#L213
+    signature: shinywidgets.render_widget(fn)
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+Plotly is an interactive graphics plotting library.
+
+To make an interactive plot with Plotly in Shiny for Python, we will need to use the `shinywidgets` library to connect Shiny with `ipywidgets`.
+
+To make a plotly figure, we need to do the following steps:
+
+  1. Import the `output_widget()` and `render_widget()` functions from the `shinywidgets` library,
+  `from shinywidgets import output_widget, render_widget`
+
+  2. Call `output_widget()` to the UI of your app to create a div in which to display the figure. Where you call this function will determine where the figure will appear within the layout of the app. The `id` parameter you provide will be used to link to other parts of the Shiny app.
+
+  3. Define a function within the `server()` function that creates the figure.
+
+      - The name of the function should be the same value you passed into the `id` parameter in your `output_widget()` function call in the UI.
+
+      - If your function calls reactive values, Shiny will update your figure whenever those values change, in a [reactive fashion](https://shiny.posit.co/py/docs/reactive-programming.html).
+
+  4. Decorate your plotting function with a `@render_widget()` decorator.
+
+        - If your plotting function is not the same as the `id` you used in the `ui.output_widget()`, you can add an additional `@output(id=...)` decorator.
+        - If you use the `@output()` decorator, make sure it is __above__ the `@render_widget()` decorator.
+
+ Visit [shiny.posit.co/py/docs/ipywidgets.html](https://shiny.posit.co/py/docs/ipywidgets.html) to learn more about using ipywidgets with Shiny.

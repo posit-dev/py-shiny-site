@@ -1,0 +1,70 @@
+---
+title: Verbatim Text
+sidebar: components
+appPreview:
+  file: components/outputs/verbatim-text/app-preview.py
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/outputs/verbatim-text/
+  contents:
+  - title: Preview
+    file: app-core.py
+    height: 200
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQGJkAxASQA0BZAURQCU4B3AE4BLKsigBncRGScAHukFwJUjOgA6EAGaDSMZBIAWwiLmTCY6UoIrIlEACZxBmnXoPHTWOAqUrzlta2JugArhREocKamlFYIeEA+lRyFAAU6mAAKj4UmUSZnJTOyCl5hMiZABJwADa1pMgAyp64mQCUMRCaAAL2ToJYZcjIDAA8Y5pOWqW5ae2ImiMjShShgjIJFFg5qfOaFWAUuOgIKEe5YAC+ALpAA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKmqgA8KdsABU4H2VCZBCAUUo5ZG8KEKIQgAk4CwtSZABlLh4QgEoCe0dDUnc3D1jNADc5ACMoCn4-WLyiZABiZAAeTtVc1X6IWTo2OWqGG1d3IhKKMqJWOFZWTnJcxEKHAAEpQbksWIcO7o3kIZig3zWTx2QpCgUGCD4IMqxAnxs+tW+NPTFMGwabSceajORfUJgCi4dAIFBQi5gAC+AF0gA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  template-params:
+    dir: components/outputs/verbatim-text/
+  contents:
+  - title: ui.output_text_verbatim
+    href: https://shiny.posit.co/py/api/ui.output_text_verbatim.html
+    signature: ui.output_text_verbatim(id, placeholder=False)
+  - title: '@render.text'
+    href: https://shiny.posit.co/py/api/render.text.html
+    signature: render.text(fn=None)
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/outputs/verbatim-text/
+  contents:
+  - title: Placeholder rectangle when string is empty
+    description: Verbatim text with a placeholder when the string to display is empty
+      (see Details above).
+    apps:
+    - title: Preview
+      file: app-variation-placeholder-rectangle-when-string-is-empty-core.py
+    - title: Express
+      file: app-variation-placeholder-rectangle-when-string-is-empty-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDagBM4DADoRGzNlx5Y4AD3RjWrPgKEju6AK4UihzrNlmsB4wH0qqigAppYACpqKroq4CilKWQPR29kV1cASktOLFJjIwpbMkkXMAcvQmR0ABsoYjh2UmzJBgBeNwZDOAjkZABiZAAeRosIAHdOCnZkK0LipwiUeqaWiFla2oABMQgSrGS4Wobm8YnJOmR0gcRViYmxCkMGCD4IBKxg5yiITLTcdAQUNM8wAF8AXSA
+    - title: Core
+      file: app-variation-placeholder-rectangle-when-string-is-empty-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKmqgA8KdsABU4H2VCZBCAUUo5ZEDg0JCQgEoCe0dDUnc3D28PADc5ACMoCn4-HJCidAsoYjh2UgtZBl1-BgU4ZIcAYmQAHl7VRNVhiFk6Njl8hhtXdyIMiiyiVjhWVk5yRMRUhwABKVG5LBzuvoGIR2Qx5BybLZ3L5CkKBQYL2YosWN8htT+NPRiTA2DTaTjLSZyX6hMAUXDoBAoWFBChgAC+AF0gA
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+Verbatim text displays a character string as monospaced code in a shaded rectangle.
+
+To create reactive verbatim text, render the text in the server function with the decorators `@render.text`, just as you would to display [normal text](../text/index.qmd). Then place the rendered text in the ui with `ui.output_verbatim_text()`.
+
+By default, `ui.output_verbatim_text()` will display nothing when the string to display is empty. To ensure that `ui.output_verbatim_text()` displays an empty shaded rectangle as a placeholder even when when the string to display is empty, set `placeholder=True`.
+
+See [Text](../text/index.qmd) to display string values as normal text.
+
+## Variations
+
+:::{#variations}
+:::

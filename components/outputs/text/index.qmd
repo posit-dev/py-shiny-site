@@ -1,0 +1,74 @@
+---
+title: Text
+sidebar: components
+appPreview:
+  file: components/outputs/text/app-preview.py
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/outputs/text/
+  contents:
+  - title: Preview
+    file: app-core.py
+    height: 200
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDagBM4DADoRGzNlx5Y4AD3RjWrPgKEju6AK4UihzrNlmsB4wH0qqigAppYACpqKroq4CilKWQHL0JkVwAJOAAbKNJkAGUlXFcASgswAE1SQ2RqKjFxRFcLCFkAATEISQYsYORkAGJkAB5m2Uk6IM8nFKKIevqxCkMGfpsKLA9HHtlQsApcdAQUec8wAF8AXSA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKmqgA8KdsABU4H2VCZBCAUUo5ZG8KEKIQgAk4CwtSZABlLh4QgEoCe0cQgE1SBWRqKilpRHjCh0MyijcPWM0ANzkAIygKfj9YvKJkAGJkAB5x1VzVWYhZOjY5ToYbV3ciJpaiVjhWVk5yXNqIR2QAASl5uSxYhzHJ+uQFmKDfY6ezqQoFBlP1ihYQI+GwzNTgjR6MSYGwabScHbLORg0JgCi4dAIFBot5gAC+AF0gA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  template-params:
+    dir: components/outputs/text/
+  contents:
+  - title: ui.output_text
+    href: https://shiny.posit.co/py/api/ui.output_text.html
+    signature: ui.output_text(id, inline=False, container=None)
+  - title: '@render.text'
+    href: https://shiny.posit.co/py/api/render.text.html
+    signature: render.text(fn=None)
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/outputs/text/
+  contents:
+  - title: Inline text
+    description: Set `inline=True` within `ui.output_text()` to have text appear inline
+      with the text that preceeds it.
+    apps:
+    - title: Preview
+      file: app-variation-inline-text-core.py
+    - title: Express
+      file: app-variation-inline-text-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDagBM4DADoRGzNlx5Y4AD3RjWrPgKEju6AK4UihzrNlmsB4wH0qqigAppYACpqKroq4CilKWQHL0JkVwAJOAAbKNJkAGUlXFcASgswAE1SQ2RqKjFxRFcLCFkAATEISQYsYKduKO44AF43BkM4FORkAGJkAB5+2Uk6IM8nFKKIbu6xCkMGaZsKLA9HCdlQsApcdAQUbc8wAF8AXSA
+    - title: Core
+      file: app-variation-inline-text-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKmqgA8KdsABU4H2VCZBCAUUo5ZG8KEKIQgAk4CwtSZABlLh4QgEoCe0cQgE1SBWRqKilpFHjCh0MyijcPWL9Y+L4IC244XX8GBTh8hwBiZAAeCdVc1TmIWTo2OQA3ORtXdyImlqJWOFZWTnJcxHrkAAEpBbksDohHZEWYoN9T88epCgUGB82KLCBHw2WZqMEaPRiTA2DTaTh7VZyUGhMAUXDoBAoVGvMAAXwAukA
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+Text displays a character string as normal text.
+
+To make reactive text, follow three steps:
+
+  1. Call `ui.output_text()` in the UI of your app to create a div in which to display the text. Where you call this function within the UI functions will determine where the text will appear within the layout of the app. Set the id argument of `ui.output_text()` to a unique value.
+
+  2. Within the server function, define a new function whose name matches the id used above. The function should return the text to display. Shiny will rerun this function whenever it needs to build or update the output that has the matching id.
+
+  3. Decorate the function with `@render.text`
+
+See [Verbatim Text](../verbatim-text/index.qmd) to display string values as they would appear in a computer console, in monospaced font on a shaded background.
+
+## Variations
+
+:::{#variations}
+:::

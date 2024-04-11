@@ -1,0 +1,131 @@
+---
+title: "Sidebars"
+description: >
+  A sidebar layout creates a sidebar in your Shiny app, typically used for inputs, and a
+  large main area, typically used for outputs.
+
+
+listing:
+- id: relevant-functions
+  template: ../../components/_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.layout_sidebar
+    href: https://shiny.posit.co/py/api/ui.layout_sidebar.html
+    signature: ui.layout_sidebar(sidebar, *args, fillable=True, fill=True, bg=None, fg=None, border=None, border_radius=None, border_color=None, gap=None, padding=None, height=None, **kwargs)
+
+  - title: ui.sidebar
+    href: https://shiny.posit.co/py/api/ui.sidebar.html#shiny.ui.sidebar
+    signature: ui.sidebar(*args, width=250, position='left', open='desktop', id=None, title=None, bg=None, fg=None, class_=None, max_height_mobile=None, gap=None, padding=None)
+---
+
+```{python}
+#| include: false
+import sys
+sys.path.append("../..")
+
+from docs.helpers import express_core_preview, shinylive_app_preview
+```
+
+A sidebar layout creates a sidebar, typically used for inputs, and a large main area, typically used for outputs.
+
+::: {#relevant-functions}
+:::
+
+## Sidebar on the left
+
+:::{.column-screen-inset-right style="max-width:800px;"}
+
+```{python}
+#| output: asis
+#| echo: false
+
+shinylive_app_preview("app-sidebar-left-core.py", viewer_height=125, div_attrs=".p-0")
+express_core_preview("app-sidebar-left-express.py", "app-sidebar-left-core.py")
+```
+
+:::
+
+Follow these steps to add a left-side sidebar to your app:
+
+  1. Add `ui.layout_sidebar()` inside any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.layout_sidebar()` creates a sidebar layout.
+
+  2. Pass `ui.sidebar()`as the first argument of `ui.layout_sidebar()` to create the sidebar. By default, the `position` parameter of `ui.sidebar()` is "left" and the sidebar will appear on the left.
+
+  3. Supply additional components (output components, cards, text, etc.) to `ui.layout_sidebar()` to define the contents of the main content area.
+
+
+
+## Sidebar on the right
+
+:::{.column-screen-inset-right style="max-width:800px;"}
+
+```{python}
+#| output: asis
+#| echo: false
+
+shinylive_app_preview("app-sidebar-right-core.py", viewer_height=125, div_attrs=".p-0")
+express_core_preview("app-sidebar-right-express.py", "app-sidebar-right-core.py")
+```
+
+:::
+
+
+Follow these steps to add a right-side sidebar to your app:
+
+  1. Add `ui.layout_sidebar()` inside any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.layout_sidebar()` creates a sidebar layout.
+
+  2. Pass `ui.sidebar()`as the first argument of `ui.layout_sidebar()` to create the sidebar.
+
+  3. Pass `position="right"` to `ui.sidebar()`. The `position` argument controls where the sidebar appears relative to the main content.
+
+  3. Supply components (e.g., inputs) to `ui.sidebar()` to define the sidebar's contents. Supply additional components (e.g., output components, cards, etc.) to `ui.layout_sidebar()` to define the contents of the main content area.
+
+
+
+## Sidebar within a card
+
+:::{.column-screen-inset-right style="max-width:800px;"}
+
+```{python}
+#| output: asis
+#| echo: false
+
+shinylive_app_preview("app-sidebar-card-core.py", viewer_height=175, div_attrs=".p-0")
+express_core_preview("app-sidebar-card-express.py", "app-sidebar-card-core.py")
+```
+
+:::
+
+
+Follow these steps to add a sidebar within a card to your app:
+
+  1. Add `ui.card()` to the UI of your app to create a card.
+  2. Pass `ui.layout_sidebar()` to `ui.card()` to define a sidebar layout within the card.
+  3. Add `ui.sidebar()` and additional elements to `ui.layout_sidebar()` to define the sidebar and main content as usual.
+  4. Add inputs or other components as desired to `ui.sidebar()` to define the sidebar's contents.
+
+
+
+## Collapsed sidebar
+
+:::{.column-screen-inset-right style="max-width:800px;"}
+
+```{python}
+#| output: asis
+#| echo: false
+
+shinylive_app_preview("app-sidebar-collapsed-core.py", viewer_height=125, div_attrs=".p-0")
+express_core_preview("app-sidebar-collapsed-express.py", "app-sidebar-collapsed-core.py")
+```
+
+:::
+
+
+
+`ui.sidebar()` has an `open` parameter that defines whether the sidebar appears open or closed when the app launches. To create a sidebar that is initially closed, set the `open` parameter to `"closed"`.
+
+The other options for `open` are:
+
+  * `"desktop"`: The default. The sidebar starts open on a desktop screen and closed on mobile.
+  * `"open"`: The sidebar starts open and can be closed.
+  * `"always"`: The sidebar is always open and cannot be closed.

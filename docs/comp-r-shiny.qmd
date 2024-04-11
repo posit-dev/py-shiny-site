@@ -15,15 +15,21 @@ All of the main components of Shiny like reactivity, rendering functions, and mo
 There are, however, a few differences that you need to keep in mind in order to build effective Shiny applications in Python.
 If you're reading this, we expect that you are an existing R Shiny user with some Python knowledge.
 
+::: callout-tip
+### Shiny Express
+
+Shiny [express](express-vs-core.qmd) is a new, more expressive, way to build PyShiny apps. It is not available in R, so the comparisons drawn below are only relevant to core (i.e., non-express) apps.
+:::
+
 # Getting started
 
 R users tend to use the R console to install and run Shiny while Python requires you to use the terminal.
-To get started you can do the following (or see the [installation instructions](install.qmd) for a more in-depth explanation):
+To get started you can do the following (or see the [installation instructions](install-create-run.qmd) for a more in-depth explanation):
 
 1.  In your terminal, create a new directory with `mkdir <my_directory>` and navigate into it with `cd <my_directory>`
 2.  Install Shiny. We strongly recommend using a virtual environment for this as it will eliminate dependency resolution headaches and make deployment easier.
 
-::: panel-tabset
+::: {.panel-tabset .panel-pills}
 ### Install with pip
 
 ``` bash
@@ -75,7 +81,7 @@ While R doesn't have an exact analog to decorators they are similar to [function
 
 -   Decorate output function with `@output`
 -   Use rendering decorators like `@render.plot`, `@render.text`, or `@render.ui` instead of `renderPlot()`, `renderText`, or `renderUI`
--   Reactive calculations (equivalent to reactive expressions in R) are decorated `@reactive.Calc`, and reactive effects (equivalent to observers in R) are decorated with `@reactive.Effect`.
+-   Reactive calculations (equivalent to reactive expressions in R) are decorated `@reactive.calc`, and reactive effects (equivalent to observers in R) are decorated with `@reactive.effect`.
 :::
 
 ::: {.grid .column-screen-inset}
@@ -186,7 +192,7 @@ app = App(app_ui, server)
 
 All of the Shiny R functions are in a single package namespace.
 On the Python side we make use of [submodules](https://docs.python.org/3/tutorial/modules.html#packages) to keep related functions together.
-Note that "submodules" in this case refers to the generic module which is not the same as [shiny modules](workflow-modules.qmd).
+Note that "submodules" in this case refers to the generic module which is not the same as [shiny modules](modules.qmd).
 For example, instead of `sliderInput()`, you would call `ui.input_slider()`, where the `ui.` refers to a submodule of the main `shiny` module.
 
 ::: callout-tip
@@ -294,7 +300,7 @@ app_ui = ui.page_fluid(
 )
 
 def server(input, output, session):
-    @reactive.Calc
+    @reactive.calc
     def n():
       return input.n()
 
@@ -325,11 +331,11 @@ For the most part you can follow this naming pattern to find the function you're
 
 | R Function                             | Python Equivalent                         |
 |-----------------------------------|-------------------------------------|
-| `observeEvent`                         | `@reactive.Effect`                        |
-| `reactive`                             | `@reactive.Calc`                          |
+| `observeEvent`                         | `@reactive.effect`                        |
+| `reactive`                             | `@reactive.calc`                          |
 | `bindEvent`                            | `@ractive.event`                          |
-| `reactiveEvent`                        | `@reactive.Calc` with `@reactive.event`   |
-| `observeEvent`                         | `@reactive.Effect` with `@reactive.event` |
+| `reactiveEvent`                        | `@reactive.calc` with `@reactive.event`   |
+| `observeEvent`                         | `@reactive.effect` with `@reactive.event` |
 | `htmlTemplate`                         | `page_template`                           |
 | `tabPanelBody`                         | `navs_content`                            |
 | `*Tab` (`insertTab`, `appendTab`, etc) | `nav_*` (`nav_insert`, `nav_append` etc)  |
@@ -343,7 +349,7 @@ Reactivity works mostly the same in R and Python, but there are a few small diff
 
 In Shiny for R, reactive expressions (created by `reactive()`, which are used when you want to compute a value (which is then used in an output or an observer), and observers (created by `observe()`) are used for their side effects, like writing data to disk.
 This is a common source of confusion because the names `reactive()` and `observe()` do not clearly express when they should be used.
-To help clarify this confusion we've renamed `reactive()` to `@reactive.Calc`, and `observe()` to `@reactive.Effect` in Python.
+To help clarify this confusion we've renamed `reactive()` to `@reactive.calc`, and `observe()` to `@reactive.effect` in Python.
 
 ::: {.grid .column-screen-inset}
 ::: {.g-col-12 .g-col-md-6}
@@ -392,11 +398,11 @@ app_ui = ui.page_fluid(
 )
 
 def server(input, output, session):
-    @reactive.Calc
+    @reactive.calc
     def val():
         return input.n()
 
-    @reactive.Effect
+    @reactive.effect
     def _():
         input.reset()
         ui.update_slider("n", value=40)
@@ -440,20 +446,20 @@ In Shiny for Python, we've simplified things in the following ways:
 
 -   There is no direct analog to R's `reactiveValues`.
 
--   The analog of R's standalone `reactiveVal` is `reactive.Value`.
-    (The `input` object in Python is a dictionary-like object containing individual `reactive.Value` objects.)
+-   The analog of R's standalone `reactiveVal` is `reactive.value`.
+    (The `input` object in Python is a dictionary-like object containing individual `reactive.value` objects.)
 
 -   Reactive values have can be retrieved with `my_val()` or `my_val.get()` and can be set with `my_val.set()`.
 
-There is no analog of `reactiveValues` in Python, but you can create something similar by using a dictionary of `reactive.Value` objects.
+There is no analog of `reactiveValues` in Python, but you can create something similar by using a dictionary of `reactive.value` objects.
 
 ```{python}
 vals = {
-  "x": reactive.Value(1),
-  "y": reactive.Value(2),
+  "x": reactive.value(1),
+  "y": reactive.value(2),
 }
 
-z = reactive.Value(3)
+z = reactive.value(3)
 
 # Retrieve values
 print(vals.x())
@@ -515,15 +521,15 @@ app_ui = ui.page_fluid(
 )
 
 def server(input: Inputs, output: Outputs, session: Session):
-    val = reactive.Value(0)
+    val = reactive.value(0)
 
-    @reactive.Effect
+    @reactive.effect
     @reactive.event(input.minus)
     def _():
         newVal = val() - 1
         val.set(newVal)
 
-    @reactive.Effect
+    @reactive.effect
     @reactive.event(input.plus)
     def _():
         newVal = val() + 1

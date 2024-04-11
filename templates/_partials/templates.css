@@ -1,0 +1,19 @@
+/*
+
+The /templates/ section is made up of a list page and artcle pages.  
+
+The Templates list page (/templates/index.qmd) gets styling mostly from /components/_partials/components-list.css, with some additional styling from /templates/_partials/templates-list.css
+
+The article pages (/templates/_____/index.qmd) get styling from /components/_partials/components.css and here.
+
+*/
+
+
+.panel-tabset .sourceCode {
+  box-shadow: none;
+  background-color: #ffffff; 
+}
+
+div.sourceCode, pre.console {
+  border: 1px solid #DEE2E6;
+}

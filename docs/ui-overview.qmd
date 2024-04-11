@@ -1,0 +1,431 @@
+---
+title: "Overview"
+aliases:
+  - ui-page-layouts.html
+  - ui-navigation.html
+---
+
+The term, _user interface_ (UI), refers to the part of an application that is visible to the user.
+The UI is typically composed of a collection of components (e.g. buttons, sliders, plots, etc) that allow the user to interact with the application.
+Shiny provides roughly three types of UI components:
+
+1. **Inputs**: Components that gather user input (e.g. sliders, text boxes, etc).
+2. **Outputs**: Components that display the results (e.g. plots, tables, etc).
+3. **Layouts**: Components that arrange other components (e.g. columns, tabs, etc). Page layouts are a special type of layout that are used to start a new UI.
+
+::: callout-note
+### Component galleries
+
+The [component](/components) and [layout](/layouts) galleries provide a great visual overview of available components.
+This article focuses more on the shared concepts and patterns of UI components.
+:::
+
+
+### Inputs
+
+Shiny provides a wide variety of input components, all of which:
+
+1. Start with `ui.input_*()`.
+2. Require an `id` argument, a `label`, and sometimes other (mostly optional) arguments.
+3. Allow their value to be read reactively using `input[id]()`.
+4. Have a corresponding `ui.update_*()` function for efficiently updating the input control ([see here](ui-dynamic.qmd#updating-inputs) for more details and examples).
+
+Here's a basic example of a text input (and printing its value to the console):
+
+::: {.panel-tabset .shiny-mode-tabset group="shiny-app-mode"}
+
+### Express
+
+```{.python}
+from shiny import reactive
+from shiny.express import ui
+
+ui.input_text("text", label="Enter some text")
+
+@reactive.effect
+def _():
+    print(input.text())
+```
+
+### Core
+
+```{.python}
+from shiny import App, reactive, ui
+
+app_ui = ui.page_fluid(
+    ui.input_text("text", label="Enter some text")
+)
+
+def server(input):
+    @reactive.effect
+    def _():
+        print(input.text())
+
+app = App(app_ui, server)
+```
+
+:::
+
+::: {.callout-tip}
+#### Input gallery
+
+See [this section of the component gallery](/components/#inputs) for an overview of available inputs.
+:::
+
+::: {.callout-tip}
+#### Layout as an input control
+
+Some layout components, like `ui.accordion()` or `ui.navset_tab()`, take an optional `id` argument.
+If provided, the `id` can be used to read the selected tab/accordion panel reactively in the server using `input[id]()`.
+:::
+
+
+### Outputs
+
+Shiny provides a handful of output components, all of which:
+
+1. Require a (named) function decorated by a `@render.*` decorator.
+2. Require the return value of the function to be a valid value (e.g. a string for `@render.text`, a plot for `@render.plot`, etc).
+
+Here's a basic example of using a text output (reacting to changes in a text input):
+
+::: {.panel-tabset .shiny-mode-tabset group="shiny-app-mode"}
+
+### Express
+
+```{.python}
+from shiny.express import render, ui
+
+ui.input_text("text", label="Enter some text")
+
+@render.text
+def text_out():
+    return f"Input text: {input.text()}"
+```
+
+### Core
+
+```{.python}
+from shiny import App, render, ui
+
+app_ui = ui.page_fluid(
+    ui.input_text("text", label="Enter some text"),
+    ui.output_text("text_out")
+)
+
+def server(input):
+    @render.text
+    def text_out():
+        return f"Input text: {input.text()}"
+
+app = App(app_ui, server)
+```
+
+In a Shiny core app, output components typically start with a `ui.output_*()` object directly in the UI definition.
+Like inputs, outputs require an `id` argument, which must match the name of the function that returns the output's value in the server.
+
+:::
+
+::: {.callout-tip}
+#### Output gallery
+
+See [this section of the component gallery](/components/#outputs) for an overview of available outputs.
+:::
+
+::: {.callout-tip}
+#### Jupyter Widgets as outputs
+
+In the next article, [Jupyter Widgets](jupyter-widgets.qmd), you'll learn how to use Jupyter Widgets as outputs.
+:::
+
+::: {.callout-tip}
+#### Output as an input control
+
+Some outputs provide access their client-side state as input values. For example:
+
+* [`@render.plot`](https://shiny.posit.co/py/components/outputs/plot-matplotlib.html) provides access to hover, click, and drag events.
+* [`@render.data_frame`](https://shiny.posit.co/py/components/outputs/data-grid.html) provides access to selected rows and more.
+* `{shinywidgets}`'s [`@render_widget()`](jupyter-widgets.qmd) provides access to the ipywidget traits.
+:::
+
+### Layouts
+
+Layout components help with arrangement and styling of their child components.
+A handful of layout components start with `ui.layout_*()`, but many other layout components are available as well (e.g. `ui.card()`, `ui.accordion()`, `ui.navset_*()` functions, etc).
+
+For a quick example, here's how to arrange two sliders in a row:
+
+::: {.column-body-outset-right .panel-tabset .shiny-mode-tabset group="shiny-app-mode"}
+
+### Express
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 100
+from shiny.express import ui
+
+with ui.layout_column_wrap(gap="2rem"):
+    ui.input_slider("slider1", "Slider 1", min=0, max=100, value=50),
+    ui.input_slider("slider2", "Slider 2", min=0, max=100, value=50)
+```
+
+### Core
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 100
+
+from shiny import App, ui
+
+app_ui = ui.page_fluid(
+    ui.layout_column_wrap(
+        ui.input_slider("slider1", "Slider 1", min=0, max=100, value=50),
+        ui.input_slider("slider2", "Slider 2", min=0, max=100, value=50),
+        gap="2rem"
+    )
+)
+
+app = App(app_ui, None)
+```
+
+:::
+
+::: {.callout-tip}
+#### Layout gallery
+
+See the [layout gallery](/layouts) for an overview of available layout mechanisms.
+:::
+
+### Page layouts
+
+A special type of layout is the page layout, which is used to start a new UI.
+In [Shiny Express](express-vs-core.qmd), the page layout is implicit, and automatically inferred from the top-level UI components.
+In [Shiny Core](express-vs-core.qmd), the page layout is explicit, meaning that the UI starts with a page layout component (e.g. `ui.page_fluid()`, `ui.page_sidebar()`, etc).
+
+::: {.column-body-outset-right .panel-tabset .panel-pills}
+
+#### Sidebar
+
+::: {.column-body-outset-right .panel-tabset .shiny-mode-tabset group="shiny-app-mode"}
+
+##### Express
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+from shiny.express import ui
+
+ui.page_opts(title="Page title")
+
+with ui.sidebar():
+    "Sidebar content"
+
+"Main content"
+```
+
+##### Core
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny import App, ui
+
+app_ui = ui.page_sidebar(
+    ui.sidebar("Sidebar content"),
+    "Main content",
+    title="Page title"
+)
+
+app = App(app_ui, None)
+```
+
+:::
+
+
+#### Navbar
+
+::: {.column-body-outset-right .panel-tabset .shiny-mode-tabset group="shiny-app-mode"}
+
+##### Express
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny.express import ui
+
+ui.page_opts(title="Page title")
+
+with ui.nav_panel("Page 1"):
+    "Page 1 content"
+
+with ui.nav_panel("Page 2"):
+    "Page 2 content"
+```
+
+##### Core
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny import App, ui
+
+app_ui = ui.page_navbar(
+    ui.nav_panel("Page 1", "Page 1 content"),
+    ui.nav_panel("Page 2", "Page 2 content"),
+    title="Page title"
+)
+
+app = App(app_ui, None)
+```
+
+:::
+
+#### Fillable
+
+::: {.column-body-outset-right .panel-tabset .shiny-mode-tabset group="shiny-app-mode"}
+
+##### Express
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny.express import ui
+
+ui.page_opts(fillable=True)
+
+with ui.card():
+    "Card content"
+```
+
+##### Core
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny import App, ui
+
+app_ui = ui.page_fillable(
+    ui.card("Card content")
+)
+
+app = App(app_ui, None)
+```
+
+:::
+
+#### Restricted width
+
+
+::: {.column-body-outset-right .panel-tabset .shiny-mode-tabset group="shiny-app-mode"}
+
+##### Express
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny.express import ui
+
+with ui.card():
+    "Card content"
+```
+
+##### Core
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny import App, ui
+
+app_ui = ui.page_fixed(
+    ui.card("Card content")
+)
+
+app = App(app_ui, None)
+```
+
+:::
+
+#### Full width
+
+::: {.column-body-outset-right .panel-tabset .shiny-mode-tabset group="shiny-app-mode"}
+
+##### Express
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny.express import ui
+
+ui.page_opts(full_width=True)
+
+with ui.card():
+    "Card content"
+```
+
+##### Core
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny import App, ui
+
+app_ui = ui.page_fluid(
+    ui.card("Card content")
+)
+
+app = App(app_ui, None)
+```
+
+:::
+
+:::
+
+
+### Display messages
+
+Another type of UI component is one used to display messages to the user (e.g. notifications, modals, tooltips, etc).
+Display messages like notifications and modals require server-side code to manage their state, so they are typically created in the server and then shown/hidden using the `ui.*_show()` and `ui.*_hide()` functions. Tooltips and popovers, on the other hand, can be created directly in the UI definition (i.e., statically rendered, without any server-side code).
+
+::: {.callout-tip}
+#### Display message gallery
+
+See [this section of the component gallery](/components/#display-messages) for an overview of available display messages.
+:::
+
+
+### Next steps
+
+Next up, we'll learn all about Shiny's [Jupyter Widgets](jupyter-widgets.qmd) integration.

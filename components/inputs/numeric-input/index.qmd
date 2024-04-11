@@ -1,0 +1,48 @@
+---
+title: Numeric Input
+sidebar: components
+appPreview:
+  file: components/inputs/numeric-input/app-preview.py
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/numeric-input/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDagBM4DADoRGzNlx5Y4AD3RjWrPgKEju6AK4UihzrIsQzWA8YD6V+A07EAFNMiGnLj0Q8A5LykXPggjCl9kAEYiGG4AXhjkGChVRIAGAEpkZABiZAAeAstZAAExCEkGLCpVCMq4OmQANygAG0M4V0zEWRycsQpDBghQ8KxHYLdM2UJUClx0BBQwWoowAF8AXSA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKmiAvgNOxO5Decn7KhMihAHJBvsR8EG4UoUQAjEQw3LqpyDBQAB6ZAAwAlETIAMTIADyV9o6GpO4JmlS5HgBucgBGUBT8AW1QVnChJapFqhMQsnRsch0MNq7uRA0UCUSscKysnORFiLUOAAJSU3JYLYkQjsjTyANDNvuHN8hSFAoM10sUWF4+fiek3UmD0YkwNg02k4GzmcnGEDCYAouHQCBQyLgrTAAF8ALpAA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.input_numeric
+    href: https://shiny.posit.co/py/api/ui.input_numeric.html
+    signature: ui.input_numeric(id, label, value, *, min=None, max=None, step=None,
+      width=None)
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A numeric input control creates a way to specify a number.
+
+To add a numeric input control to your app:
+
+  1. Add `ui.input_numeric()` to the UI of your app to create a numeric input. Where you call this function will determine where the numeric input control will appear within the app's layout.
+
+  2. Specify the `id` and `label` parameters of `ui.input_numeric()` to define the identifier and label of the numeric input. `ui.input_numeric()` also includes various optional parameters, including `min` and `max`, which set the minimum and maximum allowed values.
+
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a numeric input control:
+
+  1. Use `input.<numeric_input_id>()` (e.g., `input.numeric()`) to access the specified numeric value. The server value of a numeric input control is a numeric value.

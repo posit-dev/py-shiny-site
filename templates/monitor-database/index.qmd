@@ -1,0 +1,62 @@
+---
+title:        "Streaming database updates"
+description:  Use the monitor-database template as a foundation for your next Shiny app.
+date:         2024-03-04
+image:        thumbnail.png
+imagealt:     "A screenshot of the monitor-database template"
+app-height:   900px
+appurl:       https://gallery.shinyapps.io/template-monitor-database/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/monitor-database
+---
+
+::: {.panel-tabset .shiny-mode-tabset}
+## Core
+``` python
+shiny create -m core \
+  -g https://github.com/posit-dev/py-shiny-templates/tree/main/monitor-database
+```
+:::
+
+
+Efficiently monitor a database for updates and visualize the data in real-time.
+In this case, we're monitoring an SQLite database with simulated model accuracy data, but the core logic can easily adapt to other databases and use cases.
+Note also that this template has:
+
+* A switch input to toggle the data update on and off (thanks to [reactive isolation](/docs/reactive-patterns.html#isolate-events), this is easy!).
+* A dynamically updating plot and value box icons (when model accuracy gets above/below a certain threshold).
+  * And this all happens without any layout shifts!
+
+
+:::: {.grid .tags}
+::: {.g-col-6 .g-col-sm-4}
+
+**Components:**
+
+* [Checkbox group input](/components/inputs/checkbox-group)
+* [Switch input](/components/inputs/switch)
+* [Value box](/components/outputs/value-box)
+* [Plotly output](/components/outputs/plot-plotly)
+
+:::
+::: {.g-col-6 .g-col-sm-4}
+
+**Layouts:**
+
+* [Sidebar](/layouts/sidebars)
+* [Grid layout](/layouts/arrange)
+* [Cards](/layouts/panels-cards/#content-divided-by-cards)
+
+:::
+::: {.g-col-6 .g-col-sm-4}
+
+**Packages:**
+
+* `faicons`
+* `numpy`
+* `pandas`
+* `plotly`
+* `shinywidgets`
+* `sqlite3`
+
+:::
+::::
