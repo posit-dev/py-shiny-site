@@ -137,7 +137,7 @@ And any data source that's available to Python is also available to Shiny, from 
 :::{.g-col-12 .g-col-md-5 .g-start-md-8 .feature-section}
 ### Production ready
 
-Shiny for Python is built on top of the modern Python web stack, using [Starlette](https://www.starlette.io/) and [asyncio](https://docs.python.org/3/library/asyncio.html).
+Shiny is built on top of the modern Python web stack, using [Starlette](https://www.starlette.io/) and [asyncio](https://docs.python.org/3/library/asyncio.html).
 You have lots of deployment options including our own [cloud hosting](docs/deploy-cloud.qmd), [self-hosted server](docs/deploy-on-prem.qmd), or open source options, like [Shiny Server](docs/deploy-open-source.html#deploy-to-shiny-server-open-source) or [Hugging Face](docs/deploy-open-source.html#hugging-face).
 
 :::
