@@ -30,7 +30,7 @@
       description: null
       href: https://gallery.shinyapps.io/template-monitor-database/
       code: https://github.com/posit-dev/py-shiny-templates/tree/main/monitor-database
-      thumbnail: model-monitoring.png
+      thumbnail: model-score.png
     - title: Respiratory Disease data
       description: null
       href: https://gallery.shinyapps.io/respiratory_disease_pyshiny/
