@@ -245,7 +245,7 @@ import shinylive._deps
 from IPython.display import Markdown
 from tabulate import tabulate
 
-repodata = shinylive._deps._pyodide_repodata()
+repodata = shinylive._deps._pyodide_lock_data()
 info = repodata["info"]
 packages = repodata["packages"]
 ```
