@@ -24,6 +24,24 @@ listing:
   - title: ui.input_dark_mode
     href: https://shiny.posit.co/py/api/ui.input_dark_mode.html
     signature: ui.input_dark_mode(id=None, mode=None, **kwargs)
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/inputs/dark-mode/
+  contents:
+  - title: Dark mode switch in a navbar
+    description: To add a dark mode switch to a navbar, use `ui.page_navbar()` to 
+      create a page with a navbar, and `ui.nav_spacer()` to push the dark mode switch 
+      to the right.
+    apps:
+    - title: Preview
+      file: app-variation-dark-mode-navbar-preview.py
+    - title: Express
+      file: app-variation-dark-mode-navbar-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDagBM4DADoRGzNlx5Y4AD3RjWrPgKEju6AK4UihzrIsQzWA8YD6rOABs4xCpwBecABTJkAYmQAHiDZPz9pMEcXN084SKIA4NCIcORIgGVnVxFSdHdybQAjZ1IAd0QEv0CQsPCQauS6tIiwAEZIlBBItoBBTvSwAGF2Uk5iOGQ+qp6AIQHIkbGJqfnCQbahheHR8cnNyIBfRJqUlvDIgCYB7rBL-tpF3ZX7mbu1lCflycu1oiuto8dt9kJdAcdGrVUuEIUkoWkYIYnO50C4ALwAFQYhjgJyaEAAlJCUpYAAJiCCSBhYKiqCiySR0ZAANygThx3gJlWhfjEFEMDFSdEiIFsFCw0RycU5h0isnWYAouHQCBQirUFDAhwAukA
+    - title: Core
+      file: app-variation-dark-mode-navbar-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziboANwBGUOgApVTJwYyXNLVFEJy7ASjyOzmKuUBaaJOQMADZ2wVyoImSa0rYA1powxLJ2HNK6ymCZsgW+-oFOZBxkUXD5YAAiaUxFcKwA7lWEbLwQTJY2dAWqvqqqsjSschY+8YkSxIkJZBIscCwsHKS+iOVMnuuj0Oh6TEqodhra4pN003S+YAC+ALpAA
 ---
 
 :::{#example}
@@ -47,3 +65,8 @@ To add a dark mode switch to your app:
 The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a dark mode switch:
 
   1. Use `input.<dark_mode_switch_id>()` (e.g., `input.mode()`) to access the value of the dark mode switch. The server value of a dark mode switch is a string: either `"light"` or `"dark"`.
+  
+## Variations
+
+:::{#variations}
+:::
