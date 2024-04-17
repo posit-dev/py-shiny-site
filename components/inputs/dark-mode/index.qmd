@@ -38,7 +38,7 @@ listing:
       file: app-variation-dark-mode-navbar-preview.py
     - title: Express
       file: app-variation-dark-mode-navbar-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDagBM4DADoRGzNlx5Y4AD3RjWrPgKEju6AK4UihzrIsQzWA8YD6rOABs4xCpwBecABTJkAYmQAHiDZPz9pMEcXN084SKIA4NCIcORIgGVnVxFSdHdybQAjZ1IAd0QEv0CQsPCQauS6tIiwAEZIlBBItoBBTvSwAGF2Uk5iOGQ+qp6AIQHIkbGJqfnCQbahheHR8cnNyIBfRJqUlvDIgCYB7rBL-tpF3ZX7mbu1lCflycu1oiuto8dt9kJdAcdGrVUuEIUkoWkYIYnO50C4ALwAFQYhjgJyaEAAlJCUpYAAJiCCSBhYKiqCiySR0ZAANygThx3gJlWhfjEFEMDFSdEiIFsFCw0RycU5h0isnWYAouHQCBQirUFDAhwAukA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbDOAD1R04LFkw4xUxOmSYBXDgB0IS+VigBzOAH1iqMiwAUZDmQA2cALwKwAESh0A1kwCyxACZwmAZQDuJwmxiEEwAclAAbgBG9tZ4TDQcpqZQkeYWACp0snBxHG5WYKgacNYAlEoqHBjQ4VosRYRwdAblyhB+ZIGqNVpFEHCmBqpcqLJkWm72Dlow7nAtpYhKTCtMRSJKYAC+ALpAA
     - title: Core
       file: app-variation-dark-mode-navbar-core.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziboANwBGUOgApVTJwYyXNLVFEJy7ASjyOzmKuUBaaJOQMADZ2wVyoImSa0rYA1powxLJ2HNK6ymCZsgW+-oFOZBxkUXD5YAAiaUxFcKwA7lWEbLwQTJY2dAWqvqqqsjSschY+8YkSxIkJZBIscCwsHKS+iOVMnuuj0Oh6TEqodhra4pN003S+YAC+ALpAA
