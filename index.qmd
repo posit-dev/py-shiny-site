@@ -8,9 +8,6 @@ format:
   html:
     strip-comments: true
     anchor-sections: false
-    css: assets/plot-animation.css
-    code-block-bg: true
-    code
 ---
 
 ::::{.column-screen .mx-auto .pt-0 .mt-0 .pt-lg-5  style="max-width: 1500px;"}
@@ -21,14 +18,14 @@ format:
 <div class="gradient-text display-4 fw-bolder pb-4">Effortless Python web applications</div>
 
 
-#### with the power reactive programming.
+#### with the power of reactive programming.
 
-::: {.pt-4 style="z-index:999;"}
-```{.shell}
+```{python}
+#| eval: false
+#| code-copy: true
 pip install shiny
 shiny create -t dashboard
 ```
-:::
 
 :::
 :::{.g-col-12 .g-col-sm-10 .g-start-sm-2 .g-start-lg-0  .g-col-lg-6 .hero-carousel .mb-5}
@@ -116,11 +113,6 @@ This allows you to focus more on delivering insights and less on troubleshooting
 :::{.g-col-12 .g-col-md-4 .feature-section}
 
 ### Robust
-
-Shiny is built on top of the modern Python web stack, using [Starlette](https://www.starlette.io/) and [asyncio](https://docs.python.org/3/library/asyncio.html).
-The framework fully supports [CSS](docs/ui-customize.html) and [JavaScript](docs/custom-component-one-off.qmd) customization, as well as [asyncronous programming](docs/nonblocking.html).
-You have lots of deployment options including our own [cloud hosting](docs/deploy-cloud.qmd), [self-hosted server](docs/deploy-on-prem.qmd), or [open source options](docs/deploy-on-prem.html#open-source-options).
-
 Shiny is built atop the modern Python web stack, leveraging [Starlette](https://www.starlette.io/) and [asyncio](https://docs.python.org/3/library/asyncio.html) for robust web applications.
 It offers full support for [CSS](docs/ui-customize.html) and [JavaScript](docs/custom-component-one-off.qmd) customization, enabling rich, interactive user experiences.
 :::
