@@ -20,12 +20,15 @@ format:
 
 #### with the power of reactive programming.
 
+:::{.code_container style="width: 80%;"}
 ```{python}
 #| eval: false
 #| code-copy: true
+#| attr: {style: 'max-width: 80%;'}
 pip install shiny
 shiny create -t dashboard
 ```
+:::
 
 :::
 :::{.g-col-12 .g-col-sm-10 .g-start-sm-2 .g-start-lg-0  .g-col-lg-6 .hero-carousel .mb-5}
@@ -96,9 +99,9 @@ shiny create -t dashboard
 
 ### Efficient
 
-Shiny leverages a reactive execution engine to minimize rerendering of your application.
+Shiny uses a reactive execution engine to minimize rerendering of your application.
 Outputs are rendered on-demand and only update when their upstream dependencies change.
-With Shiny, you can create anything from a simple dashboard to a comprehensive web application within a single framework.
+This efficient execution method means that you can use a single framework to create anything from a simple dashboard to a full-featured web applications.
 
 :::
 :::{.g-col-12 .g-col-md-4 .feature-section}
@@ -106,8 +109,8 @@ With Shiny, you can create anything from a simple dashboard to a comprehensive w
 ### Reactive
 
 Shiny eliminates the hassle of manual state management.
-Rather than defining callback functions and state variables, Shiny automatically determines the best execution path for your app at runtime.
-This allows you to focus more on delivering insights and less on troubleshooting execution issues.
+Rather than requiring callback functions and state variables, Shiny automatically determines the best execution path for your app at runtime.
+This allows you to focus on delivering insights instead of troubleshooting execution issues.
 
 :::
 :::{.g-col-12 .g-col-md-4 .feature-section}
