@@ -9,6 +9,8 @@ format:
     strip-comments: true
     anchor-sections: false
     css: assets/plot-animation.css
+    code-block-bg: true
+    code
 ---
 
 ::::{.column-screen .mx-auto .pt-0 .mt-0 .pt-lg-5  style="max-width: 1500px;"}
@@ -16,23 +18,19 @@ format:
 :::{.g-col-12 .g-col-lg-6 .hero-text .pt-5 .px-3 .px-md-5 .pe-lg-0}
 
 
-<div class="gradient-text display-4 fw-bolder pb-4">Build interactive web applications easily</div>
+<div class="gradient-text display-4 fw-bolder pb-4">Effortless Python web applications</div>
 
 
-##### with the power of Python's data and scientific stack.
+#### with the power reactive programming.
 
 ::: {.pt-4 style="z-index:999;"}
-[Get Started](docs/overview.qmd){.btn .btn-dark .btn-lg .m-2 .ms-0 .px-5 role="button"}
-[Gallery](gallery/index.qmd){.btn .btn-dark .m-2 .px-5 .btn-lg role="button"}
-:::
-
-::: {.col-6 style="z-index:999;"}
-<p class="hero badge rounded-pill bg-light mt-4 py-2 px-3" style=""><i class="bi bi-discord" style="padding-right:1rem;font-size:1rem;"></i><a target="_blank" class="text-dark" style="font-weight: 400;vertical-align:text-top;border-bottom: none;" href="https://discord.gg/yMGCamUMnS">Join the Shiny community on Discord <i class="ps-2 bi bi-chevron-right"></i></a></p>
+```{.shell}
+pip install shiny
+shiny create -t dashboard
+```
 :::
 
 :::
-
-
 :::{.g-col-12 .g-col-sm-10 .g-start-sm-2 .g-start-lg-0  .g-col-lg-6 .hero-carousel .mb-5}
 ```{=html}
 <div id="carouselExampleCaptions" class="carousel carousel-dark carousel-fade slide" data-bs-ride="carousel">
@@ -72,7 +70,7 @@ format:
       <div class="carousel-caption">
         <p>Mix Markdown prose with inputs and outputs to create <a href="https://shinylive.io/py/app/#regularization">interactive explainers</a>.</p>
       </div>
-    </div>  
+    </div>
   </div>
   <!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -95,58 +93,43 @@ format:
 ::::
 
 
-
-
-::::{.column-body-outset .pt-5 .mt-1}
+::::{.column-page .pt-5 .mt-5}
 :::{.grid}
-:::{.g-col-12 .g-col-md-5 .feature-section}
+:::{.g-col-12 .g-col-md-4 .feature-section}
 
+### Efficient
 
-### Powerful
-
-Create highly interactive visualizations, realtime dashboards, data explorers, model demos, sophisticated workflow apps, and anything else you can imagine---**all in pure Python**, no web development skills required.
-
-:::
-
-:::{.g-col-12 .g-col-md-5 .g-start-md-8 .feature-section}
-### Easy yet flexible
-
-Shiny comes pre-packaged with many easy to use [components](components/) as well as an elegant way to express interactive yet performant apps.
-Its foundations are also highly flexible and extensible, so your code can grow with your needs.
-:::
+Shiny leverages a reactive execution engine to minimize rerendering of your application.
+Outputs are rendered on-demand and only update when their upstream dependencies change.
+With Shiny, you can create anything from a simple dashboard to a comprehensive web application within a single framework.
 
 :::
-::::
+:::{.g-col-12 .g-col-md-4 .feature-section}
 
-::::{.column-body-outset .pt-0 .pt-md-4 .mt-4 .mt-md-4}
-:::{.grid}
+### Reactive
 
-
-:::{.g-col-12 .g-col-md-5 .feature-section}
-
-
-### Compatible
-
-Shiny works with the Python data science packages you already use, like [Pandas](https://shinylive.io/py/examples/#read-local-csv), [NumPy](https://shinylive.io/py/examples/#cpu-info), [scikit-learn](https://scikit-learn.org/), and [Polars](https://www.pola.rs/).
-It's designed to work integrate with popular visualization packages like [Matplotlib](https://shinylive.io/py/examples/#app-with-plot), [Seaborn](https://seaborn.pydata.org/), [Plotnine](https://shinylive.io/py/examples/#basic-plot-interaction), and [Plotly](docs/jupyter-widgets.qmd). You can even embed live [Jupyter widgets](docs/jupyter-widgets.qmd) in your Shiny apps.
-
-And any data source that's available to Python is also available to Shiny, from the smallest [SQLite](https://docs.python.org/3/library/sqlite3.html) file to the largest [Snowflake](https://docs.snowflake.com/developer-guide/python-connector/python-connector) data lake.
-
+Shiny eliminates the hassle of manual state management.
+Rather than defining callback functions and state variables, Shiny automatically determines the best execution path for your app at runtime.
+This allows you to focus more on delivering insights and less on troubleshooting execution issues.
 
 :::
-:::{.g-col-12 .g-col-md-5 .g-start-md-8 .feature-section}
-### Production ready
+:::{.g-col-12 .g-col-md-4 .feature-section}
+
+### Robust
 
 Shiny is built on top of the modern Python web stack, using [Starlette](https://www.starlette.io/) and [asyncio](https://docs.python.org/3/library/asyncio.html).
-You have lots of deployment options including our own [cloud hosting](docs/deploy-cloud.qmd), [self-hosted server](docs/deploy-on-prem.qmd), or open source options, like [Shiny Server](docs/deploy-open-source.html#deploy-to-shiny-server-open-source) or [Hugging Face](docs/deploy-open-source.html#hugging-face).
+The framework fully supports [CSS](docs/ui-customize.html) and [JavaScript](docs/custom-component-one-off.qmd) customization, as well as [asyncronous programming](docs/nonblocking.html).
+You have lots of deployment options including our own [cloud hosting](docs/deploy-cloud.qmd), [self-hosted server](docs/deploy-on-prem.qmd), or [open source options](docs/deploy-on-prem.html#open-source-options).
 
+Shiny is built atop the modern Python web stack, leveraging [Starlette](https://www.starlette.io/) and [asyncio](https://docs.python.org/3/library/asyncio.html) for robust web applications.
+It offers full support for [CSS](docs/ui-customize.html) and [JavaScript](docs/custom-component-one-off.qmd) customization, enabling rich, interactive user experiences.
 :::
 :::
 ::::
 
 ::: {.text-center .pt-3 .pb-4 style="z-index:1;"}
-[Get Started](docs/overview.qmd){.btn .btn-dark .btn-lg .m-2 .px-5 role="button"}
-[Gallery](gallery/index.qmd){.btn .btn-dark .btn-lg .m-2 .px-5 role="button"}
+[Documentation](docs/overview.qmd){.btn .btn-dark .btn-lg .m-2 .px-5 role="button"}
+[Component Gallery](components/index.qmd){.btn .btn-dark .btn-lg .m-2 .px-5 role="button"}
 :::
 
 
