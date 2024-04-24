@@ -255,7 +255,7 @@ app = App(app_ui, server)
   <p class="after-big-blue-text d-inline-block mb-4 h4"><code style="background-color:transparent;">pip install shiny</code></p>
 </div>
 <p class="mb-0 big-blue-text white">2.</p>
-<p class="after-big-blue-text d-inline-block mb-4 h4"><code style="background-color:transparent;">shiny create -t dashboard-tips</code></p>
+<p class="after-big-blue-text d-inline-block mb-4 h4"><code style="background-color:transparent;">shiny create &ndash;&ndash;template dashboard-tips</code></p>
 
 
 ::: {.grid .pt-4}
