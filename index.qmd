@@ -242,11 +242,11 @@ app = App(app_ui, server)
 :::{.py-5 .my-5}
 :::
 
-:::::: {.column-screen .bg-dark-blue .mb-0 .px-3 .px-md-5 }
+:::::: {.column-screen .py-5 .bg-dark-blue .mb-0 .px-3 .px-md-5 }
 
 ::::: {.column-body}
 
-::: {.pt-5 .pb-5 .mx-auto}
+::: {.mx-auto}
 
 ## Shiny apps are easy to begin.  run these commands to make your first app:
 <div style="display: flex;
@@ -306,10 +306,9 @@ app = App(app_ui, server)
 
 </style>
 
-:::::
 ::::::
 ::::::
-::::: {.column-screen-inset style="max-width:1600px;"}
+::::: {.column-screen .hero-image style="margin-top:0px;max-width:1600px;"}
 ::: {.hello-output .g-col-12 .g-col-xl-12}
 <iframe
   src="https://gallery.shinyapps.io/template-stock-app/"
