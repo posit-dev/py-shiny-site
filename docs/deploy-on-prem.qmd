@@ -61,7 +61,9 @@ If you want to read more about our commitment to free and open source software, 
 
 [Shiny Server](https://posit.co/products/open-source/shinyserver/) is an open source server written in Node.js that can host multiple Shiny apps on a single port, managing the starting/stopping/restarting of each app's Python process.
 
--   Shiny Server v1.5.19 or later is required.
+-   Shiny Server v1.5.19 or later is required for Shiny for Python apps.
+    Deploying [Shiny Express](https://shiny.posit.co/blog/posts/shiny-express/) applications requires Shiny Server v1.5.22 or later.
+    You can find [the lastest version of Shiny Server here](https://dailies.rstudio.com/shiny-server/).
 -   Linux only (see [Platform Support](https://posit.co/about/platform-support/) for a list of supported distributions).
 
 Compared to Posit Connect, deploying apps on Shiny Server is less automated and more config-file based, similar in spirit to Apache or nginx.
