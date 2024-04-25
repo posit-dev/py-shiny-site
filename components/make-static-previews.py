@@ -5,7 +5,9 @@ import time
 from pathlib import Path
 from typing import Generator
 
+import shiny.html_dependencies
 from _qmd import get_qmd_split
+from htmltools import Tag, head_content, tags
 
 compdir = Path(__file__).parent  # ./components
 rootdir = compdir.parent  # repository root
@@ -61,9 +63,39 @@ def render_static_preview(appfile: Path, destfile: Path, libdir: Path):
         raise RuntimeError(f"app_ui not found in {appfile}")
     app_ui = app_mod.app_ui
 
+    enrich_app_ui(app_ui)
+
     destfile.parent.mkdir(parents=True, exist_ok=True)
 
     app_ui.save_html(destfile, libdir=relative_to(libdir, destfile.parent))
+
+
+def enrich_app_ui(app_ui: Tag):
+    """
+    Need to add Shiny dependency because some inputs/outputs won't look right without
+    being intialized as part of the Shiny binding process.
+    """
+    app_ui.append(shiny.html_dependencies.shiny_deps())
+    app_ui.append(
+        head_content(
+            tags.script(
+                """
+                window.Shiny = window.Shiny || {};
+                window.Shiny.createSocket = function(url) {
+                    // Prevent Shiny from trying to connect to a live server
+                    // by returning a dummy WebSocket object that just no-ops
+                    return {
+                        addEventListener: (event, callback) => {},
+                        send: () => {},
+                        close: () => {},
+                        readyState: 0,
+                        url
+                    };
+                };
+                """
+            )
+        )
+    )
 
 
 def relative_to(path1: Path, path2: Path) -> Path:
@@ -79,35 +111,7 @@ def relative_to(path1: Path, path2: Path) -> Path:
     >>> relative_to(Path("a/b/c/d/e"), Path("a/b/c/d/f/g"))
     Path('../../f/g')
     """
-    try:
-        # If path2 is a parent of path1, this will work, otherwise it will raise a
-        # ValueError
-        return path1.relative_to(path2)
-    except ValueError:
-
-        # This branch handles simple traversal upwards (e.g. a result that's entirely
-        # composed of ".." components. This is the case when path1 is a child of path2.
-        if path2.is_relative_to(path1):
-            for i, parent in enumerate(path2.parents):
-                if parent.samefile(path1):
-                    return Path(*([".."] * (i + 1)))
-
-        # Try to handle more complicated case of traversal upwards and then back down;
-        # that is, a result that starts with ".." components and then has some other
-        # components. Break the problem into two smaller operations: navigating upwards
-        # to the nearest common ancestor, then navigating back down to path1.
-        try:
-            ancestor = Path(os.path.commonpath([path1, path2]))
-            dots = [".."] * len(path2.relative_to(ancestor).parts)
-            return Path(*dots) / path1.relative_to(ancestor)
-        except ValueError:
-            # Let the original error be raised
-            pass
-
-        # Our logic failed too; that's OK, there are cases that are supposed to error,
-        # like paths on different drives. Raise the original exception from the built-in
-        # method.
-        raise
+    return Path(os.path.relpath(path1, path2))
 
 
 if __name__ == "__main__":
