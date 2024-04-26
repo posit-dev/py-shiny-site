@@ -1122,21 +1122,21 @@ div.gradient-text {
   -webkit-animation: animated_text 30s ease-in-out infinite;
 }
 
-@media only screen and (min-width: 1475px) {
+@media only screen and (min-width: 1200px) {
   div.gradient-text {
-    font-size: 4.4rem;
+    font-size: 5rem;
   }
 }
 
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 1199px) {
   div.gradient-text {
-    font-size: 3.85rem;
+    font-size: 4.2rem;
   }
 }
 
 @media only screen and (max-width:767px) {
   div.gradient-text {
-    font-size: 2.5rem;
+    font-size: 2.75rem;
   }
 }
 
@@ -1680,7 +1680,7 @@ div.hero-carousel {
 }
 
 .carousel-item img {
-  width: 710px;
+  width: 780px;
 }
 
 @media only screen and (max-width: 1199px) {
