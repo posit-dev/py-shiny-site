@@ -1,5 +1,6 @@
 import importlib
 import os
+import shutil
 import sys
 import time
 from pathlib import Path
@@ -127,3 +128,18 @@ if __name__ == "__main__":
         render_static_preview(app_path, html_path, libdir)
         end_time = time.perf_counter()
         print(f"    Succeeded in {((end_time - start_time) * 1000):.2f}ms")
+
+    # As of this writing, there's a bug in the bootstrap dependency that ships with
+    # shiny in that it doesn't include all_files=True, so some font stuff is missing.
+    # This code works around the bug by copying the missing files from the shiny package
+    # to the static lib directory. When the bug is fixed, this code can be removed.
+    for bootstrap_dir in libdir.glob("bootstrap-5.*"):
+        if not bootstrap_dir.is_dir() or (bootstrap_dir / "font.css").exists():
+            continue
+        bootstrap_src_dir = (
+            Path(list(shiny.__path__)[0]) / "www" / "shared" / "bootstrap"
+        )
+        if (bootstrap_src_dir / "font.css").exists():
+            shutil.copyfile(bootstrap_src_dir / "font.css", bootstrap_dir / "font.css")
+            shutil.copytree(bootstrap_src_dir / "fonts", bootstrap_dir / "fonts")
+        break
