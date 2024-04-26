@@ -3,6 +3,7 @@
 	requirements \
 	quarto-exts \
 	site serve \
+	static-components \
 	clean clean-extensions clean-venv distclean
 
 .DEFAULT_GOAL := help
@@ -12,7 +13,7 @@ PYBIN = $(VENV)/bin
 
 
 ## Build everything
-all: deps quartodoc site
+all: deps quartodoc static-components site
 
 # Any targets that depend on $(VENV) or $(PYBIN) will cause the venv to be
 # created. To use the ven, python scripts should run with the prefix $(PYBIN),
@@ -90,6 +91,7 @@ serve:
 ## Remove Quarto website build files
 clean:
 	rm -rf _build
+	rm -rf components/static
 	cd py-shiny/docs && make clean
 
 ## Remove Quarto extensions
@@ -102,3 +104,7 @@ clean-venv:
 
 ## Remove all build files (Quarto website, quarto extensions, venv)
 distclean: clean clean-extensions clean-venv
+
+static-components:
+	rm -rf components/static
+	. $(PYBIN)/activate && python components/make-static-previews.py
