@@ -10,28 +10,28 @@ format:
     anchor-sections: false
 ---
 
-::::{.column-screen .mx-auto .pt-0 .mt-0 .pt-lg-5  style="max-width: 1500px;"}
+::::{.column-screen .mx-auto .pt-0 .mt-0 .pt-xl-5  style="max-width: 1500px;"}
 :::{.grid}
-:::{.g-col-12 .g-col-lg-6 .hero-text .pt-5 .px-3 .px-md-5 .pe-lg-0}
+:::{.g-col-12 .g-col-xl-6 .hero-text .pt-5 .px-3 .px-md-5 .pe-xl-0}
 
 
-<div class="gradient-text display-4 fw-bolder pb-4">Effortless Python web applications</div>
+<div class="gradient-text display-4 fw-bolder">Effortless Python web applications</div>
 
 
 #### with the power of reactive programming.
 
-:::{.code_container style="width: 80%;"}
+:::{.code_container .ms-auto .me-auto .ms-xl-0 style="width: 70%;text-align:left !important;"}
 ```{python}
 #| eval: false
 #| code-copy: true
-#| attr: {style: 'max-width: 80%;'}
+#| attr: {style: 'max-width: 70%;'}
 pip install shiny
-shiny create -t dashboard
+shiny create --template dashboard
 ```
 :::
 
 :::
-:::{.g-col-12 .g-col-sm-10 .g-start-sm-2 .g-start-lg-0  .g-col-lg-6 .hero-carousel .mb-5}
+:::{.g-col-12 .g-col-md-10 .g-start-md-2 .g-start-xl-0  .g-col-xl-6 .hero-carousel .mb-5}
 ```{=html}
 <div id="carouselExampleCaptions" class="carousel carousel-dark carousel-fade slide" data-bs-ride="carousel">
   <div class="carousel-indicators">
