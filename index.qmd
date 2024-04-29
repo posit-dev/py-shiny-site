@@ -100,8 +100,7 @@ shiny create --template dashboard
 ### Efficient
 
 Shiny uses a reactive execution engine to minimize rerendering of your application.
-Outputs are rendered on-demand and only update when their upstream dependencies change.
-This efficient execution method means that you can use a single framework to create anything from a simple dashboard to a full-featured web applications.
+Outputs are rendered on-demand and only when their upstream components change, which means that Shiny can support everything from the simplest dashboard to full-featured web apps.
 
 :::
 :::{.g-col-12 .g-col-md-4 .feature-section}
@@ -125,99 +124,4 @@ It offers full support for [CSS](docs/ui-customize.html) and [JavaScript](docs/c
 ::: {.text-center .pt-3 .pb-4 style="z-index:1;"}
 [Documentation](docs/overview.qmd){.btn .btn-dark .btn-lg .m-2 .px-5 role="button"}
 [Component Gallery](components/index.qmd){.btn .btn-dark .btn-lg .m-2 .px-5 role="button"}
-:::
-
-
-
-
-:::{.column-screen .hero-image  style="z-index:0;"}
-```{=html}
-<!--?xml version="1.0" encoding="utf-8"?-->
-<!-- Generator: Adobe Illustrator 27.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-   viewBox="0 0 2743.66 752" style="enable-background:new 0 0 2743.66 754.89;" xml:space="preserve">
-<style type="text/css">
-  .st0{fill:none;stroke:#74149B;stroke-width:3;stroke-miterlimit:10;}
-  .st1{fill:#FFFFFF;}
-</style>
-<path class="st0 svg-elem-1" d="M47.42,754.04H0.58V617.46c0-1.52,1.23-2.75,2.75-2.75h41.33c1.52,0,2.75,1.23,2.75,2.75V754.04z"></path>
-<path class="st0 svg-elem-2" d="M100.23,754.04H53.4V498.56c0-2.07,1.68-3.75,3.75-3.75h39.33c2.07,0,3.75,1.68,3.75,3.75V754.04z"></path>
-<path class="st0 svg-elem-3" d="M153.05,754.04h-46.83V630.61c0-1.44,1.17-2.61,2.61-2.61h41.6c1.44,0,2.61,1.17,2.61,2.61V754.04z"></path>
-<path class="st0 svg-elem-4" d="M205.86,754.04h-46.83V421.36c0-2.36,1.91-4.27,4.27-4.27h38.28c2.36,0,4.27,1.91,4.27,4.27V754.04z"></path>
-<path class="st0 svg-elem-5" d="M258.68,754.04h-46.83V287.59c0-2.79,2.26-5.06,5.06-5.06h36.72c2.79,0,5.06,2.26,5.06,5.06V754.04z"></path>
-<path class="st0 svg-elem-6" d="M311.49,754.04h-46.83V478.38c0-2.15,1.74-3.89,3.89-3.89h39.04c2.15,0,3.89,1.74,3.89,3.89V754.04z"></path>
-<path class="st0 svg-elem-7" d="M364.31,754.04h-46.83V122.33c0-3.25,2.63-5.88,5.88-5.88h35.07c3.25,0,5.88,2.63,5.88,5.88V754.04z"></path>
-<path class="st0 svg-elem-8" d="M417.12,754.04h-46.83V298.79c0-2.76,2.24-5,5-5h36.84c2.76,0,5,2.24,5,5V754.04z"></path>
-<path class="st0 svg-elem-9" d="M469.94,754.04h-46.83v-435.9c0-2.7,2.19-4.89,4.89-4.89h37.05c2.7,0,4.89,2.19,4.89,4.89V754.04z"></path>
-<path class="st0 svg-elem-10" d="M522.75,754.04h-46.83V345.11c0-2.62,2.12-4.74,4.74-4.74h37.36c2.62,0,4.74,2.12,4.74,4.74V754.04z"></path>
-<path class="st0 svg-elem-11" d="M575.57,754.04h-46.83V461.22c0-2.22,1.8-4.01,4.01-4.01h38.81c2.22,0,4.01,1.8,4.01,4.01V754.04z"></path>
-<path class="st0 svg-elem-12" d="M628.38,754.04h-46.83v-247.9c0-2.04,1.65-3.69,3.69-3.69h39.44c2.04,0,3.69,1.65,3.69,3.69V754.04z"></path>
-<path class="st0 svg-elem-13" d="M681.2,754.04h-46.83V556.92c0-1.82,1.48-3.3,3.3-3.3h40.24c1.82,0,3.3,1.48,3.3,3.3V754.04z"></path>
-<path class="st0 svg-elem-14" d="M734.01,754.04h-46.83V621.8c0-1.49,1.21-2.71,2.71-2.71h41.42c1.49,0,2.71,1.21,2.71,2.71V754.04z"></path>
-<path class="st0 svg-elem-15" d="M786.83,754.04H740v-84.3c0-1.2,0.97-2.17,2.17-2.17h42.5c1.2,0,2.17,0.97,2.17,2.17V754.04z"></path>
-<path class="st0 svg-elem-16" d="M839.64,754.04h-46.83V499.34c0-2.07,1.68-3.74,3.74-3.74h39.34c2.07,0,3.74,1.68,3.74,3.74V754.04z"></path>
-<path class="st0 svg-elem-17" d="M892.46,754.04h-46.83V441.81c0-2.29,1.85-4.14,4.14-4.14h38.55c2.29,0,4.14,1.85,4.14,4.14V754.04z"></path>
-<path class="st0 svg-elem-18" d="M945.27,754.04h-46.83V471.29c0-2.18,1.77-3.94,3.94-3.94h38.94c2.18,0,3.94,1.77,3.94,3.94V754.04z"></path>
-<path class="st0 svg-elem-19" d="M998.09,754.04h-46.83V404.15c0-2.42,1.96-4.38,4.38-4.38h38.06c2.42,0,4.38,1.96,4.38,4.38V754.04z"></path>
-<path class="st0 svg-elem-20" d="M1050.9,754.04h-46.83V479.28c0-2.15,1.74-3.89,3.89-3.89h39.06c2.15,0,3.89,1.74,3.89,3.89V754.04z"></path>
-<path class="st0 svg-elem-21" d="M1103.72,754.04h-46.83V556.36c0-1.82,1.48-3.3,3.3-3.3h40.23c1.82,0,3.3,1.48,3.3,3.3V754.04z"></path>
-<path class="st0 svg-elem-22" d="M1156.53,754.04h-46.83V499.16c0-2.07,1.68-3.75,3.75-3.75h39.34c2.07,0,3.75,1.68,3.75,3.75V754.04z"></path>
-<path class="st0 svg-elem-23" d="M1209.35,754.04h-46.83V594.33c0-1.64,1.33-2.97,2.97-2.97h40.89c1.64,0,2.97,1.33,2.97,2.97V754.04z"></path>
-<path class="st0 svg-elem-24" d="M1262.16,754.04h-46.83V613.59c0-1.54,1.25-2.79,2.79-2.79h41.26c1.54,0,2.79,1.25,2.79,2.79V754.04z"></path>
-<path class="st0 svg-elem-25" d="M1314.98,754.04h-46.83V604.75c0-1.59,1.29-2.87,2.87-2.87h41.09c1.59,0,2.87,1.29,2.87,2.87V754.04z"></path>
-<path class="st0 svg-elem-26" d="M1367.79,754.04h-46.83v-125.9c0-1.46,1.18-2.64,2.64-2.64h41.55c1.46,0,2.64,1.18,2.64,2.64V754.04z"></path>
-<path class="st0 svg-elem-27" d="M1420.61,754.04h-46.83V576.28c0-1.73,1.4-3.13,3.13-3.13h40.57c1.73,0,3.13,1.4,3.13,3.13V754.04z"></path>
-<path class="st0 svg-elem-28" d="M1473.42,754.04h-46.83V613.75c0-1.54,1.25-2.79,2.79-2.79h41.26c1.54,0,2.79,1.25,2.79,2.79V754.04z"></path>
-<path class="st0 svg-elem-29" d="M1526.24,754.04h-46.83v-44.47c0-0.87,0.71-1.58,1.58-1.58h43.67c0.87,0,1.58,0.71,1.58,1.58V754.04z"></path>
-<path class="st0 svg-elem-30" d="M1579.05,754.04h-46.83V562.28c0-1.8,1.46-3.25,3.25-3.25h40.33c1.8,0,3.25,1.46,3.25,3.25V754.04z"></path>
-<path class="st0 svg-elem-31" d="M1631.87,754.04h-46.83V517.91c0-1.99,1.61-3.61,3.61-3.61h39.62c1.99,0,3.61,1.61,3.61,3.61V754.04z"></path>
-<path class="st0 svg-elem-32" d="M1684.68,754.04h-46.83V435.48c0-2.31,1.87-4.18,4.18-4.18h38.46c2.31,0,4.18,1.87,4.18,4.18V754.04z"></path>
-<path class="st0 svg-elem-33" d="M1737.5,754.04h-46.83V493.88c0-2.09,1.69-3.78,3.78-3.78h39.26c2.09,0,3.78,1.69,3.78,3.78V754.04z"></path>
-<path class="st0 svg-elem-34" d="M1790.31,754.04h-46.83V415.17c0-2.38,1.93-4.31,4.31-4.31h38.2c2.38,0,4.31,1.93,4.31,4.31V754.04z"></path>
-<path class="st0 svg-elem-35" d="M1843.13,754.04h-46.83V339.3c0-2.63,2.14-4.77,4.77-4.77h37.29c2.63,0,4.77,2.14,4.77,4.77V754.04z"></path>
-<path class="st0 svg-elem-36" d="M1895.94,754.04h-46.83V445.07c0-2.28,1.84-4.12,4.12-4.12h38.59c2.28,0,4.12,1.84,4.12,4.12V754.04z"></path>
-<path class="st0 svg-elem-37" d="M1948.76,754.04h-46.83V378.11c0-2.51,2.03-4.54,4.54-4.54h37.75c2.51,0,4.54,2.03,4.54,4.54V754.04z"></path>
-<path class="st0 svg-elem-38" d="M2001.57,754.04h-46.83V436.47c0-2.31,1.87-4.18,4.18-4.18h38.48c2.31,0,4.18,1.87,4.18,4.18V754.04z"></path>
-<path class="st0 svg-elem-39" d="M2054.39,754.04h-46.83V580.16c0-1.71,1.39-3.1,3.1-3.1h40.63c1.71,0,3.1,1.39,3.1,3.1V754.04z"></path>
-<path class="st0 svg-elem-40" d="M2107.21,754.04h-46.83v-82.27c0-1.18,0.96-2.14,2.14-2.14h42.55c1.18,0,2.14,0.96,2.14,2.14V754.04z"></path>
-<path class="st0 svg-elem-41" d="M2160.02,754.04h-46.83V557.41c0-1.82,1.47-3.29,3.29-3.29h40.25c1.82,0,3.29,1.47,3.29,3.29V754.04z"></path>
-<path class="st0 svg-elem-42" d="M2212.84,754.04H2166V538.35c0-1.9,1.54-3.45,3.45-3.45h39.94c1.9,0,3.45,1.54,3.45,3.45V754.04z"></path>
-<path class="st0 svg-elem-43" d="M2265.65,754.04h-46.83V485.66c0-2.12,1.72-3.84,3.84-3.84h39.15c2.12,0,3.84,1.72,3.84,3.84V754.04z"></path>
-<path class="st0 svg-elem-44" d="M2318.47,754.04h-46.83V403.21c0-2.42,1.97-4.39,4.39-4.39h38.05c2.42,0,4.39,1.97,4.39,4.39V754.04z"></path>
-<path class="st0 svg-elem-45" d="M2371.28,754.04h-46.83V360.66c0-2.57,2.08-4.65,4.65-4.65h37.54c2.57,0,4.65,2.08,4.65,4.65V754.04z"></path>
-<path class="st0 svg-elem-46" d="M2424.1,754.04h-46.83V335.7c0-2.65,2.14-4.79,4.79-4.79h37.25c2.65,0,4.79,2.14,4.79,4.79V754.04z"></path>
-<path class="st0 svg-elem-47" d="M2476.91,754.04h-46.83V168.35c0-3.13,2.54-5.66,5.66-5.66h35.5c3.13,0,5.66,2.54,5.66,5.66V754.04z"></path>
-<path class="st0 svg-elem-48" d="M2529.73,754.04h-46.83V506.19c0-2.04,1.65-3.69,3.69-3.69h39.44c2.04,0,3.69,1.65,3.69,3.69V754.04z"></path>
-<path class="st0 svg-elem-49" d="M2582.54,754.04h-46.83V314.68c0-2.71,2.2-4.91,4.91-4.91h37.01c2.71,0,4.91,2.2,4.91,4.91V754.04z"></path>
-<path class="st0 svg-elem-50" d="M2635.36,754.04h-46.83V449.92c0-2.26,1.83-4.09,4.09-4.09h38.65c2.26,0,4.09,1.83,4.09,4.09V754.04z"></path>
-<path class="st0 svg-elem-51" d="M2688.17,754.04h-46.83V632.96c0-1.43,1.16-2.59,2.59-2.59h41.65c1.43,0,2.59,1.16,2.59,2.59V754.04z"></path>
-<path class="st0 svg-elem-52" <rect="" x="-0.61" y="751.81" width="2744.15" height="4.45"></path>
-</svg>
-<style>
-@supports selector(:has(a, b)) {
-  .st0:has(+ .st0:hover) {
-    fill: #74149Bdd;
-    transition: fill ease-out 1s;
-  }
-  .st0:hover + .st0 {
-    fill: #74149Bdd;
-    transition: fill ease-out 1s;
-  }
-}
-.st0:hover {
-  fill: #74149B;
-  transition: fill ease-out 200ms;
-}
-.st0 {
-  fill: transparent;
-  transition: fill cubic-bezier(0.65, 0.03, 0.48, 0.99) 3s;
-}
-.page-rows-contents {
-    grid-template-rows: [content-top] minmax(max-content, 1fr) [content-bottom] minmax(0px, max-content) [page-bottom];
-}
-main {
-  margin-bottom: 0.5rem;
-}
-</style>
-```
 :::
