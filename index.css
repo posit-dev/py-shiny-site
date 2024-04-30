@@ -19,6 +19,15 @@
   font-size: 1.35em;
 }
 
+.homepage-code p a {
+  border-bottom: 1px solid !important;
+  padding-bottom: 4px;
+}
+
+.homepage-code p a:hover {
+  opacity: .85;
+}
+
 @media only screen and (max-width: 768px) {
   .homepage-code p {
     font-size: 1.15em;

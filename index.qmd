@@ -122,9 +122,9 @@ It offers full support for [CSS](docs/ui-customize.html) and [JavaScript](docs/c
 
 :::::: {.column-screen .py-5 .bg-dark-blue .mb-0 .px-3 .px-md-5 #install}
 
-::::: {.column-body}
+::::: {.column-body .d-flex .justify-content-center}
 
-:::: {.mx-auto style="max-width: 675px;"}
+:::: { style="width: 100%; max-width: 625px;"}
 
 ## Getting started with Shiny is easy:
 
@@ -159,7 +159,7 @@ See how to make this dashboard [your own](https://shiny.posit.co/py/docs/user-in
 
 ::::
 
-
+:::::
 
 
 
@@ -169,13 +169,22 @@ See how to make this dashboard [your own](https://shiny.posit.co/py/docs/user-in
   src="https://gallery.shinyapps.io/template-dashboard-tips1/"
   frameborder="0"
   width="100%"
-  class="mb-0 card"
-  style="height: 900px;"
+  class="mb-0 card hello-output-iframe"
 ></iframe>
 
+<style>
+  .hello-output-iframe {
+    height: 900px;
+  }
+@media only screen and (max-width: 611px) {
+  .hello-output-iframe {
+    height: 2125px;
+  }
+}
+</style>
 :::
 :::
 
-:::
+
 
 :::::
