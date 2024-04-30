@@ -13,6 +13,9 @@ from htmltools import Tag, head_content, tags
 compdir = Path(__file__).parent  # ./components
 rootdir = compdir.parent  # repository root
 cwd = Path(os.getcwd())  # current working directory
+# This directory will be where we put all the dependencies from all the
+# static component examples, rather than forcing the browser to fetch
+# multiple redundant copies from various subfolders.
 libdir = compdir / "static" / "lib"
 
 sys.path.insert(0, str(rootdir))
