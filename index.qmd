@@ -98,8 +98,7 @@ format:
 ### Efficient
 
 Shiny uses a reactive execution engine to minimize rerendering of your application.
-Outputs are rendered on-demand and only update when their upstream dependencies change.
-This efficient execution method means that you can use a single framework to create anything from a simple dashboard to a full-featured web applications.
+Outputs are rendered on-demand and only when their upstream components change, which means that Shiny can support everything from the simplest dashboard to full-featured web apps.
 
 :::
 :::{.g-col-12 .g-col-md-4 .feature-section}
