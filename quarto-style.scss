@@ -713,6 +713,15 @@ header.headroom {
   color: #0075b9;
 }
 
+
+.bg-dark-blue {
+  background-image: linear-gradient(#128ed6, #007bc2);
+  color: #fff;
+}
+.bg-dark-blue code {
+  background-color: inherit;
+}
+
 // show only on mobile
 
 @media only screen and (max-width: 991px) {
