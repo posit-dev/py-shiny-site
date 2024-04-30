@@ -119,12 +119,6 @@ It offers full support for [CSS](docs/ui-customize.html) and [JavaScript](docs/c
 :::
 ::::
 
-::: {.text-center .py-5 style="z-index:1;"}
-[Documentation](docs/overview.qmd){.btn .btn-dark .btn-lg .m-2 .px-5 role="button"}
-[Component Gallery](components/index.qmd){.btn .btn-dark .btn-lg .m-2 .px-5 role="button"}
-:::
-
-
 
 :::::: {.column-screen .py-5 .bg-dark-blue .mb-0 .px-3 .px-md-5 #install}
 
@@ -132,7 +126,7 @@ It offers full support for [CSS](docs/ui-customize.html) and [JavaScript](docs/c
 
 :::: {.mx-auto style="max-width: 675px;"}
 
-## Shiny apps are easy to blah blah blah:
+## Getting started with Shiny is easy:
 
 :::{.big-number-container}
 <p class="mb-0 big-number white">1.</p>
