@@ -3,6 +3,7 @@ title: Text Box
 sidebar: components
 appPreview:
   file: components/inputs/text-box/app-preview.py
+  static: true
 listing:
 - id: example
   template: ../../_partials/components-detail-example.ejs

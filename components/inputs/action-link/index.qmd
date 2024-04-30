@@ -3,6 +3,7 @@ title: Action Link
 sidebar: components
 appPreview:
   file: components/inputs/action-link/app-preview.py
+  static: true
 listing:
 - id: example
   template: ../../_partials/components-detail-example.ejs
