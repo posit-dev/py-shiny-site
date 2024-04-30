@@ -172,7 +172,7 @@ See how to make this dashboard [your own](https://shiny.posit.co/py/docs/user-in
 ::::: {.column-screen .hero-image .pt-4 .pb-5 style="margin-top:0px;max-width:1600px;"}
 ::: {.hello-output .g-col-12 .g-col-xl-12}
 <iframe
-  src="https://gallery.shinyapps.io/template-stock-app/"
+  src="https://gallery.shinyapps.io/template-dashboard-tips1/"
   frameborder="0"
   width="100%"
   class="mb-0 card"
