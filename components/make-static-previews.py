@@ -99,6 +99,7 @@ def enrich_app_ui(app_ui: Tag):
     )
 
 
+# TODO: Remove this function once we upgrade to Python 3.12
 def relative_to(path1: Path, path2: Path) -> Path:
     """
     Equivalent to `path1.relative_to(path2, walk_up=True)`, except that walk_up=True is
