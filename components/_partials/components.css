@@ -1,6 +1,6 @@
 /*
 
-The /components/ section is made up of a list page and artcle pages.  
+The /components/ section is made up of a list page and artcle pages.
 
 The components list page (/components/index.qmd) gets styling from /components/_partials/components-list.css.
 
@@ -16,8 +16,6 @@ The article pages (/components/_____/index.qmd) get styling from here.
     margin-right: 1.5em;
   }
 }
-
-
 
 /* Add rule and spacing between sections */
 
@@ -37,14 +35,11 @@ section.level2:not(:first-child) > :last-child {
   white-space: normal;
 }
 
-
 /*remove extra space under header*/
 
 #title-block-header {
   margin-block-end: 0px;
 }
-
-
 
 .component-hr:last-of-type {
   display: none;
@@ -77,4 +72,11 @@ main a.nav-link:hover {
 .iframe-border {
   border: 1px solid #e9ecef;
   border-radius: 10px;
+}
+
+.scale-iframe iframe {
+  transform: scale(var(--scale-factor));
+  width: calc(1 / var(--scale-factor) * 100%);
+  height: calc(1 / var(--scale-factor) * 100%);
+  transform-origin: top left;
 }
