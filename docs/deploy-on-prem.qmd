@@ -63,7 +63,7 @@ If you want to read more about our commitment to free and open source software, 
 
 -   Shiny Server v1.5.19 or later is required for Shiny for Python apps.
     Deploying [Shiny Express](https://shiny.posit.co/blog/posts/shiny-express/) applications requires Shiny Server v1.5.22 or later.
-    You can find [the lastest version of Shiny Server here](https://dailies.rstudio.com/shiny-server/).
+    You can find [the latest version of Shiny Server here](https://posit.co/download/shiny-server/).
 -   Linux only (see [Platform Support](https://posit.co/about/platform-support/) for a list of supported distributions).
 
 Compared to Posit Connect, deploying apps on Shiny Server is less automated and more config-file based, similar in spirit to Apache or nginx.
