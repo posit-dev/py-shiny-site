@@ -1147,6 +1147,9 @@ div.gradient-text {
   div.gradient-text {
     font-size: 2.75rem;
   }
+  .hero-text .h4 {
+    font-size: 1.25em;
+  }
 }
 
 @keyframes animated_text {
@@ -1680,6 +1683,12 @@ div.hero-carousel {
   padding-left: 3.6rem;
 }
 
+@media only screen and (max-width: 1355px) {
+  div.hero-carousel {
+    padding-left: 0rem;
+  }
+}
+
 @media only screen and (max-width: 1199px) {
   div.hero-carousel {
     margin-right: initial !important;
@@ -1689,7 +1698,7 @@ div.hero-carousel {
 }
 
 .carousel-item img {
-  width: 780px;
+  width: 700px;
 }
 
 @media only screen and (max-width: 1199px) {

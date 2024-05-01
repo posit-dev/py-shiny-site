@@ -91,9 +91,9 @@ format:
 ::::
 
 
-::::{.column-screen-inset .pt-5 .mt-5 .mx-auto style="max-width:1200px;"}
+::::{.column-screen-inset .py-5 .mt-5 .mx-auto style="max-width:1200px;"}
 :::{.grid}
-:::{.g-col-12 .g-col-md-4 .feature-section}
+:::{.g-col-12 .g-col-md-4 .feature-section .mx-3}
 
 ### Efficient
 
@@ -101,7 +101,7 @@ Shiny uses a reactive execution engine to minimize rerendering of your applicati
 Outputs are rendered on-demand and only when their upstream components change, which means that Shiny can support everything from the simplest dashboard to full-featured web apps.
 
 :::
-:::{.g-col-12 .g-col-md-4 .feature-section}
+:::{.g-col-12 .g-col-md-4 .feature-section .mx-3}
 
 ### Reactive
 
@@ -110,7 +110,7 @@ Rather than requiring callback functions and state variables, Shiny automaticall
 This allows you to focus on delivering insights instead of troubleshooting execution issues.
 
 :::
-:::{.g-col-12 .g-col-md-4 .feature-section}
+:::{.g-col-12 .g-col-md-4 .feature-section .mx-3}
 
 ### Robust
 Shiny is built atop the modern Python web stack, leveraging [Starlette](https://www.starlette.io/) and [asyncio](https://docs.python.org/3/library/asyncio.html) for robust web applications.
