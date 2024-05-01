@@ -135,6 +135,8 @@ The indices of the selected rows will be accessible within the server function a
 
 The value returned will be an empty tuple if no rows are selected, or a tuple of integers representing the indices of the selected rows. To filter a pandas data frame down to the selected rows, use `df.iloc[list(<name>.input_cell_selection()["rows"])]`.
 
+For more information about interacting with data frames, see the API documentation for [Express](../../../api/express/express.render.data_frame.qmd) or [Core](../../../api/core/render.data_frame.qmd) syntax.
+
 If your table is a data frame that uses the pandas styler, replace `ui.output_data_frame()` with `ui.output_table()` and `@render.data_frame` with `@render.table`.
 
 See also [Data Grids](../data-grid/index.qmd)
