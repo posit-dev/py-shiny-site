@@ -4,7 +4,7 @@
 <% if (previews.length) { %>
 <%   const previewApp = previews[0] %>
 
-:::{.app-preview <% previewApp.attrs || "" %>}
+:::{.app-preview <%= previewApp.attrs || "" %>}
 ```{shinylive-python}
 #| standalone: true
 #| components: [<%= previewApp.components ? previewApp.components.join(', ') : 'viewer' %>]
