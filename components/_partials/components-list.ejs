@@ -40,11 +40,25 @@
   animation-fill-mode: forwards;
   visibility: hidden;
   border-radius: 10px;">
+<% if (item.appPreview.static) { // Handle the case where the app preview is prerendered by make-static-previews.py %>
+```{=html}
+<div class="sourceCode" data-engine="python">
+<div class="shinylive-wrapper" style="">
+<div class="shinylive-container viewer">
+<div class="shinylive-viewer">
+<iframe class="app-frame" src="<%= item.appPreview.file.replace(/^components\//, "static/").replace(/\.py$/, ".html") %>"></iframe>
+</div>
+</div>
+</div>
+</div>
+```
+<% } else { %>
 ```{shinylive-python}
 #| standalone: true
 #| components: [viewer]
 <%= Deno.readTextFileSync(item.appPreview.file) %>
 ```
+<% } %>
 </div>
 </div>
 </div>

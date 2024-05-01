@@ -32,8 +32,7 @@ from shiny import module, ui, render, reactive, event, App
 
 @module.ui
 def counter_ui(custom_label = "Increment counter"):
-    return ui.div(
-        {"style": "border: 1px solid #ccc; border-radius: 5px; margin: 5px 0;"},
+    return ui.card(
         ui.h2("This is ", custom_label),
         ui.input_action_button(id="button", label=custom_label),
         ui.output_text_verbatim(id="out"),
@@ -88,12 +87,11 @@ app = App(app_ui, server)
 
 ## file: counter.py
 from shiny import module, ui, render, reactive, event
-import shiny.experimental as x
 
 @module.ui
 def counter_ui(label: str = "Increment counter"):
-    return x.ui.card(
-        x.ui.card_header("This is " + label),
+    return ui.card(
+        ui.card_header("This is " + label),
         ui.input_action_button(id="button", label=label),
         ui.output_text_verbatim(id="out"),
     )
@@ -185,19 +183,18 @@ app = App(app_ui, server)
 
 ## file: modules.py
 import pandas as pd
-import shiny.experimental as x
 from shiny import Inputs, Outputs, Session, module, render, ui, module
 
 
 @module.ui
 def table_cards_ui(*args):
     return ui.row(
-        x.ui.layout_column_wrap(
+        ui.layout_column_wrap(
             1 / 2,
-            x.ui.card(
-                x.ui.card_header("Standard table"), ui.output_table("module_table")
+            ui.card(
+                ui.card_header("Standard table"), ui.output_table("module_table")
             ),
-            x.ui.card(x.ui.card_header("New elements"), *args),
+            ui.card(ui.card_header("New elements"), *args),
         ),
     )
 
@@ -251,13 +248,12 @@ app = App(app_ui, server)
 
 ## file: modules.py
 from shiny import App, module, reactive, render, ui
-import shiny.experimental as x
 
 
 @module.ui
 def counter_ui(label: str = "Increment counter"):
-    return x.ui.card(
-        x.ui.card_header("This is " + label),
+    return ui.card(
+        ui.card_header("This is " + label),
         ui.input_action_button(id="button", label=label),
         ui.output_text_verbatim(id="out"),
     )
@@ -336,13 +332,12 @@ app = App(app_ui, server)
 
 ## file: modules.py
 from shiny import App, module, reactive, render, ui
-import shiny.experimental as x
 
 
 @module.ui
 def counter_ui(label: str = "Increment counter"):
-    return x.ui.card(
-        x.ui.card_header("This is " + label),
+    return ui.card(
+        ui.card_header("This is " + label),
         ui.input_action_button(id="button", label=label),
         ui.output_text_verbatim(id="out"),
     )
