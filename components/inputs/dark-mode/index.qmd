@@ -30,12 +30,15 @@ listing:
     dir: components/inputs/dark-mode/
   contents:
   - title: Dark mode switch in a navbar
-    description: To add a dark mode switch to a navbar, use `ui.page_navbar()` to
+    description: >
+      To add a dark mode switch to a navbar, use `ui.page_navbar()` to
       create a page with a navbar, and `ui.nav_spacer()` to push the dark mode switch
-      to the right.
+      to the right. Place the `ui.input_dark_mode()` element within a
+      `ui.nav_control()` element, to add the control to the navbar without creating a
+      corresponding panel.
     apps:
     - title: Preview
-      file: app-variation-dark-mode-navbar-preview.py
+      file: app-variation-dark-mode-navbar-core.py
       attrs: >
         .scale-iframe style="--scale-factor: 0.8;"
     - title: Express

@@ -1,10 +1,10 @@
-from shiny import ui, render, App
+from shiny import App, ui
 
-app_ui = ui.page_navbar( # <<
+app_ui = ui.page_navbar(
     ui.nav_spacer(), # <<
     ui.nav_control(ui.input_dark_mode()), # <<
-    title="Dark mode switch in navbar" # <<
-) # <<
+    title="Dark mode switch in navbar"
+)
 
 def server(input, output, session):
     pass
