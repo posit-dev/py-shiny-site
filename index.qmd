@@ -15,7 +15,7 @@ format:
 
 ::::{.column-screen .mx-auto .pt-0 .mt-0 .pt-xl-5  style="max-width: 1500px;"}
 :::{.grid}
-:::{.g-col-12 .g-col-xl-6 .hero-text .pt-5 .px-3 .px-md-5 .pe-xl-0}
+:::{.g-col-12 .g-col-xl-6 .hero-text .pt-5 .pt-md-4 .px-3 .px-md-5 .pe-xl-0}
 
 
 <div class="gradient-text display-4 fw-bolder">Effortless Python web applications</div>
@@ -23,7 +23,7 @@ format:
 
 <p class="h4">with the power of reactive programming.</p>
 
-::: {.pt-3 .pb-4 style="z-index:1;"}
+::: {.pt-4 .pb-4 style="z-index:1;"}
 [Install](#install){.btn .btn-dark .btn-lg .m-2 .px-5 role="button"}
 [Learn Shiny](docs/overview.qmd){.btn .btn-dark .btn-lg .m-2 .px-5 role="button"}
 :::
@@ -91,7 +91,7 @@ format:
 ::::
 
 
-::::{.column-screen-inset .py-5 .mt-5 .mx-auto style="max-width:1200px;"}
+::::{.column-screen-inset .py-5 .mt-5 .mb-4 .mx-auto style="max-width:1200px;"}
 :::{.grid}
 :::{.g-col-12 .g-col-md-4 .feature-section .mx-3}
 
@@ -124,36 +124,34 @@ It offers full support for [CSS](docs/ui-customize.html) and [JavaScript](docs/c
 
 ::::: {.column-body .d-flex .justify-content-center}
 
-:::: { style="width: 100%; max-width: 625px;"}
+:::: { style="width: 100%; max-width: 585px;"}
 
 ## Getting started with Shiny is easy:
 
-:::{.big-number-container}
-<p class="mb-0 big-number white">1.</p>
+:::{.big-number-container .pt-3}
+<p class="mb-0 big-number white">1</p>
 :::{.code_container .homepage-code .w-100}
 ```{python}
 #| eval: false
-#| code-copy: true
 pip install shiny
 ```
 :::
 :::
 
 :::{.big-number-container}
-<p class="mb-0 big-number white">2.</p>
+<p class="mb-0 big-number white">2</p>
 :::{.code_container .homepage-code .w-100}
 ```{python}
 #| eval: false
-#| code-copy: true
 shiny create --template dashboard-tips
 ```
 :::
 :::
 
 :::{.big-number-container}
-<p class="mb-0 big-number white">3.</p>
+<p class="mb-0 big-number white">3</p>
 :::{.code_container .homepage-code .w-100 .ps-3}
-Use [your data](https://www.youtube.com/watch?v=ou-09NHcH5w){.white .fw-600} and make the layout [your own](https://shiny.posit.co/py/docs/user-interfaces.html#sophisticated-dashboard){.white .fw-600}.
+<p class="mb-0">Use [your data](https://www.youtube.com/watch?v=ou-09NHcH5w){.white .fw-600} and make the layout [your own](https://shiny.posit.co/py/docs/user-interfaces.html#sophisticated-dashboard){.white .fw-600}.</p>
 :::
 :::
 

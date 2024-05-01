@@ -21,7 +21,9 @@
 
 .homepage-code p a {
   border-bottom: 1px solid !important;
-  padding-bottom: 4px;
+  padding-bottom: 5px;
+  margin-left: 1px;
+  margin-right: 1px;
 }
 
 .homepage-code p a:hover {
@@ -40,12 +42,13 @@
     padding-bottom: 20px;
 }
 
+
 .big-number {
-    font-size: 45px;
+    font-size: 52px;
     font-weight: 700;
     display: inline-block;
-    padding-right: 8px;
-    opacity: .9;
+    padding-right: 6px;
+    opacity: .95;
 }
 
 @media only screen and (max-width: 768px) {
@@ -56,6 +59,7 @@
 
 div.homepage-code {
   display: inline-block !important;
+  align-self: center;
 }
 
 .homepage-code .code-copy-button>.bi::before {
@@ -76,6 +80,15 @@ div.homepage-code {
 .homepage-code .code-copy-button {
     top: 8px;
 }
+
+.homepage-code > div > .sourceCode:has(.code-copy-button:hover) {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    transition: all 150ms ease-in;
+}
+
+
+
 
 .homepage-code code.sourceCode, pre.console code {
     padding-right: 2rem;
