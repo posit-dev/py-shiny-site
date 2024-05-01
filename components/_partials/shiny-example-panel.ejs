@@ -4,7 +4,7 @@
 <% if (previews.length) { %>
 <%   const previewApp = previews[0] %>
 
-:::{.app-preview}
+:::{.app-preview <%= previewApp.attrs || "" %>}
 ```{shinylive-python}
 #| standalone: true
 #| components: [<%= previewApp.components ? previewApp.components.join(', ') : 'viewer' %>]
@@ -21,7 +21,7 @@
 <% for (const app of codeApps) { %>
 ### <%= app.title %>
 
-```{.python .code-overflow-scroll <%=app.shinylive ? `shinylive="${app.shinylive}"` : '' %>}
+```{.python .code-overflow-scroll <% app.attrs || "" %> <%=app.shinylive ? `shinylive="${app.shinylive}"` : '' %>}
 <%= Deno.readTextFileSync((appDir || '') + app.file) %>
 ```
 
