@@ -151,7 +151,7 @@ shiny create --template dashboard-tips
 :::{.big-number-container}
 <p class="mb-0 big-number white">3</p>
 :::{.code_container .homepage-code .w-100 .ps-3}
-<p class="mb-0">Use [your data](https://www.youtube.com/watch?v=ou-09NHcH5w){.white .fw-600} and make the layout [your own](https://shiny.posit.co/py/docs/user-interfaces.html#sophisticated-dashboard){.white .fw-600}.</p>
+<p class="mb-0">Use [your data](https://www.youtube.com/watch?v=ou-09NHcH5w){.white .fw-600} and make the layout [your own](docs/user-interfaces.qmd){.white .fw-600}.</p>
 :::
 :::
 
