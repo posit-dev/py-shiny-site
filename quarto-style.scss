@@ -497,7 +497,7 @@ main.content a:not(.btn) {
 }
 
 main.content
-  a:hover:not(.tags li a):not(.badge):not(.component-list-header-text):not(.btn):not(.gallery-entry a):not(a img):not(
+  a:hover:not(.homepage-code p a):not(.tags li a):not(.badge):not(.component-list-header-text):not(.btn):not(.gallery-entry a):not(a img):not(
     .text-decoration-none
   ):not(.gallery-meta):not(.link-cards a):not(.dont-index a):not(.anchorjs-link):not(.component-list-card a) {
   border-bottom: 1px solid;
