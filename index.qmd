@@ -143,7 +143,7 @@ pip install shiny
 :::{.code_container .homepage-code .w-100}
 ```{python}
 #| eval: false
-shiny create --template dashboard-tips
+shiny create --template dashboard
 ```
 :::
 :::
@@ -164,7 +164,7 @@ shiny create --template dashboard-tips
 ::::: {.column-screen .hero-image .pt-4 .pb-5 style="margin-top:0px;max-width:1600px;"}
 ::: {.hello-output .g-col-12 .g-col-xl-12}
 <iframe
-  src="https://gallery.shinyapps.io/template-dashboard-tips1/"
+  src="https://gallery.shinyapps.io/template-dashboard/"
   frameborder="0"
   width="100%"
   class="mb-0 card hello-output-iframe"
