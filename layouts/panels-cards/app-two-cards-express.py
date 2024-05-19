@@ -1,4 +1,4 @@
-from shiny import ui
+from shiny.express import ui
 
 ui.page_opts(fillable=True)
 
