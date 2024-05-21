@@ -1,5 +1,5 @@
 ---
-title: "Dark Mode Switch"
+title: Dark Mode Switch
 sidebar: components
 appPreview:
   file: components/inputs/dark-mode/app-preview.py
@@ -15,10 +15,10 @@ listing:
     height: 200
   - title: Express
     file: app-express.py
-    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJM6lACZw6AHQj1GrTtwxwAHqlEsWvfoOFdUAVzJ4mBjjIsQzGfUYD6YqHQDWdmMQkAKAJRMmlmTAAXwBdIA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDagBM4DADoRGzNlx5Y4AD3RjWrPgKEju6AK4UihzrIsQzWA8YD64qAwDWdmKUkAKAJTIAxMgAPIHIsoSoFLjoCChgVKoUYAC+ALpAA
   - title: Core
     file: app-core.py
-    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziaaAGzHSAFKqYODGLqhFlN0qHQDWmmMVkbAEomVSDVVVkaVjkANzkbFzcJYjdXMgkWOBYWDlIgxHtHVCgciOh0PSYlVBsNbXEYuni6cIgwAF8AXSA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAV05EG1ACZwGRAIKYAOhFUZ0AfXHIAvGM44oAczia6AG3HSAFKuQODWbulEVN0qAwDWmmKVkbAEpkAGJkAB4I1SDVVVk6NjkANzkbFzciUjdXCiJWOFZWTnIgxHtHdCgiuOhMPWQldBsNbQkkhlSGWIhCVApcdAQUMCoADwowAF8AXSA
 - id: relevant-functions
   template: ../../_partials/components-detail-relevant-functions.ejs
   contents:
@@ -31,23 +31,24 @@ listing:
     dir: components/inputs/dark-mode/
   contents:
   - title: Dark mode switch in a navbar
-    description: >
-      To add a dark mode switch to a navbar, use `ui.page_navbar()` to
+    description: 'To add a dark mode switch to a navbar, use `ui.page_navbar()` to
       create a page with a navbar, and `ui.nav_spacer()` to push the dark mode switch
-      to the right. Place the `ui.input_dark_mode()` element within a
-      `ui.nav_control()` element, to add the control to the navbar without creating a
-      corresponding panel.
+      to the right. Place the `ui.input_dark_mode()` element within a `ui.nav_control()`
+      element, to add the control to the navbar without creating a corresponding panel.
+
+      '
     apps:
     - title: Preview
       file: app-variation-dark-mode-navbar-core.py
-      attrs: >
-        .scale-iframe style="--scale-factor: 0.8;"
+      attrs: '.scale-iframe style="--scale-factor: 0.8;"
+
+        '
     - title: Express
       file: app-variation-dark-mode-navbar-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbDOAD1R04LFkw4xUxOmSYBXDgB0IS+VigBzOAH1iqMiwAUZDmQA2cALwKwAESh0A1kwCyxACZwmAZQDuJwmxiEEwAclAAbgBG9tZ4TDQcpqZQkeYWACp0snBxHG5WYKgacNYAlEoqHBjQ4VosRYRwdAblyhB+ZIGqNVpFEHCmBqpcqLJkWm72Dlow7nAtpYhKTCtMRSJKYAC+ALpAA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IyhTigBzOAH1S6CqwAUFThQA2cALyKwAESgMA1shikAJnDYB3U8XbiIZGgANwAjBxsiOk4zMyhQi0sAFQY5OCJON2swdE04GwBKZVVOLBDtVlziOAZDAuRkAGJkAB4W5R8KfzVyskomMzqUJtb2wIb5Uu50OQptNwdHbVcPOobmtuVCVApcdAQUMCp+CjAAXwBdIA
     - title: Core
       file: app-variation-dark-mode-navbar-core.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMArhzxM6lACZw6EgILoAOhFVpUAfTFMAvKI5YoAcziboANwBGUOgApVTJwYyXNLVFEJy7ASjyOzmKuUBaaJOQMADZ2wVyoImSa0rYA1powxLJ2HNK6ymCZsgW+-oFOZBxkUXD5YAAiaUxFcKwA7lWEbLwQTJY2dAWqvqqqsjSschY+8YkSxIkJZBIscCwsHKS+iOVMnuuj0Oh6TEqodhra4pN003S+YAC+ALpAA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEArpwA6EORnQB9acgC8yaTigBzOEugA3AEZQGACjnJrmzliNLW6KMTgWAlEQDEyADy+rGy0HMkomABtzLW50SQolABMzAGslGFIEuHN3T2Qff0DrCk4KcLg1GTAAERTkdMy2AHcS4nY+CGQjUwZKuXc5OUy6NjdDN3MYuKJSONiKIlY4VlZOcndEQuRnZYHoTHUxTHNFFU4F0bd+iEJUClx0BBQwKgAPCjAAXwBdIA
 ---
 
 :::{#example}
