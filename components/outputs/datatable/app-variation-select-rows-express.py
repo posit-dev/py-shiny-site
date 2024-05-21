@@ -9,7 +9,7 @@ ui.h2("Palmer Penguins")
 
 @render.ui
 def rows():
-    rows = penguins_df.input_cell_selection()["rows"]  # <<
+    rows = penguins_df.cell_selection()["rows"]  # <<
     selected = ", ".join(str(i) for i in sorted(rows)) if rows else "None"
     return f"Rows selected: {selected}"
 
