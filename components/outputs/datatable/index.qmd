@@ -45,21 +45,20 @@ listing:
     dir: components/outputs/datatable/
   contents:
   - title: Select Rows
-    description: Set `selection_mode` in `render.DataTable()` to `"row"` to
-      allow the user to select one row at a time. Set it to `"rows"` to allow
-      the user to select multiple rows at a time. Access the selection(s) as
-      `<id>.input_cell_selection()["rows"]`.
+    description: Set `selection_mode` in `render.DataTable()` to `"row"` to allow
+      the user to select one row at a time. Set it to `"rows"` to allow the user to
+      select multiple rows at a time. Access the selection(s) as `<id>.input_cell_selection()["rows"]`.
     apps:
     - title: Preview
       file: app-variation-select-rows-core.py
       height: 350
     - title: Express
       file: app-variation-select-rows-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyG1RXAY69LIyaxwAHuisixEqTPER0fgoiIR0dNQ1RZABeOQUVCKFRAAoASjCIISxDACZkrTAABQ4uZEK+JO0wdIgMgAErCBsGLFCmuDpkJgB3ETTEHWQhrtJemP9AihwKzWVFOmUROHY4YioVHr7UoYBiZAAefcHhpZW1uEVxgqICrAArUmFkkQoGZMFtumlxfwMLC+Sm1S20EnU2yGWS2QBQAcuQ4AVjkMrBR+AwIMg6AUAEqjMSnVbrFAgAnnRQAX0RtWpDWstiwiigFCgykYsAR7U6iVm836SK6cFR6IF7RaABEmVAACpQABGK2S3NERB6i2WhME5GUMFINmiBREwl4KwK22Qe0OOkIqAouB4tDAVFcFDA5IAukA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyG1RXAY69LIyaxwAHuisixEqTPER0fgoiIR0dNQ1RZABeOQUVCKFRAAoASjCIISxDACZkrTAABQ4uZEK+JO0wdIgMgAErCBsGLFCmuDpkJgB3ETTEHWQhrtJemNYKzWVFOixhQIplYjh2dmURFbhiCkFyNOACnqqAXSGAYmQAHkvB4Y32LapFcYKiAqwAK1JhZJEKBmSglSyDo0nE-gMFjgimSR1SwMEnSOyBWG2QBQAcuQ4AVbkMrBR+AwICCCgAlUZie6PaEoEDU7bQgC+uNqbIa1lsWEUUAoUGUjFgOPanUSUxm-TxXTghOJ0vaLQAIryoAAVKAAIweyTFoiIDJ25GUMFINmih0pBWByAu1x0hFQFFwPFoYCorgoYCZxyAA
       height: 350
     - title: Core
       file: app-variation-select-rows-core.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiINqiuAyJCdOtRtHIAvHIUr3QqIAFACUrtCYykLeyEI4ULxwynTsQopBOshZsYJYhgBMGWAAChxcyMV8gdpgIQSZ2XGk-BToLVGCRUwA7jV1DVlNLW0UyopQFFDJDLBwRQGaY3RatfUQYRDhDnQGjgBujkHCI0TNrS1EInAiIoLkIYgDyAACdhAODFjjk9OzT9usKqLRR0UKPCDZSHIOwUfgMCFvD5YAAiEygABUoAAjdhzBaiWykbrKK644gUO4QZQwUgOLwrW7qXErEJZADEyAAPJzwpDXvZHFgXBDsgCeiIwU9IeKYscWjggaIliS4GSqCpxaF2VyeSKobs1XBFDEVkQVlgAFakYRBEQUBhHVl0aTicQQkQWI1BcUhVmCHYy1VXZArABy5DgKyl2RhcIhyzAACUiWJSXByUaUCA0xnFABfKObIsYdAxazoIIljqXfaODaEVAUXA8WhgKgADwoYDzAF0gA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiINqiuAyJCdOtRtHIAvHIUr3QqIAFACUrtCYykLeyEI4ULxwynTsQopBOshZsYJYhgBMGWAAChxcyMV8gdpgIQSZ2XGk-BToLVGCRUwA7jV1DVlNLW0UyopQFFDJDLBwRQGaY3RatfUQYRDhDnQGjgBujkHCI0TNrS1EInAiIoLkIYgDyAACdhAODFjjk9OzT9usKqLRR0UKPCDZSHIOwUfgMCFvD5YAAiEygABUoAAjdhzBaiS5wXHECh3CDKGCkBxeFY9PpZADEyAAPMzwpDXvZHFgXBDsgC6WCnpC6TF8SIllhju1iET2MorsTSeRQsBaaReisALqMllsvlQ3ZKuCKGIrIgrLAAK1IwiCIgoDCOIWQdGk4nEEJEFhNQTpIRdgh2oqJV2QKwAcuQ4CthdkYXCIcswAAlDViRVwEkmlAgTPZxQAX1jm1LGHQMWs6CC5Y6hIYBwYG0IqAouB4tDAVAAHhQwIWtUA
       height: 350
   - title: Filterable Table
     description: Set `render.DataTable(filters=True)` to add a row of filter options
