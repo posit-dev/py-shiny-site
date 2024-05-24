@@ -147,7 +147,7 @@ from shiny.express import input, render, ui
 ui.input_numeric("x", "Enter a value to add to the list:", 1)
 ui.input_action_button("submit", "Add Value")
 
-@render.text
+@render.code
 def out():
     return f"Values: {user_provided_values()}"
 
@@ -180,7 +180,7 @@ from shiny.express import input, render, ui
 ui.input_numeric("x", "Enter a value to add to the list:", 1)
 ui.input_action_button("submit", "Add Value")
 
-@render.text
+@render.code
 def out():
     return f"Values: {user_provided_values()}"
 
