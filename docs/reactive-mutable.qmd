@@ -73,6 +73,28 @@ b
 
 The advantage to this approach is not eagerly creating defensive copies all the time, as we must in the "copy on assignment" approach. However, if you are performing more updates than assignments, this approach actually makes _more_ copies, plus it gives you more opportunities to slip up and forget not to mutate the object.
 
+### Python operations that create copies
+
+We've seen that `x + [value]` creates a new list object and that `x.copy()` creates a new list object.
+There are some other common operations that create copies.
+You can use these patterns to avoid mutating reactive values in place.
+
+1. **List comprehensions**:
+   `[x for x in a]` creates a new list with the same elements as `a`.
+   This approach is particularly useful when you need to transform the elements of a list in some way, as in `[x*2 for x in a]`.
+
+2. **Slicing**:
+    `a[:]` creates a new list with the same elements as `a`.
+    This is useful when you need to copy the entire list, or a subset of it.
+
+3. **Star operator**:
+    `[*a, value]` creates a new list with the same elements as `a`, with the additional `value` appended after them.
+    This is an easy way to add a single element to the end or start of a list (`[value, *a]`).
+
+4. **Double star operator**:
+    `{**a, key: value}` creates a new dictionary with the same key-value pairs as `a`, with the additional key-value pair `key: value` added.
+    This is an easy way to add a single key-value pair to a dictionary.
+
 ### Use immutable objects
 
 The third way is to use a different data structure entirely. Instead of list, we will use tuple, which is immutable. Immutable objects do not provide any way to change their values "in place", even if we wanted to. Therefore, we can be confident that nothing we do to tuple variable `a` could ever affect tuple variable `b`.
@@ -217,7 +239,10 @@ def doubled_values():
 
 By the third click, the user input that should be `[1, 1, 1]` is instead `[4, 2, 1]`!
 This is because `doubled_values` does its doubling by modifying the values of the list in place, causing these changes to "leak" back into `user_provided_values`.
-We could fix this by having `doubled_values` call `user_provided_values().copy()`, or by using a list comprehension (since it creates a new list and leaves the old one alone).
+
+We could fix this by having `doubled_values` call `user_provided_values().copy()`.
+Or we can use a list comprehension, which creates a new list in the process.
+The second option is shown below.
 
 ::: {.callout-tip title="Solution: Copy with list comprehension" appearance="simple"}
 ```{shinylive-python}
