@@ -289,9 +289,7 @@ div.callout-warning.callout {
 .callout.callout-style-simple {
     padding: .4em .7em;
     border-top: 5px solid;
-    border-right: 1px solid #dee2e6;
-    border-left: 1px solid #dee2e6;
-    border-bottom: 1px solid #dee2e6
+    border-left-width: 1px;
 }
 
 .callout.callout-style-simple > .callout-body {
