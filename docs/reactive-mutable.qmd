@@ -73,6 +73,28 @@ b
 
 The advantage to this approach is not eagerly creating defensive copies all the time, as we must in the "copy on assignment" approach. However, if you are performing more updates than assignments, this approach actually makes _more_ copies, plus it gives you more opportunities to slip up and forget not to mutate the object.
 
+### Python operations that create copies
+
+We've seen that `x + [value]` creates a new list object and that `x.copy()` creates a new list object.
+There are some other common operations that create copies.
+You can use these patterns to avoid mutating reactive values in place.
+
+1. **List comprehensions**:
+   `[x for x in a]` creates a new list with the same elements as `a`.
+   This approach is particularly useful when you need to transform the elements of a list in some way, as in `[x*2 for x in a]`.
+
+2. **Slicing**:
+    `a[:]` creates a new list with the same elements as `a`.
+    This is useful when you need to copy the entire list, or a subset of it.
+
+3. **Star operator**:
+    `[*a, value]` creates a new list with the same elements as `a`, with the additional `value` appended after them.
+    This is an easy way to add a single element to the end or start of a list (`[value, *a]`).
+
+4. **Double star operator**:
+    `{**a, key: value}` creates a new dictionary with the same key-value pairs as `a`, with the additional key-value pair `key: value` added.
+    This is an easy way to add a single key-value pair to a dictionary.
+
 ### Use immutable objects
 
 The third way is to use a different data structure entirely. Instead of list, we will use tuple, which is immutable. Immutable objects do not provide any way to change their values "in place", even if we wanted to. Therefore, we can be confident that nothing we do to tuple variable `a` could ever affect tuple variable `b`.
@@ -112,6 +134,7 @@ The rest of this article demonstrates these problems, and their solutions, in th
 
 This demo app demonstrates that when an object that is stored in a `reactive.value` is mutated, the change is not visible to the `reactive.value` and no reactive invalidation occurs. Below, the `add_value_to_list` effect retrieves the list stored in `user_provided_values` and appends an item to it.
 
+::: {.callout-warning title="Problem: No reactive update" appearance="simple"}
 ```{shinylive-python}
 #| standalone: true
 #| components: [editor, viewer]
@@ -124,7 +147,7 @@ from shiny.express import input, render, ui
 ui.input_numeric("x", "Enter a value to add to the list:", 1)
 ui.input_action_button("submit", "Add Value")
 
-@render.text
+@render.code
 def out():
     return f"Values: {user_provided_values()}"
 
@@ -134,14 +157,17 @@ user_provided_values =  reactive.value([])
 @reactive.effect
 @reactive.event(input.submit)
 def add_value_to_list():
+    # WATCHOUT! This doesn't work as expected!
     values = user_provided_values()
     values.append(input.x())
 ```
+:::
 
 Each time the button is clicked, a new item is added to the list; but the ` reactive.value` has no way to know anything has changed. (Surprisingly, even adding `user_provided_values.set(values)` to the end of `add_value_to_list` will not help; the reactive value will see that the identity of the new object is the same as its existing object, and ignore the change.)
 
 Switching to the "copy on update" technique fixes the problem. The app below is identical to the one above, except for the body of `add_value_to_list`. Click on the button a few times--the results now appear correctly.
 
+::: {.callout-tip title="Solution: Copy on update" appearance="simple"}
 ```{shinylive-python}
 #| standalone: true
 #| components: [editor, viewer]
@@ -154,7 +180,7 @@ from shiny.express import input, render, ui
 ui.input_numeric("x", "Enter a value to add to the list:", 1)
 ui.input_action_button("submit", "Add Value")
 
-@render.text
+@render.code
 def out():
     return f"Values: {user_provided_values()}"
 
@@ -164,13 +190,20 @@ user_provided_values =  reactive.value([])
 @reactive.effect
 @reactive.event(input.submit)
 def add_value_to_list():
+    # This works by creating a new list object
     user_provided_values.set(user_provided_values() + [input.x()])
 ```
+:::
 
 ### Example 2: Leaky changes
 
-Let's further modify our example; now, we will output not just the values entered by the user, but also a parallel list of those values after being doubled. This example is the same as the last one, with the addition of the `@reactive.calc` called `doubled_values`, which is then included in the text output. Click the button a few times, and you'll see that something is amiss.
+Let's further modify our example; now, we will output not just the values entered by the user, but also a parallel list of those values after being doubled. This example is the same as the last one, with the addition of the `@reactive.calc` called `doubled_values`, which is then included in the text output.
 
+In the example below, if you click the button three times, you'd expect the user values to be `[1, 1, 1]` and the doubled values to be `[2, 2, 2]`.
+Click the button below three times.
+What values do you actually get?
+
+::: {.callout-warning title="Problem: Mutating in place" appearance="simple"}
 ```{shinylive-python}
 #| standalone: true
 #| components: [editor, viewer]
@@ -183,9 +216,9 @@ from shiny.express import input, render, ui
 ui.input_numeric("x", "Enter a value to add to the list:", 1)
 ui.input_action_button("submit", "Add Value")
 
-@render.text
+@render.code
 def out():
-    return f"Raw Values: {user_provided_values()}\n" + f"Doubled: {doubled_values()}"
+    return f"User Values: {user_provided_values()}\n" + f"Doubled: {doubled_values()}"
 
 # Stores all the values the user has submitted so far
 user_provided_values =  reactive.value([])
@@ -202,9 +235,16 @@ def doubled_values():
         values[i] *= 2
     return values
 ```
+:::
 
-This is because `doubled_values` does its doubling by modifying the values of the list in place, causing these changes to "leak" back into `user_provided_values`. We could fix this by having `doubled_values` call `user_provided_values().copy()`, or by using a list comprehension (since it creates a new list and leaves the old one alone).
+By the third click, the user input that should be `[1, 1, 1]` is instead `[4, 2, 1]`!
+This is because `doubled_values` does its doubling by modifying the values of the list in place, causing these changes to "leak" back into `user_provided_values`.
 
+We could fix this by having `doubled_values` call `user_provided_values().copy()`.
+Or we can use a list comprehension, which creates a new list in the process.
+The second option is shown below.
+
+::: {.callout-tip title="Solution: Copy with list comprehension" appearance="simple"}
 ```{shinylive-python}
 #| standalone: true
 #| components: [editor, viewer]
@@ -217,9 +257,9 @@ from shiny.express import input, render, ui
 ui.input_numeric("x", "Enter a value to add to the list:", 1)
 ui.input_action_button("submit", "Add Value")
 
-@render.text
+@render.code
 def out():
-    return f"Raw Values: {user_provided_values()}\n" + f"Doubled: {doubled_values()}"
+    return f"User Values: {user_provided_values()}\n" + f"Doubled: {doubled_values()}"
 
 # Stores all the values the user has submitted so far
 user_provided_values =  reactive.value([])
@@ -232,4 +272,28 @@ def add_value_to_list():
 @reactive.calc
 def doubled_values():
     return [x*2 for x in user_provided_values()]
+```
+:::
+
+
+```{=html}
+<style>
+div.callout-tip.callout {
+    border-color: #008471
+}
+
+div.callout-warning.callout {
+    border-color: #fdcb3b
+}
+
+.callout.callout-style-simple {
+    padding: .4em .7em;
+    border-top: 5px solid;
+    border-left-width: 1px;
+}
+
+.callout.callout-style-simple > .callout-body {
+    padding-left: 0 !important;
+}
+</style>
 ```
