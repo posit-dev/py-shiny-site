@@ -78,7 +78,7 @@ While there are lots of ways to develop components with live-feedback (e.g. Stor
 
 2. Run the bundler in watch mode with `npm run watch`. This will watch the `srcts` directory for changes and automatically rebuild the JavaScript when it detects a change.
 
-3. Run the example app in live-reload mode. If you're using VScode, the [Shiny for Python extension](https://marketplace.visualstudio.com/items?itemName=Posit.shiny-python) enables this automatically when pressing the run button above the app script.
+3. Run the example app in live-reload mode. If you're using VScode, the [Shiny extension](https://marketplace.visualstudio.com/items?itemName=Posit.shiny) enables this automatically when pressing the run button above the app script.
 
 Now you can update your component JavaScript/python functions and your app will automatically reload with the changes. Happy developing!
 
