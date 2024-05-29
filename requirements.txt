@@ -1,7 +1,7 @@
 jupyter
 jupyter_client < 8.0.0
 tabulate
-shinylive==0.4.0
+shinylive==0.4.1
 matplotlib==3.8.1
 shiny
 seaborn==0.13.0
