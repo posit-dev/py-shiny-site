@@ -17,10 +17,8 @@ Note that while Shiny modules are analogous to [Python modules](https://docs.pyt
 Python modules are a generic way to organize objects in a namespace, while Shiny modules are used to encapsulate reactive components in a namespace.
 :::
 
-::: callout-warning
-### Shiny core only
-
-Modules are not currently supported in [Shiny Express](express-vs-core.qmd) apps.
+::: callout-note
+Modules are supported in [Shiny Express](express-vs-core.qmd) apps as of version 0.10.0.
 :::
 
 
@@ -34,6 +32,25 @@ Functions also allow you to define local variables within the function's scope, 
 While many people are comfortable using functions in their day-to-day programming activities, they often forget to use them when building user interfaces, but functions are just as powerful in this context as they are in any other.
 To use functions in your Shiny UI, all you have to do is write a function that returns a valid UI element.
 For example, let's imagine you had a bunch of sliders which mostly had the same values:
+
+
+::: {.panel-tabset .panel-pills}
+
+### Express
+
+```{.python}
+from shiny.express import ui
+
+ui.input_slider("n1", "N", 0, 100, 20)
+ui.input_slider("n2", "N", 0, 100, 20)
+ui.input_slider("n3", "N", 0, 100, 20)
+ui.input_slider("n4", "N", 0, 100, 20)
+ui.input_slider("n5", "N", 0, 100, 20)
+ui.input_slider("n6", "N", 0, 100, 20)
+```
+
+### Core
+
 
 ```{.python}
 from shiny import App, ui
@@ -50,19 +67,76 @@ app_ui = ui.page_fluid(
 app = App(app_ui, None)
 ```
 
+:::
+
 This code has a lot of repetition which makes it difficult to manage.
 For example if we wanted to change the maximum value of all of those sliders we would need to make five changes instead of one.
 Instead of tolerating this repetition, we can create a function which returns an `ui.input_slider`, and call that function with different ids.
 You can use this function in combination with list comprehension to further reduce repetition in your code.
 
+::: {.panel-tabset .panel-pills}
+
+### Express
+
 ::: {.panel-tabset}
-### Using a function
+#### Using a function
 
 A simple function cleans up your code, but still requires multiple calls to that function.
 
-```{python}
-#| source-line-numbers: "9-13"
-from shiny import App, render, ui
+```{.python}
+from shiny.express import ui
+
+def my_slider(id):
+    return ui.input_slider(id, "N", 0, 100, 20)
+
+my_slider("n1")
+my_slider("n2")
+my_slider("n3")
+my_slider("n4")
+my_slider("n5")
+```
+
+#### Iterating across a list
+
+List comprehension allows you to apply a ui-generating function to a list of ids.
+
+```{.python}
+from shiny.express import ui
+
+def my_slider(id):
+    return ui.input_slider(id, "N", 0, 100, 20)
+
+ids = ["n1", "n2", "n3", "n4", "n5"]
+
+[my_slider(x) for x in ids]
+```
+
+#### Iterating across two lists
+For more complicated functions you can use the `zip` function to turn multiple lists into a list of tuples which allows you to use list comprehension to generate UI elements.
+
+```{.python}
+from shiny.express import ui
+
+def my_slider(id, label):
+    return ui.input_slider(id, label + " Number", 0, 100, 20)
+
+numbers = ["n1", "n2", "n3", "n4", "n5"]
+labels = ["First", "Second", "Third", "Fourth", "Fifth"]
+
+[my_slider(x, y) for x, y in zip(numbers, labels)]
+```
+
+:::
+
+### Core
+
+::: {.panel-tabset}
+#### Using a function
+
+A simple function cleans up your code, but still requires multiple calls to that function.
+
+```{.python}
+from shiny import App, ui
 
 def my_slider(id):
     return ui.input_slider(id, "N", 0, 100, 20)
@@ -78,12 +152,12 @@ app_ui = ui.page_fluid(
 app = App(app_ui, None)
 ```
 
-### Iterating across a list
+#### Iterating across a list
 
 List comprehension allows you to apply a ui-generating function to a list of ids.
 
 ```{.python}
-from shiny import App, render, ui
+from shiny import App, ui
 
 def my_slider(id):
     return ui.input_slider(id, "N", 0, 100, 20)
@@ -97,11 +171,11 @@ app_ui = ui.page_fluid(
 app = App(app_ui, None)
 ```
 
-### Iterating across two lists
+#### Iterating across two lists
 For more complicated functions you can use the `zip` function to turn multiple lists into a list of tuples which allows you to use list comprehension to generate UI elements.
 
 ```{.python}
-from shiny import App, render, ui
+from shiny import App, ui
 
 def my_slider(id, label):
     return ui.input_slider(id, label + " Number", 0, 100, 20)
@@ -117,96 +191,157 @@ app = App(app_ui, None)
 ```
 :::
 
+:::
+
 ## Why do we need modules?
 
 Using functions in this way is a great way to improve your application code, but it has two main problems.
 First, while we're able to use locally scoped variables within the function, each input or output ID needs to be unique across the entire Shiny application.
 For example, consider this function which returns two UI elements:
 
-```{.python}
-from shiny import App, Inputs, Outputs, Session, reactive, render, req, ui
 
+::: {.panel-tabset .panel-pills}
+
+### Express
+
+```{.python}
+from shiny.express import expressify, input, render, module, ui
+
+@expressify
+def io_row():
+    with ui.layout_columns():
+        ui.input_text("text_input", "Enter text")
+
+        @render.text
+        def text_output():
+            return f'You entered "{input.text_input()}"'
+
+io_row()
+```
+
+### Core
+
+```{.python}
+from shiny import App, render, ui
 
 def io_row():
-    return ui.row(
-        ui.column(6, ui.input_text("text_input", "Enter text")),
-        ui.column(6, ui.output_text("text_output")),
+    return ui.layout_columns(
+        ui.card(ui.input_text("text_input", "Enter text")),
+        ui.card(ui.output_text("text_output")),
     )
-
 
 app_ui = ui.page_fluid(
     io_row(),
 )
 
-
-def server(input: Inputs, output: Outputs, session: Session):
-    @output
+def server(input, output, session):
     @render.text
     def text_output():
-        return f"You entered '{input.text_input()}'"
-
+        return f'You entered "{input.text_input()}"'
 
 app = App(app_ui, server)
 ```
+:::
+
 The `io_row()` function works fine in this case, but if you try to use it more than once, your app will not render properly.
 The reason is that Shiny requires all IDs in the UI to be unique, and if we call this function more than once, there will be several elements with the `text_input` id and several elements with the `text_output` id.
 When that happens, Shiny doesn't know how to connect particular inputs to particular outputs.
 
-To fix this, we can add a `prefix` argument to our function and append that to the ids of all the returned elements.
-So long as each call to the function supplies a unique prefix, the resulting ids will be unique and we will avoid a namespace conflict.
+One possible way to address this is to add a `prefix` argument to our function and append that to the ids of all the returned elements. (Note that this can be done with Shiny Core applications, but is difficult to do with Shiny Express.)
+
+Modules solve these problems by encapsulating both the UI and server logic in their own namespace.
+A module namespace can be thought of as a container for a module's code, and helps to keep the module's variables, functions, and classes separate from those in other modules.
+This separation prevents naming conflicts and makes the code easier to understand and manage.
+A namespace is a unique identifier that Shiny assigns to each instance of a module to keep its input and output IDs separate from the IDs of other instances and from the rest of the Shiny application.
+
+
+
+## How to use modules
+
+There are two sides to modules: creating them, and using them. Each side can be done with Shiny Express or Shiny Core syntax. If a module is written with Core syntax, it can be used in an Express app, and vice versa. In the examples below, we'll create and use a module using the same type of syntax, but they can work interchangeably.
+
+
+::: {.panel-tabset .panel-pills}
+
+### Express
+
+To create a module with Shiny Express, use the `@module` decorator on a function that takes `input`, `output`, and `session` as parameters. It can also accept additional parameters. In the example below, it takes one extra parameter, named `placeholder`.
+
+::: callout-note
+The signature of this function, with `input`, `output`, and `session` is the same as a the server function in a Shiny Core app.
+:::
+
+To use the module, just call the decorated function with a first parameter which is the ID,
+
+```{.python}
+from shiny.express import expressify, module, render, ui
+
+# Define a module function, which takes input, output, and session
+@module
+def io_row(input, output, session):
+    with ui.layout_columns():
+        with ui.card():
+            ui.input_text(f"text_input", "Enter text")
+        with ui.card():
+            @render.text
+            def text_out():
+                return f'You entered "{input.text_input()}"'
+
+# Call the module function with two different namespace IDs
+io_row("first")
+io_row("second")
+```
+
+One thing you might have noticed is that when we call the decorated function, we just pass a namespace ID string to it -- we don't pass in `input`, `output`, and `session`. This is because the `@module` decorator wraps the function so that those three parameters are hidden from the caller, and requires an ID to be passed in.
+
+For example if your function's signature looks like this:
+
+```{.python}
+@module
+def my_module(input, output, session):
+    ...
+```
+
+Then after it's wrapped by the decorator, it looks like this from the outside (but note that `id` is a positional-only parameter):
+
+```{.python}
+def my_module(id):
+    ...
+```
+
+If you want your module to take additional parameters, you can just add them on to the function. In the example below, we've add another parameter named `placeholder`.
 
 ::: {.column-page}
 ```{shinylive-python}
 #| standalone: true
 #| components: [editor, viewer]
 ## file: app.py
-from shiny import App, Inputs, Outputs, Session, reactive, render, req, ui
+from shiny.express import module, render, ui
+
+@module
+def io_row(input, output, session, placeholder=""):
+    with ui.layout_columns():
+        with ui.card():
+            ui.input_text(f"text_input", "Enter text", placeholder=placeholder)
+        with ui.card():
+            @render.text
+            def text_out():
+                return f'You entered "{input.text_input()}"'
 
 
-def io_row(prefix):
-    return ui.row(
-        ui.column(6, ui.input_text(f"{prefix}_text_input", "Enter text")),
-        ui.column(6, ui.output_text(f"{prefix}_text_output")),
-    )
+extra_ids = ["row_3", "row_4", "row_5"]
 
-
-app_ui = ui.page_fluid(
-    io_row("first_row"),
-    io_row("second_row"),
-)
-
-
-def server(input: Inputs, output: Outputs, session: Session):
-    @output
-    @render.text
-    def first_row_text_output():
-        return f"You entered '{input.first_row_text_input()}'"
-
-    @output
-    @render.text
-    def second_row_text_output():
-        return f"You entered '{input.second_row_text_input()}'"
-
-
-app = App(app_ui, server)
+io_row("row_1")
+# Call with a different ID and pass in argument for placeholder
+io_row("row_2", placeholder="Enter second thing")
+[io_row(x) for x in extra_ids]
 ```
 :::
 
-The `prefix` argument effectively creates a namespace for the returned UI ids, and while it works, it's a very awkward way to solve the problem.
-Managing prefixes manually involves a lot of typing and if we forget to append it to one of the ids, we won't get the right behavior.
-The bigger issue is that while we can include any UI elements in this namespace, we have to define the server logic separately, and ensure that we're referring to all the right ids in those rendering calls.
-
-Modules solve both of these problems by encapsulating both the UI and server logic in their own namespace.
-A module namespace is a container that holds a module's code and helps to keep the module's variables, functions, and classes separate from those in other modules.
-This separation prevents naming conflicts and makes the code easier to understand and manage.
-In the context of Shiny modules, a namespace works just like the prefix argument.
-It's a unique identifier that Shiny assigns to each instance of a module to keep its input and output IDs separate from the IDs of other instances and from the rest of the Shiny application.
-
-
-## How to use modules
+### Core
 
 At their core, modules are just functions and so anything you can do with a function you can also do with a module.
-Modules can take any argument, and can return any value to the parent context.
+Modules can take any argument, and can return any value to the caller.
 Modules usually include both UI and server elements which work together to encapsulate a part of your application, and the module UI and server work exactly the same way they do in a regular Shiny application.
 
 The UI part of the module is a function which returns UI elements, and is decorated with the `@module.ui` decorator.
@@ -215,9 +350,9 @@ This decorator sets a default module namespace, so each component created by the
 ``` {.python}
 @module.ui
 def row_ui():
-    return ui.row(
-        ui.column(6, ui.input_text("text_in", "Enter text")),
-        ui.column(6, ui.output_text("text_out")),
+    return ui.layout_columns(
+        ui.card(ui.input_text("text_in", "Enter text")),
+        ui.card(ui.output_text("text_out")),
     )
 ```
 
@@ -225,11 +360,11 @@ The module server function looks just like a Shiny app server function, except i
 
 ```{.python}
 @module.server
-def row_server(input: Inputs, output: Outputs, session: Session):
+def row_server(input, output, session):
     @output
     @render.text
     def text_out():
-        return f"You entered {input.text_in()}"
+        return f'You entered "{input.text_in()}"'
 ```
 
 To use this module in an application, you call the module UI and server functions inside of the application UI and server functions.
@@ -245,23 +380,23 @@ This ensures that the UI and server instances exist in the same namespace, and i
 #| standalone: true
 #| components: [editor, viewer]
 ## file: app.py
-from shiny import App, Inputs, Outputs, Session, module, render, ui
+from shiny import App, module, render, ui
 
 
 @module.ui
 def row_ui():
-    return ui.row(
-        ui.column(6, ui.input_text("text_in", "Enter text")),
-        ui.column(6, ui.output_text("text_out")),
+    return ui.layout_columns(
+        ui.card(ui.input_text("text_in", "Enter text")),
+        ui.card(ui.output_text("text_out")),
     )
 
 
 @module.server
-def row_server(input: Inputs, output: Outputs, session: Session):
+def row_server(input, output, session):
     @output
     @render.text
     def text_out():
-        return f"You entered {input.text_in()}"
+        return f'You entered "{input.text_in()}"'
 
 extra_ids = ["row_3", "row_4", "row_5"]
 
@@ -272,7 +407,7 @@ app_ui = ui.page_fluid(
 )
 
 
-def server(input: Inputs, output: Outputs, session: Session):
+def server(input, output, session):
     row_server("row_1")
     row_server("row_2")
     [row_server(x) for x in extra_ids]
@@ -280,6 +415,8 @@ def server(input: Inputs, output: Outputs, session: Session):
 
 app = App(app_ui, server)
 ```
+:::
+
 :::
 
 Since modules allow you to tie UI and Server code together in the same namespace, you can include arbitrarily complex interactions within your module.
