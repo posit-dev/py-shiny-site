@@ -23,7 +23,7 @@ class QuartoPrint(List[str]):
     def append_shinylive_chunk(
         self,
         files: list[str] | str,
-        language: str = "py",
+        language: Literal["auto", "py", "r"] = "auto",
         **kwargs,
     ):
         if isinstance(files, str):
@@ -31,6 +31,9 @@ class QuartoPrint(List[str]):
             files = []
         else:
             app_file = files.pop(0)
+
+        if language == "auto":
+            language = "py" if app_file.endswith(".py") else "r"
 
         app = ShinyliveApp.from_local(app_file, files, language)
 
