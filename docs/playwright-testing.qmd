@@ -1,0 +1,101 @@
+---
+title: End-to-end Testing using Playwright
+editor:
+  markdown:
+    wrap: sentence
+---
+
+### What are End-to-end Tests?
+
+End-to-end testing for Shiny apps is like checking your app from start to finish, just as a user would.
+
+Imagine you're using your Shiny app. You click buttons, enter data, and see results on a graph or a dashboard. End-to-end tests mimic these actions.
+Instead of manually clicking around, we write code to do this for us. The code interacts with your app like a user, checking if everything works as expected.
+
+#### Benefits
+- End-to-end tests find issues early, like broken links or unexpected behavior.
+- As your app grows, it becomes harder to keep track of all parts. Tests help ensure nothing breaks.
+
+
+### Playwright
+
+***Playwright*** is an open-source library developed by Microsoft. It enables developers to automate browser interactions and perform end-to-end testing of web applications.
+
+Benefits of using Playwright for Shiny App testing
+
+- **End-to-End Testing**: Playwright allows you to simulate real user interactions with your Shiny app, ensuring that the reactive components and user flows work as expected.
+- **Cross-Browser Testing**: Playwright supports multiple browsers like Chromium, Firefox, and Safari(Webkit), enabling you to test your Shiny app's compatibility across different browser environments.
+- **Dynamic wait times** Playwright provides dynamic wait times, automatically waiting for elements to be ready before interacting with them, which eliminates the need for explicit waits and reduces flakiness caused by timing issues.
+
+For detailed information and guidance, check out the [official Playwright documentation](https://playwright.dev/python/).
+
+### Getting started with writing your first end-to-end test
+
+Assume you have a shiny app the doubles the slider value with the code shown below:
+
+```python
+# app.py
+from shiny import render, ui
+from shiny.express import input
+
+ui.panel_title("Hello Shiny!")
+ui.input_slider("n", "N", 0, 100, 20)
+
+
+@render.text
+def txt():
+    return f"n*2 is {input.n() * 2}"
+```
+
+If we want to test that the shiny app works for the following scenario:
+
+1. Wait for the Shiny app to finish loading
+1. Drag the slider to value as `55`
+1. Verify the output text changes to reflect the value of `n*2 is 110`
+
+The test code to test the shiny app to emulate the above scenario would be as following:
+
+```python
+# test_basic_app.py
+from shiny.playwright.controls import OutputText, InputSlider
+from shiny.run import ShinyAppProc
+from playwright.sync_api import Page
+from shiny.pytest import create_app_fixture
+
+app = create_app_fixture("remote/basic-app/app.py")
+
+
+def test_basic_app(page: Page, app: ShinyAppProc):
+    page.goto(app.url)
+    txt = OutputText(page, "txt")
+    slider = InputSlider(page, "n")
+    slider.set("55")
+    txt.expect_value("n*2 is 110")
+```
+
+#### Explanation of the test code:
+
+1. The code starts by importing necessary modules and classes. ***OutputText*** and ***InputSlider*** are classes that represent UI controls in the Shiny application.
+
+2. Defines ***test_remote_basic_app*** function with ***page*** and ***app*** parameters. *page* is an instance of the Page class from the Playwright library, which represents a single tab in a browser, and *app* is an instance of the ShinyAppProc class, which represents the Shiny app being tested.
+
+3. Navigates to the app's URL.
+
+4. Creates instances of ***OutputText*** and ***InputSlider*** for UI elements.
+
+5. Sets the slider value to `55`.
+
+6. Checks if the output text displays `n*2 is 110` as expected.
+
+![](assets/end-to-end-test-workflow.png)
+
+### Using `shiny add test` to create test files for your shiny apps
+
+`Shiny` provides a simple way to create a test file for your shiny app. Just type `shiny add test` in your terminal/console and give the **path** to the app directory along with the **name** of the test file.
+
+```bash
+shiny add test
+
+#TODO - add other lines here
+```
+
