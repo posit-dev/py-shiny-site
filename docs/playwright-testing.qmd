@@ -77,7 +77,7 @@ def test_basic_app(page: Page, app: ShinyAppProc):
 
 1. The code starts by importing necessary modules and classes. ***OutputText*** and ***InputSlider*** are classes that represent UI controls in the Shiny application.
 
-2. Defines ***test_remote_basic_app*** function with ***page*** and ***app*** parameters. *page* is an instance of the Page class from the Playwright library, which represents a single tab in a browser, and *app* is an instance of the ShinyAppProc class, which represents the Shiny app being tested.
+2. Defines ***test_basic_app*** function with ***page*** and ***app*** parameters. *page* is an instance of the Page class from the Playwright library, which represents a single tab in a browser, and *app* is an instance of the ShinyAppProc class, which represents the Shiny app being tested.
 
 3. Navigates to the app's URL.
 
