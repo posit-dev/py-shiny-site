@@ -40,6 +40,30 @@ def txt():
         int(input.txt_box())
     except ValueError:
         return "Please enter a valid number"
+    return f"n*2 is {int(value) * 2}"
+```
+
+This code presents challenges for testing due to its logic being nested within reactive code. To enhance testability, we can extract the non-reactive logic and encapsulate it in a separate function called `double_number`. This approach allows for easier isolation and testing of the core functionality, independent of the reactive framework.
+
+
+```python
+# app.py
+from shiny import render, ui
+from shiny.express import input
+
+ui.panel_title("Double your amount")
+ui.input_text("txt_box", "Enter number to double it below")
+
+
+@render.text
+def txt():
+    if input.txt_box() == "":
+        return "Please enter a number"
+    # check if input is an int or float
+    try:
+        int(input.txt_box())
+    except ValueError:
+        return "Please enter a valid number"
     return f"n*2 is {double_number(input.txt_box())}"
 
 def double_number(value: str):
