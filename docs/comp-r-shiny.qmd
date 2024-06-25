@@ -331,9 +331,9 @@ For the most part you can follow this naming pattern to find the function you're
 
 | R Function                             | Python Equivalent                         |
 |-----------------------------------|-------------------------------------|
-| `observeEvent`                         | `@reactive.effect`                        |
+| `observe`                              | `@reactive.effect`                        |
 | `reactive`                             | `@reactive.calc`                          |
-| `bindEvent`                            | `@ractive.event`                          |
+| `bindEvent`                            | `@reactive.event`                         |
 | `reactiveEvent`                        | `@reactive.calc` with `@reactive.event`   |
 | `observeEvent`                         | `@reactive.effect` with `@reactive.event` |
 | `htmlTemplate`                         | `page_template`                           |
