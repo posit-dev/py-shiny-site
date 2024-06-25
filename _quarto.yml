@@ -84,6 +84,8 @@ website:
             icon: code-square
       - text: "Deploy"
         menu:
+          - text: "Overview"
+            href: docs/deploy.qmd
           - docs/deploy-cloud.qmd
           - docs/deploy-on-prem.qmd
           - docs/shinylive.qmd
