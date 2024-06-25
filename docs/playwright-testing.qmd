@@ -31,6 +31,18 @@ For detailed information and guidance, check out the [official Playwright docume
 
 ### Getting started with writing your first end-to-end test
 
+::: {.callout-important collapse="true"}
+## Prerequisite: Installing Playwright Pytest
+
+`pytest-playwright` is a plugin that integrates ***Playwright*** with the ***Pytest*** framework to facilitate end-to-end testing of web applications.
+
+This can be installed by typing the following command in the terminal
+
+```bash
+pip install pytest-playwright
+```
+:::
+
 Assume you have a shiny app the doubles the slider value with the code shown below:
 
 ```python
@@ -57,7 +69,7 @@ The test code to test the shiny app to emulate the above scenario would be as fo
 
 ```python
 # test_basic_app.py
-from shiny.playwright.controls import OutputText, InputSlider
+from shiny.playwright import controller
 from shiny.run import ShinyAppProc
 from playwright.sync_api import Page
 from shiny.pytest import create_app_fixture
@@ -67,7 +79,7 @@ app = create_app_fixture("remote/basic-app/app.py")
 
 def test_basic_app(page: Page, app: ShinyAppProc):
     page.goto(app.url)
-    txt = OutputText(page, "txt")
+    txt = controller.OutputText(page, "txt")
     slider = InputSlider(page, "n")
     slider.set("55")
     txt.expect_value("n*2 is 110")
@@ -75,7 +87,7 @@ def test_basic_app(page: Page, app: ShinyAppProc):
 
 #### Explanation of the test code:
 
-1. The code starts by importing necessary modules and classes. ***OutputText*** and ***InputSlider*** are classes that represent UI controls in the Shiny application.
+1. The code begins by importing the `controller` module. This module is crucial as it contains the classes that represent various user interface (UI) controllers used in the Shiny application.
 
 2. Defines ***test_basic_app*** function with ***page*** and ***app*** parameters. *page* is an instance of the Page class from the Playwright library, which represents a single tab in a browser, and *app* is an instance of the ShinyAppProc class, which represents the Shiny app being tested.
 
@@ -91,11 +103,41 @@ def test_basic_app(page: Page, app: ShinyAppProc):
 
 ### Using `shiny add test` to create test files for your shiny apps
 
-`Shiny` provides a simple way to create a test file for your shiny app. Just type `shiny add test` in your terminal/console and give the **path** to the app directory along with the **name** of the test file.
+`Shiny` provides a simple way to create a test file for your shiny app. Just type `shiny add test` in your terminal/console and give the **path** to the shiny app file along with the **path** of the test file.
+
+::: {.callout-tip collapse="true"}
+## Naming of the test file
+
+The basename of the test file should start with `test_` and be unique across all test files.
+pytest automatically discovers and runs tests in your project based on a naming convention (files or functions starting with `test_*.py` or ending with `*_test.py`), eliminating the need for manual test case registration. More information about test discovery can be found [here](https://docs.pytest.org/en/8.2.x/explanation/goodpractices.html#test-discovery)
+:::
+
 
 ```bash
 shiny add test
 
-#TODO - add other lines here
+? Enter the path to the app file: basic-app/app.py
+? Enter the path to the test file: ./basic-app/test_app.py
 ```
 
+##### How to Use the Test File
+
+This test file includes all the necessary imports you'll need to run your tests. Follow these steps to interact with the UI elements on the Shiny app:
+
+1. Create instances of Controllers
+
+You need to create instances of controllers to interact with different UI elements in the shiny app.
+
+For example: Interacting with a Slider
+
+To interact with a slider element, create an instance of the ***InputSlider*** controller. Here's how you can do it:
+
+```python
+slider = controller.InputSlider(page, "<id_of_the_slider>")
+slider.set("20")
+slider.expect_value("20")
+```
+Replace <id_of_the_slider> with the actual ID of the slider you want to test.
+
+##### Running the test
+Simply type `pytest` in the root directory of your shiny app file and the playwright framework will automatically run the test file.
