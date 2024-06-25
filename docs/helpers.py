@@ -23,7 +23,7 @@ class QuartoPrint(List[str]):
     def append_shinylive_chunk(
         self,
         files: list[str] | str,
-        language: str = "py",
+        language: Literal["auto", "py", "r"] = "auto",
         **kwargs,
     ):
         if isinstance(files, str):
@@ -31,6 +31,9 @@ class QuartoPrint(List[str]):
             files = []
         else:
             app_file = files.pop(0)
+
+        if language == "auto":
+            language = "py" if app_file.endswith(".py") else "r"
 
         app = ShinyliveApp.from_local(app_file, files, language)
 
@@ -42,10 +45,12 @@ def shinylive_chunk(
     components: Sequence[str] = ("editor", "viewer"),
     viewer_height: str = "400",
     layout: Literal["horizontal", "vertical"] = "horizontal",
+    language: Literal["py", "r"] = "py",
 ):
+    lang = "python" if language == "py" else "r"
     block = QuartoPrint(
         [
-            "```{shinylive-python}",
+            f"```{{shinylive-{lang}}}",
             "#| standalone: true",
             f"#| components: [{', '.join(components)}]",
             f"#| layout: {layout}",
@@ -80,9 +85,10 @@ def _include_shiny_folder(
     folder_path = Path(__name__).parent / path
 
     # Start with the header
+    lang = "python" if file_name.endswith(".py") else "r"
     block = QuartoPrint(
         [
-            "```{shinylive-python}",
+            f"```{{shinylive-{lang}}}",
             "#| standalone: true",
             f"#| components: [{', '.join(components)}]",
             "#| layout: horizontal",
@@ -230,10 +236,11 @@ def express_core_preview(
             continue
 
         sl_app = ShinyliveApp.from_local(app_file, files, language)
+        lang = "python" if language == "py" else "r"
 
         block.append("### " + tab_name)
         block.append(
-            '```{.python .code-overflow-scroll shinylive="' + sl_app.to_url() + '"}'
+            f'```{{.{lang} .code-overflow-scroll shinylive="{sl_app.to_url()}"}}'
         )
         block.append_file(app_file)
         block.extend(["```", ""])
