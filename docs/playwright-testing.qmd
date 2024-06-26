@@ -89,11 +89,11 @@ def test_basic_app(page: Page, app: ShinyAppProc):
 
 1. The code begins by importing the `controller` module. This module is crucial as it contains the classes that represent various user interface (UI) controllers used in the Shiny application.
 
-2. Defines ***test_basic_app*** function with ***page*** and ***app*** parameters. *page* is an instance of the Page class from the Playwright library, which represents a single tab in a browser, and *app* is an instance of the ShinyAppProc class, which represents the Shiny app being tested.
+2. Defines ***test_basic_app*** function with ***page*** and ***app*** parameters. *page* is an instance of the Page class from the Playwright library, which represents a single tab in a browser, and *app* is an instance of the `ShinyAppProc` class, which represents the Shiny app being tested.
 
 3. Navigates to the app's URL.
 
-4. Creates instances of ***OutputText*** and ***InputSlider*** for UI elements.
+4. Creates instances of `OutputText` and `InputSlider` for UI elements.
 
 5. Sets the slider value to `55`.
 
@@ -133,14 +133,14 @@ This test file includes all the necessary imports you'll need to run your tests.
 
 For example: Interacting with a Slider
 
-To interact with a slider element, create an instance of the ***InputSlider*** controller. Here's how you can do it:
+To interact with a slider element, create an instance of the `InputSlider` controller. Here's how you can do it:
 
 ```python
 slider = controller.InputSlider(page, "<id_of_the_slider>")
 slider.set("20")
 slider.expect_value("20")
 ```
-Replace <id_of_the_slider> with the actual ID of the slider you want to test.
+Replace `<id_of_the_slider>` with the actual ID of the slider you want to test.
 
 ##### Running the test
 
@@ -163,8 +163,8 @@ asyncio: mode=strict
 
 Each test inside the file is shown by a single character in the output:
 
-- **.** for passing
-- **F** for failure.
+- `.` for passing
+- `F` for failure.
 
 
 For more information about the testing methods available to the user, read the reference documentation about shiny testing API [here](https://shiny.posit.co/py/api/testing/).
