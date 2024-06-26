@@ -100,6 +100,8 @@ website:
             href: api/express/index.qmd
           - text: "Shiny Core"
             href: api/core/index.qmd
+          - text: "Testing"
+            href: api/testing/index.qmd
     tools:
       - icon: discord
         href: https://discord.gg/yMGCamUMnS
@@ -255,6 +257,10 @@ website:
           contents:
             - docs/modules.qmd
             - docs/module-communication.qmd
+        - section: "Testing"
+          contents:
+            - docs/testing.qmd
+            - docs/playwright-testing.qmd
         - section: "Extending"
           contents:
             - docs/custom-component-one-off.qmd
