@@ -183,7 +183,7 @@ app = App(app_ui, server)
 
 ## file: modules.py
 import pandas as pd
-from shiny import Inputs, Outputs, Session, module, render, ui, module
+from shiny import Inputs, Outputs, Session, module, render, ui
 
 
 @module.ui
