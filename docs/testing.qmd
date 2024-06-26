@@ -1,0 +1,120 @@
+---
+title: Unit testing
+editor:
+  markdown:
+    wrap: sentence
+---
+
+Testing Shiny apps is important to ensure the shiny app functions as expected and to catch any bugs or errors before deployment. It helps maintain code quality, user experience, and prevents potential issues from reaching the end-users.
+
+### pytest
+
+For the example below, we will use ***pytest*** as the test framework for running our unit tests. pytest is a popular, open-source testing framework for Python. It is designed to simplify the process of writing, organizing, and running tests for Python applications and libraries.
+
+More information about ***pytest*** can be found [here](https://docs.pytest.org/en/8.2.x/contents.html).
+
+::: {.callout-tip collapse="true"}
+## Auto discovery for tests
+
+pytest automatically discovers and runs tests in your project based on a naming convention (files or functions starting with `test_*.py` or ending with `*_test.py`), eliminating the need for manual test case registration. More information about test discovery can be found [here](https://docs.pytest.org/en/8.2.x/explanation/goodpractices.html#test-discovery)
+:::
+
+
+Given a shiny app that has the following code that doubles the number for any input that a user provides.
+
+```python
+# app.py
+from shiny import render, ui
+from shiny.express import input
+
+ui.panel_title("Double your amount")
+ui.input_text("txt_box", "Enter number to double it below")
+
+
+@render.text
+def txt():
+    if input.txt_box() == "":
+        return "Please enter a number"
+    # check if input is an int or float
+    try:
+        int(input.txt_box())
+    except ValueError:
+        return "Please enter a valid number"
+    return f"n*2 is {int(value) * 2}"
+```
+
+This code presents challenges for testing due to its logic being nested within reactive code. To enhance testability, we can extract the non-reactive logic and encapsulate it in a separate function called `double_number`. This approach allows for easier isolation and testing of the core functionality, independent of the reactive framework.
+
+
+```python
+# app.py
+from shiny import render, ui
+from shiny.express import input
+
+ui.panel_title("Double your amount")
+ui.input_text("txt_box", "Enter number to double it below")
+
+
+@render.text
+def txt():
+    if input.txt_box() == "":
+        return "Please enter a number"
+    # check if input is an int or float
+    try:
+        int(input.txt_box())
+    except ValueError:
+        return "Please enter a valid number"
+    return f"n*2 is {double_number(input.txt_box())}"
+
+def double_number(value: str):
+    return int(value) * 2
+```
+
+If you want to test the logic of a function that doubles a number, you can create a test file named `test_double_number.py`. This file will contain the necessary code to verify that the function works as expected.
+
+```python
+# test_double_number.py
+
+from app import double_number
+
+def test_double_number():
+    assert double_number("2") == 4
+    assert double_number("5") == 10
+    assert double_number("10") == 20
+    assert double_number("0") == 0
+    assert double_number("-5") == -10
+```
+
+To run the test, you will simply type `pytest` in your terminal. `pytest` will automatically locate the test file and run it with the results shown below.
+
+```bash
+platform darwin -- Python 3.10.12, pytest-7.4.4, pluggy-1.4.0
+configfile: pytest.ini
+plugins: asyncio-0.21.0, timeout-2.1.0, Faker-20.1.0, cov-4.1.0, playwright-0.4.4, rerunfailures-11.1.2, xdist-3.3.1, base-url-2.1.0, hydra-core-1.3.2, anyio-3.7.0, syrupy-4.0.5, shiny-1.0.0
+asyncio: mode=strict
+12 workers [1 item]
+.          [100%]
+(3 durations < 5s hidden.  Use -vv to show these durations.)
+```
+
+If the logic in the `double_number` is erroneous, and instead it triples the number, the test will catch it by showing the difference as shown below
+
+```bash
+======================================================= test session starts =======================================================
+platform darwin -- Python 3.10.12, pytest-7.4.4, pluggy-1.4.0
+configfile: pytest.ini
+plugins: asyncio-0.21.0, timeout-2.1.0, Faker-20.1.0, cov-4.1.0, playwright-0.4.4, rerunfailures-11.1.2, xdist-3.3.1, base-url-2.1.0, hydra-core-1.3.2, anyio-3.7.0, syrupy-4.0.5, shiny-1.0.0
+asyncio: mode=strict
+12 workers [1 item]
+F       [100%]
+======= FAILURES =======
+________ test_double_number ________
+
+    def test_double_number():
+>       assert double_number("2") == 4
+E       AssertionError: assert 6 == 4
+E        +  where 6 = double_number('2')
+
+```
+
+The tests mentioned earlier are suitable for testing non-reactive functions. However, when it comes to testing the reactivity of a Shiny app, we need to leverage a different approach. In this case, we can use ***Playwright*** to automate browser interactions and perform end-to-end testing of web applications.
