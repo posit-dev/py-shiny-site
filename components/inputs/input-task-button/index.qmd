@@ -1,0 +1,103 @@
+---
+title: Input Task Button
+sidebar: components
+appPreview:
+  file: components/inputs/input-task-button/app-preview.py
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/input-task-button/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACKAZ2wkJuJZYDELADzCAOhDoNmLACZQKZOnAkSAZo2IwW7ABY0I2FlKatGcKISUA3FRA1ad+wxjgAPVOfbtj9Uy3MIWThGPGMIVABXMjDImlUICQABQODGDAo3MglgtRZCSMZAsgB9JXgACgBKRAl+fnNLGzgMA2soABsaeQoSjoUQioBGKrr68rgS9jJGFgBeOQGJjB64ZYhiAHdqjGnGNQmKsTAAUgAJRBOAWUuAZRYT1GPRiHqAtcLXtWOAFV04FgTYzsMIgCZTGYAX2OCQkcQwukY1QS8IMUVKZA4AGsSgAjaJkUhHMC4siJfAsY63ACOkSg5hYAFYdB0th1sM9+EJRLCIEl4biDLIyti8QSifiyISICVunNjqTyVUuSJxHzGlYaLZXFlKMFhZj2FiVTzoJxuHI4Hl2NSSu0OpE4OwKm4aia1W8oJsoDRWBwuDxiLsOnA4KgKgAmZWCVVjBofRivNwAKmTEfdvJSFk12qtajgVgz6uzzVctnIFTR0Qwiuj3LVuRYipKhC6hCx1UQRbeNrtnUdzsZddjiVHWaCIQy7myE+t1M7cfeZE+OhmFV79oHGC8kQ6ZGqLzAkIAukA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACKAZ2wkJuJZYDELADzCAOhDoNmLACZQKZOnAkSAZo2IwW7ABY0I2FlKasAgujwsAkhFQBXMuysB5Rw6dWAynHbteEFaMcFCESgBucEGUsnCMVvY0qtDoAPqJLAC8LIlYUADmcKlqADaJsgAUEvz8uahVYAAqunAsSvDG7Cxi+Dk0GMTujqkUAB5kDYT2jMHkI8o9VgYlBnCZjYz2cACU23jVNbm6jBV7B7X9Bh4jHADWqQBGjmSkDQ9kEIvdYF4AjvZQYIsACsOhKxAA7iVsD09vwhKJzn0BkMyCM4OMGuxfrD9hBtskJLE1Do4pETldHIgbHZHM4WIMyB5qW4mXSrOxfP5SNSfH4AttEMkaiwAAKzWKMDBjMhI4ksKYzSho9pwU5CiAikXBUIROAYAzhKAreQUVIlBRxCoARgJmq1-GCZGmmtNcFVGDdHogkNOGHYZEYalVDQApAAJRChgCyUa8LFDqFhwpqotyDwMshu7HuTzILwgFTzBdSNFkmR670+YG28JE4nt-HFITCNEiGAxFAgsSzZDudcRjbYnG4cjgJOxqSNZTVo0FA4bDv4UAhUBorA4XB4xH9JTgcHqACZa4J60jte6XSxRgAqG+Hhcpps61vt8dqOBhR9D5u6tv6uBInICpKTIDAqxPBFFxqeUq1SQgVkIW51XPGpJ2nLYKmBSCz0+H8JTiaVOzlccdF+FChwvZ1GE1NQelBbEAWCWROmpEAAxOdDjS2DBgnYewSgmXYAF8ekJFJUCyFgLHqNBUHSGgOTJOI7TAYSAF0gA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.input_task_button
+    href: https://shiny.posit.co/py/api/ui.input_task_button.html
+    signature: ui.input_task_button(id, label, *args, icon=None, label_busy='Processing...', icon_busy=MISSING, width=None, type='primary', auto_reset=True, **kwargs)
+  - title: reactive.extended_task
+    href: https://shiny.posit.co/py/api/reactive.extended_task.html
+    signature: reactive.extended_task(func=None)
+  - title: reactive.event
+    href: https://shiny.posit.co/py/api/reactive.event.html
+    signature: reactive.event(*args, ignore_none=True, ignore_init=False)
+  - title: reactive.effect
+    href: https://shiny.posit.co/py/api/reactive.effect.html
+    signature: reactive.effect(fn=None, *, suspended=False, priority=0, session=MISSING)
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/inputs/input-task-button/
+  contents:
+  - title: Input task button with inputs and interactivity
+    description: Here's an application that shows how the input task button can perform non-blocking computations.
+        It will take in 2 inputs to add together in a slow computation and you will will be able to move the slider
+        to make histogram modifications and see the time increment during the computation time.
+    apps:
+    - title: Preview
+      file: app-variation-input-task-button-multi-core.py
+    - title: Express
+      file: app-variation-input-task-button-multi-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACKAZ2wkJuIB0IdBsxYATKBTJ04AgUKasYE1ABtiZFTQBGWbKvVt2LVWTn0FLCAFd62Q5dSyIAM0bEYLdgAsaEO-JFGOChCKQA3GRc3D29fbAw4AA9UIPYjANYgiFE4RjwWX1QrMnyrGicyjELigH1reEYaQgAKPjBEtvy2jvwWMKgVKzgAXgBWAEo8AUrqshqyDgBrGq1islJWsC0yCE6WNoBlAEcrKCDLGy1czzUAdxVsNvGnAQABSq1fUXmllbWN1ZkdYQGo0UTDNrbXZgZ4QV5BELhOAJRIUbJwb4LdiLAQcLiEMRwZyeI41fqDODsZqJcaIAQsBlsW5QGisPHcXgYdgqOBwVDNCb0xlBMhWRgQFiJABUUoATC84QjQjQIglnM44KE3kqkQkIuRmrMMFDYTliVCaoRNIRFs1aUKGexSeShlSjYk7bCnPDKDlGBgKKiBGaSXa6RLhXBReLPGRGM0nWSBq6MKkrCoyJ6FZUvPGvdYaFhNgB1Hw8lgkejFXwAc3yZC8cBYUngLCsqHEFCMUGyLGwxCsFZ7sZoKhUBXIuURLFurK8zcbLB87HWNcYsAwTwVPvR-sDpnRxMIYqycxbcDDDpYOpVyN85LBEjgNRUT-jAEZYYyxHMV4wWMMYhPueGCdlG0gYBAxC3HaXJxs456bAApAAEogSEALLoQcLBIY4MJXiKYoSs4bQACqLueBRGCAoi-nGAC+bTZoWsw1NyYK5Js0JdGAABylzXMQxLEFo7C5P0UikOwewwL4wwAAz5EoiTDO+CkafkLojKMGmTNuWR+lgaiZgMZAQmAACCS40CuxBrrAW6HsYJmXhGDIQJg67ZO4XK8qIzTvgAnAAbAAHApEWfleiQASw6kKSwADU8WjCwUoOKmPaiL53miBAhqecUkFZu5LDODQdZsLFgEmFyVhaPoZBUl+jJQIkGDLpmiT5J8EDsMMADMSmEv1rLYMMZGMEMrUMkRMYVTWAhgAxAC6QA
+    - title: Core
+      file: app-variation-input-task-button-multi-core.py
+      shinylive: https://shinylive.io/py/app/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACKAZ2wkJuIB0IdBsxYATKBTJ04AgUKasYE1ABtiZFTQBGWbKvVt2LVWTn0FLCAFd62Q5dSyIAM0bEYLdgAsaEO-JEAQXQ8FgBJCFQrMnZQgHloqJjQgGU4dnZeCFDGOChCKQA3OBzKUThGUKsaJzRUAH1qlgBeFmqsKABzOHrnFWrRAAoBFlG2mgxfJPrreEYaQmGwAA8+fBY11fXCqH64ZoBWAEo8EbH2qej6sg4Aa3qtaLJSJa0yCDXQtZSARysoXKWGxaCqeNQAdxU2DWJzOo3axESVwoyzIS3YPxhpwgY3GGC8jEGsJx5wmqGGJNxozWAHUfCo4CwSPRor5OqEyF5GVJ4G1UOIKEYoBBRCxsIimcLPFIVCoWL4KIx8qxwTROSxOYyfOxnp0lTAMGs4Sxibj2uS1gAVLka6TyoyfPGIsjTFFotaEKyMXLka7SR2+TQQfaWxhWOBHU2kyaRK7sTTlQlrD7rNYAOWBoOIzhYxC07AqOykpHYjpgvmaAAZQkpls0AIyVpuhHZ7Q5NqPwibO6b6d1gPtYgRHJwCco5guMYqEy5kRDhWPJXNIucsBIu6KxTzpTKkedpDJZI6IY0AAR9iawajRuzIzTWgRY2t1+phxvHxmvRJPlKpkQwSoiu4GAFnAQz1gAnAAbAAHJWcH1iOv64ssLQsI2lYsAA1OhBwsAAVA4AHCqIwGAaIECDLOGCUZGxq4s4NDsmwqGtCYIFWFofbsES9FjFAyz4jQOqDMsoRaL47DNAAzNWYiUJkZDYM0obhkhVJjLkZBejijGdE4uLnmUFQYG675wDmnrepQZB+vA358aMuTKjQxQxq2NACj0KgSBUgyIY5LBaTpYi+TycAYF54U0cQ4JEiBZCMM44VLAApAAEogqUALJZSkLCpY4YBIWe7QSSK1x3A8TwvI8ZDPBA9SefeYBvCm6ljEZLluXAqLGaIlXsLcxocFwhDyROPz1K24Y8csx6BVA4JQGqhhjbwIEMnA5LHIFwWMDiyz4fhABMBmdc5BSuRFFnOHABRnpdRQ3cU5BUYuGBtR1owfm19SEJohC3A5yFjBi027LN71JBgyxEiVv5GSKJlmb+H4YiDGlOXA2kHdKhLgzN6QAekVgqGidEfFTdRocE5J1I0NChJO05IWAAC+AC6QA
+
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+The input task button is a special kind of button that allows long computations to not block
+the behaviour of the rest of the application.
+It looks very similar to the `ui.input_action_button()`, but uses the `ui.input_task_button()` function instead.
+
+An input task button appears as a button and makes a computation asynchronously.
+
+Follow these steps to add an action button to your app, perform a task, capture the result, and display the result:
+
+1. Add `ui.input_task_button()` to the UI of your app to create an input task button.
+   Where you call this function will determine where the button will appear within the app's layout.
+
+2. Specify the `id` and `label` parameters of `ui.input_task_button()` to define the button's identifier and label.
+
+3. Use one of the `ui_output_*` functions to capture the computed result, here we are using `ui.output_text()`.
+
+The input task button component can trigger a computation within the `server()` function.
+
+There are 2 main parts of the input task button in the `server()` function,
+a function that is called when the button is clicked (this is similar to the `ui.input_task_button()` component),
+a separate function that defines any long computation you wish to perform asynchronously
+(this is specific to making `ui.input_task_button()` making an asynchronous calculation).
+
+To create the function that is called when the button is clicked:
+
+1. Create a function that will be run when the `ui.input_task_button` is clicked.
+2. Decorate this function with the `id` used in your ui.input_task_button(), i.e., `@reactive.event(input.<input_task_button_id>)`, this will make sure the function will only run when the button is clicked.
+3. Add a second decorator, on top, `@reactive.effect`
+4. In the body of the button click function, make a call to another function that you will use to make the long computation.
+
+To create the separate function that makes the asynchronous computation:
+
+1. Import the built-in Python `asyncio` module
+2. Define a function that will be called in the button click step using the `async` and `await` syntax
+   See the [coroutines and tasks](https://docs.python.org/3/library/asyncio-task.html) official Python documentation
+   for details.
+3. Return the calculated result in the function.
+
+To learn more, you can read this article about
+[non-blocking operations](https://shiny.posit.co/py/docs/nonblocking.html).
