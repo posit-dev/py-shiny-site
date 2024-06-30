@@ -74,7 +74,7 @@ from shiny.run import ShinyAppProc
 from playwright.sync_api import Page
 from shiny.pytest import create_app_fixture
 
-app = create_app_fixture("remote/basic-app/app.py")
+app = create_app_fixture("../app.py")
 
 
 def test_basic_app(page: Page, app: ShinyAppProc):
