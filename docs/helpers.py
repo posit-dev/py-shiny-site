@@ -207,43 +207,57 @@ def shinylive_app_preview(
 
 
 def express_core_preview(
-    app_express: str | None = None,
-    app_core: str | None = None,
-    files: list[str] | str | None = None,
-    div_attrs=".shiny-mode-tabset",
-    group="shiny-app-mode",
-    language="py",
-    **kwargs,
+    app_express: str,
+    app_core: str,
+    div_attrs: str = '.shiny-mode-tabset  group="shiny-app-mode"',
 ) -> None:
-    if app_express is None and app_core is None:
-        return
+    app_preview_code(
+        {
+            "Express": app_express,
+            "Core": app_core,
+        },
+        div_attrs=div_attrs,
+    )
 
-    if files is None:
-        files = []
-    elif isinstance(files, str):
-        files = [files]
 
-    header_attrs = ".panel-tabset"
-    header_attrs += " " + div_attrs if div_attrs else ""
-    header_attrs += f" group='{group}'" if group else ""
+def app_preview_code(
+    app_files: str | dict[str, str],
+    files: list[str] | str | None = None,
+    language: Literal["auto", "py", "r"] = "auto",
+    div_attrs: str = "",
+) -> None:
 
-    block = QuartoPrint(["::: {" + header_attrs + "}"])
+    is_tabset = isinstance(app_files, dict)
 
-    apps = zip([app_express, app_core], ["Express", "Core"])
+    if is_tabset:
+        div_attrs = ".panel-tabset " + div_attrs
 
-    for app_file, tab_name in apps:
-        if app_file is None:
-            continue
+    block = QuartoPrint(["::: {" + div_attrs + "}"])
 
-        sl_app = ShinyliveApp.from_local(app_file, files, language)
-        lang = "python" if language == "py" else "r"
-
-        block.append("### " + tab_name)
-        block.append(
-            f'```{{.{lang} .code-overflow-scroll shinylive="{sl_app.to_url()}"}}'
-        )
-        block.append_file(app_file)
-        block.extend(["```", ""])
+    if not is_tabset:
+        _add_code_chunk(block, app_files, files, language)
+    else:
+        for x in app_files:
+            block.append(f"## {x}")
+            _add_code_chunk(block, app_files[x], files, language)
 
     block.append(":::")
     print(block)
+
+
+def _add_code_chunk(
+    block: QuartoPrint,
+    file: str,
+    files: list[str] | str | None = None,
+    language: Literal["auto", "py", "r"] = "auto",
+):
+    if language == "auto":
+        language = "py" if file.endswith(".py") else "r"
+
+    sl_app = ShinyliveApp.from_local(file, files=files, language=language)
+
+    lang = "python" if language == "py" else "r"
+
+    block.append(f'```{{.{lang} .code-overflow-scroll shinylive="{sl_app.to_url()}"}}')
+    block.append_file(file)
+    block.append("```")
