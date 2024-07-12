@@ -14,10 +14,10 @@ listing:
     height: 500
   - title: Express
     file: app-express.py
-    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbDOAD1R04LFkw4xUxOmSYBXDgB0ISgMRMAynBktGcDZ25NUUAOZ7iqMh1Isl8rKbgB9C2RYAKJU29MrZADZwALwKYAAScP7+xPpc2EwAwmxQZKF4Xj40HFFQAEaBQQAqdLJw6RA+TFk5+c4wxLnZwcWl5QCUSqqJQil6UEwA7pEk8EzwIo5KQ-4jekFyHBgwUHQA1gAmxAMQnhU+oQdgGd5hHACETIWcohyi-SziqIGxhgAGSSmvTACqAJIYTAAouQ4HQmP1xixHExcpEtuCIOsmL9Btl-MdWI9-PEhKg4CkxDJclBCKtfDFsMRZACAGJSMZSPT8WBPYR4VhwPRka4Y4A0Yj+dagpjEGhMZkSQIsAC67jYZDIqBYiAA9CqTBxubJchgRirJA8yABaIUAN312CN7DiKrIQjgKuWXBVEtZLBVhGSZDaGAxhwOEA6yggagSPQo4KYnoJXBYZCgEEIcCU0Zk83sHzIu0qHHWISIXrSGMhjhYQWA01m0vanRDTAAIrcnlB4pqU16MPJ3EHa2p63AshA+lGoFFiaTyUwShUBmxKL453IWMKWNqYJq7mNhFCzEoAAKpjCkJyyZd0Jyr3Lr1LQFjYRNMIVipzdxAYtQAcS0C70qa3EzMFhfT2bwS0Aph5kPMDhG7d9LmwVAOEIUdsSYSlZAAciRYwRH-HdhEnBMmAAGWIgBZKp6SEFhJAgZcmDMIc6BSawIHKSo1FyWQZH5MFuVucU+BZQJ2SGDCoiYAArU8ZDgT0Ym5PRT1BDCbggVBuIxZSwXmaCWGAI0AEZpWAUISBBchQmlOCAEF0EoJF+mo2j6LIBTF1TDEoAGKBNSjDs0DxREnGg9waFCABNKlWF89ZECYEBtIAX1CIMwCS6UgA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbDOAD1R04LFkw4xUxOmSYBXDgB0IS+VigBzOAH1iqMiwAUSpiaZkOZADZwAvArAAJOJcvEmAZU7cmAYTZQyezxjUxoOFygAI2sbABU6WThgiFMmMIjo7RhiSPDbeMTkgEolJQBiXyEAuCYoJkJ-GS4WMigIQhq2gBMmLo4WVEsobDFA9samGzkODD8Agw4uuyJG+yKTCoAeTaUGgIx5A3WmLZ3lc4qAETgwiE76qBdIqEIAazM3BJSAdzZKMz+chYcDorFkkRgFlEdXgIg0cCUAAE9mQMKQtLJgXQtCxwZCZCcmNslFAWNh2r0bkwtEdEBsiWdUhV3OJBiM4A03GRAZiQQByURcVCyGTPN4fAFwGAhExQb5QCz1RoYNCoShdLSwljwgw0ewATWIslYCq6dJAKIOWK0QpFRwAvmt6cSIGB7QBdIA
   - title: Core
     file: app-core.py
-    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpocANkagAjI3AAUcpnc3aIcI0rIcylm2AASzo8SYAZU5uJgBhNigyGTAASjxbe2kMQkiyFQ4vVKiY+MS7QxNzSyUYYjNjODUAFTpJOASIWLk5AGJwujgouCYoJgB3ZxJ4JngWFl04OUGjYZ6NZJgoOgBrABNifogbCHsmGIOwfKZvDgBCJmrOFl4bvpY+VEsgkJ4AAwiot6YAVQBJDBMACi5DgdF6ozg40mTDMzk2vQgayYfwGxiMxwe-CMPE6qC6wncsKghBWTDIAWwxEkgIAYoJRoIenAAB6wJ5QiQsOA9MjXY7AGjEIxrMFMYg0Jis9mWFgAXSsbDIZFQLEQAHp1Tp3GxJGYUox1QIHmQALSigBuRuwpvYXGw6rInTg6qWXHV0uxUPV2TIsQwx0OByaLXkSLgku5dAtYKsXFQkj9iGOvvUDk+ZDjazUMV9MQkYwmehYamAMzmcuaYb27QAIhGuD0+oQoCYzCSyRSmHVdv02JRyf2pFHWHqYO47pDoXpjgABX0YUgqKNKFhj9zHKAsbAQQhMUWSpRWWLJ3Z7eztADicGEfJ6qcLkxYAbP56nRahaYXj+Lx+ONcubBUA4FsTB4KlJAAcmRVAtxuH9Py7KBdgAGRQgBZJghXBToWAECBuSYPQnDoKIOFIRo3zsdozETLCGT5Dgbk9DkJEGSCTCYAArSQWGEOBUgCO9hzBSCbnjRN-ySEcNAQlhgFNABGOVgFzUgKHIGI5Sk6jRHQShkT6XD8MIrthLzV9zygfooCJBdFAM0ooQ-KwaBiABNalWFstZECYEBeLBABfXJQwUdA0zEVArEUDIuTBGM6CrMAgrlIA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpocANkagAjI3AAUcpnc3aIcI0rIcylm2AASzo8SYAZU5uJgBhNigyGTAASjxbe2kMQkiyFQ4vVKiY+LsAYiYAHiLEu0MTc0slGGIzYzg1ABU6STgEiFi5bogAEzgaVjg6ADdhqy5USTJYxDKmQrC6OCi4JigmbOEuFjIoCEI1-d6mXo4WVFMed3mt9QcIqInetRit3ILi0oh7TbSMaRWWKfEo9X6FAAiAy4R02UBMZighAA1kwyAFWj8AO5sSho3FSFjDViSMwwdwsdZMeAsFi6ODzAACWwwpBURLoShYpPJwgWX3mUBY2AOpwGTCUQMQIO+v3BQT4lx4cFSATIBMkHIA5JTJtMmIiUWi1biYPNflAsVB3H8ohhFJRejU4LT6VYaDEAJrESSsa29aUgFma4ZKPVkIEAXw+-NB8njinuYlQVkUGQkHLGdC6EDAkYAukA
 - id: relevant-functions
   template: ../../_partials/components-detail-relevant-functions.ejs
   template-params:
@@ -281,12 +281,10 @@ So, although you _can_ do `chat.messages(transform_assistant=True)`, what you mi
 :::
 
 
-## Retrieval-augmented generation (RAG)
+## Transforming user input
 
-RAG is a common and useful technique for "more advanced" generative AI.
-Boiled down its core, this means taking user input, applying some kind of transformation to it, and then using that transformed value to generate a response.
-A basic example might be to take the user input, prepend a "Translate this to French: " to it, and then use that as the input to a translation model (although, a system message might be more appropriate in this case, but you get the idea):
-
+Transforming user input before passing it to a generative AI model is a fundamental part of more advanced techniques like retrieval-augmented generation (RAG).
+An overly basic transform might just prepend a message to the user input before passing it to the model.
 
 ```python
 chat = ui.Chat(id="chat")
@@ -296,15 +294,14 @@ def _(input: str) -> str:
     return f"Translate this to French: {input}"
 ```
 
-
-A more realistic example might be to allow the user to enter a URL to a website, and then pass the content of that website to the LLM along with [some instructions](#system-messages) on how to summarize or extract information from it.
+A more compelling transform would be to allow the user to enter a URL to a website, and then pass the content of that website to the LLM along with [some instructions](#system-messages) on how to summarize or extract information from it.
 For a concrete example, this template allows you to enter a URL to a website that contains a recipe, and then the assistant will extract the ingredients and instructions from that recipe in a structured format:
 
 ```bash
 shiny create -g https://github.com/posit-dev/py-shiny/tree/main/examples/chat/RAG/recipes
 ```
 
-![](/images/chat-code.png){class="rounded shadow"}
+![](/images/chat-recipes.mp4){class="rounded shadow"}
 
 In addition to providing a helpful startup message, the app above also improves UX by gracefully handling errors that happen in the transform.
 That is, when an error occurs, it appends a useful message to the chat and returns `None` from the transform.
@@ -320,3 +317,8 @@ async def try_scrape_page(input: str) -> str | None:
         )
         return None
 ```
+
+
+The default behavior of `chat.messages()` is to apply `transform_user_input` to every user message (i.e., it defaults to `transform_user="all"`).
+In some cases, like the recipes app above, the LLM doesn't need _every_ user message to be transformed, just the last one.
+In these cases, you can use `chat.messages(transform_user="last")` to only apply the transform to the last user message (or simply `chat.user_input()` if the model only needs the most recent user message).
