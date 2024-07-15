@@ -539,7 +539,7 @@ shiny create -t dashboard
 ## Development workflow
 
 See the [workflow](install-create-run.qmd) section for more information developing Shiny apps locally.
-Also keep in mind you can develop apps in the browser using the [playground](/playground).
+Also keep in mind you can develop apps in the browser using the [playground](https://shinylive.io/py/examples/).
 :::
 
 
