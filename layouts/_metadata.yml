@@ -1,7 +1,7 @@
 sidebar: layouts
 format:
   html:
-    css: 
+    css:
       - /components/_partials/components.css
       - _partials/layouts-list.css
     toc: false
@@ -10,5 +10,6 @@ format:
 filters:
   - quarto
   - line-highlight
-  - shinylive 
- 
+  - shinylive
+
+repo-actions: false
