@@ -10,3 +10,4 @@ filters:
   - quarto
   - line-highlight
   - shinylive
+repo-actions: false
