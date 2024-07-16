@@ -9,7 +9,7 @@ With Shiny, you can create a wide variety of user interfaces (UI), including das
 Here, we'll use the following dashboard as motivation to learn about some important UI components (e.g., [cards](#cards), [value boxes](#value-boxes)) and layouts (e.g., [columns](#multi-column-layout)).
 
 
-![A Shiny dashboard with visuals for exploring restaurant tips (see [here](#altogether-now) for the code).](assets/tipping-dashboard.png){class="img-shadow"}
+![A Shiny dashboard with visuals for exploring restaurant tips (see [here](#all-together-now) for the code).](assets/tipping-dashboard.png){class="img-shadow"}
 
 ::: callout-tip
 ## More UI design inspiration
@@ -207,7 +207,7 @@ Did you know the app viewer above is resizable? Try resizing it to see how the l
 
 Tooltips and popovers are a useful means for both displaying and interacting with additional information in a non-obtrusive way.
 Tooltips are shown on hover, whereas popovers are shown on click, making them more suitable for interactive content like inputs.
-In the [actual dashboard](#altogether-now), we'll leverage a popover to effectively add a toolbar with additional inputs controls to card headers.
+In the [actual dashboard](#all-together-now), we'll leverage a popover to effectively add a toolbar with additional inputs controls to card headers.
 
 ```{shinylive-python}
 #| standalone: true
