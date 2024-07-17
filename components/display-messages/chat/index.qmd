@@ -51,7 +51,7 @@ listing:
 
 
 
-## Generative AI quick start
+## Generative AI quick start {#ai-quick-start}
 
 Pick from one of the following providers below to get started with generative AI in your Shiny app.
 Once you've choosen a provider, copy/paste the `shiny create` terminal command to get the relevant source files on your machine.
@@ -221,7 +221,7 @@ async def _():
     await chat.append_message_stream(response)
 ```
 
-Remember that you can get a full working template in the [Generative AI quick start](#generative-ai-quick-start) section above.
+Remember that you can get a full working template in the [Generative AI quick start](#ai-quick-start) section above.
 Also, for another more advanced example of dynamic system messages, check out this example:
 
 ```bash
