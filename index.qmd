@@ -11,6 +11,7 @@ format:
     smooth-scroll: true
     css:
       - index.css
+repo-actions: false
 ---
 
 ::::{.column-screen .mx-auto .pt-0 .mt-0 .pt-xl-5  style="max-width: 1500px;"}

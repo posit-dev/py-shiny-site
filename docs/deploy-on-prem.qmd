@@ -4,7 +4,10 @@ title: "Self-hosted deployments"
 
 # Commercial software
 
-[Posit Connect](https://posit.co/products/enterprise/connect/) can support a wide variety of R and Python content including Shiny applications.
+[Posit Connect](https://posit.co/products/enterprise/connect/) is our flagship publishing platform for the work your teams create in Python or R.
+With Posit Connect, you can share Shiny applications, [Quarto](https://quarto.org) reports, dashboards and plots, as well as Flask, Dash, Streamlit and Bokeh apps, in one convenient place.
+Features include scheduled execution of reports and flexible security policies to bring the power of data science to your entire enterprise.
+
 Since Connect can host models, APIs, apps, and datasets, it lets you easily integrate Shiny apps with other other data science tools.
 For example, Connect can retrain a model on a schedule, expose that model through an API, and communicate the results with a Shiny app.
 Posit Connect is commonly used in highly regulated environments, so can fulfill most security and compliance requirements.
@@ -61,9 +64,8 @@ If you want to read more about our commitment to free and open source software, 
 
 [Shiny Server](https://posit.co/products/open-source/shinyserver/) is an open source server written in Node.js that can host multiple Shiny apps on a single port, managing the starting/stopping/restarting of each app's Python process.
 
--   Shiny Server v1.5.19 or later is required for Shiny for Python apps.
-    Deploying [Shiny Express](https://shiny.posit.co/blog/posts/shiny-express/) applications requires Shiny Server v1.5.22 or later.
-    You can find [the lastest version of Shiny Server here](https://dailies.rstudio.com/shiny-server/).
+-   Shiny Server v1.5.22 or later is required for Shiny for Python apps.
+    You can find [the latest version of Shiny Server here](https://posit.co/download/shiny-server/).
 -   Linux only (see [Platform Support](https://posit.co/about/platform-support/) for a list of supported distributions).
 
 Compared to Posit Connect, deploying apps on Shiny Server is less automated and more config-file based, similar in spirit to Apache or nginx.
