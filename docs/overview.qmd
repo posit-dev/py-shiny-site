@@ -99,7 +99,7 @@ palmerpenguins
 
 ##### Tables
 
-Apply `@render.data_frame` to any code that returns a [pandas](https://pandas.pydata.org/) DataFrame for a basic table.
+Apply `@render.data_frame` to any code that returns a [pandas](https://pandas.pydata.org/) or [polars](https://pola.rs/) DataFrame for a basic table.
 For more sophisticated tables, you can use [`render.DataGrid`](https://shiny.posit.co/py/components/outputs/data-grid.html) to add things like filters to your table.
 
 ```{shinylive-python}
