@@ -262,7 +262,7 @@ website:
             - docs/module-communication.qmd
         - section: "Testing"
           contents:
-            - docs/testing.qmd
+            - docs/unit-testing.qmd
             - docs/playwright-testing.qmd
         - section: "Extending"
           contents:
