@@ -62,6 +62,9 @@ website:
     image-height: 630
     card-style: "summary_large_image"
 
+  repo-url: https://github.com/posit-dev/py-shiny-site
+  repo-actions: [issue, edit]
+
   navbar:
     background: primary
     foreground: light
