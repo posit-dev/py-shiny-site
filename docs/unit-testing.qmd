@@ -5,87 +5,78 @@ editor:
     wrap: sentence
 ---
 
-Testing Shiny apps is important to ensure the shiny app functions as expected and to catch any bugs or errors before deployment. It helps maintain code quality, user experience, and prevents potential issues from reaching the end-users.
+Testing is important to ensure your apps continue working as intended.
+There are two main approaches to testing Shiny apps: unit testing and end-to-end testing.
+Relatively speaking, unit tests much more limited compared to end-to-end, but they're also simpler to write and maintain since they don't depend on running the app in a browser.
+Unit tests also tend to force you to separate the app's "business" logic from the reactive logic (which can be a good thing) since your app won't have access to things like `input` or `output` in a unit test.
+
+In this article, we'll provide a short guide on unit testing with **pytest**. See the next article for end-to-end testing.
+
+### Make your app testable
+
+Consider the following Shiny app that filters a dataset based on a user's selection of species.
+
+```{.python filename="app.py"}
+from palmerpenguins import load_penguins
+from shiny.express import input, render, ui
+
+penguins = load_penguins()
+
+ui.input_select(
+  "species", "Enter a species",
+  list(penguins.species.unique())
+)
+
+@render.data_frame
+def display_dat():
+    idx = penguins.species.isin(input.species())
+    return penguins[idx]
+```
+
+None of the logic can be tested directly through a unit test.[^end-to-end]
+We can, however, put the logic for `display_dat` inside separate function, which can be then be tested independently of the Shiny app:
+
+[^end-to-end]: You could test this with an end-to-end test, but that's for the next article.
+
+```python
+@render.data_frame
+def display_dat():
+    return filter_penguins(input.species())
+
+def filter_penguins(species):
+    return penguins[penguins.species.isin(species)]
+```
+
+Now that we have a function that doesn't rely on a reactive `input` value, we can write a unit test for it.
+There are many unit testing frameworks available for Python, but we'll use **pytest** in this article since it's by far the most comment.
+
 
 ### pytest
 
-For the example below, we will use ***pytest*** as the test framework for running our unit tests. pytest is a popular, open-source testing framework for Python. It is designed to simplify the process of writing, organizing, and running tests for Python applications and libraries.
+[`pytest`](https://docs.pytest.org/en/8.2.x/contents.html) is a popular, open-source testing framework for Python.
+To get started, you'll first want to install `pytest`:
 
-More information about ***pytest*** can be found [here](https://docs.pytest.org/en/8.2.x/contents.html).
-
-::: {.callout-tip collapse="true"}
-## Auto discovery for tests
-
-pytest automatically discovers and runs tests in your project based on a naming convention (files or functions starting with `test_*.py` or ending with `*_test.py`), eliminating the need for manual test case registration. More information about test discovery can be found [here](https://docs.pytest.org/en/8.2.x/explanation/goodpractices.html#test-discovery)
-:::
-
-
-Given a shiny app that has the following code that doubles the number for any input that a user provides.
-
-```python
-# app.py
-from shiny import render, ui
-from shiny.express import input
-
-ui.panel_title("Double your amount")
-ui.input_text("txt_box", "Enter number to double it below")
-
-
-@render.text
-def txt():
-    if input.txt_box() == "":
-        return "Please enter a number"
-    # check if input is an int or float
-    try:
-        int(input.txt_box())
-    except ValueError:
-        return "Please enter a valid number"
-    return f"n*2 is {int(value) * 2}"
+```bash
+pip install pytest
 ```
 
-This code presents challenges for testing due to its logic being nested within reactive code. To enhance testability, we can extract the non-reactive logic and encapsulate it in a separate function called `double_number`. This approach allows for easier isolation and testing of the core functionality, independent of the reactive framework.
+`pytest` expects tests to be in files with names that start with `test_` or end with `_test.py`.
+It also expects test functions to start with `test_`.
+Here's an example of a test file for the `filter_penguins` function:
 
+```{.python filename="test_filter_penguins.py"}
+from app import filter_penguins
 
-```python
-# app.py
-from shiny import render, ui
-from shiny.express import input
-
-ui.panel_title("Double your amount")
-ui.input_text("txt_box", "Enter number to double it below")
-
-
-@render.text
-def txt():
-    if input.txt_box() == "":
-        return "Please enter a number"
-    # check if input is an int or float
-    try:
-        int(input.txt_box())
-    except ValueError:
-        return "Please enter a valid number"
-    return f"n*2 is {double_number(input.txt_box())}"
-
-def double_number(value: str):
-    return int(value) * 2
+def test_filter_penguins():
+    assert filter_penguins(["Adelie"]).shape[0] == 152
+    assert filter_penguins(["Gentoo"]).shape[0] == 124
+    assert filter_penguins(["Chinstrap"]).shape[0] == 68
+    assert filter_penguins(["Adelie", "Gentoo"]).shape[0] == 276
+    assert filter_penguins(["Adelie", "Gentoo", "Chinstrap"]).shape[0] == 344
 ```
 
-If you want to test the logic of a function that doubles a number, you can create a test file named `test_double_number.py`. This file will contain the necessary code to verify that the function works as expected.
-
-```python
-# test_double_number.py
-
-from app import double_number
-
-def test_double_number():
-    assert double_number("2") == 4
-    assert double_number("5") == 10
-    assert double_number("10") == 20
-    assert double_number("0") == 0
-    assert double_number("-5") == -10
-```
-
-To run the test, you will simply type `pytest` in your terminal. `pytest` will automatically locate the test file and run it with the results shown below.
+Assuming both the `app.py` and `test_filter_penguins.py` files are in the same directory, you can now run the test by typing `pytest` in your terminal.
+`pytest` will automatically locate the test file and run it with the results shown below.
 
 ```bash
 platform darwin -- Python 3.10.12, pytest-7.4.4, pluggy-1.4.0
@@ -97,7 +88,7 @@ asyncio: mode=strict
 (3 durations < 5s hidden.  Use -vv to show these durations.)
 ```
 
-If the logic in the `double_number` is erroneous, and instead it triples the number, the test will catch it by showing the difference as shown below
+If a test fails, `pytest` will show you which test failed and why:
 
 ```bash
 ======================================================= test session starts =======================================================
@@ -110,11 +101,13 @@ F       [100%]
 ======= FAILURES =======
 ________ test_double_number ________
 
-    def test_double_number():
->       assert double_number("2") == 4
-E       AssertionError: assert 6 == 4
-E        +  where 6 = double_number('2')
+    def test_filter_penguins():
+>       assert filter_penguins(["Adelie"]).shape[0] == 150
+E       AssertionError: assert 152 == 150
+E        +  where 152 = filter_penguins(["Adelie"]).shape[0]
 
 ```
 
-The tests mentioned earlier are suitable for testing non-reactive functions. However, when it comes to testing the reactivity of a Shiny app, we need to leverage a different approach. In this case, we can use ***Playwright*** to automate browser interactions and perform end-to-end testing of web applications.
+Unit testing is a great way to ensure that your "business" logic is working as expected.
+However, to fully ensure your app is working as intended, you'll also want to write end-to-end tests.
+In the next article, we'll show you how to write end-to-end tests for your Shiny app via **Playwright**.
