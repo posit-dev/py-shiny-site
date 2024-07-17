@@ -62,6 +62,9 @@ website:
     image-height: 630
     card-style: "summary_large_image"
 
+  repo-url: https://github.com/posit-dev/py-shiny-site
+  repo-actions: [issue, edit]
+
   navbar:
     background: primary
     foreground: light
@@ -84,6 +87,8 @@ website:
             icon: code-square
       - text: "Deploy"
         menu:
+          - text: "Overview"
+            href: docs/deploy.qmd
           - docs/deploy-cloud.qmd
           - docs/deploy-on-prem.qmd
           - docs/shinylive.qmd
