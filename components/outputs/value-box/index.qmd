@@ -1,8 +1,8 @@
 ---
 title: Value Box
 sidebar: components
-appPreview:
-  file: components/outputs/value-box/app-preview.py
+preview: '<div class="p-0" style="overflow: hidden;border-radius:10px;"><p class="mb-0"><img style="width: auto;height:100%;max-height:150px;"
+  src="/images/valuebox.jpg"></p></div>'
 listing:
 - id: example
   template: ../../_partials/components-detail-example.ejs

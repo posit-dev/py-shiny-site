@@ -20,14 +20,14 @@
 }
 
 .homepage-code p a {
-  border-bottom: 1px solid !important;
-  padding-bottom: 5px;
+  text-decoration: underline !important;
   margin-left: 1px;
   margin-right: 1px;
 }
 
 .homepage-code p a:hover {
   opacity: .85;
+  border-bottom: 1px solid transparent;
 }
 
 @media only screen and (max-width: 768px) {

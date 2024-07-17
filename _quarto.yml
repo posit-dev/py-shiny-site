@@ -40,6 +40,7 @@ filters:
   - interlinks
 
 interlinks:
+  fast: true
   sources:
     python:
       url: https://docs.python.org/3/
@@ -60,6 +61,9 @@ website:
     image-width: 1200
     image-height: 630
     card-style: "summary_large_image"
+
+  repo-url: https://github.com/posit-dev/py-shiny-site
+  repo-actions: [issue, edit]
 
   navbar:
     background: primary
@@ -83,6 +87,8 @@ website:
             icon: code-square
       - text: "Deploy"
         menu:
+          - text: "Overview"
+            href: docs/deploy.qmd
           - docs/deploy-cloud.qmd
           - docs/deploy-on-prem.qmd
           - docs/shinylive.qmd

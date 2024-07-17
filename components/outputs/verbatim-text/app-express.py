@@ -1,4 +1,3 @@
-# FIXME: Rewrite as an Express app
 from shiny import render
 from shiny.express import input, ui
 

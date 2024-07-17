@@ -80,6 +80,8 @@ def enrich_app_ui(app_ui: Tag):
     being intialized as part of the Shiny binding process.
     """
     app_ui.append(shiny.html_dependencies.shiny_deps())
+    # Don't ever show busy indication since these are static previews
+    app_ui.append(shiny.ui.busy_indicators.use(spinners=False, pulse=False))
     app_ui.append(
         head_content(
             tags.script(
