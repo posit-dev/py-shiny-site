@@ -367,7 +367,6 @@ app = App(app_ui, server)
 import pandas as pd
 from shiny import module, render, ui
 
-
 @module.ui
 def table_cards_ui(*args):
     return ui.row(

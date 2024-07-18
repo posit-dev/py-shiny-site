@@ -168,7 +168,7 @@ Next to the Run button is a dropdown menu that lets you "Debug Shiny App". This 
 
 ### Command line
 
-To run a Shiny app from the command line, use the `shiny run` command. This command takes a single argument, the path to the app's entry point. For example, if your app's entry point is `app.py` in the current directory, you can run it like this:
+To run a Shiny app from the command line, use the `shiny run` command. This command takes a single argument, the path to the app's entry point. For example, if your app's entry point is `app.py` in the directory `./app_dir`, you can run it like this:
 
 ```bash
 shiny run --reload --launch-browser app_dir/app.py
