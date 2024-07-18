@@ -36,6 +36,8 @@
 /components/outputs/value-box.html              /py/components/outputs/value-box/index.html
 /components/outputs/verbatim-text.html          /py/components/outputs/verbatim-text/index.html
 
+/py/components/outputs/datatable/* /py/components/outputs/data-table/:splat
+
 /layouts/arrange.html      /py/layouts/arrange/index.html
 /layouts/navbars.html      /py/layouts/navbars/index.html
 /layouts/panels-cards.html /py/layouts/panels-cards/index.html
