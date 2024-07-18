@@ -17,6 +17,7 @@ project:
     - gallery
     - api/express
     - api/core
+    - api/testing
     - templates
   resources:
     - /pypi/**
@@ -103,6 +104,8 @@ website:
             href: api/express/index.qmd
           - text: "Shiny Core"
             href: api/core/index.qmd
+          - text: "Testing"
+            href: api/testing/index.qmd
     tools:
       - icon: discord
         href: https://discord.gg/yMGCamUMnS
@@ -156,7 +159,7 @@ website:
         - section: "![](/images/bar-chart-line-fill.svg){.sidebar-icon .sidebar-subtitle}__Outputs__"
           contents:
             - components/outputs/data-grid/index.qmd
-            - components/outputs/datatable/index.qmd
+            - components/outputs/data-table/index.qmd
             - components/outputs/image/index.qmd
             - components/outputs/map-ipyleaflet/index.qmd
             - components/outputs/plot-matplotlib/index.qmd
@@ -258,6 +261,10 @@ website:
           contents:
             - docs/modules.qmd
             - docs/module-communication.qmd
+        - section: "Testing"
+          contents:
+            - docs/unit-testing.qmd
+            - docs/end-to-end-testing.qmd
         - section: "Extending"
           contents:
             - docs/custom-component-one-off.qmd

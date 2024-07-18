@@ -1,4 +1,3 @@
-# shiny.express
 from palmerpenguins import load_penguins
 from shiny.express import render, ui
 
@@ -9,4 +8,4 @@ ui.h2("Palmer Penguins")
 
 @render.data_frame
 def penguins_df():
-    return render.DataGrid(penguins, filters=True)  # <<
+    return render.DataTable(penguins, filters=True)  # <<

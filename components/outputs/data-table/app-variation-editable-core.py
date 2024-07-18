@@ -5,7 +5,6 @@ penguins = load_penguins()
 
 app_ui = ui.page_fluid(
     ui.h2("Palmer Penguins"),
-    ui.output_ui("rows"),
     ui.output_data_frame("penguins_df"),
 )
 
@@ -13,13 +12,10 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
     @render.data_frame
     def penguins_df():
-        return render.DataGrid(penguins, selection_mode="rows")  # <<
-
-    @render.ui
-    def rows():
-        rows = penguins_df.cell_selection()["rows"]  # <<
-        selected = ", ".join(str(i) for i in sorted(rows)) if rows else "None"
-        return f"Rows selected: {selected}"
+        return render.DataTable(
+            penguins,
+            editable=True,  # <<
+        )
 
 
 app = App(app_ui, server)

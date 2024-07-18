@@ -1,6 +1,5 @@
 from palmerpenguins import load_penguins
-from shiny import render
-from shiny.express import input, ui
+from shiny.express import input, render, ui
 
 penguins = load_penguins()
 
@@ -9,7 +8,7 @@ ui.h2("Palmer Penguins")
 
 @render.ui()
 def rows():
-    rows = penguins_df.input_cell_selection()["rows"]  # <<
+    rows = penguins_df.cell_selection()["rows"]  # <<
     selected = ", ".join(str(i) for i in sorted(rows)) if rows else "None"
     return f"Rows selected: {selected}"
 

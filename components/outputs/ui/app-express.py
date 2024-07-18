@@ -4,7 +4,7 @@ from shiny.express import input, ui
 ui.input_switch("show_slider", "Show slider", True)
 
 
-@render.display  # <<
+@render.express  # <<
 def ui_slider():  # <<
     if input.show_slider():
         value = input.slider() if "slider" in input else 5

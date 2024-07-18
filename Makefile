@@ -68,24 +68,26 @@ quarto-exts:
 deps: $(PYBIN)
 	$(PYBIN)/pip install pip --upgrade
 	$(PYBIN)/pip install -r requirements.txt
-	cd py-shiny/docs && make deps
+	. $(PYBIN)/activate && cd py-shiny && make install-deps
+	. $(PYBIN)/activate && cd py-shiny/docs && make deps
 
 ## Build qmd files for Shiny API docs
-quartodoc:
-	cd py-shiny/docs && make quartodoc
+quartodoc: $(PYBIN)
+	. $(PYBIN)/activate && cd py-shiny/docs && make quartodoc
 	# Copy all generated files except index.qmd
 	rsync -av --exclude="index.qmd" py-shiny/docs/api/ ./api
 	cp -R py-shiny/docs/_inv py-shiny/docs/objects.json ./
 	# Copy over index.qmd, but rename it to _api_index.qmd
 	cp py-shiny/docs/api/express/index.qmd ./api/express/_api_index.qmd
 	cp py-shiny/docs/api/core/index.qmd ./api/core/_api_index.qmd
+	cp py-shiny/docs/api/testing/index.qmd ./api/testing/_api_index.qmd
 
 ## Build website
-site:
+site: $(PYBIN)
 	. $(PYBIN)/activate && quarto render
 
 ## Build website and serve
-serve:
+serve: $(PYBIN)
 	. $(PYBIN)/activate && quarto preview
 
 ## Remove Quarto website build files

@@ -1,5 +1,6 @@
 /api/express/*      /py/api/express/:splat
 /api/core/*         /py/api/core/:splat 200
+/api/testing/*      /py/api/testing/:splat 200
 /api/*              /py/api/core/:splat
 
 /components/display-messages/modal.html         /py/components/display-messages/modal/index.html
@@ -25,7 +26,7 @@
 /components/inputs/text-area.html               /py/components/inputs/text-area/index.html
 /components/inputs/text-box.html                /py/components/inputs/text-box/index.html
 /components/outputs/data-grid.html              /py/components/outputs/data-grid/index.html
-/components/outputs/datatable.html              /py/components/outputs/datatable/index.html
+/components/outputs/datatable.html              /py/components/outputs/data-table/index.html
 /components/outputs/image.html                  /py/components/outputs/image/index.html
 /components/outputs/map-ipyleaflet.html         /py/components/outputs/map-ipyleaflet/index.html
 /components/outputs/plot-matplotlib.html        /py/components/outputs/plot-matplotlib/index.html
@@ -35,6 +36,8 @@
 /components/outputs/ui.html                     /py/components/outputs/ui/index.html
 /components/outputs/value-box.html              /py/components/outputs/value-box/index.html
 /components/outputs/verbatim-text.html          /py/components/outputs/verbatim-text/index.html
+
+/py/components/outputs/datatable/* /py/components/outputs/data-table/:splat
 
 /layouts/arrange.html      /py/layouts/arrange/index.html
 /layouts/navbars.html      /py/layouts/navbars/index.html
