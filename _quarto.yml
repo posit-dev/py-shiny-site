@@ -263,7 +263,7 @@ website:
         - section: "Testing"
           contents:
             - docs/unit-testing.qmd
-            - docs/playwright-testing.qmd
+            - docs/end-to-end-testing.qmd
         - section: "Extending"
           contents:
             - docs/custom-component-one-off.qmd
