@@ -112,4 +112,5 @@ components-static:
 components-shinylive-links:
 	. $(PYBIN)/activate && python components/update-shinylive-links.py
 
+## Build component static previews and update shinylive links
 components: components-shinylive-links components-static
