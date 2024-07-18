@@ -25,7 +25,7 @@
 /components/inputs/text-area.html               /py/components/inputs/text-area/index.html
 /components/inputs/text-box.html                /py/components/inputs/text-box/index.html
 /components/outputs/data-grid.html              /py/components/outputs/data-grid/index.html
-/components/outputs/datatable.html              /py/components/outputs/datatable/index.html
+/components/outputs/datatable.html              /py/components/outputs/data-table/index.html
 /components/outputs/image.html                  /py/components/outputs/image/index.html
 /components/outputs/map-ipyleaflet.html         /py/components/outputs/map-ipyleaflet/index.html
 /components/outputs/plot-matplotlib.html        /py/components/outputs/plot-matplotlib/index.html
