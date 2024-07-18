@@ -260,6 +260,8 @@ A namespace is a unique identifier that Shiny assigns to each instance of a modu
 
 There are two sides to modules: creating them, and using them. Each side can be done with Shiny Express or Shiny Core syntax. If a module is written with Core syntax, it can be used in an Express app, and vice versa. In the examples below, we'll create and use a module using the same type of syntax, but they can work interchangeably.
 
+TODO: Explain why cross-type might not work
+
 
 ::: {.panel-tabset .panel-pills}
 
@@ -274,7 +276,7 @@ The signature of this function, with `input`, `output`, and `session` is the sam
 To use the module, just call the decorated function with a first parameter which is the ID,
 
 ```{.python}
-from shiny.express import expressify, module, render, ui
+from shiny.express import module, render, ui
 
 # Define a module function, which takes input, output, and session
 @module
@@ -334,6 +336,7 @@ extra_ids = ["row_3", "row_4", "row_5"]
 io_row("row_1")
 # Call with a different ID and pass in argument for placeholder
 io_row("row_2", placeholder="Enter second thing")
+# We can add more instances programmatically
 [io_row(x) for x in extra_ids]
 ```
 :::
