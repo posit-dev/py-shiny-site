@@ -1,7 +1,6 @@
 # shiny.express
 from palmerpenguins import load_penguins
-from shiny import render
-from shiny.express import ui
+from shiny.express import render, ui
 
 penguins = load_penguins()
 

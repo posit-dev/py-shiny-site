@@ -1,7 +1,6 @@
 import pandas as pd
 from palmerpenguins import load_penguins
-from shiny import render
-from shiny.express import ui
+from shiny.express import render, ui
 
 penguins: pd.DataFrame = load_penguins()
 
