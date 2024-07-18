@@ -17,6 +17,7 @@ project:
     - gallery
     - api/express
     - api/core
+    - api/testing
     - templates
   resources:
     - /pypi/**
