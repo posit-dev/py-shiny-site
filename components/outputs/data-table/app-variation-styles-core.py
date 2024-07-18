@@ -13,7 +13,7 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
     @render.data_frame
     def penguins_df():
-        return render.DataGrid(
+        return render.DataTable(
             penguins.iloc[[0, 1, 200, 201, 300, 301], :],
             styles=[  # <<
                 # Center the text of each cell (using Bootstrap utility class) # <<

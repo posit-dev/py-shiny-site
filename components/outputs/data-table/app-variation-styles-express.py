@@ -10,7 +10,7 @@ ui.h2("Palmer Penguins")
 
 @render.data_frame
 def penguins_df():
-    return render.DataGrid(
+    return render.DataTable(
         penguins.iloc[[0, 1, 200, 201, 300, 301], :],
         # penguins,
         styles=[  # <<
