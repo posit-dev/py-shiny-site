@@ -77,10 +77,10 @@ quartodoc: $(PYBIN)
 	# Copy all generated files except index.qmd
 	rsync -av --exclude="index.qmd" py-shiny/docs/api/ ./api
 	cp -R py-shiny/docs/_inv py-shiny/docs/objects.json ./
+	cp py-shiny/docs/api/testing/index.qmd ./api/testing/index.qmd
 	# Copy over index.qmd, but rename it to _api_index.qmd
 	cp py-shiny/docs/api/express/index.qmd ./api/express/_api_index.qmd
 	cp py-shiny/docs/api/core/index.qmd ./api/core/_api_index.qmd
-	cp py-shiny/docs/api/testing/index.qmd ./api/testing/_api_index.qmd
 
 ## Build website
 site: $(PYBIN)
