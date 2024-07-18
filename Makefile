@@ -108,3 +108,8 @@ distclean: clean clean-extensions clean-venv
 static-components:
 	rm -rf components/static
 	. $(PYBIN)/activate && python components/make-static-previews.py
+
+shinylive-links:
+	. $(PYBIN)/activate && python components/update-shinylive-links.py
+
+components: shinylive-links static-components
