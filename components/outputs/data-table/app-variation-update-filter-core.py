@@ -28,6 +28,8 @@ def server(input, output, session):
     async def _():
         await penguins_df.update_filter(  # <<
             [  # <<
+                # Set partial match # <<
+                {"col": 0, "value": "Gen"},  # <<
                 # Set min value # <<
                 {"col": 2, "value": (50, None)},  # <<
                 # Set max value # <<
