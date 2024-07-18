@@ -71,6 +71,12 @@ Build the site:
 make site
 ```
 
+To update shinylive links in `components/` and build static versions of the components in the gallery, run:
+
+```bash
+make components
+```
+
 ### Virtualenv
 
 When running `make`, all of the Python scripts and commands run in a virtualenv. If you want to run commands at the terminal in the same virtualenv, you will need to do the following:
