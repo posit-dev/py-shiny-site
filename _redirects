@@ -1,5 +1,6 @@
 /api/express/*      /py/api/express/:splat
 /api/core/*         /py/api/core/:splat 200
+/api/testing/*      /py/api/testing/:splat 200
 /api/*              /py/api/core/:splat
 
 /components/display-messages/modal.html         /py/components/display-messages/modal/index.html
