@@ -75,7 +75,7 @@ listing:
       file: app-variation-filterable-table-core.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiINqiuAyJCdOtRtHIAvHIUr3QqIAFACUrtCYykLeyEI4ULxwynTsQopBOshZsYJYhgBMGWAAChxcyMV8gdpgIQSZ2XGk-BToLcqKUBRQyQywcEUBmh10WrX1EGEQ4Q50Bo4Abo5Bwm0URM2tLUQicCIiguQhiA1ZAAJ2EA4MWJ3dvf2nyLOsVcOKdKEnENm-yHYUfgMH6Xa5YAAiXSgAHEGIJ0kNREQ6IJ2FQGCIvAAVBj8OAhLIAYmQAB4SeEdBh0DFrOgglSooIdotHFNCKgKLgeLQwFQAB4UMAAXwAukA
       height: 350
-  - title: Edit table cells
+  - title: Edit Table Cells
     description: Set `editable=True` to be able to edit cell contents without re-rendering
       the data frame.
     apps:
@@ -90,7 +90,7 @@ listing:
       file: app-variation-editable-core.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiINqiuAyJCdOtRtHIAvHIUr3QqIAFACUrtCYykLeyEI4ULxwynTsQopBOshZsYJYhgBMGWAAChxcyMV8gdpgIQSZ2XGk-BToLcqKUBRQyQywcEUBmh10WrX1EGEQ4Q50Bo4Abo5Bwm0URM2tLUQicCIiguQhiA1ZAAJ2EA4MWJ3dvf2nyLOsVcOKdKEnENm-yHYUfgMH6Xa5YAAiXSgAHEGIJ0k8-tkhqIJkikXBFIJugAjdhwLwAFQY-DgRGQAGJkAAeamI7JTcIYdAxazoILMqKCHaLRxTQioCi4Hi0MBUAAeFDAAF8ALpAA
       height: 350
-  - title: Use original data
+  - title: Use Original Data
     description: The reactive value `.data()` will reactively return the unaltered
       data.
     apps:
@@ -105,7 +105,7 @@ listing:
       file: app-variation-data-core.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiINqiuAyJCdOtRtHIAvHIUr3QqIAFACUrtCYykLeyEI4ULxwynTsQopBOshZsYJYhgBMGWAAChxcyMV8gdpgIQSZ2VpgACqGcAaGGO2kdMgUbciKUBRQyIyw7YJiiE31ENk5WKT8FOgrymQORQGaykZdTXUNWXHLq+tDI8kME9tVu4p0h3NhEOEOvSKOAG6OQcJrChEM6AohfEQiQTkEIzebZAACdggDgYWEuUGuE2OgzgvR2omUj1CsIWCzsFH4DHmSJRWAAIsMoABxBiCdL4kSvbGI+yOLCbODYj6se4E-Y8YnYhbomIcwl0NGM0JZADEyAAPOqpdlyZT5uisOLBW8TRh0DFrOggmaooIwT9HK9CKgKLgeLQwFQAB4UMAAXwAukA
       height: 350
-  - title: Use edited data
+  - title: Use Edited Data
     description: The reactive value `.data_view()` (or `.data_view(selected=True)`)
       will reactively return the edited data. The data will be updated as the user
       edits the table and the rows will be arranged to match the user's sorting and
@@ -159,7 +159,7 @@ listing:
       file: app-variation-styles-core.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5dKCAEygGdk+7LgB0IAM2akY7KABt4zdNQDmAVzoR+DJq2SzSULgH0lENRt6iJU5LwAWG3Mm0s2AQUxFm1LnGZF1UVFTc01kAF49A2MQ9U0ACgBKIOhMI3UI5HUcKGU4IzFZdS540WRyrLosOwAmUrAABTkFZAaVOMswRIIyiuzSVQp0QaMeCigC5lg4etiLUbFhLp6IZIgU3zFbPwA3P3iNYYoiAaHBol44Xl46ckTEXvKAAW9uPywxiYlpx+RN9na8y4YiSDwgFQhyG8FFUzHBr18zCwABEoOMAOLMOglX6QipzTRYOj6YjAYAABiIAEYiDVyZTkHSacgAMz0ohsqkAXSIiB5uLxtgouFkV3CwHKAGJkAAeGUCwUVaUAYWoVGYyAodjgmrgAA82KQtnAoMQ7MhiHBZLJkPFVDczMgAEKkUgUXgUKboLIUYl0YUW2R8XiJZDSuUKxXIEBS2Xy8FRxNLYhB65LFBLKgGgC0lsofiWRDDccjioAvkXw-HE3jpS7ZFxNdrkGI6MwPRbSEUYOCq6XBTHixGEzXBcmu50UBSebHh6PFUsPSK4Ono0sxOQKNmAO5wOjKOwUVdLABGXZEYArs+r8-KV6HN9v0oAEvu7LI32wtTqCZ39O2H37PEQCAqMlkkbdJ2QClqRnQCR1vCpx1kKDp0rEsEMQ5BF2FUVVxAsAT1NABrZRJFUbhcy7FhjzASUxDELgiMWS90LnRD7z7TCa0HLisIhcDSEg1dgBqDk4L4-jymQ1DyQkjCpOksAlzw2gCKI4hSPIyiyH-WjJRPKkuAANhMpZOIUji2MfedeMsqTBOE2hgAAFiIABWeT2IcsBdNkrybKwnDl3w08SLIgYdOo5h9JMqAAE4xBqczrNAiELO8qMAsjNYUgwb1Ig8dB4ny9I6AuXY-DWQhUGFJRaDALMKEvLkgA
       height: 350
-  - title: Update filters
+  - title: Update Filters
     description: 'The data frame filters can be programmatically updated using the
       `.update_filter()` method. It takes a list of column filters to apply to the
       data frame. Each column filter is a dictionary with the following keys: `col`
@@ -182,7 +182,7 @@ listing:
       file: app-variation-set-table-size-core.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiINqiuAyJCdOtRtHIAvHIUr3QqIAFACUrtCYykLeyEI4ULxwynTsQopBOshZsYJYhgBMGWAAChxcyMV8gdpgIQSZ2XGk-BToLcqKUBRQyQywcEUBmh10WrX1EGEQ4Q50Bo4Abo5Bwm0URM2tLUQicCIiguQhiA1ZAAJ2EA4MWJ3dvf2nyLOsVcOKdKEnENm-yHYUfgMH6Xa5YAAiXSgAHEGIJ0kNREQAO7wiiGLxjADMAAYcegAB5jIiGOCCXiGCiYsD5ACs+KJtSyAGJkAAeNnhHQYdAxazoII8qKCHaLRxTQioCi4Hi0MBUAkUMAAXwAukA
       height: 350
-  - title: Update sorting
+  - title: Update Sorting
     description: 'The data frame sorting can be programmatically updated using the
       `.update_sort()` method. It takes a list of sorting information or column numbers
       to apply to the data frame. When using a number, the default sorting direction
