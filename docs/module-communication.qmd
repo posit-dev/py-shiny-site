@@ -91,6 +91,13 @@ def counter_module(input, output, session, label="Increment counter", starting_v
         count.set(count() + 1)
 
 ```
+
+::: callout-note
+Note that in the example above we used the relative import `from .counter import ...` instead of the absolute import `from counter import ...`.
+This is necessary when running multiple Shinylive applications on one web page as we do here, so that different apps do not cause conflicts when importing their own `counter` modules.
+In normal Shiny Express applications, you can use either a relative or absolute import.
+:::
+
 :::
 
 ### Core
@@ -139,6 +146,8 @@ Using arguments like this makes your modules much more flexible and allows you t
 ## file: app.py
 
 from shiny import App, ui
+# Note: In a normal Shiny Core app, use an absolute import, as in:
+# `from counter import ...`
 from .counter import counter_ui, counter_server
 
 
@@ -181,6 +190,12 @@ def counter_server(input, output, session, starting_value = 0):
         return f"Click count is {count()}"
 
 ```
+:::
+
+::: callout-note
+Note that in the example above we used the relative import `from .counter import ...` instead of the absolute import `from counter import ...`.
+This is necessary when running multiple Shinylive applications on one web page as we do here, so that different apps do not cause conflicts when importing their own `counter` modules.
+In normal Shiny Core applications, you must use the absolute import (relative imports will generally not work with Shiny Core applications).
 :::
 
 :::
