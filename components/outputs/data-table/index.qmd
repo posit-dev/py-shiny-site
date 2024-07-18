@@ -20,7 +20,7 @@ listing:
     file: app-core.py
   - title: Express
     file: app-express.py
-    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyG1RXAY69LIyaxwAHuisixEqTORCdHTUNUWQAXjkFFWChUQAKAEpAiCEsQwAmOK0wAAUOLmQcvljtMCSIZIABKwgbBixFKAooZUZYOGRkAGJkAB5enRs6VmLNZUU6RMQdTs6rCn4GCGQauqwAESaoABUoACN2ODiYzQTOnv6dQlQKXB5aMCpXCjAAXwBdIA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthuLHAAe6BnBFiJUmcmsRFcBkSE6dajaOQBeOQUVHyFRAAoASi8IISxDACZwrTAABQ4uZFS+MO0waIgYgAFnVwYsRSgKKGVGWDhkZABiZAAeVp1XOlYczWVFOijEHUbG6wp+BggnajKsABEqqAAVKAAjdjhw0M1Ixpb2nUJUClweWjAqcwowAF8AXSA
   - title: Core
     file: app-core.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiINqiuAyJCdOtRtHIAvHIUr3QqIAFACUrtCYykLeyEI4ULxwynTsQopBOshZsYJYhgBMGWAAChxcyMV8gdpgIQSZ2XGk-BToLcqKUBRQyQywcEUBmh10WrVEyADEyAA8MzphEOEOdAaOAG6OQcJtFETNrS1EInAiIoLkIYgNWQACdhAODFid3b39WdNzN8grrFXDRR0ULXCDZcHIOwUfgMMEPJ5YAAiXSgABUoAAjdgDIaiEKfWbzJbEjDoGLWdBBUlRQTHDaORaEVAUXA8WhgKgADwoYAAvgBdIA
@@ -54,7 +54,7 @@ listing:
       height: 350
     - title: Express
       file: app-variation-select-rows-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyG1RXAY69LIyaxwAHuisixEqTPER0fgoiIR0dNQ1RZABeOQUVCKFRAAoASjCIISxDACZkrTAABQ4uZEK+JO0wdIgMgAErCBsGLFCmuDpkJgB3ETTEHWQhrtJemNYKzWVFOixiOHZ2ZREFuGIKQXI04AKeqoBdIYBiZAAeU8HhlfY1qkVxgqICrAArUmFkkQoGZMFU5Do0nE-gMFjgimSe1S-0EnT2yAWK2QBQAcuQ4AVLkMrBR+AwIACCgAlUZia63cEoEDk9bggC+mNqTIa1lsWEUUAoUGUjFgGPanUSUxm-SxXTguPx4vaLQAIpyoAAVKAAIxuySFoiINI25GUMFINmiu1JBX+yBO5x0hFQFFwPFoYCorgoYDp+yAA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthuLHAAe6BnBFiJUmeIjp+FItYiK4DIkJ061DVFkAF45BRVAoVEACgBKfwghLEMAJhitMAAFDi5kLL5o7TAEiESAAQ8vBiw-Tzg6ZCYAdxF4xB1kLqbSVtDWQs1lRTosYjh2dmURCbhiCkFyeOBMluKAXS6AYmQAHl3O7pn2OapFfsyiTKwAK1JhGJEKBhjBOOQ6aXEnA2kzmLWcXegkaa2QExmyEyADlyHBMocutYKPwGBAPpkAEq9MTHU5wRQoEB4+YEgC+CLKVMq1GqWEUUAoUGUjFg8PqjSiQxG7URTTgKLR-PqNQAIoyoAAVKAAIxOMS5oiIJIW5GUMFIXhCqxxmXeyB2+x0hFQFFwPFoYCo5goYDJ6yAA
       height: 350
     - title: Core
       file: app-variation-select-rows-core.py
@@ -69,7 +69,7 @@ listing:
       height: 350
     - title: Express
       file: app-variation-filterable-table-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyG1RXAY69LIyaxwAHuisixEqTORCdHTUNUWQAXjkFFWChUQAKAEpAiCEsQwAmOK0wAAUOLmQcvljtMCSIZIABKwgbBixFKAooZUZYOB0bOlZizWVFOkTEHWRR5CsKfgYIcetbLAARJqgAFSgAI3Y4OJjNIjpBdioGETCVhn44BNGAYmQAHnudQlQKXB5aMCpXCjAAXwAukA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthuLHAAe6BnBFiJUmcmsRFcBkSE6dajaOQBeOQUVHyFRAAoASi8IISxDACZwrTAABQ4uZFS+MO0waIgYgAFnVwYsRSgKKGVGWDgdVzpWHM1lRTooxB1kXqc4Cn4GCH6XNywAESqoABUoACN2OHDQzSI6QXYqBhF-GYZ+OEjegGJkAB5znUJUClweWjAqcwowAF8AXSA
       height: 350
     - title: Core
       file: app-variation-filterable-table-core.py
@@ -84,7 +84,7 @@ listing:
       height: 350
     - title: Express
       file: app-variation-editable-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyG1RXAY69LIyaxwAHuisixEqTORCdHTUNUWQAXjkFFWChUQAKAEpAiCEsQwAmOK0wAAUOLmQcvljtMCSIZIABKwgbBixFKAooZUZYOB0bOlZizWVFOkTEHWRR5CsKfgYIcetbLAARJqgAFSgAI3Y4LJmxvZjNAhG9sbhFQWbNuDCVhn44ImQAYmQAHlfj0fLCVApcHloYCorgoYAAvgBdIA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthuLHAAe6BnBFiJUmcmsRFcBkSE6dajaOQBeOQUVHyFRAAoASi8IISxDACZwrTAABQ4uZFS+MO0waIgYgAFnVwYsRSgKKGVGWDgdVzpWHM1lRTooxB1kXqc4Cn4GCH6XNywAESqoABUoACN2OGSRvrXQzQIetb64RUFqxbh-GYZ+OCJkAGJkAB5b7d6CwlQKXB5aMCpzCjAAXwAukA
       height: 350
     - title: Core
       file: app-variation-editable-core.py
@@ -99,7 +99,7 @@ listing:
       height: 350
     - title: Express
       file: app-variation-data-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyG1RXAY69LIyaxwAHuisixEqTORCdHTUNUWQAXjkFFWChUQAKAEpAiCEsQwAmOK0wAAUOLmQcvljtMCSIQLAAFUM4A0MMOtI6ZApa5EUoCihkRlg6wTFEbOSdAAErCBsGLDIbHRsWmM1lI0bE4YhkbY6unojl0WVFOixO7sTtgGJkAB5bnR3kKwp+Bi3zqCw1nlGICestjOe2UfXgCzgS2KKxOG0eOxeby2k2mWAAInsqlAAEbsOBxQ4icqEVAUXA8WhgKiuChgAC+AF0gA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthuLHAAe6BnBFiJUmcmsRFcBkSE6dajaOQBeOQUVHyFRAAoASi8IISxDACZwrTAABQ4uZFS+MO0waIgvMAAVQzgDQwxy0jpkCjLkRSgKKGRGWHLBMUQUmJ0AAWdXBiwyVx1XWtDNZSMqqJ6IZGXG5tbA6dFlRTosJpao5YBiZAAeU50VpzgKfgYl-agsOZ4+iEHqYb215Xb4CbgUxyMx2C0uK2st3u1xcbiwABE1sUoAAjdhwcKbEQFQioCi4Hi0MBUcwUMAAXwAukA
       height: 350
     - title: Core
       file: app-variation-data-core.py
@@ -116,7 +116,7 @@ listing:
       height: 350
     - title: Express
       file: app-variation-data-view-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyG1RXAY69LIyaxwAHuisixEqTORCdHTUNUWQAXjkFFWChUQAKAEpAiCEsQwAmOK0wAAUOLmQcvljtMCSIQLAAFUM4A0MMOtI6ZApagzh2OGIqRWRFKAooZEZYOsExRGzknQABKwgbBiwyGx0bFpjNZSNGxKmIZCP+weGIrdFlRTosAaHlADdBOAB3OJFO7t6wqoZ+OASRwAxMgADygnTHZBWCj8BiHO5QLC7HgzCDzay2W6nZSjeDrOCbYrba77SHHGFww4LJZYAAipyqUAARl04hcREQPl0eoJyMoYKQbGFskwXqVyoRUBRcDxaGAqK4KGAAL4AXSAA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthuLHAAe6BnBFiJUmcmsRFcBkSE6dajaOQBeOQUVHyFRAAoASi8IISxDACZwrTAABQ4uZFS+MO0waIgvMAAVQzgDQwxy0jpkCjKDOHY4YipFZEUoCihkRlhywTFEFJidAAFnVwYsMlcdV1rQzWUjKqjhiGQtjq6ewKXRZUU6LE7u5QA3QTgAd3CRJpa2-2KGfjhIrYBiZAAeX502yccAo-AYmzOUCwqx4owgE2oU1Ou2UfXg8zgixyy2O60B22soPBwJcbiwABFdsUoAAjZrhA4iIgPZqtQTkZQwUiufwpJg3PIFQioCi4Hi0MBUcwUMAAXwAukA
       height: 350
     - title: Core
       file: app-variation-data-view-core.py
@@ -131,7 +131,7 @@ listing:
       height: 350
     - title: Express
       file: app-variation-set-table-size-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyG1RXAY69LIyaxwAHuisixEqTORCdHTUNUWQAXjkFFWChUQAKAEpAiCEsQwAmOK0wAAUOLmQcvljtMCSIZIABKwgbBixFKAooZUZYOB0bOlZizWVFOkTEHWRR5CsKfgYIcetbLAARJqgAFSgAI3Y4OJjNIgB3QUUKQzDsgGYABkv0V2yiQzhBXkMKM7B0gFYbu7LRgGJkAAeIE6QioCi4Hi0MBUVwUMAAXwAukA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthuLHAAe6BnBFiJUmcmsRFcBkSE6dajaOQBeOQUVHyFRAAoASi8IISxDACZwrTAABQ4uZFS+MO0waIgYgAFnVwYsRSgKKGVGWDgdVzpWHM1lRTooxB1kXqc4Cn4GCH6XNywAESqoABUoACN2OHDQzSIAd0FFCkN-FIBmAAZD9HMUokM4QV5DCj2wBIBWE7P83oBiZAAeL51CVAouB4tDAVHMFDAAF8ALpAA
       height: 350
     - title: Core
       file: app-variation-set-table-size-core.py
@@ -153,11 +153,55 @@ listing:
       height: 350
     - title: Express
       file: app-variation-styles-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5dKCAEygGdk+7LgB0IAM2akY7KABt4zdNQDmAVzoR+DJq2SzSULgH0lENRt6iJU5LwAWG3Mm0s2zalzjMrk6fcdYcAAe6O68WoyuyOqioqbmmijoXFgAIlAUUABizLBwyAC8egbG8eqaABQAlLEQ6lh2AEwVwmAACnIKyG0q5ZZgNRC1AALu3F5YPJlGEnminmLsvRZGXGLViKLI28juFKrMELseE+mZACpQAEaycC1HO49lFlh0+sTAwAAMRACMRI0vj9kID-sgAMxAoiQ34AXSIiHhW0eOwAxEszH0CMiUbYKLhbrwCsBtuiADxknG4tHIADC1CozGQFDs+SoQTYpEWcCgxDsyGIcFksmQFVUvA0ymQACFSKQKLwKLl0NEKG86PiBbI+LwqshyZSHtSdiBScgKVTjY9WsRteFWihWuyKABaQWULytIj682Gq07AC+3oNlup6Nlsi4zNZyDEdGYioFpFkqhgRxDRqtpp9Fsz-u2NuT-RQ33hZtz+ZRrUVBLgDuQIFaYnIroA7nA6Mo7BR660rsmRGAg+W-fnhznR-70QAJTt2WRztgs-LPI5kfQJieh3GNvP51qSVvF5DfP5lrd7-2F2TH0vB33bq3V-G3euNsBXXkAa2UklU3DdZMWF7MBUTEMQuE-MRWnHDNK1gh9LxRbM4MrHYD1II962ARpoXPVC0OQa9by+fDEMIgswBrV9aHfT9iB-P8APXYDaFaVErl+LgADYeJg+8KzHATJyzEdH2NDCsNoYAABYiAAVjIwTCOI7DSOE8TqWfWs3z7b9f1If8uEAjcQNRHioAATjERp+LEpDHgQ5SUSUkTBkIVB8SUWgwGdIdYSAA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5dKCAEygGdk+7LgB0IAM2akY7KABt4zdNQDmAVzoR+DJq2SzSULgH0lENRt6iJU5LwAWG3FjgAPdMzi8tjFmw-c4ZiJ1UVFTc00UdC4sABEoCigAMWZYOGQAXj0DY3D1TQAKAEpQiHUsOwAmAuEwAAU5BWQ6lXzLMBKIUoABfy5ArB5Eowk00X6xdlaLIy4xYsRRZGXkDwpVZghV6n7mOISoABUoACNZOBqtleu8iyw6fWJgYAAGIgBGIkqXt+Rvz+QAGYfkRge8ALpERCQpbXFYAYimZjaBFhcNsFFw514GWAy0RAB4CWj0QjkABhahUZjICh2dJUFxsUiTOBQYh2ZDEOCyWTIAqqXgaZTIABCpFIFF4FFS6GQqgoDzomK5sj4vCKyEJxKupJWIHxyCJJL111qxDVXlqKFqjIoAFpuZRArUiFqjTrTSsAL5u7Um0mI8WyLi0+nIMR0ZjSrmkWSqGBbf2600G93GlNe5bmuPtFCvSGGjNZuG1aVYuDW5AgWpicgOgDucDoyjsFCrtROcZEYF9Rc9Wb76YHXsRAAkW3ZZJO2HT0rctmR9NHhwH0TXM1napIG3nkK8PoXV5uvTnZHuC36PWvTWXMecqzWwCd2QBrZSSVTcR1xlgdsDwmIYhcC+Yi1EOyYlhB14nnCaaQSWKzbqQu5VsAlSgkeCGIcgZ4Xi8WEwTh2ZgOWD60E+L7EO+n7fkuf60LU8InO8XAAGzseBV7FoO3Ejqm-Y3nqyGobQwAACxEAArIRPE4XhaEEXxQmkneFaPp2b4fqQX5cD+y7-vC7FQAAnGIlRcYJsHXNBclwrJ-GdIQqCYkotBgHavbgkAA
       height: 350
     - title: Core
       file: app-variation-styles-core.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5dKCAEygGdk+7LgB0IAM2akY7KABt4zdNQDmAVzoR+DJq2SzSULgH0lENRt6iJU5LwAWG3Mm0s2AQUxFm1LnGZF1UVFTc01kAF49A2MQ9U0ACgBKIOhMI3UI5HUcKGU4IzFZdS540WRyrLosOwAmUrAABTkFZAaVOMswRIIyiuzSVQp0QaMeCigC5lg4etiLUbFhLp6IZIgU3zFbPwA3P3iNYYoiAaHBol44Xl46ckTEXvKAAW9uPywxiYlpx+RN9na8y4YiSDwgFQhyG8FFUzHBr18zCwABEoOMACpQABGshmv0hFTmmiwdH0xGAwAADEQAIxEGqU6nIBl05AAZkZRA5NIAukREHz8QTbBRcLjeOFgOUAMTIAA8cqFwoqsoAwtQqMxkBQ7HBtXAAB5sUhbOBQYh2ZDEOCyWTIeKqG5mZAAIVIpAovAoU3QWQopLooqtsj4vESyFlCqVyuQIBl8sV4JjyaWxBD1yWKCWVCNAFprZQ-EsiBGE9HlQBfEuRxPJgmyt2yLja3XIMR0Zheq2kIowcE18vCuOlqNJuvC1M9zooKl8+Oj8fKpZesVwTOxpZicgUXMAdzgdGUdgo66WWJ7IjAVfntcX5WvI9vd9lAAlD3ZZO+2Dq9UTu-pO0fQcCRAYCYyWSRd2nZAqVpOcgLHO8KknWRoNnasy0QpDkGXUVcXXUCwCxc0AGtlEkVRuHzHsWFPMBpTEMQuGIxYrwwhckIfAcsLrYduOwiEINIKD12AGouXg-iBPKFC0MpSTMOkmSwBXfDaEI4jiDIiiqLIAC6OlLEaS4AA2Uyli4xTOPYp9Fz4qzpKEkTaGAAAWIgAFYFI4xywD0uTvNs7DcNXAiz1I8iBl0mjmAM0yoAATjEGoLJssCIUsnyY0C6M1hSDBfUiDx0HiAr0joC5dj8NZCFQUUlFoMAcwoK8eSAA
+      height: 350
+  - title: Update filters
+    description: 'The data frame filters can be programmatically updated using the
+      `.update_filter()` method. It takes a list of column filters to apply to the
+      data frame. Each column filter is a dictionary with the following keys: `col`
+      and `value`. The `col` key is the column index to filter on, and the `value`
+      key is the value to filter for. The `value` key can be a single value for string
+      columns or a list of values to filter for numeric columns. Note, to not set
+      a minimum or maximum value for a numeric column, you can provide a `None` value.
+      To reset filters, provide `None` for the filters (`.update_filter(None)`).
+
+      '
+    apps:
+    - title: Preview
+      file: app-variation-set-table-size-core.py
+      height: 350
+    - title: Express
+      file: app-variation-set-table-size-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthuLHAAe6BnBFiJUmcmsRFcBkSE6dajaOQBeOQUVHyFRAAoASi8IISxDACZwrTAABQ4uZFS+MO0waIgYgAFnVwYsRSgKKGVGWDgdVzpWHM1lRTooxB1kXqc4Cn4GCH6XNywAESqoABUoACN2OHDQzSIAd0FFCkN-FIBmAAZD9HMUokM4QV5DCj2wBIBWE7P83oBiZAAeL51CVAouB4tDAVHMFDAAF8ALpAA
+      height: 350
+    - title: Core
+      file: app-variation-set-table-size-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiINqiuAyJCdOtRtHIAvHIUr3QqIAFACUrtCYykLeyEI4ULxwynTsQopBOshZsYJYhgBMGWAAChxcyMV8gdpgIQSZ2XGk-BToLcqKUBRQyQywcEUBmh10WrX1EGEQ4Q50Bo4Abo5Bwm0URM2tLUQicCIiguQhiA1ZAAJ2EA4MWJ3dvf2nyLOsVcOKdKEnENm-yHYUfgMH6Xa5YAAiXSgABUoAAjdgDIaiIgAd0Eigohi8YwAzAAGfHoAAeYyIhjggl4hgoOLA+QArETSbUsgBiZAAHk54R0GHQMWs6CC-Kigh2i0cU0IqAouB4tDAVGJFDAAF8ALpAA
+      height: 350
+  - title: Update sorting
+    description: 'The data frame sorting can be programmatically updated using the
+      `.update_sort()` method. It takes a list of sorting information or column numbers
+      to apply to the data frame. When using a number, the default sorting direction
+      will be applied. When providing a sorting info object, `col` and `desc` describe
+      the column index and whether or not the sorting direction is descending. To
+      reset the sorting, provide `None` for the sorting information (`.update_sort(None)`).
+
+      '
+    apps:
+    - title: Preview
+      file: app-variation-set-table-size-core.py
+      height: 350
+    - title: Express
+      file: app-variation-set-table-size-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthuLHAAe6BnBFiJUmcmsRFcBkSE6dajaOQBeOQUVHyFRAAoASi8IISxDACZwrTAABQ4uZFS+MO0waIgYgAFnVwYsRSgKKGVGWDgdVzpWHM1lRTooxB1kXqc4Cn4GCH6XNywAESqoABUoACN2OHDQzSIAd0FFCkN-FIBmAAZD9HMUokM4QV5DCj2wBIBWE7P83oBiZAAeL51CVAouB4tDAVHMFDAAF8ALpAA
+      height: 350
+    - title: Core
+      file: app-variation-set-table-size-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiINqiuAyJCdOtRtHIAvHIUr3QqIAFACUrtCYykLeyEI4ULxwynTsQopBOshZsYJYhgBMGWAAChxcyMV8gdpgIQSZ2XGk-BToLcqKUBRQyQywcEUBmh10WrX1EGEQ4Q50Bo4Abo5Bwm0URM2tLUQicCIiguQhiA1ZAAJ2EA4MWJ3dvf2nyLOsVcOKdKEnENm-yHYUfgMH6Xa5YAAiXSgABUoAAjdgDIaiIgAd0Eigohi8YwAzAAGfHoAAeYyIhjggl4hgoOLA+QArETSbUsgBiZAAHk54R0GHQMWs6CC-Kigh2i0cU0IqAouB4tDAVGJFDAAF8ALpAA
       height: 350
   - title: Customize Summary Statement
     description: 'Set `summary` in `render.DataGrid()` to `False` to remove the statement
@@ -171,7 +215,7 @@ listing:
       height: 350
     - title: Express
       file: app-variation-customize-summary-statement-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyG1RXAY69LIyaxwAHuisixEqTORCdHTUNUWQAXjkFFWChUQAKAEpAiCEsQwAmOK0wAAUOLmQcvljtMCSIZIABKwgbBixFKAooZUZYOB0bOlZizWVFOkTEHWRR5CsKfgYIcetbLAARJqgAFSgAI3Y4LJmxvZjNAhG9sZF+GBgoBlww7IA1QWtSZDpBdigxEBFmmQBfZCgyBA1n+NiBFFIzXYv2yRGQAGJkAAeJHHUblQioCi4Hi0MBUVwUMC-AC6QA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthuLHAAe6BnBFiJUmcmsRFcBkSE6dajaOQBeOQUVHyFRAAoASi8IISxDACZwrTAABQ4uZFS+MO0waIgYgAFnVwYsRSgKKGVGWDgdVzpWHM1lRTooxB1kXqc4Cn4GCH6XNywAESqoABUoACN2OGSRvrXQzQIetb6RfhgYKAZcfxSANUFqRVJkOkF2KDEQEWqZAF9kKGQQK4-Xb4opGq7DeKSIyAAxMgADzQ7a9AqEVAUXA8WhgKjmChgN4AXSAA
       height: 350
     - title: Core
       file: app-variation-customize-summary-statement-core.py
