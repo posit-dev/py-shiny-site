@@ -138,7 +138,7 @@ For more information about interacting with data frames, see the API documentati
 
 If your table is a data frame that uses the pandas styler, replace `ui.output_data_frame()` with `ui.output_table()` and `@render.data_frame` with `@render.table`.
 
-See also: [DataTables](../datatable/index.qmd)
+See also: [DataTables](../data-table/index.qmd)
 
 ## Variations
 

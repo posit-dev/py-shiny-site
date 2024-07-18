@@ -14,7 +14,7 @@ listing:
 - id: example
   template: ../../_partials/components-detail-example.ejs
   template-params:
-    dir: components/outputs/datatable/
+    dir: components/outputs/data-table/
   contents:
   - title: Preview
     file: app-core.py
@@ -27,7 +27,7 @@ listing:
 - id: relevant-functions
   template: ../../_partials/components-detail-relevant-functions.ejs
   template-params:
-    dir: components/outputs/datatable/
+    dir: components/outputs/data-table/
   contents:
   - title: ui.output_data_frame
     href: https://shiny.posit.co/py/api/ui.output_data_frame.html
@@ -42,7 +42,7 @@ listing:
 - id: variations
   template: ../../_partials/components-variations.ejs
   template-params:
-    dir: components/outputs/datatable/
+    dir: components/outputs/data-table/
   contents:
   - title: Select Rows
     description: Set `selection_mode` in `render.DataTable()` to `"row"` to allow
