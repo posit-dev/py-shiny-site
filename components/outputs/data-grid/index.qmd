@@ -75,6 +75,53 @@ listing:
       file: app-variation-filterable-table-core.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiINqiuAyJCdOtRtHIAvHIUr3QqIAFACUrtCYykLeyEI4ULxwynTsQopBOshZsYJYhgBMGWAAChxcyMV8gdpgIQSZ2XGk-BToLcqKUBRQyQywcEUBmh10WrX1EGEQ4Q50Bo4Abo5Bwm0URM2tLUQicCIiguQhiA1ZAAJ2EA4MWJ3dvf2nyLOsVcOKdKEnENm-yHYUfgMH6Xa5YAAiXSgAHEGIJ0kNREQ6IJ2FQGCIvAAVBj8OAhLIAYmQAB4SeEdBh0DFrOgglSooIdotHFNCKgKLgeLQwFQAB4UMAAXwAukA
       height: 350
+  - title: Edit table cells
+    description: Set `editable=True` to be able to edit cell contents without re-rendering
+      the data frame.
+    apps:
+    - title: Preview
+      file: app-variation-editable-core.py
+      height: 350
+    - title: Express
+      file: app-variation-editable-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyG1RXAY69LIyaxwAHuisixEqTORCdHTUNUWQAXjkFFWChUQAKAEpAiCEsQwAmOK0wAAUOLmQcvljtMCSIZIABKwgbBixFKAooZUZYOB0bOlZizWVFOkTEHWRR5CsKfgYIcetbLAARJqgAFSgAI3Y4LJmxvZjNAhG9sbhFQWbNuDCVhn44ImQAYmQAHlfj0fLCVApcHloYCorgoYAAvgBdIA
+      height: 350
+    - title: Core
+      file: app-variation-editable-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiINqiuAyJCdOtRtHIAvHIUr3QqIAFACUrtCYykLeyEI4ULxwynTsQopBOshZsYJYhgBMGWAAChxcyMV8gdpgIQSZ2XGk-BToLcqKUBRQyQywcEUBmh10WrX1EGEQ4Q50Bo4Abo5Bwm0URM2tLUQicCIiguQhiA1ZAAJ2EA4MWJ3dvf2nyLOsVcOKdKEnENm-yHYUfgMH6Xa5YAAiXSgABUoAAjdgDJ5-bJDUQTFEouCKQTdBFwLzQhj8OBEZAAYmQAB4qcjslNwhh0DFrOggkyooIdotHFNCKgKLgeLQwFQAB4UMAAXwAukA
+      height: 350
+  - title: Use original data
+    description: The reactive value `.data()` will reactively return the unaltered
+      data.
+    apps:
+    - title: Preview
+      file: app-variation-data-core.py
+      height: 350
+    - title: Express
+      file: app-variation-data-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyG1RXAY69LIyaxwAHuisixEqTORCdHTUNUWQAXjkFFWChUQAKAEpAiCEsQwAmOK0wAAUOLmQcvljtMCSIQLAAFUM4A0MMOtI6ZApa5EUoCihkRlg6wTFEbOSdAAErCBsGLDIbHRsWmM1lI0bE4YhkbY6unojl0WVFOixO7sTtgGJkAB5bnR3kKwp+Bi3zqCw1nlGICestjOe2UfXgCzgS2KKxOG0eOxeby2k2mWAAInsqlAAEbsOBxQ4icqEVAUXA8WhgKiuChgAC+AF0gA
+      height: 350
+    - title: Core
+      file: app-variation-data-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiINqiuAyJCdOtRtHIAvHIUr3QqIAFACUrtCYykLeyEI4ULxwynTsQopBOshZsYJYhgBMGWAAChxcyMV8gdpgIQSZ2VpgACqGcAaGGO2kdMgUbciKUBRQyIyw7YJiiE31ENk5WKT8FOgrymQORQGaykZdTXUNWXHLq+tDI8kME9tVu4p0h3NhEOEOvSKOAG6OQcJrChEM6AohfEQiQTkEIzebZAACdggDgYWEuUGuE2OgzgvR2omUj1CsIWCzsFH4DHmSJRWAAIsMoM0oAAjdhwIL4kSvbGI+yOLCbODYj6se4E-Y8YnYhbomJcwl0NGM0JZADEyAAPJqZdlyZT5uisJLhW8zRh0DFrOgghaooIwT9HK9CKgKLgeLQwFQAB4UMAAXwAukA
+      height: 350
+  - title: Use edited data
+    description: The reactive value `.data_view()` (or `.data_view(selected=True)`)
+      will reactively return the edited data. The data will be updated as the user
+      edits the table and the rows will be arranged to match the user's sorting and
+      filtering.
+    apps:
+    - title: Preview
+      file: app-variation-data-view-core.py
+      height: 350
+    - title: Express
+      file: app-variation-data-view-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyG1RXAY69LIyaxwAHuisixEqTORCdHTUNUWQAXjkFFWChUQAKAEpAiCEsQwAmOK0wAAUOLmQcvljtMCSIQLAAFUM4A0MMOtI6ZApagzh2OGIqRWRFKAooZEZYOsExRGzknQABKwgbBiwyGx0bFpjNZSNGxKmIZCP+weGIrdFlRTosAaHlADdBOAB3OJFO7t6wqoZ+OASRwAxMgADygnTHZBWCj8BiHO5QLC7HgzCDzay2W6nZSjeDrOCbYrba77SHHGFww4LJZYAAipyqUAARl04hcREQPl0eoJyMoYKQbGFskwXqVyoRUBRcDxaGAqK4KGAAL4AXSAA
+      height: 350
+    - title: Core
+      file: app-variation-data-view-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiINqiuAyJCdOtRtHIAvHIUr3QqIAFACUrtCYykLeyEI4ULxwynTsQopBOshZsYJYhgBMGWAAChxcyMV8gdpgIQSZ2VpgACqGcAaGGO2kdMgUbQZw7HDEVIrIilAUUMiMsO2CYohN9RDZOVik-BTo28pkDkUBmspGXU11DVlxWzt7k9PJDPNHVSeKdBerYRDhDr0iRwAN0cQWEuwoRFuEKIgJEIkE5BCyzW2QAAnYIA4GFgHlAnvMrhM4L1jqJlB9Qij1us7BR+Aw1pjsVgACJTKDNKAAI2GQTJIlhQxGFEREGUMFIDi8TSYAHcaj8iRj7I4sAc4ET-qw3uSzjwqUT1niYgKKXRcRzlEDBHA5UFAcNRnBFF5mgx+HAQlkAMTIAA8-qN2TpDLWeKw+s1vxjGHQMWs6CCcaigiFDBBDB+hFQFFwPFoYCoAA8KGAAL4AXSAA
+      height: 350
   - title: Set Table Size
     description: Set the `height` and `width` parameters of `render.DataGrid()` to
       constrain the output size of the table.
@@ -89,6 +136,28 @@ listing:
     - title: Core
       file: app-variation-set-table-size-core.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiINqiuAyJCdOtRtHIAvHIUr3QqIAFACUrtCYykLeyEI4ULxwynTsQopBOshZsYJYhgBMGWAAChxcyMV8gdpgIQSZ2XGk-BToLcqKUBRQyQywcEUBmh10WrX1EGEQ4Q50Bo4Abo5Bwm0URM2tLUQicCIiguQhiA1ZAAJ2EA4MWJ3dvf2nyLOsVcOKdKEnENm-yHYUfgMH6Xa5YAAiXSgAHEGIJ0kNREQAO7wiiGLxjADMAAYcegAB5jIiGOCCXiGCiYsD5ACs+KJtSyAGJkAAeNnhHQYdAxazoII8qKCHaLRxTQioCi4Hi0MBUAkUMAAXwAukA
+      height: 350
+  - title: Styling
+    description: 'Set `styles` in `render.DataGrid()` to a customize the table display.
+      `styles` can take a list of dictionaries where each dictionary represents a
+      style to be applied to the table (and thus should have at least a `style` (or
+      `class`) key to apply CSS styles or classes to the relevant cells). To scope
+      the styling to particular cells, use the `rows` and `cols` keys (with 0-based
+      indexing).
+
+      Note that if both `rows` and `cols` are specified, the style will be applied
+      only to the intersection of the specified rows and columns.'
+    apps:
+    - title: Preview
+      file: app-variation-styles-core.py
+      height: 350
+    - title: Express
+      file: app-variation-styles-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5dKCAEygGdk+7LgB0IAM2akY7KABt4zdNQDmAVzoR+DJq2SzSULgH0lENRt6iJU5LwAWG3Mm0s2zalzjMrk6fcdYcAAe6O68WoyuyOqioqbmmijoXFgAIlAUUABizLBwyAC8egbG8eqaABQAlLEQ6lh2AEwVwmAACnIKyG0q5ZZgNRC1AALu3F5YPJlGEnminmLsvRZGXGLViKLI28juFKrMELseE+mZACpQAEaycC1HO49lFlh0+sTAwAAMRACMRI0vj9kID-sgAMxAoiQ34AXSIiHhW0eOwAxEszH0CMiUbYKLhbrwCsBtuiADxknG4tHIADC1CozGQFDs+SoQTYpEWcCgxDsyGIcFksmQFVUvA0ymQACFSKQKLwKLl0NEKG86PiBbI+LwqshyZSHtSdiBScgKVTjY9WsRteFWihWuyKABaQWULytIj682Gq07AC+3oNlup6Nlsi4zNZyDEdGYioFpFkqhgRxDRqtpp9Fsz-u2NuT-RQ33hZtz+ZRrUVBLgDuQIFaYnIroA7nA6Mo7BR660rsmRGAg+W-fnhznR-70QAJTt2WRztgs-LPI5kfQJieh3GNvP51qSVvF5DfP5lrd7-2F2TH0vB33bq3V-G3euNsBXXkAa2UklU3DdZMWF7MBUTEMQuE-MRWnHDNK1gh9LxRbM4MrHYD1II962ARpoXPVC0OQa9by+fDEMIgswBrV9aHfT9iB-P8APXYDaFaVErl+LgADYeJg+8KzHATJyzEdH2NDCsNoYAABYiAAVjIwTCOI7DSOE8TqWfWs3z7b9f1If8uEAjcQNRHioAATjERp+LEpDHgQ5SUSUkTBkIVB8SUWgwGdIdYSAA
+      height: 350
+    - title: Core
+      file: app-variation-styles-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5dKCAEygGdk+7LgB0IAM2akY7KABt4zdNQDmAVzoR+DJq2SzSULgH0lENRt6iJU5LwAWG3Mm0s2AQUxFm1LnGZF1UVFTc01kAF49A2MQ9U0ACgBKIOhMI3UI5HUcKGU4IzFZdS540WRyrLosOwAmUrAABTkFZAaVOMswRIIyiuzSVQp0QaMeCigC5lg4etiLUbFhLp6IZIgU3zFbPwA3P3iNYYoiAaHBol44Xl46ckTEXvKAAW9uPywxiYlpx+RN9na8y4YiSDwgFQhyG8FFUzHBr18zCwABEoOMACpQABGshmv0hFTmmiwdH0xGAwAADEQAIxEGqU6nIBl05AAZkZRA5NIAukREHz8QTbBRcLjeOFgOUAMTIAA8cqFwoqsoAwtQqMxkBQ7HBtXAAB5sUhbOBQYh2ZDEOCyWTIeKqG5mZAAIVIpAovAoU3QWQopLooqtsj4vESyFlCqVyuQIBl8sV4JjyaWxBD1yWKCWVCNAFprZQ-EsiBGE9HlQBfEuRxPJgmyt2yLja3XIMR0Zheq2kIowcE18vCuOlqNJuvC1M9zooKl8+Oj8fKpZesVwTOxpZicgUXMAdzgdGUdgo66WWJ7IjAVfntcX5WvI9vd9lAAlD3ZZO+2Dq9UTu-pO0fQcCRAYCYyWSRd2nZAqVpOcgLHO8KknWRoNnasy0QpDkGXUVcXXUCwCxc0AGtlEkVRuHzHsWFPMBpTEMQuGIxYrwwhckIfAcsLrYduOwiEINIKD12AGouXg-iBPKFC0MpSTMOkmSwBXfDaEI4jiDIiiqLIAC6OlLEaS4AA2Uyli4xTOPYp9Fz4qzpKEkTaGAAAWIgAFYFI4xywD0uTvNs7DcNXAiz1I8iBl0mjmAM0yoAATjEGoLJssCIUsnyY0C6M1hSDBfUiDx0HiAr0joC5dj8NZCFQUUlFoMAcwoK8eSAA
       height: 350
   - title: Customize Summary Statement
     description: 'Set `summary` in `render.DataGrid()` to `False` to remove the statement
@@ -138,7 +207,7 @@ For more information about interacting with data frames, see the API documentati
 
 If your table is a data frame that uses the pandas styler, replace `ui.output_data_frame()` with `ui.output_table()` and `@render.data_frame` with `@render.table`.
 
-See also: [DataTables](../data-table/index.qmd)
+See also: [Data Tables](../data-table/index.qmd)
 
 ## Variations
 
