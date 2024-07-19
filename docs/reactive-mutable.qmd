@@ -112,15 +112,15 @@ b
 For this simple example, a tuple was an adequate substitute for a list, but this won't always be the case. The [pyrsistent](https://pypi.org/project/pyrsistent/) Python package provides immutable versions of several common data structures including list, dict, and set; using these objects in conjunction with `reactive.value` and `reactive.calc` is much safer than mutable versions.
 
 <!--
-### Pandas vs. Polars
+### pandas vs. Polars
 
-In data science, we frequently have data in the form of data frames, most commonly using [Pandas](https://pandas.pydata.org/). These are mutable data structures, and as such, require care.
+In data science, we frequently have data in the form of data frames, most commonly using [pandas](https://pandas.pydata.org/). These are mutable data structures, and as such, require care.
 
-[Polars](https://www.pola.rs/) is a newer data frame library that may be particularly compelling for Shiny. Unlike in Pandas, most of Polars' DataFrame manipulation methods return a copy, leaving the original object unchanged (as in the [Copy on update](#copy-on-update) section).
+[Polars](https://www.pola.rs/) is a newer data frame library that may be particularly compelling for Shiny. Unlike in pandas, most of Polars' DataFrame manipulation methods return a copy, leaving the original object unchanged (as in the [Copy on update](#copy-on-update) section).
 
 Care must still be taken to make explicit copies when performing operations that do mutate, like [setting column names](https://pola-rs.github.io/polars/py-polars/html/reference/api/polars.DataFrame.columns.html#polars.DataFrame.columns). In Polars, this operation is `df.clone()`, not `df.copy()`.
 
-In contrast, Pandas' lack of copy-on-update methods means that explicit `df.copy()` will be common and crucial. And due to architectural differences between the two libraries, copying in Pandas can be slow for large data while cloning in Polars should always be extremely fast.
+In contrast, pandas' lack of copy-on-update methods means that explicit `df.copy()` will be common and crucial. And due to architectural differences between the two libraries, copying in pandas can be slow for large data while cloning in Polars should always be extremely fast.
 
 TODO: Note that Polars isn't installable on shinylive
 TODO: Compare Siuba
