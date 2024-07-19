@@ -345,7 +345,7 @@ with ui.layout_columns(col_widths=[6, 6, 12]):
         @render_plotly
         def tip_perc():
             from ridgeplot import ridgeplot
-            # Must make a copy of this Pandas dataframe before we mutate it!
+            # Must make a copy of this pandas dataframe before we mutate it!
             # See https://shiny.posit.co/py/docs/reactive-mutable.html
             dat = tips_data().copy()
             dat["percent"] = dat.tip / dat.total_bill
