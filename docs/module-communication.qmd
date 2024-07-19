@@ -469,7 +469,6 @@ Since all of the module instances are receiving the same reactive object, when t
 #| standalone: true
 #| components: [editor, viewer]
 ## file: app.py
-
 from shiny import App, module, reactive, render, ui
 from .modules import counter_ui, counter_server
 
@@ -984,6 +983,83 @@ def city_state_server(input, output, session):
 If your return value has more objects, it may be useful to return a [namedtuple](https://realpython.com/python-namedtuple/).
 Named tuples are similar to tuples except that they allow you to set specific named attributes, which makes them useful for data validation because if you don't pass the right attributes to a named tuple it will fail early and loudly.
 
+## Using modules with Shiny Core and Express syntax
+
+In all the examples we've seen so far, a Shiny Express app uses modules created with Shiny Express syntax, or a Shiny Core app uses modules created with Shiny Core syntax.
+It is also possible for an Express app to use a module written with Core syntax. To do so, in your Express app, simply call both the UI and server components of the Core-syntax module.
+
+This is a Shiny Express app which illustrates how to use both types of modules: one written with Express syntax, and the other written with Core syntax.
+
+:::{.column-page}
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| viewerHeight: 400
+## file: app.py
+# This Shiny Express app illustrates how to use modules with Express and Core syntax
+from shiny.express import ui
+from .counter_express import counter_express
+from .counter_core import counter_server, counter_ui
+
+# Use a module that was made with Shiny Express syntax
+counter_express("counter1", label="Counter 1 (Express)", starting_value=5)
+
+# Use a module that was made with Shiny Core syntax: Call the ui and server components
+# with the same `id`, and pass in any additional arguments.
+counter_ui("counter2", label="Counter 2 (Core)")
+counter_server("counter2", starting_value=2)
+
+## file: counter_express.py
+# Counter module implemented with Shiny Express syntax
+from shiny import reactive
+from shiny.express import module, ui, render
+
+@module
+def counter_express(input, output, session, label="Increment counter", starting_value=0):
+    count = reactive.value(starting_value)
+    with ui.card():
+        ui.card_header("This is " + label)
+        ui.input_action_button(id="button", label=label)
+
+        @render.code
+        def out():
+            return f"Click count is {count()}"
+
+    @reactive.effect
+    @reactive.event(input.button)
+    def _():
+        count.set(count() + 1)
+
+## file: counter_core.py
+# Counter module implemented with Shiny Core syntax
+from shiny import module, ui, render, reactive, event
+
+@module.ui
+def counter_ui(label: str = "Increment counter"):
+    return ui.card(
+        ui.card_header("This is " + label),
+        ui.input_action_button(id="button", label=label),
+        ui.output_code(id="out"),
+    )
+
+
+@module.server
+def counter_server(input, output, session, starting_value = 0):
+    count =  reactive.value(starting_value)
+
+    @reactive.effect
+    @reactive.event(input.button)
+    def _():
+        count.set(count() + 1)
+
+    @render.code
+    def out():
+        return f"Click count is {count()}"
+
+```
+
+:::
 
 ## Conclusion
 
