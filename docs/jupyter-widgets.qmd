@@ -76,6 +76,7 @@ altair
 anywidget
 palmerpenguins
 jsonschema
+jsonschema_specifications
 ```
 
 ##### Bokeh
