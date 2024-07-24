@@ -153,19 +153,22 @@ def hist():
     import altair as alt
     from palmerpenguins import load_penguins
     df = load_penguins()
-    return alt.Chart(df).mark_bar().encode(
-        x=alt.X(f"{input.var()}:Q", bin=True),
-        y="count()"
+    return (
+        alt.Chart(df)
+        .mark_bar()
+        .encode(x=alt.X(f"{input.var()}:Q", bin=True), y="count()")
     )
 ## file: requirements.txt
 altair
 anywidget
 palmerpenguins
 jsonschema
+jsonschema-specifications
 ## file: soft_dependencies.py
 # Temporary workaround to inform shinylive of soft dependencies
 import anywidget
 import jsonschema
+import jsonschema_specifications
 import mypy_extensions
 import toolz
 ```

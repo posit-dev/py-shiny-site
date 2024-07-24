@@ -58,29 +58,30 @@ from shiny.express import input, ui
 from shinywidgets import render_altair
 import soft_dependencies
 
-ui.input_selectize(
-    "var", "Select variable",
-    choices=["bill_length_mm", "body_mass_g"]
-)
+ui.input_selectize("var", "Select variable", choices=["bill_length_mm", "body_mass_g"])
+
 
 @render_altair
 def hist():
     import altair as alt
     from palmerpenguins import load_penguins
     df = load_penguins()
-    return alt.Chart(df).mark_bar().encode(
-        x=alt.X(f"{input.var()}:Q", bin=True),
-        y="count()"
+    return (
+        alt.Chart(df)
+        .mark_bar()
+        .encode(x=alt.X(f"{input.var()}:Q", bin=True), y="count()")
     )
 ## file: requirements.txt
 altair
 anywidget
 palmerpenguins
 jsonschema
+jsonschema - specifications
 ## file: soft_dependencies.py
 # Temporary workaround to inform shinylive of soft dependencies
 import anywidget
 import jsonschema
+import jsonschema_specifications
 import mypy_extensions
 import toolz
 ```
@@ -393,6 +394,7 @@ import altair as alt
 from shiny.express import render
 from shinywidgets import reactive_read, render_altair
 from vega_datasets import data
+import soft_dependencies
 
 "Click the legend to update the selection"
 
@@ -404,15 +406,31 @@ def selection():
 @render_altair
 def jchart():
     brush = alt.selection_point(name="point", encodings=["color"], bind="legend")
-    return alt.Chart(data.cars()).mark_point().encode(
-        x='Horsepower:Q',
-        y='Miles_per_Gallon:Q',
-        color=alt.condition(brush, 'Origin:N', alt.value('grey')),
-    ).add_params(brush)
+    return (
+        alt.Chart(data.cars())
+        .mark_point()
+        .encode(
+            x="Horsepower:Q",
+            y="Miles_per_Gallon:Q",
+            color=alt.condition(brush, "Origin:N", alt.value("grey")),
+        )
+        .add_params(brush)
+    )
+
+
 ## file: requirements.txt
 altair
 anywidget
 vega_datasets
+jsonschema
+jsonschema-specifications
+## file: soft_dependencies.py
+# Temporary workaround to inform shinylive of soft dependencies
+import anywidget
+import jsonschema
+import jsonschema_specifications
+import mypy_extensions
+import toolz
 ```
 
 
