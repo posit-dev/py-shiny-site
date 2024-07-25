@@ -141,7 +141,6 @@ See the [Jupyter Widgets article](jupyter-widgets.qmd) for more information on r
 
 from shiny.express import input, ui
 from shinywidgets import render_altair
-import soft_dependencies
 
 ui.input_selectize(
     "var", "Select variable",
@@ -162,15 +161,6 @@ def hist():
 altair
 anywidget
 palmerpenguins
-jsonschema
-jsonschema-specifications
-## file: soft_dependencies.py
-# Temporary workaround to inform shinylive of soft dependencies
-import anywidget
-import jsonschema
-import jsonschema_specifications
-import mypy_extensions
-import toolz
 ```
 
 ##### Bokeh
