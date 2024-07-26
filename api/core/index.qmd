@@ -1,7 +1,3 @@
----
-repo-actions: false
----
-
 # Shiny Core API
 
 This page outlines Shiny _Core_'s API reference.
