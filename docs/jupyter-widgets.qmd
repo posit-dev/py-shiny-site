@@ -56,7 +56,6 @@ To render an ipywidget you first define a reactive function that returns the wid
 
 from shiny.express import input, ui
 from shinywidgets import render_altair
-import soft_dependencies
 
 ui.input_selectize("var", "Select variable", choices=["bill_length_mm", "body_mass_g"])
 
@@ -75,15 +74,6 @@ def hist():
 altair
 anywidget
 palmerpenguins
-jsonschema
-jsonschema - specifications
-## file: soft_dependencies.py
-# Temporary workaround to inform shinylive of soft dependencies
-import anywidget
-import jsonschema
-import jsonschema_specifications
-import mypy_extensions
-import toolz
 ```
 
 ##### Bokeh
@@ -394,7 +384,6 @@ import altair as alt
 from shiny.express import render
 from shinywidgets import reactive_read, render_altair
 from vega_datasets import data
-import soft_dependencies
 
 "Click the legend to update the selection"
 
@@ -422,15 +411,6 @@ def jchart():
 altair
 anywidget
 vega_datasets
-jsonschema
-jsonschema-specifications
-## file: soft_dependencies.py
-# Temporary workaround to inform shinylive of soft dependencies
-import anywidget
-import jsonschema
-import jsonschema_specifications
-import mypy_extensions
-import toolz
 ```
 
 
