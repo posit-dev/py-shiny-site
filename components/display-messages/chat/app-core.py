@@ -10,7 +10,6 @@ app_ui = ui.page_fillable(
 def server(input):
     # Create a chat instance and display it
     chat = ui.Chat(id="chat")  # <<
-    chat.ui()  # <<
 
     # Define a callback to run when the user submits a message
     @chat.on_user_submit  # <<
