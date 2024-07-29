@@ -68,8 +68,7 @@ quarto-exts:
 deps: $(PYBIN)
 	$(PYBIN)/pip install pip --upgrade
 	$(PYBIN)/pip install -r requirements.txt
-	. $(PYBIN)/activate && cd py-shiny && make install-deps
-	. $(PYBIN)/activate && cd py-shiny/docs && make deps
+	. $(PYBIN)/activate && cd py-shiny && make install-docs
 
 ## Build qmd files for Shiny API docs
 quartodoc: $(PYBIN)
