@@ -4,12 +4,10 @@ from shiny import App, render, ui
 
 app_ui = ui.page_fillable(  # <<
     ui.layout_sidebar(
-        ui.panel_sidebar(
+        ui.sidebar(
             ui.input_slider("n", "N", 0, 100, 20),
         ),
-        ui.panel_main(
-            ui.output_plot("histogram", height="100%"),  # <<
-        ),
+        ui.output_plot("histogram", height="100%"),  # <<
     ),
 )  # <<
 
