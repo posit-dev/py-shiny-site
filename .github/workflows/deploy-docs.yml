@@ -24,6 +24,10 @@ jobs:
       - name: Upgrade pip
         run: python -m pip install --upgrade pip
 
+      - uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: 1.4.557
+
       # =====================================================
       # Install dependencies
       # =====================================================
@@ -47,10 +51,6 @@ jobs:
       # =====================================================
       # Build
       # =====================================================
-      - uses: quarto-dev/quarto-actions/setup@v2
-        with:
-          version: 1.4.557
-
       - name: Build site
         run: |
           make all
