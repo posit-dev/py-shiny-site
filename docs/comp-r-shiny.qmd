@@ -79,7 +79,6 @@ While R doesn't have an exact analog to decorators they are similar to [function
 ::: callout-tip
 ### Takeaways
 
--   Decorate output function with `@output`
 -   Use rendering decorators like `@render.plot`, `@render.text`, or `@render.ui` instead of `renderPlot()`, `renderText`, or `renderUI`
 -   Reactive calculations (equivalent to reactive expressions in R) are decorated `@reactive.calc`, and reactive effects (equivalent to observers in R) are decorated with `@reactive.effect`.
 :::
@@ -120,7 +119,6 @@ app_ui = ui.page_fluid(
 )
 
 def server(input, output, session):
-    @output
     @render.text
     def txt():
         return f"n*2 is {input.n() * 2}"
@@ -178,7 +176,6 @@ app_ui = ui.page_fluid(
 )
 
 def server(input, output, session):
-    @output
     @render.text
     def txt():
         return f"n*2 is {input.n() * 2}"
@@ -241,7 +238,6 @@ app_ui = ui.page_fluid(
 )
 
 def server(input, output, session):
-    @output
     @render.text
     def txt():
         return f"n*2 is {input.n() * 2}"
@@ -304,7 +300,6 @@ def server(input, output, session):
     def n():
       return input.n()
 
-    @output
     @render.text
     def txt():
         return f"n*2 is {n() * 2}"
@@ -407,7 +402,6 @@ def server(input, output, session):
         input.reset()
         ui.update_slider("n", value=40)
 
-    @output
     @render.text
     def txt():
         return f"n*2 is {val() * 2}"
@@ -535,7 +529,6 @@ def server(input: Inputs, output: Outputs, session: Session):
         newVal = val() + 1
         val.set(newVal)
 
-    @output
     @render.text
     def value():
         return str(val())
