@@ -31,6 +31,10 @@ jobs:
         run: |
           make submodules
 
+      - uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: 1.4.557
+
       - name: Install R
         uses: r-lib/actions/setup-r@v2
       - uses: r-lib/actions/setup-r-dependencies@v2
@@ -47,10 +51,6 @@ jobs:
       # =====================================================
       # Build
       # =====================================================
-      - uses: quarto-dev/quarto-actions/setup@v2
-        with:
-          version: 1.4.557
-
       - name: Build site
         run: |
           make all
