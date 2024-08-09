@@ -144,7 +144,6 @@ Using arguments like this makes your modules much more flexible and allows you t
 #| standalone: true
 #| components: [editor, viewer]
 ## file: app.py
-
 from shiny import App, ui
 # Note: In a normal Shiny Core app, use an absolute import, as in:
 # `from counter import ...`

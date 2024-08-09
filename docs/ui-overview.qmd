@@ -38,7 +38,7 @@ Here's a basic example of a text input (and printing its value to the console):
 
 ```{.python}
 from shiny import reactive
-from shiny.express import ui
+from shiny.express import input, ui
 
 ui.input_text("text", label="Enter some text")
 
@@ -94,7 +94,7 @@ Here's a basic example of using a text output (reacting to changes in a text inp
 ### Express
 
 ```{.python}
-from shiny.express import render, ui
+from shiny.express import input, render, ui
 
 ui.input_text("text", label="Enter some text")
 
