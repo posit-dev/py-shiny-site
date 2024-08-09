@@ -269,7 +269,7 @@ def map():
     # Combined all of it and render a viewport
     return pdk.Deck(layers=[layer], initial_view_state=view_state)
 ## file: requirements.txt
-pydeck
+pydeck==0.8.0
 ```
 
 ##### Other
