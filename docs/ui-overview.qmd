@@ -167,7 +167,7 @@ For a quick example, here's how to arrange two sliders in a row:
 from shiny.express import ui
 
 with ui.layout_column_wrap(gap="2rem"):
-    ui.input_slider("slider1", "Slider 1", min=0, max=100, value=50),
+    ui.input_slider("slider1", "Slider 1", min=0, max=100, value=50)
     ui.input_slider("slider2", "Slider 2", min=0, max=100, value=50)
 ```
 
