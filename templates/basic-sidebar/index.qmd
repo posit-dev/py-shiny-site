@@ -1,5 +1,5 @@
 ---
-title:        "Reactive plot in sidebar"
+title:        "Reactive plot with a sidebar"
 description:  Use the basic-sidebar template as a foundation for your next Shiny app.
 date:         2024-03-04
 image:        thumbnail.png
