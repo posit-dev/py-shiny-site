@@ -157,9 +157,10 @@ pip install shinylive
 Next, create a directory with a Shiny application. We'll use the `shiny create` command to create a basic application in a directory called `myapp/`.
 
 ```bash
-shiny create myapp
+shiny create --dir myapp
 ```
 
+Pick a Shiny app template to create in the `myapp` directory.
 Next, create the distribution with shinylive:
 
 ```bash
