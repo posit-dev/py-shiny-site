@@ -4,7 +4,6 @@ on:
   push:
     branches: [main]
   pull_request:
-    branches: [main]
 
 jobs:
   build:
@@ -32,10 +31,15 @@ jobs:
         run: |
           make submodules
 
+      - uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: 1.4.557
+
       - name: Install R
         uses: r-lib/actions/setup-r@v2
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
+          install-quarto: false
           packages: |
             any::knitr
             any::rmarkdown
@@ -48,10 +52,6 @@ jobs:
       # =====================================================
       # Build
       # =====================================================
-      - uses: quarto-dev/quarto-actions/setup@v2
-        with:
-          version: 1.4.549
-
       - name: Build site
         run: |
           make all

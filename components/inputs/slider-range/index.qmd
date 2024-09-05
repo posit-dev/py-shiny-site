@@ -3,6 +3,7 @@ title: Slider Range
 sidebar: components
 appPreview:
   file: components/inputs/slider-range/app-preview.py
+  static: true
 listing:
 - id: example
   template: ../../_partials/components-detail-example.ejs

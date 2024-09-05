@@ -1,0 +1,259 @@
+---
+title: Data Table
+sidebar: components
+preview: '<div class="p-4 w-100 h-100"> <table class="w-100 h-100 my-0 "> <thead>
+  <tr style="border-top:2px solid #1D1F21;border-bottom:2px solid #1D1F21;"> <th class="fw-600
+  p-90 px-2 py-1" tabindex="0" colspan="1" scope="col"> <div>This</div> </th> <th
+  class="fw-600 p-90 px-2 py-1" tabindex="0" colspan="1" scope="col"> <div>That</div>
+  </th> </tr> </thead> <tbody tabindex="0"> <tr tabindex="-1" data-index="0" data-key="0">
+  <td class="fw-500 p-90 px-2 py-1">And</td> <td class="fw-500 p-90 px-2 py-1">The</td>
+  </tr> <tr tabindex="-1" data-index="1" data-key="1"> <td class="fw-500 p-90 px-2
+  py-1">Other</td> <td class="fw-500 p-90 px-2 py-1">Thing</td> </tr> </tbody> </table>
+  </div>'
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/outputs/data-table/
+  contents:
+  - title: Preview
+    file: app-core.py
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthuLHAAe6BnBFiJUmcmsRFcBkSE6dajaOQBeOQUVHyFRAAoASi8IISxDACZwrTAABQ4uZFS+MO0waIgYgAFnVwYsRSgKKGVGWDhkZABiZAAeVp1XOlYczWVFOijEHUbG6wp+BggnajKsABEqqAAVKAAjdjhw0M1Ixpb2nUJUClweWjAqcwowAF8AXSA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiINqiuAyJCdOtRtHIAvHIUr3QqIAFACUrtCYykLeyEI4ULxwynTsQopBOshZsYJYhgBMGWAAChxcyMV8gdpgIQSZ2XGk-BToLcqKUBRQyQywcEUBmh10WrVEyADEyAA8MzphEOEOdAaOAG6OQcJtFETNrS1EInAiIoLkIYgNWQACdhAODFid3b39WdNzN8grrFXDRR0ULXCDZcHIOwUfgMMEPJ5YAAiXSgABUoAAjdgDIaiEKfWbzJbEjDoGLWdBBUlRQTHDaORaEVAUXA8WhgKgADwoYAAvgBdIA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  template-params:
+    dir: components/outputs/data-table/
+  contents:
+  - title: ui.output_data_frame
+    href: https://shiny.posit.co/py/api/ui.output_data_frame.html
+    signature: ui.output_data_frame(id)
+  - title: '@render.data_frame'
+    href: https://shiny.posit.co/py/api/render.data_frame.html
+    signature: render.data_frame(fn=None)
+  - title: render.DataTable
+    href: https://shiny.posit.co/py/api/render.DataTable.html
+    signature: render.DataTable(self, data, *, width='fit-content', height='500px',
+      summary=True, filters=False, row_selection_mode='none')
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/outputs/data-table/
+  contents:
+  - title: Select Rows
+    description: Set `selection_mode` in `render.DataTable()` to `"row"` to allow
+      the user to select one row at a time. Set it to `"rows"` to allow the user to
+      select multiple rows at a time. Access the selection(s) as `<id>.cell_selection()["rows"]`.
+    apps:
+    - title: Preview
+      file: app-variation-select-rows-core.py
+      height: 350
+    - title: Express
+      file: app-variation-select-rows-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthuLHAAe6BnBFiJUmeIjp+FItYiK4DIkJ061DVFkAF45BRVAoVEACgBKfwghLEMAJhitMAAFDi5kLL5o7TAEiESAAQ8vBiw-Tzg6ZCYAdxF4xB1kLqbSVtDWQs1lRTosYjh2dmURCbhiCkFyeOBMluKAXS6AYmQAHl3O7pn2OapFfsyiTKwAK1JhGJEKBhjBOOQ6aXEnA2kzmLWcXegkaa2QExmyEyADlyHBMocutYKPwGBAPpkAEq9MTHU5wRQoEB4+YEgC+CLKVMq1GqWEUUAoUGUjFg8PqjSiQxG7URTTgKLR-PqNQAIoyoAAVKAAIxOMS5oiIJIW5GUMFIXhCqxxmXeyB2+x0hFQFFwPFoYCo5goYDJ6yAA
+      height: 350
+    - title: Core
+      file: app-variation-select-rows-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiINqiuAyJCdOtRtHIAvHIUr3QqIAFACUrtCYykLeyEI4ULxwynTsQopBOshZsYJYhgBMGWAAChxcyMV8gdpgIQSZ2XGk-BToLVGCRUwA7jV1DVlNLW0UyopQFFDJDLBwRQGaY3RatfUQYRDhDnQGjgBujkHCI0TNrS1EInAiIoLkIYgDyAACdhAODFjjk9OzT9usKqLRR0UKPCDZSHIOwUfgMCFvD5YAAiEygABUoAAjdhzBaiS5wXHECh3CDKGCkBxeFY9PpZADEyAAPMzwpDXvZHFgXBDsgC6WCnpC6TF8SIllhiET2MorsTSeRQsBaaReisALqMllsvlQ3YKuCKGIrIgrLAAK1IwiCIgoDCOIWQdGk4nEEJEFiNQTpISdgh2oqJV2QKwAcuQ4CthdkYXCIcswAAlNVieVwElGlAgdOZxQAX2jm2LGHQMWs6CCpY6hIYBwYG0IqAouB4tDAVAAHhQwPmNUA
+      height: 350
+  - title: Filterable Table
+    description: Set `render.DataTable(filters=True)` to add a row of filter options
+      to the header row. Users can interact with these options to filter the table.
+    apps:
+    - title: Preview
+      file: app-variation-filterable-table-core.py
+      height: 350
+    - title: Express
+      file: app-variation-filterable-table-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthuLHAAe6BnBFiJUmcmsRFcBkSE6dajaOQBeOQUVHyFRAAoASi8IISxDACZwrTAABQ4uZFS+MO0waIgYgAFnVwYsRSgKKGVGWDgdVzpWHM1lRTooxB1kXqc4Cn4GCH6XNywAESqoABUoACN2OHDQzSI6QXYqBhF-GYZ+OEjegGJkAB5znUJUClweWjAqcwowAF8AXSA
+      height: 350
+    - title: Core
+      file: app-variation-filterable-table-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiINqiuAyJCdOtRtHIAvHIUr3QqIAFACUrtCYykLeyEI4ULxwynTsQopBOshZsYJYhgBMGWAAChxcyMV8gdpgIQSZ2XGk-BToLcqKUBRQyQywcEUBmh10WrX1EGEQ4Q50Bo4Abo5Bwm0URM2tLUQicCIiguQhiA1ZAAJ2EA4MWJ3dvf2nyLOsVcOKdKEnENm-yHYUfgMH6Xa5YAAiXSgABUoAAjdgDIaiIh0QTsKgMEReaEMfhwEJZADEyAAPKTwjoMOgYtZ0EFqVFBDtFo4poRUBRcDxaGAqAAPChgAC+AF0gA
+      height: 350
+  - title: Edit Table Cells
+    description: Set `editable=True` to be able to edit cell contents without re-rendering
+      the data frame.
+    apps:
+    - title: Preview
+      file: app-variation-editable-core.py
+      height: 350
+    - title: Express
+      file: app-variation-editable-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthuLHAAe6BnBFiJUmcmsRFcBkSE6dajaOQBeOQUVHyFRAAoASi8IISxDACZwrTAABQ4uZFS+MO0waIgYgAFnVwYsRSgKKGVGWDgdVzpWHM1lRTooxB1kXqc4Cn4GCH6XNywAESqoABUoACN2OGSRvrXQzQIetb64RUFqxbh-GYZ+OCJkAGJkAB5b7d6CwlQKXB5aMCpzCjAAXwAukA
+      height: 350
+    - title: Core
+      file: app-variation-editable-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiINqiuAyJCdOtRtHIAvHIUr3QqIAFACUrtCYykLeyEI4ULxwynTsQopBOshZsYJYhgBMGWAAChxcyMV8gdpgIQSZ2XGk-BToLcqKUBRQyQywcEUBmh10WrX1EGEQ4Q50Bo4Abo5Bwm0URM2tLUQicCIiguQhiA1ZAAJ2EA4MWJ3dvf2nyLOsVcOKdKEnENm-yHYUfgMH6Xa5YAAiXSgABUoAAjdgDJ5-bJDUQTFEouCKQTdBFwLzQhj8OBEZAAYmQAB4qcjslNwhh0DFrOggkyooIdotHFNCKgKLgeLQwFQAB4UMAAXwAukA
+      height: 350
+  - title: Use Original Data
+    description: The reactive value `.data()` will reactively return the unaltered
+      data.
+    apps:
+    - title: Preview
+      file: app-variation-data-core.py
+      height: 350
+    - title: Express
+      file: app-variation-data-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthuLHAAe6BnBFiJUmcmsRFcBkSE6dajaOQBeOQUVHyFRAAoASi8IISxDACZwrTAABQ4uZFS+MO0waIgvMAAVQzgDQwxy0jpkCjLkRSgKKGRGWHLBMUQUmJ0AAWdXBiwyVx1XWtDNZSMqqJ6IZGXG5tbA6dFlRTosJpao5YBiZAAeU50VpzgKfgYl-agsOZ4+iEHqYb215Xb4CbgUxyMx2C0uK2st3u1xcbiwABE1sUoAAjdhwcKbEQFQioCi4Hi0MBUcwUMAAXwAukA
+      height: 350
+    - title: Core
+      file: app-variation-data-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiINqiuAyJCdOtRtHIAvHIUr3QqIAFACUrtCYykLeyEI4ULxwynTsQopBOshZsYJYhgBMGWAAChxcyMV8gdpgIQSZ2VpgACqGcAaGGO2kdMgUbciKUBRQyIyw7YJiiE31ENk5WKT8FOgrymQORQGaykZdTXUNWXHLq+tDI8kME9tVu4p0h3NhEOEOvSKOAG6OQcJrChEM6AohfEQiQTkEIzebZAACdggDgYWEuUGuE2OgzgvR2omUj1CsIWCzsFH4DHmSJRWAAIsMoM0oAAjdhwIL4kSvbGI+yOLCbODYj6se4E-Y8YnYhbomJcwl0NGM0JZADEyAAPJqZdlyZT5uisJLhW8zRh0DFrOgghaooIwT9HK9CKgKLgeLQwFQAB4UMAAXwAukA
+      height: 350
+  - title: Use Edited Data
+    description: The reactive value `.data_view()` (or `.data_view(selected=True)`)
+      will reactively return the edited data. The data will be updated as the user
+      edits the table and the rows will be arranged to match the user's sorting and
+      filtering.
+    apps:
+    - title: Preview
+      file: app-variation-data-view-core.py
+      height: 350
+    - title: Express
+      file: app-variation-data-view-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthuLHAAe6BnBFiJUmcmsRFcBkSE6dajaOQBeOQUVHyFRAAoASi8IISxDACZwrTAABQ4uZFS+MO0waIgvMAAVQzgDQwxy0jpkCjKDOHY4YipFZEUoCihkRlhywTFEFJidAAFnVwYsMlcdV1rQzWUjKqjhiGQtjq6ewKXRZUU6LE7u5QA3QTgAd3CRJpa2-2KGfjhIrYBiZAAeX502yccAo-AYmzOUCwqx4owgE2oU1Ou2UfXg8zgixyy2O60B22soPBwJcbiwABFdsUoAAjZrhA4iIgPZqtQTkZQwUiufwpJg3PIFQioCi4Hi0MBUcwUMAAXwAukA
+      height: 350
+    - title: Core
+      file: app-variation-data-view-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiINqiuAyJCdOtRtHIAvHIUr3QqIAFACUrtCYykLeyEI4ULxwynTsQopBOshZsYJYhgBMGWAAChxcyMV8gdpgIQSZ2VpgACqGcAaGGO2kdMgUbQZw7HDEVIrIilAUUMiMsO2CYohN9RDZOVik-BTo28pkDkUBmspGXU11DVlxWzt7k9PJDPNHVSeKdBerYRDhDr0iRwAN0cQWEuwoRFuEKIgJEIkE5BCyzW2QAAnYIA4GFgHlAnvMrhM4L1jqJlB9Qij1us7BR+Aw1pjsVgACJTKDNKAAI2GQTJIlhQxGFEREGUMFIDi8TSYAHcaj8iRj7I4sAc4ET-qw3uSzjwqUT1niYgKKXRcRzlEDBHA5UFAcNRnBFF5mgx+HAQlkAMTIAA8-qN2TpDLWeKw+s1vxjGHQMWs6CCcaigiFDBBDB+hFQFFwPFoYCoAA8KGAAL4AXSAA
+      height: 350
+  - title: Set Table Size
+    description: Set the `height` and `width` parameters of `render.DataTable()` to
+      constrain the output size of the table.
+    apps:
+    - title: Preview
+      file: app-variation-set-table-size-core.py
+      height: 350
+    - title: Express
+      file: app-variation-set-table-size-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthuLHAAe6BnBFiJUmcmsRFcBkSE6dajaOQBeOQUVHyFRAAoASi8IISxDACZwrTAABQ4uZFS+MO0waIgYgAFnVwYsRSgKKGVGWDgdVzpWHM1lRTooxB1kXqc4Cn4GCH6XNywAESqoABUoACN2OHDQzSIAd0FFCkN-FIBmAAZD9HMUokM4QV5DCj2wBIBWE7P83oBiZAAeL51CVAouB4tDAVHMFDAAF8ALpAA
+      height: 350
+    - title: Core
+      file: app-variation-set-table-size-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiINqiuAyJCdOtRtHIAvHIUr3QqIAFACUrtCYykLeyEI4ULxwynTsQopBOshZsYJYhgBMGWAAChxcyMV8gdpgIQSZ2XGk-BToLcqKUBRQyQywcEUBmh10WrX1EGEQ4Q50Bo4Abo5Bwm0URM2tLUQicCIiguQhiA1ZAAJ2EA4MWJ3dvf2nyLOsVcOKdKEnENm-yHYUfgMH6Xa5YAAiXSgABUoAAjdgDIaiIgAd0Eigohi8YwAzAAGfHoAAeYyIhjggl4hgoOLA+QArETSbUsgBiZAAHk54R0GHQMWs6CC-Kigh2i0cU0IqAouB4tDAVGJFDAAF8ALpAA
+      height: 350
+  - title: Styling
+    description: 'Set `styles` in `render.DataGrid()` to a customize the table display.
+      `styles` can take a list of dictionaries where each dictionary represents a
+      style to be applied to the table (and thus should have at least a `style` (or
+      `class`) key to apply CSS styles or classes to the relevant cells). To scope
+      the styling to particular cells, use the `rows` and `cols` keys (with 0-based
+      indexing).
+
+      Note that if both `rows` and `cols` are specified, the style will be applied
+      only to the intersection of the specified rows and columns.'
+    apps:
+    - title: Preview
+      file: app-variation-styles-core.py
+      height: 350
+    - title: Express
+      file: app-variation-styles-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5dKCAEygGdk+7LgB0IAM2akY7KABt4zdNQDmAVzoR+DJq2SzSULgH0lENRt6iJU5LwAWG3FjgAPdMzi8tjFmw-c4ZiJ1UVFTc00UdC4sABEoCigAMWZYOGQAXj0DY3D1TQAKAEpQiHUsOwAmAuEwAAU5BWQ6lXzLMBKIUoABfy5ArB5Eowk00X6xdlaLIy4xYsRRZGXkDwpVZghV6n7mOISoABUoACNZOBqtleu8iyw6fWJgYAAGIgBGIkqXt+Rvz+QAGYfkRge8ALpERCQpbXFYAYimZjaBFhcNsFFw514GWAy0RAB4CWj0QjkABhahUZjICh2dJUFxsUiTOBQYh2ZDEOCyWTIAqqXgaZTIABCpFIFF4FFS6GQqgoDzomK5sj4vCKyEJxKupJWIHxyCJJL111qxDVXlqKFqjIoAFpuZRArUiFqjTrTSsAL5u7Um0mI8WyLi0+nIMR0ZjSrmkWSqGBbf2600G93GlNe5bmuPtFCvSGGjNZuG1aVYuDW5AgWpicgOgDucDoyjsFCrtROcZEYF9Rc9Wb76YHXsRAAkW3ZZJO2HT0rctmR9NHhwH0TXM1napIG3nkK8PoXV5uvTnZHuC36PWvTWXMecqzWwCd2QBrZSSVTcR1xlgdsDwmIYhcC+Yi1EOyYlhB14nnCaaQSWKzbqQu5VsAlSgkeCGIcgZ4Xi8WEwTh2ZgOWD60E+L7EO+n7fkuf60LU8InO8XAAGzseBV7FoO3Ejqm-Y3nqyGobQwAACxEAArIRPE4XhaEEXxQmkneFaPp2b4fqQX5cD+y7-vC7FQAAnGIlRcYJsHXNBclwrJ-GdIQqCYkotBgHavbgkAA
+      height: 350
+    - title: Core
+      file: app-variation-styles-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5dKCAEygGdk+7LgB0IAM2akY7KABt4zdNQDmAVzoR+DJq2SzSULgH0lENRt6iJU5LwAWG3Mm0s2AQUxFm1LnGZF1UVFTc01kAF49A2MQ9U0ACgBKIOhMI3UI5HUcKGU4IzFZdS540WRyrLosOwAmUrAABTkFZAaVOMswRIIyiuzSVQp0QaMeCigC5lg4etiLUbFhLp6IZIgU3zFbPwA3P3iNYYoiAaHBol44Xl46ckTEXvKAAW9uPywxiYlpx+RN9na8y4YiSDwgFQhyG8FFUzHBr18zCwABEoOMACpQABGshmv0hFTmmiwdH0xGAwAADEQAIxEGqU6nIBl05AAZkZRA5NIAukREHz8QTbBRcLjeOFgOUAMTIAA8cqFwoqsoAwtQqMxkBQ7HBtXAAB5sUhbOBQYh2ZDEOCyWTIeKqG5mZAAIVIpAovAoU3QWQopLooqtsj4vESyFlCqVyuQIBl8sV4JjyaWxBD1yWKCWVCNAFprZQ-EsiBGE9HlQBfEuRxPJgmyt2yLja3XIMR0Zheq2kIowcE18vCuOlqNJuvC1M9zooKl8+Oj8fKpZesVwTOxpZicgUXMAdzgdGUdgo66WWJ7IjAVfntcX5WvI9vd9lAAlD3ZZO+2Dq9UTu-pO0fQcCRAYCYyWSRd2nZAqVpOcgLHO8KknWRoNnasy0QpDkGXUVcXXUCwCxc0AGtlEkVRuHzHsWFPMBpTEMQuGIxYrwwhckIfAcsLrYduOwiEINIKD12AGouXg-iBPKFC0MpSTMOkmSwBXfDaEI4jiDIiiqLIAC6OlLEaS4AA2Uyli4xTOPYp9Fz4qzpKEkTaGAAAWIgAFYFI4xywD0uTvNs7DcNXAiz1I8iBl0mjmAM0yoAATjEGoLJssCIUsnyY0C6M1hSDBfUiDx0HiAr0joC5dj8NZCFQUUlFoMAcwoK8eSAA
+      height: 350
+  - title: Update Filters
+    description: 'The data frame filters can be programmatically updated using the
+      `.update_filter()` method. It takes a list of column filters to apply to the
+      data frame. Each column filter is a dictionary with the following keys: `col`
+      and `value`. The `col` key is the column index to filter on, and the `value`
+      key is the value to filter for. The `value` key can be a single value for string
+      columns or a list of values to filter for numeric columns. Note, to not set
+      a minimum or maximum value for a numeric column, you can provide a `None` value.
+      To reset filters, provide `None` for the filters (`.update_filter(None)`).
+
+      '
+    apps:
+    - title: Preview
+      file: app-variation-update-filter-core.py
+      height: 350
+    - title: Express
+      file: app-variation-update-filter-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyGcKMQqCAbnB16WRk1jgAPdFZFiJUjLiEOj8FERWEIpwDERCOjpqGqLIALxyCipJQqIAFACUCRBCWIYATLlaYAAKHFzI1Xw52mCFEEUlwqEUyjZ25MoARmEU5JVg-OiKUFTKdILsVAwtRFUAqlMzcMjzizEtbZ0hYb22ggPDFKMQ475wPbtLK8hVAEpwIvc7C09VbTolQwAVnGAGF+AxIrJHvsUFUiCAqsR2FA-FU4WB0BQALRlKoAX3+7QgAAFItEGFgyNEdNE6MhlAVEDpkKzkFYKBCIKwmpplIo6FgYQwCqyAMTIAA8kqKOjJ1ApWGmFCgcwYsCcUTg9OyfIFTJZbI5XPZCpiWAAIjMoABxBiCRS5XWiIjCkSpAAqDH4cHy4qlMuJcqsfQccA8dDocFswesZ0cHkclFyXTCWEmyrgcx++zaqNwEGIyDpDIN3LZUAA7lBBLJnSJ+YKM1ts3sRf7pYa2WzgB3A92B2yJQBlL5sGSCDjIGAzYiGZASzvlwfdxFgMjsdHIAAMqzA9g4Pq3VRt1AJRAXAa7K-9o9kMGEyAP7B9l6XN9XSNIm9oZT3z6PWhciBXdkAAOXIX18QvRd+w-W8vhnTwn0PbZYOvG81w3LcAGZ-1QrdcggiA4CIABGAB2fJoL7DCVxHL51XUNCr2XD8sO-LcABZ8JfJwgLKMpQMEoFqJg1ibwAXXE982T9N9AyKeVQwTbUoxjUkQ3jcM4CTCgU2OCgsDuB4c2WPMRALIsS0ZfJmTYqsazrXlREbdNNlmYUiMg+T0IgQhUAoXAeFoMAqE8CgwHxSSgA
+      height: 350
+    - title: Core
+      file: app-variation-update-filter-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiIM4UYhUEA3OLeqK4DIkJ061GqLIALxyCioBQqIAFACUftCYykIhyEI4ULxwynTsQorROsjFaYJYhgBMhWAAChxcyDV8UdpgsQRFJenC6PwUyg5O5MoARn0U5NX86IpQVDmC7FQMrURaYACqM3NwyHSLy63tncXdEL39g4LDYxQTENV2InD9+0teq8jrAEpwz7JvQ7rY4QEqlcoAVmqAGF+Aw7JQ9gcPih1kQQOtiOwoCJWqiwOgKABaCrrAC+ILB6VIfQuyjInmqkU0C3eDGBHVBXTKNIodNmFCgOQYsDgTOaLMUdA5OniEASnjoBi8rgY0R6fSIvIuRGeuOuEFiiASYIAAgjPAwsAy4CdkIrWBLRKzlnFjVywcU7BQ4aDmc6pVhAV44sUAMTIAA8kZNJXNHi8WAFQsYortDv9ImUUrddrB3t9yAtiYAInMoAAVKAjdhizNEYMrYIVhj8OCxcNRmPyj3IeNXVxYOB0OhwRx2-uOFxwIeuSjq859LDTAXZRsiOVgnG4CDEe3D5DKXO9rcAdygglkmezdGX23mjeinejec9xWAz+7b+-JQjAGUXlYKAZEEDhkBgOZiEMZAIxfE8fxKDEwDIdh1hQAAGNYwGcDg2zQr4wAAcWockiBgrtXwQ8iANkGBhGQHC8l2WCvyoz0kJQ-CKiwxi8NoaIIUw5AADlyHbMkyJYyiEP-QCIIADwY3DmIo+CqI40hUNoABmHjlPw6JRIgNxkAARgAdliCTP2kn9ZNkEV1BUuC2PYzFNPwgAWPSmIMioKiE-yISsyTVNcgBdUKXO-DtyLgic7AHGdh1Hcde0nJxBzgOcKAXC4sCeF4XQ+TcSm3Xd9yVI8jWkqBz0vR11BaG871XYq1SM9sbJ7HQMHQVJrHQaI+uSQRdRVLw5UIVAKFwHhaDAKh5IoMAyXCoA
+      height: 350
+  - title: Update Sorting
+    description: 'The data frame sorting can be programmatically updated using the
+      `.update_sort()` method. It takes a list of sorting information or column numbers
+      to apply to the data frame. When using a number, the default sorting direction
+      will be applied. When providing a sorting info object, `col` and `desc` describe
+      the column index and whether or not the sorting direction is descending. To
+      reset the sorting, provide `None` for the sorting information (`.update_sort(None)`).
+
+      '
+    apps:
+    - title: Preview
+      file: app-variation-update-sort-core.py
+      height: 350
+    - title: Express
+      file: app-variation-update-sort-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyGcKMQqCAbnB16WRk1jgAPdFZFiJUjLiEOj8FERWEIpwDERCOjpqGqLIALxyCipJQqIAFACUCRBCWIYATLlaYAAKHFzI1Xw52mCFEEUlwqEUyjZ25MoARmEU5JVg-OiKUFTKIhbCvFVEVQCqUzNwBgvqVW2dIWG9toIDwxSjEOO+cD3zMovLyFUASnAit9sPu60dgqUAVnGAGF+AxIrJ7nZ1CgniAqsR2FA-FVYWB0BQALRlKoAXzaRQAApFogwsGRojponRkMoCogdMgmcgrBQwRBWE1NMpFHQsFCCkyAMTIAA8oqKOmJ1FJWGmFCgykYsCcUTgNOy3N59MZzNZ7JZMpiWAAIjMoAAVKCDdhwXKa0QE9oQaV9BxwDx0OhwWxSqxuxweRyUXJdMJYSbyuBzHa8NrI3AQYjIam0nUc5lQADuUEEsgdIh5fMjmxjMlywrFEozzOZwAAjEQAAxEeFgMjsVHIABsKzA0RExC7ADEOB9cUQAOwAXSIyBF4t1TPylcXzr91hOgfV3t9Lv9W49cGDFFDhwoWBud1j8ZEieTqbp+QZNeQ2dz+a5oiLEY2swFwDTiu85VjohCoBQuA8LQYBUJ4FBgLi05AA
+      height: 350
+    - title: Core
+      file: app-variation-update-sort-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiIM4UYhUEA3OLeqK4DIkJ061GqLIALxyCioBQqIAFACUftCYykIhyEI4ULxwynTsQorROsjFaYJYhgBMhWAAChxcyDV8UdpgsQRFJenC6PwUyg5O5MoARn0U5NX86IpQVMoiFsK8WoTIqwCqM3NwBkvqq+2dxd0Qvf2DgsNjFBMQ1XYicP2LMsurRKsASnBPsq9OA5tDoQEqlcoAVmqAGF+Aw7JQ9m91CgPsgQKtiOwoCJWqiwOgKABaCqrAC+R1BXTKpD652UZE81UimgWFkOILB6VpFHpswoUByDFgcGZzVZijoHJ08QgCU8dAMXlcDGiPT6RB55yIT1xVwgsUQCTBAAEEZ4GFhGXBjsgFaxxaI2TI4kaqWDinYKHDQSynZKsAC4sUAMTIAA84eNJTNHi8WH5gsYItt9r9ImUktdtrBXp9yHN8YAInMoAAVKAjdii9Oy22xy6uLBwOh0OCOet2RtwZuuShqs59LDTfnZAHLWVgnG4CDEO0t5DKbPuj1QADuUEEsnTmbow+28yDoYjUZXHpKwAAjEQAAxEDFgMjsVYoABsnzAnhExBfyAAYhwTxkkQADsAC6RDIGGkY5iUsTHjBcorg2jguD2LZth2yFdqhTZwH2FADucWCPM8zqArwk4lNOs7zoqS6GrBxTrpu26OhmAYjjs5HRMAYHwVBJ4JDoGDoKk1joNEonJIIOrKl4sprGAFC4DwtDKXAAAeFBgGSYFAA
+      height: 350
+  - title: Customize Summary Statement
+    description: 'Set `summary` in `render.DataGrid()` to `False` to remove the statement
+      "Viewing rows 1 through 10 of 20". Set it to a string template containing `{start}`,
+      `{end}`, and `{total}` tokens, to customize the message.
+
+      '
+    apps:
+    - title: Preview
+      file: app-variation-customize-summary-statement-core.py
+      height: 350
+    - title: Express
+      file: app-variation-customize-summary-statement-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthuLHAAe6BnBFiJUmcmsRFcBkSE6dajaOQBeOQUVHyFRAAoASi8IISxDACZwrTAABQ4uZFS+MO0waIgYgAFnVwYsRSgKKGVGWDgdVzpWHM1lRTooxB1kXqc4Cn4GCH6XNywAESqoABUoACN2OGSRvrXQzQIetb6RfhgYKAZcfxSANUFqRVJkOkF2KDEQEWqZAF9kKGQQK4-Xb4opGq7DeKSIyAAxMgADzQ7a9AqEVAUXA8WhgKjmChgN4AXSAA
+      height: 350
+    - title: Core
+      file: app-variation-customize-summary-statement-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiINqiuAyJCdOtRtHIAvHIUr3QqIAFACUrtCYykLeyEI4ULxwynTsQopBOshZsYJYhgBMGWAAChxcyMV8gdpgIQSZ2XGk-BToLcqKUBRQyQywcEUBmh10WrX1EGEQ4Q50Bo4Abo5Bwm0URM2tLUQicCIiguQhiA1ZAAJ2EA4MWJ3dvf2nyLOsVcOKdKEnENm-yHYUfgMH6Xa5YAAiXSgABUoAAjdgDJ5-bJDUQTFEokT8GAwKAMXBeMYANUE9lIyDognYUDEIBE3RkAF9kFBkCB7CyHOyKKRuuwmWMiMgAMTIAA84uR2Sm4Qw6Bi1nQQXlUUEO0WjimhFQFFwPFoYCoAA8KGAmQBdIA
+      height: 350
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A Data Table presents tabular data in a figure-like view with a minimum of grid lines.
+
+To make a reactive Data Table, follow three steps:
+
+  1. Call `ui.output_data_frame()` in the UI of your app to create a div in which to display the table. Where you call this function within the UI functions will determine where the table will appear within the layout of the app. Set the id argument of `ui.output_data_frame()` to a unique value.
+
+  2. Within the server function, define a new function whose name matches the id used above. The function should assemble the table to display and then return the table wrapped in `render.DataTable()`. Shiny will rerun this function whenever it needs to build or update the output that has the matching id.
+
+  3. Decorate the function with `@render.data_frame`.
+
+A Data Table can also collect input from the user. To allow this, set `render.DataTable(selection_mode="row")` or `render.DataTable(selection_mode="rows")` to allow the user to select one or more rows of the Data Table.
+
+The indices of the selected rows will be accessible within the server function as a reactive variable returned by `<name>.cell_selection()["rows"]`, where <name> is the name of the function decorated with `@render.data_frame`.
+
+The value returned will be an empty tuple if no rows are selected, or a tuple of integers representing the indices of the selected rows. To filter a pandas data frame down to the selected rows, use `df.iloc[list(<name>.cell_selection()["rows"])]`.
+
+For more information about interacting with data frames, see the API documentation for [Express](../../../api/express/express.render.data_frame.qmd) or [Core](../../../api/core/render.data_frame.qmd) syntax.
+
+If your table is a data frame that uses the pandas styler, replace `ui.output_data_frame()` with `ui.output_table()` and `@render.data_frame` with `@render.table`.
+
+See also [Data Grids](../data-grid/index.qmd)
+
+## Variations
+
+:::{#variations}
+:::

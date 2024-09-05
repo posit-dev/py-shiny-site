@@ -1,0 +1,113 @@
+---
+title: Unit testing
+editor:
+  markdown:
+    wrap: sentence
+---
+
+Testing is important to ensure your apps continue working as intended.
+There are two main approaches to testing Shiny apps: unit testing and end-to-end testing.
+Relatively speaking, unit tests much more limited compared to end-to-end, but they're also simpler to write and maintain since they don't depend on running the app in a browser.
+Unit tests also tend to force you to separate the app's "business" logic from the reactive logic (which can be a good thing) since your app won't have access to things like `input` or `output` in a unit test.
+
+In this article, we'll provide a short guide on unit testing with **pytest**. See the next article for end-to-end testing.
+
+### Make your app testable
+
+Consider the following Shiny app that filters a dataset based on a user's selection of species.
+
+```{.python filename="app.py"}
+from palmerpenguins import load_penguins
+from shiny.express import input, render, ui
+
+penguins = load_penguins()
+
+ui.input_select(
+  "species", "Enter a species",
+  list(penguins.species.unique())
+)
+
+@render.data_frame
+def display_dat():
+    idx = penguins.species.isin(input.species())
+    return penguins[idx]
+```
+
+None of the logic can be tested directly through a unit test.[^end-to-end]
+We can, however, put the logic for `display_dat` inside separate function, which can be then be tested independently of the Shiny app:
+
+[^end-to-end]: You could test this with an end-to-end test, but that's for the next article.
+
+```python
+@render.data_frame
+def display_dat():
+    return filter_penguins(input.species())
+
+def filter_penguins(species):
+    return penguins[penguins.species.isin(species)]
+```
+
+Now that we have a function that doesn't rely on a reactive `input` value, we can write a unit test for it.
+There are many unit testing frameworks available for Python, but we'll use **pytest** in this article since it's by far the most comment.
+
+
+### pytest
+
+[`pytest`](https://docs.pytest.org/en/8.2.x/contents.html) is a popular, open-source testing framework for Python.
+To get started, you'll first want to install `pytest`:
+
+```bash
+pip install pytest
+```
+
+`pytest` expects tests to be in files with names that start with `test_` or end with `_test.py`.
+It also expects test functions to start with `test_`.
+Here's an example of a test file for the `filter_penguins` function:
+
+```{.python filename="test_filter_penguins.py"}
+from app import filter_penguins
+
+def test_filter_penguins():
+    assert filter_penguins(["Adelie"]).shape[0] == 152
+    assert filter_penguins(["Gentoo"]).shape[0] == 124
+    assert filter_penguins(["Chinstrap"]).shape[0] == 68
+    assert filter_penguins(["Adelie", "Gentoo"]).shape[0] == 276
+    assert filter_penguins(["Adelie", "Gentoo", "Chinstrap"]).shape[0] == 344
+```
+
+Assuming both the `app.py` and `test_filter_penguins.py` files are in the same directory, you can now run the test by typing `pytest` in your terminal.
+`pytest` will automatically locate the test file and run it with the results shown below.
+
+```bash
+platform darwin -- Python 3.10.12, pytest-7.4.4, pluggy-1.4.0
+configfile: pytest.ini
+plugins: asyncio-0.21.0, timeout-2.1.0, Faker-20.1.0, cov-4.1.0, playwright-0.4.4, rerunfailures-11.1.2, xdist-3.3.1, base-url-2.1.0, hydra-core-1.3.2, anyio-3.7.0, syrupy-4.0.5, shiny-1.0.0
+asyncio: mode=strict
+12 workers [1 item]
+.          [100%]
+(3 durations < 5s hidden.  Use -vv to show these durations.)
+```
+
+If a test fails, `pytest` will show you which test failed and why:
+
+```bash
+======================================================= test session starts =======================================================
+platform darwin -- Python 3.10.12, pytest-7.4.4, pluggy-1.4.0
+configfile: pytest.ini
+plugins: asyncio-0.21.0, timeout-2.1.0, Faker-20.1.0, cov-4.1.0, playwright-0.4.4, rerunfailures-11.1.2, xdist-3.3.1, base-url-2.1.0, hydra-core-1.3.2, anyio-3.7.0, syrupy-4.0.5, shiny-1.0.0
+asyncio: mode=strict
+12 workers [1 item]
+F       [100%]
+======= FAILURES =======
+________ test_double_number ________
+
+    def test_filter_penguins():
+>       assert filter_penguins(["Adelie"]).shape[0] == 150
+E       AssertionError: assert 152 == 150
+E        +  where 152 = filter_penguins(["Adelie"]).shape[0]
+
+```
+
+Unit testing is a great way to ensure that your "business" logic is working as expected.
+However, to fully ensure your app is working as intended, you'll also want to write end-to-end tests.
+In the next article, we'll show you how to write end-to-end tests for your Shiny app via **Playwright**.

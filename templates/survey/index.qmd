@@ -5,7 +5,7 @@ date:         2024-03-04
 image:        thumbnail.png
 imagealt:     "A screenshot of the survey template"
 quarto-column-size: column-body
-app-height:   1000px
+app-height:   1100px
 appurl:       https://gallery.shinyapps.io/template-survey/
 sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/survey
 ---

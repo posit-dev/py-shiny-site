@@ -4,11 +4,11 @@ from shiny import App, render, ui
 
 app_ui = ui.page_fluid(
     ui.output_plot(
-        "plot", 
-        click=True, #<<
-        dblclick=True, #<<
-        hover=True, #<<
-        brush=True #<<
+        "plot",
+        click=True,  # <<
+        dblclick=True,  # <<
+        hover=True,  # <<
+        brush=True,  # <<
     ),
     "Click:",
     ui.output_text_verbatim("clk", placeholder=True),
@@ -19,6 +19,7 @@ app_ui = ui.page_fluid(
     "Brush",
     ui.output_text_verbatim("brsh", placeholder=True),
 )
+
 
 def server(input, output, session):
     @render.plot(alt="A histogram")
@@ -47,5 +48,6 @@ def server(input, output, session):
     @render.text
     def brsh():
         return input.plot_brush()
-        
+
+
 app = App(app_ui, server, debug=True)

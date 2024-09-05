@@ -1,6 +1,6 @@
 from shiny import App, render, ui
 
-app_ui = ui.page_fluid(
+app_ui = ui.page_fixed(
     ui.input_select(  # <<
         "select",  # <<
         "Select an option below:",  # <<

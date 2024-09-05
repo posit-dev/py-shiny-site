@@ -1,0 +1,35 @@
+/* The Templates list page (/templates/index.qmd) gets styling mostly from /components/_partials/components-list.css, with some additional styling from /templates/_partials/templates-list.css */
+
+/* Templates List page background colors */
+ 
+#quarto-content {
+  background: linear-gradient(175deg,
+  rgba(255, 255, 255, 1),
+  rgba(255, 255, 255, 1),
+  rgba(193, 0, 0, .04), /* red */
+  rgba(191, 0, 127, .04), /* pink */
+  rgba(116, 20, 156, .04), /* purple */
+  rgba(75, 0, 193, .03), /* indigo */
+  rgba(250, 250, 250, 1)  
+  100%);
+}
+
+/* List page card image sizing */
+
+.layout-list-card  {
+  overflow: hidden;
+  padding-bottom: 52.5%;
+  position: relative;
+  height: 0;
+  background-size: contain;
+  background-position: center;
+}
+.layout-list-card img {
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  object-fit: cover;
+  border-radius: 10px;
+}

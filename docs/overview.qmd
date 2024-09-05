@@ -99,7 +99,7 @@ palmerpenguins
 
 ##### Tables
 
-Apply `@render.data_frame` to any code that returns a [pandas](https://pandas.pydata.org/) DataFrame for a basic table.
+Apply `@render.data_frame` to any code that returns a [pandas](https://pandas.pydata.org/) or [polars](https://pola.rs/) DataFrame for a basic table.
 For more sophisticated tables, you can use [`render.DataGrid`](https://shiny.posit.co/py/components/outputs/data-grid.html) to add things like filters to your table.
 
 ```{shinylive-python}
@@ -141,7 +141,6 @@ See the [Jupyter Widgets article](jupyter-widgets.qmd) for more information on r
 
 from shiny.express import input, ui
 from shinywidgets import render_altair
-import soft_dependencies
 
 ui.input_selectize(
     "var", "Select variable",
@@ -153,21 +152,15 @@ def hist():
     import altair as alt
     from palmerpenguins import load_penguins
     df = load_penguins()
-    return alt.Chart(df).mark_bar().encode(
-        x=alt.X(f"{input.var()}:Q", bin=True),
-        y="count()"
+    return (
+        alt.Chart(df)
+        .mark_bar()
+        .encode(x=alt.X(f"{input.var()}:Q", bin=True), y="count()")
     )
 ## file: requirements.txt
 altair
 anywidget
 palmerpenguins
-jsonschema
-## file: soft_dependencies.py
-# Temporary workaround to inform shinylive of soft dependencies
-import anywidget
-import jsonschema
-import mypy_extensions
-import toolz
 ```
 
 ##### Bokeh
@@ -276,7 +269,7 @@ def map():
     # Combined all of it and render a viewport
     return pdk.Deck(layers=[layer], initial_view_state=view_state)
 ## file: requirements.txt
-pydeck
+pydeck==0.8.0
 ```
 
 ##### Other
@@ -539,7 +532,7 @@ shiny create -t dashboard
 ## Development workflow
 
 See the [workflow](install-create-run.qmd) section for more information developing Shiny apps locally.
-Also keep in mind you can develop apps in the browser using the [playground](/playground).
+Also keep in mind you can develop apps in the browser using the [playground](https://shinylive.io/py/examples/).
 :::
 
 

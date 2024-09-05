@@ -4,7 +4,10 @@ title: "Self-hosted deployments"
 
 # Commercial software
 
-[Posit Connect](https://posit.co/products/enterprise/connect/) can support a wide variety of R and Python content including Shiny applications.
+[Posit Connect](https://posit.co/products/enterprise/connect/) is our flagship publishing platform for the work your teams create in Python or R.
+With Posit Connect, you can share Shiny applications, [Quarto](https://quarto.org) reports, dashboards and plots, as well as Flask, Dash, Streamlit and Bokeh apps, in one convenient place.
+Features include scheduled execution of reports and flexible security policies to bring the power of data science to your entire enterprise.
+
 Since Connect can host models, APIs, apps, and datasets, it lets you easily integrate Shiny apps with other other data science tools.
 For example, Connect can retrain a model on a schedule, expose that model through an API, and communicate the results with a Shiny app.
 Posit Connect is commonly used in highly regulated environments, so can fulfill most security and compliance requirements.
@@ -13,24 +16,27 @@ There are two main ways to deploy Shiny apps to Posit Connect:
 
 ### Command line deployment
 
-1) Install the [rsconnect-python](https://github.com/rstudio/rsconnect-python) package using pip.
-```bash
-pip install rsconnect-python
-```
+1.  Install the [rsconnect-python](https://github.com/rstudio/rsconnect-python) package using pip.
 
-2) Generate an [API key](https://docs.posit.co/connect/user/api-keys/) on Connect.
+    ``` bash
+    pip install rsconnect-python
+    ```
 
-3) At the command line add a nickname for your connect server with `rsconnect add`.
+    Deploying [Shiny Express](https://shiny.posit.co/blog/posts/shiny-express/) applications requires version 1.22.0 or later of the [rsconnect-python package](https://github.com/rstudio/rsconnect-python).
 
-```bash
-rsconnect add -n my-connect -s <server_url> --api-key <YOUR_KEY>
-```
+2.  Generate an [API key](https://docs.posit.co/connect/user/api-keys/) on Connect.
 
-4) Deploy your application with `rsconnect deploy shiny`
+3.  At the command line add a nickname for your connect server with `rsconnect add`.
 
-```bash
-rsconnect deploy shiny -n my-connect
-```
+    ``` bash
+    rsconnect add -n my-connect -s <server_url> --api-key <YOUR_KEY>
+    ```
+
+4.  Deploy your application with `rsconnect deploy shiny`
+
+    ``` bash
+    rsconnect deploy shiny -n my-connect
+    ```
 
 You can also deploy shiny apps from a continuous integration system using `rsconnect deploy`.
 
@@ -39,13 +45,12 @@ You can also deploy shiny apps from a continuous integration system using `rscon
 Posit Connect can be set up to automatically deploy content from git with git-backed deployment.
 If your installation is configured to use git, Posit Connect can monitor a branch of a git repo and redeploy your content when that branch changes.
 
-1) Use `rsconnect write-manifest shiny` to generate a `manifest.json` file and a `requirements.txt`.
-The manifest file is used by Connect to deploy your app using the correct version of Python.
+1.  Use `rsconnect write-manifest shiny` to generate a `manifest.json` file and a `requirements.txt`.
+    The manifest file is used by Connect to deploy your app using the correct version of Python.
 
-2) Check your code into git, make sure to include the manifest and requirements file.
+2.  Check your code into git, make sure to include the manifest and requirements file.
 
-3) Follow the [Connect instructions](https://docs.posit.co/connect/user/git-backed/#linking-git-to-posit-connect) to link your branch with Connect.
-
+3.  Follow the [Connect instructions](https://docs.posit.co/connect/user/git-backed/#linking-git-to-posit-connect) to link your branch with Connect.
 
 # Open source options
 
@@ -59,22 +64,33 @@ If you want to read more about our commitment to free and open source software, 
 
 [Shiny Server](https://posit.co/products/open-source/shinyserver/) is an open source server written in Node.js that can host multiple Shiny apps on a single port, managing the starting/stopping/restarting of each app's Python process.
 
-* Shiny Server v1.5.19 or later is required.
-* Linux only (see [Platform Support](https://posit.co/about/platform-support/) for a list of supported distributions).
+-   Shiny Server v1.5.22 or later is required for Shiny for Python apps.
+    You can find [the latest version of Shiny Server here](https://posit.co/download/shiny-server/).
+-   Linux only (see [Platform Support](https://posit.co/about/platform-support/) for a list of supported distributions).
 
-Compared to Posit Connect, deploying apps on Shiny Server is less automated and more config-file based, similar in spirit to Apache or nginx. Also note that Shiny Server can handle less traffic on a single server node, as it doesn't know how to start multiple Python processes per app, as Posit Connect can. To be clear, Shiny Server can serve multiple apps at once, and multiple concurrent users per app; each app is just limited to the traffic that a single Python process can support before it slows unacceptably. And note that Shiny Server is designed to work well behind any [proxy or load balancer](https://support.posit.co/hc/en-us/articles/213733868-Running-Shiny-Server-with-a-Proxy) that supports sticky sessions.
+Compared to Posit Connect, deploying apps on Shiny Server is less automated and more config-file based, similar in spirit to Apache or nginx.
+Also note that Shiny Server can handle less traffic on a single server node, as it doesn't know how to start multiple Python processes per app, as Posit Connect can.
+To be clear, Shiny Server can serve multiple apps at once, and multiple concurrent users per app; each app is just limited to the traffic that a single Python process can support before it slows unacceptably.
+And note that Shiny Server is designed to work well behind any [proxy or load balancer](https://support.posit.co/hc/en-us/articles/213733868-Running-Shiny-Server-with-a-Proxy) that supports sticky sessions.
 
 ### Install
 
-First, [download](https://posit.co/download/shiny-server/) and [install](https://docs.posit.co/shiny-server/#installation) Shiny Server from a .deb or .rpm---but skip the instructions for installing R and Shiny for R (unless you plan to deploy both Shiny for R and Shiny for Python apps). If all goes well, you should see a welcome page on http://_hostname_:3838/. (Don't worry if you see iframes with greyed-out apps; they depend on R.)
+First, [download](https://posit.co/download/shiny-server/) and [install](https://docs.posit.co/shiny-server/#installation) Shiny Server from a .deb or .rpm---but skip the instructions for installing R and Shiny for R (unless you plan to deploy both Shiny for R and Shiny for Python apps).
+If all goes well, you should see a welcome page on http://*hostname*:3838/.
+(Don't worry if you see iframes with greyed-out apps; they depend on R.)
 
 ### Configure Python
 
-Next, you need to tell Shiny Server how to find Python. You can point Shiny Server at either a Python binary (e.g. `/usr/bin/python3`) or an absolute path to a virtualenv (e.g. `/srv/shiny-server/python39-venv`). You can also provide a relative path to a virtualenv (e.g. `.venv`) in which case, SSOS will look for that directory relative to app.py. (Don't forget that you need to [pip install shiny](install.html) and any other Python packages needed by your app(s), into whichever Python installation or virtualenv(s) you intend to use.)
+Next, you need to tell Shiny Server how to find Python.
+You can point Shiny Server at either a Python binary (e.g. `/usr/bin/python3`) or an absolute path to a virtualenv (e.g. `/srv/shiny-server/python39-venv`).
+You can also provide a relative path to a virtualenv (e.g. `.venv`) in which case, SSOS will look for that directory relative to app.py.
+(Don't forget that you need to [pip install shiny](install.html) and any other Python packages needed by your app(s), into whichever Python installation or virtualenv(s) you intend to use.)
 
-Edit the file `/etc/shiny-server/shiny-server.conf` (root privileges are required). Add a line with `python <path-to-python-or-venv>;` to the top of the file, leaving the rest of the file alone (at least for now). For example, if you wanted to use `/usr/bin/python3`, the end result might look like this:
+Edit the file `/etc/shiny-server/shiny-server.conf` (root privileges are required).
+Add a line with `python <path-to-python-or-venv>;` to the top of the file, leaving the rest of the file alone (at least for now).
+For example, if you wanted to use `/usr/bin/python3`, the end result might look like this:
 
-```default
+``` default
 # Use system python3 to run Shiny apps
 python /usr/bin/python3;
 
@@ -105,38 +121,45 @@ server {
 
 Now, clear out the contents of `/srv/shiny-server/` and replace it with your own app(s).
 
-* If you're only hosting a single app, you can put the `app.py` (and the rest of the app's files) directly in `/srv/shiny-server/`, and it will be served from http://_hostname_:3838/.
-* If you have multiple apps, copy each app into a subdirectory; for example, `/srv/shiny-server/foo/app.py` would be served from http://_hostname_:3838/foo/. In this case, you can put static assets into the root `/srv/shiny-server/` directory, like an `index.html` file.
+-   If you're only hosting a single app, you can put the `app.py` (and the rest of the app's files) directly in `/srv/shiny-server/`, and it will be served from http://*hostname*:3838/.
+-   If you have multiple apps, copy each app into a subdirectory; for example, `/srv/shiny-server/foo/app.py` would be served from http://*hostname*:3838/foo/. In this case, you can put static assets into the root `/srv/shiny-server/` directory, like an `index.html` file.
 
-If you elected to use a relative virtualenv path (e.g. `python .venv;`), then now is the time to create a virtualenv alongside each `app.py` and install the necessary Python packages. (Do not upload virtualenv directories created on other computers, as virtualenvs are not meant to be portable.)
+If you elected to use a relative virtualenv path (e.g. `python .venv;`), then now is the time to create a virtualenv alongside each `app.py` and install the necessary Python packages.
+(Do not upload virtualenv directories created on other computers, as virtualenvs are not meant to be portable.)
 
 ### Restart and test
 
 Finally, you will need to [restart](https://docs.posit.co/shiny-server/#stopping-and-starting) Shiny Server for your changes to `/etc/shiny-server/shiny-server.conf` to take effect.
 
-Not working for you? Look for clues in `/var/log/shiny-server.log` and `/var/log/shiny-server/*.log`.
+Not working for you?
+Look for clues in `/var/log/shiny-server.log` and `/var/log/shiny-server/*.log`.
 
-See the [Shiny Server Administrator's Guide](https://docs.posit.co/shiny-server//) for other options. (Note that the Admin Guide includes documentation for the commercially licensed Professional edition of Shiny Server, and includes features marked "Pro Only". Shiny Server Professional is no longer available for new customers, and doesn't support Shiny for Python; our commercially licensed on-premises server these days is Posit Connect.)
+See the [Shiny Server Administrator's Guide](https://docs.posit.co/shiny-server//) for other options.
+(Note that the Admin Guide includes documentation for the commercially licensed Professional edition of Shiny Server, and includes features marked "Pro Only". Shiny Server Professional is no longer available for new customers, and doesn't support Shiny for Python; our commercially licensed on-premises server these days is Posit Connect.)
 
 ## Other hosting options
 
-Shiny is built on the well-known foundation of [Starlette](https://www.starlette.io/), [ASGI](https://asgi.readthedocs.io/), and [Uvicorn](https://www.uvicorn.org/)---the same exact stack as [FastAPI](https://fastapi.tiangolo.com/). Even the shell command used to run an FastAPI server works just as well for a Shiny app:
+Shiny is built on the well-known foundation of [Starlette](https://www.starlette.io/), [ASGI](https://asgi.readthedocs.io/), and [Uvicorn](https://www.uvicorn.org/)---the same exact stack as [FastAPI](https://fastapi.tiangolo.com/).
+Even the shell command used to run an FastAPI server works just as well for a Shiny app:
 
-```sh
+``` sh
 # Assuming you have a file named app.py, with a Shiny app named app.
 uvicorn app:app --host 0.0.0.0 --port 80
 ```
 
-So any FastAPI hosting arrangement should work for Shiny as well, right? **Sorry, it's not that simple.** Despite the similarities, Shiny apps are a different beast than your typical web API and cannot be deployed with the mental model one would use for [FastAPI](https://fastapi.tiangolo.com/).
+So any FastAPI hosting arrangement should work for Shiny as well, right?
+**Sorry, it's not that simple.** Despite the similarities, Shiny apps are a different beast than your typical web API and cannot be deployed with the mental model one would use for [FastAPI](https://fastapi.tiangolo.com/).
 
 The two main complications are:
 
-1. Shiny uses WebSockets for most browser/server communication. Even as this is written in 2023, we have enterprise customers whose networks interfere with WebSocket traffic.
-2. Shiny sessions hold state in memory. Therefore, from the moment a browser tab connects to a Shiny app to the moment it disconnects, all of its server communications must go to the same server and the same Python process on that server ("sticky" load balancing).
+1.  Shiny uses WebSockets for most browser/server communication. Even as this is written in 2023, we have enterprise customers whose networks interfere with WebSocket traffic.
+2.  Shiny sessions hold state in memory. Therefore, from the moment a browser tab connects to a Shiny app to the moment it disconnects, all of its server communications must go to the same server and the same Python process on that server ("sticky" load balancing).
 
 Our hosting solutions (the ones described above) are designed with both of these bullet points in mind, and we highly recommend you use them if possible.
 
-If not, just remember: it's very important that whatever deployment configuration you use can support _sticky sessions_ wherever load balancing is introduced. Whether you use an AWS ALB, an nginx proxy, or even a CDN like CloudFlare, all must use sticky sessions. Notably, this rules out the use of Gunicorn (it doesn't support sticky sessions), at least with >1 worker.
+If not, just remember: it's very important that whatever deployment configuration you use can support *sticky sessions* wherever load balancing is introduced.
+Whether you use an AWS ALB, an nginx proxy, or even a CDN like CloudFlare, all must use sticky sessions.
+Notably, this rules out the use of Gunicorn (it doesn't support sticky sessions), at least with \>1 worker.
 
 You can use this [test application](https://github.com/posit-dev/py-shiny/blob/7ba8f90a44ee25f41aa8c258eceeba6807e0017a/examples/load_balance/app.py) to make sure that your deployment has sticky sessions configured; the application does nothing but send repeated requests to the server, which will only succeed if they connect to the same Python process that the page was loaded on.
 
@@ -147,4 +170,5 @@ To test if this works on your setup, try deploying the Shiny test application us
 
 #### AWS, Google Cloud, Azure
 
-We don't have any particular recommendations for deploying on cloud platforms other than the general point about using sticky-session load balancing. If you have any recipes or tips, please [share](https://github.com/posit-dev/py-shiny/issues)!
+We don't have any particular recommendations for deploying on cloud platforms other than the general point about using sticky-session load balancing.
+If you have any recipes or tips, please [share](https://github.com/posit-dev/py-shiny/issues)!

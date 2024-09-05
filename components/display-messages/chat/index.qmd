@@ -1,0 +1,326 @@
+---
+title: Chat
+sidebar: components
+appPreview:
+  file: components/display-messages/chat/app-preview.py
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/display-messages/chat/
+  contents:
+  - title: Preview
+    file: app-preview-code.py
+    height: 500
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IyhTigBzOAH1S6CqwAUy5KeQVOFADZwAvIrAAJOFaulkAZS49kAYXZQFA4EJmZ0nK5QAEY2tgAqDHJwIRBmyOGRMTowpFERdglJKQCUysoAxH7CgXDIUMjEAbLcrBRQEMS17QAmyN2crOhWULjiQR1NyLbynFj+gYac3fZgjYEOxaaVADzbymsUWAqGm8g7eyqXlQAicOEQXQ1QrlFQxADW5u6JqQDu7NRzAD5Kw4Aw2HIojBLGJ6vBRJo4MoAAIHLDkbRyUEMbSsSHQ2RnZC7ZRQVi4Dp9O7IbQnFBEkmpMyVDwSIajOCNdwUYFYsEAcjE3HQclkrw+XyBcBgoVMUF+UEsDSaWAw6Go3W08NYiMMdAcAE1SHI2IruigQGi+TjhaKTgBfDZbYkXQioCi4dW0MBUfgUMD2gC6QA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEArpwA6EORnQB9acgC8yaTigBzOErqcANkagAjI3AAUc5Hc2dtEOEaUVOFSzbAAJF0dJkAGUuHmQAYXYoChkwAEoCW3stYiiKFU5vVOjYhLsAYmQAHiKku0MTc0slGFIzYzg1ABUGSThEiDi5bogAEzg6NjgGADdhq250SQo4xDLkQvCGOGi4ZChkbJFuVgooCGI1-d7kXs5WdFNeD3mt9QcsSOiJ3rVYrdyC4tL5CHsF5AAEQG3COmygJjMUGIAGtkBRAq0-gB3djUeFozSsYZsSRmGAeVjrZDwVisXRweYAAS2WHIKmxDCUrDxBJEAJK8ygrFwB1OA2QSissy+nL+-3shSC-EuvDgqUCFExkkZAHIiZNpsgobD4Yq0TB5v8oMioB5NmksIpqL0anAyRSrHRYgBNUiSNhm3ooEC0lXDJSaijCgC+nw5Px6inu4nQVkUGSIjLGDC6EEIqAouHQCBQYCoAA8KGAQwBdIA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  template-params:
+    dir: components/display-messages/chat
+  contents:
+  - title: chat = ui.Chat()
+    href: https://shiny.posit.co/py/api/ui.Chat.html
+    signature: ui.Chat(id, messages=(), on_error="auto", tokenizer=MISSING)
+  - title: chat.ui()
+    href: https://shiny.posit.co/py/api/ui.Chat.html
+    signature: chat.ui(placeholder="Enter a message...", width="min(680px, 100%)",
+      height = "auto", fill = True)
+  - title: '@chat.on_user_submit'
+    href: https://shiny.posit.co/py/api/ui.Chat.html
+    signature: chat.on_user_submit(fn)
+  - title: chat.messages()
+    href: https://shiny.posit.co/py/api/ui.Chat.html
+    signature: chat.messages(format=MISSING, token_limits=(4096, 1000), transform_user="all",
+      transform_assistant=False)
+  - title: chat.append_message()
+    href: https://shiny.posit.co/py/api/ui.Chat.html
+    signature: chat.append_message(message)
+  - title: chat.append_message_stream()
+    href: https://shiny.posit.co/py/api/ui.Chat.html
+    signature: chat.append_message_stream(message)
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+
+
+## Generative AI quick start {#ai-quick-start}
+
+Pick from one of the following providers below to get started with generative AI in your Shiny app.
+Once you've choosen a provider, copy/paste the `shiny create` terminal command to get the relevant source files on your machine.
+
+::: {.panel-tabset .panel-pills}
+
+### LangChain with OpenAI
+
+```bash
+shiny create -g https://github.com/posit-dev/py-shiny/tree/main/examples/chat/hello-providers/langchain
+```
+
+### OpenAI
+
+```bash
+shiny create -g https://github.com/posit-dev/py-shiny/tree/main/examples/chat/hello-providers/openai
+```
+
+### Anthropic
+
+```bash
+shiny create -g https://github.com/posit-dev/py-shiny/tree/main/examples/chat/hello-providers/anthropic
+```
+
+### Google
+
+```bash
+shiny create -g https://github.com/posit-dev/py-shiny/tree/main/examples/chat/hello-providers/gemini
+```
+
+### Ollama
+
+```bash
+shiny create -g https://github.com/posit-dev/py-shiny/tree/main/examples/chat/hello-providers/ollama
+```
+
+### OpenAI via Azure
+
+```bash
+shiny create -g https://github.com/posit-dev/py-shiny/tree/main/examples/chat/enterprise/azure-openai
+```
+
+### Anthropic via AWS Bedrock
+
+```bash
+shiny create -g https://github.com/posit-dev/py-shiny/tree/main/examples/chat/enterprise/aws-bedrock-anthropic
+```
+
+:::
+
+Once the `app.py` file is on your machine, open it and follow the instructions at the top of the file.
+These instructions should help with signing up for an account with the relevant provider, obtaining an API key, and finally get that key into your Shiny app.
+
+Note that all these examples roughly follow the same pattern, with the only real difference being the provider-specific code for generating responses.
+If we were to abstract away the provider-specific code, we're left with the pattern shown below.
+Most of the time, providers will offer a `stream=True` option for generating responses, which is preferrable for more responsive and scalable chat interfaces.
+Just make sure to use `.append_message_stream()` instead of `.append_message()` when using this option.
+
+::: {.panel-tabset .panel-pills}
+
+### Streaming
+
+```python
+from shiny.express import ui
+
+chat = ui.Chat(id="my_chat")
+chat.ui()
+
+@chat.on_user_submit
+async def _():
+    messages = chat.messages()
+    response = await my_model.generate_response(messages, stream=True)
+    await chat.append_message_stream(response)
+```
+
+### Non-streaming
+
+```python
+from shiny.express import ui
+
+chat = ui.Chat(id="my_chat")
+chat.ui()
+
+@chat.on_user_submit
+async def _():
+    messages = chat.messages()
+    response = await my_model.generate_response(messages)
+    await chat.append_message(response)
+```
+:::
+
+
+::: callout-tip
+### Appending is async
+
+Appending messages to a chat is always an async operation.
+This means that you should `await` the `.append_message()` or `.append_message_stream()` method when calling it and also make sure that the callback function is marked as `async`.
+:::
+
+The templates above are a great starting point for building a chat interface with generative AI.
+And, out of the box, `Chat()` provides some nice things like [error handling](#error-handling) and [code highlighting](#code-highlighting).
+However, to richer and bespoke experiences, you'll want to know more about things like message formats, startup messages, system messages, retrieval-augmented generation (RAG), and more.
+
+## Message format
+
+When calling `chat.messages()` to retrieve the current messages, you'll generally get a tuple of dictionaries following the format below.
+This format also generally works when adding messages to the chat.
+
+```python
+message = {
+  "content": "Message content",
+  "role": "assistant" | "user" | "system", # choose one
+}
+```
+
+Unfortunately, this format is not universal across providers, and so it may not be directly usable as an input to a generative AI model.
+Fortunately, `chat.messages()` has a `format` argument to help with this.
+That is, if you're using a provider like OpenAI, you can pass `format="openai"` to `chat.messages()` to get the proper format for generating responses with OpenAI.
+
+Similarly, the return type of generative AI models can also be different.
+Fortunately, `chat.append_message()` and `chat.append_message_stream()` "just work" with most providers, but if you're using a provider that isn't yet supported, you should be able to reshape the response object into the format above.
+
+## Startup messages
+
+To show message(s) when the chat interface is first loaded, you can pass a sequence of `messages` to `Chat`.
+Note that, assistant messages are interpreted as markdown by default.[^html-responses]
+
+[^html-responses]: The interpretation and display of assistant messages [can be customized](#custom-response-display).
+
+```python
+message = {
+  "content": "**Hello!** How can I help you today?",
+  "role": "assistant"
+}
+chat = ui.Chat(id="chat", messages=[message])
+chat.ui()
+```
+
+![](/images/chat-hello.png)
+
+In addition to providing instructions or a welcome message, you can also use this feature to provide system message(s).
+
+
+## System messages
+
+Different providers have different ways of working with system messages.
+If you're using a provider like OpenAI, you can have message(s) with a `role` of `system`.
+However, other providers (e.g., Anthropic) may want the system message to be provided in to the `.generate_response()` method.
+To help standardize how system messages interact with `Chat`, we recommending to using [LangChain's chat models](https://python.langchain.com/v0.1/docs/modules/model_io/chat/quick_start/).
+This way, you can just pass system message(s) on startup (just like you would with a provider like OpenAI):
+
+```python
+system_message = {
+  "content": "You are a helpful assistant",
+  "role": "system"
+}
+chat = ui.Chat(id="chat", messages=[system_message])
+```
+
+Just make sure, when using LangChain, to use `format="langchain"` to get the proper format for generating responses with LangChain.
+
+```python
+@chat.on_user_submit
+async def _():
+    messages = chat.messages(format="langchain")
+    response = await my_model.astream(messages)
+    await chat.append_message_stream(response)
+```
+
+Remember that you can get a full working template in the [Generative AI quick start](#ai-quick-start) section above.
+Also, for another more advanced example of dynamic system messages, check out this example:
+
+```bash
+shiny create -g https://github.com/posit-dev/py-shiny/tree/main/examples/chat/playground
+```
+
+## Message trimming
+
+When the conservation gets becomes excessively long, it's often desirable to discard "old" messages to prevent errors and/or costly response generation.
+To help with this, `chat.messages()` only keeps the most recent messages that fit within a conservative `token_limit`.
+See [the documentation](https://shiny.posit.co/py/api/ui.Chat.html) for more information on how to adjust this limit. Note that trimming can be disabled by setting `.messages(token_limit=None)` or `Chat(tokenizer=None)`.
+
+
+## Error handling {#error-handling}
+
+When errors occur in the `@on_user_submit` callback, the app displays a dismissible notification about the error.
+When running locally, the actual error message is shown, but in production, only a generic message is shown (i.e., the error is sanitized since it may contain sensitive information).
+If you'd prefer to have errors stop the app, that can also be done through the `on_error` argument of `Chat` (see [the documentation](https://shiny.posit.co/py/api/ui.Chat.html) for more information).
+
+![](/images/chat-error.png){class="rounded shadow"}
+
+## Code highlighting {#code-highlight}
+
+When a message response includes code, it'll be syntax highlighted (via [highlight.js](https://highlightjs.org/)) and also include a copy button.
+
+![](/images/chat-code.png){class="rounded shadow"}
+
+## Custom response display
+
+By default, message strings are interpreted as (github-flavored) markdown.
+To customize how assistant responses are interpreted and displayed, define a `@chat.transform_assistant_response` function that returns `ui.HTML`.
+For a basic example, you could use `ui.markdown()` to customize the markdown rendering:
+
+```python
+chat = ui.Chat(id="chat")
+
+@chat.transform_assistant_response
+def _(content: str) -> ui.HTML:
+    return ui.markdown(content)
+```
+
+::: callout-tip
+### Streaming transformations
+
+When streaming, the transform is called on each iteration of the stream, and gets passed the accumulated `content` of the message received thus far.
+For more complex transformations, you might want access to each chunk and a signal of whether the stream is done.
+See the [the documentation](https://shiny.posit.co/py/api/ui.Chat.html) for more information.
+:::
+
+
+::: callout-tip
+### `chat.messages()` defaults to `transform_assistant=False`
+
+By default, `chat.messages()` doesn't apply `transform_assistant_response` to the messages it returns.
+This is because the messages are intended to be used as input to the generative AI model, and so should be in a format that the model expects, not in a format that the UI expects.
+So, although you _can_ do `chat.messages(transform_assistant=True)`, what you might actually want to do is "post-process" the response from the model before appending it to the chat.
+:::
+
+
+## Transforming user input
+
+Transforming user input before passing it to a generative AI model is a fundamental part of more advanced techniques like retrieval-augmented generation (RAG).
+An overly basic transform might just prepend a message to the user input before passing it to the model.
+
+```python
+chat = ui.Chat(id="chat")
+
+@chat.transform_user_input
+def _(input: str) -> str:
+    return f"Translate this to French: {input}"
+```
+
+A more compelling transform would be to allow the user to enter a URL to a website, and then pass the content of that website to the LLM along with [some instructions](#system-messages) on how to summarize or extract information from it.
+For a concrete example, this template allows you to enter a URL to a website that contains a recipe, and then the assistant will extract the ingredients and instructions from that recipe in a structured format:
+
+```bash
+shiny create -g https://github.com/posit-dev/py-shiny/tree/main/examples/chat/RAG/recipes
+```
+
+![](/images/chat-recipes.mp4){class="rounded shadow"}
+
+In addition to providing a helpful startup message, the app above also improves UX by gracefully handling errors that happen in the transform.
+That is, when an error occurs, it appends a useful message to the chat and returns `None` from the transform.
+
+```python
+@chat.transform_user_input
+async def try_scrape_page(input: str) -> str | None:
+    try:
+        return await scrape_page_with_url(input)
+    except Exception:
+        await chat.append_message(
+            "I'm sorry, I couldn't extract content from that URL. Please try again. "
+        )
+        return None
+```
+
+
+The default behavior of `chat.messages()` is to apply `transform_user_input` to every user message (i.e., it defaults to `transform_user="all"`).
+In some cases, like the recipes app above, the LLM doesn't need _every_ user message to be transformed, just the last one.
+In these cases, you can use `chat.messages(transform_user="last")` to only apply the transform to the last user message (or simply `chat.user_input()` if the model only needs the most recent user message).

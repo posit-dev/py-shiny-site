@@ -8,8 +8,8 @@ app_ui = ui.page_fluid(
         id="btn_tooltip",  # <<
         placement="top",  # <<
     ),
-   
 )
+
 
 def server(input, output, session):
     @render.text

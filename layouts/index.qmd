@@ -13,7 +13,8 @@ resources:
 format:
   html:
     css:
-      - _partials/layouts.css
+      - /components/_partials/components.css
+      - /components/_partials/components-list.css
       - _partials/layouts-list.css
     code-overflow: wrap
 ---
@@ -67,37 +68,37 @@ A navbar adds a navigation bar to your app, allowing users to easily navigate yo
 ::: {#navbar .grid}
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
 <a class="component-list-header-text" href="navbars/#navbar-at-top">
+<div class="component-list-header">
 <div class="h5">Navbar at Top</div>
-</a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="navbars/#navbar-at-top">
+<p class="my-0">
 <i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
+</p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="navbars/#navbar-at-top"><img alt="" src="/images/navbar-top.png" class="h-100 w-100"></a></p>
+<p class="layout-list-image my-0"><img alt="" src="/images/navbar-top.png"></p>
 </div>
+</a>
 </div>
 
 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
 <a class="component-list-header-text" href="navbars/#navbar-at-bottom">
+<div class="component-list-header">
 <div class="h5">Navbar at Bottom</div>
-</a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="navbars/#navbar-at-bottom">
+<p class="my-0">
 <i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
+</p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="navbars/#navbar-at-bottom"><img alt="" src="/images/navbar-bottom.png" class="h-100 w-100"></a></p>
+<p class="layout-list-image my-0"><img alt="" src="/images/navbar-bottom.png" ></p>
 </div>
+</a>
 </div>
 
 
@@ -132,72 +133,71 @@ A sidebar layout creates a sidebar, typically used for inputs, and a large main 
 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
 <a class="component-list-header-text" href="sidebars/#sidebar-on-the-left">
+<div class="component-list-header">
 <div class="h5">Sidebar on the Left</div>
-</a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="sidebars/#sidebar-on-the-left">
+<p class="my-0">
 <i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
+</p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="sidebars/#sidebar-on-the-left"><img alt="" src="/images/sidebar-left.png" class="h-100 w-100"></a></p>
+<p class="layout-list-image my-0"><img alt="" src="/images/sidebar-left.png" class="h-100 w-100"></p>
 </div>
+</a>
 </div>
 
 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
 <a class="component-list-header-text" href="sidebars/#sidebar-on-the-right">
+<div class="component-list-header">
 <div class="h5">Sidebar on the Right</div>
-</a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="sidebars/#sidebar-on-the-right">
+<p class="my-0">
 <i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
+</p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="sidebars/#sidebar-on-the-right"><img alt="" src="/images/sidebar-right.png" class="h-100 w-100"></a></p>
-
+<p class="layout-list-image my-0"><img alt="" src="/images/sidebar-right.png" class="h-100 w-100"></p>
 </div>
+</a>
 </div>
 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
 <a class="component-list-header-text" href="sidebars/#sidebar-within-a-card">
+<div class="component-list-header">
 <div class="h5">Sidebar Within a Card</div>
-</a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="sidebars/#sidebar-within-a-card">
+<p class="my-0">
 <i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
+</p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="sidebars/#sidebar-within-a-card"><img alt="" src="/images/sidebar-left-card.png" class="h-100 w-100"></a></p>
+<p class="layout-list-image my-0"><img alt="" src="/images/sidebar-left-card.png" class="h-100 w-100"></p>
 </div>
+</a>
 </div>
 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
 <a class="component-list-header-text" href="sidebars/#collapsed-sidebar">
+<div class="component-list-header">
 <div class="h5">Collapsed Sidebar</div>
-</a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="sidebars/#collapsed-sidebar">
+<p class="my-0">
 <i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
+</p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="sidebars/#collapsed-sidebar"><img alt="" src="/images/sidebar-collapsed.png" class="h-100 w-100"></a></p>
+<p class="layout-list-image my-0"><img alt="" src="/images/sidebar-collapsed.png" class="h-100 w-100"></p>
 </div>
+</a>
 </div>
 
 
@@ -229,107 +229,118 @@ Tabs and navigation allow you to create apps that have multiple pages.
 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
 <a class="component-list-header-text" href="tabs/#tabset-with-pill-navigation">
+<div class="component-list-header">
 <div class="h5">Tabset with Pill Nav</div>
-</a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="tabs/#tabset-with-pill-navigation">
+<p class="my-0">
 <i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
+</p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="tabs/#tabset-with-pill-navigation"><img alt="" src="/images/tabset-pill.png" class="h-100 w-100"></a></p>
+<p class="layout-list-image my-0">
+  <img alt="" src="/images/tabset-pill.png" class="h-100 w-100">
+</p>
 </div>
+</a>
 </div>
-
 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
 <a class="component-list-header-text" href="tabs/#tabset-with-pill-list-navigation">
+<div class="component-list-header">
 <div class="h5">Tabset with Pill List Nav</div>
-</a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="tabs/#tabset-with-pill-list-navigation">
+<p class="my-0">
 <i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
+</p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="tabs/#tabset-with-pill-list-navigation"><img alt="" src="/images/tabset-pill-list.png" class="h-100 w-100"></a></p>
+<p class="layout-list-image my-0">
+  <img alt="" src="/images/tabset-pill-list.png" class="h-100 w-100">
+</p>
 </div>
+</a>
 </div>
 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
 <a class="component-list-header-text" href="tabs/#tabset-with-tab-navigation">
+<div class="component-list-header">
 <div class="h5">Tabset with Tab Nav</div>
-</a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="tabs/#tabset-with-tab-navigation">
+<p class="my-0">
 <i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
+</p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="tabs/#tabset-with-tab-navigation"><img alt="" src="/images/tabset-tab.png" class="h-100 w-100"></a></p>
+<p class="layout-list-image my-0">
+  <img alt="" src="/images/tabset-tab.png" class="h-100 w-100">
+</p>
 </div>
+</a>
 </div>
 
 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
 <a class="component-list-header-text" href="tabs/#card-with-a-tabbed-tabset">
+<div class="component-list-header">
 <div class="h5">Card with a tabbed tabset</div>
-</a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="tabs/#card-with-a-tabbed-tabset">
+<p class="my-0">
 <i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
+</p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="tabs/#card-with-a-tabbed-tabset"><img alt="" src="/images/tabset-tab-card.png" class="h-100 w-100"></a></p>
+<p class="layout-list-image my-0">
+  <img alt="" src="/images/tabset-tab-card.png" class="h-100 w-100">
+</p>
 </div>
+</a>
 </div>
 
 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
 <a class="component-list-header-text" href="tabs/#card-with-a-pill-tabset">
+<div class="component-list-header">
 <div class="h5">Card with a pill tabset</div>
-</a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="tabs/#card-with-a-pill-tabset">
+<p class="my-0">
 <i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
+</p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="tabs/#card-with-a-pill-tabset"><img alt="" src="/images/tabset-pill-card.png" class="h-100 w-100"></a></p>
+<p class="layout-list-image my-0">
+  <img alt="" src="/images/tabset-pill-card.png" class="h-100 w-100">
+</p>
 </div>
+</a>
 </div>
 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
 <a class="component-list-header-text" href="tabs/#vertically-collapsing-accordion-panels">
+<div class="component-list-header">
 <div class="h5">Collapsing accordion panels</div>
-</a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="tabs/#vertically-collapsing-accordion-panels">
+<p class="my-0">
 <i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
+</p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="tabs/#vertically-collapsing-accordion-panels"><img alt="" src="/images/accordion.png" class="h-100 w-100"></a></p>
+<p class="layout-list-image my-0">
+  <img alt="" src="/images/accordion.png" class="h-100 w-100">
+</p>
 </div>
+</a>
 </div>
 
 :::
@@ -359,38 +370,40 @@ Use panels and cards to define areas of related content.
 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
 <a class="component-list-header-text" href="panels-cards/#main-image-with-panel-floating-above">
+<div class="component-list-header">
 <div class="h5">Floating panel</div>
-</a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="panels-cards/#main-image-with-panel-floating-above">
+<p class="my-0">
 <i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
+</p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="panels-cards/#main-image-with-panel-floating-above"><img alt="" src="/images/drag.png" class="h-100 w-100"></a></p>
+<p class="layout-list-image my-0">
+  <img alt="" src="/images/drag.png" class="h-100 w-100">
+</p>
 </div>
+</a>
 </div>
-
 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
 <a class="component-list-header-text" href="panels-cards/#content-divided-by-cards">
+<div class="component-list-header">
 <div class="h5">Content in cards</div>
-</a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="panels-cards/#content-divided-by-cards">
+<p class="my-0">
 <i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
+</p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="component-list-header-text" href="panels-cards/#content-divided-by-cards"><img alt="" src="/images/two-cards.png" class="h-100 w-100"></a></p>
-
+<p class="layout-list-image my-0"><a class="component-list-header-text" href="panels-cards/#content-divided-by-cards">
+  <img alt="" src="/images/two-cards.png" class="h-100 w-100">
+</p>
 </div>
+</a>
 </div>
 
 
@@ -423,55 +436,60 @@ Use rows and columns to create your own layout for every device size.
 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
 <a class="component-list-header-text" href="arrange/#grid-layouts">
+<div class="component-list-header">
 <div class="h5">Grid Layouts</div>
-</a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="arrange/#grid-layouts">
+<p class="my-0">
 <i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
+</p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="arrange/#grid-layouts"><img alt="" src="/images/grid-layout.png" class="h-100 w-100"></a></p>
+<p class="layout-list-image my-0">
+  <img alt="" src="/images/grid-layout.png" class="h-100 w-100">
+</p>
 </div>
+</a>
 </div>
 
 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
 <a class="component-list-header-text" href="arrange/#column-nesting">
+<div class="component-list-header">
 <div class="h5">Column nesting</div>
-</a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="arrange/#column-nesting">
+<p class="my-0">
 <i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
+</p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="arrange/#column-nesting"><img alt="" src="/images/column-nesting.png" class="h-100 w-100"></a></p>
-
+<p class="layout-list-image my-0">
+  <img alt="" src="/images/column-nesting.png" class="h-100 w-100">
+</p>
 </div>
+</a>
 </div>
 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
 <a class="component-list-header-text" href="arrange/#controlling-for-page-width-and-height">
+<div class="component-list-header">
 <div class="h5">Control for page size</div>
-</a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="arrange/#controlling-for-page-width-and-height">
+<p class="my-0">
 <i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
+</p>
 </div>
 </div>
 <div class="component-list-card layout-list-card">
-<p class="my-0 h-100 w-100"><a class="layout-list-image" href="arrange/#controlling-for-page-width-and-height"><img alt="" src="/images/controlling.png" class="h-100 w-100"></a></p>
+<p class="layout-list-image my-0">
+  <img alt="" src="/images/controlling.png" class="h-100 w-100">
+</p>
 </div>
+</a>
 </div>
 
 

@@ -1,0 +1,79 @@
+---
+title: Dark Mode Switch
+sidebar: components
+appPreview:
+  file: components/inputs/dark-mode/app-preview.py
+  static: true
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/dark-mode/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDagBM4DADoRGzNlx5Y4AD3RjWrPgKEju6AK4UihzrIsQzWA8YD64qAwDWdmKUkAKAJTIAxMgAPIHIsoSoFLjoCChgVKoUYAC+ALpAA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAV05EG1ACZwGRAIKYAOhFUZ0AfXHIAvGM44oAczia6AG3HSAFKuQODWbulEVN0qAwDWmmKVkbAEpkAGJkAB4I1SDVVVk6NjkANzkbFzciUjdXCiJWOFZWTnIgxHtHdCgiuOhMPWQldBsNbQkkhlSGWIhCVApcdAQUMCoADwowAF8AXSA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.input_dark_mode
+    href: https://shiny.posit.co/py/api/ui.input_dark_mode.html
+    signature: ui.input_dark_mode(id=None, mode=None, **kwargs)
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/inputs/dark-mode/
+  contents:
+  - title: Dark mode switch in a navbar
+    description: 'To add a dark mode switch to a navbar, use `ui.page_navbar()` to
+      create a page with a navbar, and `ui.nav_spacer()` to push the dark mode switch
+      to the right. Place the `ui.input_dark_mode()` element within a `ui.nav_control()`
+      element, to add the control to the navbar without creating a corresponding panel.
+
+      '
+    apps:
+    - title: Preview
+      file: app-variation-dark-mode-navbar-core.py
+      attrs: '.scale-iframe style="--scale-factor: 0.8;"
+
+        '
+    - title: Express
+      file: app-variation-dark-mode-navbar-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IyhTigBzOAH1S6CqwAUFThQA2cALyKwAESgMA1shikAJnDYB3U8XbiIZGgANwAjBxsiOk4zMyhQi0sAFQY5OCJON2swdE04GwBKZVVOLBDtVlziOAZDAuRkAGJkAB4W5R8KfzVyskomMzqUJtb2wIb5Uu50OQptNwdHbVcPOobmtuVCVApcdAQUMCp+CjAAXwBdIA
+    - title: Core
+      file: app-variation-dark-mode-navbar-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEArpwA6EORnQB9acgC8yaTigBzOEugA3AEZQGACjnJrmzliNLW6KMTgWAlEQDEyADy+rGy0HMkomABtzLW50SQolABMzAGslGFIEuHN3T2Qff0DrCk4KcLg1GTAAERTkdMy2AHcS4nY+CGQjUwZKuXc5OUy6NjdDN3MYuKJSONiKIlY4VlZOcndEQuRnZYHoTHUxTHNFFU4F0bd+iEJUClx0BBQwKgAPCjAAXwBdIA
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A dark mode switch input toggles the app between dark and light modes.
+
+To add a dark mode switch to your app:
+
+  1. Add `ui.input_dark_mode()` to the UI of your app to create a dark mode switch. Where you call this function will determine where the dark mode switch will appear within the app's layout.
+
+  2. Optionally, specify the `id` parameter of `ui.input_dark_mode()` to define the identifier of the switch. When `id` is specified, you can use it to access the current color mode.
+
+  3. By default, the user’s system settings for the preferred color scheme will be used for the initial mode of the app. To force the initial mode, set the `mode` parameter to `"light"` or `"dark"`.
+
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a dark mode switch:
+
+  1. Use `input.<dark_mode_switch_id>()` (e.g., `input.mode()`) to access the value of the dark mode switch. The server value of a dark mode switch is a string: either `"light"` or `"dark"`.
+
+## Variations
+
+:::{#variations}
+:::

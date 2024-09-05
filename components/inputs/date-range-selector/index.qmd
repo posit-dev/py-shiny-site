@@ -3,6 +3,7 @@ title: Date Range Selector
 sidebar: components
 appPreview:
   file: components/inputs/date-range-selector/app-preview.py
+  static: true
 listing:
 - id: example
   template: ../../_partials/components-detail-example.ejs
@@ -17,7 +18,7 @@ listing:
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDagBM4DADoRGzNlx5Y4AD3RjWrPgKEju6AK4UihzrIsQzWA8YD64qFTsMoEAOZwAFNLCOqrh5wvkS+ACJOcKJuniFsFFDCALy+AEwADBkAtOkAjDm5vgCUyMgAxMgAPJWWsgACYhCSDFhUqhSyknTIAG5QADaG3kWIsqWlYhSGDBDIdL4gthRY-lIxw8DpALoAvsgUpMiLEEbLq4GeXkXAubu+soSoFLjoCChgbRRgO1tAA
   - title: Core
     file: app-core.py
-    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQB0IAzAJ1JmQGcALASwl2Q8Y6UswrIAgpiLNqAEzjMiAVx4MGGdAH1VyALzJVOKAHM4WxgBtVcgBQNkjwzyx90yilrlQqW5lAgzezBvKn9AuDpCZCiAER84ZHCzKKIOCigxPSiAJgAGfIBaPIBGYpKogEoiZABiZAAeBocnI1IPd08qAA8KYIA3KGtIsGqGSvUIBgVGTkV+xVs3DyJ2ik60uA4OHnJKxBbHAAFZCAVmLB6KQ+QZ5EHh232bpyS4CmVmCGRGKJBlihYUKKAJBSrAPIAXQAvsgKKRkP8IJ0gQlknAnsASjCopMNJh9JJMLZNDoeJtmAtmBMINEwBRcOgECh6XBemBoZCgA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKm6VCqaGUCKZ2YF5UfgFwyoTIkQAi3nDIYaaRRKwUUMK6kQBMAAx5ALS5AIxFxZEAlETIAMTIADz19o6GpO5uHlQAHhRBAG5QVhFgVaoVqhMQsnRscn1yNq7uRG0UHalwrKyc5BWIzQ4AAlJTcljdFAfI08gDQzZ7V46JcBQKDBDIdJEgSxRYITk-kCFWAuQAugBfZAUUjIX4QDoA+JJOAPYDFKGRSbqTB6MSYGwabScDYMeYMcYQKJgCi4dAIFC0uA9MCQ8FAA
 - id: relevant-functions
   template: ../../_partials/components-detail-relevant-functions.ejs
   contents:

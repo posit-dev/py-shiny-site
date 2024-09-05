@@ -204,6 +204,7 @@ h1,
   font-size: 2.7em;
   line-height: 1.15;
   margin-bottom: 30px !important;
+  word-wrap: break-word;
 }
 
 .h2,
@@ -497,7 +498,7 @@ main.content a:not(.btn) {
 }
 
 main.content
-  a:hover:not(.tags li a):not(.badge):not(.component-list-header-text):not(.btn):not(.gallery-entry a):not(a img):not(
+  a:hover:not(.homepage-code p a):not(.tags li a):not(.badge):not(.component-list-header-text):not(.btn):not(.gallery-entry a):not(a img):not(
     .text-decoration-none
   ):not(.gallery-meta):not(.link-cards a):not(.dont-index a):not(.anchorjs-link):not(.component-list-card a) {
   border-bottom: 1px solid;
@@ -711,6 +712,15 @@ header.headroom {
 .bg-blue a:not(.btn),
 .bg-gray a:not(.btn) {
   color: #0075b9;
+}
+
+
+.bg-dark-blue {
+  background-image: linear-gradient(#128ed6, #007bc2);
+  color: #fff;
+}
+.bg-dark-blue code {
+  background-color: inherit;
 }
 
 // show only on mobile
@@ -1072,7 +1082,7 @@ h2,
 }
 
 // Homepage hero text color styling
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 1200px) {
   .hero-text {
     text-align: left;
     margin-right:-3.6rem;
@@ -1083,7 +1093,7 @@ h2,
   }
 }
 
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 1199px) {
   .hero-text {
     text-align: center;
   }
@@ -1122,21 +1132,24 @@ div.gradient-text {
   -webkit-animation: animated_text 30s ease-in-out infinite;
 }
 
-@media only screen and (min-width: 1475px) {
+@media only screen and (min-width: 1200px) {
   div.gradient-text {
-    font-size: 4.4rem;
+    font-size: 5rem;
   }
 }
 
-@media only screen and (max-width: 1116px) {
+@media only screen and (max-width: 1199px) {
   div.gradient-text {
-    font-size: 3.5rem;
+    font-size: 4.2rem;
   }
 }
 
 @media only screen and (max-width:767px) {
   div.gradient-text {
-    font-size: 2.5rem;
+    font-size: 2.75rem;
+  }
+  .hero-text .h4 {
+    font-size: 1.25em;
   }
 }
 
@@ -1238,6 +1251,11 @@ pre.console {
   margin-bottom: 2.5rem;
 }
 
+@media only screen and (max-width: 1199px) {
+    .shadow img {
+    margin-top: 0rem;
+  }
+}
 // add shadow to homepage hero carousel images
 
 .hero-carousel .shadow img {
@@ -1666,7 +1684,13 @@ div.hero-carousel {
   padding-left: 3.6rem;
 }
 
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 1355px) {
+  div.hero-carousel {
+    padding-left: 0rem;
+  }
+}
+
+@media only screen and (max-width: 1199px) {
   div.hero-carousel {
     margin-right: initial !important;
     margin-top: initial !important;
@@ -1675,10 +1699,10 @@ div.hero-carousel {
 }
 
 .carousel-item img {
-  width: 780px;
+  width: 700px;
 }
 
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 1199px) {
   .carousel-item img {
     width: 100%;
   }
@@ -1855,11 +1879,6 @@ btn.action-button:hover {
   padding: 0;
   background-color: var(--bs-body-bg);
   border: none;
-}
-
-/* improve position of code copy button */
-div.sourceCode > pre.sourceCode {
-  position: static;
 }
 
 .code-with-filename {

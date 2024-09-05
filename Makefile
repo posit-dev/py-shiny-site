@@ -3,6 +3,7 @@
 	requirements \
 	quarto-exts \
 	site serve \
+	components components-shinylive components-static \
 	clean clean-extensions clean-venv distclean
 
 .DEFAULT_GOAL := help
@@ -12,7 +13,7 @@ PYBIN = $(VENV)/bin
 
 
 ## Build everything
-all: deps quartodoc site
+all: deps quartodoc components-static site
 
 # Any targets that depend on $(VENV) or $(PYBIN) will cause the venv to be
 # created. To use the ven, python scripts should run with the prefix $(PYBIN),
@@ -67,29 +68,31 @@ quarto-exts:
 deps: $(PYBIN)
 	$(PYBIN)/pip install pip --upgrade
 	$(PYBIN)/pip install -r requirements.txt
-	cd py-shiny/docs && make deps
+	. $(PYBIN)/activate && cd py-shiny && make install-docs
 
 ## Build qmd files for Shiny API docs
-quartodoc:
-	cd py-shiny/docs && make quartodoc
+quartodoc: $(PYBIN)
+	. $(PYBIN)/activate && cd py-shiny/docs && make quartodoc
 	# Copy all generated files except index.qmd
 	rsync -av --exclude="index.qmd" py-shiny/docs/api/ ./api
 	cp -R py-shiny/docs/_inv py-shiny/docs/objects.json ./
 	# Copy over index.qmd, but rename it to _api_index.qmd
 	cp py-shiny/docs/api/express/index.qmd ./api/express/_api_index.qmd
 	cp py-shiny/docs/api/core/index.qmd ./api/core/_api_index.qmd
+	cp py-shiny/docs/api/testing/index.qmd ./api/testing/_api_index.qmd
 
 ## Build website
-site:
+site: $(PYBIN)
 	. $(PYBIN)/activate && quarto render
 
 ## Build website and serve
-serve:
+serve: $(PYBIN)
 	. $(PYBIN)/activate && quarto preview
 
 ## Remove Quarto website build files
 clean:
 	rm -rf _build
+	rm -rf components/static
 	cd py-shiny/docs && make clean
 
 ## Remove Quarto extensions
@@ -102,3 +105,13 @@ clean-venv:
 
 ## Remove all build files (Quarto website, quarto extensions, venv)
 distclean: clean clean-extensions clean-venv
+
+components-static:
+	rm -rf components/static
+	. $(PYBIN)/activate && python components/make-static-previews.py
+
+components-shinylive-links:
+	. $(PYBIN)/activate && python components/update-shinylive-links.py
+
+## Build component static previews and update shinylive links
+components: components-shinylive-links components-static

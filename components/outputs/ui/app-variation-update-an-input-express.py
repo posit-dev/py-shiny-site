@@ -4,7 +4,7 @@ from shiny.express import input, ui
 with ui.layout_columns():
     ui.input_radio_buttons("mode", "Display mode", ["Table", "Plot"], selected="Table")
 
-    @render.display
+    @render.express
     def mode_controls():
         if input.mode() == "Table":
             rows = input.rows() if "rows" in input else 10
