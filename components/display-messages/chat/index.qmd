@@ -63,43 +63,43 @@ Once you've choosen a provider, copy/paste the `shiny create` terminal command t
 ### LangChain with OpenAI
 
 ```bash
-shiny create -g https://github.com/posit-dev/py-shiny/tree/main/examples/chat/hello-providers/langchain
+shiny create --template chat-ai-langchain
 ```
 
 ### OpenAI
 
 ```bash
-shiny create -g https://github.com/posit-dev/py-shiny/tree/main/examples/chat/hello-providers/openai
+shiny create --template chat-ai-openai
 ```
 
 ### Anthropic
 
 ```bash
-shiny create -g https://github.com/posit-dev/py-shiny/tree/main/examples/chat/hello-providers/anthropic
+shiny create --template chat-ai-anthropic
 ```
 
 ### Google
 
 ```bash
-shiny create -g https://github.com/posit-dev/py-shiny/tree/main/examples/chat/hello-providers/gemini
+shiny create --template chat-ai-gemini
 ```
 
 ### Ollama
 
 ```bash
-shiny create -g https://github.com/posit-dev/py-shiny/tree/main/examples/chat/hello-providers/ollama
+shiny create --template chat-ai-ollama
 ```
 
 ### OpenAI via Azure
 
 ```bash
-shiny create -g https://github.com/posit-dev/py-shiny/tree/main/examples/chat/enterprise/azure-openai
+shiny create --template chat-ai-azure-openai
 ```
 
 ### Anthropic via AWS Bedrock
 
 ```bash
-shiny create -g https://github.com/posit-dev/py-shiny/tree/main/examples/chat/enterprise/aws-bedrock-anthropic
+shiny create --template chat-ai-anthropic-aws
 ```
 
 :::
@@ -227,7 +227,7 @@ Remember that you can get a full working template in the [Generative AI quick st
 Also, for another more advanced example of dynamic system messages, check out this example:
 
 ```bash
-shiny create -g https://github.com/posit-dev/py-shiny/tree/main/examples/chat/playground
+shiny create --github posit-dev/py-shiny:examples/chat/playground
 ```
 
 ## Message trimming
@@ -300,7 +300,7 @@ A more compelling transform would be to allow the user to enter a URL to a websi
 For a concrete example, this template allows you to enter a URL to a website that contains a recipe, and then the assistant will extract the ingredients and instructions from that recipe in a structured format:
 
 ```bash
-shiny create -g https://github.com/posit-dev/py-shiny/tree/main/examples/chat/RAG/recipes
+shiny create --github posit-dev/py-shiny:examples/chat/RAG/recipes
 ```
 
 ![](/images/chat-recipes.mp4){class="rounded shadow"}
