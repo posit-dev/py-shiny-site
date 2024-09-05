@@ -12,14 +12,12 @@ sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/regulari
 
 ::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
 ## Express
-``` python
-shiny create -m express \
-  -g https://github.com/posit-dev/py-shiny-templates/tree/main/regularization
+``` bash
+shiny create --template regularization --mode express --github posit-dev/py-shiny-templates
 ```
 ## Core
-``` python
-shiny create -m core \
-  -g https://github.com/posit-dev/py-shiny-templates/tree/main/regularization
+``` bash
+shiny create --template regularization --mode core --github posit-dev/py-shiny-templates
 ```
 :::
 
@@ -34,8 +32,8 @@ The user can adjust the regularization strength to see it influence the model's 
 
 **Components:**
 
-* [Slider input](/components/inputs/slider-range)
-* [Plot output](/components/outputs/plot-seaborn)
+* [Slider input](/components/inputs/slider-range/index.qmd)
+* [Plot output](/components/outputs/plot-seaborn/index.qmd)
 
 :::
 ::: {.g-col-6}
@@ -47,4 +45,4 @@ The user can adjust the regularization strength to see it influence the model's 
 * `seaborn`
 
 :::
-:::: 
+::::

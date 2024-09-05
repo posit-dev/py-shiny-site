@@ -12,14 +12,12 @@ sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/survey
 
 ::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
 ## Express
-``` python
-shiny create -m express \
-  -g https://github.com/posit-dev/py-shiny-templates/tree/main/survey
+``` bash
+shiny create --template survey --mode express --github posit-dev/py-shiny-templates
 ```
 ## Core
-``` python
-shiny create -m core \
-  -g https://github.com/posit-dev/py-shiny-templates/tree/main/survey
+``` bash
+shiny create --template survey --mode core --github posit-dev/py-shiny-templates
 ```
 :::
 
@@ -33,17 +31,17 @@ In this example, we use the `shiny_validate` package to validate the form inputs
 
 **Components:**
 
-* [Text input](/components/inputs/select-single)
-* [Numeric input](/components/inputs/numeric-input/)
-* [Select input](/components/inputs/select-single)
-* [Radio buttons](/components/inputs/radio-buttons/)
+* [Text input](/components/inputs/select-single/index.qmd)
+* [Numeric input](/components/inputs/numeric-input/index.qmd)
+* [Select input](/components/inputs/select-single/index.qmd)
+* [Radio buttons](/components/inputs/radio-buttons/index.qmd)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}
 
 **Layouts:**
 
-* [Cards](/layouts/panels-cards/#content-divided-by-cards)
+* [Cards](/layouts/panels-cards/index.qmd#content-divided-by-cards)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}
