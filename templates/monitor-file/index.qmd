@@ -13,13 +13,11 @@ sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/monitor-
 ::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
 ## Express
 ``` python
-shiny create -m express \
-  -g https://github.com/posit-dev/py-shiny-templates/tree/main/monitor-file
+shiny create --template monitor-file --mode express --github posit-dev/py-shiny-templates
 ```
 ## Core
 ``` python
-shiny create -m core \
-  -g https://github.com/posit-dev/py-shiny-templates/tree/main/monitor-file
+shiny create --template monitor-file --mode core --github posit-dev/py-shiny-templates
 ```
 :::
 
@@ -34,16 +32,16 @@ Note also that this app shows the entire log in a data grid, and the most recent
 
 **Components:**
 
-* [Value box](/components/outputs/value-box)
-* [Data grid output](/components/outputs/data-grid)
+* [Value box](/components/outputs/value-box/index.qmd)
+* [Data grid output](/components/outputs/data-grid/index.qmd)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}
 
 **Layouts:**
 
-* [Grid layout](/layouts/arrange)
-* [Cards](/layouts/panels-cards/#content-divided-by-cards)
+* [Grid layout](/layouts/arrange/index.qmd)
+* [Cards](/layouts/panels-cards/index.qmd#content-divided-by-cards)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}

@@ -11,8 +11,7 @@ sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/database
 ::: {.panel-tabset .shiny-mode-tabset}
 ## Core
 ``` python
-shiny create -m core \
-  -g https://github.com/posit-dev/py-shiny-templates/tree/main/database-explorer
+shiny create --template database-explorer --mode core --github posit-dev/py-shiny-templates
 ```
 :::
 
@@ -20,23 +19,23 @@ shiny create -m core \
 Run queries on an SQL database and view the results in a data grid.
 This app demonstrates how to initialize, populate, and connect to an SQL database using the `duckdb` package.
 It also shows how to run SQL queries and display results in an interactive data grid.
-Note also the use of Shiny [modules](/docs/modules.html) to encapsulate and reuse the logic behind each card.
+Note also the use of Shiny [modules](/docs/modules.qmd) to encapsulate and reuse the logic behind each card.
 
 :::: {.grid .tags}
 
 ::: {.g-col-6 .g-col-sm-4}
 **Components:**
 
-* [Action button](/components/inputs/action-button)
-* [Text area input](/components/inputs/text-area)
-* [Data grid output](/components/outputs/data-grid)
+* [Action button](/components/inputs/action-button/index.qmd)
+* [Text area input](/components/inputs/text-area/index.qmd)
+* [Data grid output](/components/outputs/data-grid/index.qmd)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}
 **Layouts:**
 
-* [Sidebar](/layouts/sidebars)
-* [Grid layout](/layouts/arrange)
+* [Sidebar](/layouts/sidebars/index.qmd)
+* [Grid layout](/layouts/arrange/index.qmd)
 :::
 ::: {.g-col-6 .g-col-sm-4}
 **Packages:**

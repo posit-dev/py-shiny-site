@@ -13,13 +13,11 @@ sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/basic-ap
 ::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
 ## Express
 ``` python
-shiny create -m express \
-  -g https://github.com/posit-dev/py-shiny-templates/tree/main/basic-app-plot
+shiny create --template basic-app-plot --mode express --github posit-dev/py-shiny-templates
 ```
 ## Core
 ``` python
-shiny create -m core \
-  -g https://github.com/posit-dev/py-shiny-templates/tree/main/basic-app-plot
+shiny create --template basic-app-plot --mode core --github posit-dev/py-shiny-templates
 ```
 :::
 
@@ -32,14 +30,14 @@ A basic example of changing a histogram based on a select input control.
 ::: {.g-col-6}
 **Components:**
 
-* [Select input](/components/inputs/select-single)  
-* [Plot output](/components/outputs/plot-seaborn)  
+* [Select input](/components/inputs/select-single/index.qmd)
+* [Plot output](/components/outputs/plot-seaborn/index.qmd)
 :::
 
 ::: {.g-col-6}
-**Packages:**  
+**Packages:**
 
-* `seaborn`  
+* `seaborn`
 :::
 
 ::::

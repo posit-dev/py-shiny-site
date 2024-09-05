@@ -12,13 +12,11 @@ sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/nba-dash
 ::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
 ## Express
 ``` python
-shiny create -m express \
-  -g https://github.com/posit-dev/py-shiny-templates/tree/main/nba-dashboard
+shiny create --template nba-dashboard --mode express --github posit-dev/py-shiny-templates
 ```
 ## Core
 ``` python
-shiny create -m core \
-  -g https://github.com/posit-dev/py-shiny-templates/tree/main/nba-dashboard
+shiny create --template nba-dashboard --mode core --github posit-dev/py-shiny-templates
 ```
 :::
 
@@ -33,18 +31,18 @@ This provides a useful way to query player(s) based on a specific statistic, the
 
 **Components:**
 
-* [Select input](/components/inputs/selectize-multiple/)
-* [Slider input](/components/inputs/slider-range/)
-* [Plotly](/components/outputs/plot-plotly/)
+* [Select input](/components/inputs/selectize-multiple/index.qmd)
+* [Slider input](/components/inputs/slider-range/index.qmd)
+* [Plotly](/components/outputs/plot-plotly/index.qmd)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}
 
 **Layouts:**
 
-* [Sidebar](/layouts/sidebars)
-* [Grid layout](/layouts/arrange)
-* [Cards](/layouts/panels-cards/#content-divided-by-cards)
+* [Sidebar](/layouts/sidebars/index.qmd)
+* [Grid layout](/layouts/arrange/index.qmd)
+* [Cards](/layouts/panels-cards/index.qmd#content-divided-by-cards)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}
