@@ -12,7 +12,7 @@ sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/survey-w
 
 ::: {.panel-tabset .shiny-mode-tabset}
 ## Core
-``` python
+``` bash
 shiny create --template survey-wizard --mode core --github posit-dev/py-shiny-templates
 ```
 :::

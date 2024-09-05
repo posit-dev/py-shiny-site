@@ -10,11 +10,11 @@ sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/map-dist
 
 ::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
 ## Express
-``` python
+``` bash
 shiny create --template map-distance --mode express --github posit-dev/py-shiny-templates
 ```
 ## Core
-``` python
+``` bash
 shiny create --template map-distance --mode core --github posit-dev/py-shiny-templates
 ```
 :::

@@ -10,7 +10,7 @@ sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/database
 
 ::: {.panel-tabset .shiny-mode-tabset}
 ## Core
-``` python
+``` bash
 shiny create --template database-explorer --mode core --github posit-dev/py-shiny-templates
 ```
 :::

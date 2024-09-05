@@ -11,11 +11,11 @@ sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/dashboar
 
 ::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
 ## Express
-``` python
+``` bash
 shiny create --template dashboard-tips --mode express --github posit-dev/py-shiny-templates
 ```
 ## Core
-``` python
+``` bash
 shiny create --template dashboard-tips --mode core --github posit-dev/py-shiny-templates
 ```
 :::
