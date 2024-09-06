@@ -1,37 +1,28 @@
-import asyncio
-import datetime
-
-from shiny import App, Inputs, Outputs, Session, reactive, render, ui
+## file: app.py
+from time import sleep
+from shiny import App, reactive, render, ui
 
 app_ui = ui.page_fluid(
-    ui.p("The time is ", ui.output_text("current_time", inline=True)),
-    ui.hr(),
-    ui.input_task_button("btn", "Square 5 slowly"),
-    ui.output_text("sq"),
+    ui.row(
+        ui.column(6, ui.input_task_button("task_button", "Increase Number slowly")),
+        ui.column(6, ui.output_text("counter").add_class("display-5 mb-0")),
+        {"class": "vh-100 justify-content-center align-items-center px-5"},
+    ).add_class("text-center")
 )
 
 
-def server(input: Inputs, output: Outputs, session: Session):
-
-    @render.text
-    def current_time():
-        reactive.invalidate_later(1)
-        return datetime.datetime.now().strftime("%H:%M:%S %p")
-
-    @ui.bind_task_button(button_id="btn")
-    @reactive.extended_task
-    async def sq_value(x):
-        await asyncio.sleep(2)
-        return x**2
+def server(input, output, session):
+    count = reactive.value(0)
 
     @reactive.effect
-    @reactive.event(input.btn)
-    def btn_click():
-        sq_value(5)
+    @reactive.event(input.task_button)
+    def _():
+        sleep(1)
+        count.set(count() + 1)
 
     @render.text
-    def sq():
-        return f"5 squared is: {str(sq_value.result())}"
+    def counter():
+        return f"{count()}"
 
 
 app = App(app_ui, server)

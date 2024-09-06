@@ -2,7 +2,7 @@ import asyncio
 from shiny import App, Inputs, Outputs, Session, reactive, ui
 
 app_ui = ui.page_fluid(
-    ui.input_task_button("btn", "Add numbers slowly"),
+    ui.input_task_button("btn", "Fit Model"),
 )
 
 
