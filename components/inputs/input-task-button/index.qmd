@@ -39,10 +39,7 @@ listing:
     dir: components/inputs/input-task-button/
   contents:
   - title: "Non-blocking task: fiting a scikit-learn model"
-    description: This example combines the task button with an extended task to keep the application responsive (i.e., not blocked) while the model is fitting.
-    In this example, the model fitting and MSE calculation is delayed when the task button is clicked to triggeer an extended task.
-    But, you are able to still toggle the data sampling while the extended task is running.
-    The MSE that is calcualted is from the initial set of predictors selected, even if you change the selection during the extended task.
+    description: This example combines the task button with an extended task to keep the application responsive (i.e., not blocked) while the model is fitting. In this example, the model fitting and MSE calculation is delayed when the task button is clicked to triggeer an extended task.But, you are able to still toggle the data sampling while the extended task is running. The MSE that is calcualted is from the initial set of predictors selected, even if you change the selection during the extended task.
     apps:
     - title: Preview
       file: app-variation-extended-task-core.py
