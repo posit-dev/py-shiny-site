@@ -10,14 +10,12 @@ sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/map-dist
 
 ::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
 ## Express
-``` python
-shiny create -m express \
-  -g https://github.com/posit-dev/py-shiny-templates/tree/main/map-distance
+``` bash
+shiny create --template map-distance --mode express --github posit-dev/py-shiny-templates
 ```
 ## Core
-``` python
-shiny create -m core \
-  -g https://github.com/posit-dev/py-shiny-templates/tree/main/map-distance
+``` bash
+shiny create --template map-distance --mode core --github posit-dev/py-shiny-templates
 ```
 :::
 
@@ -25,7 +23,7 @@ shiny create -m core \
 Run queries on an SQL database and view the results in a data grid.
 This app demonstrates how to initialize, populate, and connect to an SQL database using the `duckdb` package.
 It also shows how to run SQL queries and display results in an interactive data grid.
-Note also the use of Shiny [modules](/docs/modules.html) to encapsulate and reuse the logic behind each card.
+Note also the use of Shiny [modules](/docs/modules.qmd) to encapsulate and reuse the logic behind each card.
 
 
 :::: {.grid .tags}
@@ -33,18 +31,18 @@ Note also the use of Shiny [modules](/docs/modules.html) to encapsulate and reus
 
 **Components:**
 
-* [Select input](/components/inputs/selectize-single/)
-* [Value box](/components/outputs/value-box)
-* [Map](/components/outputs/map-ipyleaflet)
+* [Select input](/components/inputs/selectize-single/index.qmd)
+* [Value box](/components/outputs/value-box/index.qmd)
+* [Map](/components/outputs/map-ipyleaflet/index.qmd)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}
 
 **Layouts:**
 
-* [Sidebar](/layouts/sidebars)
-* [Grid layout](/layouts/arrange)
-* [Cards](/layouts/panels-cards/#content-divided-by-cards)
+* [Sidebar](/layouts/sidebars/index.qmd)
+* [Grid layout](/layouts/arrange/index.qmd)
+* [Cards](/layouts/panels-cards/index.qmd#content-divided-by-cards)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}

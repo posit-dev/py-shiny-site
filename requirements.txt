@@ -9,6 +9,6 @@ plotly
 shinywidgets
 ipyleaflet==0.17.4
 favicons
-griffe<1.0.0 # FIXME remove after posit-dev/py-shiny#1636
+griffe
 scikit-learn==1.5.1
 scipy

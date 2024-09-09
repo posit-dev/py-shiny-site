@@ -11,14 +11,12 @@ sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/dashboar
 
 ::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
 ## Express
-``` python
-shiny create -m express \
-  -g https://github.com/posit-dev/py-shiny-templates/tree/main/dashboard-tips
+``` bash
+shiny create --template dashboard-tips --mode express --github posit-dev/py-shiny-templates
 ```
 ## Core
-``` python
-shiny create -m core \
-  -g https://github.com/posit-dev/py-shiny-templates/tree/main/dashboard-tips
+``` bash
+shiny create --template dashboard-tips --mode core --github posit-dev/py-shiny-templates
 ```
 :::
 
@@ -34,13 +32,13 @@ Another notable difference is the use of `plotly` for interactive plots.
 ::: {.g-col-6 .g-col-sm-4}
 **Components:**
 
-* [Slider input](/components/inputs/slider)
-* [Checkbox group input](/components/inputs/checkbox-group)
-* [Action button](/components/inputs/action-button)
-* [Popover](https://shiny.posit.co/py/api/core/ui.popover.html)
-* [Value box](/components/outputs/value-box)
-* [Plotly output](/components/outputs/plot-plotly)
-* [Data grid output](/components/outputs/data-grid)
+* [Slider input](/components/inputs/slider/index.qmd)
+* [Checkbox group input](/components/inputs/checkbox-group/index.qmd)
+* [Action button](/components/inputs/action-button/index.qmd)
+* [Popover](/api/core/ui.popover.qmd)
+* [Value box](/components/outputs/value-box/index.qmd)
+* [Plotly output](/components/outputs/plot-plotly/index.qmd)
+* [Data grid output](/components/outputs/data-grid/index.qmd)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}

@@ -10,14 +10,12 @@ sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/stock-ap
 
 ::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
 ## Express
-``` python
-shiny create -m express \
-  -g https://github.com/posit-dev/py-shiny-templates/tree/main/stock-app
+``` bash
+shiny create --template stock-app --mode express --github posit-dev/py-shiny-templates
 ```
 ## Core
-``` python
-shiny create -m core \
-  -g https://github.com/posit-dev/py-shiny-templates/tree/main/stock-app
+``` bash
+shiny create --template stock-app --mode core --github posit-dev/py-shiny-templates
 ```
 :::
 
@@ -33,20 +31,20 @@ Note that the icon for the stock price change is a green arrow pointing up if th
 
 **Components:**
 
-* [Select input](/components/inputs/selectize-single/)
-* [Date range input](/components/inputs/date-range/)
-* [Value box](/components/outputs/value-box/)
-* [Plotly](/components/outputs/plot-plotly)
-* [Data grid output](/components/outputs/data-grid)
+* [Select input](/components/inputs/selectize-single/index.qmd)
+* [Date range input](/components/inputs/date-range/index.qmd)
+* [Value box](/components/outputs/value-box/index.qmd)
+* [Plotly](/components/outputs/plot-plotly/index.qmd)
+* [Data grid output](/components/outputs/data-grid/index.qmd)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}
 
 **Layouts:**
 
-* [Sidebar](/layouts/sidebars)
-* [Grid layout](/layouts/arrange)
-* [Cards](/layouts/panels-cards/#content-divided-by-cards)
+* [Sidebar](/layouts/sidebars/index.qmd)
+* [Grid layout](/layouts/arrange/index.qmd)
+* [Cards](/layouts/panels-cards/index.qmd#content-divided-by-cards)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}

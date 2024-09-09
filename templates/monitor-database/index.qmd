@@ -11,9 +11,8 @@ sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/monitor-
 
 ::: {.panel-tabset .shiny-mode-tabset}
 ## Core
-``` python
-shiny create -m core \
-  -g https://github.com/posit-dev/py-shiny-templates/tree/main/monitor-database
+``` bash
+shiny create --template monitor-database --mode core --github posit-dev/py-shiny-templates
 ```
 :::
 
@@ -22,7 +21,7 @@ Efficiently monitor a database for updates and visualize the data in real-time.
 In this case, we're monitoring an SQLite database with simulated model accuracy data, but the core logic can easily adapt to other databases and use cases.
 Note also that this template has:
 
-* A switch input to toggle the data update on and off (thanks to [reactive isolation](/docs/reactive-patterns.html#isolate-events), this is easy!).
+* A switch input to toggle the data update on and off (thanks to [reactive isolation](/docs/reactive-patterns.qmd#isolate-events), this is easy!).
 * A dynamically updating plot and value box icons (when model accuracy gets above/below a certain threshold).
   * And this all happens without any layout shifts!
 
@@ -32,19 +31,19 @@ Note also that this template has:
 
 **Components:**
 
-* [Checkbox group input](/components/inputs/checkbox-group)
-* [Switch input](/components/inputs/switch)
-* [Value box](/components/outputs/value-box)
-* [Plotly output](/components/outputs/plot-plotly)
+* [Checkbox group input](/components/inputs/checkbox-group/index.qmd)
+* [Switch input](/components/inputs/switch/index.qmd)
+* [Value box](/components/outputs/value-box/index.qmd)
+* [Plotly output](/components/outputs/plot-plotly/index.qmd)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}
 
 **Layouts:**
 
-* [Sidebar](/layouts/sidebars)
-* [Grid layout](/layouts/arrange)
-* [Cards](/layouts/panels-cards/#content-divided-by-cards)
+* [Sidebar](/layouts/sidebars/index.qmd)
+* [Grid layout](/layouts/arrange/index.qmd)
+* [Cards](/layouts/panels-cards/index.qmd#content-divided-by-cards)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}
