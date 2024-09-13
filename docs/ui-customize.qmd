@@ -30,9 +30,7 @@ Simply choose a theme and add `shinyswatch.theme.<theme_name>()` anywhere in the
 from shinyswatch import theme
 from shiny.express import render, ui
 
-ui.page_opts(title="Hello shinyswatch theme")
-
-theme.darkly()
+ui.page_opts(title="Hello shinyswatch theme", theme=theme.darkly)
 
 with ui.sidebar():
     "Sidebar content"
