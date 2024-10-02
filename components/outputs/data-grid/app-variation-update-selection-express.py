@@ -1,43 +1,30 @@
-import matplotlib.pyplot as plt
 from palmerpenguins import load_penguins
-from shiny import render, reactive
-from shiny.express import input, ui
-from shiny.ui import output_plot
+from shiny import reactive
+from shiny.express import input, render, ui
 
-def near_points(df, x, y, click):
-    click_x = click["x"]
-    click_y = click["y"]
-    
-    distances = ((df[x] - click_x) ** 2 + (df[y] - click_y) ** 2) ** 0.5
+penguins = load_penguins()
 
-    closest_idx = distances.idxmin()
-    return closest_idx
+ui.h2("Palmer Penguins")
 
-penguins = load_penguins().head(10)
+ui.input_action_button("update_selection", "Update row selection")
+ui.input_action_button("reset_selection", "Reset row selection")
 
-output_plot(
-    "plot",
-    click=True
-)
+ui.h5("Current selection: ", {"class": "pt-2"})
 
-"Click on a point to highlight it in the table"
+@render.code
+def _():  # <<
+    return penguins_df.cell_selection()["rows"]  # <<
 
-with ui.hold():
-    @render.plot()
-    def plot():
-        plt.scatter(penguins["body_mass_g"], penguins["bill_length_mm"])
-        plt.xlabel("Mass (g)")
-        plt.ylabel("Bill Length (mm)")
+@render.data_frame
+def penguins_df():  # <<
+    return render.DataGrid(penguins, selection_mode="rows")  # <<
 
-@render.data_frame  # <<
-def penguins_df(): # <<
-    return render.DataGrid(penguins, selection_mode="rows") # <<
+@reactive.effect 
+@reactive.event(input.update_selection)
+async def _():  # <<
+    await penguins_df.update_cell_selection({"type": "row", "rows": [1, 2, 8]})  # <<
 
-@reactive.effect # <<
-async def _(): # <<
-    point: float | None = input.plot_click() # <<
-    if point is None: # <<
-        await penguins_df.update_cell_selection({"type": "row", "rows": []}) # <<
-    else: # <<
-        row_id = near_points(penguins, "body_mass_g", "bill_length_mm", point) # <<
-        await penguins_df.update_cell_selection({"type": "row", "rows": row_id}) # <<
+@reactive.effect
+@reactive.event(input.reset_selection)
+async def _():  # <<
+    await penguins_df.update_cell_selection({"type": "row", "rows": []})   # <<
