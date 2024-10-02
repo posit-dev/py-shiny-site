@@ -209,7 +209,7 @@ listing:
       `selection`, which should be a dictionary specifying `type`,
       which can be either `row` (for a single row) or `rows` (for multiple rows),
       and `row`, a list of the row indices to select. Note that you will also need
-      to set `selection_mode` in `render_data_grid()` to `"row"` or `"rows"`, since
+      to set `selection_mode` in `render.DataGrid()` to `"row"` or `"rows"`, since
       it is `"none"` by default. '
     apps:
     - title: Preview
