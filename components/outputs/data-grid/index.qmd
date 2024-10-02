@@ -203,6 +203,26 @@ listing:
       file: app-variation-update-sort-core.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiIM4UYhUEA3OLeqK4DIkJ061GqLIALxyCioBQqIAFACUftCYykIhyEI4ULxwynTsQorROsjFaYJYhgBMhWAAChxcyDV8UdpgsQRFJenC6PwUyg5O5MoARn0U5NX86IpQVMoiFsK8WoTIqwCqM3NwBkvqq+2dxd0Qvf2DgsNjFBMQ1XYicP2LMsurRKsASnBPsq9OA5tDoQEqlcoAVmqAGF+Aw7JQ9m91CgPsgQKtiOwoCJWqiwOgKABaCqrAC+R1BXTKpD652UZE81UimgWFkOILB6VpFHpswoUByDFgcGZzVZijoHJ08QgCU8dAMXlcDGiPT6RB55yIT1xVwgsUQCTBAAEEZ4GFhGXBjsgFaxxaI2TI4kaqWDinYKHDQSynZKsAC4sUAMTIAA84eNJTNHi8WH5gsYItt9r9ImUktdtrBXp9yHN8YAInMoABxBiCArp2W22OXVxYOB0OhwRx1uwNuBN1yUNVnPpYab87IA5aysE43AQYh25vIZTZ90eqAAdygglk6czdCH23mQdDEajy49JWAAEYiAAGIgYsBkdirFAANk+YE8ImIz+QADEOE8ZJEAA7AAukQyBhpGOYlLER7QXKy71o4Ljds2rbtkhnYoY2cC9hQ-bnFgjzPM6gK8BOJRTjOc6KouhowcUa4blujoZgGw47GR0TAKBcGQceCQ6Bg6CpNY6DRCJySCDqypeLKaxgBQuA8LQSlwAAHhQYBkqBQA
       height: 350
+  - title: Update Row Selection
+    description: 'The selected rows can be programmatically updated using
+      the `.update_cell_selection()` method. `.update_cell_select()` takes one argument,
+      `selection`, which should be a dictionary specifying `type`,
+      which can be either `row` (for a single row) or `rows` (for multiple rows),
+      and `row`, a list of the row indices to select. Note that you will also need
+      to set `selection_mode` in `render_data_grid()` to `"row"` or `"rows"`, since
+      it is `"none"` by default. '
+    apps:
+    - title: Preview
+      file: app-variation-update-selection-core-preview.py
+      height: 350
+    - title: Express
+      file: app-variation-update-selection-express.py
+      shinylive: https://shinylive.io/py/app/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQgAzRsRjSoXeI1SUA5gFcaEKXQbMWPKABMA+toj7DE+UpUsJAC0PYWJpq0aUlnCMeCwBUIRkNABucM7Kqh5eGHAAHqgBEsb0fj4QqHpkoQbxrkkQ2BgGPjlmxIUFZLY8chDyQQosEHBQjLbEhmQSABSWCqGpodihhPyEANYAlIjyLGssszQL1qksALwbc-PAsmCppwC6q+ub294Ht8en2JfXa28sljQSZFAQhHApAdhqMFMBUhcWABaQ5beY7RYsABUSJYACYWABqFig4DYSEwx7WbCIlHo0mogAMGAArPIPrNiBJAU0aJZdgcvj8-gCJBg2akYIZhosPgEyHpGBBDkyWdYBfT8roDEZ9uZiFZbMrHCKMO4epZhgBGSmitoQeqcQrNXjDD6nURyfAMo57AAqjD0cQgZvpYAAwkcWKRxNIBuQWGRiCxPDp3Pw46waEnpWR9ZGoAIuHEwIqAO7J9wsAx64hcQ3LD4AAQCECCjCwLRFHw60iblel6y7MgwEkIHAojGGdgcRhOYAExEs2Gs7Cy1h0l1CI5VEnHAhoXC41mz9jTs5glzNXe7XDIGFSXEzcC4drAAFlJFJhjpRWBjye1j3sFeBDe7wAQpuXAsAAMroaY4jAMBvr6EA1oEwQYJYHBQNYSiwHAawAMQsAAPHh7RwJ0K6ONYYwiogLC4QRYpwBKUphIhDYACKoQA4owbLDtqRihMy2aRDQpCzlOcB7Kcyh5k477UfhhHmghERRLEKQKAocCRHJtHQBI2D-J8xEsNYlHaQp3bhmQVEKBYrAAD4sAAcqQWEHIYjSNrw1iPCKZkfDQJGWT4UjOd0VE0eZn7iHmUDJtIvESORChVKgKEUN5N7bgJmlRKQwwgKcZAiDmVGScQeanKEZXSacVHABcAC+iIRR8N7MuF8kfF2UnypYardL0-SDCMpF8SwpyTtOs5PgulXjROwE7hB7gHnNDCDM1nWdp+UAxXFo2JWMKVpXAGVbtY2VCXlBVgEV2i1fNUlzdVMlUT1bJNX5EBgA1FxAA
+      height: 350
+    - title: Core
+      file: app-variation-update-selection-core.py
+      shinylive: https://shinylive.io/py/app/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACGKM1AG2LK5oBGWbN14soAZxbcyAHQgAzRsRjSoXeI1SUA5gFcaEKXQbMWPKABMA+toj7DE+UpUsJAC0PYWJpqwCC6HgsAJIQqHpkEsEA8pERUcEAynASEjSkwYxwUIRkNABucFmUlnCMwQby8nYORiwAvObEVra6BkYAFACUGO45lp0AjAAM3fJlCiwQOYy2xIZRnZYKwQAewdjBhPyEANbdiPIsJyw7NPvWa41nu3vAsmBrjwC6x6fnl95Nn-eP2K93icgSxLDQJGQoBBCKkbp1lgpgGsXiwALS3C57K7dFgAKlxLAATCwANQsBHAbAo9G-azYHH4okMgkjDAAVmqEFOt2IElSZGsNEs1yaYIhUJhEgwQrWMEMPRB2TIekYXJ2vP5guFnLQqGsBhuBiwUB0cGsCi4BkGIMeAGE7ixSOJpAtyCwyMQWJ4dO5+D7WDQA1yyP13VABFw4I88CCjcR4pFbDwyJ0QdzHqI5Pg0x87g0ACqMPRRrmnbox0snOMJgWWDhQc2MWBwVNgWodCTWFaPcYQXsTOBTPmMIqMTqGBLBeOcSLBPlpDJ9o6VlgAAWyEDKjCwyYVK8m0l3hxzJxkGAkhA4FDH7ccDzAAmIlmw1nYaWsOlewVvRnvAhoXBcNYkb2CGr4wK8vbctyZ5rFw4ZwFwrYALKSFInQ6OMYBQdBp5cGQGDYPBAiIa2ABCAFcCwAAyughuSMAwFhOG4SC66lOUGB1pCjbNicADELAADxCSCB4-p2Kw9IgLCCSJJ4sEqKpchuW4YAAIvWADijBCp0ElzohcB5Iur5PnADSPMoADuTjYbJwmiRAbHZLk+RFBgg4KMZrByU53KSNg0KgoOLDWNJDnySuMGumQMkWi0rAAD4sAAcqQcA3BOkQ7rw1i-D0kX+bhPhTAwiw+FI6UzDJfkKQF1lQIG0jtI4XYKBgeioNxZowoB1h8pGJmkJ0ICPGQIhRkgLBWcQ1nRjNYA2XZMnAC8AC+OJ1dFpyIXytWOfVpw2VqNwzFAczleQEj6a1RjBI8j7Pq+aEfgtj2UcBdHuOBC1XWQW2HTtuFQI1zUSe1nXdRwvWIUBg0+Yuo3jZNjwybN834Ity1o4pc1aptRU6ugNyBKgnS6vqNCGSO5S9mA60vEAA
+      height: 350
   - title: Customize Summary Statement
     description: 'Set `summary` in `render.DataGrid()` to `False` to remove the statement
       "Viewing rows 1 through 10 of 20". Set it to a string template containing `{start}`,
