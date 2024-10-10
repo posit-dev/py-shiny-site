@@ -10,3 +10,5 @@ shinywidgets
 ipyleaflet==0.17.4
 favicons
 griffe
+scikit-learn==1.5.1
+scipy
