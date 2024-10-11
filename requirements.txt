@@ -8,5 +8,5 @@ seaborn==0.13.0
 plotly
 shinywidgets
 ipyleaflet==0.17.4
-favicons
+faicons
 griffe
