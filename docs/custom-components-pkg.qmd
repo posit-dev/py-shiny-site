@@ -59,13 +59,13 @@ Your component may look very different, but at the end of the day it just needs 
 ::: {.callout-tip}
 ## What about an output binding?
 
-This article touches on building an input component. However, it's also possible to build output components. The process and project structure is very similar to inputs. Throughout this article look for the "What about an output binding?" tips for more information on how to build an output binding. You can generate an output template with `shiny create -t js-output`.
+This article touches on building an input component. However, it's also possible to build output components. The process and project structure is very similar to inputs. Throughout this article look for the "What about an output binding?" tips for more information on how to build an output binding. You can generate an output template with `shiny create --template js-output`.
 :::
 
 
 ## The quick version
 
-If you just want to get up and running with the code, you can start with one of the available templates available with the `shiny create -t js-react` command and then run the commands provided after the template is created. You can also see the full list of JavaScript extension templates with `shiny create -t js-component`.
+If you just want to get up and running with the code, you can start with one of the available templates available with the `shiny create --template js-react` command and then run the commands provided after the template is created. You can also see the full list of JavaScript extension templates with `shiny create --template js-component`.
 
 
 
@@ -315,7 +315,7 @@ def output_color(id: str):
     )
 ```
 
-Make sure you add these to your `__init__.py` file so they are exposed to users of your package. Again, there is an output binding template in the `Shiny create` menu that can get you up and running quickly.
+Make sure you add these to your `__init__.py` file so they are exposed to users of your package. Again, there is an output binding template in the `shiny create` menu that can get you up and running quickly.
 :::
 
 #### `__init__.py`

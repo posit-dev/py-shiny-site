@@ -1,7 +1,7 @@
 jupyter
 jupyter_client < 8.0.0
 tabulate
-shinylive==0.5.1
+shinylive==0.6.0
 matplotlib==3.8.1
 shiny
 seaborn==0.13.0
@@ -9,4 +9,4 @@ plotly
 shinywidgets
 ipyleaflet==0.17.4
 favicons
-griffe<1.0.0 # FIXME remove after posit-dev/py-shiny#1636
+griffe

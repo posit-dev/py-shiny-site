@@ -10,9 +10,8 @@ sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/model-sc
 
 ::: {.panel-tabset .shiny-mode-tabset}
 ## Core
-``` python
-shiny create -m core \
-  -g https://github.com/posit-dev/py-shiny-templates/tree/main/model-scoring
+``` bash
+shiny create --template model-scoring --mode core --github posit-dev/py-shiny-templates
 ```
 :::
 
@@ -26,21 +25,21 @@ Shiny's reactive programming model makes it easy and performant to update those 
 
 **Components:**
 
-* [Select input](/components/inputs/selectize-single)
-* [Value box](/components/outputs/value-box)
-* [Plot output](/components/outputs/plot-matplotlib)
-* [Data grid output](/components/outputs/data-grid)
+* [Select input](/components/inputs/selectize-single/index.qmd)
+* [Value box](/components/outputs/value-box/index.qmd)
+* [Plot output](/components/outputs/plot-matplotlib/index.qmd)
+* [Data grid output](/components/outputs/data-grid/index.qmd)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}
 
 **Layouts:**
 
-* [Navbar](/layouts/navbars)
-* [Sidebar](/layouts/sidebars)
-* [Tabs](/layouts/tabs)
-* [Grid layout](/layouts/arrange)
-* [Cards](/layouts/panels-cards/#content-divided-by-cards)
+* [Navbar](/layouts/navbarsindex.qmd)
+* [Sidebar](/layouts/sidebarsindex.qmd)
+* [Tabs](/layouts/tabsindex.qmd)
+* [Grid layout](/layouts/arrangeindex.qmd)
+* [Cards](/layouts/panels-cards/index.qmd#content-divided-by-cards)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}

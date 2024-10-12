@@ -12,15 +12,14 @@ sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/survey-w
 
 ::: {.panel-tabset .shiny-mode-tabset}
 ## Core
-``` python
-shiny create -m core \
-  -g https://github.com/posit-dev/py-shiny-templates/tree/main/survey-wizard
+``` bash
+shiny create --template survey-wizard --mode core --github posit-dev/py-shiny-templates
 ```
 :::
 
 
 A simple survey wizard that simply writes responses to a file and displays a confirmation message when submitted.
-In this example, we use the `shiny_validate` package to validate the form inputs, and make clever use of [`navset_hidden()`](https://shiny.posit.co/py/api/core/ui.navset_hidden.html) to show/hide different steps of the form via action buttons.
+In this example, we use the `shiny_validate` package to validate the form inputs, and make clever use of [`navset_hidden()`](/api/core/ui.navset_hidden.qmd) to show/hide different steps of the form via action buttons.
 
 
 :::: {.grid .tags}
@@ -28,17 +27,17 @@ In this example, we use the `shiny_validate` package to validate the form inputs
 
 **Components:**
 
-* [Text input](/components/inputs/select-single)
-* [Numeric input](/components/inputs/numeric-input/)
-* [Action button](/components/inputs/action-button)
+* [Text input](/components/inputs/select-single/index.qmd)
+* [Numeric input](/components/inputs/numeric-input/index.qmd)
+* [Action button](/components/inputs/action-button/index.qmd)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}
 
 **Layouts:**
 
-* [Cards](/layouts/panels-cards/#content-divided-by-cards)
-* [Tabs](/layouts/tabs)
+* [Cards](/layouts/panels-cards/index.qmd#content-divided-by-cards)
+* [Tabs](/layouts/tabs/index.qmd)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}

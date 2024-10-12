@@ -148,7 +148,7 @@ shiny create
 ::: callout-tip
 ### Copy/paste examples
 
-If you find an example on this site that you want to run/edit locally, you can use `shiny create -t basic-app -m express` to get a basic app template, and then copy/paste the code from the example into the template.
+If you find an example on this site that you want to run/edit locally, you can use `shiny create --template basic-app -m express` to get a basic app template, and then copy/paste the code from the example into the template.
 :::
 
 

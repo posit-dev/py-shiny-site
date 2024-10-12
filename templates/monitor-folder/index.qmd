@@ -12,14 +12,12 @@ sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/monitor-
 
 ::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
 ## Express
-``` python
-shiny create -m express \
-  -g https://github.com/posit-dev/py-shiny-templates/tree/main/monitor-folder
+``` bash
+shiny create --template monitor-folder --mode express --github posit-dev/py-shiny-templates
 ```
 ## Core
-``` python
-shiny create -m core \
-  -g https://github.com/posit-dev/py-shiny-templates/tree/main/monitor-folder
+``` bash
+shiny create --template monitor-folder --mode core --github posit-dev/py-shiny-templates
 ```
 :::
 
@@ -35,18 +33,18 @@ Additionally, when a file is selected in this table, the contents are displayed 
 
 **Components:**
 
-* [Data grid output](/components/outputs/data-grid)
-* [Action button](/components/inputs/action-button)
-* [Popover](https://shiny.posit.co/py/api/core/ui.popover.html)
-* [Download link](https://shiny.posit.co/py/api/core/ui.download_link.html)
+* [Data grid output](/components/outputs/data-grid/index.qmd)
+* [Action button](/components/inputs/action-button/index.qmd)
+* [Popover](/api/core/ui.popover.qmd)
+* [Download link](/api/core/ui.download_link.qmd)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}
 
 **Layouts:**
 
-* [Grid layout](/layouts/arrange)
-* [Cards](/layouts/panels-cards/#content-divided-by-cards)
+* [Grid layout](/layouts/arrange/index.qmd)
+* [Cards](/layouts/panels-cards/index.qmd#content-divided-by-cards)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}

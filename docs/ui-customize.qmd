@@ -19,7 +19,7 @@ Some components may have additional customization options (e.g., `ui.sidebar()` 
 ## Shinyswatch {#shinyswatch}
 
 The [shinyswatch](https://github.com/posit-dev/py-shinyswatch) package makes is very easy to change the look of your app, and provides over a dozen different [bootswatch](https://bootswatch.com/) themes to choose from.
-Simply choose a theme and add `shinyswatch.theme.<theme_name>()` anywhere in the UI.
+Simply choose a theme from `shinyswatch.theme.<theme_name>` and pass it to the `theme` argument of the page function (Shiny Core) or `ui.page_opts()` (Shiny Express).
 
 ``` {shinylive-python}
 #| standalone: true
@@ -30,9 +30,7 @@ Simply choose a theme and add `shinyswatch.theme.<theme_name>()` anywhere in the
 from shinyswatch import theme
 from shiny.express import render, ui
 
-ui.page_opts(title="Hello shinyswatch theme")
-
-theme.darkly()
+ui.page_opts(title="Hello shinyswatch theme", theme=theme.darkly)
 
 with ui.sidebar():
     "Sidebar content"
