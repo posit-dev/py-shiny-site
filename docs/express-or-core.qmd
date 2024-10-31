@@ -262,7 +262,7 @@ def server(input, output, session):
 app = App(app_ui, server)
 
 ## file: requirements.txt
-ridgeplot
+ridgeplot==0.1.25
 ```
 
 :::
