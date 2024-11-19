@@ -35,10 +35,10 @@ Shiny's reactive programming model makes it easy and performant to update those 
 
 **Layouts:**
 
-* [Navbar](/layouts/navbarsindex.qmd)
-* [Sidebar](/layouts/sidebarsindex.qmd)
-* [Tabs](/layouts/tabsindex.qmd)
-* [Grid layout](/layouts/arrangeindex.qmd)
+* [Navbar](/layouts/navbars/index.qmd)
+* [Sidebar](/layouts/sidebars/index.qmd)
+* [Tabs](/layouts/tabs/index.qmd)
+* [Grid layout](/layouts/arrange/index.qmd)
 * [Cards](/layouts/panels-cards/index.qmd#content-divided-by-cards)
 
 :::
