@@ -29,6 +29,25 @@ listing:
   - title: '@shinywidgets.render_widget()'
     href: https://github.com/posit-dev/py-shinywidgets/blob/main/shinywidgets/_shinywidgets.py#L213
     signature: shinywidgets.render_widget(fn)
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/outputs/plot-plotly/
+  contents:
+  - title: Plot as input
+    description: First, convert your Plotly figure to a `FigureWidget` using `plotly.graph_objects.FigureWidget()`. Then, you can use `.on_click()`, `.on_hover()`, `.on_selection()`, and other methods to control what happens when the user clicks, hover, or selects points. Capture the click, hover, and selection information as reactive variables. The app below displays the values returned, but you can also call the values from within your computations to filter tables, perform calculations, and so on.
+    apps:
+    - title: Preview
+      file: app-variation-plot-as-input-core.py
+      height: 720
+    - title: Express
+      file: app-variation-plot-as-input-express.py
+      shinylive: https://shinylive.io/py/app/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACVAG2LPewzgA9UjOAGcRLKONT8AOhDoNmbTt14BzRmgAWAfWIAjAFZxCZcZJZricgGaNiMZVx4ZCUdu31RCAa3EKmVgAFYhpyEVt7RxEtMOwAdxoAEzU4MxYApWEIJLhGHQ5nbEiHNnd4RlRKNQBXMP96QJZOKCSC6rqICIg7Upi4jMasylzGPBZhbzIaADc4EujYiF4BIVEGxVYw1BqycbqFln7ljDrBzZZiXZ2yHRJc8auyG4KVOTkqiFr6lgBeZuIrXaX06IgAFABKd4QOQAAWyo1eRRYLDkuRsTjIkMQKLkKJRNhoaj+bH4GBEbjIFEYYLx+PpSSgZCgOjssDgv0+3y6434vxkYH0xCS2B0MEkIh0agF42w-MFNA8OnY1TIuhgMAFdJRENOqEZFGVUGwT1pEHp9OwUH4NEl024HIFACFFewWAAZVVaFhgjVQ-Dai38a22nT2lXyp3C7AsACyEp9an9eEDUPN+MD8RJVgwADEiTVhAB1ZKpLGEtQYA1QcYVjDsY1PNP0+JVplQYAABgAuhhSHd2DRfGD+wwwrdCIPfM38a3q13e-2tMQ5jTR6FyDpl6uZyi5+2F32IDoRHAVaYaKQR8ex5vT+fpqRdxM0oXzfFoXJJ0OfDpJhe5hJf9pjmDAZncGo4EhORtzyP84CmWY4CAhCALgMCIKgtN7xMR9j2ApCUMQ0DwPYSDoJhHI4AxddxwHH8wTITRCDgcZbzMcYRGZCgIUQQNv18eDiPQ08sXYkQ0zRajLhvDdblgmkmO8Vi2DkkROO4uBeMDBShLQ8k0jBcTJKomjZLonCLyvJSWLYtSNKZLS+PTFFLLwvSQJEwzjM-GEwAAYSnHwMh6awwDhBE8lcYV5lMlgBN-MIbGIbFA2EMg3yOJiwQSjykIwMtIRMgUAAkVzyELkq1CB4RGKL7li9EWF0pKUu0lyXwyxhzS4mldII0DCohYqwAAZTPXDL3NVqfRqU8WCFfhLkYZoJWII4JtMf0IrqxhotyKSMTcqadFa1KOvSzLerBY7+wG9ChrTMAAF9uyAA
+      height: 720
+    - title: Core
+      file: app-variation-plot-as-input-core.py
+      shinylive: https://shinylive.io/py/app/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACVAG2LPewzgA9UjOAGcRLKONT8AOhDoNmbTt14BzRmgAWAfWIAjAFZxCZcZJZricgGaNiMZVx4ZCUdu31RCAa3EKmVgAFYhpyETkApQ5nXgEhUXMpWQg7BzZ3eEZUSjUAVzD-ekCWTigAEx0ciHzC23tHES0w7BYo1gBBdDwWAp7hCHK4Rn64bzIaADc4evSmloB3GnK1ODM24qViPLJUHZ0llbXRweGD5dXWFjk5atqIcQBeUuIKqtyCh4AKAEob6HQOgKLGeBSwUFWOhs7AK5S+chYiJY212+0Ol3hYBiZBkYB+PWuECR1zAAGF2DRfG1UtZ8AikWCUXsyDoKPwWdNGF4JjBMYQKb4dGEbLSehxvHAtMR2ENGI8ACqMPJwfH0xG4gASxE51JFuLwat6NAwTP2bI5w25dExUs5Qpp+uUEqlMuGCqVKoJhOJuIAynB2CYJqRdcQWF88iI4Cx9MR+MjGKVJCIw1HA6Y-nSiQzjaaWeadJyrbzcWmgzRSPa9fgnYRJdLZe7lX8IC3-kMbCwo4xOV8wsyenmelGxBXW4h-sT+ZSfDphOMptHnvPTIuMJN3MrfobbWcVxNpiCWPu1xuYXBt9nEWXV5WT4fl2NV9N15uLy2fVeWAABAay85HFchodk4ZC-Ig6pfsSNg0GoR7SBgIhuGQFCMPCUHEki5RQGQUBQpo8CPHcnwiD0-CPLisblNgOgwMmOhqI62AUWA+g0B4OiBjUZC6DAMC4oaxI-BgeSoNhFCcVA2AouhmFySw2BQPwNAiKyNDcHALEAELsewLAADK5Dx4Z8ZmBoYXJ-BKSpakadpxDUSwACyybhmoZmCUiH7yQsR5WBgABisF5MIADqFxrF8MFqBg4lQD00UYOwUkoj83o+bFOFQMAAAMAC6JoQDo06+F8lYMGELIlT4aWeYiCyZbhuUFZWu5oeVoTkDobW1RZLANXFzWFToN7BhAZVFRVXWjWOvXyceawhUSvmTkiwFwJ2HWVcVAo+F8ZCaHWYqdWYw64RQPwQXVLDVXOT4HnAiGRVNZhtl+IFbV1bX7YdcDHZVpFdudKoTn1bV3QuL5RmBL0iG9xIfZNJ0jQG5akD9Er-eEZ04SD10zXe91rtDXyw-DSK-pQsoYOa62drdwrEOB13CGQS03btEPPo9GLk4ilOnIwNMCDi70bSw4OM8zfWs+z4P3jzkV8z+f7DML7J012qO3kVUuXSzi2MESBNFQrGC8-8choKgR5dKgXzW0CNDDsMnI-GAAC+eVAA
+      height: 720
 ---
 
 :::{#example}
@@ -43,7 +62,7 @@ Plotly is an interactive graphics plotting library.
 
 To make an interactive plot with Plotly in Shiny for Python, we will need to use the `shinywidgets` library to connect Shiny with `ipywidgets`.
 
-To make a plotly figure, we need to do the following steps:
+To make a Plotly figure, we need to do the following steps:
 
   1. Import the `output_widget()` and `render_widget()` functions from the `shinywidgets` library,
   `from shinywidgets import output_widget, render_widget`
@@ -62,3 +81,21 @@ To make a plotly figure, we need to do the following steps:
         - If you use the `@output()` decorator, make sure it is __above__ the `@render_widget()` decorator.
 
  Visit [shiny.posit.co/py/docs/ipywidgets.html](https://shiny.posit.co/py/docs/ipywidgets.html) to learn more about using ipywidgets with Shiny.
+ 
+ 
+### Plots as Inputs
+
+You can use a Plotly figure as an input widget, collecting the locations of user clicks, hovers, and selections.
+
+  1. Convert your Plotly figure to a `FigureWidget` using `plotly.graph_objects.FigureWidget()`, which extends the functionality of a standard Plotly figure and enables event handling. 
+  
+  2. Use the `.data` attribute of the `FigureWidget` to access its traces. The data attribute is a list that contains all the traces in the figure. Individual traces are accessible as `.data[0]`, `.data[1]`, etc., depending on how many traces are present in the figure.
+  
+  3. Use event handlers to listen for user interactions with the plot. These handlers include methods like `.on_click()`, `.on_hover()`, and `.on_selection()`, which are available for individual traces within the figure. You attach these handlers to a specific trace (e.g., `.data[0].on_click()`) to capture interactions with the data points in that trace.
+  
+  4. When you use an event handler like `.on_click()`, you need to pass it a callback function that defines what should happen when the event occurs. When defining the callback function, it should receive the parameters `trace`, `points`, and `state`, which provide information about the data points interacted with. In our example app below, our callback function updates a reactive value to contain the information about the points clicked, hovered over, or selected. 
+
+## Variations
+
+:::{#variations}
+:::
