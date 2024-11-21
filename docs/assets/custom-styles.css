@@ -1,0 +1,4 @@
+/* Hide children of shadow-container until they're moved into the shadow DOM. */
+shadow-container > * {
+  visibility: hidden;
+}
