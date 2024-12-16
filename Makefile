@@ -69,6 +69,9 @@ deps: $(PYBIN)
 	$(PYBIN)/pip install pip --upgrade
 	$(PYBIN)/pip install -r requirements.txt
 	. $(PYBIN)/activate && cd py-shiny && make install-docs
+	# Temporary fix for this bug introduced in shinylive 0.7.1
+	# https://github.com/posit-dev/py-shinylive/issues/45
+	. $(PYBIN)/activate && pip install shinylive==0.7.0
 
 ## Build qmd files for Shiny API docs
 quartodoc: $(PYBIN)
