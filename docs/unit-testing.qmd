@@ -48,7 +48,7 @@ def filter_penguins(species):
 ```
 
 Now that we have a function that doesn't rely on a reactive `input` value, we can write a unit test for it.
-There are many unit testing frameworks available for Python, but we'll use **pytest** in this article since it's by far the most comment.
+There are many unit testing frameworks available for Python, but we'll use **pytest** in this article since it's by far the most common.
 
 
 ### pytest
