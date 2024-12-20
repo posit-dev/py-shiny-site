@@ -76,3 +76,8 @@
     #   href: ./shinywidgets-outputs.qmd
     #   code: https://github.com/rstudio/pyshiny-site/blob/main/gallery/shinywidgets-outputs.qmd
     #   thumbnail: shinywidgets-outputs.png
+    - title: Adaptive Filters
+      description: null
+      href: https://connect.posit.cloud/danielchen/content/0193be46-8c65-3323-1c33-2574a7f2a707
+      code: https://github.com/chendaniely/pyshiny_adaptive_filter/tree/main/example/dashboard-tips-adaptive-filter
+      thumbnail: adaptive-filters-restaurant-tips.png
