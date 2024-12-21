@@ -14,10 +14,10 @@ listing:
     height: 500
   - title: Express
     file: app-express.py
-    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IyhTigBzOAH1S6CqwAUy5KeQVOFADZwAvIrAAJOFaulkAZS49kAYXZQFA4EJmZ0nK5QAEY2tgAqDHJwIRBmyOGRMTowpFERdglJKQCUysoAxH7CgXDIUMjEAbLcrBRQEMS17QAmyN2crOhWULjiQR1NyLbynFj+gYac3fZgjYEOxaaVADzbymsUWAqGm8g7eyqXlQAicOEQXQ1QrlFQxADW5u6JqQDu7NRzAD5Kw4Aw2HIojBLGJ6vBRJo4MoAAIHLDkbRyUEMbSsSHQ2RnZC7ZRQVi4Dp9O7IbQnFBEkmpMyVDwSIajOCNdwUYFYsEAcjE3HQclkrw+XyBcBgoVMUF+UEsDSaWAw6Go3W08NYiMMdAcAE1SHI2IruigQGi+TjhaKTgBfDZbYkXQioCi4dW0MBUfgUMD2gC6QA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbDOAD1R04LFkw4xUxOmSYBXDgB0IS+VigBzOAH1iqMiwAUSpiaZkOZADZwAvArAAJOJcvEmAZU7cmAYTZQyezxjUxoOFygAI2sbABU6WThgiFMmMIjo7RhiSPDbeMTkgEolJQBiXyEAuCYoJkJ-GS4WMigIQhq2gBMmLo4WVEsobDFA9samGzkODD8Agw4uuyJG+yKTCoAeTaUGgIx5A3WmLZ3lc4qAETgwiE76qBdIqEIAazM3BJSAdzZKMz+chYcDorFkkRgFlEdXgIg0cCUAAE9mQMKQtLJgXQtCxwZCZCcmNslFAWNh2r0bkx-BAutYMVitFxULIyAZMSCmRAWWREKwyHQinzCcSUqYKu5xIMRnAGm4yICOXQAOSiZmspjPN4fAFwGAhExQb5QCz1RoYNCoShdLSwljwgw0ewATWIslYJq6fJASq5PIAvmsNkSzmB-QBdIA
   - title: Core
     file: app-core.py
-    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEArpwA6EORnQB9acgC8yaTigBzOErqcANkagAjI3AAUc5Hc2dtEOEaUVOFSzbAAJF0dJkAGUuHmQAYXYoChkwAEoCW3stYiiKFU5vVOjYhLsAYmQAHiKku0MTc0slGFIzYzg1ABUGSThEiDi5bogAEzg6NjgGADdhq250SQo4xDLkQvCGOGi4ZChkbJFuVgooCGI1-d7kXs5WdFNeD3mt9QcsSOiJ3rVYrdyC4tL5CHsF5AAEQG3COmygJjMUGIAGtkBRAq0-gB3djUeFozSsYZsSRmGAeVjrZDwVisXRweYAAS2WHIKmxDCUrDxBJEAJK8ygrFwB1OA2QSissy+nL+-3shSC-EuvDgqUCFExkkZAHIiZNpsgobD4Yq0TB5v8oMioB5NmksIpqL0anAyRSrHRYgBNUiSNhm3ooEC0lXDJSaijCgC+nw5Px6inu4nQVkUGSIjLGDC6EEIqAouHQCBQYCoAA8KGAQwBdIA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxMArhwA6EOWlQB9aUwC8UjligBzOEpocANkagAjI3AAUcpnc3aIcI0rIcylm2AASzo8SYAZU5uJgBhNigyGTAASjxbe2kMQkiyFQ4vVKiY+LsAYiYAHiLEu0MTc0slGGIzYzg1ABU6STgEiFi5bogAEzgaVjg6ADdhqy5USTJYxDKmQrC6OCi4JigmbOEuFjIoCEI1-d6mXo4WVFMed3mt9QcIqInetRit3ILi0vkIewWmAAiAy4R02UBMZighAA1kwyAFWr8AO5sShw1FSFjDViSMwwdwsdZMeAsFi6ODzAACWwwpBUWLoShYuPxwn+JXmUBY2AOpwGTEifWqkgZSkm0ysIuGYogUzIiFYZDos0+HN+f3shUCfEuPDgqQCZAxUroAHJCeLhJCYXDDaiYPM-lAkVB3Js0hhFJRejU4KTyVYaDEAJrESSsV29BUgE0yuUAXw+7O+PUU9zEqCsigyEgZY2VcjA8YAukA
 - id: relevant-functions
   template: ../../_partials/components-detail-relevant-functions.ejs
   template-params:
@@ -48,22 +48,26 @@ listing:
 :::{#example}
 :::
 
-:::{#relevant-functions}
-:::
 
 
 
-## Generative AI quick start {#ai-quick-start}
+## LLM quick start {#llm-quick-start}
 
-Pick from one of the following providers below to get started with generative AI in your Shiny app.
-Once you've choosen a provider, copy/paste the `shiny create` terminal command to get the relevant source files on your machine.
+Pick from the following LLM provider quick start templates to power your next chat interface.
+Once you've choosen a provider, run the relevant `shiny create` terminal command to get the relevant source files on your machine.
 
 ::: {.panel-tabset .panel-pills}
 
-### LangChain with OpenAI
+### Anthropic
 
 ```bash
-shiny create --template chat-ai-langchain
+shiny create --template chat-ai-anthropic
+```
+
+### Anthropic via AWS Bedrock
+
+```bash
+shiny create --template chat-ai-anthropic-aws
 ```
 
 ### OpenAI
@@ -72,10 +76,10 @@ shiny create --template chat-ai-langchain
 shiny create --template chat-ai-openai
 ```
 
-### Anthropic
+### OpenAI via Azure
 
 ```bash
-shiny create --template chat-ai-anthropic
+shiny create --template chat-ai-azure-openai
 ```
 
 ### Google
@@ -90,61 +94,80 @@ shiny create --template chat-ai-gemini
 shiny create --template chat-ai-ollama
 ```
 
-### OpenAI via Azure
+### LangChain
 
 ```bash
-shiny create --template chat-ai-azure-openai
+shiny create --template chat-ai-langchain
 ```
 
-### Anthropic via AWS Bedrock
+### Other
 
-```bash
-shiny create --template chat-ai-anthropic-aws
-```
+See `chatlas`'s [reference](https://posit-dev.github.io/chatlas/reference/) for other providers such as Groq, Perplexity, and more.
 
 :::
 
-Once the `app.py` file is on your machine, open it and follow the instructions at the top of the file.
-These instructions should help with signing up for an account with the relevant provider, obtaining an API key, and finally get that key into your Shiny app.
+Once the `app.py` file is on your machine, open it and follow the instructions in the comments to obtain and setup the necessary API keys.
+These instructions should help you figure out how to sign up for an account with the relevant provider and obtain an API key.
+Once you have the API key, you can put it in a `.env` file in the same directory as `app.py`, and then run the app with `shiny run app.py`.
 
-Note that all these examples roughly follow the same pattern, with the only real difference being the provider-specific code for generating responses.
-If we were to abstract away the provider-specific code, we're left with the pattern shown below.
-Most of the time, providers will offer a `stream=True` option for generating responses, which is preferrable for more responsive and scalable chat interfaces.
-Just make sure to use `.append_message_stream()` instead of `.append_message()` when using this option.
+Note that all these examples roughly follow the same pattern, with the only real difference being the provider of the `chat_model`.
+And since they mostly use the [`chatlas`](https://posit-dev.github.io/chatlas/) library, changing the provider is as simple as changing the `chat_model` instantiation line.
+Moreover, all the examples leverage the `.stream()` method to generate responses chunk by chunk, which makes a massive difference in usability and responsiveness for chat interfaces.
+If, for some reason, you can't use the `.stream()` method (some models don't support things like tool calls when streaming), you can use the `.chat()` method instead, but you'll lose out on the benefits of streaming.
+
+Just make sure to use chat's `.append_message_stream()` method when streaming, and `.append_message()` when not streaming.
+
 
 ::: {.panel-tabset .panel-pills}
 
 ### Streaming
 
 ```python
+from chatlas import ChatAnthropic
 from shiny.express import ui
 
+# Create and display the chat interface
 chat = ui.Chat(id="my_chat")
 chat.ui()
 
+# Can be ChatOpenAI, ChatAnthropic, ChatGoogle, etc.
+chat_model = ChatAnthropic()
+
+# Callback for when the user submits a message
 @chat.on_user_submit
-async def _():
-    messages = chat.messages()
-    response = await my_model.generate_response(messages, stream=True)
+async def handle_user_input(user_input: str):
+    response = chat_model.stream(user_input)
     await chat.append_message_stream(response)
 ```
 
 ### Non-streaming
 
 ```python
+from chatlas import ChatAnthropic
 from shiny.express import ui
 
+# Create and display the chat interface
 chat = ui.Chat(id="my_chat")
 chat.ui()
 
+# Can be ChatOpenAI, ChatAnthropic, ChatGoogle, etc.
+chat_model = ChatAnthropic()
+
+# Callback for when the user submits a message
 @chat.on_user_submit
-async def _():
-    messages = chat.messages()
-    response = await my_model.generate_response(messages)
+async def handle_user_input(user_input: str):
+    response = chat_model.chat(user_input, echo="none")
     await chat.append_message(response)
 ```
 :::
 
+::: callout-tip
+### Different response objects
+
+If you want to use something other than `chatlas` to generate responses (e.g., LangChain), you can still use the chat interface.
+Moreover, `.append_message()`/`.append_message_stream()` try their best to "just work" when provided with common response objects, but if run into issues, you might need to reshape the response object to fit into an expected format.
+For `.append_message()`, just make sure to pass it a string, and for `.append_message_stream()`, it's recommended to pass an async generator that yields strings.
+:::
 
 ::: callout-tip
 ### Appending is async
@@ -153,88 +176,113 @@ Appending messages to a chat is always an async operation.
 This means that you should `await` the `.append_message()` or `.append_message_stream()` method when calling it and also make sure that the callback function is marked as `async`.
 :::
 
-The templates above are a great starting point for building a chat interface with generative AI.
+The templates above are a great starting point for building a chat interface powered by an LLM.
 And, out of the box, `Chat()` provides some nice things like [error handling](#error-handling) and [code highlighting](#code-highlighting).
-However, to richer and bespoke experiences, you'll want to know more about things like message formats, startup messages, system messages, retrieval-augmented generation (RAG), and more.
+However, to richer and bespoke experiences, you'll want to know more about things like system prompts, startup messages, tool calls, structured output, retrieval-augmented generation (RAG), and more.
 
-## Message format
 
-When calling `chat.messages()` to retrieve the current messages, you'll generally get a tuple of dictionaries following the format below.
-This format also generally works when adding messages to the chat.
+## Models and system prompts
+
+Experimenting with different models and system prompts a fundamental aspect of creating powerful and bespoke chat experiences.
+System prompts, in particular, provide the generative AI model with additional context or instructions on how to respond to the user's input.
+With `chatlas`, specifing a model and system prompt is as simple as passing a string to the `model` and `system_prompt` arguments of the `Chat` provider.
+
 
 ```python
-message = {
-  "content": "Message content",
-  "role": "assistant" | "user" | "system", # choose one
-}
+chat_model = ChatAnthropic(
+  system_prompt="You are a helpful assistant",
+  model="claude-3-5-sonnet-latest"
+)
 ```
 
-Unfortunately, this format is not universal across providers, and so it may not be directly usable as an input to a generative AI model.
-Fortunately, `chat.messages()` has a `format` argument to help with this.
-That is, if you're using a provider like OpenAI, you can pass `format="openai"` to `chat.messages()` to get the proper format for generating responses with OpenAI.
+::: callout-tip
+### Choosing a model
 
-Similarly, the return type of generative AI models can also be different.
-Fortunately, `chat.append_message()` and `chat.append_message_stream()` "just work" with most providers, but if you're using a provider that isn't yet supported, you should be able to reshape the response object into the format above.
+If you're not sure which model to use, `chatlas` provide [some great advice](https://posit-dev.github.io/chatlas/#model-choice)
+:::
+
+
+::: callout-tip
+### Prompt design
+
+If you're curious about how to design system prompts, `chatlas` has a [great guide](https://posit-dev.github.io/chatlas/#system-prompts).
+:::
+
+
+If you'd like to interactively experiment with different models and system prompts, try running the
+chat playground template:
+
+```bash
+shiny create --template chat-ai-playground
+```
 
 ## Startup messages
 
-To show message(s) when the chat interface is first loaded, you can pass a sequence of `messages` to `Chat`.
-Note that, assistant messages are interpreted as markdown by default.[^html-responses]
+To help provide some guidance to the user, show a startup message when the chat interface is first loaded.
+By default, assistant messages are interpreted as markdown, but can pass `ui.HTML` strings as well for more control over the message's appearance.
 
-[^html-responses]: The interpretation and display of assistant messages [can be customized](#custom-response-display).
+::: {.panel-tabset .panel-pills}
+
+### Express
 
 ```python
-message = {
-  "content": "**Hello!** How can I help you today?",
-  "role": "assistant"
-}
-chat = ui.Chat(id="chat", messages=[message])
-chat.ui()
+chat = ui.Chat(id="chat")
+chat.ui(messages=["**Hello!** How can I help you today?"])
 ```
+
+### Core
+
+```python
+app_ui = ui.page_fixed(
+    ui.chat_ui(id="chat", messages=["**Hello!** How can I help you today?"])
+)
+
+def server(input):
+    chat = ui.Chat(id="chat")
+
+app = ui.App(app_ui, server)
+```
+
+:::
+
 
 ![](/images/chat-hello.png)
 
-In addition to providing instructions or a welcome message, you can also use this feature to provide system message(s).
 
+Startup messages are also useful for restoring the chat to a previous state. Just make sure each message is a dictionary with a `content` key and a `role` key of either "assistant" or "user".
 
-## System messages
+::: {.panel-tabset .panel-pills}
 
-Different providers have different ways of working with system messages.
-If you're using a provider like OpenAI, you can have message(s) with a `role` of `system`.
-However, other providers (e.g., Anthropic) may want the system message to be provided in to the `.generate_response()` method.
-To help standardize how system messages interact with `Chat`, we recommending to using [LangChain's chat models](https://python.langchain.com/v0.1/docs/modules/model_io/chat/quick_start/).
-This way, you can just pass system message(s) on startup (just like you would with a provider like OpenAI):
+### Express
 
 ```python
-system_message = {
-  "content": "You are a helpful assistant",
-  "role": "system"
-}
-chat = ui.Chat(id="chat", messages=[system_message])
+chat = ui.Chat(id="chat")
+chat.ui(
+  messages=[
+    {"content": "Hello! How can I help you today?", "role": "assistant"},
+    {"content": "What is the capital of France?", "role": "user"},
+    {"content": "Paris", "role": "assistant"},
+  ]
+)
 ```
 
-Just make sure, when using LangChain, to use `format="langchain"` to get the proper format for generating responses with LangChain.
+### Core
 
 ```python
-@chat.on_user_submit
-async def _():
-    messages = chat.messages(format="langchain")
-    response = await my_model.astream(messages)
-    await chat.append_message_stream(response)
+app_ui = ui.page_fixed(
+    ui.chat_ui(id="chat", messages=[
+        {"content": "Hello! How can I help you today?", "role": "assistant"},
+        {"content": "What is the capital of France?", "role": "user"},
+        {"content": "Paris", "role": "assistant"},
+    ])
+)
+
+def server(input):
+    chat = ui.Chat(id="chat")
 ```
 
-Remember that you can get a full working template in the [Generative AI quick start](#ai-quick-start) section above.
-Also, for another more advanced example of dynamic system messages, check out this example:
+:::
 
-```bash
-shiny create --github posit-dev/py-shiny:examples/chat/playground
-```
-
-## Message trimming
-
-When the conservation gets becomes excessively long, it's often desirable to discard "old" messages to prevent errors and/or costly response generation.
-To help with this, `chat.messages()` only keeps the most recent messages that fit within a conservative `token_limit`.
-See [the documentation](https://shiny.posit.co/py/api/ui.Chat.html) for more information on how to adjust this limit. Note that trimming can be disabled by setting `.messages(token_limit=None)` or `Chat(tokenizer=None)`.
 
 
 ## Error handling {#error-handling}
@@ -245,82 +293,96 @@ If you'd prefer to have errors stop the app, that can also be done through the `
 
 ![](/images/chat-error.png){class="rounded shadow"}
 
+Another way to handle error is to catch them yourself and append a message to the chat.
+This way, you can might provide a better experience with "known" errors, like when the user enters an invalid/unexpected input.
+Also, since the chat can render `ui.HTML` strings, you can style the error message to make it more noticeable.
+Just be careful not to include unsanitized user input in the error message, as this could lead to a [cross-site scripting (XSS) attack](https://en.wikipedia.org/wiki/Cross-site_scripting).
+
+```python
+def format_as_error(x: str):
+    return ui.HTML(f'<span class="text-danger">{x}</span>')
+
+@chat.on_user_submit
+async def handle_user_input(user_input: str):
+    if not user_input.startswith("http"):
+        await chat.append_message(format_as_error("Please enter a valid URL"))
+
+    try:
+        contents = scrape_page_with_url(input)
+    except Exception:
+        msg = "I'm sorry, I couldn't extract content from that URL. Please try again."
+        await chat.append_message(format_as_error(msg))
+
+    response = chat_model.stream(contents)
+    await chat.append_message_stream(response)
+```
+
+
 ## Code highlighting {#code-highlight}
 
 When a message response includes code, it'll be syntax highlighted (via [highlight.js](https://highlightjs.org/)) and also include a copy button.
 
 ![](/images/chat-code.png){class="rounded shadow"}
 
-## Custom response display
+## Tool calls
 
-By default, message strings are interpreted as (github-flavored) markdown.
-To customize how assistant responses are interpreted and displayed, define a `@chat.transform_assistant_response` function that returns `ui.HTML`.
-For a basic example, you could use `ui.markdown()` to customize the markdown rendering:
+Tool calls are a powerful feature that allow you to call external services or run custom code to help generate a response.
+For example, you could use a tool call to fetch data from a database, call an API, or run a machine learning model.
+To learn more about tool calls, see the `chatlas`'s [tool call documentation](https://posit-dev.github.io/chatlas/tool-calling.html).
+
+Since the `Chat` component is independent from the `chat_model` generating the response, it's currently not possible to surface information from a tool call to the chat interface without considerable effort. This should be easier in the future, but for now, you'll need to manually append the tool call request/response by reaching into the contents of `chat_model.get_turns()`.
+
+<!--
+TODO: maybe chatlas should gain a .on_tool_request()/.on_tool_response() method? Or maybe the echo argument could be passed .append_message()/.append_message_stream()?
+-->
+
+## Retrieval-augmented generation (RAG)
+
+Retrieval-Augmented Generation (RAG) helps LLMs gain the context they need to accurately answer a question.
+The core idea of RAG is fairly simple, yet general: given a set of documents and a user query, find the document(s) that are the most "similar" to the query and supply those documents as additional context to the LLM.
+However, doing RAG well can be difficulat, and there are many ways to approach it.
+If you're new to RAG, you might want to start with the `chatlas`'s [RAG documentation](https://posit-dev.github.io/chatlas/rag.html), which provides a gentle introduction to the topic.
+
+Similar to tool calls, RAG is not automatically surfaced in the chat interface, but you could leverage things like [notifications](https://shiny.posit.co/py/components/display-messages/notifications/) and [progress bars](https://shiny.posit.co/py/components/display-messages/progress-bar/) to let the user know that RAG is being used to generate the response.
+
+## Structured output
+
+Structured output is a way to extract structured data from a input of unstructured text.
+For example, you could extract entities from a user's message, like dates, locations, or names.
+To learn more about structured output, see the `chatlas`'s [structured data documentation](https://posit-dev.github.io/chatlas/structured-data.html).
+
+To display structured output in the chat interface, you could just wrap the output in a JSON code block.
+
+
+```python
+@chat.on_user_submit
+async def handle_user_input(user_input: str):
+    data = chat_model.extract_data(user_input, data_model=data_model)
+    await chat.append_message(f"```json\n{json.dumps(data, indent=2)}\n```")
+```
+
+And, if you're structured output is in more of a table-like format, you could use a package like [`great_tables`](https://posit-dev.github.io/great-tables/) to render it as a table.
+Just make sure to use the [`.as_raw_html()`](https://posit-dev.github.io/great-tables/reference/GT.as_raw_html.html) method to get the HTML string of the table, then wrap it in a `ui.HTML` object before appending it to the chat.
+
+
+## Transforming message streams {#custom-response-display}
+
+As we saw in [error handling](#error-handling), transforming messages into something like `ui.HTML` is quite useful for richer and more informative responses.
+Transformation of messages is straightforward for `.append_message()` since you have access to the full message before it gets appended to the chat.
+However, for `.append_message_stream()`, you only have access to message chunks as they're being displayed, which makes transforming the message a bit more challenging.
+
+To help with this, `Chat` provides a `@chat.transform_assistant_response` decorator that allows you to transform the assistant's response as it's being streamed.
+This can be useful for things like customizing how the response is displayed, adding additional information to the response, or even triggering other actions based on the response (e.g., the [Shiny assistant](https://gallery.shinyapps.io/assistant/) takes advantage of this to open code blocks in a [shinylive](https://shinylive.io/py/examples/) window).
+
+To function to be decorated should take 3 arguments. The 1st argument is the accumulated content, the 2nd argument is the current chunk, and the 3rd argument is a boolean indicating whether this chunk is the last one in the stream.
 
 ```python
 chat = ui.Chat(id="chat")
 
 @chat.transform_assistant_response
-def _(content: str) -> ui.HTML:
-    return ui.markdown(content)
+def _(content: str, chunk: str, done: bool) -> ui.HTML:
+    if done:
+        return ui.HTML(f"<p>{content}</p>")
+    else:
+        return ui.HTML(f"<p>{content}...</p>")
 ```
-
-::: callout-tip
-### Streaming transformations
-
-When streaming, the transform is called on each iteration of the stream, and gets passed the accumulated `content` of the message received thus far.
-For more complex transformations, you might want access to each chunk and a signal of whether the stream is done.
-See the [the documentation](https://shiny.posit.co/py/api/ui.Chat.html) for more information.
-:::
-
-
-::: callout-tip
-### `chat.messages()` defaults to `transform_assistant=False`
-
-By default, `chat.messages()` doesn't apply `transform_assistant_response` to the messages it returns.
-This is because the messages are intended to be used as input to the generative AI model, and so should be in a format that the model expects, not in a format that the UI expects.
-So, although you _can_ do `chat.messages(transform_assistant=True)`, what you might actually want to do is "post-process" the response from the model before appending it to the chat.
-:::
-
-
-## Transforming user input
-
-Transforming user input before passing it to a generative AI model is a fundamental part of more advanced techniques like retrieval-augmented generation (RAG).
-An overly basic transform might just prepend a message to the user input before passing it to the model.
-
-```python
-chat = ui.Chat(id="chat")
-
-@chat.transform_user_input
-def _(input: str) -> str:
-    return f"Translate this to French: {input}"
-```
-
-A more compelling transform would be to allow the user to enter a URL to a website, and then pass the content of that website to the LLM along with [some instructions](#system-messages) on how to summarize or extract information from it.
-For a concrete example, this template allows you to enter a URL to a website that contains a recipe, and then the assistant will extract the ingredients and instructions from that recipe in a structured format:
-
-```bash
-shiny create --github posit-dev/py-shiny:examples/chat/RAG/recipes
-```
-
-![](/images/chat-recipes.mp4){class="rounded shadow"}
-
-In addition to providing a helpful startup message, the app above also improves UX by gracefully handling errors that happen in the transform.
-That is, when an error occurs, it appends a useful message to the chat and returns `None` from the transform.
-
-```python
-@chat.transform_user_input
-async def try_scrape_page(input: str) -> str | None:
-    try:
-        return await scrape_page_with_url(input)
-    except Exception:
-        await chat.append_message(
-            "I'm sorry, I couldn't extract content from that URL. Please try again. "
-        )
-        return None
-```
-
-
-The default behavior of `chat.messages()` is to apply `transform_user_input` to every user message (i.e., it defaults to `transform_user="all"`).
-In some cases, like the recipes app above, the LLM doesn't need _every_ user message to be transformed, just the last one.
-In these cases, you can use `chat.messages(transform_user="last")` to only apply the transform to the last user message (or simply `chat.user_input()` if the model only needs the most recent user message).
