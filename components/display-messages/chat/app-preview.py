@@ -12,7 +12,7 @@ welcome = ui.markdown(
     """
     Hi! This is a simple Shiny `Chat` UI. Enter a message below and I will
     simply repeat it back to you. For more examples, see this
-    [folder of examples](https://github.com/posit-dev/py-shiny/tree/main/shiny/templates/chat).
+    [folder of examples](https://github.com/posit-dev/py-shiny/tree/main/examples/chat).
     """
 )
 
@@ -28,6 +28,11 @@ chat.ui()
 
 # Define a callback to run when the user submits a message
 @chat.on_user_submit
-async def handle_user_input(user_input: str):
+async def _():
+    # Get the chat messages.
+    messages = chat.messages()
+    # Typically you'd pass messages to an LLM for response generation,
+    # but for this example, we'll just echo the user's input
+    user = messages[-1]["content"]
     # Append a response to the chat
-    await chat.append_message(f"You said: {user_input}")
+    await chat.append_message(f"You said: {user}")
