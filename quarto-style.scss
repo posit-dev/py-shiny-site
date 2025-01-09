@@ -1622,10 +1622,17 @@ code .parameter-default a {
 }
 
 .tags li a:not(.tags li code) {
-font-weight: 600 !important;
-text-transform: uppercase;
-font-size: .75rem;
-padding-bottom: .125rem;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  font-size: .75rem;
+  padding-bottom: .125rem;
+}
+
+.tags li a code {
+  color: shade-color($primary, 13%);
+  font-weight: 400;
+  font-size: 0.855rem;
+  text-transform: lowercase;
 }
 
 /*.tag.badge.text-bg-light {

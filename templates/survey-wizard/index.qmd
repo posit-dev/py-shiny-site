@@ -19,7 +19,8 @@ shiny create --template survey-wizard --mode core --github posit-dev/py-shiny-te
 
 
 A simple survey wizard that simply writes responses to a file and displays a confirmation message when submitted.
-In this example, we use the `shiny_validate` package to validate the form inputs, and make clever use of [`navset_hidden()`](/api/core/ui.navset_hidden.qmd) to show/hide different steps of the form via action buttons.
+In this example, we use the [shiny_validate] package for input validation, providing direct feedback when the user enters invalid responses.
+We also make clever use of [`navset_hidden()`](/api/core/ui.navset_hidden.qmd) to show/hide different steps of the form via action buttons.
 
 
 :::: {.grid .tags}
@@ -45,7 +46,10 @@ In this example, we use the `shiny_validate` package to validate the form inputs
 **Packages:**
 
 * `pandas`
-* `shiny_validate`
+* [`shiny_validate`][shiny_validate]
 
 :::
 ::::
+
+
+[shiny_validate]: https://github.com/posit-dev/py-shiny-validate
