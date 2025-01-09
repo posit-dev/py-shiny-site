@@ -49,9 +49,9 @@ In this example, we use the [shiny_validate] package for input validation, provi
 **Packages:**
 
 * `pandas`
-* [`shiny_validate`]
+* [`shiny_validate`][shiny_validate]
 
 :::
 ::::
 
-[`shiny_validate`]: https://github.com/posit-dev/py-shiny-validate
+[shiny_validate]: https://github.com/posit-dev/py-shiny-validate
