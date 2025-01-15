@@ -1,5 +1,7 @@
 ---
 title: Install, create, & run
+aliases:
+  - install.html
 ---
 
 ## Install
