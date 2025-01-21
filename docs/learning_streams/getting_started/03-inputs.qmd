@@ -1,0 +1,160 @@
+---
+title: Input Components
+---
+
+<!-- Reference URL:
+https://github.com/rstudio/shiny-dev-center/blob/a2a53d9f7f896ad790d9870eb764240eb22f6f25/tutorial/lesson3/index.md
+-->
+
+So far we've seen how to customize our user interface,
+and saw how we can use layouts, cards, and the 12-Grid CSS Bootstrap layout
+to help place different elements on our web application.
+Now let's get a sense of all the different kinds of input components we can work with.
+You can see a list of all the possible input components in the components gallery.
+<https://shiny.posit.co/py/components/>
+<!-- TODO: get relative link to components page -->
+
+In general, all the input components are imported with `from shiny.express import ui`,
+and we can access each of the input components from the corresponding input
+component function, `ui.input_*()`.
+We typically pass in the input `id` as the first parameter,
+and the `label` as the second parameter.
+The `id` is a unique name for **each** input component that we can use
+to look up its (reactive) value.
+The `label` is the text that is displayed along with the input component,
+it is usually the name or really short description for what the input component controls.
+The rest of the arguments will differ for each component,
+such as what values to be displayed for button choices,
+or starting and ending range for a slider.
+Each input component also has their own parameters for customizations specific for that particular input.
+
+:::{.callout-tip}
+The components gallery is a great way to quickly see all the possible components
+that come with Shiny for Python.
+Each component page has their own mini example tutorial how to use the corresponding component.
+It's useful to have the components page open to the side as you are
+planning and building your application.
+
+<https://shiny.posit.co/py/components/>
+
+<!-- TODO: use rel link -->
+:::
+
+Let's combine a few of our layout knowledge from the previous lesson,
+and add some input components to a shiny application.
+
+Here we have a fillable page with 2 columns, each containing a card
+with a different UI component in it.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 300
+from shiny.express import ui
+
+ui.page_opts(fillable=True)
+
+with ui.layout_columns():
+    with ui.card():
+        ui.card_header("Card 1 header")
+        ui.p("Card 1 body")
+        ui.input_slider("slider", "Slider", 0, 10, 5)
+
+    with ui.card():
+        ui.card_header("Card 2 header")
+        ui.p("Card 2 body")
+        ui.input_text("text", "Add text", "")
+```
+
+Now you give it a try:
+
+:::{.callout-note}
+## Exercise
+
+Create a fillable page with 4 components,
+each component in their own column.
+
+1. Use the `ui.page_opts()` function and make the web application fill the width of the page.
+2. Use the `ui.layout_columns()` context manager to create columns for our application components
+3. Place the following components into each column of the application:
+  - [Action Button](https://shiny.posit.co/py/api/express/express.ui.input_action_button.html)
+      with the `id='submit'`, and the `label='Submit'`
+  - [Checkbox](https://shiny.posit.co/py/api/express/express.ui.input_checkbox.html)
+      with the `id='checkbox'`, `label='Shiny for Python is cool'`, `value=False`
+  - [Checkbox Group](https://shiny.posit.co/py/api/express/express.ui.input_checkbox_group.html)
+      with the `id='check_group'`, label=`Prime Numbers`, `choices=[0, 1, 2, 3, 4]`
+  - [Date](https://shiny.posit.co/py/api/express/express.ui.input_date.html)
+      with the `id='date'`, `label='No Weekends'`, `daysofweekdisabled=[0, 6]`
+:::
+
+::: {.callout-caution collapse="true"}
+
+## Solution
+
+TODO: put in solution
+
+:::
+
+<!--
+TODO: note there is no input file component on the components gallery.
+the ui_input_file is also listed in a different section on the documentation page.
+-->
+
+
+Now that you have a bit more practice with UIs and Input components,
+Let's build an application we'll use for the rest of the tutorial.
+
+:::{.callout-note}
+## Exercise
+
+Create an application with the following UI specifications:
+
+- Title: Census Visualization
+- Fillable
+- Sidebar with following UI elements:
+  - Help text: `"Create demographic maps with information from the 2020 US Census."`
+  - Input select:
+    `id='var'`,
+    `label='Choose a variable to display'`,
+    `choices=["Percent White", "Percent Black", "Percent Hispanic", "Percent Asian",]`
+  Slider: `id=range`, `label="Range of interest:"`, `min=10, max=100, value=[0, 100]`
+- Main content: Just the text for "Main content".
+
+:::
+
+::: {.callout-caution collapse="true" .column-page-inset-right}
+
+## Solution
+
+Save this file into an `app.py` file.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 700
+from shiny.express import ui
+
+ui.page_opts(title="Census Visualization", fillable=True)
+
+with ui.sidebar(bg="#f8f8f8"):
+    ui.help_text("Create demographic maps with information from the 2020 US Census.")
+    ui.input_select(
+        "var",
+        "Choose a variable to display",
+        [
+            "Percent White",
+            "Percent Black",
+            "Percent Hispanic",
+            "Percent Asian",
+        ],
+        selected="Percent White",
+    )
+
+    ui.input_slider("range", "Range of interest:", min=10, max=100, value=[0, 100])
+
+"Main content"
+
+```
+:::

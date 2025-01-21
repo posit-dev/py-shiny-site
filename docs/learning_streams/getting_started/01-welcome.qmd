@@ -1,0 +1,154 @@
+---
+title: Getting Started
+---
+
+Shiny for Python is a web application framework that helps tell your
+data story.
+If you've landed on this page,
+you probably have a bit of Python experience,
+worked with data,
+and now need a way to publish an interactive
+web application to help tell your data story.
+
+## Installing Shiny
+
+::: {.panel-tabset}
+
+## pip
+
+```bash
+pip install shiny
+```
+
+## conda
+
+```bash
+conda install -c conda-forge shiny
+```
+
+## mamba
+
+```bash
+mamba install -c conda-forge shiny
+```
+
+:::
+
+
+We will be using [Positron](https://positron.posit.co/) in our tutorials,
+but you can also use [Visual Studio Code](https://code.visualstudio.com/).
+Whether you are using Positron, or VS Code,
+wou will need to make sure you have the
+[VS Code Shiny Extension](https://marketplace.visualstudio.com/items?itemName=Posit.shiny).
+
+## Shiny Express: Your first application
+
+Shiny express allows us to write shiny apps with a minimal amount of code.
+This lets us rapidly link interactive components with our data
+in our web application.
+
+There are 3 main parts of a shiny express application
+
+1. [input components](/components/#inputs):
+  provide user interactions that can be used as inputs in other parts of the web application.
+2. [output components](/components/#outputs):
+  results that are displayed on the web application.
+3. [layout and ui components](/layouts):
+  how and where the inputs and output of the web application are displayed.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+from shiny.express import input, render, ui
+
+ui.input_slider("val", "Slider label", min=0, max=100, value=50)
+
+@render.text
+def slider_val():
+    return f"Slider value: {input.val()}"
+```
+
+This example demonstrates the basic mechanics behind Shiny apps.
+As you move the slider (an input component),
+the text (output component) will react and update to the corresponding input value.
+
+* Inputs are created via `ui.input_*()` functions.
+    * The first argument is the input's `id`, which is used to read the input's value.
+* Outputs are created by decorating a function with `@render.*`.
+    * Inside a `render` function, `input` values can be read [reactively](#reactivity).
+    * When those `input` values change, Shiny knows how to minimally re-render output.
+
+::: {.callout-note}
+## Exercise
+
+Let's make and run our first shiny for python application.
+
+1. Take the above code and save it to a file. Here we named it `app-010-simple.py`
+2. Click on the play button (red circle in the image below)j
+
+You will see the terminal run the `shiny run` command for you automatically.
+The output will look something like this
+
+
+```bash
+$ python -m shiny run --port 55901 --reload --autoreload-port 55902 app-010-simple.py
+INFO:     Will watch for changes in these directories: ['~/Desktop/py-shiny-example']
+INFO:     Uvicorn running on http://127.0.0.1:55901 (Press CTRL+C to quit)
+INFO:     Started reloader process [24969] using WatchFiles
+INFO:     Started server process [24986]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:56426 - "GET /?vscodeBrowserReqId=1737097751843 HTTP/1.1" 200 OK
+```
+
+This will run the application on port `55901` and automatically reload and update
+as you make changes to the `app-010-simple.py` file.
+
+3. You will see the app build in the bottom terminal and open in the viewer on the side
+4. Move the slider and see how the output reacts
+5. Congratulations, you made your first shiny for python application!
+
+![](img/010-run_app.png)
+
+::: {.callout-tip}
+If you start your file with the word `app` the shiny for python extension will recognize
+it as an application and you will be able to see the "play" button to run your application.
+You can also name your file `app.py`.
+:::
+
+:::
+
+## Run your shiny application
+
+In addition to the play button in Positron, you can manually run your application from
+the command line.
+This is useful if you wish to specify your own port or want to rename your application
+without the `app` prefix.
+
+```bash
+shiny run app.py
+```
+
+::: {.callout-note}
+If you named your application `app.py` you can omit it form the command and just use `shiny run`.
+The `app.py` is the default file shiny looks for to run in the current directory.
+Otherwise, you can pass in the name of the file that you wish to run.
+The `app` prefix used in the example above is used to signal the VS Code shiny extension
+to display the run app button.
+:::
+
+Some useful options you can pass the `shiny run` command are:
+
+
+- `--port`: pass in a custom port, e.g., `--port 8000`.
+  This will run the app on the specified port,
+  instead of a random port.
+  This makes it easier to have the same browser window open as you stop and start your application.
+- `--reload`: Enables auto-reload
+
+You can learn more about these run options on the
+[`run_app` documentation page](https://shiny.posit.co/py/api/core/run_app.html).
+
+## Run a Template Example

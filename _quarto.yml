@@ -231,6 +231,16 @@ website:
       collapse-level: 2
       align: left
       contents:
+
+        - section: "Learning Streams"
+          contents:
+            - docs/learning_streams/getting_started/01-welcome.qmd
+            - docs/learning_streams/getting_started/02-ui.qmd
+            - docs/learning_streams/getting_started/03-inputs.qmd
+            - docs/learning_streams/getting_started/04-outputs.qmd
+            - docs/learning_streams/getting_started/05-scripts.qmd
+            - docs/learning_streams/getting_started/06-reactive.qmd
+            - docs/learning_streams/getting_started/07-publish.qmd
         - section: "Essentials"
           contents:
             - docs/overview.qmd

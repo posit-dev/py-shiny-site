@@ -1,0 +1,100 @@
+---
+title: Reactivity
+---
+
+We've been using the term "reactive" a lot during these tutorials.
+But what does it mean?
+It's actually more than "user interacts with input and new value gets calculated".
+Reactivity is actually what makes Shiny special:
+when an input changes, only the minimum amount of calculations are made to update the outputs.
+This makes shiny very efficient.
+
+Let's build another application to showcase reactivity.
+We'll begin with another sidebar layout application that uses the
+`yfinance` package to get stock data.
+To make the application a bit simpler we'll pre-select a few stocks.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 700
+
+{{< include apps/app-06-01-base_stock.py >}}
+
+## file: requirements.txt
+yfinance
+```
+
+Every time the user changes either the stock or the number of history days,
+the following steps will occur:
+
+1. calculate the start and end date
+2. download the corresponding information
+3. create the figure
+
+## Reactive Values
+
+The data we get from Yahoo! Finance actually has more columns than just the `Close` value.
+What if we wanted to look at another Column?
+We could provide another user input component that allows the user to select
+the column or value of interest.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 700
+
+{{< include apps/app-06-02-reactive_value_setup.py >}}
+
+## file: requirements.txt
+yfinance
+```
+
+Now, every time the user changes the stock, the number of history days, or variable
+the following steps will occur:
+
+1. calculate the start and end date
+2. download the corresponding information
+3. create the figure with the corresponding variable
+
+However, now we have an issue,
+when we change the variable that needs to be calculated,
+we should not have to re-download and fetch the dataset.
+We should be able to reuse the already fetched data
+and only need to change the figure.
+This is when we can create reactive values that hold intermediate calculations.
+
+Let's break up our `plot()` output such that the stock data
+is refactored into its own reactive value.
+We can then use the newly created reactive dataset for the plot.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 70#| 0
+
+{{< include apps/app-06-03-reactive_data.py >}}
+
+## file: requirements.txt
+yfinance
+```
+
+Here we created a new function, `data()`,
+that holds all the calculations to create our stock data
+when the stock or day slide input components change.
+It returns a dataframe of the yahoo finance data.
+We then decorate it with the `@reactive.calc` function
+so it can be used in another reactive context.
+
+The `plot()` function does not need to fetch and clean the data,
+it only needs to use the reactive data.
+We can then use the reactive data by calling the function we just created,
+`data()`.
+
+Now when the user makes a change to the column radio button,
+only the plot needs to be re-created,
+and only when either the stock or day inputs are changed
+does the underlying data get re-created for the plot.

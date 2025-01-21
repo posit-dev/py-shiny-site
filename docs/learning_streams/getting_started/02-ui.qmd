@@ -1,0 +1,92 @@
+---
+title: User Interfaces and Layouts
+---
+
+<!--
+reference link:
+https://github.com/rstudio/shiny-dev-center/blob/a2a53d9f7f896ad790d9870eb764240eb22f6f25/tutorial/lesson2/index.md
+-->
+
+In the previous lesson,
+we saw how to create and run a basic shiny for python application.
+
+Now let's see how we can layout different user interfaces.
+
+In shiny express all the individual input components begin with a `ui.input_*()` function.
+You can find a list of all the input components in the components gallery.
+<!--TODO: get input component link -->
+
+Outputs are created by decorating a function with the `@render.*()` decorator.
+You can find a list of all the output components in the components gallery.
+<!-- TODO: get output component link -->
+
+We can lay out the input and output components on our web application using different shiny layouts.
+<!-- TODO get link to layouts page: http://localhost:1414/layouts/ -->
+We can have different navigation bars, sidebars, tabs, panels, and cards to control where each
+component is displayed on the page.
+Layouts in Shiny Express begin with the `with ui.*():` python context manager.
+Here is an example of an Shiny Express application with a sidebar on the left.
+One use case for this kind of layout is to provide the user the ability to interact
+with components on the page, but also hide away the components to declutter
+the application when they are not needed.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+from shiny.express import ui
+
+with ui.sidebar(bg="#f8f8f8"):
+    "Sidebar"
+
+"Main content"
+```
+
+You can use navigation bars (navbars) to add different pages to your application.
+Let's build on our current sidebar layout,
+and add a navigation bar to the top of the application.
+We can next layouts by nesting the context managers.
+
+::: {.callout-note}
+TODO: clarify text
+
+If you need to embed different page layouts, you will need to look for the `ui.layout_*()` functions.
+:::
+
+:::{.column-body-outset-right}
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 200
+from shiny.express import ui
+
+with ui.nav_panel("A"):
+    with ui.layout_sidebar():
+        with ui.sidebar(id="sidebar_left", open="desktop"):
+            "Left sidebar content"
+    "Main content"
+
+with ui.nav_panel("B"):
+    "Page 2 content"
+
+with ui.nav_panel("C"):
+    "Page C content"
+```
+:::
+
+## Arranging Elements
+
+<!-- TODO: use relative link instead of published link
+https://shiny.posit.co/py/layouts/panels-cards/#content-divided-by-cards
+-->
+
+
+
+## HTML Content
+
+If you want to customize any of the text formatting you can use python functions that are named after
+HTML tags.
+
+<!-- TODO: add table of list of potential tags -->
