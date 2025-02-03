@@ -1,0 +1,17 @@
+::: {.kitchensink}
+
+<% for (const item of items) { %>
+
+## All the things
+
+A kitchen sink of all possible parameters for the <%= item.title %>.
+
+All the options in [one Shinylive app](<%= item.shinylive %>){target="_blank"}.
+
+[![](<%= item.image %>){.shadow .my-4}](<%= item.shinylive %>)
+
+[<i class="bi bi-lightning-fill me-2"></i> See the Kitchen Sink in Shinylive](<%= item.shinylive %>){.btn .btn-primary target="_blank"}
+
+<% } %>
+
+:::
