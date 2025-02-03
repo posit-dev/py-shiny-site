@@ -74,18 +74,17 @@ website:
     search: true
     left:
       - text: "Learn Shiny"
-        file: docs/overview.qmd
+        file: docs/learning_streams/getting_started/01-welcome.qmd
       - text: "Components"
         menu:
-          - text: "Components"
-            file: components/index.qmd
+          - text: "Inputs"
+            href: components/index.qmd#inputs
+          - text: "Outputs"
+            file: components/index.qmd#outputs
             icon: sliders
-          - text: "Layouts"
+          - text: "UI Layouts"
             file: layouts/index.qmd
             icon: layout-text-window-reverse
-          - text: "Templates"
-            file: templates/index.qmd
-            icon: code-square
       - text: "Deploy"
         menu:
           - text: "Overview"
@@ -93,8 +92,14 @@ website:
           - docs/deploy-cloud.qmd
           - docs/deploy-on-prem.qmd
           - docs/shinylive.qmd
-      - text: "Gallery"
-        file: gallery/index.qmd
+
+      - text: "Examples"
+        menu:
+          - text: "Gallery"
+            href: gallery/index.qmd
+          - text: "Templates"
+            href: templates/index.qmd
+
       - text: "Playground"
         href: https://shinylive.io/py/examples/
         target: _blank
@@ -106,6 +111,8 @@ website:
             href: api/core/index.qmd
           - text: "Testing"
             href: api/testing/index.qmd
+          - text: "Book"
+            href: docs/overview.qmd
     tools:
       - icon: discord
         href: https://discord.gg/yMGCamUMnS
@@ -232,7 +239,7 @@ website:
       align: left
       contents:
 
-        - section: "Learning Streams"
+        - section: "Learn Shiny Express"
           contents:
             - docs/learning_streams/getting_started/01-welcome.qmd
             - docs/learning_streams/getting_started/02-ui.qmd
@@ -241,6 +248,12 @@ website:
             - docs/learning_streams/getting_started/05-scripts.qmd
             - docs/learning_streams/getting_started/06-reactive.qmd
             - docs/learning_streams/getting_started/07-publish.qmd
+
+    - id: book
+      style: "floating"
+      collapse-level: 2
+      align: left
+      contents:
         - section: "Essentials"
           contents:
             - docs/overview.qmd
