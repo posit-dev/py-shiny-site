@@ -1,0 +1,138 @@
+---
+title: Task Button
+sidebar: components
+appPreview:
+  file: components/inputs/input-task-button/app-preview.py
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/input-task-button/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACKAZ2wkJuJZYDELADzCAOhDoNmLACZQKZOnAkSAZo2IwW7ABY0I2FlKatGcKISUA3FRA1ad+wxjgAPVOfbtj9Uy3MIWThGPGMIVABXMjDImlUICQABQODGDAo3MglgtRZCSMZAsgB9JXgACgBKRAl+fnNLGzgMA2soABsaeQoSjoUQioBGKrr68rgS9jJGFgBeOQGJjB64ZYhiAHdqjGnGNQmKsTAAUgAJRBOAWUuAZRYT1GPRiHqAtcLXtWOAFV04FgTYzsMIgCZTGYAX2OCQkcQwukY1QS8IMUVKZA4AGsSgAjaJkUhHMC4siJfAsY63ACOkSg5hYAFYdB0th1sM9+EJRLCIEl4biDLIyti8QSifiyISICVunNjqTyVUuSJxHzGlYaLZXFlKMFhZj2FiVTzoJxuHI4Hl2NSSu0OpE4OwKm4aia1W8oJsoDRWBwuDxiLsOnA4KgKgAmZWCVVjBofRivNwAKmTEfdvJSFk12qtajgVgz6uzzVctnIFTR0Qwiuj3LVuRYipKhC6hCx1UQRbeNrtnUdzsZddjiVHWaCIQy7myE+t1M7cfeZE+OhmFV79oHGC8kQ6ZGqLzAkIAukA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACKAZ2wkJuJZYDELADzCAOhDoNmLACZQKZOnAkSAZo2IwW7ABY0I2FlKasAgujwsAkhFQBXMuysB5Rw6dWAynHbteEFaMcFCESgBucEGUsnCMVvY0qtDoAPqJLAC8LIlYUADmcKlqADaJsgAUEvz8uahVYAAqunAsSvDG7Cxi+Dk0GMTujqkUAB5kDYT2jMHkI8o9VgYlBnCZjYz2cACU23jVNbm6jBV7B7X9Bh4jHADWqQBGjmSkDQ9kEIvdYF4AjvZQYIsACsOhKxAA7iVsD09vwhKJzn0BkMyCM4OMGuxfrD9hBtskJLE1Do4pETldHIgbHZHM4WIMyB5qW4mXSrOxfP5SNSfH4AttEMkaiwAAKzWKMDBjMhI4ksKYzSho9pwU5CiAikXBUIROAYAzhKAreQUVIlBRxCoARgJmq1-GCZGmmtNcFVGDdHogkNOGHYZEYalVDQApAAJRChgCyUa8LFDqFhwpqotyDwMshu7HuTzILwgFTzBdSNFkmR670+YG28JE4nt-HFITCNEiGAxFAgsSzZDudcRjbYnG4cjgJOxqSNZTVo0FA4bDv4UAhUBorA4XB4xH9JTgcHqACZa4J60jte6XSxRgAqG+Hhcpps61vt8dqOBhR9D5u6tv6uBInICpKTIDAqxPBFFxqeUq1SQgVkIW51XPGpJ2nLYKmBSCz0+H8JTiaVOzlccdF+FChwvZ1GE1NQelBbEAWCWROmpEAAxOdDjS2DBgnYewSgmXYAF8ekJFJUCyFgLHqNBUHSGgOTJOI7TAYSAF0gA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.input_task_button
+    href: https://shiny.posit.co/py/api/ui.input_task_button.html
+    signature: ui.input_task_button(id, label, *args, icon=None, label_busy='Processing...', icon_busy=MISSING, width=None, type='primary', auto_reset=True, **kwargs)
+  - title: reactive.extended_task
+    href: https://shiny.posit.co/py/api/reactive.extended_task.html
+    signature: reactive.extended_task(func=None)
+  - title: reactive.event
+    href: https://shiny.posit.co/py/api/reactive.event.html
+    signature: reactive.event(*args, ignore_none=True, ignore_init=False)
+  - title: reactive.effect
+    href: https://shiny.posit.co/py/api/reactive.effect.html
+    signature: reactive.effect(fn=None, *, suspended=False, priority=0, session=MISSING)
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/inputs/input-task-button/
+  contents:
+  - title: "Non-blocking task: fiting a scikit-learn model"
+    description: This example combines the task button with an extended task to keep the application responsive (i.e., not blocked) while the model is fitting. In this example, the model fitting and MSE calculation is delayed when the task button is clicked to triggeer an extended task.But, you are able to still toggle the data sampling while the extended task is running. The MSE that is calcualted is from the initial set of predictors selected, even if you change the selection during the extended task.
+    apps:
+    - title: Preview
+      file: app-variation-extended-task-core.py
+    - title: Express
+      file: app-variation-extended-task-express.py
+      shinylive:
+    - title: Core
+      file: app-variation-extended-task-core.py
+      shinylive:
+
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+The task button is created with the `ui.input_task_button()` function,
+and is a drop-in replacment for `ui.input_action_button()`.
+The task button is a special kind of button that allows long computations to not block
+the behaviour of the rest of the application.
+That is, you can still use the rest of your application while something works in the background (more on this later).
+
+If used on its own,
+`ui.input_task_button()` will update when clicking on it starts a long-running computation
+to let users know that something is happening on the server.
+Follow these steps to
+add an action button to your app,
+perform a task,
+capture the result,
+and display the result:
+
+1. Add `ui.input_task_button()` to the UI of your app to create an input task button.
+   Where you call this function will determine where the button will appear within the app's layout.
+
+2. Specify the `id` and `label` parameters of `ui.input_task_button()`
+   to define the button's identifier and label.
+
+3. Use one of the `ui_output_*` functions to capture the computed result,
+   here we are using `ui.output_text()`.
+
+4. Create a function that will be run when the `ui.input_task_button` is clicked.
+
+5. Decorate this function with the `id` used in your ui.input_task_button(), i.e.,
+   `@reactive.event(input.<input_task_button_id>)`,
+   this will make sure the function will only run when the button is clicked.
+
+6. Add a second decorator, on top, `@reactive.effect`
+
+7. In the body of the button click function, make a call to another function that you will use to make the long computation.
+
+### Task Button with Extended Tasks
+
+`ui.input_task_button()`
+is even more effective when paired with an extended task, `@reactive.extended_task`,
+which allows your application to remain responsive while a slow task is taking place
+(see the variation example below).
+
+Extended tasks run asynchronously and are truly non-blocking.
+The rest of your app can keep working while the extended task runs.
+The new decorator functions we will need while combining
+a task button with an extended task are:
+`@reactive.extended_task` and `@ui.bind_task_button()`.
+An async function becomes an extended task with
+`@reactive.extended_task` decorator and
+it can drive the button state with `@ui.bind_task_button("btn_id")`.
+
+You still have to react to the button click event,
+just like with `ui.input_action_button()`,
+with something like `@reactive.event(input.btn_id)`.
+
+To incorporate an long running extended task function we can follow the following steps.
+
+First we need to create a an `async` function that will run the slow computation:
+
+1. Import the built-in Python `asyncio` module.
+2. Define an `async` function that will contain the slow computation.
+   See the [coroutines and tasks](https://docs.python.org/3/library/asyncio-task.html)
+   official Python documentation for details.
+3. Decorate the `async` function with the `@reactive.extended_task` decorator
+4. Then decorate again, above, with the `@ui.bind_task_button()` decorator.
+   Remember to pass the button ID into this decorator.
+
+Finally, we need to connect the button click event to call the `async` function:
+
+1. Define a function that will be called when the button is clicked.
+2. This function will call our `async` function that holds the long computation.
+3. Decorate this function with the `@reactive.event()` decorator.
+   Rememver to pass in the button ID into this decorator.
+4. Decorate again, above, with `@reactive.effect`
+
+To learn more, you can read this article about
+[non-blocking operations](https://shiny.posit.co/py/docs/nonblocking.html).
