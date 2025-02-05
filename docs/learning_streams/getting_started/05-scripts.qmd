@@ -1,0 +1,192 @@
+---
+title: External Resources
+---
+
+Now that we can lay out components and have the output components react to the input components,
+let's see how we can incorporate modules, packages, and external data into our application.
+
+Before we start, make sure you have pandas and plotly installed
+
+```
+pip install pandas plotly
+conda install -c conda-forge pandas plotly
+```
+
+## External Data
+
+External data can be read into a Shiny for Python just like any other
+python data science project:
+
+- pandas
+- polars
+- ibis
+- eager
+- duckdb
+
+:::{.callout-note}
+You can use the Python `narwhals` library to convert between
+different dataframe backends.
+
+<https://narwhals-dev.github.io/narwhals/>
+:::
+
+For example, if we wanted to read in data from the `data/counties.csv` file in pandas,
+we can use the same code in our shiny for python application.
+
+```python
+import pandas as pd
+
+df = pd.read_csv("data/counties.csv")
+```
+
+Let's load our data into the application we have been building.
+
+::: {..column-page-inset-right}
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 700
+
+{{< include apps/app-05-01-read_csv.py >}}
+
+```
+:::
+
+## External Modules
+
+If you have more complicated calculations,
+it can help to refactor your code into separate modules.
+This way your `app.py` code just contains the Shiny code for
+the application and you can import functions that handle
+the calculations and objects needed for your application.
+
+Let's create a `helpers.py` module in the same directory as our `app.py` file.
+This way we can import the functions from all the same directory.
+
+First let's create the code that can produce a choropleth map of our data.
+
+```{python}
+import pandas as pd
+
+df = pd.read_csv("data/counties.csv")
+df.head()
+```
+
+We will also need a FIPS code dataset to combine with the state and county information
+
+```{python}
+fips = pd.read_csv(
+  "data/fips.csv",
+  dtype={'state_code': str, 'county_code': str},
+)
+fips.head()
+```
+
+Then we need to clean up our data
+
+```{python}
+# split 'name' column into 'state' and 'county'
+df[['state_name', 'county']] = df['name'].str.split(',', expand=True)
+
+# standardize county names for merging (case-insensitive)
+fips['county'] = (fips['county']
+  .str.replace(" county", "", case=False)
+  .str.lower()
+)
+fips['state_name'] = fips['state_name'].str.lower()
+df['county'] = df['county'].str.lower()
+```
+
+```{python}
+fips.head()
+```
+
+```{python}
+df.head()
+```
+
+```{python}
+# merge dataframes on 'state_name' and 'county'
+merged_data = pd.merge(df, fips, on=['state_name', 'county'], how='left')
+
+# add full FIPS code as fips
+merged_data['fips'] = merged_data['state_code'] + merged_data['county_code']
+merged_data['fips'] = merged_data['fips'].astype(str).str.zfill(5)
+
+merged_data.head()
+```
+
+Next, let's make a small choropleth map without on its own
+
+```{python}
+import plotly.express as px
+
+# Create the choropleth map
+fig = px.choropleth(
+    merged_data,
+    geojson="https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json",
+    locations='fips',  # Use the FIPS code for mapping
+    color='white',  # The column representing the percentage of white people
+    color_continuous_scale="Viridis",  # Choose a color scale
+    scope="usa",  # Limit the map to the United States
+    labels={'white': '% White Population'},  # Legend label
+    hover_name='county',  # Display county name on hover
+    hover_data={'fips': False, 'white': True, 'total.pop': True},  # Show relevant data on hover
+)
+
+# Update layout for better visualization
+fig.update_geos(fitbounds="locations", visible=False)
+fig.update_layout(
+    title_text="Percentage of White Population by County",
+    title_x=0.5,  # Center the title
+    geo=dict(bgcolor='rgba(0,0,0,0)')  # Transparent background
+)
+
+# Show the map
+fig.show()
+```
+
+Wow, that's a lot of code!
+But we now have all the parts that we need for our application.
+We can use our select input dropdown to select which column of values we want to plot.
+
+We can also save all the data cleaning code so it only runs when needed (i.e., when it is not saved).
+
+Let's create 2 modules, one that has a function for the map,
+and another that can create or load a cleaned dataset for the map.
+
+:::{.callout}
+## map.py
+```{python}
+{{< include map.py >}}
+```
+:::
+
+```{python}
+plot_choropleth(
+        dataframe=merged_data,
+        color_column='white',
+        title='% White',
+    )
+```
+
+:::{.callout}
+## data.py
+```{python}
+{{< include data.py >}}
+```
+:::
+
+:::{.callout}
+## app.py
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 700
+
+{{< include app-05-02-load_modules.py >}}
+```
+:::
