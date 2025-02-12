@@ -12,22 +12,62 @@ we saw how to create and run a basic shiny for python application.
 
 Now let's see how we can layout different user interfaces.
 
-In shiny express all the individual input components begin with a `ui.input_*()` function.
-You can find a list of all the input components in the components gallery.
-<!--TODO: get input component link -->
+If you are trying to whip up a quick application that needs input controls
+and reactive outputs, shiny express tries to make this as simple as possible
+by inferring the user interface and page layout for you.
+However,
+you have the option (and ability) to override these default layouts.
 
-Outputs are created by decorating a function with the `@render.*()` decorator.
-You can find a list of all the output components in the components gallery.
-<!-- TODO: get output component link -->
+We will assume that you have the pre-existing knowledge on how to
+load a dataframe from a csv file, filter the data, calculate summaries from the data,
+and plot results.
+Here we will set the foundation on how to set up the UI that our code will
+insert into to be displayed in a web application or dashboard.
 
-We can lay out the input and output components on our web application using different shiny layouts.
-<!-- TODO get link to layouts page: http://localhost:1414/layouts/ -->
+:::{.callout-tip}
+When building your Shiny applications,
+a general good practice is break up the application into two (2) separate steps
+
+1. Write the code for whatever interactive components you want
+    and use variables as place holders for the code.
+    It isn't interactive without code modifications yet,
+    but it'll help to make sure you have all the code working as you add interactive
+    components to it.
+2. Outline the general user interface either literally on paper and/or put in
+    placeholder  UI elements to get a sense of the look and feel of your application.
+
+You can do these steps in whatever asynchronously and in whatever order you'd like.
+By keeping these steps separate,
+especially as you are learning the framework,
+you'll reduce the risks of creating errors and bugs that may be hard to point down.
+:::
+
+## Layout User Interfaces
+
+We can lay out the input and output components on our web application using different
+[shiny layouts](/layouts/).
 We can have different navigation bars, sidebars, tabs, panels, and cards to control where each
 component is displayed on the page.
+
+:::{.callout-note}
+We will talk about the different input and output components separately in
+later lessons of this tutorial.
+
+All the individual input components begin with a `input_*()` function.
+You can find a list of all the inputs in the
+[input components gallery](/components/#inputs).
+
+Outputs are created by decorating a function with the `@render.*()` decorator.
+You can find a list of all the outputs in the
+[outputs components gallery](/components/#outputs).
+:::
+
+
 Layouts in Shiny Express begin with the `with ui.*():` python context manager.
 Here is an example of an Shiny Express application with a sidebar on the left.
 One use case for this kind of layout is to provide the user the ability to interact
-with components on the page, but also hide away the components to declutter
+with components on the page
+but also hide away the components to declutter
 the application when they are not needed.
 
 ```{shinylive-python}
@@ -46,13 +86,23 @@ with ui.sidebar(bg="#f8f8f8"):
 You can use navigation bars (navbars) to add different pages to your application.
 Let's build on our current sidebar layout,
 and add a navigation bar to the top of the application.
-We can next layouts by nesting the context managers.
+We can nest layouts by nesting the context managers.
 
-::: {.callout-note}
-TODO: clarify text
+:::{.callout-note}
+Context managers are not specific to Shiny for Python.
+They are features and tools used thought the Python ecosystem.
+Typically you will not have to write your own context manager in Python
+and use the `with` statement for an existing context manager.
+
+For Shiny, all you need to remember that Shiny Express uses context managers
+to layout each part of the user interface.
+You can also nest shiny layout context managers,
+but be mindful where the `with` statement is and where the indentations are.
+:::
+
+## Page Layouts
 
 If you need to embed different page layouts, you will need to look for the `ui.layout_*()` functions.
-:::
 
 :::{.column-body-outset-right}
 ```{shinylive-python}
@@ -76,17 +126,107 @@ with ui.nav_panel("C"):
 ```
 :::
 
-## Arranging Elements
+## Restaurant Tips UI
 
-<!-- TODO: use relative link instead of published link
-https://shiny.posit.co/py/layouts/panels-cards/#content-divided-by-cards
--->
+For a given page, there are a few ways you can
+[layout specific elements](layouts/panels-cards/#content-divided-by-cards).
+
+Let's sketch out the basic outline of the shiny application.
+
+![](../../assets/tipping-dashboard.png)
+
+:::{.callout-note}
+## Exercise
+
+Let's replicate the restaurant tipping dashboard,
+but only put in the UI elements.
+
+The Restaurant Tipping dashboard has the following parts:
+
+1. Title: "Restaurant tipping"
+    - You can use the [`ui.page_opts()`](https://shiny.posit.co/py/api/express/express.ui.page_opts.html)
+        and pass in a `title=''` parameter to add an application title.
+1. Sidebar for a few input components (we'll add those later)
+    - You can put some text here as a place holder, e.g., `"sidebar inputs"`
+2. A full width column with 3 value boxes
+    - Each value box will take up the same width of space
+    - The value boxes will have labels for "Total tippers", "Average tip", and "Average bill"
+    - The value boxes will need a placeholder value (we will populate them with a reactive value later)
+3. A full width column with 2 cards, one for a dataframe and another for a scatter plot
+    - Each card will share the same width of space
+    - The care headers will have values of "Tips data" and "Total bill vs tip"
+4. a full width column with 1 card
+    - The card has a header of "Tip percentages"
 
 
+::::::{.callout-tip}
+Here are the documentation pages for functions that may be useful for this exercise:
 
-## HTML Content
+- `ui.page_opts()`: <https://shiny.posit.co/py/api/express/express.ui.page_opts.html>
+- `ui.sidebar()`: <https://shiny.posit.co/py/api/express/express.ui.sidebar.html>
+- `ui.layout_columns()`: <https://shiny.posit.co/py/api/express/express.ui.layout_columns.html>
+- `ui.card()`: <https://shiny.posit.co/py/api/express/express.ui.card.html>
+- `ui.card_header()`: <https://shiny.posit.co/py/api/express/express.ui.card_header.html>
+::::::
+:::
 
-If you want to customize any of the text formatting you can use python functions that are named after
-HTML tags.
+::: {.callout-caution collapse="true"}
+## Solution
 
-<!-- TODO: add table of list of potential tags -->
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+from shiny.express import input, ui
+
+# title
+ui.page_opts(title="Restaurant tipping", fillable=True)
+
+# sidebar (empty for now)
+with ui.sidebar(open="desktop"):
+    "sidebar inputs"
+
+# body of application
+
+# first row of value boxes
+with ui.layout_columns(fill=False):
+    with ui.value_box():
+        "Total tippers"
+        42
+
+    with ui.value_box():
+        "Average tip"
+        42
+
+    with ui.value_box():
+        "Average bill"
+        42
+
+# second row of cards
+with ui.layout_columns(col_widths=[6, 6]):
+    with ui.card(full_screen=True):
+        ui.card_header("Tips data")
+    with ui.card(full_screen=True):
+        ui.card_header("Total bill vs tip")
+
+with ui.layout_columns():
+    with ui.card(full_screen=True):
+        ui.card_header("Tip percentages")
+
+```
+:::
+
+
+## Context managers
+
+You will typically not need to write your own context managers using the Python `with` statement.
+If you would like to learn more about what context managers are,
+and how to potentially write your own, you can check out
+this
+[context managers tutorial from Real Python](https://realpython.com/python-with-statement/)
+
+## Summary
+
+We have now created a skeleton for our dashboard by laying out the main UI components.
+We will now be able to add input components.

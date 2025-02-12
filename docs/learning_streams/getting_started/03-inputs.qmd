@@ -10,9 +10,8 @@ So far we've seen how to customize our user interface,
 and saw how we can use layouts, cards, and the 12-Grid CSS Bootstrap layout
 to help place different elements on our web application.
 Now let's get a sense of all the different kinds of input components we can work with.
-You can see a list of all the possible input components in the components gallery.
-<https://shiny.posit.co/py/components/>
-<!-- TODO: get relative link to components page -->
+You can see a list of all the possible input components in the
+[components gallery](/components/).
 
 In general, all the input components are imported with `from shiny.express import ui`,
 and we can access each of the input components from the corresponding input
@@ -29,15 +28,11 @@ or starting and ending range for a slider.
 Each input component also has their own parameters for customizations specific for that particular input.
 
 :::{.callout-tip}
-The components gallery is a great way to quickly see all the possible components
+The [components gallery](/components/) is a great way to quickly see all the possible components
 that come with Shiny for Python.
 Each component page has their own mini example tutorial how to use the corresponding component.
 It's useful to have the components page open to the side as you are
 planning and building your application.
-
-<https://shiny.posit.co/py/components/>
-
-<!-- TODO: use rel link -->
 :::
 
 Let's combine a few of our layout knowledge from the previous lesson,
@@ -67,94 +62,138 @@ with ui.layout_columns():
         ui.input_text("text", "Add text", "")
 ```
 
-Now you give it a try:
 
-:::{.callout-note}
+
+:::{.callout-note .column-page-right}
 ## Exercise
-
-Create a fillable page with 4 components,
-each component in their own column.
-
-1. Use the `ui.page_opts()` function and make the web application fill the width of the page.
-2. Use the `ui.layout_columns()` context manager to create columns for our application components
-3. Place the following components into each column of the application:
-  - [Action Button](https://shiny.posit.co/py/api/express/express.ui.input_action_button.html)
-      with the `id='submit'`, and the `label='Submit'`
-  - [Checkbox](https://shiny.posit.co/py/api/express/express.ui.input_checkbox.html)
-      with the `id='checkbox'`, `label='Shiny for Python is cool'`, `value=False`
-  - [Checkbox Group](https://shiny.posit.co/py/api/express/express.ui.input_checkbox_group.html)
-      with the `id='check_group'`, label=`Prime Numbers`, `choices=[0, 1, 2, 3, 4]`
-  - [Date](https://shiny.posit.co/py/api/express/express.ui.input_date.html)
-      with the `id='date'`, `label='No Weekends'`, `daysofweekdisabled=[0, 6]`
-:::
-
-::: {.callout-caution collapse="true"}
-
-## Solution
-
-TODO: put in solution
-
-:::
-
-<!--
-TODO: note there is no input file component on the components gallery.
-the ui_input_file is also listed in a different section on the documentation page.
--->
-
 
 Now that you have a bit more practice with UIs and Input components,
-Let's build an application we'll use for the rest of the tutorial.
+Let's build add a few inputs to our existing tips dashboard.
 
-:::{.callout-note}
-## Exercise
+![](../../assets/tipping-dashboard.png)
 
-Create an application with the following UI specifications:
+Our application only has inputs in the left sidebar.
+Let's add them to the application (we will work on connecting them with data later)
 
-- Title: Census Visualization
-- Fillable
-- Sidebar with following UI elements:
-  - Help text: `"Create demographic maps with information from the 2020 US Census."`
-  - Input select:
-    `id='var'`,
-    `label='Choose a variable to display'`,
-    `choices=["Percent White", "Percent Black", "Percent Hispanic", "Percent Asian",]`
-  Slider: `id=range`, `label="Range of interest:"`, `min=10, max=100, value=[0, 100]`
-- Main content: Just the text for "Main content".
+1. [`input_slider()`](https://shiny.posit.co/py/components/inputs/slider-range/):
+    We'll use `0` and `100` as the lower and upper bounds for now.
+    When we load our data we can calculate actual data range.
+2. [`input_checkbox_group()`](https://shiny.posit.co/py/components/inputs/checkbox-group/):
+    With a label of `Food service` and options for `Lunch` and `Dinner`.
+3. [`input_action_button()`](https://shiny.posit.co/py/components/inputs/action-button/):
+    Labeled `Reset filter`.
 
-:::
+We will connect these inputs to outputs in the next lesson.
 
-::: {.callout-caution collapse="true" .column-page-inset-right}
-
-## Solution
-
-Save this file into an `app.py` file.
+For reference, here's our current code and application:
 
 ```{shinylive-python}
 #| standalone: true
 #| components: [editor, viewer]
 #| layout: vertical
-#| viewerHeight: 700
-from shiny.express import ui
+#| viewerHeight: 500
+from shiny.express import input, ui
 
-ui.page_opts(title="Census Visualization", fillable=True)
+# title
+ui.page_opts(title="Restaurant tipping", fillable=True)
 
-with ui.sidebar(bg="#f8f8f8"):
-    ui.help_text("Create demographic maps with information from the 2020 US Census.")
-    ui.input_select(
-        "var",
-        "Choose a variable to display",
-        [
-            "Percent White",
-            "Percent Black",
-            "Percent Hispanic",
-            "Percent Asian",
-        ],
-        selected="Percent White",
+# sidebar (empty for now)
+with ui.sidebar(open="desktop"):
+    "sidebar inputs"
+
+# body of application
+
+# first row of value boxes
+with ui.layout_columns(fill=False):
+    with ui.value_box():
+        "Total tippers"
+        "Value 1"
+
+    with ui.value_box():
+        "Average tip"
+        "Value 2"
+
+    with ui.value_box():
+        "Average bill"
+        "Value 3"
+
+# second row of cards
+with ui.layout_columns(col_widths=[6, 6]):
+    with ui.card(full_screen=True):
+        ui.card_header("Tips data")
+        "Tips DataFrame"
+
+    with ui.card(full_screen=True):
+        ui.card_header("Total bill vs tip")
+        "Scatterplot"
+
+with ui.layout_columns():
+    with ui.card(full_screen=True):
+        ui.card_header("Tip percentages")
+        "ridgeplot"
+
+```
+
+:::
+
+::: {.callout-caution collapse="true" .column-page-right}
+
+## Solution
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 500
+from shiny.express import input, ui
+
+# title
+ui.page_opts(title="Restaurant tipping", fillable=True)
+
+# sidebar (empty for now)
+with ui.sidebar(open="desktop"):
+    ui.input_slider("slider", "Bill amount", min=0, max=100, value=[0, 100])
+    ui.input_checkbox_group(
+        "checkbox_group",
+        "Food service",
+        {
+            "lunch": "Lunch",
+            "dinner": "Dinner",
+        },
     )
+    ui.input_action_button("action_button", "Reset filter")
 
-    ui.input_slider("range", "Range of interest:", min=10, max=100, value=[0, 100])
 
-"Main content"
+# body of application
+
+# first row of value boxes
+with ui.layout_columns(fill=False):
+    with ui.value_box():
+        "Total tippers"
+        "Value 1"
+
+    with ui.value_box():
+        "Average tip"
+        "Value 2"
+
+    with ui.value_box():
+        "Average bill"
+        "Value 3"
+
+# second row of cards
+with ui.layout_columns(col_widths=[6, 6]):
+    with ui.card(full_screen=True):
+        ui.card_header("Tips data")
+        "Tips DataFrame"
+
+    with ui.card(full_screen=True):
+        ui.card_header("Total bill vs tip")
+        "Scatterplot"
+
+with ui.layout_columns():
+    with ui.card(full_screen=True):
+        ui.card_header("Tip percentages")
+        "ridgeplot"
 
 ```
 :::

@@ -73,18 +73,24 @@ website:
     logo-alt: The logo for Shiny for Python
     search: true
     left:
-      - text: "Learn Shiny"
+      - text: "Tutorials"
         file: docs/learning_streams/getting_started/01-welcome.qmd
+
+      - text: "Learning Hub"
+        href: docs/overview.qmd/
+
       - text: "Components"
         menu:
           - text: "Inputs"
             href: components/index.qmd#inputs
+            icon: sliders
           - text: "Outputs"
             file: components/index.qmd#outputs
             icon: sliders
           - text: "UI Layouts"
             file: layouts/index.qmd
             icon: layout-text-window-reverse
+
       - text: "Deploy"
         menu:
           - text: "Overview"
@@ -100,10 +106,13 @@ website:
           - text: "Templates"
             href: templates/index.qmd
 
+    right:
+
       - text: "Playground"
         href: https://shinylive.io/py/examples/
         target: _blank
-      - text: "Reference"
+
+      - text: "API Reference"
         menu:
           - text: "Shiny Express"
             href: api/express/index.qmd
@@ -111,8 +120,6 @@ website:
             href: api/core/index.qmd
           - text: "Testing"
             href: api/testing/index.qmd
-          - text: "Book"
-            href: docs/overview.qmd
     tools:
       - icon: discord
         href: https://discord.gg/yMGCamUMnS
@@ -244,8 +251,8 @@ website:
             - docs/learning_streams/getting_started/01-welcome.qmd
             - docs/learning_streams/getting_started/02-ui.qmd
             - docs/learning_streams/getting_started/03-inputs.qmd
-            - docs/learning_streams/getting_started/04-outputs.qmd
-            - docs/learning_streams/getting_started/05-scripts.qmd
+            - docs/learning_streams/getting_started/04-scripts.qmd
+            - docs/learning_streams/getting_started/05-outputs.qmd
             - docs/learning_streams/getting_started/06-reactive.qmd
             - docs/learning_streams/getting_started/07-publish.qmd
 

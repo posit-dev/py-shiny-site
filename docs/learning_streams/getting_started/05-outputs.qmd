@@ -1,0 +1,512 @@
+---
+title: Output Components
+---
+
+<!--
+From:
+https://github.com/rstudio/shiny-dev-center/blob/a2a53d9f7f896ad790d9870eb764240eb22f6f25/tutorial/lesson4/index.md
+-->
+
+Now that we know how to lay our the application and insert input components for the user to interact with,
+let's create some output components that **react** to the input components.
+
+Output components all begin with a function with a `ui.render_*` decorator above a function definition.
+The decorator is one of the ways that you signal to Shiny that the code will react to some change
+in the application.
+The name of the function does not matter to shiny, but you should pick a name
+that hints at what value is going to be returned.
+Finally, the body of the function should return the corresponding object for the output component.
+Again, the decorator function signals to Shiny what kind of output component is displayed in the application.
+
+In Shiny Express, wherever the output function is defined
+(i.e., where we are using the `ui.render_*` decorator),
+is where the output will be displayed.
+So it's perfectly normal to see function definitions throughout the application.
+
+:::{.callout-important}
+In Shiny Express,
+the name of the function is used as the output ID.
+Each function that is decorated with a `@rander.*` decorator should have a unique name.
+:::
+
+
+The `@render.text` output is one way you can help debug your application visually.
+Similar to `print()` statement debugging,
+except the print statement will be rendered in your application.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+from shiny.express import input, render, ui
+
+ui.input_slider("val", "Slider label", min=0, max=100, value=50)
+
+@render.text
+def slider_val():
+    return f"Slider value: {input.val()}"
+```
+
+:::{.callout-note}
+Since we are now using output components, you will need to also
+import the `render` module from `shiny.express`
+
+
+```python
+from shiny.express import input, render, ui
+```
+:::
+
+
+## Use input values
+
+In the application above, we had this particular line in our function body, `input.var()`.
+This line shows one of the main features in Shiny, reactive values.
+
+- The `input` variable automatically holds all the values from the input components as a Python dictionary
+- We can access the input component value with dot notation and
+  use the same `id` we defined in the `ui.input_*()` function
+- The `input.var` represents the actual reactive value object,
+  if we want to actually calculate the current reactive value,
+  we need to call it as a function with `input.var()`
+
+
+
+:::{.callout-tip .column-page-right}
+## Exercise
+
+
+Let's add `@render.text` outputs to the sidebar so we can confirm what the code will see from the input components.
+We will work with the slider and checkbox components.
+
+1. Our current application should already have `input_slider()` and `input_checkbox_group()` components
+2. Define separate output functions in the sidebar under the reset button,
+    one for the `input_sider()` values, and another for the `input_checkbox_group()` values.
+  - Use the `input.<ID>()` pattern to have shiny reactively get the input component values
+  - Return the value you want to use in the application (returning the input values directly is fine)
+3. Decorate the functions with `@render.text` to signal that we want the returned value rendered as text in the application
+4. Add 2 additional text outputs, one for the lower bound of the input slider,
+    and another for the upper bound of the input slider
+
+:::{.callout-tip}
+The `ui.input_slider()` component returns a list of values
+where the first (`0` index) is the lower slider value,
+and the second (`1` index) is the upper slider value.
+:::
+
+Here is our current application for reference:
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 500
+from shiny.express import input, ui
+
+# title
+ui.page_opts(title="Restaurant tipping", fillable=True)
+
+# sidebar (empty for now)
+with ui.sidebar(open="desktop"):
+    ui.input_slider("slider", "Bill amount", min=0, max=100, value=[0, 100])
+    ui.input_checkbox_group(
+        "checkbox_group",
+        "Food service",
+        {
+            "lunch": "Lunch",
+            "dinner": "Dinner",
+        },
+    )
+    ui.input_action_button("action_button", "Reset filter")
+
+
+# body of application
+
+# first row of value boxes
+with ui.layout_columns(fill=False):
+    with ui.value_box():
+        "Total tippers"
+        "Value 1"
+
+    with ui.value_box():
+        "Average tip"
+        "Value 2"
+
+    with ui.value_box():
+        "Average bill"
+        "Value 3"
+
+# second row of cards
+with ui.layout_columns(col_widths=[6, 6]):
+    with ui.card(full_screen=True):
+        ui.card_header("Tips data")
+        "Tips DataFrame"
+
+    with ui.card(full_screen=True):
+        ui.card_header("Total bill vs tip")
+        "Scatterplot"
+
+with ui.layout_columns():
+    with ui.card(full_screen=True):
+        ui.card_header("Tip percentages")
+        "ridgeplot"
+
+```
+:::
+
+
+::: {.callout-caution collapse="true" .column-page-right}
+
+## Solution
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 500
+from shiny.express import input, ui, render
+
+# title
+ui.page_opts(title="Restaurant tipping", fillable=True)
+
+# sidebar (empty for now)
+with ui.sidebar(open="desktop"):
+    ui.input_slider("slider", "Bill amount", min=0, max=100, value=[0, 100])
+    ui.input_checkbox_group(
+        "checkbox_group",
+        "Food service",
+        {
+            "lunch": "Lunch",
+            "dinner": "Dinner",
+        },
+    )
+    ui.input_action_button("action_button", "Reset filter")
+
+    @render.text
+    def slider_val():
+        return f"Slider values: {input.slider()}"
+
+    @render.text
+    def checkbox_group_val():
+        return f"Checkbox values: {input.checkbox_group()}"
+
+    @render.text
+    def slider_val_0():
+        return f"Slider value (lower): {input.slider()[0]}"
+
+    @render.text
+    def slider_val_1():
+        return f"Slider value (upper): {input.slider()[1]}"
+
+
+# body of application
+
+# first row of value boxes
+with ui.layout_columns(fill=False):
+    with ui.value_box():
+        "Total tippers"
+        "Value 1"
+
+    with ui.value_box():
+        "Average tip"
+        "Value 2"
+
+    with ui.value_box():
+        "Average bill"
+        "Value 3"
+
+# second row of cards
+with ui.layout_columns(col_widths=[6, 6]):
+    with ui.card(full_screen=True):
+        ui.card_header("Tips data")
+        "Tips DataFrame"
+
+    with ui.card(full_screen=True):
+        ui.card_header("Total bill vs tip")
+        "Scatterplot"
+
+with ui.layout_columns():
+    with ui.card(full_screen=True):
+        ui.card_header("Tip percentages")
+        "ridgeplot"
+
+```
+:::
+
+In the previous lesson,
+we created variables that served as place holders we can use to filter our `tips` data
+
+```python
+total_lower = tips.total_bill.min()
+total_upper = tips.total_bill.max()
+time_selected = tips.time.unique().tolist()
+```
+
+Instead of these hardcoded values,
+we can use the values from the `input_*()` components instead.
+
+:::{.callout-tip}
+## Exercise
+
+We will learn more about reactivity and reactive calculations in the next lesson.
+But in this exercise,
+we will use the input component values to filter our tips dataframe for each
+output component.
+
+For reference, below we have the code for each of the outputs we created earlier.
+Wrap each output into a function and decorate it with the corresponding
+output component decorator.
+
+- dataframe: [`render.data_frame`](https://shiny.posit.co/py/api/express/express.render.data_frame.html)
+- value box text: [`render.express`](https://shiny.posit.co/py/api/express/express.render.express.html)
+- scatterplot (plotly): [`render_plotly`](https://shiny.posit.co/py/docs/jupyter-widgets.html)
+- ridgeplot (plotly): [`render_plotly`](https://shiny.posit.co/py/docs/jupyter-widgets.html)
+
+:::::: {.panel-tabset}
+
+## dataframe
+
+```python
+tips = pd.read_csv("docs/learning_streams/getting_started/tips.csv")
+
+total_lower = tips.total_bill.min()
+total_upper = tips.total_bill.max()
+time_selected = tips.time.unique().tolist()
+
+idx1 = tips.total_bill.between(
+    left=total_lower,
+    right=total_upper,
+    inclusive="both",
+)
+
+idx2 = tips.time.isin(time_selected)
+
+tips_filtered = tips[idx1 & idx2]
+```
+
+## valuebox
+
+```python
+# total tippers
+total_tippers = tips_filtered.shape[0]
+
+# average tip
+perc = tips_filtered.tip / tips_filtered.total_bill
+average_tip = f"{perc.mean():.1%}"
+
+# average bill
+bill = tips_filtered.total_bill.mean()
+average_bill = f"${bill:.2f}"
+```
+
+## scatterplot
+
+```python
+# scatterplot
+import plotly.express as px
+
+px.scatter(
+    tips_filtered,
+    x="total_bill",
+    y="tip",
+    trendline="lowess"
+)
+```
+
+## ridgeplot
+
+```python
+# ridgeplot
+from ridgeplot import ridgeplot
+
+tips_filtered["percent"] = tips_filtered.tip / tips_filtered.total_bill
+
+uvals = tips_filtered.day.unique()
+samples = [[tips_filtered.percent[tips_filtered.day == val]] for val in uvals]
+
+plt = ridgeplot(
+    samples=samples,
+    labels=uvals,
+    bandwidth=0.01,
+    colorscale="viridis",
+    colormode="row-index"
+)
+
+plt.update_layout(
+    legend=dict(
+        orientation="h",
+        yanchor="bottom",
+        y=1.02,
+        xanchor="center",
+        x=0.5
+    )
+)
+)
+```
+::::::
+
+:::
+
+::: {.callout-caution collapse="true" .column-page-right}
+## Solution
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 500
+
+from ridgeplot import ridgeplot
+import pandas as pd
+import plotly.express as px
+from shiny.express import input, ui
+
+tips = pd.read_csv("docs/learning_streams/getting_started/tips.csv")
+
+# title
+ui.page_opts(title="Restaurant tipping", fillable=True)
+
+# sidebar (empty for now)
+with ui.sidebar(open="desktop"):
+    ui.input_slider(
+        "slider",
+        "Bill amount",
+        min=tips.total_bill.min(),
+        max=tips.total_bill.max(),
+        value=[tips.total_bill.min(), tips.total_bill.max()])
+    ui.input_checkbox_group(
+        "checkbox_group",
+        "Food service",
+        {
+            "lunch": "Lunch",
+            "dinner": "Dinner",
+        },
+    )
+    ui.input_action_button("action_button", "Reset filter")
+
+
+# body of application
+
+# first row of value boxes
+with ui.layout_columns(fill=False):
+    with ui.value_box():
+        "Total tippers"
+        @render.express
+        def total_tippers():
+            idx1 = tips.total_bill.between(
+                left=input.slider()[0],
+                right=input.slider()[1],
+                inclusive="both",
+            )
+            idx2 = tips.time.isin(input.checkbox_group())
+            tips_filtered = tips[idx1 & idx2]
+
+            tips_filtered.shape[0]
+
+    with ui.value_box():
+        "Average tip"
+        @render.express
+        def average_tip():
+            idx1 = tips.total_bill.between(
+                left=input.slider()[0],
+                right=input.slider()[1],
+                inclusive="both",
+            )
+            idx2 = tips.time.isin(input.checkbox_group())
+            tips_filtered = tips[idx1 & idx2]
+
+            perc = tips_filtered.tip / tips_filtered.total_bill
+            f"{perc.mean():.1%}"
+
+    with ui.value_box():
+        "Average bill"
+        @render.express
+        def average_bill():
+            idx1 = tips.total_bill.between(
+                left=input.slider()[0],
+                right=input.slider()[1],
+                inclusive="both",
+            )
+            idx2 = tips.time.isin(input.checkbox_group())
+            tips_filtered = tips[idx1 & idx2]
+
+            bill = tips_filtered.total_bill.mean()
+            f"${bill:.2f}"
+
+# second row of cards
+with ui.layout_columns(col_widths=[6, 6]):
+    with ui.card(full_screen=True):
+        ui.card_header("Tips data")
+        @render.data_frame
+        def table():
+            idx1 = tips.total_bill.between(
+                left=input.slider()[0],
+                right=input.slider()[1],
+                inclusive="both",
+            )
+            idx2 = tips.time.isin(input.checkbox_group())
+            tips_filtered = tips[idx1 & idx2]
+
+            return render.DataGrid(tips_filtered)
+
+    with ui.card(full_screen=True):
+        ui.card_header("Total bill vs tip")
+        @render_plotly
+        def scatterplot():
+            idx1 = tips.total_bill.between(
+                left=input.slider()[0],
+                right=input.slider()[1],
+                inclusive="both",
+            )
+            idx2 = tips.time.isin(input.checkbox_group())
+            tips_filtered = tips[idx1 & idx2]
+
+            return px.scatter(
+                tips_filtered,
+                x="total_bill",
+                y="tip",
+                trendline="lowess",
+            )
+
+with ui.layout_columns():
+    with ui.card(full_screen=True):
+        ui.card_header("Tip percentages")
+        @render_plotly
+        def tip_perc():
+            idx1 = tips.total_bill.between(
+                left=input.slider()[0],
+                right=input.slider()[1],
+                inclusive="both",
+            )
+            idx2 = tips.time.isin(input.checkbox_group())
+            tips_filtered = tips[idx1 & idx2]
+
+            tips_filtered["percent"] = tips_filtered.tip / tips_filtered.total_bill
+
+            uvals = tips_filtered.day.unique()
+            samples = [[tips_filtered.percent[tips_filtered.day == val]] for val in uvals]
+
+            plt = ridgeplot(
+            samples=samples,
+            labels=uvals,
+            bandwidth=0.01,
+            colorscale="viridis",
+            colormode="row-index"
+            )
+
+            plt.update_layout(
+                legend=dict(
+                    orientation="h",
+                    yanchor="bottom",
+                    y=1.02,
+                    xanchor="center",
+                    x=0.5
+                )
+            )
+            return plt
+
+## file: requirements.txt
+ridgeplot
+```
+:::
