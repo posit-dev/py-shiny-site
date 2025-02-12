@@ -77,7 +77,7 @@ website:
         file: docs/learning_streams/getting_started/01-welcome.qmd
 
       - text: "Learning Hub"
-        href: docs/overview.qmd/
+        href: docs/overview.qmd
 
       - text: "Components"
         menu:
