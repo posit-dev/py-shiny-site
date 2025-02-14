@@ -74,7 +74,11 @@ website:
     search: true
     left:
       - text: "Tutorials"
-        file: docs/learning_streams/getting_started/01-welcome.qmd
+        menu:
+          - text: "Getting Started"
+            href: docs/learning_streams/getting_started/01-welcome.qmd
+          - text: "Tutorials"
+            href: docs/learning_streams/tutorials.qmd
 
       - text: "Learning Hub"
         href: docs/overview.qmd
