@@ -71,6 +71,17 @@ For example, if we wanted to read in data from the `tips.csv` file in pandas,
 we can use the same code in our shiny for python application.
 
 ```{python}
+#| include: false
+
+import pandas as pd
+
+try:
+  tips = pd.read_csv("tips.csv")
+except FileNotFoundError:
+  tips = pd.read_csv("docs/learning_streams/getting_started/tips.csv")
+```
+
+```python
 import pandas as pd
 
 tips = pd.read_csv("tips.csv")
