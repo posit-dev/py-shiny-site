@@ -9,92 +9,135 @@ Reactivity is actually what makes Shiny special:
 when an input changes, only the minimum amount of calculations are made to update the outputs.
 This makes shiny very efficient.
 
-Let's build another application to showcase reactivity.
-We'll begin with another sidebar layout application that uses the
-`yfinance` package to get stock data.
-To make the application a bit simpler we'll pre-select a few stocks.
+Shiny knows to re-execute **reactive functions** (e.g., `render` functions) when their **reactive dependencies** (e.g., `input`) change.
+There are other main forms of reactive functions and dependencies:
+
+* Calculations with `@reactive.calc`
+  * Write your reactive calculation once, then call it as needed.
+* Side effects with `@reactive.effect`
+  * Effects are similar to `@render.*` functions, but they don't return anything. They're used for their side-effects (e.g., writing to a database, sending an email, etc.)
+* Reactive values with `reactive.value`
+  * Create `input`-like values that aren't tied to input controls and can be updated. They're often used to maintain state in an app.
+
+In this lesson we'll focus on the `@reactive.calc`, let's see why we may want reactive calculations.
+
+```{mermaid}
+flowchart LR
+  A[Input] --> B(Calculated from Input)
+  B --> C{Value calculated from the input calc}
+  B --> D[Another value calculated from the input calc]
+```
+
+Let's say we have an input (A),
+this input creates a value in the application (B).
+But what if another part of the application needs to use this calculated value (C)
+or another part (D)?
+
+Similar to why we create variables in python to capture intermediate values,
+we can save these intermediate "reactive" calculations in shiny.
+
 
 ```{shinylive-python}
 #| standalone: true
 #| components: [editor, viewer]
 #| layout: vertical
-#| viewerHeight: 700
+#| viewerHeight: 200
 
-{{< include apps/app-06-01-base_stock.py >}}
+from shiny import reactive
+from shiny.express import input, render, ui
 
-## file: requirements.txt
-yfinance
+ui.input_slider("x", "Slider value", min=0, max=100, value=10)
+
+# we need to make a calculation from an input value
+@render.text
+def x_squared_text():
+  return f"Squared value: {input.x() ** 2}"
+
+# we can save this calculation to be used later
+@reactive.calc
+def x_squared():
+  return input.x() ** 2
+
+# we can use that saved calculation
+@render.text
+def x_squared_calc_text():
+  return f"Saved squared: {x_squared()}"
+
+# we can build on top of that saved calculation
+@render.text
+def x_squared_half_calc_text():
+  return f"Build on squared value: {x_squared() / 2}"
+
+# we don't need to re-calculate everything from the input again
+@render.text
+def x_squared_half_text():
+  return f"Recalculate from input: {input.x() ** 2 / 2}"
 ```
 
-Every time the user changes either the stock or the number of history days,
-the following steps will occur:
+The app above shows that we only need to make the `input.x() ** 2` calculation **once**,
+so we do not need to repeat that calculation, `input.x() ** 2 / 2`.
 
-1. calculate the start and end date
-2. download the corresponding information
-3. create the figure
+This idea is really similar to the following Python code,
+where we save an intermediate value,
+instead of repeating a calculation.
 
-## Reactive Values
+```{python}
+initial_input_value = 3
 
-The data we get from Yahoo! Finance actually has more columns than just the `Close` value.
-What if we wanted to look at another Column?
-We could provide another user input component that allows the user to select
-the column or value of interest.
+initial_squared = initial_input_value ** 2
 
-```{shinylive-python}
-#| standalone: true
-#| components: [editor, viewer]
-#| layout: vertical
-#| viewerHeight: 700
-
-{{< include apps/app-06-02-reactive_value_setup.py >}}
-
-## file: requirements.txt
-yfinance
+initial_squared_half = initial_squared / 2
 ```
 
-Now, every time the user changes the stock, the number of history days, or variable
-the following steps will occur:
+If we did not save the `initial_squared` intermediate value,
+we would have to re-make that calculation when doing a square and half.
 
-1. calculate the start and end date
-2. download the corresponding information
-3. create the figure with the corresponding variable
-
-However, now we have an issue,
-when we change the variable that needs to be calculated,
-we should not have to re-download and fetch the dataset.
-We should be able to reuse the already fetched data
-and only need to change the figure.
-This is when we can create reactive values that hold intermediate calculations.
-
-Let's break up our `plot()` output such that the stock data
-is refactored into its own reactive value.
-We can then use the newly created reactive dataset for the plot.
-
-```{shinylive-python}
-#| standalone: true
-#| components: [editor, viewer]
-#| layout: vertical
-#| viewerHeight: 70#| 0
-
-{{< include apps/app-06-03-reactive_data.py >}}
-
-## file: requirements.txt
-yfinance
+```{python}
+initial_squared_half = initial_input_value ** 2 / 2
 ```
 
-Here we created a new function, `data()`,
-that holds all the calculations to create our stock data
-when the stock or day slide input components change.
-It returns a dataframe of the yahoo finance data.
-We then decorate it with the `@reactive.calc` function
-so it can be used in another reactive context.
 
-The `plot()` function does not need to fetch and clean the data,
-it only needs to use the reactive data.
-We can then use the reactive data by calling the function we just created,
-`data()`.
 
-Now when the user makes a change to the column radio button,
-only the plot needs to be re-created,
-and only when either the stock or day inputs are changed
-does the underlying data get re-created for the plot.
+Currently our application is re-filtering the data from the input components
+for each output component displayed in the application.
+
+```{mermaid}
+flowchart LR
+  A[Input Slider] --> C(Filtered Data)
+  B[Input Checkboxes] --> C
+  C --> D{value box 1}
+
+  E[Input Slider] --> G(Filtered Data)
+  F[Input Checkboxes] --> G
+  G --> H{value box 2}
+
+  I[Input Slider] --> K(Filtered Data)
+  J[Input Checkboxes] --> K
+  K --> L{value box 3}
+
+  M[Input Slider] --> O(Filtered Data)
+  N[Input Checkboxes] --> O
+  O --> P{dataframe display}
+
+  Q[Input Slider] --> S(Filtered Data)
+  R[Input Checkboxes] --> S
+  S --> T{scatter plot}
+
+  U[Input Slider] --> W(Filtered Data)
+  V[Input Checkboxes] --> W
+  W --> X{ridgeplot}
+```
+
+It would be great if we calculated the filtered data **once**
+and re-used it across all our output components.
+```{mermaid}
+flowchart LR
+  A[Input Slider] --> C(Filtered Data)
+  B[Input Checkboxes] --> C
+  C --> D{value box 1}
+  C --> E{value box 2}
+  C --> F{value box 3}
+  C --> G{dataframe display}
+  C --> H{scatter plot}
+  C --> I{ridgeplot}
+```
