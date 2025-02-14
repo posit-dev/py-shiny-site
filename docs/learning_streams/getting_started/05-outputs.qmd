@@ -268,7 +268,7 @@ output component decorator.
 ## dataframe
 
 ```python
-tips = pd.read_csv("docs/learning_streams/getting_started/tips.csv")
+tips = pd.read_csv("tips.csv")
 
 total_lower = tips.total_bill.min()
 total_upper = tips.total_bill.max()
@@ -357,11 +357,13 @@ plt.update_layout(
 #| layout: vertical
 #| viewerHeight: 500
 
-from ridgeplot import ridgeplot
 import pandas as pd
 import plotly.express as px
-from shiny.express import input, ui
+from ridgeplot import ridgeplot
+from shiny.express import input, render, ui
+from shinywidgets import render_plotly
 
+# you may need to change the path to the tips.csv file
 tips = pd.read_csv("docs/learning_streams/getting_started/tips.csv")
 
 # title
@@ -488,11 +490,11 @@ with ui.layout_columns():
             samples = [[tips_filtered.percent[tips_filtered.day == val]] for val in uvals]
 
             plt = ridgeplot(
-            samples=samples,
-            labels=uvals,
-            bandwidth=0.01,
-            colorscale="viridis",
-            colormode="row-index"
+                samples=samples,
+                labels=uvals,
+                bandwidth=0.01,
+                colorscale="viridis",
+                colormode="row-index"
             )
 
             plt.update_layout(
