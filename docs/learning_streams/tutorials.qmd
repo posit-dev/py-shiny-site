@@ -3,59 +3,66 @@ css: tutorial.css
 ---
 
 ```{=html}
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            max-width: 900px;
-            width: 100%;
-        }
-        .card {
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            background-color: white;
-            text-align: center;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .card h2 {
-            font-size: 1.25rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .card p {
-            font-size: 0.875rem;
-            color: #555;
-            margin-bottom: 10px;
-        }
-        .card .last-updated {
-            font-size: 0.75rem;
-            color: #999;
-            margin-bottom: 15px;
-        }
-        .button {
-            display: inline-block;
-            padding: 10px 15px;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: auto;
-        }
-    </style>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+    }
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        max-width: 900px;
+        width: 100%;
+    }
+    .card {
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: white;
+        text-align: center;
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .card h2 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    .card p {
+        font-size: 0.875rem;
+        color: #555;
+        margin-bottom: 10px;
+    }
+    .card .last-updated {
+        font-size: 0.75rem;
+        color: #999;
+        margin-bottom: 15px;
+    }
+    .button {
+        display: inline-block;
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-top: auto;
+    }
+</style>
+```
 
+## Express-Only Tutorials
+
+Shiny Express is the easiest and quickest way to start with Shiny.
+Create applications at the speed of thought.
+
+```{=html}
 <div class="grid">
     <a href="docs/learning_streams/getting_started/01-welcome.html" class="card">
         <h2>Getting Started with Shiny</h2>
@@ -63,22 +70,54 @@ css: tutorial.css
         <p class="last-updated">Updated: Feb 14, 2024</p>
         <span class="button">Start Tutorial</span>
     </a>
-    <a href="/tutorials/flask-web-apps" class="card">
+</div>
+```
+
+## Express and Core Tutorials
+
+Here are the more general tutorials to get you started with all things Shiny.
+
+```{=html}
+<div class="grid">
+    <a href="" class="card">
         <h2>Shiny Express to Shiny Core</h2>
         <p>Learn how to transition from Shiny Express to Shiny Core.</p>
         <p class="last-updated">Updated: Feb 5, 2024</p>
         <span class="button">Start Tutorial</span>
     </a>
-    <a href="/tutorials/pandas-data-analysis" class="card">
+    <a href="" class="card">
         <h2>Shiny Modules</h2>
         <p>Create Shiny Modules to make more maintanable applications.</p>
         <p class="last-updated">Updated: Mar 15, 2024</p>
         <span class="button">Start Tutorial</span>
     </a>
-    <a href="/tutorials/shiny-dashboards" class="card">
+    <a href="" class="card">
         <h2>Make your own component</h2>
         <p>Create your own custom javasscript components.</p>
         <p class="last-updated">Updated: Apr 20, 2024</p>
+        <span class="button">Start Tutorial</span>
+    </a>
+    <a href="" class="card">
+        <h2>Testing your application</h2>
+        <p>Write unit tests and end-to-end tests with pytest and playwright.</p>
+        <p class="last-updated">Updated: Apr 20, 2024</p>
+        <span class="button">Start Tutorial</span>
+    </a>
+</div>
+```
+
+## Core-Only Tutorials
+
+Shiny Core provides you all the flexibility and complexity you need.
+The syntax is a bit more verbose,
+but you can create more complex applications using the core syntax.
+
+```{=html}
+<div class="grid">
+    <a href="docs/learning_streams/getting_started/01-welcome.html" class="card">
+        <h2>Getting Started with Shiny</h2>
+        <p>Install and build your first Shiny Application with the Core syntax.</p>
+        <p class="last-updated">Updated: Feb 14, 2024</p>
         <span class="button">Start Tutorial</span>
     </a>
 </div>
