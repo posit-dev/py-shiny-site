@@ -64,7 +64,7 @@ Create applications at the speed of thought.
 
 ```{=html}
 <div class="grid">
-    <a href="docs/learning_streams/getting_started/01-welcome.html" class="card">
+    <a href="getting_started/01-welcome.html" class="card">
         <h2>Getting Started with Shiny</h2>
         <p>Install and build your first Shiny Application.</p>
         <p class="last-updated">Updated: Feb 14, 2024</p>
