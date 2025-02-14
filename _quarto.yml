@@ -79,9 +79,8 @@ website:
             href: docs/learning_streams/getting_started/01-welcome.qmd
           - text: "Tutorials"
             href: docs/learning_streams/tutorials.qmd
-
-      - text: "Learning Hub"
-        href: docs/overview.qmd
+          - text: "Learning Hub"
+            href: docs/overview.qmd
 
       - text: "Components"
         menu:
