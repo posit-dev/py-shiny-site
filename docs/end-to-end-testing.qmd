@@ -74,7 +74,7 @@ Our goal is to write a test that does the following:
 
 Now for the exciting part – writing the test code!
 
-1.  **Create a new file:** Create a file named `test_basic_app.py` (test files *must* start with `test_`).
+1.  **Create a new file:** Create a new file named `test_basic_app.py` in the same directory as your `app.py` file. Remember, test file names must start with `test_`.
 2.  **Copy and paste this code:**
 
 ```python
