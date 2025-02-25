@@ -1,0 +1,77 @@
+---
+title: Publish and Share Your Application
+---
+
+## `app.py`
+
+At the start of these tutorials,
+we've shown how to create an `app.py` file and how to run it
+from either Positron, VS Code, or in the command line.
+
+If your file begins with the `app` prefix,
+the shiny extension for VS Code will give you a play button to run
+the current file as a shiny application.
+
+![](img/010-run_app.png)
+
+The play button executes the `shiny run` command in the terminal
+for you, but you can manually run an application file
+on your own.
+
+```bash
+shiny run app.py
+```
+This `app.py` file can be shared with others
+
+## Shiny Live
+
+Throughout these tutorials,
+we provided you the code and working example in line with the text.
+These applications were run using Shinylive.
+It uses Shiny and WebAssembly to run Shiny applications
+completely in the browser without having to set anything up.
+
+If you have all your code in an `app.py` file,
+you can go to the shiny live editor and paste in your code.
+The shiny live editor is at this location: <https://shinylive.io/py/examples/>
+
+:::{.callout-note}
+There is no empty editor, the site will take you to the shinylive page and
+default to one of the example applications.
+You can copy and paste your `app.py` file into the editor and run it in the browser
+:::
+
+You cannot save the application file in the browser,
+instead you can click on the "Share" button on the corner of the Shinylive page,
+and use this URL to share your application with others.
+There is an option to use the link that shows the code and rendered application.
+
+:::{.callout-note}
+Shinylive URLs are extremely long. That is because
+all the code is embeded into the URL.
+:::
+
+You can read more about Shinylive here:
+<https://shiny.posit.co/py/docs/shinylive.html>
+
+## Connect Cloud
+
+[Connect Cloud](https://connect.posit.cloud/) is a free service that
+allows you to publish your web applications.
+You can actually use it to publish more than a shiny for python application!
+
+The code you want published needs to first exist in a
+[GitHub](https://github.com/)
+repository.
+Once your code is in a github repository,
+you can use the Posit Connect Cloud interface to link to the repository,
+and the service will automatically look for your `app.py` file to publish.
+You can follow these instructions from the connect cloud shiny for python
+publishing page:
+<https://docs.posit.co/connect-cloud/how-to/python/shiny-python.html#deploy-to-posit-connect-cloud>
+
+If you want to update your application,
+you will make your changes, commit, and push them to the same github repository.
+Connect Cloud has a
+[republish](https://docs.posit.co/connect-cloud/user/manage/content_page.html#republish)
+feature on the main page that will re-deploy your application.

@@ -19,6 +19,7 @@ project:
     - api/core
     - api/testing
     - templates
+    - tutorials
   resources:
     - /pypi/**
     - /robots.txt
@@ -73,19 +74,21 @@ website:
     logo-alt: The logo for Shiny for Python
     search: true
     left:
-      - text: "Learn Shiny"
+      - text: "Getting Started"
         file: docs/overview.qmd
+      - text: "Concepts"
+        file: docs/ui-overview.qmd
       - text: "Components"
         menu:
-          - text: "Components"
-            file: components/index.qmd
+          - text: "Inputs"
+            href: components/index.qmd#inputs
             icon: sliders
-          - text: "Layouts"
+          - text: "Outputs"
+            file: components/index.qmd#outputs
+            icon: sliders
+          - text: "UI Layouts"
             file: layouts/index.qmd
             icon: layout-text-window-reverse
-          - text: "Templates"
-            file: templates/index.qmd
-            icon: code-square
       - text: "Deploy"
         menu:
           - text: "Overview"
@@ -93,12 +96,18 @@ website:
           - docs/deploy-cloud.qmd
           - docs/deploy-on-prem.qmd
           - docs/shinylive.qmd
-      - text: "Gallery"
-        file: gallery/index.qmd
+      - text: "Examples"
+        menu:
+          - text: "Templates"
+            file: templates/index.qmd
+            icon: code-square
+          - text: "Gallery"
+            file: gallery/index.qmd
+            icon: code-square
       - text: "Playground"
         href: https://shinylive.io/py/examples/
         target: _blank
-      - text: "Reference"
+      - text: "API Reference"
         menu:
           - text: "Shiny Express"
             href: api/express/index.qmd
@@ -226,7 +235,7 @@ website:
             - text: "Controlling for Page Size"
               href: "/layouts/arrange/index.html#controlling-for-page-width-and-height"
 
-    - id: docs
+    - id: getting_started
       style: "floating"
       collapse-level: 2
       align: left
@@ -239,6 +248,15 @@ website:
           contents:
             - docs/install-create-run.qmd
             - docs/debug.qmd
+        - section: "Tutorials"
+          contents:
+            - tutorials/index.qmd
+
+    - id: concepts
+      style: "floating"
+      collapse-level: 2
+      align: left
+      contents:
         - section: "User interfaces"
           contents:
             - docs/ui-overview.qmd
@@ -277,6 +295,23 @@ website:
           contents:
             - docs/nonblocking.qmd
             - docs/routing.qmd
+
+    - id: tutorial-express-intro
+      style: "floating"
+      align: left
+      contents:
+        - section: "Learn Shiny Express"
+          contents:
+            - tutorials/intro-express/1-welcome.qmd
+            - tutorials/intro-express/2-ui.qmd
+            - tutorials/intro-express/3-inputs.qmd
+            - tutorials/intro-express/4-external.qmd
+            - tutorials/intro-express/5-outputs.qmd
+            - tutorials/intro-express/6-reactivity.qmd
+            - tutorials/intro-express/7-publish.qmd
+            - tutorials/intro-express/8-next.qmd
+
+
     # TODO: if the sidebar only has 1 entry, then it displays for the entire site...
     # added entry below to prevent this.
     - id: deploy
