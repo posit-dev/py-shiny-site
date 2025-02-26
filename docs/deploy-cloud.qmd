@@ -6,7 +6,7 @@ title: "Cloud hosting"
 
 The quickest way to get started is [Posit Connect Cloud](https://connect.posit.cloud/), our next-generation online publishing platform. 
 
-You can deploy Shiny applications - and other data frameworks - from GitHub to Connect Cloud in under a minute. All you need is your code and a requirements.txt dependency file. 
+You can deploy Shiny applications---and other data frameworks---from GitHub to Connect Cloud in under a minute. All you need is your code and a requirements.txt dependency file. 
 
 Quickly showcase your work with a public portfolio and leverage powerful features such as secret environment variable management and automatic push-to-publish for seamless continuous deployment. Free and paid plans are available.
 
