@@ -80,23 +80,17 @@ website:
         file: docs/ui-overview.qmd
       - text: "Components"
         menu:
-          - text: "Inputs"
-            href: components/index.qmd#inputs
+          - text: "Components"
+            href: components/index.qmd
             icon: sliders
-          - text: "Outputs"
-            file: components/index.qmd#outputs
-            icon: sliders
-          - text: "UI Layouts"
+          - text: "Layouts"
             file: layouts/index.qmd
             icon: layout-text-window-reverse
-      - text: "Examples"
-        menu:
           - text: "Templates"
             file: templates/index.qmd
             icon: code-square
-          - text: "Gallery"
-            file: gallery/index.qmd
-            icon: code-square
+      - text: "Gallery"
+        href: gallery/index.qmd
       - text: "Playground"
         href: https://shinylive.io/py/examples/
         target: _blank
