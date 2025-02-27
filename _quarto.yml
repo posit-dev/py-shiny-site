@@ -74,7 +74,7 @@ website:
     logo-alt: The logo for Shiny for Python
     search: true
     left:
-      - text: "Getting Started"
+      - text: "Get Started"
         file: docs/overview.qmd
       - text: "Concepts"
         file: docs/ui-overview.qmd
@@ -89,13 +89,6 @@ website:
           - text: "UI Layouts"
             file: layouts/index.qmd
             icon: layout-text-window-reverse
-      - text: "Deploy"
-        menu:
-          - text: "Overview"
-            href: docs/deploy.qmd
-          - docs/deploy-cloud.qmd
-          - docs/deploy-on-prem.qmd
-          - docs/shinylive.qmd
       - text: "Examples"
         menu:
           - text: "Templates"
@@ -107,7 +100,7 @@ website:
       - text: "Playground"
         href: https://shinylive.io/py/examples/
         target: _blank
-      - text: "API Reference"
+      - text: "Reference"
         menu:
           - text: "Shiny Express"
             href: api/express/index.qmd
@@ -235,22 +228,26 @@ website:
             - text: "Controlling for Page Size"
               href: "/layouts/arrange/index.html#controlling-for-page-width-and-height"
 
-    - id: getting_started
+    - id: get-started
       style: "floating"
-      collapse-level: 2
+      collapse-level: 1
       align: left
       contents:
-        - section: "Essentials"
+        - docs/overview.qmd
+        - docs/user-interfaces.qmd
+        - docs/install-create-run.qmd
+        - docs/debug.qmd
+        - section: "Deploy"
           contents:
-            - docs/overview.qmd
-            - docs/user-interfaces.qmd
-        - section: "Workflow"
-          contents:
-            - docs/install-create-run.qmd
-            - docs/debug.qmd
+            - text: "Overview"
+              href: docs/deploy.qmd
+            - docs/deploy-cloud.qmd
+            - docs/deploy-on-prem.qmd
+            - docs/shinylive.qmd
         - section: "Tutorials"
           contents:
-            - tutorials/index.qmd
+            - text: "Get Started with Shiny Express"
+              href: tutorials/intro-express/1-welcome.qmd
 
     - id: concepts
       style: "floating"
