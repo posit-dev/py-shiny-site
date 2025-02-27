@@ -20,6 +20,7 @@ project:
     - api/testing
     - templates
     - tutorials
+    - get-started
   resources:
     - /pypi/**
     - /robots.txt
@@ -75,7 +76,7 @@ website:
     search: true
     left:
       - text: "Get Started"
-        file: docs/overview.qmd
+        file: get-started/overview.qmd
       - text: "Concepts"
         file: docs/ui-overview.qmd
       - text: "Components"
@@ -227,17 +228,17 @@ website:
       collapse-level: 1
       align: left
       contents:
-        - docs/overview.qmd
-        - docs/user-interfaces.qmd
-        - docs/install-create-run.qmd
-        - docs/debug.qmd
+        - get-started/overview.qmd
+        - get-started/user-interfaces.qmd
+        - get-started/install-create-run.qmd
+        - get-started/debug.qmd
         - section: "Deploy"
           contents:
             - text: "Overview"
-              href: docs/deploy.qmd
-            - docs/deploy-cloud.qmd
-            - docs/deploy-on-prem.qmd
-            - docs/shinylive.qmd
+              href: get-started/deploy.qmd
+            - get-started/deploy-cloud.qmd
+            - get-started/deploy-on-prem.qmd
+            - get-started/shinylive.qmd
         - section: "Tutorials"
           contents:
             - text: "Get Started with Shiny Express"
