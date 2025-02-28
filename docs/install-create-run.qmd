@@ -1,5 +1,7 @@
 ---
 title: Install, create, & run
+aliases:
+  - install.html
 ---
 
 ## Install
@@ -120,7 +122,7 @@ If you still find that too obtrusive and aren't used to working with type hints,
 
 In the above configuration, we also disable the `reportUnusedFunction` diagnostic, as it's idiomatic Shiny to create named functions that are never explicitly called by any code (i.e., `@reactive.effect`).
 
-You can also modify these settings on a per-file basis with comments at the top of the file. For example, you might have something like this at the the top of your `app.py`:
+You can also modify these settings on a per-file basis with comments at the top of the file. For example, you might have something like this at the top of your `app.py`:
 
 ```default
 # pyright: strict
