@@ -36,7 +36,7 @@ b
 
 If our goal is to end up with `a == [1, 2, 3]` and `b == [1, 2]`, then we've failed.
 
-Mutability can cause unexpected behavior in any Python program, but especially so in reactive programming. For example, if you modify a mutable object stored in a ` reactive.value`, or one returned from a `reactive.calc`, other consumers of those values will have their values changed. This can cause two different problems. First, the altered value will probably be unexpected. Second, even if the the change in value is expected and desired, it will not trigger downstream reactive objects to re-execute.
+Mutability can cause unexpected behavior in any Python program, but especially so in reactive programming. For example, if you modify a mutable object stored in a ` reactive.value`, or one returned from a `reactive.calc`, other consumers of those values will have their values changed. This can cause two different problems. First, the altered value will probably be unexpected. Second, even if the change in value is expected and desired, it will not trigger downstream reactive objects to re-execute.
 
 
 ## Solutions

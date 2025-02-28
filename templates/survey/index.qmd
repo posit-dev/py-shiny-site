@@ -23,7 +23,7 @@ shiny create --template survey --mode core --github posit-dev/py-shiny-templates
 
 
 A simple survey form with a few input fields that simply writes responses to a file and displays a confirmation message when submitted.
-In this example, we use the `shiny_validate` package to validate the form inputs.
+In this example, we use the [shiny_validate] package for input validation, providing direct feedback when the user enters invalid responses.
 
 
 :::: {.grid .tags}
@@ -49,7 +49,9 @@ In this example, we use the `shiny_validate` package to validate the form inputs
 **Packages:**
 
 * `pandas`
-* `shiny_validate`
+* [`shiny_validate`][shiny_validate]
 
 :::
 ::::
+
+[shiny_validate]: https://github.com/posit-dev/py-shiny-validate

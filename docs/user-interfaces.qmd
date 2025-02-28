@@ -387,7 +387,7 @@ def _():
     ui.update_checkbox_group("time", selected=["Lunch", "Dinner"])
 
 ## file: requirements.txt
-ridgeplot
+ridgeplot==0.1.25
 ```
 
 :::
