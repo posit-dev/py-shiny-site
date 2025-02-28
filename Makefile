@@ -53,7 +53,7 @@ help:
 ## Update git submodules to commits referenced in this repository
 submodules:
 	git submodule init
-	git submodule update --depth=20
+	git submodule update --depth=0
 
 ## Pull latest commits in git submodules
 submodules-pull:
