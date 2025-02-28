@@ -11,7 +11,7 @@ listing:
   contents:
   - title: Preview
     file: app-preview-code.py
-    height: 500
+    height: 350
   - title: Express
     file: app-express.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbDOAD1R04LFkw4xUxOmSYBXDgB0IS+VigBzOAH1iqMiwAUSpiaZkOZADZwAvArAAJOJcvEmAZU7cmAYTZQyezxjUxoOFygAI2sbABU6WThgiFMmMIjo7RhiSPDbeMTkgEolJQBiXyEAuCYoJkJ-GS4WMigIQhq2gBMmLo4WVEsobDFA9samGzkODD8Agw4uuyJG+yKTCoAeTaUGgIx5A3WmLZ3lc4qAETgwiE76qBdIqEIAazM3BJSAdzZKMz+chYcDorFkkRgFlEdXgIg0cCUAAE9mQMKQtLJgXQtCxwZCZCcmNslFAWNh2r0bkx-BAutYMVitFxULIyAZMSCmRAWWREKwyHQinzCcSUqYKu5xIMRnAGm4yICOXQAOSiZmspjPN4fAFwGAhExQb5QCz1RoYNCoShdLSwljwgw0ewATWIslYJq6fJASq5PIAvmsNkSzmB-QBdIA
@@ -33,28 +33,41 @@ listing:
   - title: '@chat.on_user_submit'
     href: https://shiny.posit.co/py/api/ui.Chat.html
     signature: chat.on_user_submit(fn)
-  - title: chat.messages()
-    href: https://shiny.posit.co/py/api/ui.Chat.html
-    signature: chat.messages(format=MISSING, token_limits=(4096, 1000), transform_user="all",
-      transform_assistant=False)
-  - title: chat.append_message()
-    href: https://shiny.posit.co/py/api/ui.Chat.html
-    signature: chat.append_message(message)
   - title: chat.append_message_stream()
     href: https://shiny.posit.co/py/api/ui.Chat.html
     signature: chat.append_message_stream(message)
+  - title: chat.append_message()
+    href: https://shiny.posit.co/py/api/ui.Chat.html
+    signature: chat.append_message(message)
+  - title: chat.update_user_input()
+    href: https://shiny.posit.co/py/api/ui.Chat.html
+    signature: chat.update_user_input(value=None, placeholder=None, submit=False, focus=False)
 ---
 
 :::{#example}
 :::
 
 
+::: callout-note
 
+The `Chat()` example above simply echoes back the user's input.
+The templates below show how to integrate with an LLM provider of your choice.
+:::
 
-## LLM quick start {#llm-quick-start}
+<!--- Fix some issues with the shinylive output styles --->
+<style>
+.content .sourceCode:has(> .shinylive-wrapper) {
+  overflow: hidden;
+}
+.content .sourceCode .shinylive-wrapper {
+  margin: 0;
+}
+</style>
 
-Pick from the following LLM provider quick start templates to power your next chat interface.
-Once you've choosen a provider, run the relevant `shiny create` terminal command to get the relevant source files on your machine.
+## Quick start {#quick-start}
+
+Pick from the following Large Language Model (LLM) providers below to power your next Shiny chatbot.
+Copy & paste the relevant `shiny create` terminal command to get the relevant source files on your machine.
 
 ::: {.panel-tabset .panel-pills}
 
@@ -64,7 +77,7 @@ Once you've choosen a provider, run the relevant `shiny create` terminal command
 shiny create --template chat-ai-anthropic
 ```
 
-### Anthropic via AWS Bedrock
+### Bedrock Anthropic
 
 ```bash
 shiny create --template chat-ai-anthropic-aws
@@ -76,7 +89,7 @@ shiny create --template chat-ai-anthropic-aws
 shiny create --template chat-ai-openai
 ```
 
-### OpenAI via Azure
+### Azure OpenAI
 
 ```bash
 shiny create --template chat-ai-azure-openai
@@ -100,207 +113,548 @@ shiny create --template chat-ai-ollama
 shiny create --template chat-ai-langchain
 ```
 
-### Other
+---
 
-See `chatlas`'s [reference](https://posit-dev.github.io/chatlas/reference/) for other providers such as Groq, Perplexity, and more.
+`chatlas`'s supports a [wide variety](https://posit-dev.github.io/chatlas/#model-providers) of LLM providers including Vertex, Snowflake, Groq, Perplexity, and more.
+In this case, you can start from any template and swap out the `chat_model` with the relevant chat constructor (e.g., `ChatVertex()`).
 
+
+### Help me choose!
+
+If you're not sure which provider to choose, `chatlas` provides a [great guide](https://posit-dev.github.io/chatlas/#model-choice) to help you decide.
 :::
 
-Once the `app.py` file is on your machine, open it and follow the instructions in the comments to obtain and setup the necessary API keys.
-These instructions should help you figure out how to sign up for an account with the relevant provider and obtain an API key.
-Once you have the API key, you can put it in a `.env` file in the same directory as `app.py`, and then run the app with `shiny run app.py`.
 
-Note that all these examples roughly follow the same pattern, with the only real difference being the provider of the `chat_model`.
-And since they mostly use the [`chatlas`](https://posit-dev.github.io/chatlas/) library, changing the provider is as simple as changing the `chat_model` instantiation line.
-Moreover, all the examples leverage the `.stream()` method to generate responses chunk by chunk, which makes a massive difference in usability and responsiveness for chat interfaces.
-If, for some reason, you can't use the `.stream()` method (some models don't support things like tool calls when streaming), you can use the `.chat()` method instead, but you'll lose out on the benefits of streaming.
+Once a template is on your machine, open the `app.py` file and follow the instructions in the comments to obtain and setup the necessary API keys (if any).
+Once credentials are in place, [run the app](https://shiny.posit.co/py/docs/install-create-run.html#run). Congrats, you now have a streaming chat interface powered by an LLM! 🎉
 
-Just make sure to use chat's `.append_message_stream()` method when streaming, and `.append_message()` when not streaming.
+![](/images/chat-quick-start.png){class="rounded shadow mt-3 mb-5"}
 
+
+If you open the `app.py` file from your template, you'll see something like this:
 
 ::: {.panel-tabset .panel-pills}
 
-### Streaming
+### Express
 
 ```python
-from chatlas import ChatAnthropic
+from chatlas as ChatAnthropic
 from shiny.express import ui
 
-# Create and display the chat interface
 chat = ui.Chat(id="my_chat")
 chat.ui()
 
-# Can be ChatOpenAI, ChatAnthropic, ChatGoogle, etc.
+# Might instead be ChatOpenAI, ChatGoogle, or some other provider
 chat_model = ChatAnthropic()
 
-# Callback for when the user submits a message
 @chat.on_user_submit
 async def handle_user_input(user_input: str):
-    response = chat_model.stream(user_input)
+    response = await chat_model.stream_async(user_input)
     await chat.append_message_stream(response)
 ```
 
-### Non-streaming
+### Core
 
 ```python
-from chatlas import ChatAnthropic
-from shiny.express import ui
+from chatlas as ChatAnthropic
+from shiny import ui, App
 
-# Create and display the chat interface
-chat = ui.Chat(id="my_chat")
-chat.ui()
+app_ui = ui.page_fixed(
+    ui.chat_ui(id="my_chat")
+)
 
-# Can be ChatOpenAI, ChatAnthropic, ChatGoogle, etc.
-chat_model = ChatAnthropic()
+def server(input):
+    chat = ui.Chat(id="my_chat")
+    chat_model = ChatAnthropic()
 
-# Callback for when the user submits a message
-@chat.on_user_submit
-async def handle_user_input(user_input: str):
-    response = chat_model.chat(user_input, echo="none")
-    await chat.append_message(response)
+    @chat.on_user_submit
+    async def handle_user_input(user_input: str):
+        response = await chat_model.stream_async(user_input)
+        await chat.append_message_stream(response)
+
+app = App(app_ui, server)
 ```
+
 :::
 
-::: callout-tip
-### Different response objects
+To break down some of the key aspects:
 
-If you want to use something other than `chatlas` to generate responses (e.g., LangChain), you can still use the chat interface.
-Moreover, `.append_message()`/`.append_message_stream()` try their best to "just work" when provided with common response objects, but if run into issues, you might need to reshape the response object to fit into an expected format.
-For `.append_message()`, just make sure to pass it a string, and for `.append_message_stream()`, it's recommended to pass an async generator that yields strings.
-:::
+1. `chat` represents the chatbot UI.
+    - It provides methods for working with the chat's state, like `.append_message()`, `.clear_messages()`, etc.
+    - `chat.ui()` creates the UI element, where you can customize things like [icons](#custom-icons), sizing, `placeholder` text, and more.
+2. `chat_model` provides the connection to the LLM (via [`chatlas`](https://posit-dev.github.io/chatlas/#model-choice)).
+    - It isn't a requirement to use `chatlas` for response generation, but it comes highly recommended.
+3. `@chat.on_user_submit` accepts a callback to fire when the user submits input.
+    - Here `user_input` is passed directly to `chat_model.stream_async()` for response generation. The asynchronous stream helps to keep the chat app responsive and scalable.
+    - Streaming responses are appended to the chat UI with `chat.append_message_stream()`.
 
-::: callout-tip
-### Appending is async
+On this page, we'll mainly focus on the UI portion of the chatbot (i.e., `chat`). That said, since LLM model choice and prompt design are such a critical part of building good chatbots, we'll briefly touch on them next.
 
-Appending messages to a chat is always an async operation.
-This means that you should `await` the `.append_message()` or `.append_message_stream()` method when calling it and also make sure that the callback function is marked as `async`.
-:::
+## Models & prompts {#models-prompts}
 
-The templates above are a great starting point for building a chat interface powered by an LLM.
-And, out of the box, `Chat()` provides some nice things like [error handling](#error-handling) and [code highlighting](#code-highlighting).
-However, to richer and bespoke experiences, you'll want to know more about things like system prompts, startup messages, tool calls, structured output, retrieval-augmented generation (RAG), and more.
-
-
-## Models and system prompts
-
-Experimenting with different models and system prompts a fundamental aspect of creating powerful and bespoke chat experiences.
-System prompts, in particular, provide the generative AI model with additional context or instructions on how to respond to the user's input.
-With `chatlas`, specifing a model and system prompt is as simple as passing a string to the `model` and `system_prompt` arguments of the `Chat` provider.
+To build a good chatbot, it helps to be able to rapidly experiment with different models and system prompts.
+With `chatlas`, the relevant `Chat` provider (e.g., `ChatAnthropic`, `ChatOpenAI`, etc) will have a  `model` and `system_prompt` arguments to help you do just that.
 
 
 ```python
 chat_model = ChatAnthropic(
+  model="claude-3-7-sonnet-latest",
   system_prompt="You are a helpful assistant",
-  model="claude-3-5-sonnet-latest"
 )
 ```
 
-::: callout-tip
-### Choosing a model
-
-If you're not sure which model to use, `chatlas` provide [some great advice](https://posit-dev.github.io/chatlas/#model-choice)
-:::
-
+System prompts give the LLM instructions and/or additional context on how to respond to the user's input.
+They can be used to set the tone, define the role of the AI, specify constraints or guidelines, or provide background information relevant to the conversation.
+Well designed system prompts can significantly improve the quality and relevance of the AI's responses.
 
 ::: callout-tip
-### Prompt design
+### Model choice & prompt design
 
-If you're curious about how to design system prompts, `chatlas` has a [great guide](https://posit-dev.github.io/chatlas/#system-prompts).
+To learn more, see `chatlas`'s guides on [choosing a model](https://posit-dev.github.io/chatlas/#model-choice) and [prompt design](https://posit-dev.github.io/chatlas/prompt-design.html).
+You may also want to visit the [getting started](https://posit-dev.github.io/chatlas/get-started.html) article for a broader overview of LLMs and how they can be useful.
 :::
 
+::: callout-note
+### Playground template
 
-If you'd like to interactively experiment with different models and system prompts, try running the
-chat playground template:
+Interactively experiment with different models and prompts with the playground template.
+It's also a great learning resource on how to leverage reactivity for dynamic prompts and model selection.
 
 ```bash
 shiny create --template chat-ai-playground
 ```
+:::
+
 
 ## Startup messages
 
-To help provide some guidance to the user, show a startup message when the chat interface is first loaded.
-By default, assistant messages are interpreted as markdown, but can pass `ui.HTML` strings as well for more control over the message's appearance.
+To help provide some guidance to the user, show a startup message when the chat component is first loaded.
+Messages are interpreted as markdown, so you can use markdown (or HTML) to format the text as you like.
+
 
 ::: {.panel-tabset .panel-pills}
 
 ### Express
 
 ```python
-chat = ui.Chat(id="chat")
-chat.ui(messages=["**Hello!** How can I help you today?"])
-```
-
-### Core
-
-```python
-app_ui = ui.page_fixed(
-    ui.chat_ui(id="chat", messages=["**Hello!** How can I help you today?"])
-)
-
-def server(input):
-    chat = ui.Chat(id="chat")
-
-app = ui.App(app_ui, server)
-```
-
-:::
-
-
-![](/images/chat-hello.png)
-
-
-Startup messages are also useful for restoring the chat to a previous state. Just make sure each message is a dictionary with a `content` key and a `role` key of either "assistant" or "user".
-
-::: {.panel-tabset .panel-pills}
-
-### Express
-
-```python
-chat = ui.Chat(id="chat")
 chat.ui(
-  messages=[
-    {"content": "Hello! How can I help you today?", "role": "assistant"},
-    {"content": "What is the capital of France?", "role": "user"},
-    {"content": "Paris", "role": "assistant"},
-  ]
+  messages=["**Hello!** How can I help you today?"]
 )
 ```
 
 ### Core
 
 ```python
-app_ui = ui.page_fixed(
-    ui.chat_ui(id="chat", messages=[
-        {"content": "Hello! How can I help you today?", "role": "assistant"},
-        {"content": "What is the capital of France?", "role": "user"},
-        {"content": "Paris", "role": "assistant"},
-    ])
+ui.chat_ui(
+  id="chat",
+  messages=["**Hello!** How can I help you today?"],
 )
-
-def server(input):
-    chat = ui.Chat(id="chat")
 ```
 
 :::
 
+
+![](/images/chat-hello.png){class="rounded shadow mb-3 d-block m-auto" width="67%"}
+
+
+## Input suggestions
+
+Help users start or continue a conversation by providing input suggestions.
+To create one, add a `suggestion` CSS class to relevant portion(s) of the message text.
+You can also add a `submit` class to make the suggestion submit the input automatically.
+Try clicking on the suggestions (or accessing via keyboard) below to see how they work.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 300
+
+from shiny.express import ui
+
+welcome = """
+**Hello!** How can I help you today?
+
+Here are a couple suggestions:
+
+* <span class="suggestion">Tell me a joke</span>
+* <span class="suggestion submit">Tell me a story</span>
+"""
+
+chat = ui.Chat(id="chat", messages=[welcome])
+chat.ui()
+
+
+@chat.on_user_submit
+async def _(user_input: str):
+    await chat.append_message(f"You said: {user_input}")
+```
+
+::: callout-tip
+### Keyboard shortcuts
+
+Any suggestion can be auto-submitted by holding `Ctrl/Cmd` when clicking on it.
+Morever, you can opt-out of auto-submitting any suggestion by holding `Alt/Option` when clicking on a suggestion.
+:::
+
+::: {.callout-tip collapse="true"}
+### AI-generated suggestions
+
+In practice, input suggestions are often generated by the AI to help guide the conversation.
+To accomplish this, you'll need to instruct the AI how to generate suggestions.
+We've found that adding a section like the one below to your [`system_prompt`](#models-prompts) to be effective for this:
+
+    ## Showing prompt suggestions
+
+    If you find it appropriate to suggest prompts the user might want to write, wrap the text of each prompt in `<span class="suggestion">` tags.
+    Also use "Suggested next steps:" to introduce the suggestions. For example:
+
+    ```
+    Suggested next steps:
+
+    1. <span class="suggestion">Suggestion 1.</span>
+    2. <span class="suggestion">Suggestion 2.</span>
+    3. <span class="suggestion">Suggestion 3.</span>
+    ```
+:::
+
+
+::: {.callout-tip collapse="true"}
+## Card-based suggestions
+
+Input suggestions can also things other than text, like images or cards.
+To create one, supply a `data-suggestion` attribute with the suggestion text on the desired HTML element.
+As shown below, we highly recommend using a `ui.card()` in this scenario -- it should be fairly obvious to the user that it's clickable, and comes with a nice hover effect.
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 400
+#| editorHeight: 300
+
+## file: app.py
+from shiny.express import expressify, ui
+from suggestions import card_suggestions
+
+with ui.hold() as suggestions:
+    card_suggestions()
+
+welcome = f"""
+**Hello!** How can I help you today?
+
+Here are a couple suggestions:
+
+{suggestions[0]}
+"""
+
+chat = ui.Chat(
+    id="chat",
+    messages=[welcome],
+)
+
+chat.ui()
+
+
+@chat.on_user_submit
+async def handle_user_input(user_input: str):
+    await chat.append_message(f"You said: {user_input}")
+
+
+## file: suggestions.py
+from shiny.express import expressify, ui
+
+
+@expressify
+def card_suggestion(title: str, suggestion: str, img_src: str, img_alt: str):
+    with ui.card(data_suggestion=suggestion):
+        ui.card_header(title)
+        ui.fill.as_fill_item(
+            ui.img(
+                src=img_src,
+                alt=img_alt,
+            )
+        )
+
+
+@expressify
+def card_suggestions():
+    with ui.layout_column_wrap(height=200):
+        card_suggestion(
+            title="Learn Python",
+            suggestion="Teach me Python",
+            img_src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg",
+            img_alt="Python logo",
+        )
+        card_suggestion(
+            title="Learn R",
+            suggestion="Teach me R",
+            img_src="https://upload.wikimedia.org/wikipedia/commons/1/1b/R_logo.svg",
+            img_alt="R logo",
+        )
+```
+
+:::
+
+Input suggestions are a nice and easy way to update the user input value, but you may want to create more bespoke ways of [updating the user input](#update-user-input).
+
+
+## Layout & theming
+
+To fill the page on desktop (and mobile), set the `fillable=True` (and `fillable_mobile=True`) page options. This way, the input stays anchored to the bottom of the page, and the chat fills the remaining space.
+
+::: {.panel-tabset .panel-pills}
+
+### Express
+
+```python
+from shiny.express import ui
+
+ui.page_opts(
+  fillable=True,
+  fillable_mobile=True,
+)
+
+chat = ui.Chat(id="chat", messages=["Welcome!"])
+chat.ui()
+```
+
+### Core
+
+```python
+from shiny import ui, App
+
+app_ui = ui.page_fixed(
+    ui.chat_ui(id="chat")
+    fillable=True,
+    fillable_mobile=True,
+)
+
+def server(input):
+    chat = ui.Chat(id="chat", messages=["Welcome!"])
+
+app = App(app_ui, server)
+```
+
+:::
+
+![](/images/chat-fill.png){class="rounded shadow mb-5 d-block m-auto" width="67%"}
+
+To have the chat fill _a sidebar_, set `height` to `100%` on both the sidebar and chat.
+
+To theme the chat, provide a `ui.Theme()` to the `theme` page option.
+Theming customization may be done directly on `ui.Theme()` (e.g., `.add_defaults()`) and/or created from a [brand-yml](https://posit-dev.github.io/brand-yml/) file and applied with `ui.Theme().from_brand()`.
+Note you can also introduce a dark mode toggle with `ui.input_dark_mode()`.
+
+::: {.panel-tabset .panel-pills}
+
+### Express
+
+```python
+from shiny.express import ui
+
+ui.page_opts(
+    title=ui.div(
+        "My themed chat app",
+        ui.input_dark_mode(mode="dark"),
+        class_="d-flex justify-content-between w-100",
+    ),
+    theme=ui.Theme().add_defaults(primary="#a855f7"),
+)
+
+with ui.sidebar(width=300, style="height:100%"):
+    chat = ui.Chat(id="chat", messages=["Welcome!"])
+    chat.ui(height="100%")
+
+"Main content"
+```
+
+### Core
+
+```python
+from shiny import ui, App
+
+app_ui = ui.page_fixed(
+    ui.chat_ui(id="chat", messages=["Welcome!"]),
+    title=ui.tags.div(
+        "My themed chat app",
+        ui.input_dark_mode(mode="dark"),
+        class_="d-flex justify-content-between w-100",
+    ),
+    theme=ui.Theme().add_defaults(primary="#a855f7"),
+)
+
+def server(input):
+    chat = ui.Chat(id="chat")
+
+app = App(app_ui, server)
+```
+
+:::
+
+
+![](/images/chat-themed.png){class="rounded shadow mb-3 d-block m-auto" width="67%"}
+
+
+
+## Custom icons
+
+Customize the assistant icon by supplying HTML/SVG to `icon_assistant` when creating the UI element (or when appending a message).
+The `faicons` package makes it easy to do this for [font awesome](https://fontawesome.com/), but other icon libraries (e.g., [Bootstrap icons]((https://icons.getbootstrap.com/#usage)), [heroicons](https://heroicons.com/), etc.) or custom SVGs are also possible by providing inline SVGs as a string to `ui.HTML()`.
+
+::: {.panel-tabset .panel-pills}
+
+### Express
+
+```python
+from faicons import icon_svg
+
+chat.ui(
+  messages=["**Hello!** How can I help you today?"],
+  icon_assistant=icon_svg("slack"),
+)
+```
+
+### Core
+
+```python
+from faicons import icon_svg
+
+ui.chat_ui(
+  id="chat",
+  messages=["**Hello!** How can I help you today?"],
+  icon_assistant=icon_svg("slack"),
+)
+```
+
+:::
+
+
+
+![](/images/chat-hello-slack.png){class="rounded shadow mb-5 d-block m-auto" width="67%"}
+
+
+HTML `<img>` tags also work. By default, they fill their container, and may get clipped by the container's `border-radius`. To scale down the image, add a `icon` CSS class, or `border-0` to remove the `border` and `border-radius`.
+
+::: {.panel-tabset .panel-pills}
+
+### Express
+
+```python
+from faicons import icon_svg
+
+chat.ui(
+  messages=["**Hello!** How can I help you today?"],
+  icon_assistant=ui.img(
+    src="https://raw.githubusercontent.com/posit-dev/py-shiny/c1445b2/tests/playwright/shiny/components/chat/icon/img/shiny.png"
+  )
+)
+```
+
+### Core
+
+```python
+from faicons import icon_svg
+
+ui.chat_ui(
+  id="chat",
+  messages=["**Hello!** How can I help you today?"],
+  icon_assistant=ui.img(
+    src="https://raw.githubusercontent.com/posit-dev/py-shiny/c1445b2/tests/playwright/shiny/components/chat/icon/img/shiny.png",
+  )
+)
+```
+
+:::
+
+
+![](/images/chat-hello-shiny.png){class="rounded shadow mb-5 d-block m-auto" width="67%"}
+
+
+
+## Handling message streams
+
+Under-the-hood, `.append_message_stream()` launches a non-blocking [extended task](https://shiny.posit.co/py/docs/nonblocking.html). This allows the app to be responsive while the AI generates the response, even when multiple concurrent users are on a single Python process.
+
+A few other benefits of an extended task is that they make it easy to:
+
+1. Reactively read for the final `.result()`.
+2. `.cancel()` the stream.
+3. Check the `.status()` of the stream.
+
+Here's an example of how you might use these methods:
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 350
+#| editorHeight: 300
+
+import asyncio
+
+from shiny import reactive
+from shiny.express import input, render, ui
+
+chat = ui.Chat("chat")
+
+chat.ui()
+chat.update_user_input(value="Press Enter to start the stream")
+
+
+async def stream_generator():
+    for i in range(10):
+        await asyncio.sleep(0.25)
+        yield f"Message {i} \n\n"
+
+
+@chat.on_user_submit
+async def _(message: str):
+    ui.update_action_button("cancel", disabled=False)
+    await chat.append_message_stream(stream_generator())
+
+
+with ui.sidebar(
+    style="height:100%",
+    open={"mobile": "always-above", "desktop": "open"},
+):
+
+    @render.code
+    def stream_status():
+        return f"Status: {chat.get_message_stream().status()}"
+
+    @render.code
+    async def stream_result():
+        return f"Result: {chat.get_message_stream().result()}"
+
+    ui.input_action_button(
+        "cancel",
+        "Cancel stream",
+        disabled=True,
+        class_="btn btn-danger mt-auto",
+    )
+
+
+@reactive.effect
+@reactive.event(input.cancel)
+def _():
+    chat.get_message_stream().cancel()
+```
 
 
 ## Error handling {#error-handling}
 
-When errors occur in the `@on_user_submit` callback, the app displays a dismissible notification about the error.
+When an error occurs in the `@chat.on_user_submit` callback, the app displays a dismissible notification about the error.
 When running locally, the actual error message is shown, but in production, only a generic message is shown (i.e., the error is sanitized since it may contain sensitive information).
 If you'd prefer to have errors stop the app, that can also be done through the `on_error` argument of `Chat` (see [the documentation](https://shiny.posit.co/py/api/ui.Chat.html) for more information).
 
 ![](/images/chat-error.png){class="rounded shadow"}
 
 Another way to handle error is to catch them yourself and append a message to the chat.
-This way, you can might provide a better experience with "known" errors, like when the user enters an invalid/unexpected input.
-Also, since the chat can render `ui.HTML` strings, you can style the error message to make it more noticeable.
-Just be careful not to include unsanitized user input in the error message, as this could lead to a [cross-site scripting (XSS) attack](https://en.wikipedia.org/wiki/Cross-site_scripting).
+This way, you can might provide a better experience with "known" errors, like when the user enters an invalid/unexpected input:
 
 ```python
 def format_as_error(x: str):
-    return ui.HTML(f'<span class="text-danger">{x}</span>')
+    return f'<span class="text-danger">{x}</span>'
 
 @chat.on_user_submit
 async def handle_user_input(user_input: str):
@@ -313,28 +667,88 @@ async def handle_user_input(user_input: str):
         msg = "I'm sorry, I couldn't extract content from that URL. Please try again."
         await chat.append_message(format_as_error(msg))
 
-    response = chat_model.stream(contents)
+    response = await chat_model.stream_async(contents)
     await chat.append_message_stream(response)
 ```
 
+## Debugging and tool calling
 
-## Code highlighting {#code-highlight}
+* Debug tool calls and other issues with `echo="all"`
 
-When a message response includes code, it'll be syntax highlighted (via [highlight.js](https://highlightjs.org/)) and also include a copy button.
+::: callout-tip
+### Tool/function calling
 
-![](/images/chat-code.png){class="rounded shadow"}
+Tool calling is a powerful way to extend the capabilities of your chatbot.
 
-## Tool calls
+If you need to call external services or run custom code to help generate a response, `chatlas`'s [tool call documentation](https://posit-dev.github.io/chatlas/tool-calling.html) is a great resource.
+:::
 
-Tool calls are a powerful feature that allow you to call external services or run custom code to help generate a response.
-For example, you could use a tool call to fetch data from a database, call an API, or run a machine learning model.
-To learn more about tool calls, see the `chatlas`'s [tool call documentation](https://posit-dev.github.io/chatlas/tool-calling.html).
 
-Since the `Chat` component is independent from the `chat_model` generating the response, it's currently not possible to surface information from a tool call to the chat interface without considerable effort. This should be easier in the future, but for now, you'll need to manually append the tool call request/response by reaching into the contents of `chat_model.get_turns()`.
 
-<!--
-TODO: maybe chatlas should gain a .on_tool_request()/.on_tool_response() method? Or maybe the echo argument could be passed .append_message()/.append_message_stream()?
--->
+
+## Update user prompts {#updating-user-input}
+
+The user input of the chat can be updated programmatically via the `chat.update_user_input()` method.
+Change placeholder text, the input value, and even focus/submit the input value by calling this method.
+This is typically most useful when you want to update input based on some other UI outside the chat.
+
+Typically this will involve taking input from other UI and clicking a button to update the user input value, like so:
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 350
+
+from shiny import reactive
+from shiny.express import input, ui
+
+ui.page_opts(fillable=True, fillable_mobile=True)
+
+select_ui = ui.input_select(
+    "select",
+    None,
+    choices={
+        "This is prompt 1": "Prompt 1",
+        "This is prompt 2": "Prompt 2",
+        "This is prompt 3": "Prompt 3",
+    },
+)
+
+welcome = f"""
+**Hello!** Please select a prompt from the dropdown above.
+
+{select_ui}
+"""
+
+chat = ui.Chat(id="chat", messages=[welcome])
+chat.ui()
+
+
+@reactive.effect
+def _():
+    chat.update_user_input(value=input.select())
+
+
+# NOTE: this line can be removed once this is merged
+# https://github.com/posit-dev/py-shiny/pull/1868
+ui.insert_ui(ui.tags.script("Shiny.bindAll()"), "body")
+```
+
+
+## Accessing and restoring chat history
+
+To access the current chat history, call `chat.messages()` in a reactive context.
+Combine this with [startup messages](#startup-messages) to save and restore a chat history.
+
+::: callout-note
+
+The Shiny team is currently working on a feature to make restoring chat history on disconnect much easier.
+:::
+
+
+
+
 
 ## Retrieval-augmented generation (RAG)
 
