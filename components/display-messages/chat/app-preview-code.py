@@ -14,6 +14,6 @@ chat.ui()
 
 # Define a callback to run when the user submits a message
 @chat.on_user_submit
-async def _():
+async def handle_user_input(user_input: str):
     # Append a response to the chat
-    await chat.append_message(f"You said: {chat.user_input()}")
+    await chat.append_message(f"You said: {user_input}")
