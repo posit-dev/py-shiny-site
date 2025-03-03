@@ -257,7 +257,7 @@ ui.chat_ui(
 ![](/images/chat-hello.png){class="rounded shadow mb-3 d-block m-auto" width="67%"}
 
 
-## Input suggestions
+## Input suggestions {#input-suggestions}
 
 Help users start or continue a conversation by providing input suggestions.
 To create one, add a `suggestion` CSS class to relevant portion(s) of the message text.
@@ -396,6 +396,55 @@ def card_suggestions():
 :::
 
 Input suggestions are a nice and easy way to update the user input value, but you may want to create more bespoke ways of [updating the user input](#update-user-input).
+
+## Input updating {#updating-user-input}
+
+[Input suggestions](#input-suggestions) are a great tool for guiding user input, but sometimes you may want full programmatic control over it.
+With `chat.update_user_input()`, you can change placeholder text, the input value, and even focus/submit the input value on the user's behalf.
+
+
+For an example, you could have some custom input fields that update the user input value when they're changed:
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| editorHeight: 300
+#| viewerHeight: 350
+
+from shiny import reactive
+from shiny.express import input, ui
+
+things = ui.input_checkbox_group(
+    "things", None,
+    choices=["Thing 1", "Thing 2", "Thing 3"],
+)
+
+value = ui.input_slider("value", None, 1, 10, 5)
+
+welcome = f"""
+**Hello!** Please give some input below:
+
+{things}
+{value}
+"""
+
+chat = ui.Chat(id="chat", messages=[welcome])
+chat.ui()
+
+
+@reactive.effect
+def _():
+    things = "None" if not input.things() else ", ".join(input.things())
+    prompt = f"Thing(s): {things} | Value: {input.value()}"
+    chat.update_user_input(value=prompt)
+
+
+# NOTE: this line can be removed once this is merged
+# https://github.com/posit-dev/py-shiny/pull/1868
+ui.insert_ui(ui.tags.script("Shiny.bindAll()"), "body")
+```
+
 
 
 ## Layout & theming
@@ -571,17 +620,17 @@ ui.chat_ui(
 
 
 
-## Handling message streams
+## Message streams
 
 Under-the-hood, `.append_message_stream()` launches a non-blocking [extended task](https://shiny.posit.co/py/docs/nonblocking.html). This allows the app to be responsive while the AI generates the response, even when multiple concurrent users are on a single Python process.
 
 A few other benefits of an extended task is that they make it easy to:
 
 1. Reactively read for the final `.result()`.
-2. `.cancel()` the stream.
-3. Check the `.status()` of the stream.
+2. Check the `.status()` of the stream.
+3. `.cancel()` the stream.
 
-Here's an example of how you might use these methods:
+Below is a basic example of reading the status and result of a streaming message:
 
 ```{shinylive-python}
 #| standalone: true
@@ -590,55 +639,176 @@ Here's an example of how you might use these methods:
 #| viewerHeight: 350
 #| editorHeight: 300
 
-import asyncio
-
-from shiny import reactive
-from shiny.express import input, render, ui
+## file: app.py
+from app_utils import stream_generator
+from shiny.express import render, ui
 
 chat = ui.Chat("chat")
-
 chat.ui()
 chat.update_user_input(value="Press Enter to start the stream")
 
+@chat.on_user_submit
+async def _(message: str):
+    await chat.append_message_stream(stream_generator())
+
+@render.code
+def stream_status():
+    return f"Status: {chat.get_message_stream().status()}"
+
+@render.code
+async def stream_result():
+    return f"Result: {chat.get_message_stream().result()}"
+
+## file: app_utils.py
+import asyncio
 
 async def stream_generator():
-    for i in range(10):
-        await asyncio.sleep(0.25)
+    for i in range(5):
+        await asyncio.sleep(0.5)
         yield f"Message {i} \n\n"
+```
 
+And an example of canceling a stream:
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 350
+#| editorHeight: 300
+
+## file: app.py
+from app_utils import stream_generator
+
+from shiny import reactive
+from shiny.express import input, ui
+
+ui.input_action_button(
+    "cancel",
+    "Cancel stream",
+    disabled=True,
+    class_="btn btn-danger mt-auto",
+)
+
+chat = ui.Chat("chat")
+chat.ui()
+chat.update_user_input(value="Press Enter to start the stream")
 
 @chat.on_user_submit
 async def _(message: str):
-    ui.update_action_button("cancel", disabled=False)
     await chat.append_message_stream(stream_generator())
-
-
-with ui.sidebar(
-    style="height:100%",
-    open={"mobile": "always-above", "desktop": "open"},
-):
-
-    @render.code
-    def stream_status():
-        return f"Status: {chat.get_message_stream().status()}"
-
-    @render.code
-    async def stream_result():
-        return f"Result: {chat.get_message_stream().result()}"
-
-    ui.input_action_button(
-        "cancel",
-        "Cancel stream",
-        disabled=True,
-        class_="btn btn-danger mt-auto",
-    )
-
+    ui.update_action_button("cancel", disabled=False)
 
 @reactive.effect
 @reactive.event(input.cancel)
 def _():
     chat.get_message_stream().cancel()
+    ui.notification_show("Stream cancelled", type="warning")
+
+## file: app_utils.py
+import asyncio
+
+async def stream_generator():
+    for i in range(10):
+        await asyncio.sleep(0.25)
+        yield f"Message {i} \n\n"
 ```
+
+
+## Saving messages
+
+::: callout-note
+
+The Shiny team is currently working on a feature to make saving and restoring chat history on disconnect much easier.
+:::
+
+
+The `chat` component stores messages and makes them available via the `chat.messages()` method.
+However, it only stores the content shown in the UI, so if there is important background information (like tool calls, prompts, etc.) that you need to save/restore, you'll need to handle that separately.
+With `chatlas`, you can easily save and restore chat history by using the `.get_turns()` and `.set_turns()` methods on the `chat_model`.
+
+The example below demonstrates a basic approach to saving and returning to a previous chat session.
+For a real chatbot that uses an LLM, you likely want to 
+
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 350
+#| editorHeight: 400
+
+from datetime import datetime
+
+from faicons import icon_svg
+
+from shiny import reactive
+from shiny.express import input, render, ui
+
+ui.page_opts(
+    fillable=True,
+    fillable_mobile=True,
+)
+
+
+chat = ui.Chat(
+    id="chat",
+    messages=["**Hello!** How can I help you today?"],
+)
+chat.ui()
+
+
+with ui.sidebar():
+    ui.input_action_button("new", "New chat", icon=icon_svg("plus"))
+
+    @render.express
+    def history_ui():
+        if not history():
+            return
+        choices = list(history().keys())
+        choices_dict = dict(zip(choices, choices))
+        choices_dict[""] = "Choose a previous chat"
+        ui.input_selectize(
+            "previous_chat",
+            None,
+            choices=choices_dict,
+            selected="",
+        )
+
+
+@chat.on_user_submit
+async def _(user_input: str):
+    await chat.append_message(f"You said: {user_input}")
+
+
+# Track chat history
+history = reactive.value({})
+
+
+# When a new chat is started, add the current chat messages
+# to the history
+@reactive.effect
+@reactive.event(input.new)
+async def _():
+    stamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    hist = {**history(), stamp: chat.messages()}
+    history.set(hist)
+    await chat.clear_messages()
+    await chat.append_message(f"Chat started at {stamp}")
+
+
+# When a previous chat is selected, clear the current chat
+@reactive.effect
+@reactive.event(input.previous_chat)
+async def _():
+    if not input.previous_chat():
+        return
+    msgs = history()[input.previous_chat()]
+    await chat.clear_messages()
+    for msg in msgs:
+        await chat.append_message(msg)
+```
+
 
 
 ## Error handling {#error-handling}
@@ -659,13 +829,14 @@ def format_as_error(x: str):
 @chat.on_user_submit
 async def handle_user_input(user_input: str):
     if not user_input.startswith("http"):
-        await chat.append_message(format_as_error("Please enter a valid URL"))
+        msg = format_as_error("Please enter a valid URL")
+        return await chat.append_message(msg)
 
     try:
         contents = scrape_page_with_url(input)
     except Exception:
         msg = "I'm sorry, I couldn't extract content from that URL. Please try again."
-        await chat.append_message(format_as_error(msg))
+        return await chat.append_message(format_as_error(msg))
 
     response = await chat_model.stream_async(contents)
     await chat.append_message_stream(response)
@@ -685,66 +856,6 @@ If you need to call external services or run custom code to help generate a resp
 
 
 
-
-## Update user prompts {#updating-user-input}
-
-The user input of the chat can be updated programmatically via the `chat.update_user_input()` method.
-Change placeholder text, the input value, and even focus/submit the input value by calling this method.
-This is typically most useful when you want to update input based on some other UI outside the chat.
-
-Typically this will involve taking input from other UI and clicking a button to update the user input value, like so:
-
-```{shinylive-python}
-#| standalone: true
-#| components: [editor, viewer]
-#| layout: vertical
-#| viewerHeight: 350
-
-from shiny import reactive
-from shiny.express import input, ui
-
-ui.page_opts(fillable=True, fillable_mobile=True)
-
-select_ui = ui.input_select(
-    "select",
-    None,
-    choices={
-        "This is prompt 1": "Prompt 1",
-        "This is prompt 2": "Prompt 2",
-        "This is prompt 3": "Prompt 3",
-    },
-)
-
-welcome = f"""
-**Hello!** Please select a prompt from the dropdown above.
-
-{select_ui}
-"""
-
-chat = ui.Chat(id="chat", messages=[welcome])
-chat.ui()
-
-
-@reactive.effect
-def _():
-    chat.update_user_input(value=input.select())
-
-
-# NOTE: this line can be removed once this is merged
-# https://github.com/posit-dev/py-shiny/pull/1868
-ui.insert_ui(ui.tags.script("Shiny.bindAll()"), "body")
-```
-
-
-## Accessing and restoring chat history
-
-To access the current chat history, call `chat.messages()` in a reactive context.
-Combine this with [startup messages](#startup-messages) to save and restore a chat history.
-
-::: callout-note
-
-The Shiny team is currently working on a feature to make restoring chat history on disconnect much easier.
-:::
 
 
 
