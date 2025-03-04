@@ -35,6 +35,10 @@ There are 3 main parts of a shiny express application
 3. [layout and ui components](/layouts):
   how and where the inputs and output of the web application are displayed.
 
+The example below demonstrates the basic mechanics behind Shiny apps.
+As you move the slider (an input component),
+the text (output component) will react and update to the corresponding input value.
+
 ```{shinylive-python}
 #| standalone: true
 #| components: [editor, viewer]
@@ -42,24 +46,28 @@ There are 3 main parts of a shiny express application
 #| viewerHeight: 150
 from shiny.express import input, render, ui
 
-ui.input_slider("val", "Slider label", min=0, max=100, value=50)
+ui.input_slider(id="val", label="Slider label", min=0, max=100, value=50)
 
 @render.text
 def slider_val():
     return f"Slider value: {input.val()}"
 ```
 
-This example demonstrates the basic mechanics behind Shiny apps.
-As you move the slider (an input component),
-the text (output component) will react and update to the corresponding input value.
+Let's briefly break down the components of the application above:
 
-* Inputs are created via `ui.input_*()` functions.
-    * The first argument is the input's `id`, which is used to read the input's value.
-* Outputs are created by decorating a function with `@render.*`.
-    * Inside a `render` function, `input` values can be read [reactively](#reactivity).
-    * When those `input` values change, Shiny knows how to minimally re-render output.
-* Layouts are inferred automatically based on what items you place in your application.
-    * We will learn more about layouts and user interfaces in the next lesson of this tutorial.
+- Inputs
+  - Create a slider with a `ui.input_*` function.
+  - Here we are using the `ui.input_slider()` function to create the slider.
+  - This slider has an id of `"val"` which is used to get the slider value later
+- Outputs
+  - Created by decorating a function with the corresponding `@render.*` decorator.
+  - Here we are displaying text, so we are using the `@render.text` decorator.
+  - Inside a `render` function, `input` values can be read [reactively](#reactivity).
+  - We read the value from the slider by calling `input.val()`.
+  - When those `input` values change, Shiny knows how to minimally re-render output.
+- Layouts
+  - Inferred automatically based on what items you place in your application.
+  - We will learn more about layouts and user interfaces in the next lesson of this tutorial.
 
 ::: {.callout-note}
 ## Exercise
