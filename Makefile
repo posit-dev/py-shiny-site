@@ -13,8 +13,8 @@ VENV = venv
 PYBIN = $(VENV)/bin
 
 
-QUARTO_VERSION ?= v1.6.42
-QUARTO_PATH = ~/.local/share/qvm/versions/${QUARTO_VERSION}/bin/quarto
+QUARTO_VERSION ?= 1.6.42
+QUARTO_PATH = ~/.local/share/qvm/versions/v${QUARTO_VERSION}/bin/quarto
 
 .PHONY: install-quarto
 install-quarto:
@@ -25,7 +25,7 @@ install-quarto:
 	fi
 	qvm install ${QUARTO_VERSION}
 	@echo "🔹 Updating .vscode/settings.json"
-	@awk -v path="~/.local/share/qvm/versions/${QUARTO_VERSION}/bin/quarto" '/"quarto.path":/ {gsub(/"quarto.path": ".*"/, "\"quarto.path\": \"" path "\"")} 1' .vscode/settings.json > .vscode/settings.json.tmp && mv .vscode/settings.json.tmp .vscode/settings.json
+	@awk -v path="${QUARTO_PATH}" '/"quarto.path":/ {gsub(/"quarto.path": ".*"/, "\"quarto.path\": \"" path "\"")} 1' .vscode/settings.json > .vscode/settings.json.tmp && mv .vscode/settings.json.tmp .vscode/settings.json
 	@echo "🔹 Updating .github/workflows/deploy-docs.yml"
 	@awk -v ver="${QUARTO_VERSION}" '/QUARTO_VERSION:/ {gsub(/QUARTO_VERSION: .*/, "QUARTO_VERSION: " ver)} 1' .github/workflows/deploy-docs.yml > .github/workflows/deploy-docs.yml.tmp && mv .github/workflows/deploy-docs.yml.tmp .github/workflows/deploy-docs.yml
 
