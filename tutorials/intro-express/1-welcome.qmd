@@ -2,42 +2,28 @@
 title: Getting Started
 ---
 
-Shiny for Python is a web application framework that helps tell your
-data story.
-If you've landed on this page,
-you probably have a bit of Python experience,
-worked with data,
-and now need a way to publish an interactive
-web application to help tell your data story.
+Shiny for Python is a web application framework that helps tell your data story.
+If you've landed on this page, you probably have a bit of Python experience, worked with data, and now need a way to publish an interactive web application to help tell your data story.
 
 ## Installation and Setup
 
-This is a 1 to 2 Hour tutorial to get you started and familiar with all the basic
-parts of creating and deploying a Shiny for Python application.
-Before starting this tutorial,
-check to make sure you have your packages and environment
-setup.
-You can see the
-[Installation section of the Get Started Guides](/get-started/install-create-run.qmd).
+This is a 1 to 2 Hour tutorial to get you started and familiar with all the basic parts of creating and deploying a Shiny for Python application.
+Before starting this tutorial, check to make sure you have your packages and environment setup.
+You can see the [Installation section of the Get Started Guides](/get-started/install-create-run.qmd).
 
 ## Parts of a Shiny Application
 
 Shiny express allows us to write shiny apps with a minimal amount of code.
-This lets us rapidly link interactive components with our data
-in our web application.
+This lets us rapidly link interactive components with our data in our web application.
 
 There are 3 main parts of a shiny express application
 
-1. [input components](/components/#inputs):
-  provide user interactions that can be used as inputs in other parts of the web application.
-2. [output components](/components/#outputs):
-  results that are displayed on the web application.
-3. [layout and ui components](/layouts):
-  how and where the inputs and output of the web application are displayed.
+1.  [input components](/components/#inputs): provide user interactions that can be used as inputs in other parts of the web application.
+2.  [output components](/components/#outputs): results that are displayed on the web application.
+3.  [layout and ui components](/layouts): how and where the inputs and output of the web application are displayed.
 
 The example below demonstrates the basic mechanics behind Shiny apps.
-As you move the slider (an input component),
-the text (output component) will react and update to the corresponding input value.
+As you move the slider (an input component), the text (output component) will react and update to the corresponding input value.
 
 ```{shinylive-python}
 #| standalone: true
@@ -55,33 +41,32 @@ def slider_val():
 
 Let's briefly break down the components of the application above:
 
-- Inputs
-  - Create a slider with a `ui.input_*` function.
-  - Here we are using the `ui.input_slider()` function to create the slider.
-  - This slider has an id of `"val"` which is used to get the slider value later
-- Outputs
-  - Created by decorating a function with the corresponding `@render.*` decorator.
-  - Here we are displaying text, so we are using the `@render.text` decorator.
-  - Inside a `render` function, `input` values can be read [reactively](#reactivity).
-  - We read the value from the slider by calling `input.val()`.
-  - When those `input` values change, Shiny knows how to minimally re-render output.
-- Layouts
-  - Inferred automatically based on what items you place in your application.
-  - We will learn more about layouts and user interfaces in the next lesson of this tutorial.
+-   Inputs
+    -   Create a slider with a `ui.input_*` function.
+    -   Here we are using the `ui.input_slider()` function to create the slider.
+    -   This slider has an id of `"val"` which is used to get the slider value later
+-   Outputs
+    -   Created by decorating a function with the corresponding `@render.*` decorator.
+    -   Here we are displaying text, so we are using the `@render.text` decorator.
+    -   Inside a `render` function, `input` values can be read [reactively](#reactivity).
+    -   We read the value from the slider by calling `input.val()`.
+    -   When those `input` values change, Shiny knows how to minimally re-render output.
+-   Layouts
+    -   Inferred automatically based on what items you place in your application.
+    -   We will learn more about layouts and user interfaces in the next lesson of this tutorial.
 
-::: {.callout-note}
+:::: callout-note
 ## Exercise
 
 Let's make and run our first shiny for python application.
 
-1. Take the above code and save it to a file. Here we named it `app.py`
-2. Click on the play button (red circle in the image below)j
+1.  Take the above code and save it to a file. Here we named it `app.py`
+2.  Click on the play button (red circle in the image below)j
 
 You will see the terminal run the `shiny run` command for you automatically.
 The output will look something like this
 
-
-```bash
+``` bash
 $ python -m shiny run --port 55901 --reload --autoreload-port 55902 app-010-simple.py
 INFO:     Will watch for changes in these directories: ['~/Desktop/py-shiny-example']
 INFO:     Uvicorn running on http://127.0.0.1:55901 (Press CTRL+C to quit)
@@ -92,82 +77,66 @@ INFO:     Application startup complete.
 INFO:     127.0.0.1:56426 - "GET /?vscodeBrowserReqId=1737097751843 HTTP/1.1" 200 OK
 ```
 
-This will run the application on port `55901` and automatically reload and update
-as you make changes to the `app.py` file.
+This will run the application on port `55901` and automatically reload and update as you make changes to the `app.py` file.
 
-1. You will see the app build in the bottom terminal and open in the viewer on the side
-2. Move the slider and see how the output reacts
-3. Congratulations, you made your first shiny for python application!
+1.  You will see the app build in the bottom terminal and open in the viewer on the side
+2.  Move the slider and see how the output reacts
+3.  Congratulations, you made your first shiny for python application!
 
-::: {.column-margin}
+::: column-margin
 ![](img/010-run_app.png)
 :::
+::::
 
-:::
-
-::: {.callout-tip}
+::: callout-tip
 ## Naming your files
 
-If you start your file with the word `app`,
-the shiny for python extension will recognize
-it as an application and you will be able to see the "play" button to run your application.
-You can also name your file `app-get_started.py`
-and you will still get the shiny extension play button.
+If you start your file with the word `app`, the shiny for python extension will recognize it as an application and you will be able to see the "play" button to run your application.
+You can also name your file `app-get_started.py` and you will still get the shiny extension play button.
 
-To have Shiny for Python work well with the VS Code extensions and for you to go through
-the next series of lessons.
+To have Shiny for Python work well with the VS Code extensions and for you to go through the next series of lessons.
 We recommend either one of the following file naming conventions:
 
-1. Create separate folders for each app example you will create and save separate `app.py` files in each folder
-2. Create separate `app*.py` files in the same directory (e.g., `app-01.py`, `app-02.py`)
+1.  Create separate folders for each app example you will create and save separate `app.py` files in each folder
+2.  Create separate `app*.py` files in the same directory (e.g., `app-01.py`, `app-02.py`)
 
 If you named your application `app.py` you can omit it form the command and only use `shiny run --reload`.
 The `app.py` is the default file Shiny looks for to run in the current directory.
 Otherwise, you can pass in the name of the file that you wish to run.
-The `app` prefix used in the example above is used to signal to the Shiny VS Code extension
-to display the run app button.
+The `app` prefix used in the example above is used to signal to the Shiny VS Code extension to display the run app button.
 :::
 
 ## Run your shiny application
 
-In addition to the play button in Positron, you can manually run your application from
-the command line.
-This is useful if you wish to specify your own port or want to rename your application
-without the `app` prefix.
+In addition to the play button in Positron, you can manually run your application from the command line.
+This is useful if you wish to specify your own port or want to rename your application without the `app` prefix.
 
-```bash
-shiny run my_app.py --reload --port 8000
+``` bash
+shiny run my_app.py --reload
 ```
 
-:::{.callout-tip}
+::: callout-tip
 ## Helpful run options
 
 Some useful options you can pass the `shiny run` command are:
 
-- `--reload`: Enables auto-reload, the application will reload to reflect your changes as you save your work.
-- `--port`: pass in a custom port, e.g., `--port 8000`.
-  This will run the app on the specified port,
-  instead of a random port.
-  This makes it easier to have the same browser window open as you stop and start your application.
+-   `--reload`: Enables auto-reload, the application will reload to reflect your changes as you save your work.
+-   `--port`: pass in a custom port, e.g., `--port 8000`. This will run the app on the specified port, instead of a random port. This makes it easier to have the same browser window open as you stop and start your application.
 
-You can learn more about these run options on the
-[`run_app` documentation page](https://shiny.posit.co/py/api/core/run_app.html).
+You can learn more about these run options on the [`run_app` documentation page](https://shiny.posit.co/py/api/core/run_app.html).
 :::
 
 ## Shiny Express: Your first application
 
-The rest of this tutorial will work on creating this
-[Restaurant Tipping Dashboard](https://gallery.shinyapps.io/template-dashboard-tips1/).
+The rest of this tutorial will work on creating this [Restaurant Tipping Dashboard](https://gallery.shinyapps.io/template-dashboard-tips1/).
 
-::::: {.column-screen .hero-image .pt-4 .pb-5 style="margin-top:0px;max-width:1600px;"}
+:::: {.column-screen .hero-image .pt-4 .pb-5 style="margin-top:0px;max-width:1600px;"}
 ::: {.hello-output .g-col-12 .g-col-xl-12}
-<iframe
-  src="https://gallery.shinyapps.io/template-dashboard-tips1/"
-  frameborder="0"
-  width="100%"
-  class="mb-0 card hello-output-iframe"
-></iframe>
+<iframe src="https://gallery.shinyapps.io/template-dashboard-tips1/" frameborder="0" width="100%" class="mb-0 card hello-output-iframe">
 
+</iframe>
+
+```{=html}
 <style>
   .hello-output-iframe {
     height: 900px;
@@ -178,6 +147,6 @@ The rest of this tutorial will work on creating this
   }
 }
 </style>
+```
 :::
-
-:::::
+::::
