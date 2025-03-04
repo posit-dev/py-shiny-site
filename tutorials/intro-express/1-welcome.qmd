@@ -10,152 +10,17 @@ worked with data,
 and now need a way to publish an interactive
 web application to help tell your data story.
 
-## Installing Shiny
-
-:::::: {.panel-tabset}
-
-## Windows
-
-::: {.panel-tabset}
-
-## pip
-
-```bash
-python -m venv shiny-env    # create virtual environment
-shiny-env\Scripts\activate  # activate environment
-pip install -U shiny        # install shiny
-```
-
-## conda
-
-```bash
-# create virtual environment and install shiny
-conda create -n shiny-env -c conda-forge shiny
-
-# activate environment
-conda activate shiny-env
-```
-
-## mamba
-
-```bash
-# create virtual environment and install shiny
-mamba create -n shiny-env -c conda-forge shiny
-
-# activate environment
-mamba activate shiny-env
-```
-
-:::
-
-## MacOS
-
-::: {.panel-tabset}
-
-## pip
-
-```bash
-python -m venv shiny-env       # create virtual environment
-source shiny-env/bin/activate  # activate environment
-pip install -U shiny           # install shiny
-```
-
-## conda
-
-```bash
-# create virtual environment and install shiny
-conda create -n shiny-env -c conda-forge shiny
-
-# activate environment
-conda activate shiny-env
-```
-
-## mamba
-
-```bash
-# create virtual environment and install shiny
-mamba create -n shiny-env -c conda-forge shiny
-
-# activate environment
-mamba activate shiny-env
-```
-:::
-
-## Linux
-
-::: {.panel-tabset}
-
-## pip
-
-```bash
-python -m venv shiny-env       # create virtual environment
-source shiny-env/bin/activate  # activate environment
-pip install -U shiny           # install shiny
-```
-
-## conda
-
-```bash
-# create virtual environment and install shiny
-conda create -n shiny-env -c conda-forge shiny
-
-# activate environment
-conda activate shiny-env
-```
-
-## mamba
-
-```bash
-# create virtual environment and install shiny
-mamba create -n shiny-env -c conda-forge shiny
-
-# activate environment
-mamba activate shiny-env
-```
-:::
-
-::::::
-
-
-We will be using [Positron](https://positron.posit.co/) in our tutorials,
-but you can also use [Visual Studio Code](https://code.visualstudio.com/).
-Whether you are using Positron, or VS Code,
-you will need to make sure you have the
-[VS Code Shiny Extension](https://marketplace.visualstudio.com/items?itemName=Posit.shiny)
-installed.
-
-If you are working with VSCode and Positron,
-make sure your current python environment has
-the `ipykernel` package installed.
-We assume you are already in the environment we set up in the previous installing shiny section.
-
-
-::: {.panel-tabset}
-
-## pip
-
-```bash
-pip install ipykernel
-```
-
-## conda
-
-```bash
-conda install -c conda-forge ipykernel
-```
-
-## mamba
-
-```bash
-mamba install -c conda-forge ipykernel
-```
-
-:::
-
-## Parts of a Shiny Application
+## Installation and Setup
 
 This is a 1 to 2 Hour tutorial to get you started and familiar with all the basic
 parts of creating and deploying a Shiny for Python application.
+Before starting this tutorial,
+check to make sure you have your packages and environment
+setup.
+You can see the
+[Installation section of the Get Started Guides](/get-started/install-create-run.qmd).
+
+## Parts of a Shiny Application
 
 Shiny express allows us to write shiny apps with a minimal amount of code.
 This lets us rapidly link interactive components with our data
