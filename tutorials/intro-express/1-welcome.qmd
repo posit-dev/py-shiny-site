@@ -125,7 +125,7 @@ shiny run my_app.py
 
 ::: {.callout-note}
 If you named your application `app.py` you can omit it form the command and only use `shiny run`.
-The `app.py` is the default file shiny looks for to run in the current directory.
+The `app.py` is the default file Shiny looks for to run in the current directory.
 Otherwise, you can pass in the name of the file that you wish to run.
 The `app` prefix used in the example above is used to signal to the Shiny VS Code extension
 to display the run app button.
