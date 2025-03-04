@@ -58,6 +58,9 @@ The templates below show how to integrate with an LLM provider of your choice.
 <style>
 .content .sourceCode:has(> .shinylive-wrapper) {
   overflow: hidden;
+  width: 550px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .content .sourceCode .shinylive-wrapper {
   margin: 0;
@@ -395,13 +398,10 @@ def card_suggestions():
 
 :::
 
-Input suggestions are a nice and easy way to update the user input value, but you may want to create more bespoke ways of [updating the user input](#update-user-input).
-
 ## Input updating {#updating-user-input}
 
-[Input suggestions](#input-suggestions) are a great tool for guiding user input, but sometimes you may want full programmatic control over it.
+[Input suggestions](#input-suggestions) are a great starting point for guiding user input, but sometimes you may want full programmatic control over it.
 With `chat.update_user_input()`, you can change placeholder text, the input value, and even focus/submit the input value on the user's behalf.
-
 
 For an example, you could have some custom input fields that update the user input value when they're changed:
 
@@ -413,10 +413,11 @@ For an example, you could have some custom input fields that update the user inp
 #| viewerHeight: 350
 
 from shiny import reactive
-from shiny.express import input, ui
+from shiny.express import input, render, ui
 
 things = ui.input_checkbox_group(
-    "things", None,
+    "things",
+    None,
     choices=["Thing 1", "Thing 2", "Thing 3"],
 )
 
@@ -440,9 +441,14 @@ def _():
     chat.update_user_input(value=prompt)
 
 
-# NOTE: this line can be removed once this is merged
+# NOTE: this workaround can be removed once this is merged
 # https://github.com/posit-dev/py-shiny/pull/1868
-ui.insert_ui(ui.tags.script("Shiny.bindAll()"), "body")
+@render.ui
+def bind():
+    return ui.tags.script(
+        "await Shiny.initializeInputs(); await Shiny.bindAll(document.getElementById('chat'))",
+        type="module",
+    )
 ```
 
 
@@ -581,6 +587,8 @@ ui.chat_ui(
 
 ![](/images/chat-hello-slack.png){class="rounded shadow mb-5 d-block m-auto" width="67%"}
 
+::: {.callout-tip collapse="true"}
+### Custom `<img>` icons
 
 HTML `<img>` tags also work. By default, they fill their container, and may get clipped by the container's `border-radius`. To scale down the image, add a `icon` CSS class, or `border-0` to remove the `border` and `border-radius`.
 
@@ -615,8 +623,9 @@ ui.chat_ui(
 
 :::
 
-
 ![](/images/chat-hello-shiny.png){class="rounded shadow mb-5 d-block m-auto" width="67%"}
+
+:::
 
 
 
@@ -630,7 +639,10 @@ A few other benefits of an extended task is that they make it easy to:
 2. Check the `.status()` of the stream.
 3. `.cancel()` the stream.
 
-Below is a basic example of reading the status and result of a streaming message:
+See the examples in the sections below to see them in action:
+
+::: {.callout-tip collapse="true"}
+### Stream status & result
 
 ```{shinylive-python}
 #| standalone: true
@@ -644,8 +656,7 @@ from app_utils import stream_generator
 from shiny.express import render, ui
 
 chat = ui.Chat("chat")
-chat.ui()
-chat.update_user_input(value="Press Enter to start the stream")
+chat.ui(placeholder="Type anything here and press Enter")
 
 @chat.on_user_submit
 async def _(message: str):
@@ -653,11 +664,11 @@ async def _(message: str):
 
 @render.code
 def stream_status():
-    return f"Status: {chat.get_message_stream().status()}"
+    return f"Status: {chat.latest_message_stream.status()}"
 
 @render.code
 async def stream_result():
-    return f"Result: {chat.get_message_stream().result()}"
+    return f"Result: {chat.latest_message_stream.result()}"
 
 ## file: app_utils.py
 import asyncio
@@ -668,7 +679,11 @@ async def stream_generator():
         yield f"Message {i} \n\n"
 ```
 
-And an example of canceling a stream:
+:::
+
+
+::: {.callout-tip collapse="true"}
+### Stream cancellation
 
 ```{shinylive-python}
 #| standalone: true
@@ -686,50 +701,92 @@ from shiny.express import input, ui
 ui.input_action_button(
     "cancel",
     "Cancel stream",
-    disabled=True,
-    class_="btn btn-danger mt-auto",
+    class_="btn btn-danger",
 )
 
 chat = ui.Chat("chat")
-chat.ui()
-chat.update_user_input(value="Press Enter to start the stream")
+chat.ui(placeholder="Type anything here and press Enter")
 
 @chat.on_user_submit
 async def _(message: str):
     await chat.append_message_stream(stream_generator())
-    ui.update_action_button("cancel", disabled=False)
 
 @reactive.effect
 @reactive.event(input.cancel)
 def _():
-    chat.get_message_stream().cancel()
+    chat.latest_message_stream.cancel()
     ui.notification_show("Stream cancelled", type="warning")
+
+@reactive.effect
+def _():
+  ui.update_action_button(
+    "cancel",
+    disabled=chat.latest_message_stream.status() != "running"
+  )
+
 
 ## file: app_utils.py
 import asyncio
 
 async def stream_generator():
-    for i in range(10):
-        await asyncio.sleep(0.25)
+    for i in range(5):
+        await asyncio.sleep(0.5)
         yield f"Message {i} \n\n"
 ```
 
+:::
 
-## Saving messages
 
-::: callout-note
+## Retrieve messages
+
+The `chat.messages()` method returns a tuple of all the messages currently displayed in the chat.
+Use this if you want a simple way to reactively read the chat messages.
+From this, you could save messages or provide them in some other way, like a download link:
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 350
+#| editorHeight: 400
+import json
+from shiny.express import render, ui
+
+chat = ui.Chat("chat", messages=["Welcome!"])
+
+@chat.on_user_submit
+async def _(user_input: str):
+    await chat.append_message(f"You said: {user_input}")
+
+with ui.sidebar():
+    @render.express
+    def download_ui():
+        if not chat.messages():
+            return
+        @render.download(filename="messages.json", label="Download messages")
+        def download():
+            yield json.dumps(chat.messages())
+
+chat.ui()
+```
+
+::: callout-warning
+### UI vs LLM messages
+
+Beware that `chat.messages()` only returns the messages displayed in the UI, not the messages sent/returned by the LLM.
+This means, if your chat history contains "background" context like tool calls, extra prompt templating, etc., you'll need to handle that separately.
+Note that with `chatlas`, you can easily save and restore that additional context via the `.get_turns()` and `.set_turns()` methods on the `chat_model`.
+:::
+
+
+::: {.callout-tip collapse="true"}
+### Restoring messages on disconnect
 
 The Shiny team is currently working on a feature to make saving and restoring chat history on disconnect much easier.
 :::
 
 
-The `chat` component stores messages and makes them available via the `chat.messages()` method.
-However, it only stores the content shown in the UI, so if there is important background information (like tool calls, prompts, etc.) that you need to save/restore, you'll need to handle that separately.
-With `chatlas`, you can easily save and restore chat history by using the `.get_turns()` and `.set_turns()` methods on the `chat_model`.
-
-The example below demonstrates a basic approach to saving and returning to a previous chat session.
-For a real chatbot that uses an LLM, you likely want to 
-
+For a more involved example of how you can combine reactivity with `chat.messages()` to add a "New chat" button and a dropdown to select previous chats, see the example below:
 
 ```{shinylive-python}
 #| standalone: true
@@ -817,7 +874,7 @@ When an error occurs in the `@chat.on_user_submit` callback, the app displays a 
 When running locally, the actual error message is shown, but in production, only a generic message is shown (i.e., the error is sanitized since it may contain sensitive information).
 If you'd prefer to have errors stop the app, that can also be done through the `on_error` argument of `Chat` (see [the documentation](https://shiny.posit.co/py/api/ui.Chat.html) for more information).
 
-![](/images/chat-error.png){class="rounded shadow"}
+![](/images/chat-error.png){class="rounded shadow mb-5 d-block m-auto" width="67%"}
 
 Another way to handle error is to catch them yourself and append a message to the chat.
 This way, you can might provide a better experience with "known" errors, like when the user enters an invalid/unexpected input:
@@ -853,10 +910,6 @@ Tool calling is a powerful way to extend the capabilities of your chatbot.
 
 If you need to call external services or run custom code to help generate a response, `chatlas`'s [tool call documentation](https://posit-dev.github.io/chatlas/tool-calling.html) is a great resource.
 :::
-
-
-
-
 
 
 
