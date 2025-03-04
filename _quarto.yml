@@ -171,6 +171,7 @@ website:
             - components/outputs/verbatim-text/index.qmd
         - section: "![](/images/chat-dots-fill.svg){.sidebar-icon .sidebar-subtitle}__Display Messages__"
           contents:
+            - components/display-messages/chat/index.qmd
             - components/display-messages/modal/index.qmd
             - components/display-messages/notifications/index.qmd
             - components/display-messages/progress-bar/index.qmd
