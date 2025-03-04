@@ -99,7 +99,9 @@ as you make changes to the `app.py` file.
 2. Move the slider and see how the output reacts
 3. Congratulations, you made your first shiny for python application!
 
+::: {.column-margin}
 ![](img/010-run_app.png)
+:::
 
 ::: {.callout-tip}
 ## Naming your files
