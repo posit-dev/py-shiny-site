@@ -103,13 +103,15 @@ as you make changes to the `app.py` file.
 ![](img/010-run_app.png)
 :::
 
+:::
+
 ::: {.callout-tip}
 ## Naming your files
 
 If you start your file with the word `app`,
 the shiny for python extension will recognize
 it as an application and you will be able to see the "play" button to run your application.
-You can also name your file `app-getting_started.py`
+You can also name your file `app-get_started.py`
 and you will still get the shiny extension play button.
 
 To have Shiny for Python work well with the VS Code extensions and for you to go through
@@ -118,8 +120,12 @@ We recommend either one of the following file naming conventions:
 
 1. Create separate folders for each app example you will create and save separate `app.py` files in each folder
 2. Create separate `app*.py` files in the same directory (e.g., `app-01.py`, `app-02.py`)
-:::
 
+If you named your application `app.py` you can omit it form the command and only use `shiny run --reload`.
+The `app.py` is the default file Shiny looks for to run in the current directory.
+Otherwise, you can pass in the name of the file that you wish to run.
+The `app` prefix used in the example above is used to signal to the Shiny VS Code extension
+to display the run app button.
 :::
 
 ## Run your shiny application
@@ -130,27 +136,19 @@ This is useful if you wish to specify your own port or want to rename your appli
 without the `app` prefix.
 
 ```bash
-shiny run my_app.py
+shiny run my_app.py --reload --port 8000
 ```
-
-::: {.callout-note}
-If you named your application `app.py` you can omit it form the command and only use `shiny run`.
-The `app.py` is the default file Shiny looks for to run in the current directory.
-Otherwise, you can pass in the name of the file that you wish to run.
-The `app` prefix used in the example above is used to signal to the Shiny VS Code extension
-to display the run app button.
-:::
 
 :::{.callout-tip}
 ## Helpful run options
 
 Some useful options you can pass the `shiny run` command are:
 
+- `--reload`: Enables auto-reload, the application will reload to reflect your changes as you save your work.
 - `--port`: pass in a custom port, e.g., `--port 8000`.
   This will run the app on the specified port,
   instead of a random port.
   This makes it easier to have the same browser window open as you stop and start your application.
-- `--reload`: Enables auto-reload
 
 You can learn more about these run options on the
 [`run_app` documentation page](https://shiny.posit.co/py/api/core/run_app.html).
