@@ -403,7 +403,6 @@ Here are a couple suggestions:
 chat = ui.Chat(id="chat")
 chat.ui(messages=[welcome])
 
-
 @chat.on_user_submit
 async def handle_user_input(user_input: str):
     await chat.append_message(f"You said: {user_input}")
@@ -411,7 +410,6 @@ async def handle_user_input(user_input: str):
 
 ## file: suggestions.py
 from shiny.express import expressify, ui
-
 
 @expressify
 def card_suggestion(title: str, suggestion: str, img_src: str, img_alt: str):
@@ -423,7 +421,6 @@ def card_suggestion(title: str, suggestion: str, img_src: str, img_alt: str):
                 alt=img_alt,
             )
         )
-
 
 @expressify
 def card_suggestions():
@@ -476,8 +473,6 @@ def _():
     prompt = f"Thing(s): {things} | Value: {input.value()}"
     chat.update_user_input(value=prompt)
 
-# NOTE: this workaround can be removed once this is merged
-# https://github.com/posit-dev/py-shiny/pull/1868
 ui.tags.script("Shiny.bindAll()")
 ```
 
@@ -496,7 +491,8 @@ welcome = f"""
 """
 
 app_ui = ui.page_fixed(
-    ui.chat_ui(id="chat", messages=[welcome])
+    ui.chat_ui(id="chat", messages=[welcome]),
+    ui.tags.script("Shiny.bindAll()")
 )
 
 def server(input):
@@ -1033,6 +1029,103 @@ Since `chatlas` builds on top of official Python SDKs like `openai` and `anthrop
 :::
 
 
+## Retrieval-augmented generation (RAG)
+
+Retrieval-Augmented Generation (RAG) helps LLMs gain the context they need to accurately answer a question.
+The core idea of RAG is fairly simple, yet general: given a set of documents and a user query, find the document(s) that are the most "similar" to the query and supply those documents as additional context to the LLM.
+However, doing RAG well can be difficult, and there are many ways to approach it.
+
+If you're new to RAG, `chatlas`'s [RAG documentation](https://posit-dev.github.io/chatlas/rag.html) provides a gentle introduction to the topic.
+Note that in that article there is a function, `get_top_k_similar_documents`, that computes the top-k most similar documents to a user query.
+Below is a simple example of how you might use this function to perform RAG in a chatbot:
+
+<details>
+<summary> rag.py </summary>
+
+```python
+import numpy as np
+from sentence_transformers import SentenceTransformer
+
+embed_model = SentenceTransformer("sentence-transformers/all-MiniLM-L12-v2")
+
+# A list of 'documents' (one document per list element)
+documents = [
+    "The unicorn programming language was created by Horsey McHorseface.",
+    "It's known for its magical syntax and rainbow-colored variables.",
+    "Unicorn is a dynamically typed language with a focus on readability.",
+    "Some other programming languages include Python, Java, and C++.",
+    "Some other useless context...",
+]
+
+# Compute embeddings for each document (do this once for performance reasons)
+embeddings = [embed_model.encode([doc])[0] for doc in documents]
+
+def get_top_k_similar_documents(user_query, top_k=3):
+    # Compute embedding for the user query
+    query_embedding = embed_model.encode([user_query])[0]
+
+    # Calculate cosine similarity between the query and each document
+    similarities = np.dot(embeddings, query_embedding) / (
+        np.linalg.norm(embeddings, axis=1) * np.linalg.norm(query_embedding)
+    )
+
+    # Get the top-k most similar documents
+    top_indices = np.argsort(similarities)[-top_k:][::-1]
+    return [documents[i] for i in top_indices]
+```
+
+</details>
+
+<details>
+<summary> app.py </summary>
+
+```python
+from chatlas import ChatAnthropic
+from rag import get_top_k_similar_documents
+
+from shiny.express import ui
+
+chat_model = ChatAnthropic(
+    model="claude-3-7-sonnet-latest",
+    system_prompt="""
+    You are a helpful AI assistant. Using the provided context,
+    answer the user's question. If you cannot answer the question based on the
+    context, say so.
+   """,
+)
+
+chat = ui.Chat(
+    id="chat",
+    messages=["Hello! How can I help you today?"],
+)
+chat.ui()
+
+chat.update_user_input(value="Who created the unicorn language?")
+
+@chat.on_user_submit
+async def handle_user_input(user_input: str):
+    top_docs = get_top_k_similar_documents(user_input, top_k=3)
+    prompt = f"Context: {top_docs}\nQuestion: {user_input}"
+    response = await chat_model.stream_async(prompt)
+    await chat.append_message_stream(response)
+```
+
+</details>
+
+::: {.panel-tabset .panel-pills}
+
+### Without RAG
+
+![](/images/chat-rag-no-context.png){class="rounded shadow mb-5 d-block m-auto" width="67%"}
+
+### With RAG
+
+![](/images/chat-rag.png){class="rounded shadow mb-5 d-block m-auto" width="67%"}
+
+:::
+
+
+
 ## Structured output
 
 Structured output is a way to extract structured data from a input of unstructured text.
@@ -1044,19 +1137,11 @@ To display structured output in the chat interface, you could just wrap the outp
 ```python
 @chat.on_user_submit
 async def handle_user_input(user_input: str):
-    data = chat_model.extract_data(user_input, data_model=data_model)
+    data = await chat_model.extract_data_async(
+        user_input, data_model=data_model
+    )
     await chat.append_message(f"```json\n{json.dumps(data, indent=2)}\n```")
 ```
 
 And, if you're structured output is in more of a table-like format, you could use a package like [`great_tables`](https://posit-dev.github.io/great-tables/) to render it as a table.
-Just make sure to use the [`.as_raw_html()`](https://posit-dev.github.io/great-tables/reference/GT.as_raw_html.html) method to get the HTML string of the table, then wrap it in a `ui.HTML` object before appending it to the chat.
-
-
-## Retrieval-augmented generation (RAG)
-
-Retrieval-Augmented Generation (RAG) helps LLMs gain the context they need to accurately answer a question.
-The core idea of RAG is fairly simple, yet general: given a set of documents and a user query, find the document(s) that are the most "similar" to the query and supply those documents as additional context to the LLM.
-However, doing RAG well can be difficult, and there are many ways to approach it.
-If you're new to RAG, you might want to start with the `chatlas`'s [RAG documentation](https://posit-dev.github.io/chatlas/rag.html), which provides a gentle introduction to the topic.
-
-Similar to tool calls, RAG is not automatically surfaced in the chat interface, but you could leverage things like [notifications](https://shiny.posit.co/py/components/display-messages/notifications/) and [progress bars](https://shiny.posit.co/py/components/display-messages/progress-bar/) to let the user know that RAG is being used to generate the response.
+Just make sure to use the [`.as_raw_html()`](https://posit-dev.github.io/great-tables/reference/GT.as_raw_html.html) method to get the table in HTML form before appending it to the chat.
