@@ -2,6 +2,7 @@
 	submodules submodules-pull \
 	requirements \
 	quarto-exts \
+	install-quarto \
 	site serve \
 	components components-shinylive components-static \
 	clean clean-extensions clean-venv distclean
@@ -10,6 +11,23 @@
 
 VENV = venv
 PYBIN = $(VENV)/bin
+
+
+QUARTO_VERSION ?= v1.6.42
+QUARTO_PATH = ~/.local/share/qvm/versions/${QUARTO_VERSION}/bin/quarto
+
+.PHONY: install-quarto
+install-quarto:
+	@echo "🔵 Installing quarto"
+	@if ! [ -z $(command -v qvm)]; then \
+		@echo "Error: qvm is not installed. Please visit https://github.com/dpastoor/qvm/releases/ to install it." >&2 \
+		exit 1; \
+	fi
+	qvm install ${QUARTO_VERSION}
+	@echo "🔹 Updating .vscode/settings.json"
+	@awk -v path="~/.local/share/qvm/versions/${QUARTO_VERSION}/bin/quarto" '/"quarto.path":/ {gsub(/"quarto.path": ".*"/, "\"quarto.path\": \"" path "\"")} 1' .vscode/settings.json > .vscode/settings.json.tmp && mv .vscode/settings.json.tmp .vscode/settings.json
+	@echo "🔹 Updating .github/workflows/deploy-docs.yml"
+	@awk -v ver="${QUARTO_VERSION}" '/QUARTO_VERSION:/ {gsub(/QUARTO_VERSION: .*/, "QUARTO_VERSION: " ver)} 1' .github/workflows/deploy-docs.yml > .github/workflows/deploy-docs.yml.tmp && mv .github/workflows/deploy-docs.yml.tmp .github/workflows/deploy-docs.yml
 
 
 ## Build everything
@@ -61,8 +79,8 @@ submodules-pull:
 
 ## Update Quarto extensions
 quarto-exts:
-	quarto add --no-prompt quarto-ext/shinylive
-	quarto add --no-prompt shafayetShafee/line-highlight
+	${QUARTO_PATH} add --no-prompt quarto-ext/shinylive
+	${QUARTO_PATH} add --no-prompt shafayetShafee/line-highlight
 
 ## Install build dependencies
 deps: $(PYBIN)
@@ -83,11 +101,11 @@ quartodoc: $(PYBIN)
 
 ## Build website
 site: $(PYBIN)
-	. $(PYBIN)/activate && quarto render
+	. $(PYBIN)/activate && ${QUARTO_PATH} render
 
 ## Build website and serve
 serve: $(PYBIN)
-	. $(PYBIN)/activate && quarto preview
+	. $(PYBIN)/activate && ${QUARTO_PATH} preview
 
 ## Remove Quarto website build files
 clean:
