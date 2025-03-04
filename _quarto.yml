@@ -289,7 +289,7 @@ website:
             - docs/routing.qmd
 
     - id: tutorial-express-intro
-      style: "floating"
+      style: "docked"
       align: left
       contents:
         - section: "Learn Shiny Express"
