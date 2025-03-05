@@ -1,0 +1,44 @@
+---
+title: Structured output
+editor:
+  markdown:
+    wrap: sentence
+---
+
+Structured output is a way to extract structured data from a input of unstructured text.
+For example, you could extract entities from a user's message, like dates, locations, or names.
+To learn more about structured output, see the `chatlas`'s [structured data documentation](https://posit-dev.github.io/chatlas/structured-data.html).
+
+
+```python
+from chatlas import ChatOpenAI
+from pydantic import BaseModel
+from shiny import reactive
+from shiny.express import input, render, ui
+
+with ui.sidebar():
+    ui.input_text_area(
+        "user_input",
+        label="Enter your name and age",
+        value="My name is Susan and I'm 13 years old"
+    )
+    ui.input_action_button("submit", label="Extract data")
+
+chat_client = ChatOpenAI()
+
+# TODO: make the model customizable via the UI and file upload?
+class Person(BaseModel):
+    name: str
+    age: int
+
+@reactive.calc
+async def data():
+    return await chat_client.extract_data_async(
+      input.user_input(),
+      data_model=Person,
+    )
+
+@render.data_frame
+def data_frame():
+    return render.DataGrid(data())
+```

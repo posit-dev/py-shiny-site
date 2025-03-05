@@ -1,0 +1,19 @@
+
+---
+title: Tips & tricks
+editor:
+  markdown:
+    wrap: sentence
+---
+
+As mentioned in [chatbots](genai-chatbots.qmd), model choice and effective prompt design are two fundamental ways to tailor and improve your Generative AI app.
+When you start reaching the limitations of what can achieve using these fundamentals, it's time to consider some more advanced techniques to improve your chatbot's performance.
+
+Some common issues you might be running into include:
+
+1. **Insufficient context**: the LLM may not have enough information to answer a question, either because the context isn't publically available or because it became available after the model was trained.
+2. **Hallucination**: Often a consequence of 1, LLMs tend to 'will' their way into a plausible answer, especially when not directed to focus on some specific context.
+3. **Lack of verifiability**: LLMs are essentially a black box, and can be opaque in their reasoning, making it difficult to understand why they provided a particular answer, and whether it's correct or not.
+4. **Lack of intelligence**: LLMs aren't good at everything, and can struggle with certain types of advanced questions or tasks.
+
+What follows is a a brief overview of some common techniques that can help address these issues.
