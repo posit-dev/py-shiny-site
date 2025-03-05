@@ -457,6 +457,36 @@ app = App(app_ui, server)
 
 ![](/images/chat-input-updating.png){class="rounded shadow mb-3 d-block m-auto" width="67%"}
 
+## Interactive messages
+
+::: callout-warning
+### In development
+
+This feature is currently in development and not yet available on PyPI.
+Install the latest version from the `main` branch on GitHub to use it.
+
+```bash
+pip install git+https://github.com/posit-dev/py-shiny.git@main
+```
+:::
+
+Chat messages can contain an Shiny UI elements, like [inputs](../components/#inputs), [outputs](../components/#outputs), [display messages](../components/#display-messages), and [layouts](../layouts/).
+This allows you to create interactive messages that can be used to collect user input, display rich interactive output, or provide additional context.
+
+The previous section illustrated an interactive message that updates the user input based on the state of some input fields in a startup message.
+Here's another example that displays a table and uses the selected row to update the user input:
+
+::: {.panel-tabset .panel-pills}
+
+### Express
+
+```python
+from shiny import reactive
+
+from shiny.express import input, ui
+
+```
+
 
 ## Layout & theming
 
