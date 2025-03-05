@@ -1,0 +1,43 @@
+---
+title:        "Query Chat"
+description:  Use the querychat template as a foundation for your next Shiny app.
+date:         2025-03-25
+image:        thumbnail.png
+imagealt:     "A screenshot of the querychat template"
+app-height:   900px
+appurl:       https://posit-ai-querychat.share.connect.posit.cloud/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/gen-ai/querychat
+---
+
+``` bash
+shiny create --template querychat --github posit-dev/py-shiny-templates/gen-ai
+```
+
+This app template allows end users to ask questions about a dataset using natural language.
+It leverages the [querychat](https://github.com/posit-dev/querychat) package to make the implementation as simple as possible.
+Under the hood, `querychat` instructs the LLM to translate user questions into formal SQL queries, which are then executed against the dataset.
+The resulting "modified" data is then made available as a [reactive calculation](/docs/reactive-foundations.qmd) so you make further use of it in your app.
+
+To learn more, visit [querychat's website](https://github.com/posit-dev/querychat)
+
+
+:::: {.grid .tags}
+::: {.g-col-6 .g-col-sm-4}
+**Components:**
+
+* [Chat](/components/display-messages/chat/index.qmd)
+
+:::
+::: {.g-col-6 .g-col-sm-4}
+**Layouts:**
+
+* [Cards](/layouts/panels-cards/#content-divided-by-cards)
+
+:::
+::: {.g-col-6 .g-col-sm-4}
+**Packages:**
+
+`chatlas`
+`querychat`
+:::
+::::
