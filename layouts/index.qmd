@@ -8,6 +8,7 @@ pagedescription: >
   fresh start.
 toc: false
 page-layout: article
+title-block-banner: false
 resources:
   - _partials/layouts.lottie
 format:

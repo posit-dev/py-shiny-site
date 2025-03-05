@@ -5,6 +5,7 @@ sidebar: false
 pagedescription: Inputs, outputs and more, to make your data interactive on every device.
 toc: false
 page-layout: article
+title-block-banner: false
 resources:
   - _partials/animation.lottie
 format:
