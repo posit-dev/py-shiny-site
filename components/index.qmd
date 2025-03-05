@@ -5,7 +5,6 @@ sidebar: false
 pagedescription: Inputs, outputs and more, to make your data interactive on every device.
 toc: false
 page-layout: article
-title-block-banner: false
 resources:
   - _partials/animation.lottie
 format:
@@ -38,7 +37,7 @@ listing:
 :::::: {.grid .hero-area .my-md-0 .my-5}
 :::: {.g-col-md-7 .g-col-12 .pe-0 .pe-md-5 .my-auto}
 
-<h1 class="display-3 fw-bold">Shiny Components</h1>
+<h2 class="display-3 fw-bold">Shiny Components</h2>
 
 ::: {.h5}
 Inputs, outputs and display messages to make your data interactive on every device.
@@ -46,6 +45,7 @@ Add these components to [Shiny Layouts](/layouts/index.qmd) to give your app a n
 :::
 
 ::::
+
 :::: {.g-col-md-5 .g-col-10 .g-start-4 .components-hero-img-container}
 
 <div class="ps-4 pt-5 components-hero-img" >

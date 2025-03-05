@@ -8,7 +8,6 @@ pagedescription: >
   fresh start.
 toc: false
 page-layout: article
-title-block-banner: false
 resources:
   - _partials/layouts.lottie
 format:
@@ -24,7 +23,7 @@ format:
 :::::: {.grid .hero-area .my-md-0 .my-5}
 :::: {.g-col-md-7 .g-col-12 .pe-0 .pe-md-5 .my-auto}
 
-<h1 class="display-3 fw-bold">Shiny Layouts</h1>
+<h2 class="display-3 fw-bold">Shiny Layouts</h2>
 
 ::: {.h5}
 Layouts allow the simplest or most complicated app to be useable and scalable.
