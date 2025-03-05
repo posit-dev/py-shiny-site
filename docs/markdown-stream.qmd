@@ -1,0 +1,9 @@
+---
+title: Streaming markdown
+editor:
+  markdown:
+    wrap: sentence
+---
+
+
+`ui.MarkdownStream()`

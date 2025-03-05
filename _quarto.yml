@@ -247,6 +247,11 @@ website:
             - docs/ui-dynamic.qmd
             - docs/ui-html.qmd
             - docs/ui-customize.qmd
+        - section: "<span class='emoji-icon'>🤖</span> __Generative AI__"
+          contents:
+            - docs/chatbots.qmd
+            - docs/markdown-stream.qmd
+            - docs/multi-modal.qmd
         - section: "<span class='emoji-icon'>⚡</span>  __Reactivity__"
           contents:
             - docs/reactive-foundations.qmd
