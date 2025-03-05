@@ -1,0 +1,50 @@
+---
+title:        "What's for dinner?"
+description:  Use the dinner-recipe template as a foundation for your next Shiny app.
+date:         2025-03-25
+image:        thumbnail.png
+imagealt:     "A screenshot of the dinner-recipe template"
+app-height:   750px
+appurl:       https://posit-ai-dinner-recipe.share.connect.posit.cloud/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/gen-ai/dinner-recipe
+---
+
+::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
+## Express
+``` bash
+shiny create --template dinner-recipe --mode express --github posit-dev/py-shiny-templates/gen-ai
+```
+## Core
+``` bash
+shiny create --template dinner-recipe --mode core --github posit-dev/py-shiny-templates/gen-ai
+```
+:::
+
+
+A fun and useful way explore a dinner (or other meal) recipes based on the information provided.
+In addition to guiding you towards a recipe idea, it also provides buttons to: (1) extract the recipe information in a structured format and (2) restart the chat session.
+By wrapping the chat in a `card()` component, the card footer offers a natural place to include these "bespoke" UI controls. This, plus leaning into [shinyswatch](http://pypi.org/project/shinyswatch) for custom theming, helps the app feel more polished without much extra effort.
+
+
+:::: {.grid .tags}
+::: {.g-col-6 .g-col-sm-4}
+**Components:**
+
+* [Chat](/components/display-messages/chat/index.qmd)
+* [Action button](/components/inputs/action-button/index.qmd)
+
+:::
+::: {.g-col-6 .g-col-sm-4}
+**Layouts:**
+
+* [Cards](/layouts/panels-cards/#content-divided-by-cards)
+
+:::
+::: {.g-col-6 .g-col-sm-4}
+**Packages:**
+
+`chatlas`
+`faicons`
+`shinyswatch`
+:::
+::::
