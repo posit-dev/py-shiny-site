@@ -204,24 +204,23 @@ listing:
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiIM4UYhUEA3OLeqK4DIkJ061GqLIALxyCioBQqIAFACUftCYykIhyEI4ULxwynTsQorROsjFaYJYhgBMhWAAChxcyDV8UdpgsQRFJenC6PwUyg5O5MoARn0U5NX86IpQVMoiFsK8WoTIqwCqM3NwBkvqq+2dxd0Qvf2DgsNjFBMQ1XYicP2LMsurRKsASnBPsq9OA5tDoQEqlcoAVmqAGF+Aw7JQ9m91CgPsgQKtiOwoCJWqiwOgKABaCqrAC+R1BXTKpD652UZE81UimgWFkOILB6VpFHpswoUByDFgcGZzVZijoHJ08QgCU8dAMXlcDGiPT6RB55yIT1xVwgsUQCTBAAEEZ4GFhGXBjsgFaxxaI2TI4kaqWDinYKHDQSynZKsAC4sUAMTIAA84eNJTNHi8WH5gsYItt9r9ImUktdtrBXp9yHN8YAInMoABxBiCArp2W22OXVxYOB0OhwRx1uwNuBN1yUNVnPpYab87IA5aysE43AQYh25vIZTZ90eqAAdygglk6czdCH23mQdDEajy49JWAAEYiAAGIgYsBkdirFAANk+YE8ImIz+QADEOE8ZJEAA7AAukQyBhpGOYlLER7QXKy71o4Ljds2rbtkhnYoY2cC9hQ-bnFgjzPM6gK8BOJRTjOc6KouhowcUa4blujoZgGw47GR0TAKBcGQceCQ6Bg6CpNY6DRCJySCDqypeLKaxgBQuA8LQSlwAAHhQYBkqBQA
       height: 350
   - title: Update Row Selection
-    description: 'The selected rows can be programmatically updated using
-      the `.update_cell_selection()` method. `.update_cell_selection()` takes one argument,
-      `selection`, which should be a dictionary specifying `type`,
-      which can be either `row` (for a single row) or `rows` (for multiple rows),
-      and `row`, a list of the row indices to select. Note that you will also need
-      to set `selection_mode` in `render.DataGrid()` to `"row"` or `"rows"`, since
-      it is `"none"` by default. '
+    description: 'The selected rows can be programmatically updated using the `.update_cell_selection()`
+      method. `.update_cell_selection()` takes one argument, `selection`, which should
+      be a dictionary specifying `type`, which can be either `row` (for a single row)
+      or `rows` (for multiple rows), and `row`, a list of the row indices to select.
+      Note that you will also need to set `selection_mode` in `render.DataGrid()`
+      to `"row"` or `"rows"`, since it is `"none"` by default. '
     apps:
     - title: Preview
       file: app-variation-update-selection-core.py
       height: 350
     - title: Express
       file: app-variation-update-selection-express.py
-      shinylive: https://shinylive.io/py/app/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKky6cKITICAbnG27mh4xjgAPVJeGjxk6TEIVD4yPCZLCAU4OnDBbW1VdREmAF5ZeWUkwREACgBKBIhBDAMAJlzNMAAFdk4mat4crTBCiG0SoRCyJWtbUiUAI1CyUkqwPlQFKAolYTg2OBsBUirwqoBVKZm4COIAd30Fpf721o6BDC7Q3uWB4bJRiHGfOB75xbuz9bAAJTh5hYDkdPqcqm0LqUAKzjADCfDokRkHxOKwgiCYayYICqhDYUF8VQxVVQZAAtGUqgBfCEQAACkWidAwJGi2miNCYSgKiG0TH5ETeCIgLCaGiUChoLIWbDmxy+BWAVQY+xaAF1Me16YyYhhpmQoEp6LBHFE4JzsuLJTy+QLLGRhYKzcyACIzKAAcToAgUuUtInCKK+ShgxGiqWVBxa+X5RQZVmWDncNBoJ018b69jg7gc5Fy1zIGEm+rgctBaLaBOwEEITA5XJ5moFTCg+ygAhk-uEEqlxZ2SkIMrLqLGOLAZGw3CJmLAKqxkdV0+AAEZwmVwgAONU0uOWTNJ82pmzaDOJ7NwXNkfPBUIYV7veWnSvCau1+vc-K8kUC1vtztikQeyLbZZkHNhZSDU5cjHCcpyQGc53wBCoyXbcYyYMAqTVIA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyGcKMQqCAbnB16WRk1jgAPdFZFiJUjLiEOj8FERWEIpwDERCOjpqGqLIALxyCipJQqIAFACUCRBCWIYATLlaYAAKHFzI1Xw52mCFEDolwqEUyjZ25MoARmEU5JVg-OiKUFTKInDscLaC5FVEVQCqUzNwyEwA7gYLS-3trR2CWF1hvcsDwxSjEOO+cD3zi3dn62AASnDzSykQ4fE4rM5tC6lACs4wAwvwGJFZKCvig1sgQFViOwoH4quiwOgKABaMpVAC+kIgAAFItEGFgyNEdNE6MhlAUUMgAMTIAA8-J0yBFezeiIgrCammUijoTIW7Dmxy+BWAVQOLQAuiK+YKinTqAysNMKFBlIxYE4onB2dkZXKubqBULJaKrBQJWKbYyACIzKAAcQYgkUuXtoiIqNOyhgpGiqQ1wJa+Wd+vatKsfQccA8dDoJ2QOkN2ccHkclFy1woWEmprgys+pzaeNwEGIyDZHKdvJdwtFUH2UEEsgjIll8rrO2UxEVjbBYyxYAouB4BKLYAOGKT+xaKGAAEYiGUiAAOLVUtOu4tZ5Zl20F2w36x33NwCsUKshMJYV7vFXNjorbtp2trdvk3J6q6orIIOw6jtKogTrW2yzLO7BKtG4K5EuK5rrQO7bpuybrsAF6pleOiEKgeEICgy5eBQYAUlqQA
       height: 350
     - title: Core
       file: app-variation-update-selection-core.py
-      shinylive: https://shinylive.io/py/app/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACVKAG3jtUoHMBXAJYQAzkwExUxOmSZtiUACYB9bhH5DhAHQj1GTYQAsh2MRKkyAgujxM6cKITICAbnBt2ICuHRuDt21XURJgBeWXllQMERAAoASn9odCVBUKZBLCgeOCUaNkEFGO0mEvSBDAMAJiKwAAV2TiZa3mitMDi8YtKMoVQ+MiUHJ1IlACN+slIavlQFKAolYTg2OEcBUk18Jk2AVVn5uH1l1eGITY6ukp6IPoGh9YgxianNuyWBpZW1ja3NgCU4O8jl9TudOhBSmUKgBWGoAYT4dA8Mk+JweiG2WxAm0IbCgwjaGM2qDIAFpKpsAL4XCHdcrEfq3JQkLw1KIaRbHb5ndrgyEZBlkJlzMhQXJ0WBwNktDkKGhg7QJM6eOA0I50Vx0GK9fo2QW3GxLAkPOKIRKQgACHi8dAwLLglyYXjV7JEnJBD3iZtpkJKdjIiIhruESjlduWbHdaKmcWAr2IAHc2gBdbbKy3W7wYEVi+iSx3Olgyt1yr2OyH+wO2Sg2jAAEXmUAA4nQBIVg4auaclDBiF4QvGk+cSubSlb7GtXBhVTQTmmMxOnFO4K5yNqbv0MDMRTlUdylZD8dgIIQnaqmEovfPfSUoAmoAIZMHQzQt-sFoQI1HuTFsWAyNg3CbESYAMAmmw2IOhJMMAACMNiVDYAAcybUo6jrjvcy40LOjgYXYWFwNOq5kOutwYG8cAfF2JqOkeJ5nmql6muWpR3g+T7FiGYbbgczJfnupy-psAFAUgmJgRBEmJtBwCoXEpSJGgqBpFYqAxMpKQCJ2GreHEYCUsmQA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiIM4UYhUEA3OLeqK4DIkJ061GqLIALxyCioBQqIAFACUftCYykIhyEI4ULxwynTsQorROsjFaYJYhgBMhWAAChxcyDV8UdpgsQRFJenC6PwUyg5O5MoARn0U5NX86IpQVMoicOxwjoLkWoTIGwCqM3NwBksrQxAb7Z3F3RC9-YNrEKPjkxt2i-2Ly6vrmxsASnBvQ6fE5nDoQEqlcoAVmqAGF+Aw7JQgcd7igNkQQBtiOwoCJWuiwOgKABaCobAC+53BXTKpD6N2UZE81UimgWRy+pzaYIh6XpFEZswoUByDFgcFZzXZijooJ08VOEE8dEODFcDGiPT6RAFNyIi3x91iiASEIAAkjPAwsMy4BdkCrWNLRBzgfc4qaaRDinYKAjwWzXbLbUt2G7UZNYsAXqQAO6tAC6yAAxMgADzps0lS0eLxYYWixgSh1OoMiZSyz3FNOZh0Qv0B5BW-MAETmUAA4gxBAVywbOSdlDBSJ5grGE2caxms0qLXY7q4sHA6HRjsUHbnF3Bl65KFrrn0sNNhdkPpGILEtt7kHjcBBiI6V8hlNXp3WbxCoHGoIJZOXKzoY89nmYgwwjLloixMAKFwHgNkJJg4wxLYwCQglkGAABGIgKiIAAORMqVTGcHU3BdViXFc10ccj7Eonc4D3CgDxuLBXjgd5B2NB07wfJ9VVfE131nH0Sm-X9-xdCsQxPfYmXA89IOg2D4NoCcUInDDgCIq8RISDB0FSax0GiQzkkEAd1S8RVNhguCEBQGC4AADwoMAKUTIA
       height: 350
   - title: Customize Summary Statement
     description: 'Set `summary` in `render.DataGrid()` to `False` to remove the statement

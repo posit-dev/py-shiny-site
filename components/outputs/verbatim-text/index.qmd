@@ -14,7 +14,7 @@ listing:
     height: 200
   - title: Express
     file: app-express.py
-    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDagBM4DADoRGzNlx5Y4AD3RjWrPgKEju6AK4UihzrNlmsB4wH0qqigAppYACpqKroq4CilKWQHL0JkVwAJOAAbKNJkAGUlXFcASgsIWQABMQhJBixg5GQAYmQAHjLZSTogzycUxFkiorEKQwYIPggjCiwPR3rZULAKXHQEFBHPMABfAF0gA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhXER0AVwpFhEACZwGRBZwA6EfTqzdFFAPpV+FABS6wAFQEU7ROwFFKm5JeeFkdgAk4ABtg0mQAZS4eOwBKfQSIAAFVDQYsH2RkAGJkAB48-Q06bydrWMR9LKzhCgUGCDlTLEcrcv0-MApcdAQULqcwAF8AXSA
   - title: Core
     file: app-core.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKmqgA8KdsABU4H2VCZBCAUUo5ZG8KEKIQgAk4CwtSZABlLh4QgEoCe0dDUnc3D1jNADc5ACMoCn4-WLyiZABiZAAeTtVc1X6IWTo2OWqGG1d3IhKKMqJWOFZWTnJcxEKHAAEpQbksWIcO7o3kIZig3zWTx2QpCgUGCD4IMqxAnxs+tW+NPTFMGwabSceajORfUJgCi4dAIFBQi5gAC+AF0gA
@@ -42,7 +42,7 @@ listing:
       file: app-variation-placeholder-rectangle-when-string-is-empty-core.py
     - title: Express
       file: app-variation-placeholder-rectangle-when-string-is-empty-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDagBM4DADoRGzNlx5Y4AD3RjWrPgKEju6AK4UihzrNlmsB4wH0qqigAppYACpqKroq4CilKWQPR29kV1cASktOLFJjIwpbMkkXMAcvQmR0ABsoYjh2UmzJBgBeNwZDOAjkZABiZAAeRosIAHdOCnZkK0LipwiUeqaWiFla2oABMQgSrGS4Wobm8YnJOmR0gcRViYmxCkMGCD4IBKxg5yiITLTcdAQUNM8wAF8AXSA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhXER0AVwpFhEACZwGRBZwA6EfTqzdFFAPpV+FABS6wAFQEU7ROwFFKm5I6svkduwBKQ04sUiVTMzINWzBLZ0JkdAAbKGI4dlJkjQYAXnsGBThA5GQAYmQAHkr9fQB3Tgp2ZCNM7OtAlHKqmoMIUtKAAVUcrGi4Uorq-QHkDTpkeI7EGdmB4QoFBn6TJSwfG2CIRLjcdAQUOKcwAF8AXSA
     - title: Core
       file: app-variation-placeholder-rectangle-when-string-is-empty-core.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKmqgA8KdsABU4H2VCZBCAUUo5ZEDg0JCQgEoCe0dDUnc3D28PADc5ACMoCn4-HJCidAsoYjh2UgtZBl1-BgU4ZIcAYmQAHl7VRNVhiFk6Njl8hhtXdyIMiiyiVjhWVk5yRMRUhwABKVG5LBzuvoGIR2Qx5BybLZ3L5CkKBQYL2YosWN8htT+NPRiTA2DTaTjLSZyX6hMAUXDoBAoWFBChgAC+AF0gA

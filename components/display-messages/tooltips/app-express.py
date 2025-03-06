@@ -1,5 +1,4 @@
-from shiny import render
-from shiny.express import input, ui
+from shiny.express import input, render, ui
 
 with ui.tooltip(id="btn_tooltip", placement="right"):  # <<
     ui.input_action_button("btn", "A button with a tooltip")  # <<
