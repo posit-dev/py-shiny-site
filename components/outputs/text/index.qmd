@@ -14,7 +14,7 @@ listing:
     height: 200
   - title: Express
     file: app-express.py
-    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDagBM4DADoRGzNlx5Y4AD3RjWrPgKEju6AK4UihzrNlmsB4wH0qqigAppYACpqKroq4CilKWQHL0JkVwAJOAAbKNJkAGUlXFcASgswAE1SQ2RqKjFxRFcLCFkAATEISQYsYORkAGJkAB5m2Uk6IM8nFKKIevqxCkMGfpsKLA9HHtlQsApcdAQUec8wAF8AXSA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhXER0AVwpFhEACZwGRBZwA6EfTqzdFFAPpV+FABS6wAFQEU7ROwFFKm5JeeFkdgAk4ABtg0mQAZS4eOwBKfTsATVIFZGoqYTVEOwSDCAABVQ0GLB9kZABiZAAeav0NOm8na1jsiHLy4QoFBnaTJSxHKxb9PzAKXHQEFHGnMABfAF0gA
   - title: Core
     file: app-core.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKmqgA8KdsABU4H2VCZBCAUUo5ZG8KEKIQgAk4CwtSZABlLh4QgEoCe0cQgE1SBWRqKilpRHjCh0MyijcPWM0ANzkAIygKfj9YvKJkAGJkAB5x1VzVWYhZOjY5ToYbV3ciJpaiVjhWVk5yXNqIR2QAASl5uSxYhzHJ+uQFmKDfY6ezqQoFBlP1ihYQI+GwzNTgjR6MSYGwabScHbLORg0JgCi4dAIFBot5gAC+AF0gA
@@ -42,7 +42,7 @@ listing:
       file: app-variation-inline-text-core.py
     - title: Express
       file: app-variation-inline-text-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDagBM4DADoRGzNlx5Y4AD3RjWrPgKEju6AK4UihzrNlmsB4wH0qqigAppYACpqKroq4CilKWQHL0JkVwAJOAAbKNJkAGUlXFcASgswAE1SQ2RqKjFxRFcLCFkAATEISQYsYKduKO44AF43BkM4FORkAGJkAB5+2Uk6IM8nFKKIbu6xCkMGaZsKLA9HCdlQsApcdAQUbc8wAF8AXSA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhXER0AVwpFhEACZwGRBZwA6EfTqzdFFAPpV+FABS6wAFQEU7ROwFFKm5JeeFkdgAk4ABtg0mQAZS4eOwBKfTsATVIFZGoqYTVEOwSDCAABVQ0GLB9rbmDuOABeewYFOFjkZABiZAAedv0NOm8na1jsiGbm4QoFBmGTJSxHKwH9PzAKXHQEFGWnMABfAF0gA
     - title: Core
       file: app-variation-inline-text-core.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKmqgA8KdsABU4H2VCZBCAUUo5ZG8KEKIQgAk4CwtSZABlLh4QgEoCe0cQgE1SBWRqKilpFHjCh0MyijcPWL9Y+L4IC244XX8GBTh8hwBiZAAeCdVc1TmIWTo2OQA3ORtXdyImlqJWOFZWTnJcxHrkAAEpBbksDohHZEWYoN9T88epCgUGB82KLCBHw2WZqMEaPRiTA2DTaTh7VZyUGhMAUXDoBAoVGvMAAXwAukA
