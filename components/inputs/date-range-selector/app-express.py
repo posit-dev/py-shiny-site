@@ -1,6 +1,4 @@
-from shiny import render
-from shiny.express import input, ui
-
+from shiny.express import input, render, ui
 
 ui.input_date_range("daterange", "Date range", start="2020-01-01")  # <<
 

@@ -1,11 +1,11 @@
 import plotly.express as px
 import plotly.graph_objects as go
-from plotly.callbacks import Points
-from shinywidgets import render_plotly
 from palmerpenguins import load_penguins
-from shiny import render, reactive
-from shiny.express import input, ui
+from plotly.callbacks import Points
+from shiny import reactive
+from shiny.express import input, render, ui
 from shiny.ui import output_code, output_plot
+from shinywidgets import render_plotly
 
 penguins = load_penguins()
 

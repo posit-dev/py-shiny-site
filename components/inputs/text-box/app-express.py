@@ -1,6 +1,4 @@
-from shiny import render
-from shiny.express import input, ui
-
+from shiny.express import input, render, ui
 
 ui.input_text("text", "Text input", "Enter text...")  # <<
 
