@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 from palmerpenguins import load_penguins
-from shiny import render
-from shiny.express import input, ui
+from shiny.express import input, render, ui
 
 ui.input_slider("n", "Number of bins", 0, 100, 20)
 

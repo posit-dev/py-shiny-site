@@ -29,6 +29,30 @@ listing:
   - title: '@shinywidgets.render_widget()'
     href: https://github.com/posit-dev/py-shinywidgets/blob/main/shinywidgets/_shinywidgets.py#L213
     signature: shinywidgets.render_widget(fn)
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/outputs/plot-plotly/
+  contents:
+  - title: Plot as input
+    description: First, convert your Plotly figure to a `FigureWidget` using `plotly.graph_objects.FigureWidget()`.
+      Then, you can use `.on_click()`, `.on_hover()`, `.on_selection()`, and other
+      methods to control what happens when the user clicks, hover, or selects points.
+      Capture the click, hover, and selection information as reactive variables. The
+      app below displays the values returned, but you can also call the values from
+      within your computations to filter tables, perform calculations, and so on.
+    apps:
+    - title: Preview
+      file: app-variation-plot-as-input-core.py
+      height: 720
+    - title: Express
+      file: app-variation-plot-as-input-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5dAG1Io9yzgAe6ZnADOo5FAnoBAHQgMmrdlx58A5swwALAPqkARgCs4xChKnJ1peQDNmpGOygd4zdNXUBXOhAmKWNi4oABNdDwhvX1E7BydObl4sYhcOAyhiAGt-RkDkAAVSX3NYx2RRbV9cZADlEQyKOgA3OFKnCqr+IRFxGtzlX3QvCiIRCBC4ZiIfNvLKiD4fPqU2UmGhil0yCaI1ig3w1VmOhYB3OhD1OHNlvLGJ5kPE3Hl5CKi-ZABeZGCw958fgAFABKV4QeQAAXukyeamQyAAxMgADwo+QTWwqbiglBI1HoiAIhG2Ojqb7sARYUQpChUZhA+TE5nIEJQChQXT2WBwL4A6JEARfWRgAykEK4XQwKSiXTqEVEXDC0V0DgcXQcTwUPQwGAipnEkFYLzoNlUDVQXB7RlElkI3BQAR0WWNHi8kUAIVVHGQABktdpkEDdWDCAa7QJHc7dK7NcqPeLqgBZGVB9Shgjh5Bg20I5EAOTgcBCyAopGQxHqVEkyAAYmSvCIAOoXK4UUHIWwsZDkLYcOhZUvl04sTJZ04U6xYeveZut65A0nqLBmqBEJdYDiWvYg-Fo8cr9lQYAABgAulhe8R+1kgb2mMU+wPMrvkfvc8hToeOaeL73tKQLQMveRSULoAFAa+BIHquv6XhAuiiHAmpmHQ5B3ghD5gUhKGNOQUHvsyIgUI2RITm+hLgsiADCGAkSIpbaHAFY3pkxbsKBbC+DW9SoS0yBNC4XitBA17ProvGNPxPySc0cBYIJHDCR2FHyBBsKydJyCafJinKQRhI4aYeEITpFI6QpQlwCp0EQuMcBYiBj5ibeFBaMQcBEFh5hEKIHJUCCKCqR+LmZBJcANHJ1ILt5ogGeCmI9phnHgYBkxAm5GSeRxxSiL5-lwIFe6Esy6mPBZSHtrF8V2YlTnYchxloRAGXudlsX5eyhVBbZzJGahvYVTFnFxcV4KvGA1GsTUEBdvqEDQtQDzJOKImJaFui+F2uJZsRpHlG5QIbRZbagjmE0ABJpcwM1zWAUIwswK0TBiDnIGVm2zaQO0fntzBEn5DIfSdC4gudEJgAAyo1A1Elt5ZAl4SHIGKAg9jdW7iOW-UUKGD1LZMz1rW9OPNZ922Bbt1z7YDQKk4NEV8fJp1g-IhCoBQuAeLQYBUAIFBgAAvmeQA
+      height: 720
+    - title: Core
+      file: app-variation-plot-as-input-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5dAG1Io9yzgAe6ZnADOo5FAnoBAHQgMmrdlx58A5swwALAPqkARgCs4xChKnJ1peQDNmpGCu68sxKBw4GoxANYTFFjYABVI6SlF5QOVOFz5BYTELaTkIe0d2D3hmdGp1AFdwgMYg5C4oABNdXIgCorsHJ1FtcNxkaLYAQUwiQqIRCAq4Zn64Hwo6ADc4Bozm1oB3Ogr1OHN2kuVSfIp0Hd0llbXRweGD5dW2ZHl5GrqICQBeMtJK6rzCh4AKAEob6EwukKyGehRwUFWulsHEKFS+8mQiOQ212+0Ol3hYFiFFkYB+RGuECR1zAAGEOHQ-O00jZCAikWCUXsKLoqAIWdNmN4JjBMcQKX5dOFbLSiJwfHBtKQOENmI8ACrMfJwfH0xG4gASpE51JFuIIauQjJ2zNZgg5w25DExUs5Qpp+pUEqlMuGCqVKoJhOJuIAynAOKYJuRdaRkF98qI4MgDKQBMjmGUpKIw1HA2Y-nSiQy6Fgmfs2RauVAeZi00G6OR7XrCE7iJLpbL3cq-hBW-8hrZkFHmJyvuFmUR8xQiFHxJW24h-sT+ZTfLoROMptHnouzMusJMPMrfsgAMTIAA8h8NtrOa4m0xByAvG63MLgu4Px8N5fXVdvV9XY3X00328fH59yPE9s3VMDkAAAQGWVziOK5n1A4lO2cChfhQYCXwg4lbDodRrxkLBRHcCgqGYeFsOJJEKhLKAoS0eBHjuT5RCIARHlxWMKlwXQYGTXR1EdXAOLAAw6E8XRA1qCg9BgGBcUNYkfiwfJ0BoqhJKgXAUQoqi9OQXAoAEOhRFZOgeDgESACFxI4ZAABk8hk8M5MzA1KL0gQjJMsyLOs0huOQABZZNw3UNzFKRVt9OQBZr2sLAADE8PyEQAHULjWL5cPULB1KgIgcqwDgtJRIDEMixEFjy2jgAABgAXTzCBdFnPwvirJhwhZNrfHKkDKtimqKCgeqmqrM9yM6sJKF0Sb+qwmLqvysbmt0N9gwgDqWq62aNonBakP0kQKFSok4oqiBDUNFDpu61qBV8L4KC0esxRm8xRxGqgfhQS6Yt6hcf0vOAiKy3bzEO6dqLgLs7tmybnteuB3u61ju2+lU-oGjzkEmoGlz-KM0Ih0QoauiDbp2j71oDCtyCRiVUYiL6SyxzCjr0-aP2Bjdia+UnycNaDqFlLBCxu2HkEB4VSHQwaTrO6XHoJ39QYxdsIJF05mHF81Ja7fHZfl3HFeYIl8c-dWss14ltbFiXKal7mWuN36FbWJWXdVkGsA1-55AwdBr26dAviDoE6FHYZOVbWswAoXBcloBPzTAABfBqgA
+      height: 720
 ---
 
 :::{#example}
@@ -43,7 +67,7 @@ Plotly is an interactive graphics plotting library.
 
 To make an interactive plot with Plotly in Shiny for Python, we will need to use the `shinywidgets` library to connect Shiny with `ipywidgets`.
 
-To make a plotly figure, we need to do the following steps:
+To make a Plotly figure, we need to do the following steps:
 
   1. Import the `output_widget()` and `render_widget()` functions from the `shinywidgets` library,
   `from shinywidgets import output_widget, render_widget`
@@ -62,3 +86,21 @@ To make a plotly figure, we need to do the following steps:
         - If you use the `@output()` decorator, make sure it is __above__ the `@render_widget()` decorator.
 
  Visit [shiny.posit.co/py/docs/ipywidgets.html](https://shiny.posit.co/py/docs/ipywidgets.html) to learn more about using ipywidgets with Shiny.
+ 
+ 
+### Plots as Inputs
+
+You can use a Plotly figure as an input widget, collecting the locations of user clicks, hovers, and selections.
+
+  1. Convert your Plotly figure to a `FigureWidget` using `plotly.graph_objects.FigureWidget()`, which extends the functionality of a standard Plotly figure and enables event handling. 
+  
+  2. Use the `.data` attribute of the `FigureWidget` to access its traces. The data attribute is a list that contains all the traces in the figure. Individual traces are accessible as `.data[0]`, `.data[1]`, etc., depending on how many traces are present in the figure.
+  
+  3. Use event handlers to listen for user interactions with the plot. These handlers include methods like `.on_click()`, `.on_hover()`, and `.on_selection()`, which are available for individual traces within the figure. You attach these handlers to a specific trace (e.g., `.data[0].on_click()`) to capture interactions with the data points in that trace.
+  
+  4. When you use an event handler like `.on_click()`, you need to pass it a callback function that defines what should happen when the event occurs. When defining the callback function, it should receive the parameters `trace`, `points`, and `state`, which provide information about the data points interacted with. In our example app below, our callback function updates a reactive value to contain the information about the points clicked, hovered over, or selected. 
+
+## Variations
+
+:::{#variations}
+:::

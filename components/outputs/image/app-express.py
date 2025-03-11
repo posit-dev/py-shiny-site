@@ -1,7 +1,6 @@
 from pathlib import Path
 
-from shiny import render
-from shiny.express import input, ui
+from shiny.express import input, render, ui
 
 here = Path(__file__).parent
 

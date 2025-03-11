@@ -1,5 +1,4 @@
-from shiny import render
-from shiny.express import input, ui
+from shiny.express import input, render, ui
 
 with ui.layout_columns():
     ui.input_radio_buttons("mode", "Display mode", ["Table", "Plot"], selected="Table")

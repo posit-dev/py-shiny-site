@@ -15,7 +15,7 @@ listing:
     height: 200
   - title: Express
     file: app-express.py
-    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDagBM4DADoRGzNlx5Y4AD3RjWrPgKEju6AK4UihzrIsQzWA8YD6rAO6cKxdgAppYJy7deiXgDKzq7s-sgAYlAANqxwAJTIyADEyAA8aZayAAJiEJIMWGayknTIAG4xhnDu8YiySUliFIYMEHwQRhRYPqG1soSoFLjoCChgVKoUYAC+ALpAA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhXER0AVwpFhEACZwGRBZwA6EfTqzdFFAPqsA7pwrF2ACl1grNu06JOAytdvt3yADEoABtWOABKZGQAYmQAHjj9JIgAAVUNBiwdfQ06ZAA3EIU4e3DEfSio4QoFBgg5UywXX1L9QlQKXHQEFDAqfgowAF8AXSA
   - title: Core
     file: app-core.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAV05EG1ACZwGRAIKYAOhFUZ0AfXHIAvGM44oAczia6AG3HSAFKuQODWbulEVNrAO6cKxdnbAvHz9lQmRQgGVvX3ZQogAxKAtWOABKImQAYmQAHhz7R3EsUjdXd3EAgDck0ThQ9NVU1WaIWTo2OUq5Gxc3IhKKMqIU1lZOclTEAocAASlWuSxxaeQ25GqrOBtJlcdkKQpRBgg+CDKsIJjtlvVMPWQldBsNbQkOhi6GJogwsApcdAIFB-OAADwoYAAvgBdIA

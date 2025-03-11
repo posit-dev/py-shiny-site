@@ -1,6 +1,5 @@
 import faicons
-from shiny import render
-from shiny.express import input, ui
+from shiny.express import input, render, ui
 
 with ui.layout_columns():
     ui.h2("Spend Jeff's 2023 Earnings")

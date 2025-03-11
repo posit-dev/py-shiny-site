@@ -1311,6 +1311,42 @@ div.sidebar-item-container .sidebar-link > code {
   color: $gray-800;
 }
 
+// make it even more noticable
+.sidebar-link {
+  &:hover {
+    font-weight: 500;
+  }
+
+  &.active {
+    position: relative;
+
+    &::before {
+      content: "\23F5";
+      position: absolute;
+      left: -0.9em;
+      font-size: 1em;
+      color: var(--bs-primary);
+    }
+  }
+}
+
+
+// Styling for 'Learn Shiny' (i.e., 'Concepts') sidebar, which keys
+// off the presence of emoji-icon class in the section menu title
+
+.sidebar-item-section:has(.emoji-icon) {
+  .menu-text {
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+  }
+
+  .sidebar-section .sidebar-item {
+    padding-left: 19px;
+  }
+}
+
+
 // gallery article styling
 
 .gallery p.author:before {
