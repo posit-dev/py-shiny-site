@@ -1,5 +1,5 @@
 ---
-title: Install, create, & run
+title: Install
 aliases:
   - install.html
 ---
@@ -83,7 +83,20 @@ conda update -c conda-forge shiny
 
 :::
 
-### VS Code
+### Positron
+
+We recommend using
+[Positron](https://positron.posit.co/),
+a next-generation data science focused fork of Visual Studio Code.
+If you already have VS Code installed, we still recommend giving Positron a try,
+your extensions from VS Code will not conflict with your Positron extensions.
+
+Positron already ships with many Python-focused VS Code extensions from Open VSX,
+including Quarto, Jupyter Notebooks, and Pyright.
+To get started with Shiny for Python, you will need to install the
+[Shiny Extension](https://open-vsx.org/extension/posit/shiny).
+
+### Visual Studio Code
 
 We recommend installing the [Python][vscode-python] and [Shiny][vscode-shiny] extensions for [Visual Studio Code][vscode]. This provides, among other things, a play button in the top right corner of your editor that will run your Shiny app.
 
