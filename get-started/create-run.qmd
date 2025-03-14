@@ -30,7 +30,7 @@ shiny create --template basic-app -m express
 :::
 
 
-## Run
+## Run your Shiny application
 
 Shiny apps can be launched from Positron, VS Code, or the command line via `shiny run`.
 
