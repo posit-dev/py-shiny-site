@@ -20,6 +20,7 @@ project:
     - api/testing
     - templates
     - get-started
+    - tutorials
   resources:
     - /pypi/**
     - /robots.txt
@@ -301,6 +302,21 @@ website:
           contents:
             - docs/nonblocking.qmd
             - docs/routing.qmd
+
+    - id: tutorial-express-intro
+      style: "docked"
+      align: left
+      contents:
+        - section: "Learn Shiny Express"
+          contents:
+            - tutorials/intro-express/1-welcome.qmd
+            - tutorials/intro-express/2-ui.qmd
+            - tutorials/intro-express/3-inputs.qmd
+            - tutorials/intro-express/4-external.qmd
+            - tutorials/intro-express/5-outputs.qmd
+            - tutorials/intro-express/6-reactivity.qmd
+            - tutorials/intro-express/7-publish.qmd
+            - tutorials/intro-express/8-next.qmd
     # TODO: if the sidebar only has 1 entry, then it displays for the entire site...
     # added entry below to prevent this.
     - id: deploy

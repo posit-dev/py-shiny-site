@@ -1,0 +1,143 @@
+---
+title: Reactivity
+---
+
+We've been using the term "reactive" a lot during these tutorials.
+But what does it mean?
+It's actually more than "user interacts with input and new value gets calculated".
+Reactivity is actually what makes Shiny special:
+when an input changes, only the minimum amount of calculations are made to update the outputs.
+This makes shiny very efficient.
+
+Shiny knows to re-execute **reactive functions** (e.g., `render` functions) when their **reactive dependencies** (e.g., `input`) change.
+There are other main forms of reactive functions and dependencies:
+
+* Calculations with `@reactive.calc`
+  * Write your reactive calculation once, then call it as needed.
+* Side effects with `@reactive.effect`
+  * Effects are similar to `@render.*` functions, but they don't return anything. They're used for their side-effects (e.g., writing to a database, sending an email, etc.)
+* Reactive values with `reactive.value`
+  * Create `input`-like values that aren't tied to input controls and can be updated. They're often used to maintain state in an app.
+
+In this lesson we'll focus on the `@reactive.calc`, let's see why we may want reactive calculations.
+
+```{mermaid}
+flowchart LR
+  A[Input] --> B(Calculated from Input)
+  B --> C{Value calculated from the input calc}
+  B --> D[Another value calculated from the input calc]
+```
+
+Let's say we have an input (A),
+this input creates a value in the application (B).
+But what if another part of the application needs to use this calculated value (C)
+or another part (D)?
+
+Similar to why we create variables in python to capture intermediate values,
+we can save these intermediate "reactive" calculations in shiny.
+
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 200
+
+from shiny import reactive
+from shiny.express import input, render, ui
+
+ui.input_slider("x", "Slider value", min=0, max=100, value=10)
+
+# we need to make a calculation from an input value
+@render.text
+def x_squared_text():
+  return f"Squared value: {input.x() ** 2}"
+
+# we can save this calculation to be used later
+@reactive.calc
+def x_squared():
+  return input.x() ** 2
+
+# we can use that saved calculation
+@render.text
+def x_squared_calc_text():
+  return f"Saved squared: {x_squared()}"
+
+# we can build on top of that saved calculation
+@render.text
+def x_squared_half_calc_text():
+  return f"Build on squared value: {x_squared() / 2}"
+
+# we don't need to re-calculate everything from the input again
+@render.text
+def x_squared_half_text():
+  return f"Recalculate from input: {input.x() ** 2 / 2}"
+```
+
+The app above shows that we only need to make the `input.x() ** 2` calculation **once**,
+so we do not need to repeat that calculation, `input.x() ** 2 / 2`.
+
+This idea is really similar to the following Python code,
+where we save an intermediate value,
+instead of repeating a calculation.
+
+```{python}
+initial_input_value = 3
+
+initial_squared = initial_input_value ** 2
+
+initial_squared_half = initial_squared / 2
+```
+
+If we did not save the `initial_squared` intermediate value,
+we would have to re-make that calculation when doing a square and half.
+
+```{python}
+initial_squared_half = initial_input_value ** 2 / 2
+```
+
+
+
+Currently our application is re-filtering the data from the input components
+for each output component displayed in the application.
+
+```{mermaid}
+flowchart LR
+  A[Input Slider] --> C(Filtered Data)
+  B[Input Checkboxes] --> C
+  C --> D{value box 1}
+
+  E[Input Slider] --> G(Filtered Data)
+  F[Input Checkboxes] --> G
+  G --> H{value box 2}
+
+  I[Input Slider] --> K(Filtered Data)
+  J[Input Checkboxes] --> K
+  K --> L{value box 3}
+
+  M[Input Slider] --> O(Filtered Data)
+  N[Input Checkboxes] --> O
+  O --> P{dataframe display}
+
+  Q[Input Slider] --> S(Filtered Data)
+  R[Input Checkboxes] --> S
+  S --> T{scatter plot}
+
+  U[Input Slider] --> W(Filtered Data)
+  V[Input Checkboxes] --> W
+  W --> X{ridgeplot}
+```
+
+It would be great if we calculated the filtered data **once**
+and re-used it across all our output components.
+```{mermaid}
+flowchart LR
+  A[Input Slider] --> C(Filtered Data)
+  B[Input Checkboxes] --> C
+  C --> D{value box 1}
+  C --> E{value box 2}
+  C --> F{value box 3}
+  C --> G{dataframe display}
+  C --> H{scatter plot}
+  C --> I{ridgeplot}
+```
