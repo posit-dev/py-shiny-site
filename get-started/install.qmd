@@ -1,0 +1,165 @@
+---
+title: Installation
+---
+
+Shiny for Python can be installed can be installed via `pip` or `conda`.
+
+::: {.panel-tabset .panel-pills}
+
+#### pip
+
+Before installing you may want to upgrade `pip` and install `wheel`:
+
+```bash
+pip install --upgrade pip wheel
+```
+
+
+Next, install `shiny` from PyPI.
+
+```bash
+pip install shiny
+```
+
+
+You may on occasion need to force installation of updated versions of our packages, since they are in development.
+This can be done with:
+
+```bash
+pip install --upgrade shiny htmltools
+```
+
+::: {.callout-note collapse="true"}
+##### Virtual environments
+
+For production apps, we recommend using a virtual environment to manage your dependencies.
+In this case, you should install `shiny` in your virtual environment scoped to your app, rather than globally.
+For example, if you are creating an app in a directory called `myapp`, you would create a virtual environment in that directory and install `shiny` there:
+
+```bash
+mkdir myapp
+cd myapp
+
+# Create a virtual environment in the .venv subdirectory
+python3 -m venv .venv
+
+# Activate the virtual environment
+source .venv/bin/activate
+```
+:::
+
+::: {.callout-note collapse="true"}
+##### Development versions
+
+If you want to install the development versions, you can do so with:
+
+
+```bash
+pip install https://github.com/posit-dev/py-htmltools/tarball/main
+pip install https://github.com/posit-dev/py-shiny/tarball/main
+```
+:::
+
+
+#### conda
+
+You can install `shiny` from conda-forge channel.
+
+```bash
+conda install -c conda-forge shiny
+```
+
+You may on occasion need to force installation of updated versions of our packages, since they are in development.
+This can be done with:
+
+```bash
+conda update -c conda-forge shiny
+```
+
+::: {.callout-note collapse="true"}
+##### Conda Virtual environments
+
+For production apps, we recommend using a virtual environment to manage your dependencies.
+Create a conda environment with the code below before installing the `shiny` package.
+
+```bash
+# Create a conda environment named 'shiny'
+conda create --name shiny
+
+# Activate the virtual environment
+conda activate shiny
+```
+:::
+
+:::
+
+## Positron {#positron}
+
+We recommend using
+[Positron](https://positron.posit.co/),
+a next-generation data science focused fork of Visual Studio Code.
+
+If you already have VS Code installed, we still recommend giving Positron a try,
+your extensions from VS Code will not conflict with your Positron extensions.
+Positron already ships with many Python-focused VS Code extensions from Open VSX,
+including Quarto, Jupyter Notebooks, and Pyright.
+
+To get started with Shiny for Python, you will need to install the
+[Shiny Extension](https://open-vsx.org/extension/posit/shiny).
+This provides, among other things, a play button in the top right corner of your editor that will run your Shiny app.
+
+![](assets/positron-run.png)
+
+## Visual Studio Code
+
+For for [Visual Studio Code][vscode],
+you will need the [Python][vscode-python] and [Shiny][vscode-shiny] extensions.
+
+If [type checking is important](https://john-tucker.medium.com/type-checking-python-306ad8339da1) to you, in addition to installing the [Python VSCode extension][vscode-python], you may want to do some additional configuration for a smooth experience with types in Shiny. See the tip below for more details.
+
+::: {.callout-tip collapse="true"}
+##### Type checking
+
+We recommend the following settings in your project's `.vscode/settings.json` file:
+
+```default
+{
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportUnusedFunction": "none"
+    }
+}
+```
+
+or alternatively, if your project keeps these settings in `pyrightconfig.json`:
+
+```json
+{
+  "typeCheckingMode": "basic",
+  "reportUnusedFunction":  "none",
+}
+```
+
+The `basic` type checking mode will flag many potential problems in your code, but it does require an understanding of type hints in Python. This is the mode that is used by the [Shinylive](https://shinylive.io) examples editor. If you want to make even greater use of type checking, you can use `strict` mode:
+
+```json
+   "python.analysis.typeCheckingMode": "strict"
+```
+
+If you still find that too obtrusive and aren't used to working with type hints, you can remove that line entirely.
+
+In the above configuration, we also disable the `reportUnusedFunction` diagnostic, as it's idiomatic Shiny to create named functions that are never explicitly called by any code (i.e., `@reactive.effect`).
+
+You can also modify these settings on a per-file basis with comments at the top of the file. For example, you might have something like this at the top of your `app.py`:
+
+```python
+# pyright: strict
+# pyright: reportUnusedFunction=false
+```
+
+A full list of configuration settings for Pyright/Pylance is available [here](https://github.com/microsoft/pyright/blob/main/docs/configuration.md).
+:::
+
+[vscode]: https://code.visualstudio.com/
+[vscode-shiny]: https://marketplace.visualstudio.com/items?itemName=posit.shiny
+[vscode-python]: https://marketplace.visualstudio.com/items?itemName=ms-python.python

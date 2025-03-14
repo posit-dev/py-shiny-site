@@ -19,6 +19,7 @@ project:
     - api/core
     - api/testing
     - templates
+    - get-started
   resources:
     - /pypi/**
     - /robots.txt
@@ -73,7 +74,9 @@ website:
     logo-alt: The logo for Shiny for Python
     search: true
     left:
-      - text: "Learn Shiny"
+      - text: "Get Started"
+        file: get-started/welcome.qmd
+      - text: "Concepts"
         file: docs/overview.qmd
       - text: "Components"
         menu:
@@ -226,8 +229,28 @@ website:
               href: "/layouts/arrange/index.html#column-nesting"
             - text: "Controlling for Page Size"
               href: "/layouts/arrange/index.html#controlling-for-page-width-and-height"
+    - id: get-started
+      style: "floating"
+      collapse-level: 1
+      align: left
+      contents:
+        - get-started/welcome.qmd
+        - get-started/install.qmd
+        - get-started/create-run.qmd
+        - get-started/debug.qmd
+        - section: "Deploy"
+          contents:
+            - text: "Overview"
+              href: get-started/deploy.qmd
+            - get-started/deploy-cloud.qmd
+            - get-started/deploy-on-prem.qmd
+            - get-started/shinylive.qmd
+        - section: "Tutorials"
+          contents:
+            - text: "Get Started with Shiny Express"
+              href: tutorials/intro-express/1-welcome.qmd
 
-    - id: docs
+    - id: concepts
       style: "floating"
       collapse-level: 2
       align: left
