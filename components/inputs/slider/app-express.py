@@ -1,8 +1,6 @@
-from shiny import render
-from shiny.express import input, ui
+from shiny.express import input, render, ui
 
-
-(ui.input_slider("slider", "Slider", 0, 100, 50),)  # <<
+ui.input_slider("slider", "Slider", 0, 100, 50)  # <<
 
 
 @render.text

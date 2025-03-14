@@ -1,6 +1,4 @@
-from shiny import render
-from shiny.express import input, ui
-
+from shiny.express import input, render, ui
 
 ui.input_numeric("numeric", "Numeric input", 1, min=1, max=10)  # <<
 

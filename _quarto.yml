@@ -168,6 +168,7 @@ website:
             - components/outputs/verbatim-text/index.qmd
         - section: "![](/images/chat-dots-fill.svg){.sidebar-icon .sidebar-subtitle}__Display Messages__"
           contents:
+            - components/display-messages/chat/index.qmd
             - components/display-messages/modal/index.qmd
             - components/display-messages/notifications/index.qmd
             - components/display-messages/progress-bar/index.qmd
@@ -249,45 +250,45 @@ website:
       collapse-level: 2
       align: left
       contents:
-        - section: "Essentials"
+        - section: "<span class='emoji-icon'>📌</span>  __Essentials__"
           contents:
             - docs/overview.qmd
             - docs/user-interfaces.qmd
-        - section: "User interfaces"
+        - section: "<span class='emoji-icon'>🎨</span>  __User interfaces__"
           contents:
             - docs/ui-overview.qmd
             - docs/jupyter-widgets.qmd
             - docs/ui-dynamic.qmd
             - docs/ui-html.qmd
             - docs/ui-customize.qmd
-        - section: "Reactivity"
+        - section: "<span class='emoji-icon'>⚡</span>  __Reactivity__"
           contents:
             - docs/reactive-foundations.qmd
             - docs/reactive-patterns.qmd
             - docs/reactive-mutable.qmd
-        - section: "Syntax modes"
+        - section: "<span class='emoji-icon'>📝</span>  __Syntax modes__"
           contents:
             - docs/express-vs-core.qmd
             - docs/express-or-core.qmd
             - docs/express-in-depth.qmd
             - docs/express-to-core.qmd
-        - section: "Modules"
+        - section: "<span class='emoji-icon'>📦</span>  __Modules__"
           contents:
             - docs/modules.qmd
             - docs/module-communication.qmd
-        - section: "Testing"
+        - section: "<span class='emoji-icon'>🧪</span>  __Testing__"
           contents:
             - docs/unit-testing.qmd
             - docs/end-to-end-testing.qmd
-        - section: "Extending"
+        - section: "<span class='emoji-icon'>🏗️</span>  __Extending__"
           contents:
             - docs/custom-component-one-off.qmd
             - docs/custom-components-pkg.qmd
-        - section: "Framework Comparisons"
+        - section: "<span class='emoji-icon'>📊</span>  __Comparisons__"
           contents:
             - docs/comp-streamlit.qmd
             - docs/comp-r-shiny.qmd
-        - section: "Miscellaneous"
+        - section: "<span class='emoji-icon'>🧩</span>  __Miscellaneous__"
           contents:
             - docs/nonblocking.qmd
             - docs/routing.qmd
