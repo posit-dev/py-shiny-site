@@ -1,0 +1,14 @@
+::: {.kitchensink}
+
+<% for (const item of items) { %>
+
+## Variation Showcase
+
+A kitchen sink of all possible parameters for the <%= item.title %> for both [Shiny Core](<%= item.core %>){target="_blank"} and [Shiny Express](<%= item.express%>){target="_blank"} in our playground, Shinylive.
+
+[![](<%= item.image %>){.shadow .my-4}](<%= item.shinylive %>)
+
+[<i class="bi bi-lightning-fill me-2"></i> See Shiny Core version](<%= item.core %>){.btn .btn-primary .m-1 target="_blank"}[<i class="bi bi-lightning-fill me-2"></i> See Shiny Express version](<%= item.express %>){.btn .btn-primary .m-1 target="_blank"}
+<% } %>
+
+:::
