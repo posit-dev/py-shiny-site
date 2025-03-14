@@ -239,10 +239,6 @@ website:
             - get-started/deploy-cloud.qmd
             - get-started/deploy-on-prem.qmd
             - get-started/shinylive.qmd
-        - section: "Tutorials"
-          contents:
-            - text: "Get Started with Shiny Express"
-              href: tutorials/intro-express/1-welcome.qmd
 
     - id: concepts
       style: "floating"
