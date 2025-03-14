@@ -1,0 +1,80 @@
+---
+title: "Create and Run"
+---
+
+When you [install shiny](get-started/install.qmd), you will have access to the `shiny` command line interface (CLI).
+You can use this interface to help you create and run your Shiny applications.
+
+## Create a Shiny application
+
+The best way to create a new Shiny app is with the `shiny create` command line interface.
+This command asks you a series of questions about what kind of app you want to create,
+and then provides all the boilerplate code you need to get started with a working app.
+
+```bash
+shiny create
+```
+
+![Running the shiny create command from a terminal](assets/shiny-create.mp4){class="img-shadow"}
+
+::: callout-tip
+### Copy/paste examples
+
+If you find an example on this site that you want to run or edit locally,
+you can use the following command to get a basic app template,
+then copy and paste the code from the example into the template.
+
+```bash
+shiny create --template basic-app -m express
+```
+:::
+
+
+## Run
+
+Shiny apps can be launched from Positron, VS Code, or the command line via `shiny run`.
+
+::: {.callout-tip}
+#### Name your app `app.py`
+
+We recommend naming your shiny application `app.py`.
+This is the default file that `shiny run` will look for, so you can run the application in the terminal without any additional parameters.
+
+If you need a more unique name, we recommend beginning the file with `app`, so the shiny extension can still run with a [play button click](install.qmd#positron).
+:::
+
+### Positron and VS Code
+
+The best way to run (and develop) Shiny apps is in [Positron][positron] or [Visual Studio Code][vscode] with the [Shiny extension][vscode-shiny].
+When a Shiny `app.py` file is being edited, the default behavior of the Run button (circled in red in the screenshot below) becomes "Run Shiny App".
+
+![Visual Studio Code running with the Shiny extension](assets/positron-run.png)
+
+This launches a Python process in a dedicated terminal instance, and a captive web browser.
+This lets you test your app without leaving your editor, and whenever you make changes to your app's source, the preview will update. To preview your app in a full browser, click the icon to the right of the URL bar to launch the app in an external browser.
+
+Next to the Run button is a dropdown menu that lets you "Debug Shiny App". This launches the app in debug mode, which lets you set breakpoints and step through your code.
+See the [debugging](debug.qmd) section for more information.
+
+### Command line
+
+To run a Shiny app from the command line, use the `shiny run` command.
+This command takes a single argument, the path to the app's entry point.
+For example, if your app's entry point is `app.py` in the directory `./app_dir`, you can run it like this:
+
+```bash
+shiny run --reload --launch-browser app_dir/app.py
+```
+
+This should start your app and also automatically launch a web browser.
+
+The `--reload` flag means that file changes in the current directory tree will cause the Python process to restart and the browser to reload.
+Update and save changes to `app.py` and then wait a moment for the changes to appear in the browser.
+
+With these two `shiny` commands, you now have a project that you can run in your terminal.
+You can use any text editor or Python IDE to write Shiny apps, but we've taken special care to ensure a smooth workflow for [Positron][positron] and [Visual Studio Code][vscode].
+
+[positron]: https://positron.posit.co/
+[vscode]: https://code.visualstudio.com/
+[vscode-shiny]: https://marketplace.visualstudio.com/items?itemName=posit.shiny
+[vscode-python]: https://marketplace.visualstudio.com/items?itemName=ms-python.python

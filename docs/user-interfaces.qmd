@@ -1,5 +1,5 @@
 ---
-title: User interfaces
+title: User Interfaces
 editor:
   markdown:
     wrap: sentence

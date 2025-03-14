@@ -84,7 +84,7 @@ This will run the application on port `55901` and automatically reload and updat
 3.  Congratulations, you made your first shiny for python application!
 
 ::: column-margin
-![](img/010-run_app.png)
+![](img/010-run_app-cropped_editor.png.png)
 :::
 ::::
 
