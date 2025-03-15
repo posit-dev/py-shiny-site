@@ -57,11 +57,9 @@ The error displayed in the app is only the final part of the stack trace, but th
 When Shiny apps are deployed, error messages are sanitized to the eliminate the possibility of leaking sensitive information. To unsanitize error messages, you'll need to set `sanitize_errors=True` in the `App` constructor (of a [Shiny core app](express-vs-core.qmd)).
 :::
 
-
-
 ## Debugging
 
-### VS Code debugger
+### Positron and VS Code debugger
 
 The [VS Code debugger](https://code.visualstudio.com/docs/editor/debugging) is a powerful tool for debugging Python code.
 
