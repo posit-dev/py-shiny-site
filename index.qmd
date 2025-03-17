@@ -26,7 +26,7 @@ repo-actions: false
 
 ::: {.pt-4 .pb-4 style="z-index:1;"}
 [Install](#install){.btn .btn-dark .btn-lg .m-2 .px-5 role="button"}
-[Learn Shiny](docs/overview.qmd){.btn .btn-dark .btn-lg .m-2 .px-5 role="button"}
+[Get Started](get-started/welcome.qmd){.btn .btn-dark .btn-lg .m-2 .px-5 role="button"}
 :::
 
 :::
