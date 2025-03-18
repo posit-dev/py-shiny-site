@@ -227,11 +227,15 @@ website:
       collapse-level: 1
       align: left
       contents:
-        - get-started/welcome.qmd
-        - get-started/install.qmd
-        - get-started/create-run.qmd
-        - get-started/debug.qmd
-        - section: "Deploy"
+        - text: "<span class='emoji-icon'>👋</span>  Welcome"
+          href: "/get-started/welcome.qmd"
+        - text: "<span class='emoji-icon'>📦</span>  Installation"
+          href: "/get-started/install.qmd"
+        - text: "<span class='emoji-icon'>🏃‍♂️</span>  Create and Run"
+          href: "/get-started/create-run.qmd"
+        - text: "<span class='emoji-icon'>🐛</span>  Debug"
+          href: "/get-started/debug.qmd"
+        - section: "<span class='emoji-icon'>🚀</span>  Deploy"
           contents:
             - text: "Overview"
               href: get-started/deploy.qmd
