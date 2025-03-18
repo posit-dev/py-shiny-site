@@ -15,7 +15,7 @@ and then provides all the boilerplate code you need to get started with a workin
 shiny create
 ```
 
-![Running the shiny create command from a terminal](assets/shiny-create.mp4){class="img-shadow"}
+![Running the shiny create command from a terminal](/docs/assets/shiny-create.mp4){class="img-shadow"}
 
 ::: callout-tip
 ### Copy/paste examples
