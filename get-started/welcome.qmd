@@ -23,6 +23,25 @@ For example, when a user interacts with a slider or selects a filter, reactivity
 This makes Shiny ideal for fast data-driven applications, enabling live updates for charts, tables, and reports with minimal effort,
 and gives you the confidence that results are accurately rendered.
 
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 250
+
+from shiny import reactive
+from shiny.express import ui, render, input
+
+# input slider, n
+ui.input_slider("n", "Number", min=1, max=50, value=25)
+
+# output text that uses the input, n
+@render.text
+def result():
+    return f"You selected: {input.n()}. Its value squared is {input.n()**2}."
+
+```
+
 ## Templates: get started quickly {#templates}
 
 To help you hit the ground running, Shiny provides starter [templates](/templates/) for common use cases, such as data dashboards, applications, streaming updates, data entry.
@@ -31,24 +50,24 @@ The `shiny create` command walks you through a series of prompts to help you get
 You can learn more about the `shiny create` command and how to run your Shiny applications in the
 [create and run](create-run.qmd) section.
 
-You can use this command to load up a basic dashboard:
+You can use this terminal command to load up a basic dashboard:
 
 ```bash
 shiny create --template dashboard
 ```
 
-::::: {.column-screen .hero-image .pt-4 .pb-5 style="margin-top:0px;max-width:1600px;"}
-::: {.hello-output .g-col-12 .g-col-xl-12}
+::::: {.column-screen-inset}
+::: {.hello-output}
 <iframe
   src="https://gallery.shinyapps.io/template-dashboard/"
   frameborder="0"
-  width="90%"
+  width="100%"
   class="mb-0 card hello-output-iframe"
 ></iframe>
 
 <style>
   .hello-output-iframe {
-    height: 900px;
+    height: 700px;
   }
 @media only screen and (max-width: 611px) {
   .hello-output-iframe {
@@ -57,7 +76,7 @@ shiny create --template dashboard
 }
 </style>
 :::
-:::
+:::::
 
 
 ## Extensibility: customize and expand as needed {#extensible}
