@@ -28,6 +28,9 @@ and gives you the confidence that results are accurately rendered.
 To help you hit the ground running, Shiny provides starter [templates](/templates/) for common use cases, such as data dashboards, applications, streaming updates, data entry.
 
 The `shiny create` command walks you through a series of prompts to help you get started quickly with a helpful example.
+You can learn more about the `shiny create` command and how to run your Shiny applications in the
+[create and run](create-run.qmd) section.
+
 You can use this command to load up a basic dashboard:
 
 ```bash
@@ -39,7 +42,7 @@ shiny create --template dashboard
 <iframe
   src="https://gallery.shinyapps.io/template-dashboard/"
   frameborder="0"
-  width="100%"
+  width="90%"
   class="mb-0 card hello-output-iframe"
 ></iframe>
 
@@ -57,10 +60,6 @@ shiny create --template dashboard
 :::
 
 
-
-:::::
-
-
 ## Extensibility: customize and expand as needed {#extensible}
 
 While Shiny includes everything you need to build an app, is built on a foundation of web standards, making it highly extensible.
@@ -74,7 +73,7 @@ The UI components themselves are built on a Python representation of HTML/CSS/Ja
 <button class="btn btn-default action-button" id="btn" type="button">Button</button>
 ```
 
-If you're versed in web programming, you can also use Shiny to create [custom components](../docs/custom-component-one-off.qmd) that leverage your favorite JavaScript framework from Python.
+If you're versed in web programming, you can also use Shiny to create [custom components](/docs/custom-component-one-off.qmd) that leverage your favorite JavaScript framework from Python.
 
 ## Why choose Shiny for Python?
 
