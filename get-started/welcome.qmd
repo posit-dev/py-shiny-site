@@ -54,10 +54,12 @@ Whether you’re a data scientist, analyst, or developer, Shiny makes it easy to
 
 Why Choose Shiny for Python?
 
-- 🐍 No JavaScript required – Build full-featured interactive apps in pure Python.
-- ⚡ Fast iteration – The reactive model allows quick and dynamic updates.
-- 🎨 Built-in theming and layout – Make beautiful dashboards effortlessly.
-- 🚀 Scalability and extensibility – Start simple, grow as needed.
+🐍 No JavaScript required – Build full-featured interactive apps in pure Python.<br />
+⚡ Fast iteration – The reactive model allows quick and dynamic updates.
+<br />
+🎨 Built-in theming and layout – Make beautiful dashboards effortlessly.
+<br />
+🚀 Scalability and extensibility – Start simple, grow as needed.
 
 Shiny for Python empowers you to bring your data to life with interactive applications that are easy to build, customize, and share.
 
