@@ -1,0 +1,1689 @@
+---
+title: Streaming markdown
+editor:
+  markdown:
+    wrap: sentence
+lightbox:
+  effect: fade
+---
+
+In this article, you'll learn how to stream markdown (or HTML) content into your app via `MarkdownStream()`.
+Although this component is general purpose, it's particularly useful in a generative AI setting where displaying markdown strings as it's being generated is a common requirement.
+Compared to [the `Chat()` component](genai-chatbots.qmd), `MarkdownStream()`'s API is simpler and focuses solely on displaying streamed content without the conversational UI elements.
+
+<!-- TODO: rework this to be a quick start that utilizes templates -->
+
+## Get started
+
+### Choose a template {#choose-a-template}
+
+Pick from the following LLM providers below to start your streaming markdown app.
+Copy & paste the relevant `shiny create` terminal command to get the relevant source files on your machine.
+
+::: {.panel-tabset .panel-pills}
+
+### Ollama
+
+```bash
+shiny create --template markdown-stream-ollama
+```
+
+### Anthropic
+
+```bash
+shiny create --template markdown-stream-anthropic
+```
+
+### OpenAI
+
+```bash
+shiny create --template markdown-stream-openai
+```
+
+### Google
+
+```bash
+shiny create --template markdown-stream-gemini
+```
+
+### Bedrock Anthropic
+
+```bash
+shiny create --template markdown-stream-anthropic-aws
+```
+
+### Azure OpenAI
+
+```bash
+shiny create --template markdown-stream-azure-openai
+```
+
+### LangChain
+
+```bash
+shiny create --template markdown-stream-langchain
+```
+
+### Other
+
+`chatlas`'s supports a [wide variety](https://posit-dev.github.io/chatlas/#model-providers) of LLM providers including Vertex, Snowflake, Groq, Perplexity, and more.
+In this case, you can start from any template and swap out the `chat_client` with the relevant chat constructor (e.g., `ChatVertex()`).
+
+### Help me choose!
+
+If you're not sure which provider to choose, `chatlas` provides a [great guide](https://posit-dev.github.io/chatlas/#model-choice) to help you decide.
+:::
+
+
+When you run the `shiny create` command, you'll be provided some tips on where to go to obtain the necessary API keys (if any) and how to securely get them into your app.
+
+Also, if you're not ready to sign up for a cloud provider (e.g., Anthropic, OpenAI, etc), you can run models locally (for free!) with the Ollama template.
+This is a great way to get started and learn about LLMs without any cost, and without sharing your data with a cloud provider.
+
+Once your credentials (if any) are in place, [run the app](https://shiny.posit.co/py/docs/install-create-run.html#run). Congrats, you now have a streaming markdown interface powered by an LLM of your choice! 🎉
+
+![Screenshot of the markdown stream quick start template.](/images/markdown-stream-quick-start.png){class="rounded shadow lightbox mt-3"}
+
+
+### Inspect the code
+
+Go ahead and open the `app.py` file from your template, you'll see something roughly like this:
+
+::: {.panel-tabset .panel-pills}
+
+### Express
+
+```python
+from chatlas as ChatOllama
+from shiny import reactive
+from shiny.express import input, ui
+
+with ui.sidebar():
+  ui.input_select("comic", "Choose a comedian", options=["Jerry Seinfeld", "Ali Wong", "Mitch Hedberg"])
+  ui.input_action_button("go", "Tell me a joke")
+
+stream = ui.MarkdownStream(id="my_stream")
+stream.ui()
+
+# Might instead be ChatAnthropic, ChatOpenAI, or some other provider
+chat_client = ChatOllama(model="llama3.2")
+
+@reactive.effect
+@reactive.event(input.go)
+async def tell_joke():
+    prompt = f"Tell me a joke from the {input.comic()} comic."
+    response = await chat_client.stream_async(prompt)
+    await stream.stream(response)
+```
+
+### Core
+
+```python
+from chatlas as ChatOllama
+from shiny import App, ui
+
+app_ui = ui.page_sidebar(
+    ui.sidebar(
+        ui.input_select("comic", "Choose a comedian", options=["Jerry Seinfeld", "Ali Wong", "Mitch Hedberg"]),
+        ui.input_action_button("go", "Tell me a joke"),
+    ),
+    ui.output_markdown_stream("my_stream"),
+)
+
+def server(input):
+    stream = ui.MarkdownStream(id="my_stream")
+    chat_client = ChatOllama(model="llama3.2")
+
+    @reactive.effect
+    @reactive.event(input.go)
+    async def tell_joke():
+        prompt = f"Tell me a joke from the {input.comic()} comic."
+        response = await chat_client.stream_async(prompt)
+        await stream.stream(response)
+
+app = App(app_ui, server)
+```
+
+:::
+
+To break down some key parts of the code:
+
+1. `stream` represents the `MarkdownStream()` component.
+    - Here you'll find methods for updating the stream state (e.g., `.stream()`).
+    - `stream.ui()` puts a UI element on the page. Here you can place [starting content](#startup-messages) and more.
+2. `chat_client` provides the connection to the LLM via [`chatlas`](https://posit-dev.github.io/chatlas/#model-choice).
+    - `chatlas` isn't required, but it comes highly recommended.
+3. The `tell_joke()` function executes when the button is clicked.
+    - It populates a `prompt` template based on user's selection, then passes it to the LLM via `chat_client.stream_async()`.
+    - The async stream is streamed into the UI via `stream.stream()`. The async stream helps to keep the chat app responsive and scalable.
+
+In this article, our primary focus is the UI portion of the markdown stream (i.e., `stream`).
+That said, since LLM model choice and prompt design are so important for generating good responses, we'll briefly touch on that first.
+
+### Models & prompts {#models-prompts}
+
+With `chatlas`, it's very easy to switch between the model and system prompt behind your `chat_client`.
+Just change the `model` and `system_prompt` parameters:
+
+```python
+chat_client = ChatOllama(
+  model="llama3.2",
+  system_prompt="You are a helpful assistant",
+)
+```
+
+If you're new to programming with LLMs, we **highly recommend** visiting the `chatlas` website for guidance on [where to start](https://posit-dev.github.io/chatlas/get-started.html), [choosing a model](https://posit-dev.github.io/chatlas/#model-choice), and [designing an effective system prompt](https://posit-dev.github.io/chatlas/prompt-design.html).
+
+If you're not yet ready learn about LLMs, that's okay!
+We can still dive into `stream` UI features without knowing much about LLMs.
+
+
+
+## Basic usage
+
+To create a markdown stream, you'll need a generator (i.e., a function that yields) of markdown strings.
+In an LLM context, this generator will usually be the result of a `chat_client.stream_async(user_prompt)` call (or similar).
+However, we can also create a `simple_generator()`:
+
+::: mobile-layout
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 200
+#| editorHeight: 350
+import asyncio
+
+from shiny import reactive
+from shiny.express import input, ui
+
+ui.input_task_button("do_stream", "Do stream", class_="btn btn-primary")
+
+stream = ui.MarkdownStream("stream")
+stream.ui()
+
+async def simple_generator():
+    yield "Hello "
+    await asyncio.sleep(1)
+    yield "`MarkdownStream()`!"
+
+@reactive.effect
+@reactive.event(input.do_stream)
+async def _():
+    await stream.stream(simple_generator())
+```
+:::
+
+
+::: {.callout-note collapse="true"}
+### How it works
+
+To break down the code above:
+
+1. A `MarkdownStream()` component with an ID of `"stream"` is created and displayed through `stream.ui()`.
+    - `stream.ui()` puts a UI element on the page. Here you can place starting content, specify sizing, and more.
+2. A function that yields Markdown strings is defined.
+    * In this case, `simple_generator()` happens to be an async generator, but it could be a synchronous generator as well.
+3. When the button is clicked, the generator is passed to `stream.stream()`, which starts the streaming process.
+:::
+
+
+## Add an LLM
+
+Recall from the [chatbots](genai-chatbots.qmd) article that the [`chatlas`](https://posit-dev.github.io/chatlas/) package is a great option for working with LLMs.
+
+```python
+from chatlas import ChatAnthropic
+
+from shiny import reactive
+from shiny.express import input, ui
+
+chat_client = ChatAnthropic(
+    system_prompt="You are a helpful assistant.",
+)
+
+ui.input_text_area(
+    "user_prompt",
+    None,
+    placeholder="Enter a question",
+    update_on="blur",
+)
+
+stream = ui.MarkdownStream(id="stream")
+stream.ui(
+    content="**Hi!** Try asking me a question (press Ctrl/Cmd + Enter to submit).",
+)
+
+@reactive.effect
+async def _():
+    prompt = input.user_prompt()
+    if prompt:
+        response = await chat_client.stream_async(prompt)
+        await stream.stream(response)
+```
+
+
+
+
+
+
+
+<!-----------------------------------------------------
+
+
+
+
+### Basic usage
+
+Here's a simple example that shows how to create and use a `MarkdownStream()`:
+
+::: {.panel-tabset .panel-pills}
+
+### Express
+
+::: mobile-layout
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 200
+#| editorHeight: 350
+
+import asyncio
+
+from shiny import reactive
+from shiny.express import input, ui
+
+ui.input_task_button("do_stream", "Do stream", class_="btn btn-primary")
+
+stream = ui.MarkdownStream("stream")
+stream.ui()
+
+async def stream_generator():
+    yield "Hello "
+    await asyncio.sleep(1)
+    yield "`MarkdownStream()`!"
+
+@reactive.effect
+@reactive.event(input.do_stream)
+async def _():
+    await stream.stream(stream_generator())
+```
+:::
+
+### Core
+
+::: mobile-layout
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 200
+#| editorHeight: 350
+
+import asyncio
+
+from shiny import reactive, ui
+
+app_ui = ui.page_fixed(
+    ui.input_task_button("do_stream", "Do stream", class_="btn btn-primary"),
+    ui.output_markdown_stream("stream"),
+)
+
+def server(input):
+    async def stream_generator():
+        yield "Hello "
+        await asyncio.sleep(1)
+        yield "`MarkdownStream()`!"
+
+    @reactive.effect
+    @reactive.event(input.do_stream)
+    async def _():
+        await stream.stream(stream_generator())
+
+app = App(app_ui, server)
+```
+:::
+
+:::
+
+This will display the content incrementally, with each paragraph appearing after a short delay, creating a typing-like effect that makes your app feel more responsive when generating longer content.
+
+![](/images/markdown-stream-basic.png){class="rounded shadow lightbox mt-3 mb-5"}
+
+## Key features
+
+Let's explore the main features and capabilities of the `MarkdownStream` component.
+
+### Content types
+
+`MarkdownStream` supports several content types, controlled by the `content_type` parameter:
+
+::: {.panel-tabset .panel-pills}
+
+### Express
+
+```python
+# For markdown content (default)
+md_stream.ui(content_type="markdown")
+
+# For HTML content
+md_stream.ui(content_type="html")
+
+# For plain text content
+md_stream.ui(content_type="text")
+
+# For markdown with HTML tags escaped
+md_stream.ui(content_type="semi-markdown")
+```
+
+### Core
+
+```python
+# For markdown content (default)
+ui.output_markdown_stream(id="my_stream", content_type="markdown")
+
+# For HTML content
+ui.output_markdown_stream(id="my_stream", content_type="html")
+
+# For plain text content
+ui.output_markdown_stream(id="my_stream", content_type="text")
+
+# For markdown with HTML tags escaped
+ui.output_markdown_stream(id="my_stream", content_type="semi-markdown")
+```
+
+:::
+
+### Initial content
+
+You can provide initial content to display before any streaming occurs:
+
+::: {.panel-tabset .panel-pills}
+
+### Express
+
+```python
+md_stream.ui(
+    content="# Welcome to the stream\n\nContent will appear here shortly...",
+    content_type="markdown"
+)
+```
+
+### Core
+
+```python
+ui.output_markdown_stream(
+    id="my_stream",
+    content="# Welcome to the stream\n\nContent will appear here shortly...",
+    content_type="markdown"
+)
+```
+
+:::
+
+### Auto-scrolling
+
+By default, `MarkdownStream` will automatically scroll to the bottom when new content is added. You can disable this behavior:
+
+::: {.panel-tabset .panel-pills}
+
+### Express
+
+```python
+md_stream.ui(auto_scroll=False)
+```
+
+### Core
+
+```python
+ui.output_markdown_stream(id="my_stream", auto_scroll=False)
+```
+
+:::
+
+### Sizing
+
+Control the width and height of the `MarkdownStream` component:
+
+::: {.panel-tabset .panel-pills}
+
+### Express
+
+```python
+md_stream.ui(width="100%", height="400px")
+```
+
+### Core
+
+```python
+ui.output_markdown_stream(id="my_stream", width="100%", height="400px")
+```
+
+:::
+
+## Streaming content
+
+Let's explore different ways to stream content into a `MarkdownStream`.
+
+### Basic streaming
+
+The most straightforward way to stream content is with a generator or async generator:
+
+```python
+async def content_generator():
+    for i in range(5):
+        yield f"# Header {i+1}\n\nThis is paragraph {i+1}.\n\n"
+        await asyncio.sleep(0.5)
+
+await md_stream.stream(content_generator())
+```
+
+### Streaming from LLMs
+
+One of the most common use cases for `MarkdownStream` is to display generative AI responses as they're being produced. Here's an example using `chatlas` and various LLM providers:
+
+::: {.panel-tabset .panel-pills}
+
+### Ollama
+
+```python
+from chatlas import ChatOllama
+from shiny.express import ui
+
+md_stream = ui.MarkdownStream(id="stream")
+md_stream.ui(content="*Loading response...*")
+
+chat_client = ChatOllama(model="llama3.2")
+
+@reactive.effect
+async def _():
+    prompt = "Explain how neural networks work in 5 paragraphs."
+    stream = await chat_client.stream_async(prompt)
+    await md_stream.stream(stream, clear=True)
+```
+
+### Anthropic
+
+```python
+from chatlas import ChatAnthropic
+from shiny.express import ui
+
+md_stream = ui.MarkdownStream(id="stream")
+md_stream.ui(content="*Loading response...*")
+
+chat_client = ChatAnthropic(model="claude-3-opus-20240229")
+
+@reactive.effect
+async def _():
+    prompt = "Explain how neural networks work in 5 paragraphs."
+    stream = await chat_client.stream_async(prompt)
+    await md_stream.stream(stream, clear=True)
+```
+
+### OpenAI
+
+```python
+from chatlas import ChatOpenAI
+from shiny.express import ui
+
+md_stream = ui.MarkdownStream(id="stream")
+md_stream.ui(content="*Loading response...*")
+
+chat_client = ChatOpenAI(model="gpt-4-turbo")
+
+@reactive.effect
+async def _():
+    prompt = "Explain how neural networks work in 5 paragraphs."
+    stream = await chat_client.stream_async(prompt)
+    await md_stream.stream(stream, clear=True)
+```
+
+:::
+
+### Transforming content
+
+You may want to transform content before or as it's being streamed. Here's an example that highlights certain keywords:
+
+::: mobile-layout
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 350
+#| editorHeight: 400
+
+import asyncio
+import re
+from shiny.express import ui
+
+md_stream = ui.MarkdownStream(id="stream")
+md_stream.ui(
+    content="# Neural Networks Explanation\n\n*Streaming will begin shortly...*",
+    height="300px"
+)
+
+ui.input_action_button("start", "Start stream")
+
+@reactive.event(input.start)
+async def _():
+    # Sample content about neural networks
+    async def content_generator():
+        paragraphs = [
+            "Neural networks are computational models inspired by the human brain. They consist of layers of interconnected nodes or 'neurons' that process information.",
+
+            "Each connection between neurons has a 'weight' that adjusts as the network learns. The learning process involves adjusting these weights to minimize errors in predictions.",
+
+            "Deep learning uses neural networks with many layers to learn complex patterns. This has revolutionized fields like computer vision and natural language processing.",
+
+            "Training neural networks requires large datasets and computational resources. The process involves forward and backward passes to adjust weights through backpropagation.",
+
+            "Despite their power, neural networks are often considered 'black boxes' because understanding why they make specific predictions can be challenging."
+        ]
+
+        for p in paragraphs:
+            # Highlight key terms in the text
+            highlighted = re.sub(
+                r'\b(neural networks|neurons|weights|learning|layers|backpropagation)\b',
+                r'**\1**',
+                p,
+                flags=re.IGNORECASE
+            )
+            yield highlighted + "\n\n"
+            await asyncio.sleep(1)
+
+    await md_stream.stream(content_generator(), clear=True)
+```
+:::
+
+### Clearing content
+
+To clear the content before streaming new content:
+
+```python
+# Clear by passing clear=True to stream()
+await md_stream.stream(content_generator(), clear=True)
+
+# Or use the clear() method directly
+await md_stream.clear()
+```
+
+### Reacting to stream state
+
+The `MarkdownStream` component provides a way to reactively track the state of the latest stream using the `latest_stream` property:
+
+::: mobile-layout
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 400
+#| editorHeight: 400
+
+import asyncio
+from shiny.express import ui, render
+
+md_stream = ui.MarkdownStream(id="stream")
+md_stream.ui(height="200px")
+
+ui.input_action_button("start", "Start stream")
+ui.input_action_button("cancel", "Cancel stream", class_="btn-warning")
+
+@render.text
+def stream_status():
+    return f"Stream status: {md_stream.latest_stream.status()}"
+
+@render.text
+def stream_length():
+    result = md_stream.latest_stream.result() or ""
+    return f"Stream length: {len(result)} characters"
+
+@reactive.event(input.start)
+async def _():
+    async def slow_generator():
+        for i in range(10):
+            yield f"Step {i+1}: Adding some content...\n\n"
+            await asyncio.sleep(1)
+
+    await md_stream.stream(slow_generator(), clear=True)
+
+@reactive.event(input.cancel)
+def _():
+    if md_stream.latest_stream.status() == "running":
+        md_stream.latest_stream.cancel()
+        ui.notification_show("Stream cancelled", type="warning")
+```
+:::
+
+This allows you to:
+
+1. Check the stream's status (`initial`, `running`, `complete`, `error`, or `cancelled`)
+2. Get the final result with `.result()`
+3. Cancel an ongoing stream with `.cancel()`
+
+## Layout and styling
+
+### Card layout
+
+As with `Chat`, embedding `MarkdownStream` in a card provides a clean visual separation:
+
+::: {.panel-tabset .panel-pills}
+
+### Express
+
+```python
+from shiny.express import ui
+from faicons import icon_svg
+
+ui.page_opts(
+    fillable=True,
+    fillable_mobile=True,
+    class_="bg-light",
+)
+
+md_stream = ui.MarkdownStream(id="stream")
+
+with ui.card():
+    with ui.card_header(class_="d-flex justify-content-between align-items-center"):
+        "AI Explanation"
+        with ui.tooltip():
+            icon_svg("info-circle")
+            "Content is generated using Claude-3 Opus"
+    md_stream.ui(
+        content="*Response will appear here shortly...*"
+    )
+```
+
+### Core
+
+```python
+from shiny import ui, App
+from faicons import icon_svg
+
+app_ui = ui.page_fillable(
+    ui.card(
+        ui.card_header(
+            "AI Explanation",
+            ui.tooltip(
+                icon_svg("info-circle"),
+                "Content is generated using Claude-3 Opus"
+            ),
+            class_="d-flex justify-content-between align-items-center"
+        ),
+        ui.output_markdown_stream(
+            id="stream",
+            content="*Response will appear here shortly...*",
+        ),
+    ),
+    fillable_mobile=True,
+    class_="bg-light",
+)
+
+def server(input):
+    md_stream = ui.MarkdownStream(id="stream")
+
+app = App(app_ui, server)
+```
+
+:::
+
+### Side-by-side layout
+
+Use `ui.layout_column_wrap()` to place the `MarkdownStream` alongside other content:
+
+::: {.panel-tabset .panel-pills}
+
+### Express
+
+```python
+from shiny.express import ui
+
+with ui.layout_column_wrap():
+    with ui.card():
+        ui.card_header("Input")
+        ui.input_text_area("prompt", "Enter your prompt:", rows=5)
+        ui.input_action_button("submit", "Generate", class_="btn-primary")
+
+    with ui.card():
+        ui.card_header("Response")
+        md_stream = ui.MarkdownStream(id="stream")
+        md_stream.ui(height="300px")
+```
+
+### Core
+
+```python
+from shiny import ui, App
+
+app_ui = ui.page_fixed(
+    ui.layout_column_wrap(
+        ui.card(
+            ui.card_header("Input"),
+            ui.input_text_area("prompt", "Enter your prompt:", rows=5),
+            ui.input_action_button("submit", "Generate", class_="btn-primary")
+        ),
+        ui.card(
+            ui.card_header("Response"),
+            ui.output_markdown_stream(id="stream", height="300px")
+        )
+    )
+)
+
+def server(input):
+    md_stream = ui.MarkdownStream(id="stream")
+
+app = App(app_ui, server)
+```
+
+:::
+
+## Advanced use cases
+
+### Progress indicators
+
+Show loading states or progress with incremental updates:
+
+::: mobile-layout
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 350
+#| editorHeight: 400
+
+import asyncio
+import random
+from shiny.express import ui
+
+md_stream = ui.MarkdownStream(id="stream")
+md_stream.ui(height="300px")
+
+ui.input_action_button("start", "Process data", class_="btn-primary")
+
+@reactive.event(input.start)
+async def _():
+    await md_stream.stream(["# Data Processing\n\n"], clear=True)
+
+    # Simulate data processing steps
+    steps = [
+        "Initializing system...",
+        "Loading data...",
+        "Preprocessing...",
+        "Analyzing patterns...",
+        "Generating report..."
+    ]
+
+    for i, step in enumerate(steps):
+        # Show step with progress indicator
+        await md_stream.stream([f"### Step {i+1}: {step}\n\n"])
+
+        # Simulate work being done with progress updates
+        progress = ""
+        for j in range(1, 11):
+            progress += "▓"
+            await md_stream.stream([f"Progress: {progress} {j*10}%\n\n"])
+            await asyncio.sleep(0.3)
+
+        # Replace with completion message
+        complete_time = random.uniform(0.5, 2.5)
+        await md_stream.stream([f"✅ Completed in {complete_time:.2f}s\n\n"])
+
+    await md_stream.stream(["## All tasks completed successfully!\n\n"])
+```
+:::
+
+### Rich content with HTML
+
+When using `content_type="html"`, you can stream more complex content including images, tables, and styling:
+
+::: mobile-layout
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 350
+#| editorHeight: 400
+
+import asyncio
+from shiny.express import ui
+
+md_stream = ui.MarkdownStream(id="stream")
+md_stream.ui(content_type="html", height="300px")
+
+ui.input_action_button("start", "Generate report", class_="btn-primary")
+
+@reactive.event(input.start)
+async def _():
+    html_content = [
+        "<h1 style='color: #4a86e8;'>Quarterly Sales Report</h1>",
+        "<p>This report provides an overview of sales performance for Q2 2024.</p>",
+
+        "<h2>Key Metrics</h2>",
+        "<div style='display: flex; gap: 10px; margin-bottom: 20px;'>",
+        "  <div style='background: #e6f3ff; padding: 15px; border-radius: 8px; flex: 1;'>",
+        "    <h3 style='margin-top: 0;'>Revenue</h3>",
+        "    <p style='font-size: 24px; font-weight: bold; margin: 0;'>$1.24M</p>",
+        "    <p style='color: #00a651; margin: 0;'>↑ 12.4%</p>",
+        "  </div>",
+
+        "  <div style='background: #fff0e6; padding: 15px; border-radius: 8px; flex: 1;'>",
+        "    <h3 style='margin-top: 0;'>New Customers</h3>",
+        "    <p style='font-size: 24px; font-weight: bold; margin: 0;'>857</p>",
+        "    <p style='color: #00a651; margin: 0;'>↑ 8.2%</p>",
+        "  </div>",
+
+        "  <div style='background: #f5f5f5; padding: 15px; border-radius: 8px; flex: 1;'>",
+        "    <h3 style='margin-top: 0;'>Average Order</h3>",
+        "    <p style='font-size: 24px; font-weight: bold; margin: 0;'>$342</p>",
+        "    <p style='color: #e51c23; margin: 0;'>↓ 2.1%</p>",
+        "  </div>",
+        "</div>",
+
+        "<h2>Regional Breakdown</h2>",
+        "<table style='width: 100%; border-collapse: collapse;'>",
+        "  <thead>",
+        "    <tr style='background: #f2f2f2;'>",
+        "      <th style='padding: 8px; text-align: left; border: 1px solid #ddd;'>Region</th>",
+        "      <th style='padding: 8px; text-align: right; border: 1px solid #ddd;'>Revenue</th>",
+        "      <th style='padding: 8px; text-align: right; border: 1px solid #ddd;'>Growth</th>",
+        "    </tr>",
+        "  </thead>",
+        "  <tbody>"
+    ]
+
+    await md_stream.stream(html_content, clear=True)
+
+    # Stream in table rows with delay
+    regions = [
+        ("North America", "$580K", "+15.3%"),
+        ("Europe", "$420K", "+10.1%"),
+        ("Asia Pacific", "$180K", "+22.7%"),
+        ("Latin America", "$60K", "-4.2%")
+    ]
+
+    for region, revenue, growth in regions:
+        growth_color = "#00a651" if "+" in growth else "#e51c23"
+        row = f"""
+          <tr>
+            <td style='padding: 8px; text-align: left; border: 1px solid #ddd;'>{region}</td>
+            <td style='padding: 8px; text-align: right; border: 1px solid #ddd;'>{revenue}</td>
+            <td style='padding: 8px; text-align: right; color: {growth_color}; border: 1px solid #ddd;'>{growth}</td>
+          </tr>
+        """
+        await md_stream.stream([row])
+        await asyncio.sleep(0.7)
+
+    # Close the table and add conclusion
+    conclusion = [
+        "  </tbody>",
+        "</table>",
+
+        "<h2>Conclusion</h2>",
+        "<p>Overall performance exceeded expectations, with strong growth in the Asia Pacific region driving results.</p>",
+        "<p>The slight decrease in average order value warrants further investigation in Q3.</p>",
+
+        "<div style='margin-top: 20px; font-style: italic; color: #666;'>",
+        "  Generated on March 19, 2025",
+        "</div>"
+    ]
+
+    await md_stream.stream(conclusion)
+```
+:::
+
+### Error handling
+
+You can customize how errors in the streaming process are handled:
+
+```python
+# Default behavior sanitizes error messages in production
+md_stream = ui.MarkdownStream(id="stream")
+
+# Show the actual error message (for development)
+md_stream = ui.MarkdownStream(id="stream", on_error="actual")
+
+# Always sanitize error messages
+md_stream = ui.MarkdownStream(id="stream", on_error="sanitize")
+
+# Let errors crash the app (not recommended for production)
+md_stream = ui.MarkdownStream(id="stream", on_error="unhandled")
+```
+
+## Comparison with Chat
+
+While both `MarkdownStream` and `Chat` can display streamed content, they serve different purposes:
+
+| Feature | MarkdownStream | Chat |
+|---------|---------------|------|
+| **Primary purpose** | Display streamed content | Interactive conversations |
+| **UI elements** | Single content area | Messages, input box, submit button |
+| **Interaction model** | One-way (display only) | Two-way (input and response) |
+| **Complexity** | Simpler, focused | More complex, conversational |
+| **Best for** | Explanations, reports, output | Question-answering, conversations |
+
+Choose `MarkdownStream` when you need a simple way to display streamed content without the conversation interface, and `Chat` when you need a full conversational experience.
+
+## Real-world examples
+
+### Real-time data analysis
+
+This example shows a real-time analysis report being generated:
+
+::: mobile-layout
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 400
+#| editorHeight: 400
+
+import asyncio
+import random
+import pandas as pd
+from shiny.express import ui, render
+
+# Create sample data
+data = pd.DataFrame({
+    'date': pd.date_range(start='2024-01-01', periods=90),
+    'sales': [random.randint(800, 1200) for _ in range(90)]
+})
+
+# Add day of week
+data['day_of_week'] = data['date'].dt.day_name()
+
+# Create UI
+ui.page_opts(title="Sales Analysis")
+
+with ui.layout_column_wrap():
+    with ui.card():
+        ui.card_header("Controls")
+        ui.input_slider("days", "Number of days", 10, 90, 30)
+        ui.input_action_button("analyze", "Generate analysis", class_="btn-primary")
+
+        @render.data_frame
+        def preview():
+            days = input.days()
+            return render.DataGrid(data.tail(days).head(5))
+
+    with ui.card():
+        ui.card_header("Analysis Report")
+        md_stream = ui.MarkdownStream(id="stream")
+        md_stream.ui(height="350px")
+
+@reactive.event(input.analyze)
+async def _():
+    days = input.days()
+    subset = data.tail(days)
+
+    await md_stream.stream([f"# Sales Analysis Report\n\n"], clear=True)
+    await md_stream.stream([f"Analyzing the last {days} days of sales data.\n\n"])
+    await asyncio.sleep(1)
+
+    # Basic statistics
+    await md_stream.stream(["## Summary Statistics\n\n"])
+    await asyncio.sleep(0.5)
+
+    total = subset['sales'].sum()
+    avg = subset['sales'].mean()
+    await md_stream.stream([
+        f"* Total sales: ${total:,.2f}\n",
+        f"* Average daily sales: ${avg:.2f}\n",
+        f"* Minimum: ${subset['sales'].min()}\n",
+        f"* Maximum: ${subset['sales'].max()}\n\n"
+    ])
+
+    await md_stream.stream(["*Analyzing trends...*\n\n"])
+    await asyncio.sleep(1.5)
+
+    # Day of week analysis
+    await md_stream.stream(["## Day of Week Analysis\n\n"])
+
+    dow_stats = subset.groupby('day_of_week')['sales'].mean().sort_values(ascending=False)
+
+    for i, (day, value) in enumerate(dow_stats.items()):
+        await md_stream.stream([f"* {day}: ${value:.2f}\n"])
+        await asyncio.sleep(0.3)
+
+    best_day = dow_stats.index[0]
+    await md_stream.stream([f"\n**{best_day}** is the strongest sales day.\n\n"])
+
+    # Trend analysis
+    recent_avg = subset.tail(7)['sales'].mean()
+    previous_avg = subset.iloc[-14:-7]['sales'].mean()
+    pct_change = ((recent_avg - previous_avg) / previous_avg) * 100
+
+    await md_stream.stream(["## Recent Trend\n\n"])
+    await asyncio.sleep(1)
+
+    if pct_change > 0:
+        trend = f"**Positive trend**: Sales are up {pct_change:.1f}% in the last 7 days."
+    else:
+        trend = f"**Negative trend**: Sales are down {abs(pct_change):.1f}% in the last 7 days."
+
+    await md_stream.stream([trend + "\n\n"])
+
+    # Conclusion
+    await md_stream.stream(["## Conclusion\n\n"])
+    await asyncio.sleep(1)
+
+    if pct_change > 5:
+        conclusion = "Sales are showing strong positive momentum. Continue current strategies."
+    elif pct_change > 0:
+        conclusion = "Sales are stable with slight growth. Monitor for opportunities to accelerate."
+    else:
+        conclusion = "Sales are declining slightly. Consider promotional activities to boost performance."
+
+    await md_stream.stream([conclusion + "\n\n"])
+    await md_stream.stream([f"*Report generated on {pd.Timestamp.now().strftime('%Y-%m-%d')}*"])
+```
+:::
+
+### AI document summarization
+
+This example uses an LLM to summarize a document in multiple stages:
+
+::: mobile-layout
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 400
+#| editorHeight: 400
+
+import asyncio
+from shiny.express import ui
+
+ui.page_opts(title="Document Summarizer")
+
+# Sample document text
+document = """
+# Climate Change: A Global Challenge
+
+Climate change refers to long-term shifts in temperatures and weather patterns. These shifts may be natural, but since the 1800s, human activities have been the main driver of climate change, primarily due to the burning of fossil fuels like coal, oil, and gas, which produces heat-trapping gases.
+
+## Causes of Climate Change
+
+Greenhouse gas emissions are the primary driver of climate change. Carbon dioxide, methane, and nitrous oxide trap heat in the Earth's atmosphere, causing global temperatures to rise. Deforestation, industrial processes, and agricultural practices also contribute significantly to greenhouse gas emissions.
+
+## Effects of Climate Change
+
+The effects of climate change are far-reaching and include:
+- Rising global temperatures
+- Increased frequency and intensity of extreme weather events
+- Melting ice caps and rising sea levels
+- Loss of biodiversity
+- Threats to food security
+
+## Mitigation Strategies
+
+Addressing climate change requires a multi-faceted approach:
+1. Transitioning to renewable energy sources
+2. Improving energy efficiency
+3. Protecting and restoring forests
+4. Sustainable agriculture and food systems
+5. International cooperation and policy development
+
+The Paris Agreement, adopted in 2015, aims to limit global warming to well below 2°C above pre-industrial levels. However, current pledges from countries are insufficient to meet this target.
+
+## Conclusion
+
+Climate change represents one of the greatest challenges of our time. Taking action now is essential to protect our planet for future generations. While the challenge is immense, solutions exist and are becoming increasingly available and affordable.
+"""
+
+with ui.layout_column_wrap():
+    with ui.card():
+        ui.card_header("Original Document")
+        with ui.scrollable_panel(height="350px"):
+            ui.markdown(document)
+
+    with ui.card():
+        ui.card_header("AI Summary")
+        md_stream = ui.MarkdownStream(id="stream")
+        md_stream.ui(height="350px")
+        ui.input_action_button("summarize", "Generate summary", class_="btn-primary")
+
+@reactive.event(input.summarize)
+async def _():
+    # In a real app, you would use an actual LLM here
+    async def simulate_summary():
+        # Initial processing message
+        yield "# Analyzing document...\n\n"
+        await asyncio.sleep(1.5)
+
+        # First pass - key points
+        yield "## Key Points Identified\n\n"
+
+        key_points = [
+            "Climate change involves long-term shifts in temperature and weather patterns",
+            "Human activities are the main driver since the 1800s, primarily through fossil fuel burning",
+            "Greenhouse gas emissions trap heat in the atmosphere",
+            "Effects include rising temperatures, extreme weather, melting ice caps, and biodiversity loss",
+            "Mitigation requires renewable energy, improved efficiency, forest protection, and international cooperation"
+        ]
+
+        for point in key_points:
+            yield f"* {point}\n"
+            await asyncio.sleep(0.7)
+
+        yield "\n*Generating comprehensive summary...*\n\n"
+        await asyncio.sleep(2)
+
+        # Second pass - structured summary
+        yield "## Document Summary\n\n"
+        yield "**Climate Change: A Global Challenge** is a document that outlines the causes, effects, and mitigation strategies for climate change.\n\n"
+        await asyncio.sleep(1)
+
+        yield "### Main Sections\n\n"
+        yield "1. **Introduction**: Defines climate change as long-term shifts in temperatures and weather patterns, emphasizing human activities as the primary cause since the 1800s.\n\n"
+        await asyncio.sleep(1)
+
+        yield "2. **Causes**: Highlights greenhouse gas emissions from burning fossil fuels, along with deforestation, industrial processes, and agriculture as key contributors.\n\n"
+        await asyncio.sleep(1)
+
+        yield "3. **Effects**: Lists impacts including rising temperatures, extreme weather events, melting ice caps, biodiversity loss, and food security threats.\n\n"
+        await asyncio.sleep(1)
+
+        yield "4. **Mitigation**: Presents a multi-faceted approach including transitioning to renewable energy, improving efficiency, protecting forests, sustainable agriculture, and international cooperation.\n\n"
+        await asyncio.sleep(1)
+
+        yield "5. **Conclusion**: Emphasizes the urgency of action while acknowledging that solutions exist and are increasingly available.\n\n"
+        await asyncio.sleep(1.5)
+
+        # Final summary
+        yield "### Executive Summary\n\n"
+        yield "This document provides a comprehensive overview of climate change as a global challenge. It establishes human activities as the primary driver, details the wide-ranging effects, and outlines actionable mitigation strategies. The document highlights the Paris Agreement as an international response while noting that current pledges are insufficient to meet targets. It concludes with a call to action, balancing the gravity of the challenge with optimism about available solutions.\n\n"
+
+        yield "*Summary generated by AI on March 19, 2025*"
+
+    await md_stream.stream(simulate_summary(), clear=True)
+```
+:::
+
+### Interactive coding tutorial
+
+Using `MarkdownStream` to create an interactive coding lesson:
+
+::: mobile-layout
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 400
+#| editorHeight: 400
+
+import asyncio
+from shiny.express import ui, render
+
+ui.page_opts(title="Python Lists Tutorial")
+
+with ui.layout_column_wrap(fill=False):
+    with ui.card(full_screen=True, height="400px"):
+        ui.card_header("Python Lists Tutorial")
+        md_stream = ui.MarkdownStream(id="lesson")
+        md_stream.ui(height="300px")
+
+        with ui.card_footer():
+            ui.input_action_button("start", "Start tutorial", class_="btn-primary")
+            ui.input_action_button("next", "Next step", class_="btn-success")
+
+    with ui.card():
+        ui.card_header("Try it yourself")
+        ui.input_text_area("code", "Your code:", value="# Type your code here", rows=5)
+        ui.input_action_button("run", "Run code", class_="btn-primary")
+
+        @render.text
+        def output():
+            if not input.run():
+                return "Code output will appear here"
+
+            code = input.code()
+            try:
+                # CAUTION: eval is used for demonstration purposes only
+                # In a real app, use a safer method to execute code
+                result = eval(code)
+                return f"Result: {result}"
+            except Exception as e:
+                return f"Error: {str(e)}"
+
+# Tutorial steps
+lesson_steps = [
+    {
+        "title": "Introduction to Python Lists",
+        "content": """
+Lists are one of Python's most versatile data structures. They store ordered collections of items that can be of any type.
+
+```python
+fruits = ["apple", "banana", "cherry"]
+print(fruits)  # Output: ['apple', 'banana', 'cherry']
+```
+
+Lists are created using square brackets `[]` with comma-separated values.
+        """
+    },
+    {
+        "title": "Accessing List Elements",
+        "content": """
+List elements are accessed by their index, starting from 0:
+
+```python
+fruits = ["apple", "banana", "cherry"]
+print(fruits[0])  # Output: apple
+print(fruits[1])  # Output: banana
+print(fruits[-1])  # Output: cherry (negative indices count from the end)
+```
+
+Try it in the code editor with this example:
+```python
+numbers = [10, 20, 30, 40, 50]
+numbers[2]  # This will return the third element
+```
+        """
+    },
+    {
+        "title": "List Methods",
+        "content": """
+Lists come with many useful methods:
+
+- `append()`: Add an item to the end
+- `insert()`: Add an item at a specific position
+- `remove()`: Remove a specific item
+- `pop()`: Remove an item at a specific position
+- `len()`: Get the length of the list
+
+Example:
+```python
+fruits = ["apple", "banana"]
+fruits.append("cherry")
+print(fruits)  # Output: ['apple', 'banana', 'cherry']
+
+fruits.insert(1, "orange")
+print(fruits)  # Output: ['apple', 'orange', 'banana', 'cherry']
+
+fruits.remove("banana")
+print(fruits)  # Output: ['apple', 'orange', 'cherry']
+```
+
+Try creating a list and using some of these methods!
+        """
+    },
+    {
+        "title": "List Slicing",
+        "content": """
+Slicing allows you to get a portion of a list:
+
+```python
+numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+print(numbers[2:5])  # Output: [2, 3, 4]
+print(numbers[:3])   # Output: [0, 1, 2]
+print(numbers[7:])   # Output: [7, 8, 9]
+print(numbers[::2])  # Output: [0, 2, 4, 6, 8] (step of 2)
+```
+
+The syntax is: `list[start:stop:step]`
+- `start`: Index to start (included)
+- `stop`: Index to stop (excluded)
+- `step`: Step size
+        """
+    },
+    {
+        "title": "List Comprehensions",
+        "content": """
+List comprehensions are a concise way to create lists:
+
+```python
+# Create a list of squares from 0 to 9
+squares = [x**2 for x in range(10)]
+print(squares)  # Output: [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+
+# Create a list of even numbers
+evens = [x for x in range(10) if x % 2 == 0]
+print(evens)  # Output: [0, 2, 4, 6, 8]
+```
+
+List comprehensions can replace loops and make your code more readable.
+
+Try creating your own list comprehension!
+        """
+    }
+]
+
+# Track current step
+current_step = reactive.value(0)
+
+@reactive.event(input.start)
+async def _():
+    current_step.set(0)
+    await display_current_step()
+
+@reactive.event(input.next)
+async def _():
+    if current_step() < len(lesson_steps) - 1:
+        current_step.set(current_step() + 1)
+        await display_current_step()
+    else:
+        await md_stream.stream([
+            "\n\n## 🎉 Tutorial Completed!\n\n",
+            "You've completed the Python lists tutorial. Keep practicing with the code editor!\n\n",
+            "Here are some exercise ideas:\n",
+            "- Create a list of your favorite foods\n",
+            "- Use list methods to modify it\n",
+            "- Try a list comprehension to create a list of cubes\n"
+        ])
+
+async def display_current_step():
+    step = lesson_steps[current_step()]
+
+    # Show step header
+    await md_stream.stream([
+        f"# {step['title']}\n\n"
+    ], clear=True)
+
+    # Simulate typing by streaming content character by character
+    content = step['content']
+    chunk_size = 3  # Process content in small chunks for realistic typing effect
+    for i in range(0, len(content), chunk_size):
+        chunk = content[i:i+chunk_size]
+        await md_stream.stream([chunk])
+        # Vary the typing speed slightly
+        await asyncio.sleep(0.01)
+
+    # Show step number
+    await md_stream.stream([
+        f"\n\n*Step {current_step() + 1} of {len(lesson_steps)}*"
+    ])
+```
+:::
+
+## Combining MarkdownStream with Chat
+
+You can combine `MarkdownStream` and `Chat` components to create powerful interfaces that separate explanations from conversations:
+
+::: mobile-layout
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 450
+#| editorHeight: 400
+
+import asyncio
+from shiny.express import ui
+
+ui.page_opts(
+    title="AI Assistant with Explanations",
+    fillable=True,
+    fillable_mobile=True
+)
+
+with ui.layout_sidebar(sidebar_width="350px", fillable=True):
+    # Main explanation area
+    with ui.card(height="100%"):
+        ui.card_header("Detailed Explanation")
+        md_stream = ui.MarkdownStream(id="explanation")
+        md_stream.ui(
+            content="*Detailed explanations will appear here as you chat with the assistant.*",
+            height="100%"
+        )
+
+    # Chat interface in sidebar
+    with ui.sidebar(width="100%", style="height: 100%"):
+        ui.card_header("Chat with Assistant")
+
+        chat = ui.Chat(id="chat")
+        welcome = """
+        # AI Learning Assistant
+
+        I can help explain concepts and provide detailed examples. Try asking me about:
+
+        * <span class="suggestion">Explain Python functions</span>
+        * <span class="suggestion">How does machine learning work?</span>
+        * <span class="suggestion">Tell me about data visualization</span>
+        """
+        chat.ui(messages=[welcome], height="100%")
+
+@chat.on_user_submit
+async def handle_chat(user_input: str):
+    # Simulate AI processing
+    await chat.append_message("Let me explain that for you...")
+
+    # In a real app, you would use an LLM to generate these responses
+    explanations = {
+        "explain python functions": {
+            "chat": "Python functions are blocks of reusable code designed to perform specific tasks. They help make your code modular and maintainable. Check the detailed explanation for more info and examples.",
+            "explanation": """
+            # Python Functions Explained
+
+            Functions are one of the most important concepts in programming. They allow you to encapsulate code that performs a specific task, making your programs more organized and reusable.
+
+            ## Basic Syntax
+
+            ```python
+            def function_name(parameters):
+                \"\"\"Optional docstring explaining the function\"\"\"
+                # Code to execute
+                return value  # Optional return statement
+            ```
+
+            ## Example
+
+            ```python
+            def greet(name):
+                \"\"\"A simple function to greet someone\"\"\"
+                return f"Hello, {name}!"
+
+            # Call the function
+            message = greet("Alice")
+            print(message)  # Output: Hello, Alice!
+            ```
+
+            ## Why Use Functions?
+
+            1. **Code Reusability**: Write once, use many times
+            2. **Modularity**: Break complex problems into smaller, manageable pieces
+            3. **Abstraction**: Hide complex implementation details
+            4. **Maintenance**: Easier to debug and update
+
+            ## Parameter Types
+
+            Python functions support several parameter types:
+
+            ### Required Parameters
+            ```python
+            def add(a, b):
+                return a + b
+            ```
+
+            ### Default Parameters
+            ```python
+            def greet(name, greeting="Hello"):
+                return f"{greeting}, {name}!"
+            ```
+
+            ### Variable-Length Arguments
+            ```python
+            def sum_all(*args):
+                return sum(args)
+            ```
+
+            ### Keyword Arguments
+            ```python
+            def person_info(**kwargs):
+                for key, value in kwargs.items():
+                    print(f"{key}: {value}")
+            ```
+            """
+        },
+        "how does machine learning work?": {
+            "chat": "Machine learning is a field of AI that enables computers to learn from data without explicit programming. I've prepared a detailed explanation about its core concepts and how it works.",
+            "explanation": """
+            # How Machine Learning Works
+
+            Machine learning is a subset of artificial intelligence that focuses on building systems that learn from and make decisions based on data.
+
+            ## Core Concepts
+
+            At its most basic level, machine learning works by:
+
+            1. **Data Collection**: Gathering relevant data for the problem
+            2. **Data Preparation**: Cleaning and preprocessing the data
+            3. **Model Selection**: Choosing an appropriate algorithm
+            4. **Training**: Allowing the model to find patterns in the data
+            5. **Evaluation**: Testing the model's performance
+            6. **Deployment**: Using the model to make predictions on new data
+
+            ## Types of Machine Learning
+
+            ### Supervised Learning
+
+            In supervised learning, the algorithm learns from labeled data. It's like learning with a teacher who provides the correct answers.
+
+            **Examples**: Classification (spam detection), Regression (price prediction)
+
+            ### Unsupervised Learning
+
+            In unsupervised learning, the algorithm finds patterns in unlabeled data without guidance.
+
+            **Examples**: Clustering (customer segmentation), Dimensionality Reduction
+
+            ### Reinforcement Learning
+
+            In reinforcement learning, an agent learns to make decisions by receiving rewards or penalties.
+
+            **Examples**: Game playing, Robotics
+
+            ## The Learning Process
+
+            Let's take a simple example of linear regression:
+
+            1. Start with a model (e.g., y = mx + b)
+            2. Make predictions using current parameters
+            3. Measure the error (difference between predictions and actual values)
+            4. Adjust parameters to reduce error
+            5. Repeat until error is minimized
+
+            This process of adjustment is called optimization, typically using algorithms like gradient descent.
+
+            ## Real-World Applications
+
+            - **Healthcare**: Disease diagnosis, treatment recommendation
+            - **Finance**: Fraud detection, algorithmic trading
+            - **Retail**: Recommendation systems, demand forecasting
+            - **Transportation**: Self-driving cars, route optimization
+            """
+        },
+        "tell me about data visualization": {
+            "chat": "Data visualization is the graphical representation of information to help understand patterns, trends, and insights. I've created a detailed guide in the explanation panel.",
+            "explanation": """
+            # Data Visualization Guide
+
+            Data visualization is the practice of translating information into a visual context to make data easier to understand and extract insights from.
+
+            ## Why Visualize Data?
+
+            - **Simplify Complexity**: Turn large datasets into understandable formats
+            - **Identify Patterns**: Spot trends, outliers, and correlations
+            - **Communicate Effectively**: Share findings in an intuitive way
+            - **Support Decision Making**: Enable data-driven decisions
+
+            ## Common Visualization Types
+
+            ### Bar Charts
+
+            Best for comparing categories or showing distribution.
+
+            **When to use**: Comparing values across categories, showing counts or frequencies
+
+            ### Line Charts
+
+            Ideal for showing trends over time or continuous data.
+
+            **When to use**: Time series data, showing changes or trends
+
+            ### Scatter Plots
+
+            Perfect for showing relationships between two variables.
+
+            **When to use**: Correlation analysis, identifying clusters or outliers
+
+            ### Pie Charts
+
+            Show composition of a whole divided into parts.
+
+            **When to use**: Showing proportions, parts of a whole (use sparingly)
+
+            ### Heatmaps
+
+            Display values using color intensity.
+
+            **When to use**: Correlation matrices, geographic data, website analytics
+
+            ## Principles of Effective Visualization
+
+            1. **Clarity**: Focus on the message you want to convey
+            2. **Simplicity**: Avoid chart junk and unnecessary elements
+            3. **Accuracy**: Represent data truthfully (start y-axis at zero when appropriate)
+            4. **Context**: Provide enough information to interpret the data
+            5. **Accessibility**: Use inclusive design principles (colorblind-friendly palettes)
+
+            ## Popular Visualization Tools
+
+            - **Python**: Matplotlib, Seaborn, Plotly
+            - **R**: ggplot2, Shiny
+            - **JavaScript**: D3.js, Chart.js
+            - **BI Tools**: Tableau, Power BI
+
+            ## Best Practices
+
+            - Choose the right chart type for your data
+            - Use color purposefully and consistently
+            - Label axes clearly
+            - Include a title and legend when necessary
+            - Focus on the data, not decorative elements
+            """
+        }
+    }
+
+    # Process the input
+    key = user_input.lower()
+
+    # Find the closest matching explanation
+    matched_key = None
+    for k in explanations.keys():
+        if k in key:
+            matched_key = k
+            break
+
+    if matched_key:
+        # Send chat response
+        await chat.append_message(explanations[matched_key]["chat"])
+
+        # Stream detailed explanation
+        explanation_text = explanations[matched_key]["explanation"].split("\n")
+        await md_stream.stream(explanation_text, clear=True)
+    else:
+        # Generic response for unmatched queries
+        await chat.append_message("I don't have specific information on that topic yet. Could you try asking about Python functions, machine learning, or data visualization?")
+```
+:::
+
+## Conclusion
+
+The `MarkdownStream` component provides a powerful way to display incrementally generated content in your Shiny applications. It's particularly useful for:
+
+- Displaying AI-generated content as it's being created
+- Building interactive tutorials and explanations
+- Creating real-time data analysis reports
+- Showing progress updates during long-running operations
+
+By combining `MarkdownStream` with other Shiny components like `Chat`, you can create rich, interactive applications that provide both explanatory content and conversational interfaces.
+
+Unlike the more conversational `Chat` component, `MarkdownStream` focuses solely on displaying streamed content, making it a simpler but powerful tool when you need to show content being generated incrementally without a conversational interface.
+
+## Next steps
+
+To learn more about Generative AI in Shiny, check out other articles in this series:
+
+- [Chatbots](chatbots.qmd): How to build conversational interfaces with the `Chat` component
+- [Tool Calling](genai-tools.qmd): How to equip your LLM with tools to perform actions
+- [Structured Output](genai-output.qmd): How to get structured data from LLMs
+- [Jupyter Widgets](jupyter-widgets.qmd): How to incorporate interactive Jupyter widgets in Shiny apps

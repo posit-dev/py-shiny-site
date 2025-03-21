@@ -1,0 +1,10 @@
+---
+title: Multi-modal
+editor:
+  markdown:
+    wrap: sentence
+---
+
+
+- Uploading images to chatlas?
+- shinymedia

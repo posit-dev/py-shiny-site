@@ -1,0 +1,100 @@
+
+---
+title: RAG
+editor:
+  markdown:
+    wrap: sentence
+---
+
+Retrieval-Augmented Generation (RAG) helps LLMs gain the context they need to accurately answer a question.
+The core idea of RAG is fairly simple, yet general: given a set of documents and a user query, find the document(s) that are the most "similar" to the query and supply those documents as additional context to the LLM.
+However, doing RAG well can be difficult, and there are many ways to approach it.
+
+If you're new to RAG, `chatlas`'s [RAG documentation](https://posit-dev.github.io/chatlas/rag.html) provides a gentle introduction to the topic.
+Note that in that article there is a function, `get_top_k_similar_documents`, that computes the top-k most similar documents to a user query.
+Below is a simple example of how you might use this function to perform RAG in a chatbot:
+
+<details>
+<summary> rag.py </summary>
+
+```python
+import numpy as np
+from sentence_transformers import SentenceTransformer
+
+embed_model = SentenceTransformer("sentence-transformers/all-MiniLM-L12-v2")
+
+# A list of 'documents' (one document per list element)
+documents = [
+    "The unicorn programming language was created by Horsey McHorseface.",
+    "It's known for its magical syntax and rainbow-colored variables.",
+    "Unicorn is a dynamically typed language with a focus on readability.",
+    "Some other programming languages include Python, Java, and C++.",
+    "Some other useless context...",
+]
+
+# Compute embeddings for each document (do this once for performance reasons)
+embeddings = [embed_model.encode([doc])[0] for doc in documents]
+
+def get_top_k_similar_documents(user_query, top_k=3):
+    # Compute embedding for the user query
+    query_embedding = embed_model.encode([user_query])[0]
+
+    # Calculate cosine similarity between the query and each document
+    similarities = np.dot(embeddings, query_embedding) / (
+        np.linalg.norm(embeddings, axis=1) * np.linalg.norm(query_embedding)
+    )
+
+    # Get the top-k most similar documents
+    top_indices = np.argsort(similarities)[-top_k:][::-1]
+    return [documents[i] for i in top_indices]
+```
+
+</details>
+
+<details>
+<summary> app.py </summary>
+
+```python
+from chatlas import ChatAnthropic
+from rag import get_top_k_similar_documents
+
+from shiny.express import ui
+
+chat_client = ChatAnthropic(
+    model="claude-3-7-sonnet-latest",
+    system_prompt="""
+    You are a helpful AI assistant. Using the provided context,
+    answer the user's question. If you cannot answer the question based on the
+    context, say so.
+   """,
+)
+
+chat = ui.Chat(
+    id="chat",
+    messages=["Hello! How can I help you today?"],
+)
+chat.ui()
+
+chat.update_user_input(value="Who created the unicorn language?")
+
+@chat.on_user_submit
+async def _(user_input: str):
+    top_docs = get_top_k_similar_documents(user_input, top_k=3)
+    prompt = f"Context: {top_docs}\nQuestion: {user_input}"
+    response = await chat_client.stream_async(prompt)
+    await chat.append_message_stream(response)
+```
+
+</details>
+
+::: {.panel-tabset .panel-pills}
+
+### Without RAG
+
+![](/images/chat-rag-no-context.png){class="rounded shadow mb-5 d-block m-auto" width="67%"}
+
+### With RAG
+
+![](/images/chat-rag.png){class="rounded shadow mb-5 d-block m-auto" width="67%"}
+
+:::
