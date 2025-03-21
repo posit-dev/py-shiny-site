@@ -20,8 +20,8 @@ editor:
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 200px;
-    height: 100px;
+    width: 125px;
+    height: 125px;
     font-size: 1.5rem;
     background-color: #007BFF;
     color: white;
