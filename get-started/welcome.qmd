@@ -23,7 +23,7 @@ editor:
     width: 125px;
     height: 125px;
     font-size: 1.5rem;
-    background-color: #007BFF;
+    background-color: #017AC2; /* posit blue #447099 */
     color: white;
     border: none;
     border-radius: 12px;
