@@ -1,0 +1,46 @@
+---
+title: "What's Next?"
+---
+
+## Templates
+
+This dashboard is one of many example dashboards available on the
+[Shiny for Python Templates Page](https://shiny.posit.co/py/templates/).
+
+If you want to download and run this application,
+you can visit the
+[Restaurant tips dashboard template page](https://shiny.posit.co/py/templates/dashboard-tips/)
+and follow the command to downlaod the application
+
+```bash
+shiny create --template dashboard-tips --mode express --github posit-dev/py-shiny-templates
+```
+
+This will create a `dashboard-tips` folder in your current directory.
+The output of the command will then prompt you to install the dependencies for the application
+using `pip`.
+
+```bash
+$ shiny create --template dashboard-tips --mode express --github posit-dev/py-shiny-templates
+ℹ Using GitHub repository posit-dev/py-shiny-templates.
+… Creating Restaurant tips dashboard Shiny app...
+? Enter destination directory: ./dashboard-tips
+✓ Created Shiny app at dashboard-tips
+
+→ Next steps:
+- Install required dependencies:
+    cd dashboard-tips
+    pip install -r requirements.txt
+- Open and edit the app file: dashboard-tips/app.py
+```
+
+To run the example tips dashboard,
+you can use the same `shiny run` command we did in the previous exercise.
+The application code is in the `app.py` file.
+
+```bash
+shiny run
+```
+
+There are a few other files and modules that are in this example application.
+We will spend the next few lessons of this tutorial going though each of the components.
