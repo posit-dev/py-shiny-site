@@ -92,7 +92,7 @@ You can even use a [brand.yml](https://posit-dev.github.io/brand-yml/) file to a
 
 At the heart of Shiny is [reactivity](../docs/reactive-foundations.qmd), a system that automatically updates outputs when inputs change for seamless interactivity.
 Unlike traditional web apps, where you need to manually handle state and data updates with callbacks, Shiny’s reactive engine keeps everything in sync effortlessly.
-For example, when a user interacts with a slider or selects a filter, Shiny's reactive engine avoids uneccessary computations by only re-calculating the outputs whose inputs have changedShiny's reactive engine avoids uneccessary computations by only re-calculating the outputs whose inputs have changed.
+For example, when a user interacts with a slider or selects a filter, Shiny's reactive engine avoids unnecessary computations by only re-calculating the outputs whose inputs have changedShiny's reactive engine avoids unnecessary computations by only re-calculating the outputs whose inputs have changed.
 This makes Shiny ideal for fast data-driven applications, enabling live updates for charts, tables, and reports with minimal effort,
 and gives you the confidence that results are accurately rendered.
 
