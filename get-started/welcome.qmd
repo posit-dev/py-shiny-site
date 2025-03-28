@@ -96,6 +96,9 @@ For example, when a user interacts with a slider or selects a filter, Shiny's re
 This makes Shiny ideal for fast data-driven applications, enabling live updates for charts, tables, and reports with minimal effort,
 and gives you the confidence that results are accurately rendered.
 
+Below is a Shiny application where you have the output text react to _both_ input slider values
+and the second row of text _only_ reacts to the first slider value.
+
 ```{shinylive-python}
 #| standalone: true
 #| components: [editor, viewer]
