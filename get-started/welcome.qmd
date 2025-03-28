@@ -6,13 +6,14 @@ editor:
 ---
 
 ```{=html}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
   .button-container {
     display: flex;
     gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .large-btn {
@@ -20,8 +21,8 @@ editor:
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 125px;
-    height: 125px;
+    width: 200px;
+    height: 200px;
     font-size: 1.5rem;
     background-color: #017AC2; /* posit blue #447099 */
     color: white;
@@ -73,17 +74,17 @@ You can even use a [brand.yml](https://posit-dev.github.io/brand-yml/) file to a
 <div class="button-container">
   <a href="/components#inputs"class="large-btn">
     Inputs
-    <i class="fas fa-keyboard"></i>
+    <i class="fas fa-sliders-h"></i>
   </a>
 
   <a href="/components#outputs"class="large-btn">
     Outputs
-    <i class="fas fa-keyboard"></i>
+    <i class="fas fa-chart-line"></i>
   </a>
 
   <a  href="/layouts"class="large-btn">
     Layouts
-    <i class="fas fa-keyboard"></i>
+    <i class="fas fa-border-all"></i>
   </a>
 </div>
 
