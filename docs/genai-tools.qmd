@@ -1,0 +1,86 @@
+---
+title: Tool calling
+editor:
+  markdown:
+    wrap: sentence
+---
+
+Tools/function calling is particularly useful because it can help:
+
+1. Enable access to information that the LLM may otherwise not have access to.
+2. Equip the LLM with the ability to perform complex tasks that it wouldn't otherwise wouldn't be able to do accurately.
+3. Enhance verifiability since the tool uses/provides reproducible code to help answer to the question.
+
+For a motivating example, consider [the "sidebot" app](https://jcheng.shinyapps.io/sidebot/) ([source](https://github.com/jcheng5/py-sidebot)).
+It leverages LLMs to generate SQL queries that match a user's natural language query.
+Also, the LLM is given tools to actually run the SQL query on the data, update the dashboard, and reporting of results (if needed).
+
+::: column-body-outset
+![](/images/sidebot.png){class="rounded shadow mb-5"}
+:::
+
+For a more basic example of how you might use tool calling in a chatbot, consider the following:
+
+
+<details open>
+<summary> app.py </summary>
+
+```python
+from chatlas import ChatAnthropic
+from tool import get_temperature
+
+chat = ui.Chat(id="chat", messages=["Hello! How can I help you today?"])
+chat.ui()
+chat.update_user_input(value="What's the current temperature in Duluth, MN?")
+
+chat_client = ChatAnthropic(
+    system_prompt="""
+    You are a helpful AI assistant. Using the provided context,
+    answer the user's question. If you cannot answer the question based on the
+    context, say so.
+   """,
+)
+
+async def get_current_temperature(latitude: float, longitude: float):
+    "Get the current weather given a latitude and longitude."
+    with chat.message_stream() as stream:
+        stream.append("Querying the weather service...")
+        temp = get_temperature(latitude, longitude)
+        stream.replace()
+        stream.append(f"<details><summary>Tool result</summary> The temperature is {temp} at {latitude}, {longitude}.</details>")
+
+    return temp
+
+chat_client.register_tool(get_current_temperature)
+
+@chat.on_user_submit
+async def _(user_input: str):
+    response = await chat_client.stream_async(user_input)
+    await chat.append_message_stream(response)
+```
+</details>
+
+<details open>
+<summary> tool.py </summary>
+
+```python
+import requests
+
+def get_temperature(latitude: float, longitude: float):
+    lat_lng = f"latitude={latitude}&longitude={longitude}"
+    url = f"https://api.open-meteo.com/v1/forecast?{lat_lng}&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m"
+    response = requests.get(url)
+    json = response.json()
+    return json["current"]
+```
+</details>
+
+
+
+
+
+
+
+Tool/function calling is a way to provide additional context to the LLM by calling external tools or functions to generate a response.
+This can be useful when you have a specific tool that can provide a better answer than the LLM, or when you want to provide additional context to the LLM to help it generate a better response.
+In this way, tool calling is similar to [retrieval-augmented generation](#retrieval-augmented-generation), but with the added flexibility of allowing the LLM to gain the context that it thinks is needs.
