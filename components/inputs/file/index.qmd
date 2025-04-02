@@ -12,7 +12,7 @@ listing:
   contents:
   - title: Preview
     file: app-detail-preview.py
-    height: 380
+    height: 200
   - title: Express
     file: app-express.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJM6cKITIcAbnAA6Eeo1aduGOAA9Uoli179BwrqgCuZPCMoATOHXPGO8+fYxHTAfRocANnAAUs2gDzAIAFDkIAayYoJk8fcyhuWO85MABKJiYAYiYAHlzHMABJCBNhOLgmSygyKEQAxwh5AAFRCGs6DAp1MnlrGiYyHt80+ohMzNEyYzpx1zIMGhHMnPz5MABfAF0gA
