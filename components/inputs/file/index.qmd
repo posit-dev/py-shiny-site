@@ -24,10 +24,12 @@ listing:
   contents:
   - title: ui.input_file
     href: https://shiny.posit.co/py/api/core/ui.input_file.html
-    signature: express.ui.input_file(id, label, *, multiple=False, accept=None,
+    signature: ui.input_file(id, label, *, multiple=False, accept=None,
       width=None, button_label='Browse...', placeholder='No file selected', capture=None)
   - title: express.ui.input_file
-  - href: https://shiny.posit.co/py/api/express/express.ui.input_file.html
+    href: https://shiny.posit.co/py/api/express/express.ui.input_file.html
+    signature: express.ui.input_file(id, label, *, multiple=False, accept=None,
+      width=None, button_label='Browse...', placeholder='No file selected', capture=None)
 
 - id: variations
   template: ../../_partials/components-variations.ejs
