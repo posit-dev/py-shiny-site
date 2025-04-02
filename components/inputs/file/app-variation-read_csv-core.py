@@ -48,4 +48,4 @@ def server(input, output, session):
         return info_df.loc[:, input.stats()]
 
 
-app = App(app_ui, server, debug=True)
+app = App(app_ui, server)
