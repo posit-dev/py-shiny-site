@@ -1,0 +1,82 @@
+---
+title: File Input
+sidebar: components
+appPreview:
+  file: components/inputs/file/app-preview.py
+  static: true
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/file/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJM6cKITIcAbnAA6Eeo1aduGOAA9Uoli179BwrqgCuZPCMoATOHXPGO8+fYxHTAfRocANnAAUs2gDzAIAFDkIAayYoJk8fcyhuWO85MABKJiYAYiYAHlzHMABJCBNhOLgmSygyKEQAxwh5AAFRCGs6DAp1MnlrGiYyHt80+ohMzNEyYzpx1zIMGhHMnPz5MABfAF0gA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6lACZw6EgK4cAOhFVpUAfSVMAvEyVYoAcziaaAGyXSAFKqYODHDF1QKy5jhbh3ay-Ez+AAochADWTFBMNF5wElDc0bH+AJQSTADETAA82faO-gCSEG7CMd5M0lBkUIj+ePkOhsTupZoUAB4eAG5yAEbVfL5kXakNECmqUxCyNKxyvXQ2ru4SLWSlEixwLCwcpCl1EI5MAAJSM3IYnWSNlXBzI2Q2h3cnUmQKdMcrZBg0LwcWVy03U6D0onQNg02g4WwWcgksj6CmMugAKnQFHBJhAwABfAC6QA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.input_file
+    href: https://shiny.posit.co/py/api/core/ui.input_file.html
+    signature: ui.input_file(id, label, *, multiple=False, accept=None,
+      width=None, button_label='Browse...', placeholder='No file selected', capture=None)
+  - title: express.ui.input_file
+    href: https://shiny.posit.co/py/api/express/express.ui.input_file.html
+    signature: express.ui.input_file(id, label, *, multiple=False, accept=None,
+      width=None, button_label='Browse...', placeholder='No file selected', capture=None)
+
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/inputs/file/
+  contents:
+  - title: Read a CSV file into pandas
+    description: You can limit the data type to only CSV files that can be read into pandas.
+    apps:
+    - title: Preview
+      file: app-variation-read_csv-core.py
+    - title: Express
+      file: app-variation-read_csv-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACVKCAEygGcXe2nADoQAZo2IwWPABY0I2FnQbMWjOFEJkaANzgjxk6XIUY4AD1TqefZU1bzUAVzJ41lTnEZunNAxKlZeWwMMmxUOFt6exYAMRoAGzgASTFiERFfDEcXAH1RRLgACiFaCGcyfMLSt1KAYRliYh44FjqAZQA1OOr8fkJCOFQyAF5gUoxCHh1SgF03GCcE7VQkkdioBJaASkyabPK8whk4QgBrACNic1yAcwknVBKIFleWUp4yKDIeGpE395gdpOGAwKCMRTtL4-P4vN7HYg0QY8MalABKxAA7m1iE5yDVAXViAkQS8iXiyAT6sTSSwAHKwSJzPD-N4tJJaOCcVFgDHY8n4vrUkkwMm4wW1MBEkUvBnwX5geYiXYQDIQAAC6k02j0k02hBEnlEbHBLU4VSSRW2iFZrwKSRYIyUhzIBwqFuKKoBNGN9taND4dNIcBtcIBr3UZCcjBeqE4GAAIt8oLFGIyrbb3FGY4IMFrzVMdEU-cAAAyzcZgbhfdhkGRzFVqzUeLwYatQfJp+CGuDGnggsEQq2hgGcY1O9iMM0ejOqsNKY1jsz0MIj8MRuDZ2PxpNfVPpxvzgDELAA4puWHXWhJsSQKW4SDKWHfyG4OJxnzTRSxoPKWMRjSvFhdxTLt9HnG9chfVgnSXWQ0DgMtZkzR9SSg8UYJYOCZAQ4AAEZkPnX9IkdLDREmL8IB4UJiQDMhZwBVDRVyYi+CdKkwAwAArREICKT5GCKYjthYUQmB-RlnQk+VDwBE86i1Ch+B-OBsRA-d4EvYgsIDVYoEUID5DExgwW0UhMyM4hcjHUi40TZMNOKEBMwBdEsRxClSkQFhgEg6ClXnVypUojzBW84AmIgdCKQC9dXmFWk5SZJAfMiljGR4WK3gAX1kt4TxyV1Pm+HgrSUPgoBYBI6P-PsyEYeRbh4ABuaQnAuFpWCAyK+AuXguX-F4gPZU4KGEY9nxOc4rnMJkIM3aMXks6zyISYhCGARA3EKjBip+K1ZjAbLZiAA
+    - title: Core
+      file: app-variation-read_csv-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACVKCAEygGcXe2nADoQAZo2IwWPABY0I2FnQbMWAQXR4WjOFEJkaANzhadXOIy0BXGiJFpUAfRssAvCxtYoAcziPRADY2nAAUIiwRHjQY8qhWZP40AXBhEJHpLEK0EHEJoklwWVpZAMIyxMQ8cCwlAMoAaiwAYgVF-ISEcKhkrsBZGIQ8hlkAulowVgEGqMmuTVABVeGRAJR4yxGesfGOhDJwhADWAEbEAB6O3hJWqKkZkVk8ZFBkPEUbGVm1VjAwUIyKWrPV7vNL3Fh7Yg0To8XpZABKxAA7jViFZyG1SsQgjA0iU0Rj8JkwPicWkAHKwOBvMBjD7pKrJfRwThwsCIlH49FkTEk7E-PEEnlErFkliU+A0ulgiJrD6eNFkXKObjPfyMKlhMA8H5-AFZOUQFZ2CAiThwUTSCzGRghbZkLSK3JaKo8Hg0UgrRAfAACOj0BmMAwWhA+5st7EYVU4iWSIS99Mi+WSbiUOXiMXTeQK8cTERoluT1RofHJpDg3pl4IiOjIVkYaVQnAwABEXlAmhr4Lmq+la-XG83-THBoYQkXgAAGEZ9MCqtAvGSjY2mqt+yjmxgYefqqlhi3SXX-bDxyvVziW9yR6OxlIrvNKS0XjBwehkbBn6uRfsNwSt9udpq969pEADELAAOJwKwZD7NoyIQkKWgkGKJDcloHCcIhYrQJKLDEJasHVG2zyAfAD4SEiuxCqmz6yGgcBTiMD4oQK1HcrRogYPRqCMQAjMxIERLh1KcQM-K4jwGBkNiJZkD21asbijgiXw7i8hgABWUIQCETy2iJKwsKITAsCJaZmVSPDAdW4ElP6FD8GZcAoiRHZdtUMksJwJYzFAihEWmJmMH8BikA+8gmSql5-m5ZEpCAD7pAiCFcoSiAsMAlHseQ0pfg8fJimlwoZcASkQDlZB5flxKkgK4pWVkpXlSpVnVfcAC+NnguB9rccCPDxkofBQCwARyfhlr6fI3g8AA3IexxVDBcHlXwxy8Cy+FpIFjIHBQwhCSw4F7AcJznNSFHQQOQXENFGABMQhDAIgWh9U8LyDSsgkmg4qYaLcDjODQLrWhYWjmscVjeK4AAqjBWHAK5gB1IxAA
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A file input allows you to upload one or more files.
+
+To add a file input to your app:
+
+  1. Add `ui.input_file()` to the UI of your app to create a file upload component. Where you call this function will determine where the date selector will appear within the app's layout.
+
+  2. Specify the `id` and `label` parameters of `ui.input_date()` to define the identifier and label of the file upload.
+    `ui.input_file()` also includes various optional parameters to control what kinds of files can be uploaded.
+
+The value of an input component is accessible as a reactive value within the `server()` function.
+The file input returns a list containing a dictionary of 4 keys:
+
+  1. Use `input.<file_id>()` to access the value of the file input (e.g., `input.file()`). The server value of of the file input is a list containing a dictionary.
+
+Here is an example of what the file input returns:
+
+```python
+[{'name': 'my_file.csv', 'size': 525600, 'type': 'text/csv', 'datapath': '/tmp/fileupload-8khw0q6n/tmpeobuc_pj/0.csv'}]
+```
+
+You will typically want to load the uploaded in your application,
+to access the path of the uploaded file, you will first need to get the dictionary from the list, and get the value from the `'datapath'` key.
+For example, `input.<file_id>()[0]['datapath']`.
