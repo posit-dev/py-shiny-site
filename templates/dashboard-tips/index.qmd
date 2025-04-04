@@ -23,7 +23,7 @@ shiny create --template dashboard-tips --mode core --github posit-dev/py-shiny-t
 
 An intermediate dashboard with input filters, value boxes, a plot, and table.
 This particular dashboard visualizes [the `tips` dataset](https://www.angela1c.com/projects/tips-project-files/part1/).
-In terms of the implementation, this dashboard is similar to the [basic dashboard](/templates/dashboard-basic) template, but adds output-specific input controls to card components.
+In terms of the implementation, this dashboard is similar to the [basic dashboard](../dashboard/index.qmd) template, but adds output-specific input controls to card components.
 Those controls are made available via a popover by clicking on the icon in the top-right corner of the card.
 Another notable difference is the use of `plotly` for interactive plots.
 
