@@ -22,7 +22,6 @@ with ui.card():
         choices=choices,  # Required: choices as dict with HTML content
         selected="choice1",  # Optional: initial selected value
         inline=True,  # Optional: display buttons inline
-        width="300px",  # Optional: CSS width
     )
 
     # Display the current selection

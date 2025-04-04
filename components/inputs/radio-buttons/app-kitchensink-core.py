@@ -18,7 +18,6 @@ app_ui = ui.page_fluid(
             choices=choices,  # Required: choices as dict with HTML content
             selected="choice1",  # Optional: initial selected value
             inline=True,  # Optional: display buttons inline
-            width="300px",  # Optional: CSS width
         ),
         # Output for displaying selection
         ui.output_text("selection"),
