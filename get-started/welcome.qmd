@@ -1,187 +1,91 @@
 ---
-title: "Welcome to Shiny"
+title: "Welcome"
+subtitle: Effortless Python web applications
+
+listing:
+  - id: gallery-highlight
+    template: gallery-highlight.ejs
+    contents: gallery-highlight.yml
+
 editor:
   markdown:
     wrap: sentence
 ---
 
-```{=html}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+Create efficient, reactive, and robust web applications and dashboards.
 
-<style>
-  .button-container {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .large-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 150px;
-    height: 150px;
-    font-size: 1.5rem;
-    background-color: #017AC2; /* posit blue #447099 */
-    color: white;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    padding: 20px;
-    transition: background-color 0.3s ease;
-    text-decoration: none; /* remove underline */
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  .large-btn:hover {
-    background-color: #0056b3;
-    transform: translateY(-3px);
-  }
-
-  .large-btn i {
-    margin-top: 10px;
-    font-size: 2rem;
-  }
-</style>
-```
-
-Shiny for Python is a powerful and beginner-friendly framework for building interactive web applications and dashboards, all in pure Python.
-Whether you’re a data scientist, analyst, or developer, Shiny makes it easy to create rich, interactive experiences without needing to learn JavaScript or front-end frameworks.
-
-## Why choose Shiny for Python?
-
-Why Choose Shiny for Python?
-
-🐍 No JavaScript required – Build full-featured interactive apps in pure Python.<br />
-⚡ Fast iteration – The reactive model allows quick and dynamic updates.
-<br />
-🎨 Built-in theming and layout – Make beautiful dashboards effortlessly.
-<br />
-🚀 Scalability and extensibility – Start simple, grow as needed.
-
-Shiny for Python empowers you to bring your data to life with interactive applications that are easy to build, customize, and share.
-
-## Batteries included {#batteries-included}
-
-Shiny for Python comes fully equipped with everything you need to build a dashboard right out of the box.
-It includes a rich set of [input and output components](/components) so you can quickly build interactive applications without worrying about external dependencies.
-Layout options let you organize your UI efficiently, while built-in theming (including dark mode) ensures your app looks great with minimal effort.
-You can even use a [brand.yml](https://posit-dev.github.io/brand-yml/) file to apply consistent branding, colors, and logos across your application.
-
-<div class="button-container">
-  <a href="/components#inputs"class="large-btn">
-    Inputs
-    <i class="fas fa-sliders-h"></i>
-  </a>
-
-  <a href="/components#outputs"class="large-btn">
-    Outputs
-    <i class="fas fa-chart-line"></i>
-  </a>
-
-  <a  href="/layouts"class="large-btn">
-    Layouts
-    <i class="fas fa-border-all"></i>
-  </a>
-</div>
-
-## Reactivity {#reactivity}
-
-At the heart of Shiny is [reactivity](../docs/reactive-foundations.qmd), a system that automatically updates outputs when inputs change for seamless interactivity.
-Unlike traditional web apps, where you need to manually handle state and data updates with callbacks, Shiny’s reactive engine keeps everything in sync effortlessly.
-For example, when a user interacts with a slider or selects a filter, Shiny's reactive engine avoids unnecessary computations by only re-calculating the outputs whose inputs have changed.
-This makes Shiny ideal for fast data-driven applications, enabling live updates for charts, tables, and reports with minimal effort,
-and gives you the confidence that results are accurately rendered.
-
-Below is a Shiny application where you have the output text react to _both_ input slider values
-and the second row of text _only_ reacts to the first slider value.
-
-```{shinylive-python}
-#| standalone: true
-#| components: [editor, viewer]
-#| layout: vertical
-#| viewerHeight: 250
-
-from shiny import reactive
-from shiny.express import ui, render, input
-
-# input slider 1
-ui.input_slider("slider1", "Slider 1", min=1, max=50, value=20)
-
-# input slider 2
-ui.input_slider("slider2", "Slider 2", min=1, max=50, value=40)
-
-# output reacts to both sliders
-@render.text
-def both_sliders_output():
-    return f"You have set Slider 1: {input.slider1()}, Slider 2: {input.slider2()}"
-
-# output that only reacts to slider 1
-@render.text
-def result():
-    return f"The value for slider 1 squared: {input.slider1()**2}."
-```
-
-## Templates {#templates}
-
-Hit the ground running with Shiny's [starter templates](/templates/) for common use cases, like data dashboards, applications, streaming updates, data entry.
-
-The `shiny create` command walks you through a series of prompts to help you get started quickly with a helpful example.
-You can learn more about the `shiny create` command and how to run your Shiny applications in the
-[create and run](create-run.qmd) section.
-
-You can use this terminal command to load up a basic dashboard:
-
-```bash
-shiny create --template dashboard
-```
-
-::::: {.column-screen-inset}
-::: {.hello-output}
-<iframe
-  src="https://gallery.shinyapps.io/template-dashboard/"
-  frameborder="0"
-  width="100%"
-  class="mb-0 card hello-output-iframe"
-></iframe>
-
-<style>
-  .hello-output-iframe {
-    height: 700px;
-  }
-@media only screen and (max-width: 611px) {
-  .hello-output-iframe {
-    height: 2125px;
-  }
-}
-</style>
-:::
-:::::
-
-
-## Extensibility {#extensible}
-
-While Shiny includes everything you need to build an app, is built on a foundation of web standards, making it highly extensible.
-If you need a custom component or user interface, you can incrementally integrate JavaScript, HTML, or even WebAssembly without having to learn complicated build tooling and frameworks.
-
-The UI components themselves are built on a Python representation of HTML/CSS/JavaScript, which you can see by printing them in a Python REPL:
+![Code of example shiny application](assets/code-welcome.png){class="img-shadow"}
 
 ```python
->>> from shiny import ui
->>> ui.input_action_button("btn", "Button")
-<button class="btn btn-default action-button" id="btn" type="button">Button</button>
+# | standalone: true
+
+from shiny.express import ui, render, input
+import seaborn as sns
+
+df = sns.load_dataset("penguins")
+
+ui.input_slider("bins", "Number of Bins", min=5, max=20, value=15, step=1)
+
+
+@render.plot
+def plot():
+    ax = sns.histplot(data=df, x="body_mass_g", bins=input.bins())
 ```
 
-If you're versed in web programming, you can also use Shiny to create [custom components](/docs/custom-component-one-off.qmd) that leverage your favorite JavaScript framework from Python.
 
-## Give it a try
+## Why Shiny
 
-Ready to give shiny a try?
+- **No JavaScript required** – Build full-featured interactive apps in pure Python.
+  [Install](install.qmd) and [create your first app](create-run.qmd) now!
+- **Fast and robust iteration** – The reactive model allows efficient and dynamic updates.
+  [Learn more about reactivity](/docs/reactive-foundations.qmd).
+- **Batteries Included** – Comes with everything you need for your applications and dashboards.
+  Check out the [input](/components/#inputs) and [output](/components/#outputs) you can use in the [components gallery](/components/) and the different ways you can arrange elements with [layouts](/layouts/).
+- **Scalability and extensibility** – Start simple, grow as needed. [Learn more about custom components](/docs/custom-component-one-off.qmd).
+- **Starter templates** - Get up and running quickly with a [starter template](/templates/).
 
-The next pages in the Get Started will help you [install shiny](install.qmd),
+Shiny for Python empowers you to bring your data to life with interactive applications that are easy to [build](create-run.qmd), [customize](/docs/ui-customize.qmd), and [share](deploy.qmd).
+
+## Everything you need
+
+Need an interactive [component](/components/) on the page?
+We got you.
+
+<!--
+Sample of component gallery mini docs that link to component
+-->
+
+- slider
+- selectize
+- date
+- map
+- plotly
+- valuebox
+
+
+## Gallery and templates
+
+Check out the [Shiny Gallery](/gallery/) for more inspiration.
+Or get started with one of our starter [templates](/templates/).
+
+:::: {.column-body-outset}
+::: {#gallery-highlight}
+:::
+::::
+
+
+## Give Shiny a try
+
+```bash
+pip install shiny
+```
+
+The next pages in the [get started](what_is_shiny.qmd) will help you [install shiny](install.qmd),
 [create and run](create-run.qmd) your first application,
 provide you some [troubleshooting help](debug.qmd), and
-[deploy](deploy.qmd) your application to the web.
+[deploy](deploy.qmd) your application to the web (for [free](deploy-cloud.qmd)!)
+
+Not ready to install? [Try the shinylive playground in the browser](https://shinylive.io/py/examples/).
+
+Join the community with our [forums](https://forum.posit.co/c/shiny) and [discord](https://discord.com/invite/yMGCamUMnS) server.
+Or find us on [YouTube](https://www.youtube.com/@PositPBC/).
