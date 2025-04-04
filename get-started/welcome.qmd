@@ -43,6 +43,7 @@ def plot():
   Check out the [input](/components/#inputs) and [output](/components/#outputs) you can use in the [components gallery](/components/) and the different ways you can arrange elements with [layouts](/layouts/).
 - **Scalability and extensibility** – Start simple, grow as needed. [Learn more about custom components](/docs/custom-component-one-off.qmd).
 - **Starter templates** - Get up and running quickly with a [starter template](/templates/).
+- **Open source** - Inspect, adapt, contribute, or join the [forum](https://forum.posit.co/c/shiny) or [discord](https://discord.com/invite/yMGCamUMnS) community! You can check out the [code](https://github.com/posit-dev/py-shiny/) or make your own [extensions](/docs/custom-component-one-off.qmd).
 
 Shiny for Python empowers you to bring your data to life with interactive applications that are easy to [build](create-run.qmd), [customize](/docs/ui-customize.qmd), and [share](deploy.qmd).
 
