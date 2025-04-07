@@ -6,6 +6,9 @@ on:
   pull_request:
   workflow_dispatch:
 
+env:
+  QUARTO_VERSION: 1.6.42
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -33,8 +36,9 @@ jobs:
           make submodules
 
       - uses: quarto-dev/quarto-actions/setup@v2
+        id: quarto
         with:
-          version: 1.6.42
+          version: ${{ env.QUARTO_VERSION }}
 
       - name: Install R
         uses: r-lib/actions/setup-r@v2
@@ -55,7 +59,7 @@ jobs:
       # =====================================================
       - name: Build site
         run: |
-          make all
+          make all QUARTO_PATH=quarto
 
       # =====================================================
       # Deploy docs to Netlify
