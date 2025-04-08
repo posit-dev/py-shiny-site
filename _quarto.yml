@@ -240,13 +240,6 @@ website:
           contents:
             - docs/install-create-run.qmd
             - docs/debug.qmd
-        - section: "<span class='emoji-icon'>🎨</span>  __User interfaces__"
-          contents:
-            - docs/ui-overview.qmd
-            - docs/jupyter-widgets.qmd
-            - docs/ui-dynamic.qmd
-            - docs/ui-html.qmd
-            - docs/ui-customize.qmd
         - section: "<span class='emoji-icon'>🤖</span> __Generative AI__"
           contents:
             - docs/genai-inspiration.qmd
@@ -255,6 +248,13 @@ website:
             - docs/genai-tools.qmd
             - docs/genai-structured-data.qmd
             - docs/genai-rag.qmd
+        - section: "<span class='emoji-icon'>🎨</span>  __User interfaces__"
+          contents:
+            - docs/ui-overview.qmd
+            - docs/jupyter-widgets.qmd
+            - docs/ui-dynamic.qmd
+            - docs/ui-html.qmd
+            - docs/ui-customize.qmd
         - section: "<span class='emoji-icon'>⚡</span>  __Reactivity__"
           contents:
             - docs/reactive-foundations.qmd
