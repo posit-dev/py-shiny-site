@@ -1,0 +1,209 @@
+---
+title: Input Components
+---
+
+<!-- Reference URL:
+https://github.com/rstudio/shiny-dev-center/blob/a2a53d9f7f896ad790d9870eb764240eb22f6f25/tutorial/lesson3/index.md
+-->
+
+So far we've seen how to customize our user interface,
+and saw how we can use layouts, cards, and the 12-Grid CSS Bootstrap layout
+to help place different elements on our web application.
+Now let's get a sense of all the different kinds of input components we can work with.
+You can see a list of all the possible input components in the
+[components gallery](/components/).
+
+In general, all the input components are imported with `from shiny.express import ui`,
+and we can access each of the input components from the corresponding input
+component function, `ui.input_*()`.
+We typically pass in the input `id` as the first parameter,
+and the `label` as the second parameter.
+The `id` is a unique name for **each** input component that we can use
+to look up its (reactive) value.
+The `label` is the text that is displayed along with the input component,
+it is usually the name or really short description for what the input component controls.
+The rest of the arguments will differ for each component,
+such as what values to be displayed for button choices,
+or starting and ending range for a slider.
+Each input component also has their own parameters for customizations specific for that particular input.
+
+:::{.callout-tip}
+The [components gallery](/components/) is a great way to quickly see all the possible components
+that come with Shiny for Python.
+Each component page has their own mini example tutorial how to use the corresponding component.
+It's useful to have the components page open to the side as you are
+planning and building your application.
+:::
+
+Let's combine a few of our layout knowledge from the previous lesson,
+and add some input components to a shiny application.
+
+Here we have a fillable page with 2 columns, each containing a card
+with a different UI component in it.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 300
+from shiny.express import ui
+
+ui.page_opts(fillable=True)
+
+with ui.layout_columns():
+    with ui.card():
+        ui.card_header("Card 1 header")
+        ui.p("Card 1 body")
+        ui.input_slider("slider", "Slider", 0, 10, 5)
+
+    with ui.card():
+        ui.card_header("Card 2 header")
+        ui.p("Card 2 body")
+        ui.input_text("text", "Add text", "")
+```
+
+
+
+:::{.callout-note .column-page-right}
+## Exercise
+
+Now that you have a bit more practice with UIs and Input components,
+Let's build add a few inputs to our existing tips dashboard.
+
+![](../../docs/assets/tipping-dashboard.png)
+
+Our application only has inputs in the left sidebar.
+Let's add them to the application (we will work on connecting them with data later)
+
+1. [`input_slider()`](https://shiny.posit.co/py/components/inputs/slider-range/):
+    We'll use `0` and `100` as the lower and upper bounds for now.
+    When we load our data we can calculate actual data range.
+2. [`input_checkbox_group()`](https://shiny.posit.co/py/components/inputs/checkbox-group/):
+    With a label of `Food service` and options for `Lunch` and `Dinner`.
+3. [`input_action_button()`](https://shiny.posit.co/py/components/inputs/action-button/):
+    Labeled `Reset filter`.
+
+We will connect these inputs to outputs in the next lesson.
+
+For reference, here's our current code and application:
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 500
+from shiny.express import input, ui
+
+# title
+ui.page_opts(title="Restaurant tipping", fillable=True)
+
+# sidebar (empty for now)
+with ui.sidebar(open="desktop"):
+    "sidebar inputs"
+
+# body of application
+
+# first row of value boxes
+with ui.layout_columns(fill=False):
+    with ui.value_box():
+        "Total tippers"
+        "Value 1"
+
+    with ui.value_box():
+        "Average tip"
+        "Value 2"
+
+    with ui.value_box():
+        "Average bill"
+        "Value 3"
+
+# second row of cards
+with ui.layout_columns(col_widths=[6, 6]):
+    with ui.card(full_screen=True):
+        ui.card_header("Tips data")
+        "Tips DataFrame"
+
+    with ui.card(full_screen=True):
+        ui.card_header("Total bill vs tip")
+        "Scatterplot"
+
+with ui.layout_columns():
+    with ui.card(full_screen=True):
+        ui.card_header("Tip percentages")
+        "ridgeplot"
+
+```
+
+:::
+
+::: {.callout-caution collapse="true" .column-page-right}
+
+## Solution
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 500
+from shiny.express import input, ui
+
+# title
+ui.page_opts(title="Restaurant tipping", fillable=True)
+
+# sidebar
+with ui.sidebar(open="desktop"):
+    ui.input_slider(
+        id="slider",
+        label="Bill amount",
+        min=0,
+        max=100,
+        value=[0, 100],
+    )
+    ui.input_checkbox_group(
+        id="checkbox_group",
+        label="Food service",
+        choices={
+            "Lunch": "Lunch",
+            "Dinner": "Dinner",
+        },
+        selected=[
+            "Lunch",
+            "Dinner",
+        ],
+    )
+    ui.input_action_button("action_button", "Reset filter")
+
+
+# body of application
+
+# first row of value boxes
+with ui.layout_columns(fill=False):
+    with ui.value_box():
+        "Total tippers"
+        "Value 1"
+
+    with ui.value_box():
+        "Average tip"
+        "Value 2"
+
+    with ui.value_box():
+        "Average bill"
+        "Value 3"
+
+# second row of cards
+with ui.layout_columns(col_widths=[6, 6]):
+    with ui.card(full_screen=True):
+        ui.card_header("Tips data")
+        "Tips DataFrame"
+
+    with ui.card(full_screen=True):
+        ui.card_header("Total bill vs tip")
+        "Scatterplot"
+
+with ui.layout_columns():
+    with ui.card(full_screen=True):
+        ui.card_header("Tip percentages")
+        "ridgeplot"
+
+```
+:::
