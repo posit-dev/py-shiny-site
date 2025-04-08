@@ -120,9 +120,6 @@ Basic starting points highlighting common [layouts](https://shiny.posit.co/py/la
 
 ::::::
 
-
-:::::::: {.column-screen-inset .mx-auto style="max-width: 1300px;"}
-
 :::::: {.grid .list-section #gen-ai}
 
 :::: {.g-col-xl-3 .g-col-12}

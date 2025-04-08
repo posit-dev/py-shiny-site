@@ -34,7 +34,7 @@ Towards the end, the app will provide for you some Python (or R) code snippets t
 
 * [Chat](/components/display-messages/chat/index.qmd)
 * [Action button](/components/inputs/action-button/index.qmd)
-* [Select input](/components/inputs/select-input/index.qmd)
+* [Select input](/components/inputs/selectize-single/index.qmd)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}

@@ -20,7 +20,7 @@ repo-actions: false
 
 
 <div class="gradient-text display-4 fw-bolder">
-Reactive data & AI apps in pure Python
+Reactive data + AI apps in pure Python
 </div>
 
 
@@ -29,9 +29,9 @@ elegant, efficient, and ready for production
 </p>
 
 ::: {.pt-4 .pb-4 style="z-index:1;"}
-[Install](#install){.btn .btn-dark .btn-lg .m-2 .px-5 role="button"}
-[Learn](docs/overview.qmd){.btn .btn-dark .btn-lg .m-2 .px-5 role="button"}
-[Shiny for AI](docs/genai-inspiration.qmd){.btn .btn-dark .btn-lg .m-2 .px-5 role="button"}
+[Install 📦](#install){.btn .btn-dark .btn-lg .m-2 .px-4 role="button"}
+[Learn 📚](docs/overview.qmd){.btn .btn-dark .btn-lg .m-2 .px-4 role="button"}
+[Shiny for AI 🤖](docs/genai-inspiration.qmd){.btn .btn-dark .btn-lg .m-2 .px-4 role="button"}
 :::
 
 :::

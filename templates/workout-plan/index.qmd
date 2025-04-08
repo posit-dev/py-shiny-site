@@ -31,7 +31,7 @@ This app demonstrates a useful pattern of collecting user input via input contro
 
 * [Chat](/components/display-messages/chat/index.qmd)
 * [Selectize input](/components/inputs/selectize-multiple/index.qmd)
-* [Slider input](/components/inputs/slider-input/index.qmd)
+* [Slider input](/components/inputs/slider/index.qmd)
 * [Action button](/components/inputs/action-button/index.qmd)
 * [Download button](/api/express/express.render.download.html)
 
