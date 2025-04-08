@@ -19,15 +19,19 @@ repo-actions: false
 :::{.g-col-12 .g-col-xl-6 .hero-text .pt-5 .pt-md-4 .px-3 .px-md-5 .pe-xl-0}
 
 
-<div class="gradient-text display-4 fw-bolder">Effortless Python web applications</div>
+<div class="gradient-text display-4 fw-bolder">
+Reactive data & AI apps in pure Python
+</div>
 
 
-<p class="h4">with the power of reactive programming.</p>
+<p class="h4">
+elegant, efficient, and ready for production
+</p>
 
 ::: {.pt-4 .pb-4 style="z-index:1;"}
 [Install](#install){.btn .btn-dark .btn-lg .m-2 .px-5 role="button"}
-[Learn Shiny](docs/overview.qmd){.btn .btn-dark .btn-lg .m-2 .px-5 role="button"}
-[Learn Shiny _+ AI_](docs/genai-chatbots.qmd){.btn .btn-dark .btn-lg .m-2 .px-5 role="button"}
+[Learn](docs/overview.qmd){.btn .btn-dark .btn-lg .m-2 .px-5 role="button"}
+[Shiny for AI](docs/genai-inspiration.qmd){.btn .btn-dark .btn-lg .m-2 .px-5 role="button"}
 :::
 
 :::
@@ -97,19 +101,19 @@ repo-actions: false
 :::{.grid}
 :::{.g-col-12 .g-col-md-4 .feature-section .mx-3}
 
-### Efficient
-
-Shiny uses a reactive execution engine to minimize rerendering of your application.
-Outputs are rendered on-demand and only when their upstream components change, which means that Shiny can support everything from the simplest dashboard to full-featured web apps.
-
-:::
-:::{.g-col-12 .g-col-md-4 .feature-section .mx-3}
-
 ### Reactive
 
 Shiny eliminates the hassle of manual state management.
 Rather than requiring callback functions and state variables, Shiny automatically determines the best execution path for your app at runtime.
 This allows you to focus on delivering insights instead of troubleshooting execution issues.
+
+:::
+:::{.g-col-12 .g-col-md-4 .feature-section .mx-3}
+
+### Efficient
+
+Shiny uses a reactive execution engine to minimize rerendering of your application.
+Outputs are rendered on-demand and only when their upstream components change, which means that Shiny can support everything from the simplest dashboard to full-featured web apps.
 
 :::
 :::{.g-col-12 .g-col-md-4 .feature-section .mx-3}
