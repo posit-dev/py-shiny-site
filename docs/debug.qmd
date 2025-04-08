@@ -54,7 +54,7 @@ The error displayed in the app is only the final part of the stack trace, but th
 ::: callout-note
 ## Sanitized error messages
 
-When Shiny apps are deployed, error messages are sanitized to the eliminate the possibility of leaking sensitive information. To unsanitize error messages, you'll need to set `sanitize_errors=True` in the `App` constructor (of a [Shiny core app](express-vs-core.qmd)).
+When Shiny apps are deployed, error messages are sanitized to the eliminate the possibility of leaking sensitive information. To unsanitize error messages, you'll need to set `sanitize_errors=False` in the `App` constructor (of a [Shiny core app](express-vs-core.qmd)).
 :::
 
 
