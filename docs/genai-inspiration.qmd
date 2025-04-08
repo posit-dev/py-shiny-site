@@ -195,11 +195,15 @@ shiny create --github jonkeane/shinyImages
 :::
 
 
+<!--
+TODO: this seems worth another section
+
 ## Generative UI
 
 A Shiny that leverages Generative AI doesn't necessarily need a chatbot or streaming markdown aspect.
 
 Thinking beyond chatbots and streaming markdown, Generative AI can leveraged in sorts of creative ways to generate UI components, layouts, and even entire apps.
+-->
 
 
 
