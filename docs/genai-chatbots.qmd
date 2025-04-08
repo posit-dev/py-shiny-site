@@ -1025,22 +1025,23 @@ This makes implementing something like download feature easy:
 #| standalone: true
 #| components: [editor, viewer]
 #| layout: vertical
-#| viewerHeight: 350
+#| viewerHeight: 375
 import json
 from shiny.express import render, ui
 
+ui.page_opts(fillable=True, fillable_mobile=True)
+
 chat = ui.Chat("chat")
+
+chat.ui(messages=["Welcome!"])
+
+@render.download(filename="messages.json", label="Download messages")
+def download():
+    yield json.dumps(chat.messages())
 
 @chat.on_user_submit
 async def _(user_input: str):
     await chat.append_message(f"You said: {user_input}")
-
-with ui.sidebar():
-    @render.download(filename="messages.json", label="Download messages")
-    def download():
-        yield json.dumps(chat.messages())
-
-chat.ui(messages=["Welcome!"])
 ```
 :::
 
