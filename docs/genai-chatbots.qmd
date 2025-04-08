@@ -928,11 +928,11 @@ The example below demonstrates both of these use cases. Note how the inner strea
 
 ::: mobile-layout
 ```{shinylive-python}
-# | standalone: true
-# | components: [editor, viewer]
-# | layout: vertical
-# | viewerHeight: 250
-# | editorHeight: 300
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 250
+#| editorHeight: 300
 import asyncio
 
 from shiny import reactive
@@ -954,11 +954,9 @@ async def _():
         await outer.append("Starting stream 🔄...\n\nProgress:")
         async with chat.message_stream_context() as inner:
             for x in [0, 50, 100]:
-                await inner.append(f" {x}%")
+                await inner.replace(f" {x}%")
                 await asyncio.sleep(1)
-                await inner.clear()
-        await outer.clear()
-        await outer.append("Completed stream ✅")
+        await outer.replace("Completed stream ✅")
 ```
 :::
 
