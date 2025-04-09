@@ -19,7 +19,7 @@ repo-actions: false
 :::{.g-col-12 .g-col-xl-6 .hero-text .pt-5 .pt-md-4 .px-3 .px-md-5 .pe-xl-0}
 
 <div class="gradient-text display-4 fw-bolder", style="font-size:4.7rem;">
-Reactive data & AI apps in pure Python
+Reactive data & AI&nbsp;apps in pure Python
 </div>
 
 <p class="h4">
