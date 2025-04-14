@@ -1,54 +1,50 @@
-
 ```{=html}
-
 <% for (const item of items) { %>
+<div class="list grid" style="column-gap: 30px; grid-template-rows: auto">
+  <% for (const tile of item.tiles) { %>
+  <div
+    class="card gallery-entry border-0 rounded-3 g-col-12 g-col-md-6 g-col-lg-4 shadow-sm vstack gap-1"
 
-<div class="list grid" style="column-gap: 30px;">
-
-<% for (const tile of item.tiles) { %>
-  <div class="card gallery-entry border-0 rounded-3 g-col-12 g-col-md-6 g-col-lg-4 mb-4" <%= metadataAttrs(tile) %>>
     <a href="<%- tile.href %>" target="_blank">
-      <div class="gallery-entry__img-container">
-          <img src="<%- tile.thumbnail %>" alt="<%- tile.description %>" class="card-img-top gallery-entry__img" />
+      <div class="gallery-entry__img-container ratio ratio-4x3" style="background-image: url(<%- tile.thumbnail %>); background-size: cover;">
+        <div class="visually-hidden"><%- tile.description %></div>
       </div>
     </a>
+
     <a href="<%- tile.href %>" target="_blank">
-      <h5 class="link-dark mt-3 mb-2"><%= tile.title %></h5>
+      <h5 class="link-dark p-2 m-0"><%= tile.title %></h5>
     </a>
-      <div class="gallery-entry__body p-95">
 
-        <% if (tile.publicationdate) { %>
-          <b class="listing-publicationdate"><%= tile.publicationdate %></b>
-        <% } %>
+    <% if (tile.publicationdate | tile.description) { %>
+    <div class="gallery-entry__body p-2">
+      <% if (tile.publicationdate) { %>
+      <b class="listing-publicationdate"><%= tile.publicationdate %></b>
+      <% } %> <% if (tile.description) { %>
+      <span class="text-muted"><%= tile.description %></span>
+      <% } %>
+    </div>
+    <% } %>
 
-        <% if (tile.description) { %>
-          <span class="text-muted"><%= tile.description %></span>
-        <% } %>
-
-        <ul>
-
-          <% if (tile.code) { %>
-          <li>
-            <a class="view-app" href="<%- tile.href %>" target="_blank">View app</a>
-          </li>
-          <li>
-            <a href="<%- tile.code %>" title="View source code"
-              class="source-code card-text inline-block"
-              target="_blank"
-              >
-              View source
-            </a>
-          </li>
-          <% } %>
-
-        </ul>
+    <div class="hstack gap-2 align-items-center p-2 mt-auto">
+      <% if (tile.code) { %>
+      <div>
+        <a class="view-app" href="<%- tile.href %>" target="_blank">View app</a>
       </div>
-    </a>
+      <div>
+        <a
+          href="<%- tile.code %>"
+          title="View source code"
+          class="source-code card-text inline-block"
+          target="_blank"
+        >
+          View source
+        </a>
+      </div>
+      <% } %>
+    </div>
   </div>
-<% } %>
-
+  <% } %>
 </div>
 
 <% } %>
-
 ```

@@ -5,6 +5,9 @@ subtitle: Effortless Python web applications
 format:
   html:
     toc: false
+    anchor-sections: true
+
+freeze: false
 
 listing:
   - id: gallery-highlight
@@ -190,3 +193,4 @@ Not ready to install? [Try the shinylive playground in the browser](https://shin
 
 Join the community with our [forums](https://forum.posit.co/c/shiny) and [discord](https://discord.com/invite/yMGCamUMnS) server.
 Or find us on [YouTube](https://www.youtube.com/@PositPBC/).
+
