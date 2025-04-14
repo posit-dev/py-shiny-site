@@ -28,7 +28,7 @@ elegant, efficient, and ready for production
 
 ::: {.pt-4 .pb-4 style="z-index:1;"}
 [Install 📦](#install){.btn .btn-dark .btn-lg .me-2 .px-4 role="button"}
-[Learn 📚](get-started/welcome.qmd){.btn .btn-dark .btn-lg .m-2 .px-4 role="button"}
+[Learn 📚](get-started/index.qmd){.btn .btn-dark .btn-lg .m-2 .px-4 role="button"}
 [Shiny for AI 🤖](docs/genai-inspiration.qmd){.btn .btn-dark .btn-lg .m-2 .px-4 role="button"}
 :::
 

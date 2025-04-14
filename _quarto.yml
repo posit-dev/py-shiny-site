@@ -75,7 +75,7 @@ website:
     search: true
     left:
       - text: "Get Started"
-        file: get-started/welcome.qmd
+        file: get-started/index.qmd
       - text: "Concepts"
         file: docs/overview.qmd
       - text: "Components"
@@ -227,7 +227,7 @@ website:
       collapse-level: 1
       align: left
       contents:
-        - get-started/welcome.qmd
+        - get-started/index.qmd
         - get-started/what_is_shiny.qmd
         - get-started/install.qmd
         - get-started/create-run.qmd
