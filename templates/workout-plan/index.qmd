@@ -1,0 +1,45 @@
+---
+title:        "Workout Plan Generator"
+description:  Use the workout-plan template as a foundation for your next Shiny app.
+date:         2025-03-25
+image:        thumbnail.png
+imagealt:     "A screenshot of the workout-plan template"
+app-height:   900px
+appurl:       https://posit-ai-workout-planner.share.connect.posit.cloud/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/gen-ai/workout-plan
+---
+
+::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
+## Express
+``` bash
+shiny create --template workout-plan --mode express --github posit-dev/py-shiny-templates/gen-ai
+```
+## Core
+``` bash
+shiny create --template workout-plan --mode core --github posit-dev/py-shiny-templates/gen-ai
+```
+:::
+
+
+Generate a workout plan based on your fitness goals, experience level, available equipment, etc.
+This app demonstrates a useful pattern of collecting user input via input controls, then using those values to fill in a prompt template which is sent to the LLM for response generation.
+
+
+:::: {.grid .tags}
+::: {.g-col-6 .g-col-sm-4}
+**Components:**
+
+* [Chat](/components/display-messages/chat/index.qmd)
+* [Selectize input](/components/inputs/selectize-multiple/index.qmd)
+* [Slider input](/components/inputs/slider/index.qmd)
+* [Action button](/components/inputs/action-button/index.qmd)
+* [Download button](/api/express/express.render.download.html)
+
+:::
+::: {.g-col-6 .g-col-sm-4}
+**Packages:**
+
+`chatlas`
+`faicons`
+:::
+::::

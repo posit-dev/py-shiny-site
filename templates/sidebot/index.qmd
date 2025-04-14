@@ -1,0 +1,59 @@
+---
+title:        "Side bot"
+description:  Use the sidebot template as a foundation for your next Shiny app.
+date:         2025-03-25
+image:        thumbnail.png
+imagealt:     "A screenshot of the sidebot template"
+app-height:   900px
+appurl:       https://jcheng.shinyapps.io/sidebot
+sourceurl:    https://github.com/jcheng5/py-databot
+---
+
+::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
+## Express
+``` bash
+shiny create --mode express --github jcheng5/py-databot
+```
+## Core
+``` bash
+shiny create --mode core --github jcheng5/py-databot
+```
+:::
+
+
+The sidebot app template extends the idea of the [Query Chat](../querychat/index.qmd) template to a full blown dashboard.
+That is, users can use natural language to drill down into a dataset, and the app will display the results in a variety of ways, including tables, plots, and value boxes.
+Note the app will also display the SQL used to generate the results, so users can verify the app's interpretation of their query, and learn how to write SQL queries themselves.
+It also includes a ✨ icon, which sends a screenshot of visuals to the LLM for an explanation of the visual.
+
+See [Joe Cheng's `posit::conf(2024)` presentation](https://www.youtube.com/watch?v=AP8BWGhCRZc&t=525s) for a live demo of the app.
+
+
+:::: {.grid .tags}
+::: {.g-col-6 .g-col-sm-4}
+**Components:**
+
+* [Chat](/components/display-messages/chat/index.qmd)
+* [Data Grid](/components/outputs/data-grid/index.qmd)
+* [Plotly](/components/outputs/plot-plotly/index.qmd)
+* [Value box](/components/outputs/value-box/index.qmd)
+
+:::
+::: {.g-col-6 .g-col-sm-4}
+**Layouts:**
+
+* [Cards](/layouts/panels-cards/#content-divided-by-cards)
+* [Grid layout](/layouts/arrange/index.qmd#grid-layouts)
+
+:::
+::: {.g-col-6 .g-col-sm-4}
+**Packages:**
+
+`chatlas`
+`shinywidgets`
+`plotly`
+`pandas`
+`matplotlib`
+`polars`
+:::
+::::

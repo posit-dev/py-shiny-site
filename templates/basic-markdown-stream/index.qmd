@@ -1,0 +1,55 @@
+---
+title:        "Hello Streaming Markdown"
+description:  Use the basic-markdown-stream template as a foundation for your next Shiny app.
+date:         2025-03-25
+image:        thumbnail.png
+imagealt:     "A screenshot of the basic-markdown-stream template"
+app-height:   600px
+appurl:       https://posit-ai-basic-markdown-stream.share.connect.posit.cloud/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/gen-ai/basic-markdown-stream
+---
+
+::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
+## Express
+``` bash
+shiny create --template basic-markdown-stream --mode express --github posit-dev/py-shiny-templates/gen-ai
+```
+## Core
+``` bash
+shiny create --template basic-markdown-stream --mode core --github posit-dev/py-shiny-templates/gen-ai
+```
+:::
+
+A basic example of collecting user input, using it to fill a LLM prompt template, then sending the result to the LLM for response generation. The response is then streamed back to the user in real-time via `MarkdownStream()`.
+
+To learn more, see the article on [Gen AI streaming](/docs/genai-stream.qmd).
+
+::: callout-note
+### Other model providers
+
+This particular template uses [`chatlas.ChatAnthropic()`](https://posit-dev.github.io/chatlas/reference/ChatAnthropic.html) to do response generation via Anthropic. With `chatlas`, it's easy to switch to [other providers](https://posit-dev.github.io/chatlas/reference/).
+Just change `ChatAnthropic()` to another provider (e.g., [`ChatOpenAI()`](https://posit-dev.github.io/chatlas/reference/ChatOpenAI.html)).
+:::
+
+
+:::: {.grid .tags}
+::: {.g-col-6 .g-col-sm-4}
+**Components:**
+
+* [MarkdownStream](/api/express/express.ui.MarkdownStream.qmd)
+* [Action button](/components/inputs/action-button/index.qmd)
+* [Select input](/components/inputs/selectize-single/index.qmd)
+
+:::
+::: {.g-col-6 .g-col-sm-4}
+**Layouts:**
+
+* [Sidebar](/layouts/sidebars/index.qmd)
+
+:::
+::: {.g-col-6 .g-col-sm-4}
+**Packages:**
+
+`chatlas`
+:::
+::::

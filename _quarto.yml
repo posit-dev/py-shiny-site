@@ -249,6 +249,14 @@ website:
           contents:
             - docs/overview.qmd
             - docs/user-interfaces.qmd
+        - section: "<span class='emoji-icon'>🤖</span> __Generative AI__"
+          contents:
+            - docs/genai-inspiration.qmd
+            - docs/genai-chatbots.qmd
+            - docs/genai-stream.qmd
+            - docs/genai-tools.qmd
+            - docs/genai-structured-data.qmd
+            - docs/genai-rag.qmd
         - section: "<span class='emoji-icon'>🎨</span>  __User interfaces__"
           contents:
             - docs/ui-overview.qmd
