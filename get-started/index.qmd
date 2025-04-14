@@ -178,19 +178,17 @@ Or get started with one of our starter [templates](/templates/).
 ::::
 
 
-## Give Shiny a try
+## Take Shiny for a spin
 
-```bash
-pip install shiny
-```
+The next pages in this guide will help you
 
-The next pages in the [get started](what_is_shiny.qmd) will help you [install shiny](install.qmd),
-[create and run](create-run.qmd) your first application,
-provide you some [troubleshooting help](debug.qmd), and
-[deploy](deploy.qmd) your application to the web (for [free](deploy-cloud.qmd)!)
+* [install shiny](install.qmd)
+* [create and run](create-run.qmd) your first application
+* help you find [troubleshooting help](debug.qmd), and
+* [deploy your app](deploy.qmd) to the web ([for free](deploy-cloud.qmd)).
 
-Not ready to install? [Try the shinylive playground in the browser](https://shinylive.io/py/examples/).
+Or skip installation and [try the shinylive playground in the browser](https://shinylive.io/py/examples/)!
 
-Join the community with our [forums](https://forum.posit.co/c/shiny) and [discord](https://discord.com/invite/yMGCamUMnS) server.
-Or find us on [YouTube](https://www.youtube.com/@PositPBC/).
+Have a question?
+Join our community on our [Discord server](https://discord.com/invite/yMGCamUMnS)!
 
