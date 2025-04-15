@@ -5,7 +5,6 @@ subtitle: Effortless Python web applications
 format:
   html:
     toc: false
-    anchor-sections: true
 
 freeze: false
 

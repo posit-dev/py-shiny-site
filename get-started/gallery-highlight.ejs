@@ -1,18 +1,23 @@
-```{=html}
-<% for (const item of items) { %>
+```{=html} <% for (const item of items) { %>
 <div class="list grid" style="column-gap: 30px; grid-template-rows: auto">
   <% for (const tile of item.tiles) { %>
   <div
     class="card gallery-entry border-0 rounded-3 g-col-12 g-col-md-6 g-col-lg-4 shadow-sm vstack gap-1"
-
+  >
     <a href="<%- tile.href %>" target="_blank">
-      <div class="gallery-entry__img-container ratio ratio-4x3" style="background-image: url(<%- tile.thumbnail %>); background-size: cover;">
+      <div
+        class="gallery-entry__img-container ratio ratio-4x3"
+        style="
+          background-image: url(<%- tile.thumbnail %>);
+          background-size: cover;
+        "
+      >
         <div class="visually-hidden"><%- tile.description %></div>
       </div>
     </a>
 
     <a href="<%- tile.href %>" target="_blank">
-      <h5 class="link-dark p-2 m-0"><%= tile.title %></h5>
+      <h5 class="no-anchor link-dark p-2 m-0"><%= tile.title %></h5>
     </a>
 
     <% if (tile.publicationdate | tile.description) { %>
@@ -46,5 +51,4 @@
   <% } %>
 </div>
 
-<% } %>
-```
+<% } %> ```
