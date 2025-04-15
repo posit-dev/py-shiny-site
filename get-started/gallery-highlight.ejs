@@ -1,43 +1,45 @@
-```{=html} <% for (const item of items) { %>
+```{=html}
 <div class="list grid" style="column-gap: 30px; grid-template-rows: auto">
-  <% for (const tile of item.tiles) { %>
+  <% for (const item of items) { %>
   <div
     class="card gallery-entry border-0 rounded-3 g-col-12 g-col-md-6 g-col-lg-4 shadow-sm vstack gap-1"
   >
-    <a href="<%- tile.href %>" target="_blank">
+    <a href="<%- item.href %>" target="_blank">
       <div
         class="gallery-entry__img-container ratio ratio-4x3"
         style="
-          background-image: url(<%- tile.thumbnail %>);
+          background-image: url(<%- item.thumbnail %>);
           background-size: cover;
         "
       >
-        <div class="visually-hidden"><%- tile.description %></div>
+        <% if (item.thumbnail_alt) { %>
+        <div class="visually-hidden"><%- item.thumbnail_alt %></div>
+        <% } %>
       </div>
     </a>
 
-    <a href="<%- tile.href %>" target="_blank">
-      <h5 class="no-anchor link-dark p-2 m-0"><%= tile.title %></h5>
+    <a href="<%- item.href %>" target="_blank">
+      <h5 class="no-anchor link-dark p-2 m-0"><%= item.title %></h5>
     </a>
 
-    <% if (tile.publicationdate | tile.description) { %>
+    <% if (item.publicationdate | item.description) { %>
     <div class="gallery-entry__body p-2">
-      <% if (tile.publicationdate) { %>
-      <b class="listing-publicationdate"><%= tile.publicationdate %></b>
-      <% } %> <% if (tile.description) { %>
-      <span class="text-muted"><%= tile.description %></span>
+      <% if (item.publicationdate) { %>
+      <b class="listing-publicationdate"><%= item.publicationdate %></b>
+      <% } %> <% if (item.description) { %>
+      <span class="text-muted"><%= item.description %></span>
       <% } %>
     </div>
     <% } %>
 
     <div class="hstack gap-2 align-items-center p-2 mt-auto">
-      <% if (tile.code) { %>
+      <% if (item.code) { %>
       <div>
-        <a class="view-app" href="<%- tile.href %>" target="_blank">View app</a>
+        <a class="view-app" href="<%- item.href %>" target="_blank">View app</a>
       </div>
       <div>
         <a
-          href="<%- tile.code %>"
+          href="<%- item.code %>"
           title="View source code"
           class="source-code card-text inline-block"
           target="_blank"
@@ -50,5 +52,4 @@
   </div>
   <% } %>
 </div>
-
-<% } %> ```
+```

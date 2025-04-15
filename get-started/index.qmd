@@ -12,6 +12,7 @@ listing:
   - id: gallery-highlight
     template: gallery-highlight.ejs
     contents: gallery-highlight.yml
+    sort: false
 
 filters:
   - shinylive
