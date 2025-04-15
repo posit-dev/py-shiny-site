@@ -97,19 +97,6 @@ See the [chatlas docs](https://posit-dev.github.io/chatlas/tool-calling.html) to
 
 ### Basic chatbot {#basic-chatbot}
 
-::: callout-warning
-### In development
-
-This section uses APIs that are still in development, so they are subject to change.
-These examples require the latest stable version of `shiny` and the dev version of `chatlas`.
-
-```bash
-pip install -U shiny
-pip install git+https://github.com/posit-dev/chatlas.git
-```
-:::
-
-
 To embed our `chat_client` in a Shiny [chatbot](genai-chatbots.qmd), let's put it in a `client.py` module and use it for response generation.
 And to display the tool call results, just set `content="all"` in the `.stream_async()` method.
 This way, `chatlas` will include tool call content objects in the stream, and since those content objects know how to display themselves in Shiny, we get a generic display of the tool request, response, and/or any errors that occurred.
@@ -185,7 +172,7 @@ Here we'll explore a few general patterns for doing this.
 
 The most basic way to hand over control to the LLM is to have it update reactive `input`(s).
 The core idea is to wrap a `ui.update_*()` call into a tool function, and register that function with the `chat_client`.
-Then, when a user
+Then, when a user asks the LLM to update an input, it's able to do so.
 
 <details>
 <summary> client.py </summary>
@@ -237,6 +224,22 @@ async def _(user_input: str):
 
 
 ![Screenshot of a tool call that updated the slider from 50 to 80.](/images/genai-tool-call-slider-ui.png){class="rounded shadow lightbox"}
+
+
+::: callout-tip
+### Where might this be useful?
+
+The basic example above illustrates the idea using minimal code, but the app itself is not particularly useful.
+For brevity sake, we won't fully explore compelling applications here, but in general, updating inputs can be useful for:
+
+* Navigating complex UI (i.e., lots of tabs, controls, etc)
+    * Allow users describe to what they want without finding it
+
+* Combine with [input suggestions](genai-chatbots.qmd#suggest-input) to:
+    * Guide user to interesting states
+    * Save clicks
+:::
+
 
 
 ### Managing state
@@ -292,18 +295,6 @@ This is done by passing the table schema to the LLM's [system prompt](genai-chat
 Since the general pattern of having a tool to update a reactive data frame via SQL is so useful, the[querychat](../templates/querychat/index.qmd) package generalizes this pattern to make it more accessible and easier to use.
 
 ## Custom tool display {#custom-display}
-
-::: callout-warning
-### In development
-
-This section documents APIs that are still in development, so they are subject to change.
-These examples require the latest stable version of `shiny` and the dev version of `chatlas`.
-
-```bash
-pip install -U shiny
-pip install git+https://github.com/posit-dev/chatlas.git
-```
-:::
 
 Customizing how tool results are displayed can be useful for a variety of reasons.
 For example, you may want to simply style results differently, or something much more sophisticated like displaying a map or a table.
