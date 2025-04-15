@@ -333,9 +333,8 @@ chat.ui(messages=["Welcome!"])
 ```python
 from shiny import ui, App
 
-app_ui = ui.page_fixed(
-    ui.chat_ui(id="chat", messages=["Welcome!"])
-    fillable=True,
+app_ui = ui.page_fillable(
+    ui.chat_ui(id="chat", messages=["Welcome!"]),
     fillable_mobile=True,
 )
 
