@@ -3,17 +3,15 @@ title: What is Shiny?
 ---
 
 ```{=html}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 <style>
-  .button-container {
+  .btn-links {
     display: flex;
-    gap: 20px;
+    gap: 1.5rem;
     flex-wrap: wrap;
     justify-content: center;
   }
 
-  .large-btn {
+  .btn-link-large {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -21,26 +19,22 @@ title: What is Shiny?
     width: 150px;
     height: 150px;
     font-size: 1.5rem;
-    background-color: #017AC2; /* posit blue #447099 */
-    color: white;
-    border: none;
-    border-radius: 12px;
+    border: 1px solid transparent;
+    border-radius: 10px;
     cursor: pointer;
-    padding: 20px;
-    transition: background-color 0.3s ease;
-    text-decoration: none; /* remove underline */
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    padding: 1.25rem;
+    text-decoration: none;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
-  .large-btn:hover {
-    background-color: #0056b3;
-    transform: translateY(-3px);
-  }
-
-  .large-btn i {
+  .btn-link-large i {
     margin-top: 10px;
     font-size: 2rem;
+  }
+
+  .btn-link-large:hover {
+    text-decoration: none;
+    border: 1px solid var(--bs-primary);
   }
 </style>
 ```
@@ -49,29 +43,27 @@ Whether you’re a data scientist, analyst, or developer, Shiny makes it easy to
 
 ## Batteries included {#batteries-included}
 
-Shiny for Python comes fully equipped with everything you need to build a dashboard right out of the box.
-
-It includes a rich set of [input](/components/#inputs) and [output](/components/#outputs) [components](/components/) so you can quickly build interactive applications.
+Shiny for Python comes fully equipped with everything you need to build a dashboard right out of the box, including a rich set of [input](/components/#inputs) and [output](/components/#outputs) [components](/components/) so you can quickly build interactive applications.
 
 [Layout](/layouts/) options let you organize your UI efficiently, while built-in [theming](/docs/ui-customize.qmd) (including [dark mode](/components/inputs/dark-mode)) ensures your app looks great with minimal effort.
 
 Already have a brand guideline?
 You can use [brand.yml](https://posit-dev.github.io/brand-yml/) to apply consistent branding, colors, and logos across your application.
 
-<div class="button-container">
-  <a href="/components#inputs"class="large-btn">
+<div class="btn-links">
+  <a href="/components#inputs" class="btn-link-large">
     Inputs
-    <i class="fas fa-sliders-h"></i>
+    <i class="bi bi-sliders primary" role="img" aria-hidden="true"></i>
   </a>
 
-  <a href="/components#outputs"class="large-btn">
+  <a href="/components#outputs" class="btn-link-large">
     Outputs
-    <i class="fas fa-chart-line"></i>
+    <i class="bi bi-bar-chart-line-fill primary" role="img" aria-hidden="true"></i>
   </a>
 
-  <a  href="/layouts"class="large-btn">
+  <a  href="/layouts" class="btn-link-large">
     Layouts
-    <i class="fas fa-border-all"></i>
+    <i class="bi bi-layout-text-window-reverse primary" role="img" aria-hidden="true"></i>
   </a>
 </div>
 
