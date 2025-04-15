@@ -185,7 +185,7 @@ Here we'll explore a few general patterns for doing this.
 
 The most basic way to hand over control to the LLM is to have it update reactive `input`(s).
 The core idea is to wrap a `ui.update_*()` call into a tool function, and register that function with the `chat_client`.
-Then, when a user
+Then, when a user asks the LLM to update an input, it's able to do so.
 
 <details>
 <summary> client.py </summary>
@@ -237,6 +237,22 @@ async def _(user_input: str):
 
 
 ![Screenshot of a tool call that updated the slider from 50 to 80.](/images/genai-tool-call-slider-ui.png){class="rounded shadow lightbox"}
+
+
+::: callout-tip
+### Where might this be useful?
+
+The example above is a basic example to illustrate the concept, but perhaps not that compelling.
+Here are some ideas for where this pattern might be useful:
+
+* Navigating complex UI (i.e., lots of tabs, controls, etc)
+    * Allow users describe to what they want without finding it
+
+* Combine with [input suggestions](genai-chatbots.qmd#suggest-input) to:
+    * Guide user to interesting states
+    * Save clicks
+:::
+
 
 
 ### Managing state
