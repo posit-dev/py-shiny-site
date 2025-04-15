@@ -228,7 +228,7 @@ website:
       align: left
       contents:
         - get-started/index.qmd
-        - get-started/what_is_shiny.qmd
+        - get-started/what-is-shiny.qmd
         - get-started/install.qmd
         - get-started/create-run.qmd
         - get-started/debug.qmd

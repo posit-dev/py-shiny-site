@@ -160,7 +160,7 @@ Get up and running quickly with a [starter template](/templates/).
 - **Open source**<br>
 Inspect, adapt, contribute, or join the [forum](https://forum.posit.co/c/shiny) or [discord](https://discord.com/invite/yMGCamUMnS) community! You can check out the [code](https://github.com/posit-dev/py-shiny/) or make your own [extensions](/docs/custom-component-one-off.qmd).
 
-Ready to dive deeper? [Learn more about what makes Shiny unique](what_is_shiny.qmd).
+Ready to dive deeper? [Learn more about what makes Shiny unique](what-is-shiny.qmd).
 
 
 ## Gallery and templates
