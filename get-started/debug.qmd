@@ -67,7 +67,7 @@ A quick and simple way to debug Shiny applications is to add `print()` statement
 This lets you see the value of different variables, and how they change when you toggle different inputs.
 
 ::: callout-warning
-If your Shiny application is running with Shinylive (Python in the browser), and there is not a visible Python console, then error messages will show up in your browser's JavaScript console.
+If your Shiny application is running with [Shinylive (Python in the browser)](shinylive.qmd), and there is not a visible Python console, then error messages will show up in your browser's JavaScript console.
 :::
 
 ### Positron and VS Code debugger
