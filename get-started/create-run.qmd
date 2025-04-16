@@ -46,7 +46,7 @@ If you need a more unique name, we recommend beginning the file name with `app`,
 ### Positron and VS Code
 
 The best way to run (and develop) Shiny apps is in [Positron][positron] or [Visual Studio Code][vscode] with the [Shiny extension][vscode-shiny].
-When a Shiny `app.py` file is being edited, the default behavior of the Run button (circled in red in the screenshot below) becomes "Run Shiny App".
+When you are editing a Shiny `app.py` file, the default behavior of the Run button (circled in red in the screenshot below) becomes "Run Shiny App".
 
 ![Visual Studio Code running with the Shiny extension](assets/positron-run.png)
 
