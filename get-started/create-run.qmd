@@ -40,7 +40,7 @@ Shiny apps can be launched from Positron, VS Code, or the command line via `shin
 We recommend naming your shiny application `app.py`.
 This is the default file that `shiny run` will look for, so you can run the application in the terminal without any additional parameters.
 
-If you need a more unique name, we recommend beginning the file with `app`, so the shiny extension can still run with a [play button click](install.qmd#positron).
+If you need a more unique name, we recommend beginning the file name with `app`, because the [Shiny extension](#positron-and-vs-code) expects this naming pattern.
 :::
 
 ### Positron and VS Code
