@@ -47,7 +47,7 @@ No need to learn JavaScript or front-end frameworks.
 Shiny for Python comes fully equipped with everything you need to build a dashboard right out of the box, including a rich set of [input](/components/#inputs) and [output](/components/#outputs) components.
 There is an entire [components gallery](/components/) to help you quickly build interactive applications.
 
-[Layout](/layouts/) options let you organize your UI efficiently, while built-in [theming](/docs/ui-customize.qmd) (including [dark mode](/components/inputs/dark-mode)) ensures your app looks great with minimal effort.
+[Layout](/layouts/) options let you organize your UI efficiently, while [built-in theming](/docs/ui-customize.qmd) (including [dark mode](/components/inputs/dark-mode)) ensures your app looks great with minimal effort.
 
 Already have a brand guideline?
 You can use [brand.yml](https://posit-dev.github.io/brand-yml/) to apply consistent branding, colors, and logos across your application.
