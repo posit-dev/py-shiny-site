@@ -50,8 +50,9 @@ When you are editing a Shiny `app.py` file, the default behavior of the Run butt
 
 ![Visual Studio Code running with the Shiny extension](assets/positron-run.png)
 
-This launches a Python process in a dedicated terminal instance, and a captive web browser.
-This lets you test your app without leaving your editor, and whenever you make changes to your app's source, the preview will update. To preview your app in a full browser, click the icon to the right of the URL bar to launch the app in an external browser.
+Running a Shiny app in Positron launches a Python process in a dedicated terminal instance and opens the app in an internal web browser, letting you test your app without leaving your editor. 
+Whenever you make changes to your app's source, the preview will update. 
+To preview your app in a full browser, click the icon to the right of the URL bar to open the app in an external browser.
 
 Next to the Run button is a dropdown menu that lets you "Debug Shiny App". This launches the app in debug mode, which lets you set breakpoints and step through your code.
 See the [debugging](debug.qmd) section for more information.
