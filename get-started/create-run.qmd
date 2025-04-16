@@ -7,7 +7,7 @@ You can use this interface to help you create and run your Shiny applications.
 
 ## Create a Shiny application
 
-The best way to create a new Shiny app is with the `shiny create` command line interface.
+The best way to create a new Shiny app is with the `shiny create` command.
 This command asks you a series of questions about what kind of app you want to create,
 and then provides all the boilerplate code you need to get started with a working app.
 
