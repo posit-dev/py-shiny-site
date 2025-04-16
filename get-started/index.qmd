@@ -79,40 +79,24 @@ def plot():
 
 .floating-code,
 .floating-app {
-  position: absolute;
   border-radius: 8px;
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   transition-delay: 100ms;
 }
 
-.floating-code {
-  left: 0;
-  top: 125px;
-  width: 60%;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
-  z-index: 1; /* Below app by default */
-}
-
-.floating-app {
-  right: 0;
-  top: 10px;
-  width: 70%;
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
-  z-index: 2; /* Above code by default */
-}
-
 /* Traffic lights */
 .traffic-lights {
+  --traffic-light-size: 12px;
+  --traffic-light-gap: 6px;
+  --traffic-light-padding: 10px;
   display: flex;
-  gap: 6px;
-  margin: 10px;
+  gap: var(--traffic-light-gap);
+  padding: var(--traffic-light-padding);
 }
 
 .traffic-light {
-  width: 12px;
-  height: 12px;
+  width: var(--traffic-light-size);
+  height: var(--traffic-light-size);
   border-radius: 50%;
 }
 
@@ -120,17 +104,60 @@ def plot():
 .yellow { background: #FFBD2E; }
 .green { background: #27C93F; }
 
-.floating-code:hover {
-  transform: translate(0, -14px);
-  box-shadow: -8px 12px 32px rgba(0, 0, 0, 0.2) !important;
-  z-index: 3;
-  width: 80%;
+/* Desktop/tablet layout */
+@media (min-width: 768px) {
+  .floating-code,
+  .floating-app {
+    position: absolute;
+  }
+
+  .floating-code {
+    left: 0;
+    top: 125px;
+    width: 60%;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    z-index: 1; /* Below app by default */
+  }
+
+  .floating-app {
+    right: 0;
+    top: 10px;
+    width: 70%;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    z-index: 2; /* Above code by default */
+  }
+
+  .floating-code:hover {
+    transform: translate(0, -14px);
+    box-shadow: -8px 12px 32px rgba(0, 0, 0, 0.2) !important;
+    z-index: 3;
+    width: 80%;
+  }
+
+  .floating-code:hover + .floating-app {
+    transform: translate(-20px, 0px) scale(0.9);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    opacity: 0.8;
+  }
 }
 
-.floating-code:hover + .floating-app {
-  transform: translate(-20px, 0px) scale(0.9);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  opacity: 0.8;
+/* Mobile layout */
+@media (max-width: 767px) {
+  .floating-code,
+  .floating-app {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  .traffic-lights {
+    --traffic-light-padding: 6px;
+    --traffic-light-gap: 4px;
+    --traffic-light-size: clamp(5px, 1.66vw, 12px);
+  }
 }
 </style>
 ```
