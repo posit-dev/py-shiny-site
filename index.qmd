@@ -155,7 +155,7 @@ It offers full support for [CSS](docs/ui-customize.html) and [JavaScript](docs/c
 :::{.big-number-container .pt-3}
 <p class="mb-0 big-number white">1</p>
 :::{.code_container .homepage-code .w-100}
-```{python}
+```{bash}
 #| eval: false
 pip install shiny
 ```
@@ -165,7 +165,7 @@ pip install shiny
 :::{.big-number-container}
 <p class="mb-0 big-number white">2</p>
 :::{.code_container .homepage-code .w-100}
-```{python}
+```{bash}
 #| eval: false
 shiny create --template dashboard-tips
 ```
@@ -210,3 +210,7 @@ shiny create --template dashboard-tips
 
 
 :::::
+
+<p class="h4">
+[Get Started](get-started/index.qmd) with building your first Shiny Application now!
+</p>
