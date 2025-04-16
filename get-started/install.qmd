@@ -115,7 +115,7 @@ This provides, among other things, a play button in the top right corner of your
 For for [Visual Studio Code][vscode],
 you will need the [Python][vscode-python] and [Shiny][vscode-shiny] extensions.
 
-If [type checking is important](https://john-tucker.medium.com/type-checking-python-306ad8339da1) to you, in addition to installing the [Python VSCode extension][vscode-python], you may want to do some additional configuration for a smooth experience with types in Shiny. See the tip below for more details.
+If [type checking is important to you](https://john-tucker.medium.com/type-checking-python-306ad8339da1), in addition to installing the [Python VSCode extension][vscode-python], you may want to do some additional configuration for a smooth experience with types in Shiny. See the tip below for more details.
 
 ::: {.callout-tip collapse="true"}
 ##### Type checking
