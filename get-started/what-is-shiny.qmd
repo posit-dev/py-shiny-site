@@ -39,11 +39,13 @@ title: What is Shiny?
 </style>
 ```
 
-Whether you’re a data scientist, analyst, or developer, Shiny makes it easy to [create](create-run.qmd) rich, [interactive experiences](/docs/ui-overview.qmd) in pure Python [without needing](/docs/reactive-foundations.qmd) to learn JavaScript or front-end frameworks.
+Whether you’re a data scientist, analyst, or developer, Shiny makes it easy to [create](create-run.qmd) rich, [interactive experiences](/docs/ui-overview.qmd) in pure Python with a fully [reactive framework](/docs/reactive-foundations.qmd).
+No need to learn JavaScript or front-end frameworks.
 
 ## Batteries included {#batteries-included}
 
-Shiny for Python comes fully equipped with everything you need to build a dashboard right out of the box, including a rich set of [input](/components/#inputs) and [output](/components/#outputs) [components](/components/) so you can quickly build interactive applications.
+Shiny for Python comes fully equipped with everything you need to build a dashboard right out of the box, including a rich set of [input](/components/#inputs) and [output](/components/#outputs) components.
+There is an entire [components gallery](/components/) to help you quickly build interactive applications.
 
 [Layout](/layouts/) options let you organize your UI efficiently, while built-in [theming](/docs/ui-customize.qmd) (including [dark mode](/components/inputs/dark-mode)) ensures your app looks great with minimal effort.
 
@@ -102,15 +104,9 @@ def result():
     return f"The value for slider 1 squared: {input.slider1()**2}."
 ```
 
-## Templates {#templates}
+## Jumpstart with templates {#templates}
 
-Hit the ground running with `shiny create` to load a [starter template](/templates/) for common use cases, like [data dashboards](templates/dashboard/), [applications](/templates/database-explorer/), [streaming](/templates/monitor-database/) updates, or [data entry](/templates/survey/).
-
-Use the command below to [create](create-run.qmd) your first application.
-
-```bash
-shiny create --template dashboard
-```
+Below is a full Shiny application in action, complete with [reactivity](/docs/reactive-foundations.qmd) and a [user interface](/docs/ui-overview.qmd)!
 
 ::::: {.column-screen-inset}
 ::: {.hello-output}
@@ -133,6 +129,17 @@ shiny create --template dashboard
 </style>
 :::
 :::::
+
+Hit the ground running with one of our [starter templates](/templates/), like the app above, by using `shiny create`.
+
+There are templates for common use cases.
+For example, [data dashboards](templates/dashboard/), [applications](/templates/database-explorer/), [streaming](/templates/monitor-database/) updates, or [data entry](/templates/survey/).
+
+Use the terminal command below to [create and run](create-run.qmd) your first application from a [template](/templates/).
+
+```bash
+shiny create --template dashboard
+```
 
 
 ## Extensibility {#extensible}
