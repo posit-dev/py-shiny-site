@@ -146,6 +146,8 @@ shiny create --template dashboard
 
 While Shiny includes everything you need to build an app, is built on a foundation of web standards, making it highly [extensible](/docs/).
 
+If you're versed in web programming, you can also use Shiny to create [custom components](/docs/custom-component-one-off.qmd) that leverage your favorite JavaScript framework from Python.
+
 If you need a [custom component](/docs/custom-components-pkg) or [user interface](/docs/ui-customize), you can incrementally integrate [JavaScript](/docs/custom-component-one-off), [HTML](/docs/ui-html.html), or even WebAssembly without having to learn complicated build tooling and frameworks.
 
 The Python inputs return regular HTML:
@@ -158,8 +160,6 @@ The Python inputs return regular HTML:
 ```html
 <button class="btn btn-default action-button" id="btn" type="button">Button</button>
 ```
-
-If you're versed in web programming, you can also use Shiny to create [custom components](/docs/custom-component-one-off.qmd) that leverage your favorite JavaScript framework from Python.
 
 ## Install, create, and run
 
