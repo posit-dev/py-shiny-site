@@ -8,7 +8,7 @@ Before jumping into general debugging techniques, lets cover some common issues 
 
 ### Missing output
 
-Sometimes, confusingly, output won't appear at all.
+Sometimes, output won't appear at all.
 This most commonly happens when an output reads a non-existent input, for example:
 
 ```{shinylive-python}
@@ -27,11 +27,12 @@ def slider_val():
     return f"Slider value: {input.wrong_id()}"
 ```
 
-This happens because, if a non-existent input is read, a [`SilentException`](../api/req.html#shiny.req) is raised. That behavior is useful for events and [dynamic ui](ui-dynamic.qmd), but it can be confusing when you mistype an input id.
+This happens because, if a non-existent input is read, a [`SilentException`](/api/express/req.html#shiny) is raised.
+That behavior is useful for events and [dynamic ui](/docs/ui-dynamic.qmd), but it can be confusing when you mistype an input id.
 
 ### Output errors
 
-When an error occurs inside a `render` function, the relevant error message is displayed in red font where the output would normally be located, for example:
+When an error occurs inside a `render` decorator function, the relevant error message is displayed in red font where the output would normally be located, for example:
 
 ```{shinylive-python}
 #| standalone: true
@@ -54,28 +55,11 @@ The error displayed in the app is only the final part of the stack trace, but th
 ::: callout-note
 ## Sanitized error messages
 
-When Shiny apps are deployed, error messages are sanitized to the eliminate the possibility of leaking sensitive information. To unsanitize error messages, you'll need to set `sanitize_errors=False` in the `App` constructor (of a [Shiny core app](express-vs-core.qmd)).
+When Shiny apps are deployed, error messages are sanitized to the eliminate the possibility of leaking sensitive information.
+To unsanitize error messages, you'll need to set `sanitize_errors=False` in the `App` constructor (of a [Shiny core app](/docs/express-vs-core.qmd)).
 :::
 
 ## Debugging
-
-### Positron and VS Code debugger
-
-The [VS Code debugger](https://code.visualstudio.com/docs/editor/debugging) is a powerful tool for debugging Python code.
-
-### Breakpoints
-
-A `breakpoint()` is a point in your code where you want to pause execution and inspect the program state via the [Python debugger (pdb)](https://docs.python.org/3/library/pdb.html).
-
-```python
-@render.text
-def bad():
-    breakpoint()
-    return str(a_missing_variable)
-```
-
-When a breakpoint is hit, the program will pause and you can them send commands like `break` (i.e., exit) and `continue` to the debugger. `Ctrl+D` will also exit the debugger.
-
 
 ### Print statements
 
@@ -85,6 +69,31 @@ This lets you see the value of different variables, and how they change when you
 ::: callout-warning
 If your Shiny application is running with Shinylive (Python in the browser), and there is not a visible Python console, then error messages will show up in your browser's JavaScript console.
 :::
+
+### Positron and VS Code debugger
+
+The [VS Code debugger](https://code.visualstudio.com/docs/editor/debugging) is a powerful tool for debugging Python code.
+
+### Breakpoints {#breakpoints}
+
+You can use `breakpoint()` to pause your app while it's running and inspect what's going on.
+This lets you debug using the built-in [Python debugger (pdb)](https://docs.python.org/3/library/pdb.html).
+
+```python
+@render.text
+def bad():
+    breakpoint()
+    return str(a_missing_variable)
+```
+
+When Python hits the `breakpoint()`, it will pause and open the debugger in your terminal.
+
+From there, you can run commands like:
+
+- `continue`: resume running the app
+- `exit` or <kbd>Ctrl</kbd> + <kbd>D</kbd>: exit the debugger and stop the app
+
+This is helpful for figuring out where things go wrong in your code.
 
 
 ### Shiny debug mode

@@ -8,12 +8,12 @@ Shiny for Python can be installed can be installed via `pip` or `conda`.
 
 #### pip
 
-Before installing you may want to upgrade `pip` and install `wheel`:
+Before installing you may want to upgrade `pip` and install `wheel`.
+This will help with making your installations faster and less error-prone.
 
 ```bash
 pip install --upgrade pip wheel
 ```
-
 
 Next, install `shiny` from PyPI.
 
@@ -21,9 +21,8 @@ Next, install `shiny` from PyPI.
 pip install shiny
 ```
 
-
-You may on occasion need to force installation of updated versions of our packages, since they are in development.
-This can be done with:
+If you already have `shiny` installed, and you want to upgrade the `shiny` packages,
+you will need to use the `--upgrade` flag.
 
 ```bash
 pip install --upgrade shiny htmltools
@@ -32,11 +31,14 @@ pip install --upgrade shiny htmltools
 ::: {.callout-note collapse="true"}
 ##### Virtual environments
 
-For production apps, we recommend using a virtual environment to manage your dependencies.
-In this case, you should install `shiny` in your virtual environment scoped to your app, rather than globally.
-For example, if you are creating an app in a directory called `myapp`, you would create a virtual environment in that directory and install `shiny` there:
+{{< include include/why-virtual-env.qmd >}}
+
+Python already comes with a mechanism to create virtual environments with [venv](https://docs.python.org/3/library/venv.html).
+
+Suppose you want to create a new Shiny app named `myapp`:
 
 ```bash
+# create and move into your shiny application directory
 mkdir myapp
 cd myapp
 
@@ -45,7 +47,16 @@ python3 -m venv .venv
 
 # Activate the virtual environment
 source .venv/bin/activate
+
+# your prompt will change to have the .venv prefix
+
+# Now install Shiny in your environment
+pip install shiny
 ```
+
+You are now ready to start building your app!
+All packages you install (e.g., `shiny`, `pandas`, `plotly`, etc) will now stay inside `.venv`, scoped to just this project.
+You can save a list of all the packages you want for this project in a `requirements.txt` file.
 :::
 
 ::: {.callout-note collapse="true"}
@@ -60,17 +71,15 @@ pip install https://github.com/posit-dev/py-shiny/tarball/main
 ```
 :::
 
-
 #### conda
 
-You can install `shiny` from conda-forge channel.
+You can install `shiny` from the [`conda-forge`](https://conda-forge.org/) channel.
 
 ```bash
 conda install -c conda-forge shiny
 ```
 
-You may on occasion need to force installation of updated versions of our packages, since they are in development.
-This can be done with:
+If you already have `shiny` installed, and you want to upgrade the `shiny` package you will use the `conda update` command.
 
 ```bash
 conda update -c conda-forge shiny
@@ -79,15 +88,21 @@ conda update -c conda-forge shiny
 ::: {.callout-note collapse="true"}
 ##### Conda Virtual environments
 
-For production apps, we recommend using a virtual environment to manage your dependencies.
-Create a conda environment with the code below before installing the `shiny` package.
+{{< include include/why-virtual-env.qmd >}}
+
+You can also use `conda` to create virtual environments.
+
+Unlike some other tools, you don’t need to be inside a specific folder when you create a `conda` environment.
+Conda environments are managed separately and can be used from anywhere on your system once they are created.
 
 ```bash
-# Create a conda environment named 'shiny'
-conda create --name shiny
+# Create a conda environment named 'shiny' install the shiny package with latest python
+conda create --name shiny -c conda-forge shiny python
 
 # Activate the virtual environment
 conda activate shiny
+
+# Your prompt will be pre-pended with shiny
 ```
 :::
 
@@ -96,17 +111,22 @@ conda activate shiny
 ## Positron {#positron}
 
 We recommend using
-[Positron](https://positron.posit.co/),
-a next-generation data science focused fork of Visual Studio Code.
+[Positron](https://positron.posit.co/download.html),
+a next-generation data science focused [fork](https://en.wikipedia.org/wiki/Fork_(software_development)) of Visual Studio Code.
 
-If you already have VS Code installed, we still recommend giving Positron a try,
-your extensions from VS Code will not conflict with your Positron extensions.
-Positron already ships with many Python-focused VS Code extensions from Open VSX,
-including Quarto, Jupyter Notebooks, and Pyright.
+Even if you already have VS Code installed, [Positron](https://positron.posit.co/download.html) is worth trying out.
+It installs separately, so your existing VS Code extensions won’t conflict with [Positron extensions](https://positron.posit.co/extensions.html).
+
+Positron already ships with many Python-focused VS Code [extensions](https://positron.posit.co/extensions.html) from [Open VSX](https://open-vsx.org/),
+including:
+
+- [Quarto](https://open-vsx.org/extension/quarto/quarto)
+- Jupyter Notebooks](https://open-vsx.org/extension/ms-toolsai/jupyter)
+- [Pyright](https://open-vsx.org/extension/ms-pyright/pyright).
 
 To get started with Shiny for Python, you will need to install the
 [Shiny Extension](https://open-vsx.org/extension/posit/shiny).
-This provides, among other things, a play button in the top right corner of your editor that will run your Shiny app.
+This adds helpful features like a play ▶️ button in the top-right corner of the editor to run your Shiny app with one click.
 
 ![](assets/positron-run.png)
 

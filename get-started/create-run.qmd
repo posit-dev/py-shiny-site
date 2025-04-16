@@ -17,17 +17,9 @@ shiny create
 
 ![Running the shiny create command from a terminal](/docs/assets/shiny-create.mp4){class="img-shadow"}
 
-::: callout-tip
-### Copy/paste examples
-
-If you find an example on this site that you want to run or edit locally,
-you can use the following command to get a basic app template,
-then copy and paste the code from the example into the template.
-
-```bash
-shiny create --template basic-app -m express
-```
-:::
+You can also get started faster by using one of our [starter templates](/templates/).
+There are templates for common use cases.
+For example, [data dashboards](templates/dashboard/), [applications](/templates/database-explorer/), [streaming](/templates/monitor-database/) updates, or [data entry](/templates/survey/).
 
 
 ## Run your Shiny application
@@ -50,30 +42,34 @@ When you are editing a Shiny `app.py` file, the default behavior of the Run butt
 
 ![Visual Studio Code running with the Shiny extension](assets/positron-run.png)
 
-Running a Shiny app in Positron launches a Python process in a dedicated terminal instance and opens the app in an internal web browser, letting you test your app without leaving your editor. 
-Whenever you make changes to your app's source, the preview will update. 
-To preview your app in a full browser, click the icon to the right of the URL bar to open the app in an external browser.
+When you run a Shiny app in Positron, it starts a Python process in a dedicated terminal and opens the app in an internal web browser.
+This lets you test and interact with your app without leaving the editor.
 
-Next to the Run button is a dropdown menu that lets you "Debug Shiny App". This launches the app in debug mode, which lets you set breakpoints and step through your code.
-See the [debugging](debug.qmd) section for more information.
+Whenever you make changes to the app’s source code, the preview updates automatically.
+To view your app in a full browser window, click the icon to the right of the URL bar to open it externally.
+
+To debug your app, use the dropdown next to the **Run** button and select **Debug Shiny App**.
+Before launching in debug mode, make sure to set [breakpoints](debug.qmd#breakpoints) in your code.
+Once the app starts, you can step through your code starting from those [breakpoints](debug.qmd#breakpoints).
+See the [debugging](debug.qmd) page for more details.
 
 ### Command line
 
 To run a Shiny app from the command line, use the `shiny run` command.
-This command takes a single argument, the path to the app's entry point.
-For example, if your app's entry point is `app.py` in the directory `./app_dir`, you can run it like this:
+The required argument is the path to your app’s entry point, usually a Python file like `app.py`.
+
+You can also include optional flags to improve your development experience.
+For example, if your app’s entry point is `app.py` inside a folder called `app_dir`, you can run:
 
 ```bash
 shiny run --reload --launch-browser app_dir/app.py
 ```
 
-This should start your app and also automatically launch a web browser.
+This will start the app and open it in your default web browser.
 
-The `--reload` flag means that file changes in the current directory tree will cause the Python process to restart and the browser to reload.
-Update and save changes to `app.py` and then wait a moment for the changes to appear in the browser.
-
-With these two `shiny` commands, you now have a project that you can run in your terminal.
-You can use any text editor or Python IDE to write Shiny apps, but we've taken special care to ensure a smooth workflow for [Positron][positron] and [Visual Studio Code][vscode].
+- The `--reload` flag enables automatic reloading.
+  When you save changes to your source files, the app will automatically restart and update in the browser.
+- The `--launch-browser` flag opens the app in a browser as soon as it starts.
 
 [positron]: https://positron.posit.co/
 [vscode]: https://code.visualstudio.com/
