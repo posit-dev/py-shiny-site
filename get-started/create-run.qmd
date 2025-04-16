@@ -2,7 +2,7 @@
 title: "Create and Run"
 ---
 
-When you [install shiny](get-started/install.qmd), you will have access to the `shiny` command line interface (CLI).
+When you [install shiny](get-started/install.qmd), you also install the `shiny` command line interface (CLI).
 You can use this interface to help you create and run your Shiny applications.
 
 ## Create a Shiny application
