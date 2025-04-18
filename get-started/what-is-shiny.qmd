@@ -108,7 +108,7 @@ def result():
 
 Below is a full Shiny application in action, complete with [reactivity](/docs/reactive-foundations.qmd) and a [user interface](/docs/ui-overview.qmd)!
 
-::::: {.column-screen-inset}
+::::: {.column-screen-inset .mb-4}
 ::: {.hello-output}
 <iframe
   src="https://gallery.shinyapps.io/template-dashboard/"
