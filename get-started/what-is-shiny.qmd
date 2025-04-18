@@ -71,37 +71,40 @@ You can use [brand.yml](https://posit-dev.github.io/brand-yml/) to apply consist
 
 ## Reactivity {#reactivity}
 
-At the heart of Shiny is [reactivity](/docs/reactive-foundations.qmd), a system that automatically updates [outputs](/components/#outputs) when [inputs](/components/#inputs) change for seamless interactivity, without callbacks.
+At the heart of Shiny is [reactivity](/docs/reactive-foundations.qmd), a system that automatically updates [outputs](/components/#outputs) when [inputs](/components/#inputs) change for seamless interactivity, without manually writing callbacks.
 
 Shiny's reactive engine avoids unnecessary computations by only re-calculating the outputs whose inputs have changed, making Shiny ideal for fast data-driven applications, enabling live updates for [charts, tables](/components/#outputs), and [reports](https://quarto.org/docs/interactive/shiny/) with minimal effort.
 
-Below is a Shiny application where you have the output text react to _both_ input slider values
-and the second row of text _only_ reacts to the first slider value.
+Below is a live Shiny application and its accompanying code.
+The first output text shows the square of the first slider value,
+and the second row of text shows the sum of _both_ slider values.
+
+Try updating the sliders below and see how the text reacts.
+Also change what value gets returned on lines 11 or 17 and click the play button ▶️ for the app to refresh.
 
 ```{shinylive-python}
-#| standalone: true
-#| components: [editor, viewer]
-#| layout: vertical
-#| viewerHeight: 250
+# | standalone: true
+# | components: [editor, viewer]
+# | layout: vertical
+# | viewerHeight: 250
 
 from shiny import reactive
 from shiny.express import ui, render, input
 
-# input slider 1
-ui.input_slider("slider1", "Slider 1", min=1, max=50, value=20)
+ui.input_slider("s1", "Slider 1", min=0, max=10, value=5)
+ui.input_slider("s2", "Slider 2", min=0, max=100, value=50)
 
-# input slider 2
-ui.input_slider("slider2", "Slider 2", min=1, max=50, value=40)
 
-# output reacts to both sliders
-@render.text
-def both_sliders_output():
-    return f"You have set Slider 1: {input.slider1()}, Slider 2: {input.slider2()}"
-
-# output that only reacts to slider 1
+# This output only reacts to the first slider
 @render.text
 def result():
-    return f"The value for slider 1 squared: {input.slider1()**2}."
+    return f"{input.s1()} squared is {input.s1() ** 2}."
+
+
+# This output reacts to both sliders
+@render.text
+def both_sliders_output():
+    return f"{input.s1()} + {input.s2()} is {input.s1() + input.s2()}."
 ```
 
 ## Jumpstart with templates {#templates}
@@ -135,7 +138,7 @@ Hit the ground running with one of our [starter templates](/templates/), like th
 There are templates for common use cases.
 For example, [data dashboards](templates/dashboard/), [applications](/templates/database-explorer/), [streaming](/templates/monitor-database/) updates, or [data entry](/templates/survey/).
 
-Use the terminal command below to [create and run](create-run.qmd) your first application from a [template](/templates/).
+Use the terminal command below to [create and run](create-run.qmd) the same dashboard locally with `shiny create`, starting from a [template](/templates/).
 
 ```bash
 shiny create --template dashboard
@@ -144,11 +147,7 @@ shiny create --template dashboard
 
 ## Extensibility {#extensible}
 
-While Shiny includes everything you need to build an app, is built on a foundation of web standards, making it highly [extensible](/docs/).
-
-If you're versed in web programming, you can also use Shiny to create [custom components](/docs/custom-component-one-off.qmd) that leverage your favorite JavaScript framework from Python.
-
-If you need a [custom component](/docs/custom-components-pkg) or [user interface](/docs/ui-customize), you can incrementally integrate [JavaScript](/docs/custom-component-one-off), [HTML](/docs/ui-html.html), or even WebAssembly without having to learn complicated build tooling and frameworks.
+While Shiny includes everything you need to build an app, is built on a foundation of web standards, making it highly [extensible](/docs/custom-component-one-off.qmd).
 
 The Python inputs return regular HTML:
 
@@ -160,6 +159,10 @@ The Python inputs return regular HTML:
 ```html
 <button class="btn btn-default action-button" id="btn" type="button">Button</button>
 ```
+
+If you're versed in web programming, you can use Shiny to build [one-off custom components](/docs/custom-component-one-off.qmd) that integrate your favorite JavaScript framework directly from Python.
+For more advanced needs, you can develop a [reusable component package](/docs/custom-components-pkg.qmd) or customize the [user interface](/docs/ui-customize) by incrementally adding [JavaScript](/docs/custom-component-one-off), [HTML](/docs/ui-html.html), or even [WebAssembly](/get-started/shinylive.qmd), without needing to learn complex build tools or frameworks.
+
 
 ## Install, create, and run
 
