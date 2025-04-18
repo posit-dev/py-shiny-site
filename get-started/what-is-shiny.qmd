@@ -106,7 +106,7 @@ def result():
 
 ## Jumpstart with templates {#templates}
 
-Below is a full Shiny application in action, complete with [reactivity](/docs/reactive-foundations.qmd) and a [user interface](/docs/ui-overview.qmd)!
+Here's a full Shiny application in action, complete with [reactivity](/docs/reactive-foundations.qmd) and a [user interface](/docs/ui-overview.qmd)!
 
 ::::: {.column-screen-inset .mb-4}
 ::: {.hello-output}
