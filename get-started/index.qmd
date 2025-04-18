@@ -1,0 +1,213 @@
+---
+title: "Welcome"
+subtitle: "Shiny for Python: Effortless Python web applications"
+
+format:
+  html:
+    toc: false
+
+freeze: false
+
+listing:
+  - id: gallery-highlight
+    template: gallery-highlight.ejs
+    contents: gallery-highlight.yml
+    sort: false
+
+filters:
+  - shinylive
+
+editor:
+  markdown:
+    wrap: sentence
+
+aliases:
+  - welcome.html
+---
+
+Create efficient, reactive, and robust web applications and dashboards.
+
+::: {.floating-code-app .column-page-inset-right}
+```{=html}
+<img src="assets/code-welcome.svg" class="img-shadow floating-code", alt='Python code that imports seaborn as sns and imports input, render, and ui from shiny.express. It loads the penguins dataset into a DataFrame named df. Then it defines a slider input with ID "bins", label "Number of Bins", minimum value 5, maximum 20, default value 15, and step size 1. A reactive plot is defined using the @render.plot decorator with a height of 300. The plot function calls sns.histplot with the df DataFrame, uses "body_mass_g" for the x-axis, and sets the number of bins using the current value of input.bins().'>
+```
+
+::: {.floating-app}
+```{=html}
+<div class="traffic-lights">
+  <div class="traffic-light red"></div>
+  <div class="traffic-light yellow"></div>
+  <div class="traffic-light green"></div>
+</div>
+```
+```{shinylive-python}
+##| standalone: true
+##| components: [viewer]
+##| viewerHeight: 400px
+
+from shiny.express import ui, render, input
+import seaborn as sns
+
+df = sns.load_dataset("penguins")
+
+ui.input_slider("bins", "Number of Bins", min=5, max=20, value=15, step=1)
+
+
+@render.plot(height=300)
+def plot():
+    ax = sns.histplot(data=df, x="body_mass_g", bins=input.bins())
+```
+:::
+
+```{=html}
+<style>
+.floating-app .shinylive-wrapper {
+  padding: 0.5em;
+  background-color: white;
+  margin: 0;
+  border-radius: 0 0 8px 8px;
+  border-right: none;
+  border-bottom: none;
+  border-left: none;
+}
+
+.floating-code-app {
+  position: relative;
+  width: 100%;
+  min-height: 500px;
+}
+
+.floating-code,
+.floating-app {
+  border-radius: 8px;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: 100ms;
+}
+
+/* Traffic lights */
+.traffic-lights {
+  --traffic-light-size: 12px;
+  --traffic-light-gap: 6px;
+  --traffic-light-padding: 10px;
+  display: flex;
+  gap: var(--traffic-light-gap);
+  padding: var(--traffic-light-padding);
+}
+
+.traffic-light {
+  width: var(--traffic-light-size);
+  height: var(--traffic-light-size);
+  border-radius: 50%;
+}
+
+.red { background: #FF5F56; }
+.yellow { background: #FFBD2E; }
+.green { background: #27C93F; }
+
+/* Desktop/tablet layout */
+@media (min-width: 768px) {
+  .floating-code,
+  .floating-app {
+    position: absolute;
+  }
+
+  .floating-code {
+    left: 0;
+    top: 125px;
+    width: 60%;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    z-index: 1; /* Below app by default */
+  }
+
+  .floating-app {
+    right: 0;
+    top: 10px;
+    width: 70%;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    z-index: 2; /* Above code by default */
+  }
+
+  .floating-code:hover {
+    transform: translate(0, -14px);
+    box-shadow: -8px 12px 32px rgba(0, 0, 0, 0.2) !important;
+    z-index: 3;
+    width: 80%;
+  }
+
+  .floating-code:hover + .floating-app {
+    transform: translate(-20px, 0px) scale(0.9);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    opacity: 0.8;
+  }
+}
+
+/* Mobile layout */
+@media (max-width: 767px) {
+  .floating-code,
+  .floating-app {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  .traffic-lights {
+    --traffic-light-padding: 6px;
+    --traffic-light-gap: 4px;
+    --traffic-light-size: clamp(5px, 1.66vw, 12px);
+  }
+}
+</style>
+```
+:::
+
+## Why Shiny?
+
+Shiny for Python empowers you to bring your data to life with interactive applications that are easy to build, customize, and share.
+
+- **No JavaScript required**<br>
+Create full-featured interactive apps using only Python.
+[Install](install.qmd) and [create your first app](create-run.qmd) now!
+
+- **Fast and robust iteration**<br>
+The reactive model allows efficient and dynamic updates.
+[Learn more about reactivity](/docs/reactive-foundations.qmd).
+
+- **Batteries Included**<br>
+Shiny includes everything you need to build fully-featured applications and dashboards.
+Explore our ready-to-use [inputs](/components/#inputs) and [outputs](/components/#outputs) in the [components gallery](/components/), and flexible options for structuring your app in the [layouts gallery](/layouts/).
+
+- **Scalability and extensibility**<br>
+Start simple, grow as needed. [Learn more about custom components](/docs/custom-component-one-off.qmd).
+
+- **Starter templates**<br>
+Get up and running quickly with a [starter template](/templates/).
+
+- **Open source**<br>
+Inspect, adapt, contribute, or join the [forum](https://forum.posit.co/c/shiny) or [discord](https://discord.com/invite/yMGCamUMnS) community! You can check out the [code](https://github.com/posit-dev/py-shiny/) or make your own [extensions](/docs/custom-component-one-off.qmd).
+
+Ready to dive deeper? [Learn more about what makes Shiny unique](what-is-shiny.qmd).
+
+
+## Gallery and templates
+
+Check out the [Shiny Gallery](/gallery/) for inspiration.
+Or kick start a new project with one of our [starter templates](/templates/).
+
+:::: {.column-page-inset-right}
+::: {#gallery-highlight}
+:::
+::::
+
+
+## Take Shiny for a spin
+
+The next pages in this guide will help you [install shiny](install.qmd), [create and run](create-run.qmd) your first application, help you find [troubleshooting help](debug.qmd), and [deploy your app](deploy.qmd) to the web ([for free](deploy-cloud.qmd)).
+
+Or skip installation and [try the shinylive playground in the browser](https://shinylive.io/py/examples/)!
+
+Have a question?
+Join our community on our [Discord server](https://discord.com/invite/yMGCamUMnS)!
+

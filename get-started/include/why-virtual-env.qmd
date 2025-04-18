@@ -1,0 +1,7 @@
+When building Shiny applications, especially in a production environment, it is best practice to use a virtual environment.
+
+Why use a virtual environment?
+
+- Keeps your application's dependencies isolated from other global Python packages.
+- Makes your application easier to [deploy and share](deploy.qmd).
+- Helps avoid version conflicts between different projects.
