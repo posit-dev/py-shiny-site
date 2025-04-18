@@ -29,7 +29,7 @@ Create efficient, reactive, and robust web applications and dashboards.
 
 ::: {.floating-code-app .column-page-inset-right}
 ```{=html}
-<img src="assets/code-welcome.svg" class="img-shadow floating-code">
+<img src="assets/code-welcome.svg" class="img-shadow floating-code", alt='Python code that imports seaborn as sns and imports input, render, and ui from shiny.express. It loads the penguins dataset into a DataFrame named df. Then it defines a slider input with ID "bins", label "Number of Bins", minimum value 5, maximum 20, default value 15, and step size 1. A reactive plot is defined using the @render.plot decorator with a height of 300. The plot function calls sns.histplot with the df DataFrame, uses "body_mass_g" for the x-axis, and sets the number of bins using the current value of input.bins().'>
 ```
 
 ::: {.floating-app}
