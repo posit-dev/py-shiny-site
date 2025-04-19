@@ -47,7 +47,7 @@ No need to learn JavaScript or front-end frameworks.
 Shiny for Python comes fully equipped with everything you need to build a dashboard right out of the box, including a rich set of [input](/components/#inputs) and [output](/components/#outputs) components.
 There is an entire [components gallery](/components/) to help you quickly build interactive applications.
 
-[Layout](/layouts/) options let you organize your UI efficiently, while [built-in theming](/docs/ui-customize.qmd) (including [dark mode](/components/inputs/dark-mode)) ensures your app looks great with minimal effort.
+[Layout options](/layouts/) let you organize your UI efficiently, while [built-in theming](/docs/ui-customize.qmd) (including [dark mode](/components/inputs/dark-mode)) ensures your app looks great with minimal effort.
 
 Already have a brand guideline?
 You can use [brand.yml](https://posit-dev.github.io/brand-yml/) to apply consistent branding, colors, and logos across your application.
@@ -136,7 +136,7 @@ Here's a full Shiny application in action, complete with [reactivity](/docs/reac
 Hit the ground running with one of our [starter templates](/templates/), like the app above, by using `shiny create`.
 
 There are templates for common use cases.
-For example, [data dashboards](templates/dashboard/), [applications](/templates/database-explorer/), [streaming](/templates/monitor-database/) updates, or [data entry](/templates/survey/).
+For example, [data dashboards](templates/dashboard/), [data applications](/templates/database-explorer/), [streaming updates](/templates/monitor-database/), or [data entry](/templates/survey/).
 
 Use the terminal command below to [create and run](create-run.qmd) the same dashboard locally with `shiny create`, starting from a [template](/templates/).
 
@@ -148,8 +148,8 @@ shiny create --template dashboard
 ## Extensibility {#extensible}
 
 While Shiny includes everything you need to build an app, is built on a foundation of web standards, making it highly [extensible](/docs/custom-component-one-off.qmd).
-
-The Python inputs return regular HTML:
+In fact, Shiny for Python is built on standard HTML
+Here's an example of how the Shiny action button input returns a HTML `<button>`.
 
 ```python
 >>> from shiny import ui
@@ -161,7 +161,7 @@ The Python inputs return regular HTML:
 ```
 
 If you're versed in web programming, you can use Shiny to build [one-off custom components](/docs/custom-component-one-off.qmd) that integrate your favorite JavaScript framework directly from Python.
-For more advanced needs, you can develop a [reusable component package](/docs/custom-components-pkg.qmd) or customize the [user interface](/docs/ui-customize) by incrementally adding [JavaScript](/docs/custom-component-one-off), [HTML](/docs/ui-html.html), or even [WebAssembly](/get-started/shinylive.qmd), without needing to learn complex build tools or frameworks.
+For more advanced needs, you can develop a [reusable component package](/docs/custom-components-pkg.qmd) or [customize the user interface](/docs/ui-customize) by incrementally [adding JavaScript](/docs/custom-component-one-off), [HTML](/docs/ui-html.html), or even [WebAssembly](/get-started/shinylive.qmd), without needing to learn complex build tools or frameworks.
 
 
 ## Install, create, and run
