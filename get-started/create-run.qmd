@@ -15,7 +15,7 @@ and then provides all the boilerplate code you need to get started with a workin
 shiny create
 ```
 
-![Running the shiny create command from a terminal](/docs/assets/shiny-create.mp4){class="img-shadow"}
+![Running the shiny create command from a terminal, accepting default options, opening in Positron, and running the Shiny Application with the Run button.](assets/shiny-create-positron.mp4){class="img-shadow"}
 
 You can also get started faster by using one of our [starter templates](/templates/).
 There are templates for common use cases.
