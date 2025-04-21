@@ -1,5 +1,8 @@
 ---
 title: Debug, troubleshoot, & help
+
+filters:
+    - line-highlight
 ---
 
 ## Common issues
@@ -12,42 +15,81 @@ Sometimes, output won't appear at all.
 This most commonly happens when an output reads a non-existent input, for example:
 
 ```{shinylive-python}
-#| standalone: true
-#| components: [editor, viewer]
-#| layout: vertical
-#| viewerHeight: 120
+# | standalone: true
+# | components: [editor, viewer]
+# | layout: vertical
+# | viewerHeight: 120
 
 from shiny.express import input, render, ui
 
 ui.input_slider("val", "Slider value", min=0, max=10, value=5)
 
+
 # Nothing renders because input.wrong_id() doesn't exist!
 @render.text
 def slider_val():
     return f"Slider value: {input.wrong_id()}"
+
+
+## file: fixed.py
+from shiny.express import input, render, ui
+
+ui.input_slider("val", "Slider value", min=0, max=10, value=5)
+
+
+# Nothing renders because input.wrong_id() doesn't exist!
+@render.text
+def slider_val():
+    return f"Slider value: {input.val()}"  # <<
+
 ```
 
 This happens because, if a non-existent input is read, a [`SilentException`](/api/express/req.html#shiny) is raised.
 That behavior is useful for events and [dynamic ui](/docs/ui-dynamic.qmd), but it can be confusing when you mistype an input id.
+
+::: {.callout-tip}
+These are live Shiny apps that you can edit. Try fixing the problem yourself!
+You can also take a look at the `fixed.py` file to see the solution.
+You will need to copy the code to `app.py` if you want to run the fixed solution.
+:::
+
 
 ### Output errors
 
 When an error occurs inside a `render` decorator function, the relevant error message is displayed in red font where the output would normally be located, for example:
 
 ```{shinylive-python}
-#| standalone: true
-#| components: [editor, viewer]
-#| layout: vertical
-#| viewerHeight: 120
+# | standalone: true
+# | components: [editor, viewer]
+# | layout: vertical
+# | viewerHeight: 120
 from shiny.express import render
+
 
 @render.text
 def good():
     return "This output is fine, but the next one is not."
 
+
 @render.text
 def bad():
     return str(a_missing_variable)
+
+
+## file: fixed.py
+from shiny.express import render
+
+
+@render.text
+def good():
+    return "This output is fine, but the next one is not."
+
+
+@render.text
+def bad_fixed():
+    a_missing_variable = "Fixed by defining missing variable."
+    return str(a_missing_variable)
+
 ```
 
 The error displayed in the app is only the final part of the stack trace, but the full trace can be read in the console where you used `shiny run`.
