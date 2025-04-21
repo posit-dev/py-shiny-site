@@ -103,44 +103,45 @@ To unsanitize error messages, you'll need to set `sanitize_errors=False` in the 
 
 ## Debugging
 
-### Print statements
-
-A quick and simple way to debug Shiny applications is to add `print()` statements.
-This lets you see the value of different variables, and how they change when you toggle different inputs.
-
-::: callout-warning
-If your Shiny application is running with [Shinylive (Python in the browser)](shinylive.qmd), and there is not a visible Python console, then error messages will show up in your browser's JavaScript console.
-:::
+There are many ways you can debug you code.
+Most likely, your IDE will have the ability to create breakpoints and debug your code.
+However, you can manual edit your code to help with debugging as well.
 
 ### Positron and VS Code debugger
 
 The [VS Code debugger](https://code.visualstudio.com/docs/editor/debugging) is a powerful tool for debugging Python code.
+To set a breakpoint in Positron or VS Code, you will need to click the gutter next to the line number.
+The gutter is empty space immediately to the left of the line number.
+When you click this area, a red circle will mark that particular line.
 
-### Breakpoints {#breakpoints}
+![Red circle next to the line number in the editor is where you will click to mark a breakpoint.](assets/debug-positron-gutter-marked.jpg)
 
-You can use `breakpoint()` to pause your app while it's running and inspect what's going on.
-This lets you debug using the built-in [Python debugger (pdb)](https://docs.python.org/3/library/pdb.html).
+Once the breakpoint is set, you can click the dropdown arrow next to the play button and select "Debug Shiny App".
 
-```python
-@render.text
-def bad():
-    breakpoint()
-    return str(a_missing_variable)
-```
+![Showing the dropdown menu next to the Run icon.](assets/debug-positron-run.png)
 
-When Python hits the `breakpoint()`, it will pause and open the debugger in your terminal.
+This will run the shiny application in debug mode, and will pause the application when it reaches the code you have just marked.
+From there you can open the Debug Console by click the 3 dots in the debug menu.
+Once you are in the debug console, you can explore all the variables at that moment in the application, including any `input` variables.
+You can Mark as many points in your application you want at the same time, and you can step through the code using the debugging toolbar.
 
-From there, you can run commands like:
+![Image of Positron highlighting where to enable the debug console towards the top left, running code in the debug console on the bottom, and moving through the code on the top right.](assets/debug-positron-console-marked.jpg)
 
-- `continue`: resume running the app
-- `exit` or <kbd>Ctrl</kbd> + <kbd>D</kbd>: exit the debugger and stop the app
+### Manual debugging methods
 
-This is helpful for figuring out where things go wrong in your code.
+Here we define manual debugging methods.
+These methods are less recommended because they require a manual change to your codebase, and potentially restarting your application.
 
+#### Shiny debug mode
 
-### Shiny debug mode
+An advanced option for debugging is to use the debug mode when running your application.
 
-An advanced option for debugging [Shiny Core apps](/docs/express-vs-core.qmd) is using the `App(..., debug=True)` argument.
+For Shiny Express applications, you can use the `shiny.express.app_opts(debug=True)` function call
+at the top of your application after the imports.
+
+![Importing and using `app_opts` from `shiny.express` within Positron. The highlighted line in the Terminal on the bottom shows an example of the communication between server and web browser.](assets/debug-mode-express.png)
+
+For [Shiny Core apps](/docs/express-vs-core.qmd), pass the `debug=True` argument to the `App()` call, e.g., `App(..., debug=True)` at the bottom of your application.
 
 When you run a Shiny app in debug mode, you'll see detailed messages in the terminal.
 These messages show the communication between the server and the web browser.
@@ -160,6 +161,40 @@ SEND: {"values": {}, "inputMessages": [], "errors": {}}
 
 Note also that Shiny applications use Python's [asyncio](https://docs.python.org/3/library/asyncio.html) under the hood, so it may be useful to set
 [asyncio's debug mode](https://docs.python.org/3/library/asyncio-dev.html#debug-mode).
+
+
+### Manual breakpoints {#breakpoints}
+
+You can use `breakpoint()` to pause your app while it's running and inspect what's going on.
+This serves the same purpose as clicking and marking a breakpoint in the Positron IDE a, but requires you manually adding new code to the application.
+This lets you debug using the .
+
+```python
+@render.text
+def bad():
+    breakpoint()
+    return str(a_missing_variable)
+```
+
+When Python hits the `breakpoint()`, it will pause and open the debugger in your terminal.
+
+From there, you can run commands like:
+
+- `continue`: resume running the app
+- `exit` or <kbd>Ctrl</kbd> + <kbd>D</kbd>: exit the debugger and stop the app
+
+This is helpful for figuring out where things go wrong in your code.
+
+#### Print statements
+
+A quick and simple way to debug Shiny applications is to add `print()` statements.
+This lets you see the value of different variables, and how they change when you toggle different inputs.
+
+![Adding a print statement to a `render.txt` output. The terminal output on the bottom shows the different values printed as the slider was moved.](assets/debug-print.png)
+
+::: callout-warning
+If your Shiny application is running with [Shinylive (Python in the browser)](shinylive.qmd), and there is not a visible Python console, then error messages will show up in your browser's JavaScript console.
+:::
 
 
 ## Get Help
