@@ -38,7 +38,7 @@ Python already comes with a mechanism to create virtual environments with [venv]
 Suppose you want to create a new Shiny app named `myapp`:
 
 ```bash
-# create and move into your shiny application directory
+# Create and move into your shiny application directory
 mkdir myapp
 cd myapp
 
@@ -48,7 +48,7 @@ python3 -m venv .venv
 # Activate the virtual environment
 source .venv/bin/activate
 
-# your prompt will change to have the .venv prefix
+# Your prompt will change to have the .venv prefix
 
 # Now install Shiny in your environment
 pip install shiny
@@ -103,6 +103,47 @@ conda create --name shiny -c conda-forge shiny python
 conda activate shiny
 
 # Your prompt will be pre-pended with shiny
+```
+:::
+
+#### uv
+
+You can install `shiny` using `uv pip`
+
+```bash
+uv pip install shiny
+```
+
+If you already have `shiny` installed, and you want to upgrade the `shiny` packages,
+you will need to use the `--upgrade` flag.
+
+```bash
+uv pip install --upgrade shiny htmltools
+```
+
+::: {.callout-note collapse="true"}
+##### Virtual environments
+
+{{< include include/why-virtual-env.qmd >}}
+
+You can also use `uv` to create virtual environments with `uv venv` to create a Python `.venv` directory.
+
+```bash
+# Create and move into your shiny application directory
+mkdir myapp
+cd myapp
+
+# Create a virtual environment, defaults to .venv
+uv venv
+
+# Activate the virtual environment
+source .venv/bin/activate
+# .venv\Scripts\Activate.ps1 # on Windows (PowerShell)
+
+# Your prompt will prepend with the current directory name
+
+# Install into venv
+uv pip install shiny
 ```
 :::
 
