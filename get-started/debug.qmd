@@ -109,7 +109,7 @@ However, you can manual edit your code to help with debugging as well.
 
 ### Positron and VS Code debugger
 
-The [VS Code debugger](https://code.visualstudio.com/docs/editor/debugging) is a powerful tool for debugging Python code.
+The [Positron and VS Code debugger](https://code.visualstudio.com/docs/editor/debugging) is a powerful tool for debugging Python code.
 To set a breakpoint in Positron or VS Code, you will need to click the gutter next to the line number.
 The gutter is empty space immediately to the left of the line number.
 When you click this area, a red circle will mark that particular line.
