@@ -2016,3 +2016,24 @@ body:not(.modal-open) div.sourceCode:hover pre code.has-line-highlights > span:n
     padding-right: 0.4rem !important;
   }
 }
+
+
+.mobile-layout {
+  max-width: 575px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.shinylive-wrapper {
+  margin-bottom: 2em;
+}
+
+
+figcaption {
+  margin-top: 0.5em;
+}
+
+.callout-note div.sourceCode {
+  margin-top: 0.5em;
+}

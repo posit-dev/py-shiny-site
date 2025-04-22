@@ -1,0 +1,47 @@
+---
+title:        "Data Science Adventure"
+description:  Use the data-sci-adventure template as a foundation for your next Shiny app.
+date:         2025-03-25
+image:        thumbnail.png
+imagealt:     "A screenshot of the data-sci-adventure template"
+app-height:   700px
+appurl:       https://posit-ai-data-sci-adventure.share.connect.posit.cloud/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/gen-ai/data-sci-adventure
+---
+
+::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
+## Express
+``` bash
+shiny create --template data-sci-adventure --mode express --github posit-dev/py-shiny-templates/gen-ai
+```
+## Core
+``` bash
+shiny create --template data-sci-adventure --mode core --github posit-dev/py-shiny-templates/gen-ai
+```
+:::
+
+
+A fun and useful way to explore different "real-life" scenarios you might encounter at work as someone who works with data.
+Based on some information about your role, industry, and size of the business, the app will propose a series of scenarios and ask you to make a decision at each step.
+The goal is to help you think through the implications of your decisions and how they might impact the business.
+Towards the end, the app will provide for you some Python (or R) code snippets that you can use to create a reproducible end deliverable based on your decisions.
+
+
+
+:::: {.grid .tags}
+::: {.g-col-6 .g-col-sm-4}
+**Components:**
+
+* [Chat](/components/display-messages/chat/index.qmd)
+* [Action button](/components/inputs/action-button/index.qmd)
+* [Select input](/components/inputs/selectize-single/index.qmd)
+
+:::
+::: {.g-col-6 .g-col-sm-4}
+**Packages:**
+
+`chatlas`
+`faicons`
+`shinyswatch`
+:::
+::::
