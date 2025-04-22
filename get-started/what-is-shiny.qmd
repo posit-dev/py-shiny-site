@@ -53,12 +53,12 @@ Already have a brand guideline?
 You can use [brand.yml](https://posit-dev.github.io/brand-yml/) to apply consistent branding, colors, and logos across your application.
 
 <div class="btn-links">
-  <a href="/components#inputs" class="btn-link-large">
+  <a href="/components/#inputs" class="btn-link-large">
     Inputs
     <i class="bi bi-sliders primary" role="img" aria-hidden="true"></i>
   </a>
 
-  <a href="/components#outputs" class="btn-link-large">
+  <a href="/components/#outputs" class="btn-link-large">
     Outputs
     <i class="bi bi-bar-chart-line-fill primary" role="img" aria-hidden="true"></i>
   </a>
