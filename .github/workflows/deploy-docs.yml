@@ -135,4 +135,4 @@ jobs:
       - name: Run lychee link checker
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --verbose ./_build --exclude '.*\.qmd$'
+          args: --verbose ./_build --exclude '.*\.qmd$' --exclude '^https://github.com/posit-dev/py-shiny-site/edit/main/.*'
