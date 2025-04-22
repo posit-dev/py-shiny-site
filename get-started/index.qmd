@@ -179,7 +179,7 @@ The reactive model allows efficient and dynamic updates.
 Shiny includes everything you need to build fully-featured applications and dashboards.
 Explore our ready-to-use [inputs](/components/#inputs) and [outputs](/components/#outputs) in the [components gallery](/components/), and flexible options for structuring your app in the [layouts gallery](/layouts/).
 
-- **Scalable, extensible, and production-ready**
+- **Scalable, extensible, and production-ready**<br>
 No need to switch frameworks as your application grows.
 You can [incorporate Shiny into an existing report](https://quarto.org/docs/dashboards/), start with a [simple application](/docs/express-in-depth.qmd), and [scale up as needed](/docs/express-to-core).
 If something’s missing, you can even [build a custom component](/docs/custom-component-one-off.qmd).
