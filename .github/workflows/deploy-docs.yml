@@ -5,6 +5,8 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * 1"  # every Monday at 3 AM UTC
 
 env:
   QUARTO_VERSION: 1.6.42
@@ -114,3 +116,23 @@ jobs:
           env: ${{ steps.deployment.outputs.env }}
           env_url: "https://${{ steps.deployment.outputs.env }}--pyshiny.netlify.app"
           logs: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+      - name: Upload site artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: rendered-site
+          path: _build
+
+  check-links:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: rendered-site
+          path: _build
+
+      - name: Run lychee link checker
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --verbose ./_build
