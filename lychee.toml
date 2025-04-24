@@ -15,4 +15,6 @@ include_verbatim = false
 exclude = [
   '^https://github.com/posit-dev/py-shiny-site/edit/main/.*',
   '^file:.*',
+  "^https://support.posit.co",
+  "^ https://shiny.posit.co/py/api/",
 ]
