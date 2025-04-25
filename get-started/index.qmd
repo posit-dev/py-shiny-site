@@ -30,30 +30,30 @@ repo-actions: false
 Create efficient, reactive, and robust web applications and dashboards.
 
 ::: {.floating-code-app .column-page-inset-right}
+::: {.floating-code}
 ```{=html}
-<div class="floating-code">
-  <!-- Prism.js for syntax highlighting -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
-  <div class="traffic-lights">
-    <div class="traffic-light red"></div>
-    <div class="traffic-light yellow"></div>
-    <div class="traffic-light green"></div>
-  </div>
-  <pre><code class="language-python">import seaborn as sns
-from shiny.express import input, render, ui
-
-df = sns.load_dataset("penguins")
-
-ui.input_slider("bins", "Number of Bins", min=5, max=20, value=15, step=1)
-
-
-@render.plot(height=300)
-def plot():
-    sns.histplot(data=df, x="body_mass_g", bins=input.bins())</code></pre>
+<!-- Prism.js for syntax highlighting -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<div class="traffic-lights">
+  <div class="traffic-light red"></div>
+  <div class="traffic-light yellow"></div>
+  <div class="traffic-light green"></div>
 </div>
 ```
+<pre><code class="language-python">
+{{< include assets/code-welcome.py >}}
+</code></pre><script>(function() {
+  // Trim leading/trailing newlines from the code-welcome code block
+  const preElement = document.currentScript.previousElementSibling;
+  if (!preElement || preElement.tagName !== 'PRE') return;
+  const codeElement = preElement.querySelector('code');
+  if (!codeElement) return;
+  codeElement.textContent = codeElement.textContent.trim();
+})();
+</script>
+:::
 
 ::: {.floating-app}
 ```{=html}
@@ -68,16 +68,7 @@ def plot():
 ##| components: [viewer]
 ##| viewerHeight: 400px
 
-from shiny.express import ui, render, input
-import seaborn as sns
-
-df = sns.load_dataset("penguins")
-
-ui.input_slider("bins", "Number of Bins", min=5, max=20, value=15, step=1)
-
-@render.plot(height=300)
-def plot():
-    ax = sns.histplot(data=df, x="body_mass_g", bins=input.bins())
+{{< include assets/code-welcome.py >}}
 ```
 :::
 
