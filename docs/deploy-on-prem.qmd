@@ -134,7 +134,7 @@ Finally, you will need to [restart](https://docs.posit.co/shiny-server/#stopping
 Not working for you?
 Look for clues in `/var/log/shiny-server.log` and `/var/log/shiny-server/*.log`.
 
-See the [Shiny Server Administrator's Guide](https://docs.posit.co/shiny-server//) for other options.
+See the [Shiny Server Administrator's Guide](https://docs.posit.co/shiny-server/) for other options.
 (Note that the Admin Guide includes documentation for the commercially licensed Professional edition of Shiny Server, and includes features marked "Pro Only". Shiny Server Professional is no longer available for new customers, and doesn't support Shiny for Python; our commercially licensed on-premises server these days is Posit Connect.)
 
 ## Other hosting options

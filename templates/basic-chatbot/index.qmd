@@ -5,8 +5,8 @@ date:         2025-03-25
 image:        thumbnail.png
 imagealt:     "A screenshot of the basic-chatbot template"
 app-height:   600px
-appurl:       https://posit-ai.basic-chatbot.share.connect.posit.cloud/
-sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/gen-ai/basic-chatbot
+appurl:       https://posit-ai-basic-chat.share.connect.posit.cloud/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/gen-ai/basic-chat
 ---
 
 ::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
