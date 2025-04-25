@@ -2,7 +2,7 @@
 <div class="list grid" style="column-gap: 30px; grid-template-rows: auto">
   <% for (const item of items) { %>
   <div
-    class="card gallery-entry border-0 rounded-3 g-col-12 g-col-md-6 g-col-lg-4 shadow-sm vstack gap-1"
+    class="card gallery-entry border-0 rounded-3 g-col-12 g-col-md-6 g-col-lg-4 shadow-sm vstack gap-1 justify-content-between text-center"
   >
     <a href="<%- item.href %>" target="_blank">
       <div
@@ -32,7 +32,9 @@
     </div>
     <% } %>
 
-    <div class="hstack gap-2 align-items-center p-2 mt-auto">
+    <div
+      class="hstack gap-2 align-items-center justify-content-center px-2 pb-2"
+    >
       <% if (item.code) { %>
       <div>
         <a class="view-app" href="<%- item.href %>" target="_blank">View app</a>
