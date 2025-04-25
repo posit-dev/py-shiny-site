@@ -1,27 +1,55 @@
 ```{=html}
-<div class="container gallery-container">
-  <div class="row g-4">
-    <% for (const item of items) { %>
-    <div class="col-12 col-md-6 col-lg-4">
-      <div class="gallery-card border-0 rounded-3 shadow-sm vstack gap-1">
-        <div class="ratio ratio-4x3 gallery-item">
-          <img src="<%- item.thumbnail %>" alt="<%- item.title %>" />
-
-          <div class="gallery-overlay">
-            <a href="<%- item.code %>" target="_blank" class="gallery-btn"
-              >Code</a
-            >
-            <a href="<%- item.href %>" target="_blank" class="gallery-btn"
-              >App</a
-            >
-          </div>
-        </div>
-
-        <div class="gallery-title"><%- item.title %></div>
+<div class="list grid" style="column-gap: 30px; grid-template-rows: auto">
+  <% for (const item of items) { %>
+  <div
+    class="card gallery-entry border-0 rounded-3 g-col-12 g-col-md-6 g-col-lg-4 shadow-sm vstack gap-1"
+  >
+    <a href="<%- item.href %>" target="_blank">
+      <div
+        class="gallery-entry__img-container ratio ratio-4x3"
+        style="
+          background-image: url(<%- item.thumbnail %>);
+          background-size: cover;
+        "
+      >
+        <% if (item.thumbnail_alt) { %>
+        <div class="visually-hidden"><%- item.thumbnail_alt %></div>
+        <% } %>
       </div>
+    </a>
+
+    <a href="<%- item.href %>" target="_blank">
+      <h5 class="no-anchor link-dark p-2 m-0"><%= item.title %></h5>
+    </a>
+
+    <% if (item.publicationdate | item.description) { %>
+    <div class="gallery-entry__body p-2">
+      <% if (item.publicationdate) { %>
+      <b class="listing-publicationdate"><%= item.publicationdate %></b>
+      <% } %> <% if (item.description) { %>
+      <span class="text-muted"><%= item.description %></span>
+      <% } %>
     </div>
     <% } %>
-  </div>
-</div>
 
+    <div class="hstack gap-2 align-items-center p-2 mt-auto">
+      <% if (item.code) { %>
+      <div>
+        <a class="view-app" href="<%- item.href %>" target="_blank">View app</a>
+      </div>
+      <div>
+        <a
+          href="<%- item.code %>"
+          title="View source code"
+          class="source-code card-text inline-block"
+          target="_blank"
+        >
+          View source
+        </a>
+      </div>
+      <% } %>
+    </div>
+  </div>
+  <% } %>
+</div>
 ```
