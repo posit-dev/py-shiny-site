@@ -5,12 +5,12 @@
 
 - title: Restaurant tips dashboard
   href: https://gallery.shinyapps.io/template-dashboard-tips1/
-  code: https://shiny.posit.co/py/templates/dashboard-tips/
+  code: ../templates/dashboard-tips/
   thumbnail: /gallery/restaurant-tips.png
 
 - title: Stock prices
   href: https://gallery.shinyapps.io/template-stock-app/
-  code: https://shiny.posit.co/py/templates/stock-app/
+  code: ../templates/stock-app/
   thumbnail: /gallery/stock-prices.png
 
 - title: Respiratory Disease data
