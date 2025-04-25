@@ -147,7 +147,7 @@ shiny create --template dashboard
 
 ## Extensibility {#extensible}
 
-While Shiny includes everything you need to build an app, is built on a foundation of web standards, making it highly [extensible](/docs/custom-component-one-off.qmd).
+While Shiny includes everything you need to build an app, it is also built on a foundation of web standards, making it highly [extensible](/docs/custom-component-one-off.qmd).
 In fact, Shiny for Python is built on standard HTML
 Here's an example of how the Shiny action button input returns a HTML `<button>`.
 
