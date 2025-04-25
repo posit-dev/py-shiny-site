@@ -31,7 +31,28 @@ Create efficient, reactive, and robust web applications and dashboards.
 
 ::: {.floating-code-app .column-page-inset-right}
 ```{=html}
-<img src="assets/code-welcome.svg" class="img-shadow floating-code", alt='Python code that imports seaborn as sns and imports input, render, and ui from shiny.express. It loads the penguins dataset into a DataFrame named df. Then it defines a slider input with ID "bins", label "Number of Bins", minimum value 5, maximum 20, default value 15, and step size 1. A reactive plot is defined using the @render.plot decorator with a height of 300. The plot function calls sns.histplot with the df DataFrame, uses "body_mass_g" for the x-axis, and sets the number of bins using the current value of input.bins().'>
+<div class="floating-code">
+  <!-- Prism.js for syntax highlighting -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <div class="traffic-lights">
+    <div class="traffic-light red"></div>
+    <div class="traffic-light yellow"></div>
+    <div class="traffic-light green"></div>
+  </div>
+  <pre><code class="language-python">import seaborn as sns
+from shiny.express import input, render, ui
+
+df = sns.load_dataset("penguins")
+
+ui.input_slider("bins", "Number of Bins", min=5, max=20, value=15, step=1)
+
+
+@render.plot(height=300)
+def plot():
+    sns.histplot(data=df, x="body_mass_g", bins=input.bins())</code></pre>
+</div>
 ```
 
 ::: {.floating-app}
@@ -53,7 +74,6 @@ import seaborn as sns
 df = sns.load_dataset("penguins")
 
 ui.input_slider("bins", "Number of Bins", min=5, max=20, value=15, step=1)
-
 
 @render.plot(height=300)
 def plot():
@@ -86,6 +106,19 @@ def plot():
   transition-delay: 100ms;
 }
 
+.floating-code {
+  overflow: hidden;
+  background: #2d2d2d;
+  margin: 1em 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  font-family: var(--bs-font-monospace);
+}
+
+.floating-code pre {
+  padding-block: 0;
+  padding-inline: 10px;
+}
+
 /* Traffic lights */
 .traffic-lights {
   --traffic-light-size: 12px;
@@ -115,10 +148,12 @@ def plot():
 
   .floating-code {
     left: 0;
-    top: 125px;
-    width: 60%;
+    top: 55px;
+    width: max-content;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
     z-index: 1; /* Below app by default */
+    transform: scale(0.66);
+    transform-origin: left center;
   }
 
   .floating-app {
@@ -132,10 +167,9 @@ def plot():
   }
 
   .floating-code:hover {
-    transform: translate(0, -14px);
+    transform: translate(0, -14px) scale(0.8);
     box-shadow: -8px 12px 32px rgba(0, 0, 0, 0.2) !important;
-    z-index: 3;
-    width: 80%;
+    z-index: 3; /* Above app on hover */
   }
 
   .floating-code:hover + .floating-app {
@@ -153,6 +187,10 @@ def plot():
     width: 100%;
     margin-bottom: 20px;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  .floating-code pre {
+    font-size: 12px;
   }
 
   .traffic-lights {
