@@ -32,6 +32,7 @@ def slider_val():
 
 
 ## file: fixed.py
+# Copy this solution to the app.py and re-run the application to see the fix in action
 from shiny.express import input, render, ui
 
 ui.input_slider("val", "Slider value", min=0, max=10, value=5)
@@ -77,6 +78,7 @@ def bad():
 
 
 ## file: fixed.py
+# Copy this solution to the app.py and re-run the application to see the fix in action
 from shiny.express import render
 
 
