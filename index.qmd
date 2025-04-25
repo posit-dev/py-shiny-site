@@ -18,12 +18,12 @@ repo-actions: false
 :::{.grid}
 :::{.g-col-12 .g-col-xl-6 .hero-text .pt-5 .pt-md-4 .px-3 .px-md-5 .pe-xl-0}
 
-<div class="gradient-text display-4 fw-bolder", style="font-size:4.7rem;">
+<div class="gradient-text display-1 fw-bolder" style="letter-spacing: -3px;">
 Reactive data & AI&nbsp;apps in pure Python
 </div>
 
 <p class="h4">
-elegant, efficient, and ready for production
+Elegant, efficient, and ready for production
 </p>
 
 ::: {.pt-4 .pb-4 style="z-index:1;"}
