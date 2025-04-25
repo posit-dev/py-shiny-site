@@ -23,6 +23,8 @@ editor:
 
 aliases:
   - welcome.html
+
+repo-actions: false
 ---
 
 Create efficient, reactive, and robust web applications and dashboards.

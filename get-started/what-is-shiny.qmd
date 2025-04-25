@@ -1,5 +1,7 @@
 ---
 title: What is Shiny?
+
+repo-actions: false
 ---
 
 ```{=html}
