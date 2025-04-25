@@ -110,6 +110,10 @@ Create efficient, reactive, and robust web applications and dashboards.
   padding-inline: 10px;
 }
 
+.floating-code::selection {
+  background-color: #8d959e57;
+}
+
 /* Traffic lights */
 .traffic-lights {
   --traffic-light-size: 12px;
