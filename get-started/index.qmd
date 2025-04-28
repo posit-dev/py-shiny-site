@@ -219,13 +219,13 @@ Shiny for Python empowers you to bring your data to life with interactive applic
 
 - **From demo to production-ready**<br>
   Shiny is great for one-off apps that help you [demo a concept](https://shinylive.io/py/app/#orbit-simulation) or quickly [see your data](https://gallery.shinyapps.io/superzip/).
-  But Shiny apps aren’t toy apps–Shiny's powerful reactive framework and extensible components mean your applications can evolve alongside your needs.
+  But Shiny apps aren’t toy apps–Shiny's powerful [reactive framework](/docs/reactive-foundations.qmd) and [extensible components](/docs/custom-component-one-off.qmd) mean your applications can evolve alongside your needs.
   Start simple, then [customize and scale](https://gallery.shinyapps.io/aws-community-builders-dashboard/) without switching frameworks.
 
 - **Plays well with others**<br>
   Bring to life the Python packages you know and love with Shiny.
   Turn polars and pandas data frames into [dynamic data grids](/components/outputs/data-grid/). Breathe interactivity into any [matplotlib](/components/outputs/plot-matplotlib/) or [seaborn](/components/outputs/plot-seaborn/) plot.
-  Go further and build an app around sophisticated displays from altair, [plotly](/components/outputs/plot-plotly/), or any [Jupyter Widget](/docs/jupyter-widgets.qmd).
+  Go further and build an app around sophisticated displays from [altair](/docs/jupyter-widgets.qmd), [plotly](/components/outputs/plot-plotly/), or any [Jupyter Widget](/docs/jupyter-widgets.qmd).
 
 - **Deploy with confidence**<br>
   When it’s time to put your Shiny app on the web, you can choose to deploy [on your own servers](/get-started/deploy-on-prem.qmd), on our [hosting services](/get-started/deploy-cloud.qmd), or even [serverless with shinylive](/get-started/shinylive.qmd).
