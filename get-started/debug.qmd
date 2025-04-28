@@ -3,6 +3,9 @@ title: Debug, troubleshoot, & help
 
 filters:
     - line-highlight
+
+aliases:
+  - /docs/debug.html
 ---
 
 ## Common issues

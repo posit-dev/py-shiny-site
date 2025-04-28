@@ -1,5 +1,8 @@
 ---
 title: "Self-hosted deployments"
+
+aliases:
+  - /docs/deploy-on-prem.html
 ---
 
 # Commercial software

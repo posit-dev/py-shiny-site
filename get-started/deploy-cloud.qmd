@@ -1,5 +1,8 @@
 ---
 title: "Cloud hosting"
+
+aliases:
+  - /docs/deploy-cloud.html
 ---
 
 ## Posit Connect Cloud

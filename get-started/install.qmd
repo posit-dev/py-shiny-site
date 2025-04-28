@@ -1,5 +1,8 @@
 ---
 title: Installation
+
+aliases:
+  - /docs/install-create-run.html
 ---
 
 Shiny for Python can be installed can be installed via `pip` or `conda`.
