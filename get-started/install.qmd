@@ -162,11 +162,7 @@ Even if you already have VS Code installed, [Positron](https://positron.posit.co
 It installs separately, so your existing VS Code extensions won’t conflict with [Positron extensions](https://positron.posit.co/extensions.html).
 
 Positron already ships with many Python-focused VS Code [extensions](https://positron.posit.co/extensions.html) from [Open VSX](https://open-vsx.org/),
-including:
-
-- [Quarto](https://open-vsx.org/extension/quarto/quarto)
-- [Jupyter Notebooks](https://open-vsx.org/extension/ms-toolsai/jupyter)
-- [Pyright](https://open-vsx.org/extension/ms-pyright/pyright).
+including [Quarto](https://open-vsx.org/extension/quarto/quarto), [Jupyter Notebooks](https://open-vsx.org/extension/ms-toolsai/jupyter), and [Pyright](https://open-vsx.org/extension/ms-pyright/pyright).
 
 To get started with Shiny for Python, you will need to install the
 [Shiny Extension](https://open-vsx.org/extension/posit/shiny).
