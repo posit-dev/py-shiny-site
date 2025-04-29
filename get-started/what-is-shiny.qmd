@@ -150,7 +150,7 @@ shiny create --template dashboard
 ## Extensibility {#extensible}
 
 While Shiny includes everything you need to build an app, it is also built on a foundation of web standards, making it highly [extensible](/docs/custom-component-one-off.qmd).
-Many of our components are just plain HTML elements with the right classes to connect to Shiny's client-side JavaScript.
+Many of Shiny's components are just plain HTML elements with the right classes to connect to Shiny's client-side JavaScript.
 
 Take the [action button](/components/inputs/action-button/index.qmd), for example.
 You can print the input in the Python console to see that it's just a regular HTML `<button>` element.
