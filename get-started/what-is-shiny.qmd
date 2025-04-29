@@ -150,23 +150,30 @@ shiny create --template dashboard
 ## Extensibility {#extensible}
 
 While Shiny includes everything you need to build an app, it is also built on a foundation of web standards, making it highly [extensible](/docs/custom-component-one-off.qmd).
-In fact, Shiny for Python is built on standard HTML
-Here's an example of how the Shiny action button input returns a HTML `<button>`.
+Many of our components are just plain HTML elements with the right classes to connect to Shiny's client-side JavaScript.
+
+Take the [action button](/components/inputs/action-button/index.qmd), for example.
+You can print the input in the Python console to see that it's just a regular HTML `<button>` element.
 
 ```python
 >>> from shiny import ui
->>> ui.input_action_button("btn", "Button")
+>>> ui.input_action_button("update_data", "Button")
 ```
 
 ```html
-<button class="btn btn-default action-button" id="btn" type="button">Button</button>
+<button class="btn btn-default action-button" id="update_data" type="button">Button</button>
 ```
 
+This means that you can use Shiny to learn web development---and [many people have](https://jnolis.com/talks/shiny_conf_2022/)!
+
+But this also means that Shiny doesn't lock you into a particular front-end framework.
+At the more advanced end of the spectrum, Shiny components can be highly sophisticated and can leverage modern web frameworks.
+For example, [Data Grids](/components/outputs/data-grid/index.qmd) are React components that use the popular [TanStack Table](https://tanstack.com/table/latest) React library under the hood.
+
 If you're versed in web programming, you can use Shiny to build [one-off custom components](/docs/custom-component-one-off.qmd) that integrate your favorite JavaScript framework directly from Python.
-For more advanced needs, you can develop a [reusable component package](/docs/custom-components-pkg.qmd) or [customize the user interface](/docs/ui-customize.qmd) by incrementally [adding JavaScript](/docs/custom-component-one-off.qmd), [HTML](/docs/ui-html.qmd), or even [WebAssembly](/get-started/shinylive.qmd), without needing to learn complex build tools or frameworks.
+For more advanced needs, you can develop a [reusable component package](/docs/custom-components-pkg.qmd) or [customize the user interface](/docs/ui-customize.qmd) by incrementally [adding JavaScript](/docs/custom-component-one-off.qmd) or custom [HTML](/docs/ui-html.qmd) or [CSS](/docs/ui-customize.qmd).
 
 
 ## Install, create, and run
 
-Now that you know a little more about Shiny for Python,
-let's go [install Shiny](install.qmd) so you can [create your first application](create-run.qmd)!
+Now that you know a little more about Shiny for Python, let's go [install Shiny](install.qmd) so you can [create your first application](create-run.qmd)!
