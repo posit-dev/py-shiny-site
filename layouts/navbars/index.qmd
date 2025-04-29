@@ -11,8 +11,8 @@ listing:
   - title: ui.page_navbar
     href: https://shiny.posit.co/py/api/core/ui.page_navbar.html
     signature: ui.page_navbar(*args, title=None, id=None, selected=None, sidebar=None, fillable=True, fillable_mobile=False, gap=None, padding=None, position='static-top', header=None, footer=None, bg=None, inverse=False, underline=True, collapsible=True, fluid=True, window_title=MISSING, lang=None)
-  - title: ui.nav
-    href: https://shiny.posit.co/py/api/ui.nav.html
+  - title: ui.nav_panel
+    href: https://shiny.posit.co/py/api/core/ui.nav_panel.html
     signature: ui.nav_panel(title, *args, value=None, icon=None)
 ---
 

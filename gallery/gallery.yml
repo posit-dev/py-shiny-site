@@ -63,7 +63,7 @@
       thumbnail: t_test.png
     - title: AWS Community Builders Dashboard
       description: null
-      href: https://gallery.shinyapps.io/aws-community-builders-dashboard/?_gl=1*1skp1jv*_ga*MjAwNjU0MTEzMS4xNzI4NDEzMzYw*_ga_2C0WZ1JHG0*MTcyODQxOTEwMC42LjEuMTcyODQxOTExMC4wLjAuMA..
+      href: https://gallery.shinyapps.io/aws-community-builders-dashboard/
       code: https://github.com/robertgv/aws-community-builders-dashboard
       thumbnail: aws-builders.jpg
     - title: Identify Outliers

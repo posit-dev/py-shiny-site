@@ -18,18 +18,17 @@ repo-actions: false
 :::{.grid}
 :::{.g-col-12 .g-col-xl-6 .hero-text .pt-5 .pt-md-4 .px-3 .px-md-5 .pe-xl-0}
 
-<div class="gradient-text display-4 fw-bolder", style="font-size:4.7rem;">
+<div class="gradient-text display-1 fw-bolder" style="letter-spacing: -3px;">
 Reactive data & AI&nbsp;apps in pure Python
 </div>
 
 <p class="h4">
-elegant, efficient, and ready for production
+Elegant, efficient, and ready for production
 </p>
 
 ::: {.pt-4 .pb-4 style="z-index:1;"}
-[Install 📦](#install){.btn .btn-dark .btn-lg .me-2 .px-4 role="button"}
-[Learn 📚](docs/overview.qmd){.btn .btn-dark .btn-lg .m-2 .px-4 role="button"}
-[Shiny for AI 🤖](docs/genai-inspiration.qmd){.btn .btn-dark .btn-lg .m-2 .px-4 role="button"}
+[Get Started <i class="bi bi-arrow-right-circle-fill ms-2"></i>](get-started/index.qmd){.btn .btn-dark .btn-lg .m-2 .px-4 role="button"}
+[Shiny for AI <i class="bi bi-robot ms-2"></i>](docs/genai-inspiration.qmd){.btn .btn-dark .btn-lg .m-2 .px-4 role="button"}
 :::
 
 
@@ -208,5 +207,10 @@ shiny create --template dashboard-tips
 :::
 
 
+::: {.homepage-code .text-center}
+<p class="h4">
+[Get Started](get-started/index.qmd){.white} and build your first Shiny app now!
+</p>
+:::
 
 :::::
