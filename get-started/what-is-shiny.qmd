@@ -163,7 +163,7 @@ Here's an example of how the Shiny action button input returns a HTML `<button>`
 ```
 
 If you're versed in web programming, you can use Shiny to build [one-off custom components](/docs/custom-component-one-off.qmd) that integrate your favorite JavaScript framework directly from Python.
-For more advanced needs, you can develop a [reusable component package](/docs/custom-components-pkg.qmd) or [customize the user interface](/docs/ui-customize) by incrementally [adding JavaScript](/docs/custom-component-one-off), [HTML](/docs/ui-html.html), or even [WebAssembly](/get-started/shinylive.qmd), without needing to learn complex build tools or frameworks.
+For more advanced needs, you can develop a [reusable component package](/docs/custom-components-pkg.qmd) or [customize the user interface](/docs/ui-customize.qmd) by incrementally [adding JavaScript](/docs/custom-component-one-off.qmd), [HTML](/docs/ui-html.qmd), or even [WebAssembly](/get-started/shinylive.qmd), without needing to learn complex build tools or frameworks.
 
 
 ## Install, create, and run
