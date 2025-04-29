@@ -1,6 +1,8 @@
 ---
 title: Hosting and deployment
 description: When it's time to put your Shiny app on the web, you can choose to deploy on your own servers or on our hosting service.
+aliases:
+  - /docs/deploy.html
 ---
 
 :::{.lead}
