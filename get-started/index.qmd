@@ -225,7 +225,7 @@ Shiny for Python empowers you to bring your data to life with interactive applic
 - **Plays well with others**<br>
   Bring to life the Python packages you know and love with Shiny.
   Turn polars and pandas data frames into [dynamic data grids](/components/outputs/data-grid/). Breathe interactivity into any [matplotlib](/components/outputs/plot-matplotlib/) or [seaborn](/components/outputs/plot-seaborn/) plot.
-  Go further and build an app around sophisticated displays from [altair](/docs/jupyter-widgets.qmd), [plotly](/components/outputs/plot-plotly/), or any [Jupyter Widget](/docs/jupyter-widgets.qmd).
+  Go further and build an app around sophisticated displays from [altair](/docs/jupyter-widgets.qmd), [plotly](/components/outputs/plot-plotly/index.qmd), or any [Jupyter Widget](/docs/jupyter-widgets.qmd).
 
 - **Deploy with confidence**<br>
   When it’s time to put your Shiny app on the web, you can choose to deploy [on your own servers](/get-started/deploy-on-prem.qmd), on our [hosting services](/get-started/deploy-cloud.qmd), or even [serverless with shinylive](/get-started/shinylive.qmd).
