@@ -1,0 +1,196 @@
+---
+title: External Resources
+---
+
+It's good to keep the UI and code logic separate.
+Since we have an outline of the application UI,
+let's make sure we can get all the logic working for the code.
+
+Let's take a look at the application we're planning to make and make sure we
+can code up all the individual parts first.
+
+![](../../docs/assets/tipping-dashboard.png)
+
+From the dashboard sketch we need to make the following outputs
+
+1. Load the tips data that can be filtered byt the bill amount and food service time
+2. Display the tips data after filtering
+3. Calculate the total number of tippers (i.e., number of rows after filtering)
+4. Calculate average tip percentage after filtering
+5. Calculate average bill after filtering
+6. [Plotly scatterplot](https://plotly.com/python/line-and-scatter/)
+    comparing `tip` vs `total_bill` of the filtered data
+7. [ridgeplot](https://ridgeplot.readthedocs.io/en/stable/)
+    comparing days of the week vs tip percentages of the filtered data
+
+Now that we can lay out components and have the output components react to the input components,
+let's see how we can incorporate modules, packages, and external data into our application.
+
+Before we start, make sure you have pandas, plotly, and ridgeplot installed.
+If you are following along this tutorial from the beginning,
+make sure you are in the proper virtual environment
+
+::: {.panel-tabset}
+
+## pip
+
+```bash
+pip install pandas plotly ridgeplot
+```
+
+## conda
+
+```bash
+conda install -c conda-forge pandas plotly
+pip install ridgeplot
+```
+
+## mamba
+
+```bash
+mamba install install -c conda-forge pandas plotly
+pip install ridgeplot
+```
+
+:::
+
+
+## External Data
+
+External data can be read into a Shiny for Python just like any other
+python data science project, e.g., pandas, polars, ibis, eager, duckdb, etc.
+
+:::{.callout-note}
+You can use the Python `narwhals` library to convert between
+different dataframe backends.
+
+<https://narwhals-dev.github.io/narwhals/>
+:::
+
+For example, if we wanted to read in data from the `tips.csv` file in pandas,
+we can use the same code in our shiny for python application.
+
+```{python}
+#| include: false
+
+import pandas as pd
+
+try:
+  tips = pd.read_csv("tips.csv")
+except FileNotFoundError:
+  tips = pd.read_csv("tutorials/intro-express/tips.csv")
+```
+
+```python
+import pandas as pd
+
+tips = pd.read_csv("tips.csv")
+```
+
+Next, let's create a few variables to serve as placeholders for the input components:
+
+```{python}
+total_lower = tips.total_bill.min()
+total_upper = tips.total_bill.max()
+time_selected = tips.time.unique().tolist()
+```
+
+And a placeholder for the filtered tips dataframe:
+
+```{python}
+idx1 = tips.total_bill.between(
+  left=total_lower,
+  right=total_upper,
+  inclusive="both",
+)
+
+idx2 = tips.time.isin(time_selected)
+
+tips_filtered = tips[idx1 & idx2]
+```
+
+Now that we have a placeholder for the filtered dataframe,
+we can write the code for the other components of the application.
+
+```{python}
+tips_filtered.head()
+```
+
+## Individual values
+
+Now, let's calculate the individual numbers that are showed in the value boxes.
+
+```{python}
+# total tippers
+total_tippers = tips_filtered.shape[0]
+total_tippers
+```
+
+```{python}
+# average tip
+perc = tips_filtered.tip / tips_filtered.total_bill
+average_tip = f"{perc.mean():.1%}"
+average_tip
+```
+
+```{python}
+# average bill
+bill = tips_filtered.total_bill.mean()
+average_bill = f"${bill:.2f}"
+average_bill
+```
+
+## Plots
+
+We now need to create 2 figures, a scatterplot and a ridgeplot.
+
+The scatterplot will use the `plotly` library
+
+```{python}
+import plotly.express as px
+
+px.scatter(
+  tips_filtered,
+  x="total_bill",
+  y="tip",
+  trendline="lowess"
+)
+```
+
+The ridgeplot will use the `ridgeplot` library
+
+```{python}
+from ridgeplot import ridgeplot
+
+tips_filtered["percent"] = tips_filtered.tip / tips_filtered.total_bill
+
+uvals = tips_filtered.day.unique()
+samples = [[tips_filtered.percent[tips_filtered.day == val]] for val in uvals]
+
+plt = ridgeplot(
+  samples=samples,
+  labels=uvals,
+  bandwidth=0.01,
+  colorscale="viridis",
+  colormode="row-index"
+)
+
+plt.update_layout(
+  legend=dict(
+    orientation="h",
+    yanchor="bottom",
+    y=1.02,
+    xanchor="center",
+    x=0.5
+  )
+)
+
+plt
+```
+
+## Next steps
+
+Now we have the working code for all the parts of our application.
+Next we will add these outputs to the application
+and then link the input components to our placeholder variables
+to filtered the data.

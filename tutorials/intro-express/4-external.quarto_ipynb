@@ -1,0 +1,314 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: External Resources\n",
+        "---\n",
+        "\n",
+        "\n",
+        "It's good to keep the UI and code logic separate.\n",
+        "Since we have an outline of the application UI,\n",
+        "let's make sure we can get all the logic working for the code.\n",
+        "\n",
+        "Let's take a look at the application we're planning to make and make sure we\n",
+        "can code up all the individual parts first.\n",
+        "\n",
+        "![](../../docs/assets/tipping-dashboard.png)\n",
+        "\n",
+        "From the dashboard sketch we need to make the following outputs\n",
+        "\n",
+        "1. Load the tips data that can be filtered byt the bill amount and food service time\n",
+        "2. Display the tips data after filtering\n",
+        "3. Calculate the total number of tippers (i.e., number of rows after filtering)\n",
+        "4. Calculate average tip percentage after filtering\n",
+        "5. Calculate average bill after filtering\n",
+        "6. [Plotly scatterplot](https://plotly.com/python/line-and-scatter/)\n",
+        "    comparing `tip` vs `total_bill` of the filtered data\n",
+        "7. [ridgeplot](https://ridgeplot.readthedocs.io/en/stable/)\n",
+        "    comparing days of the week vs tip percentages of the filtered data\n",
+        "\n",
+        "Now that we can lay out components and have the output components react to the input components,\n",
+        "let's see how we can incorporate modules, packages, and external data into our application.\n",
+        "\n",
+        "Before we start, make sure you have pandas, plotly, and ridgeplot installed.\n",
+        "If you are following along this tutorial from the beginning,\n",
+        "make sure you are in the proper virtual environment\n",
+        "\n",
+        "::: {.panel-tabset}\n",
+        "\n",
+        "## pip\n",
+        "\n",
+        "```bash\n",
+        "pip install pandas plotly ridgeplot\n",
+        "```\n",
+        "\n",
+        "## conda\n",
+        "\n",
+        "```bash\n",
+        "conda install -c conda-forge pandas plotly\n",
+        "pip install ridgeplot\n",
+        "```\n",
+        "\n",
+        "## mamba\n",
+        "\n",
+        "```bash\n",
+        "mamba install install -c conda-forge pandas plotly\n",
+        "pip install ridgeplot\n",
+        "```\n",
+        "\n",
+        ":::\n",
+        "\n",
+        "\n",
+        "## External Data\n",
+        "\n",
+        "External data can be read into a Shiny for Python just like any other\n",
+        "python data science project, e.g., pandas, polars, ibis, eager, duckdb, etc.\n",
+        "\n",
+        ":::{.callout-note}\n",
+        "You can use the Python `narwhals` library to convert between\n",
+        "different dataframe backends.\n",
+        "\n",
+        "<https://narwhals-dev.github.io/narwhals/>\n",
+        ":::\n",
+        "\n",
+        "For example, if we wanted to read in data from the `tips.csv` file in pandas,\n",
+        "we can use the same code in our shiny for python application.\n"
+      ],
+      "id": "7f9cb307"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| include: false\n",
+        "\n",
+        "import pandas as pd\n",
+        "\n",
+        "try:\n",
+        "  tips = pd.read_csv(\"tips.csv\")\n",
+        "except FileNotFoundError:\n",
+        "  tips = pd.read_csv(\"tutorials/intro-express/tips.csv\")"
+      ],
+      "id": "4e4d9bd6",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "```python\n",
+        "import pandas as pd\n",
+        "\n",
+        "tips = pd.read_csv(\"tips.csv\")\n",
+        "```\n",
+        "\n",
+        "Next, let's create a few variables to serve as placeholders for the input components:\n"
+      ],
+      "id": "3c84c3b8"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "total_lower = tips.total_bill.min()\n",
+        "total_upper = tips.total_bill.max()\n",
+        "time_selected = tips.time.unique().tolist()"
+      ],
+      "id": "69757743",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "And a placeholder for the filtered tips dataframe:\n"
+      ],
+      "id": "ad67bf6d"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "idx1 = tips.total_bill.between(\n",
+        "  left=total_lower,\n",
+        "  right=total_upper,\n",
+        "  inclusive=\"both\",\n",
+        ")\n",
+        "\n",
+        "idx2 = tips.time.isin(time_selected)\n",
+        "\n",
+        "tips_filtered = tips[idx1 & idx2]"
+      ],
+      "id": "97d5101d",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Now that we have a placeholder for the filtered dataframe,\n",
+        "we can write the code for the other components of the application.\n"
+      ],
+      "id": "725aac84"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "tips_filtered.head()"
+      ],
+      "id": "76e30ca9",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## Individual values\n",
+        "\n",
+        "Now, let's calculate the individual numbers that are showed in the value boxes.\n"
+      ],
+      "id": "7b502085"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# total tippers\n",
+        "total_tippers = tips_filtered.shape[0]\n",
+        "total_tippers"
+      ],
+      "id": "a25ff9fd",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# average tip\n",
+        "perc = tips_filtered.tip / tips_filtered.total_bill\n",
+        "average_tip = f\"{perc.mean():.1%}\"\n",
+        "average_tip"
+      ],
+      "id": "74b10c7b",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# average bill\n",
+        "bill = tips_filtered.total_bill.mean()\n",
+        "average_bill = f\"${bill:.2f}\"\n",
+        "average_bill"
+      ],
+      "id": "da8bdf28",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## Plots\n",
+        "\n",
+        "We now need to create 2 figures, a scatterplot and a ridgeplot.\n",
+        "\n",
+        "The scatterplot will use the `plotly` library\n"
+      ],
+      "id": "05e2fc36"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import plotly.express as px\n",
+        "\n",
+        "px.scatter(\n",
+        "  tips_filtered,\n",
+        "  x=\"total_bill\",\n",
+        "  y=\"tip\",\n",
+        "  trendline=\"lowess\"\n",
+        ")"
+      ],
+      "id": "5f52cf0d",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "The ridgeplot will use the `ridgeplot` library\n"
+      ],
+      "id": "39a291a9"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "from ridgeplot import ridgeplot\n",
+        "\n",
+        "tips_filtered[\"percent\"] = tips_filtered.tip / tips_filtered.total_bill\n",
+        "\n",
+        "uvals = tips_filtered.day.unique()\n",
+        "samples = [[tips_filtered.percent[tips_filtered.day == val]] for val in uvals]\n",
+        "\n",
+        "plt = ridgeplot(\n",
+        "  samples=samples,\n",
+        "  labels=uvals,\n",
+        "  bandwidth=0.01,\n",
+        "  colorscale=\"viridis\",\n",
+        "  colormode=\"row-index\"\n",
+        ")\n",
+        "\n",
+        "plt.update_layout(\n",
+        "  legend=dict(\n",
+        "    orientation=\"h\",\n",
+        "    yanchor=\"bottom\",\n",
+        "    y=1.02,\n",
+        "    xanchor=\"center\",\n",
+        "    x=0.5\n",
+        "  )\n",
+        ")\n",
+        "\n",
+        "plt"
+      ],
+      "id": "7c1e3637",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## Next steps\n",
+        "\n",
+        "Now we have the working code for all the parts of our application.\n",
+        "Next we will add these outputs to the application\n",
+        "and then link the input components to our placeholder variables\n",
+        "to filtered the data."
+      ],
+      "id": "0b68a24b"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "pfe_book",
+      "language": "python",
+      "display_name": "pfe_book",
+      "path": "/Users/danielchen/Library/Jupyter/kernels/pfe_book"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
