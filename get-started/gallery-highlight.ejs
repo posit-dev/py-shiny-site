@@ -1,0 +1,57 @@
+```{=html}
+<div class="list grid" style="column-gap: 30px; grid-template-rows: auto">
+  <% for (const item of items) { %>
+  <div
+    class="card gallery-entry border-0 rounded-3 g-col-12 g-col-md-6 g-col-lg-4 shadow-sm vstack gap-1 justify-content-between text-center"
+  >
+    <a href="<%- item.href %>" target="_blank">
+      <div
+        class="gallery-entry__img-container ratio ratio-4x3"
+        style="
+          background-image: url(<%- item.thumbnail %>);
+          background-size: cover;
+        "
+      >
+        <% if (item.thumbnail_alt) { %>
+        <div class="visually-hidden"><%- item.thumbnail_alt %></div>
+        <% } %>
+      </div>
+    </a>
+
+    <a href="<%- item.href %>" target="_blank">
+      <h5 class="no-anchor link-dark p-2 m-0"><%= item.title %></h5>
+    </a>
+
+    <% if (item.publicationdate | item.description) { %>
+    <div class="gallery-entry__body p-2">
+      <% if (item.publicationdate) { %>
+      <b class="listing-publicationdate"><%= item.publicationdate %></b>
+      <% } %> <% if (item.description) { %>
+      <span class="text-muted"><%= item.description %></span>
+      <% } %>
+    </div>
+    <% } %>
+
+    <div
+      class="hstack gap-2 align-items-center justify-content-center px-2 pb-2"
+    >
+      <% if (item.code) { %>
+      <div>
+        <a class="view-app" href="<%- item.href %>" target="_blank">View app</a>
+      </div>
+      <div>
+        <a
+          href="<%- item.code %>"
+          title="View source code"
+          class="source-code card-text inline-block"
+          target="_blank"
+        >
+          View source
+        </a>
+      </div>
+      <% } %>
+    </div>
+  </div>
+  <% } %>
+</div>
+```

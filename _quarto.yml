@@ -19,6 +19,7 @@ project:
     - api/core
     - api/testing
     - templates
+    - get-started
   resources:
     - /pypi/**
     - /robots.txt
@@ -73,7 +74,9 @@ website:
     logo-alt: The logo for Shiny for Python
     search: true
     left:
-      - text: "Learn Shiny"
+      - text: "Get Started"
+        file: get-started/index.qmd
+      - text: "Concepts"
         file: docs/overview.qmd
       - text: "Components"
         menu:
@@ -86,13 +89,6 @@ website:
           - text: "Templates"
             file: templates/index.qmd
             icon: code-square
-      - text: "Deploy"
-        menu:
-          - text: "Overview"
-            href: docs/deploy.qmd
-          - docs/deploy-cloud.qmd
-          - docs/deploy-on-prem.qmd
-          - docs/shinylive.qmd
       - text: "Gallery"
         file: gallery/index.qmd
       - text: "Playground"
@@ -227,8 +223,25 @@ website:
               href: "/layouts/arrange/index.html#column-nesting"
             - text: "Controlling for Page Size"
               href: "/layouts/arrange/index.html#controlling-for-page-width-and-height"
+    - id: get-started
+      style: "floating"
+      collapse-level: 1
+      align: left
+      contents:
+        - get-started/index.qmd
+        - get-started/what-is-shiny.qmd
+        - get-started/install.qmd
+        - get-started/create-run.qmd
+        - get-started/debug.qmd
+        - section: "Deploy"
+          contents:
+            - text: "Overview"
+              href: get-started/deploy.qmd
+            - get-started/deploy-cloud.qmd
+            - get-started/deploy-on-prem.qmd
+            - get-started/shinylive.qmd
 
-    - id: docs
+    - id: concepts
       style: "floating"
       collapse-level: 2
       align: left
@@ -237,10 +250,6 @@ website:
           contents:
             - docs/overview.qmd
             - docs/user-interfaces.qmd
-        - section: "<span class='emoji-icon'>💻</span>  __Workflow__"
-          contents:
-            - docs/install-create-run.qmd
-            - docs/debug.qmd
         - section: "<span class='emoji-icon'>🤖</span> __Generative AI__"
           contents:
             - docs/genai-inspiration.qmd

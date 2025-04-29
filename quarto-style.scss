@@ -1939,12 +1939,12 @@ pre.console code {
   border-top-right-radius: 0%;
 }
 
-.tab-pane div.sourceCode {
+.tab-pane > div.sourceCode:first-child {
   margin-top: 0px;
 }
 
-.tab-content div.sourceCode,
-.tab-content pre.console {
+.tab-content > div.sourceCode:last-child,
+.tab-content > pre.console:last-child {
   margin-bottom: 0px;
 }
 

@@ -8,12 +8,12 @@ Shinylive allows you to run Shiny applications entirely in a web browser, withou
 
 The traditional way of deploying Shiny involves in a separate server and client: the server runs Python and Shiny, and clients connect via the web browser. Each client keeps an open websocket connection as long as they are using the application.
 
-![](shinylive-shiny-deployment-model.png){fig-alt="Traditional Shiny deployment" width=500px}
+![](assets/shinylive-shiny-deployment-model.png){fig-alt="Traditional Shiny deployment" width=500px}
 
 
 When an application is deployed with Shinylive, Python and Shiny _run in the web browser_: the browser is effectively both the client and server for the application. There is a web server that serves files, but it does not run Python or Shiny---it can be a "dumb" static web server.
 
-![](shinylive-shinylive-deployment-model.png){fig-alt="Shinylive deployment" width=500px}
+![](assets/shinylive-shinylive-deployment-model.png){fig-alt="Shinylive deployment" width=500px}
 
 
 If you've looked at any of the documentation on this web site, or have played with any of the [examples at shinylive.io](https://shinylive.io/py/examples/), you have already used Shinylive. The examples on this site (with a handful of exceptions) and the shinylive.io examples all run using Shinylive, meaning that they run in your web browser.
@@ -57,11 +57,11 @@ When we talk about _deploying_ applications, we mean creating a set of files whi
 
 The easiest way to share an application is to create it on the [Shinylive editor](https://shinylive.io/py/examples/), and then click on the "Create share link" button. This will encode the application in a URL, which you can then share with others.
 
-![](shinylive-share-button.png){fig-alt="Share button" width=250px}
+![](assets/shinylive-share-button.png){fig-alt="Share button" width=250px}
 
 The dialog box that appears will provide two links: one for the application in the Shinylive editor, and one with for the application running standalone.
 
-![](shinylive-share-modal.png){fig-alt="Share URLs" width=700px}
+![](assets/shinylive-share-modal.png){fig-alt="Share URLs" width=700px}
 
 Here is an example of a Shiny application that is encoded in a share URL. This will lead to the application with an editor and Python console:
 
