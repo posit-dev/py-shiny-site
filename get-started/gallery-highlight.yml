@@ -1,29 +1,29 @@
 - title: Superzip explorer
   href: https://gallery.shinyapps.io/superzip/
   code: https://github.com/posit-dev/py-shinywidgets/tree/main/examples/superzip/
-  thumbnail: /gallery/superzip.png
+  thumbnail: ../gallery/superzip.png
 
 - title: Restaurant tips dashboard
   href: https://gallery.shinyapps.io/template-dashboard-tips1/
   code: ../templates/dashboard-tips/
-  thumbnail: /gallery/restaurant-tips.png
+  thumbnail: ../gallery/restaurant-tips.png
 
 - title: Stock prices
   href: https://gallery.shinyapps.io/template-stock-app/
   code: ../templates/stock-app/
-  thumbnail: /gallery/stock-prices.png
+  thumbnail: ../gallery/stock-prices.png
 
 - title: Respiratory Disease data
   href: https://gallery.shinyapps.io/respiratory_disease_pyshiny/
   code: https://github.com/rstudio/shiny-gallery/tree/master/respiratory_disease_pyshiny
-  thumbnail: /gallery/respiratory-disease.png
+  thumbnail: ../gallery/respiratory-disease.png
 
 - title: AWS Community Builders Dashboard
   href: https://gallery.shinyapps.io/aws-community-builders-dashboard/?_gl=1*1skp1jv*_ga*MjAwNjU0MTEzMS4xNzI4NDEzMzYw*_ga_2C0WZ1JHG0*MTcyODQxOTEwMC42LjEuMTcyODQxOTExMC4wLjAuMA..
   code: https://github.com/robertgv/aws-community-builders-dashboard
-  thumbnail: /gallery/aws-builders.jpg
+  thumbnail: ../gallery/aws-builders.jpg
 
 - title: Identify Outliers
   href: https://connect.posit.cloud/skaltman/content/01922aab-06e0-fc8f-8958-30dd67f9af51
   code: https://github.com/skaltman/outliers-app-db-python
-  thumbnail: /gallery/identify-outliers.jpg
+  thumbnail: ../gallery/identify-outliers.jpg
