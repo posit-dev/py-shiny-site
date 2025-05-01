@@ -44,7 +44,8 @@ Create efficient, reactive, and robust web applications and dashboards.
 ```
 <pre><code class="language-python">
 {{< include assets/code-welcome.py >}}
-</code></pre><script>(function() {
+</code></pre>
+<script>(function() {
   // Trim leading/trailing newlines from the code-welcome code block
   const preElement = document.currentScript.previousElementSibling;
   if (!preElement || preElement.tagName !== 'PRE') return;
@@ -82,6 +83,11 @@ Create efficient, reactive, and robust web applications and dashboards.
   border-right: none;
   border-bottom: none;
   border-left: none;
+}
+
+.shinylive-python code {
+  visibility: hidden;
+  height: 400px;
 }
 
 .floating-code-app {
