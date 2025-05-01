@@ -85,7 +85,7 @@ Create efficient, reactive, and robust web applications and dashboards.
   border-left: none;
 }
 
-.shinylive-wrapper code {
+.shinylive-python code {
   visibility: hidden;
   height: 400px;
 }
