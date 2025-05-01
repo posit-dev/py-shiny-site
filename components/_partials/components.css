@@ -81,7 +81,7 @@ main a.nav-link:hover {
   transform-origin: top left;
 }
 
-.shinylive-python code {
+.shinylive-wrapper code {
   visibility: hidden;
   height: 200px;
 }
