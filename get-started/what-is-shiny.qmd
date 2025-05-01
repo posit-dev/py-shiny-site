@@ -38,10 +38,6 @@ repo-actions: false
     text-decoration: none;
     border: 1px solid var(--bs-primary);
   }
-
-  .shinylive-python > code {
-    visibility: hidden;
-  }
 </style>
 ```
 

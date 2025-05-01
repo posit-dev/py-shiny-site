@@ -84,6 +84,10 @@ Create efficient, reactive, and robust web applications and dashboards.
   border-left: none;
 }
 
+.floating-app .shinylive-wrapper code {
+  visibility: hidden;
+}
+
 .floating-code-app {
   position: relative;
   width: 100%;
