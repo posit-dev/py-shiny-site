@@ -42,9 +42,10 @@ Create efficient, reactive, and robust web applications and dashboards.
   <div class="traffic-light green"></div>
 </div>
 ```
-<pre><code class="language-python">
+<pre><code class="language-python" style="visibility: hidden">
 {{< include assets/code-welcome.py >}}
-</code></pre><script>(function() {
+</code></pre>
+<script>(function() {
   // Trim leading/trailing newlines from the code-welcome code block
   const preElement = document.currentScript.previousElementSibling;
   if (!preElement || preElement.tagName !== 'PRE') return;
@@ -82,10 +83,6 @@ Create efficient, reactive, and robust web applications and dashboards.
   border-right: none;
   border-bottom: none;
   border-left: none;
-}
-
-.floating-app .shinylive-wrapper code {
-  visibility: hidden;
 }
 
 .floating-code-app {
