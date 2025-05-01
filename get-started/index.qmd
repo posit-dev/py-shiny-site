@@ -42,7 +42,7 @@ Create efficient, reactive, and robust web applications and dashboards.
   <div class="traffic-light green"></div>
 </div>
 ```
-<pre><code class="language-python" style="visibility: hidden">
+<pre><code class="language-python" style="visibility: hidden; height: 400px;">
 {{< include assets/code-welcome.py >}}
 </code></pre>
 <script>(function() {

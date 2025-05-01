@@ -83,4 +83,5 @@ main a.nav-link:hover {
 
 .shinylive-python code {
   visibility: hidden;
+  height: 200px;
 }
