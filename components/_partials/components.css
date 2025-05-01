@@ -80,3 +80,7 @@ main a.nav-link:hover {
   height: calc(1 / var(--scale-factor) * 100%);
   transform-origin: top left;
 }
+
+.shinylive-python code {
+  visibility: hidden;
+}
