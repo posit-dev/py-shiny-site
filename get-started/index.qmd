@@ -42,7 +42,7 @@ Create efficient, reactive, and robust web applications and dashboards.
   <div class="traffic-light green"></div>
 </div>
 ```
-<pre><code class="language-python" style="visibility: hidden; height: 400px;">
+<pre><code class="language-python">
 {{< include assets/code-welcome.py >}}
 </code></pre>
 <script>(function() {
@@ -83,6 +83,11 @@ Create efficient, reactive, and robust web applications and dashboards.
   border-right: none;
   border-bottom: none;
   border-left: none;
+}
+
+.shinylive-wrapper code {
+  visibility: hidden;
+  height: 400px;
 }
 
 .floating-code-app {
