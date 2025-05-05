@@ -395,7 +395,7 @@ ridgeplot==0.1.25
 
 ## Next steps
 
-If you'd like to start developing Shiny apps locally, see the next section on [workflow](install-create-run.qmd).
+If you'd like to start developing Shiny apps locally, see the get started section on [creating and running apps](/get-started/create-run.qmd).
 
 Otherwise, to keep learning more about some of the topics covered here, see the following:
 

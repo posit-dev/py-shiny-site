@@ -535,9 +535,9 @@ For more layout inspiration, check out the [Layout Gallery](/layouts).
 
 ## Shinylive
 
-Examples on this page are powered by [shinylive](shinylive.qmd), a tool for running Shiny apps in the browser (via [pyodide](https://pyodide.org/en/stable/)).
+Examples on this page are powered by [shinylive](/get-started/shinylive.qmd), a tool for running Shiny apps in the browser (via [pyodide](https://pyodide.org/en/stable/)).
 Generally speaking, apps that use shinywidgets should work in shinylive as long as the widget and app code is supported by pyodide.
-The shinywidgets package itself comes pre-installed in shinylive, but you'll need to include any other dependencies [in the `requirements.txt` file](shinylive.qmd#requiring-extra-packages-with-requirements.txt).
+The shinywidgets package itself comes pre-installed in shinylive, but you'll need to include any other dependencies [in the `requirements.txt` file](/get-started/shinylive.qmd#requiring-extra-packages-with-requirements.txt).
 
 
 ## Examples
