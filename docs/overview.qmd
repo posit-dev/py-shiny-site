@@ -20,7 +20,7 @@ In the [next article](user-interfaces.qmd), we'll cover more user interface (UI)
 ::: {.callout-tip}
 ## Editable examples
 
-Many examples on this site have a code editor for modifying the source code for a Shiny app (which runs entirely in the browser, thanks to [shinylive](shinylive.qmd)).
+Many examples on this site have a code editor for modifying the source code for a Shiny app (which runs entirely in the browser, thanks to [shinylive](/get-started/shinylive.qmd)).
 If you'd like to run any examples locally, first [install and run](install-create-run.qmd) Shiny locally, then copy/paste relevant code into the `app.py` file (created by `shiny create`).
 :::
 
@@ -520,7 +520,7 @@ For a more in-depth look at reactivity, check out the [reactivity article](react
 
 ### Starter templates {#templates}
 
-Once you've [installed](install-create-run.qmd) Shiny, the `shiny create` CLI command provides access to a collection of useful starter templates. This command walks you through a series of prompts to help you get started quickly with a helpful example. One great option is the dashboard template, which can be created with:
+Once you've [installed](/get-started/install.qmd) Shiny, the `shiny create` CLI command provides access to a collection of useful starter templates. This command walks you through a series of prompts to help you get started quickly with a helpful example. One great option is the dashboard template, which can be created with:
 
 ```bash
 shiny create --template dashboard

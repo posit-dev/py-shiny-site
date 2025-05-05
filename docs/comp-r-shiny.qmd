@@ -24,7 +24,7 @@ Shiny [express](express-vs-core.qmd) is a new, more expressive, way to build PyS
 # Getting started
 
 R users tend to use the R console to install and run Shiny while Python requires you to use the terminal.
-To get started you can do the following (or see the [installation instructions](install-create-run.qmd) for a more in-depth explanation):
+To get started you can do the following (or see the [installation instructions](/get-started/install.qmd) for a more in-depth explanation):
 
 1.  In your terminal, create a new directory with `mkdir <my_directory>` and navigate into it with `cd <my_directory>`
 2.  Install Shiny. We strongly recommend using a virtual environment for this as it will eliminate dependency resolution headaches and make deployment easier.

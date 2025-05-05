@@ -36,5 +36,4 @@ routes = [
 app = Starlette(routes=routes)
 ```
 
-This application can be run using tools like `uvicorn`, as discussed in [deployment](deploy-on-prem.qmd).
-
+This application can be run using tools like `uvicorn`, as discussed in [deployment](/get-started/deploy-on-prem.qmd).
