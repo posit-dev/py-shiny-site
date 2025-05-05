@@ -21,7 +21,7 @@ In the [next article](user-interfaces.qmd), we'll cover more user interface (UI)
 ## Editable examples
 
 Many examples on this site have a code editor for modifying the source code for a Shiny app (which runs entirely in the browser, thanks to [shinylive](/get-started/shinylive.qmd)).
-If you'd like to run any examples locally, first [install and run](install-create-run.qmd) Shiny locally, then copy/paste relevant code into the `app.py` file (created by `shiny create`).
+If you'd like to run any examples locally, first [install](/get-started/install.qmd) Shiny locally, then [create and run](/get-started/create-run.qmd) by copy/paste relevant code into the `app.py` file (created by `shiny create`).
 :::
 
 
@@ -531,7 +531,7 @@ shiny create --template dashboard
 ::: {.callout-tip}
 ## Development workflow
 
-See the [workflow](install-create-run.qmd) section for more information developing Shiny apps locally.
+See how to [create and run apps](/get-started/create-run.qmd) for more information developing Shiny apps locally.
 Also keep in mind you can develop apps in the browser using the [playground](https://shinylive.io/py/examples/).
 :::
 
