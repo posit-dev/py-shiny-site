@@ -9,7 +9,7 @@ callout-appearance: simple
 ---
 
 LLMs are quite good at extracting structured data from unstructured text, images, etc.
-Though not always perfect, this can be a very helpful way to reduce the amount of manual work needed to extract information from a large amount of text or documents.
+Though not always perfect, this can be a very helpful way to reduce the amount of manual work needed to extract information from large amounts of text or documents.
 Here are just a few scenarios where this can be useful:
 
 1. **Form processing**: Extract structured field-value pairs from scanned documents, invoices, and forms to reduce manual data entry.

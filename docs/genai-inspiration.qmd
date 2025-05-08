@@ -33,7 +33,7 @@ Chatbots are the most familiar interface to Generative AI, and can be used for a
 
 LLMs excel when they are instructed to focus on particular task(s), and provided the context necessary to complete them accurately.
 This is especially true for coding assistants, such as the [Shiny Assistant](https://shiny.posit.co/blog/posts/shiny-assistant/) which leverages an LLM to help you build Shiny apps faster.
-Just describe the app you want to build, and Shiny Assistant does it's best to give you a complete working example that runs in your browser.
+Just describe the app you want to build, and Shiny Assistant does its best to give you a complete working example that runs in your browser.
 
 {{< video https://shiny.posit.co/blog/posts/shiny-assistant/mortgage-calculator-1.mp4 title="Building a mortgage calculator with Shiny Assistant" >}}
 
@@ -75,7 +75,7 @@ A more advanced application of this concept is to drive multiple views of the da
 An implementation of this idea is available in the [sidebot](https://github.com/jcheng5/py-sidebot) repo.
 It defaults to the `tips` dataset, but without much effort, you can adapt it to another dataset of your choosing.
 
-![Screenshot of the "sidebot" app, which leverages LLMs to translate nature language to SQL, and tools to reactively update the dashboard.](/images/genai-sidebot.png){class="rounded shadow lightbox mt-3"}
+![Screenshot of the "sidebot" app, which leverages LLMs to translate natural language to SQL, and tools to reactively update the dashboard.](/images/genai-sidebot.png){class="rounded shadow lightbox mt-3"}
 
 ::: callout-note
 The app above is available as a [template](../templates/sidebot/index.qmd):
@@ -177,7 +177,7 @@ The app below uses an LLM to generate a description of an image based on a user-
 
 ![Screenshot of an app that generates an image description.](/images/genai-image-describer.png){class="rounded shadow lightbox mt-3"}
 
-When the user clicks 'Describe Image', the app passes the image URL to the LLM, which generates a overall description, tag keywords, as well as estimates on location, photographer, etc.
+When the user clicks 'Describe Image', the app passes the image URL to the LLM, which generates an overall description, tag keywords, as well as estimates on location, photographer, etc.
 This content is then streamed into the `MarkdownStream()` component (inside of a card) as it's being produced.
 
 This slightly more advanced example also demonstrates how to route the same response stream to multiple output views: namely both the `MarkdownStream()` and a `Chat()` component.
