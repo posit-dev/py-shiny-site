@@ -244,9 +244,9 @@ For brevity sake, we won't fully explore compelling applications here, but in ge
 
 ### Managing state
 
-In Shiny, a reactive value can derive from either a input [component](../components/index.qmd) (e.g., `ui.input_select()`, etc) or an entirely server-side `reactive.value()`.
-Generally speaking, the latter approach is useful for tracking state that may not exist in the UI (e.g., authentication, user activity, etc).
-Similar to how we can equipped the LLM to update an input component, we can also equip it to update a reactive value to have it drive the app's state.
+In Shiny, a reactive value can derive from either an input [component](../components/index.qmd) (e.g., `ui.input_select()`, etc.) or an entirely server-side `reactive.value()`.
+Generally speaking, the latter approach is useful for tracking state that may not exist in the UI (e.g., authentication, user activity, etc.).
+Similar to how we can equip the LLM to update an input component, we can also equip it to update a reactive value to have it drive the app's state.
 
 The sidebot template ([mentioned at the top](#why-tool-calling) of this article) illustrates a particularly powerful application of managing state.
 In this case, the state is an SQL query.
