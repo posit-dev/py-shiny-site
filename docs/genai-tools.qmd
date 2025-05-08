@@ -159,7 +159,7 @@ And, in the case of an error, the user is also notified of the error.
 
 ![Screenshot of a tool call error.](/images/genai-tool-call-error-ui.png){class="rounded shadow lightbox"}
 
-In general, these default displays should be enough to let your users know what the LLM is request/receiving to help general their responses.
+In general, these default displays should be enough to let your users know what the LLM is requesting/receiving to help generate their responses.
 
 
 ## Reactivity
