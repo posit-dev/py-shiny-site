@@ -165,14 +165,14 @@ In general, these default displays should be enough to let your users know what 
 ## Reactivity
 
 Combining tool calling with [reactivity](reactive-foundations.qmd) is a powerful technique that can effectively let the LLM interact with the app.
-Here we'll explore a few general patterns for doing this.
+Here, we'll explore a few general patterns for doing this.
 
 
 ### Updating inputs
 
 The most basic way to hand over control to the LLM is to have it update reactive `input`(s).
-The core idea is to wrap a `ui.update_*()` call into a tool function, and register that function with the `chat_client`.
-Then, when a user asks the LLM to update an input, it's able to do so.
+The core idea is to wrap a `ui.update_*()` call in a tool function and register that function with the `chat_client`.
+Then, when a user asks the LLM to update an input, it is able to do so.
 
 <details>
 <summary> client.py </summary>
