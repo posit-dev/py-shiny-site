@@ -285,14 +285,14 @@ async def update_dashboard(
 ::: callout-note
 ### Reactive locking
 
-Since this tool runs within a [non-blocking message stream](genai-tools.qmd#non-blocking-streams) (i.e., `.append_message_stream()`), in order to prevent race conditions, it must lock reactivity graph when updating reactive value(s).
-If the tool was, instead, running in a [blocking stream](genai-chatbots.qmd#message-stream-context), the `reactive.lock()` and `reactive.flush()` wouldn't be necessary.
+Since this tool runs within a [non-blocking message stream](genai-tools.qmd#non-blocking-streams) (i.e., `.append_message_stream()`), in order to prevent race conditions, it must lock the reactivity graph when updating reactive value(s).
+If the tool were, instead, running in a [blocking stream](genai-chatbots.qmd#message-stream-context), the `reactive.lock()` and `reactive.flush()` wouldn't be necessary.
 :::
 
 The final crucial piece is that, in order for the LLM to generate accurate SQL, it needs to know the schema of the dataset.
 This is done by passing the table schema to the LLM's [system prompt](genai-chatbots.qmd#models--prompts).
 
-Since the general pattern of having a tool to update a reactive data frame via SQL is so useful, the[querychat](../templates/querychat/index.qmd) package generalizes this pattern to make it more accessible and easier to use.
+Since the general pattern of having a tool to update a reactive data frame via SQL is so useful, the [querychat](../templates/querychat/index.qmd) package generalizes this pattern to make it more accessible and easier to use.
 
 ## Custom tool display {#custom-display}
 
