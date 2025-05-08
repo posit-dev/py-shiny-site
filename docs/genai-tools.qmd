@@ -297,15 +297,15 @@ Since the general pattern of having a tool to update a reactive data frame via S
 ## Custom tool display {#custom-display}
 
 Customizing how tool results are displayed can be useful for a variety of reasons.
-For example, you may want to simply style results differently, or something much more sophisticated like displaying a map or a table.
+For example, you may want to style results differently, or implement something more sophisticated, such as displaying a map or a table.
 
 To customize the result display, you can:
 
-1. Subclass the [`chatlas.ContentToolResult` class](https://posit-dev.github.io/chatlas/reference/types.ContentToolResult.html)
+1. Subclass the [`chatlas.ContentToolResult` class](https://posit-dev.github.io/chatlas/reference/types.ContentToolResult.html).
 2. Override the `tagify()` method. This can return any valid `ui.Chat()` message content (i.e., a markdown string or Shiny UI).
 3. Return an instance of this subclass from your tool function.
 
-This basic example below would just style the tool result differently than the default:
+The basic example below would just style the tool result differently than the default:
 
 ```python
 from chatlas import ContentToolResult
