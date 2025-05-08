@@ -76,7 +76,7 @@ When you run the `shiny create` command, you'll be provided some tips on where t
 Also, if you're not ready to sign up for a cloud provider (e.g., Anthropic, OpenAI, etc), you can run models locally (for free!) with the Ollama template.
 This is a great way to get started and learn about LLMs without any cost, and without sharing your data with a cloud provider.
 
-Once your credentials (if any) are in place, [run the app](https://shiny.posit.co/py/docs/install-create-run.html#run). Congrats, you now have a streaming chat interface powered by an LLM of your choice! 🎉
+Once your credentials (if any) are in place, [run the app](https://shiny.posit.co/py/get-started/create-run.html#run-your-shiny-application). Congrats, you now have a streaming chat interface powered by an LLM of your choice! 🎉
 
 ![Screenshot of a conversation with the `Chat` component.](/images/chat-quick-start.png){class="rounded shadow lightbox mt-3"}
 
