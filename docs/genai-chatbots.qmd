@@ -90,7 +90,7 @@ Go ahead and open the `app.py` file from your template, you'll see something rou
 ### Express
 
 ```python
-from chatlas as ChatOllama
+from chatlas import ChatOllama
 from shiny.express import ui
 
 # Might instead be ChatAnthropic, ChatOpenAI, or some other provider
@@ -108,7 +108,7 @@ async def handle_user_input(user_input: str):
 ### Core
 
 ```python
-from chatlas as ChatOllama
+from chatlas import ChatOllama
 from shiny import ui, App
 
 app_ui = ui.page_fixed(
