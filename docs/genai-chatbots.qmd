@@ -691,10 +691,6 @@ chat.ui(messages=[welcome])
 async def _(user_input: str):
     await chat.append_message(f"You said: {user_input}")
 
-@reactive.effect
-async def _():
-    await chat.update_user_input(value="")
-
 ## file: suggestions.py
 from shiny.express import expressify, ui
 
