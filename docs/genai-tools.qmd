@@ -98,8 +98,8 @@ See the [chatlas docs](https://posit-dev.github.io/chatlas/tool-calling.html) to
 ### Basic chatbot {#basic-chatbot}
 
 To embed our `chat_client` in a Shiny [chatbot](genai-chatbots.qmd), let's put it in a `client.py` module and use it for response generation.
-And to display the tool call results, just set `content="all"` in the `.stream_async()` method.
-This way, `chatlas` will include tool call content objects in the stream, and since those content objects know how to display themselves in Shiny, we get a generic display of the tool request, response, and/or any errors that occurred.
+To display the tool call results, just set `content="all"` in the `.stream_async()` method.
+This way, `chatlas` will include tool call content objects in the stream, and since those content objects know how to display themselves in Shiny, we get a generic display of the tool request, response, and any errors that occurred.
 
 <details>
 <summary> client.py </summary>
