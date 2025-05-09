@@ -149,7 +149,7 @@ Create efficient, reactive, and robust web applications and dashboards.
 
   .floating-code {
     left: 0;
-    top: 55px;
+    top: -45px;
     width: max-content;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
     z-index: 1; /* Below app by default */
