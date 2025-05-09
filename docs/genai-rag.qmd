@@ -9,12 +9,12 @@ lightbox:
 callout-appearance: simple
 ---
 
-Large language models (LLMs) are trained on public data, and have a training cutoff date, so they aren't inherently aware of private, or the latest, information.
+Large language models (LLMs) are trained on public data and have a training cutoff date, so they aren't inherently aware of private or the latest information.
 As a result, LLMs may not have the necessary information to answer a user's question, even though they might pretend to (a.k.a. hallucinate).
 This is a common problem, especially in an enterprise setting, where the information is proprietary and/or constantly changing.
 Unfortunately, this is also an environment where plausible but inaccurate answers can have serious consequences.
 
-There are rougly three general approaches to addressing this problem. Going from the least to most complex:
+There are roughly three general approaches to addressing this problem, going from the least to most complex:
 
 1. **System prompt**: If the information that the model needs to perform well can fit within a [system prompt](https://posit-dev.github.io/chatlas/get-started.html#what-is-a-prompt) (i.e., fit within the relevant [context window](https://posit-dev.github.io/chatlas/get-started.html#what-is-a-token)), you should consider that first.
 2. **Tool calling**: Provide the LLM with [tools](genai-tools.qmd) it can use to retrieve the information that it needs. Compared to RAG, this has the benefit of not needing to pre-fetch/maintain an information database, compute document/query similarities, and can even be combined with RAG.
@@ -26,7 +26,7 @@ The last section provides some tips on how to scale up your RAG implementation.
 ## RAG basics
 
 The core concept of RAG is fairly simple, yet general: given a set of documents and a user query, find the document(s) that are the most similar to the query and supply those documents as additional context to the LLM.
-This requires choosing a numerical technique to compute similarity; of which there are many, each with its own strengths and weaknesses.
+This requires choosing a numerical technique to compute similarity, of which there are many, each with its own strengths and weaknesses.
 The often tricky part of doing RAG well is finding the similarity measure that is both performant and effective for your use case.
 
 To demonstrate, let's use a basic example derived from `chatlas`'s article on [RAG](https://posit-dev.github.io/chatlas/rag.html).
@@ -130,5 +130,5 @@ To scale this basic example up to your use case, you'll not only want to conside
 
 Nowadays, there are many options for efficient storage/retrieval of documents (i.e., vector databases).
 That said, [`duckdb`'s vector extension](https://duckdb.org/docs/stable/extensions/vss.html) comes highly recommended, and here is a great [blog post](https://blog.brunk.io/posts/similarity-search-with-duckdb/) on building a database and retrieving from it with a custom embedding model.
-Many of the these options will offer both a local and cloud-based solution, so you can choose the one that best fits your needs.
+Many of these options will offer both a local and cloud-based solution, so you can choose the one that best fits your needs.
 For example, with `duckdb`, you can leverage [MotherDuck](https://motherduck.com/) for your hosting needs, as well as others like [Pinecone](https://www.pinecone.io/) and [Weaviate](https://weaviate.io/).
