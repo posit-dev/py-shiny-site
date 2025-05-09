@@ -1,0 +1,23 @@
+::: {.kitchensink}
+
+<% for (const item of items) { %>
+
+## Variation Showcase
+
+A live kitchen sink of all possible parameters for the <%= item.title %> in [Shiny Core](<%= item.core %>){target="_blank"} and [Shiny Express](<%= item.express%>){target="_blank"}.
+
+![](<%= item.image %>){.border .my-4 style="border-radius: .5em;"}
+
+::::{.grid}
+:::{.g-col-sm-6 .g-col-12}
+<p class="m-0">[<i class="bi bi-lightning-fill me-2"></i> Live Core App](<%= item.core %>){.btn .btn-primary .w-100 .m-1 target="_blank"}</p>
+:::
+
+:::{.g-col-sm-6 .g-col-12}
+<p class="m-0">[<i class="bi bi-lightning-fill me-2"></i> Live Express App](<%= item.express %>){.btn .btn-primary .w-100 .m-1 target="_blank"}</p>
+:::
+::::
+
+<% } %>
+
+:::

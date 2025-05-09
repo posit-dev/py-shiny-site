@@ -138,6 +138,7 @@ website:
             - components/inputs/action-link/index.qmd
             - components/inputs/checkbox/index.qmd
             - components/inputs/checkbox-group/index.qmd
+            - components/inputs/dark-mode/index.qmd
             - components/inputs/date-range-selector/index.qmd
             - components/inputs/date-selector/index.qmd
             - components/inputs/file/index.qmd
