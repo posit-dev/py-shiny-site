@@ -44,5 +44,5 @@
     "flake8.args": [
         "--ignore=E501,E203"
     ],
-    "quarto.path": "~/.local/share/qvm/versions/v1.6.42/bin/quarto"
+    "quarto.path": "~/.local/share/qvm/versions/v1.7.23/bin/quarto"
 }

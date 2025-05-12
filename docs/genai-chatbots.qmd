@@ -62,7 +62,7 @@ shiny create --template chat-ai-langchain
 
 ### Other
 
-`chatlas`'s supports a [wide variety](https://posit-dev.github.io/chatlas/#model-providers) of LLM providers including Vertex, Snowflake, Groq, Perplexity, and more.
+`chatlas` supports a [wide variety](https://posit-dev.github.io/chatlas/#model-providers) of LLM providers including Vertex, Snowflake, Groq, Perplexity, and more.
 In this case, you can start from any template and swap out the `chat_client` with the relevant chat constructor (e.g., `ChatVertex()`).
 
 ### Help me choose!
@@ -70,13 +70,12 @@ In this case, you can start from any template and swap out the `chat_client` wit
 If you're not sure which provider to choose, `chatlas` provides a [great guide](https://posit-dev.github.io/chatlas/#model-choice) to help you decide.
 :::
 
+When you run the `shiny create` command, you'll be provided with some tips on where to obtain the necessary API keys (if any) and how to securely add them to your app.
 
-When you run the `shiny create` command, you'll be provided some tips on where to go to obtain the necessary API keys (if any) and how to securely get them into your app.
-
-Also, if you're not ready to sign up for a cloud provider (e.g., Anthropic, OpenAI, etc), you can run models locally (for free!) with the Ollama template.
+Also, if you're not ready to sign up for a cloud provider (e.g., Anthropic, OpenAI, etc.), you can run models locally (for free!) with the Ollama template.
 This is a great way to get started and learn about LLMs without any cost, and without sharing your data with a cloud provider.
 
-Once your credentials (if any) are in place, [run the app](https://shiny.posit.co/py/docs/install-create-run.html#run). Congrats, you now have a streaming chat interface powered by an LLM of your choice! 🎉
+Once your credentials (if any) are in place, [run the app](https://shiny.posit.co/py/get-started/create-run.html#run-your-shiny-application). Congrats, you now have a streaming chat interface powered by an LLM of your choice! 🎉
 
 ![Screenshot of a conversation with the `Chat` component.](/images/chat-quick-start.png){class="rounded shadow lightbox mt-3"}
 
@@ -90,7 +89,7 @@ Go ahead and open the `app.py` file from your template, you'll see something rou
 ### Express
 
 ```python
-from chatlas as ChatOllama
+from chatlas import ChatOllama
 from shiny.express import ui
 
 # Might instead be ChatAnthropic, ChatOpenAI, or some other provider
@@ -108,7 +107,7 @@ async def handle_user_input(user_input: str):
 ### Core
 
 ```python
-from chatlas as ChatOllama
+from chatlas import ChatOllama
 from shiny import ui, App
 
 app_ui = ui.page_fixed(
@@ -177,7 +176,7 @@ shiny create --template chat-ai-playground
 Show message(s) when the chat first loads by providing `messages` to `chat.ui()`.
 Messages are interpreted as markdown, so you can use markdown (or HTML) to format the text as you like.
 
-Startup messages are a great place to introduce the chatbot with a brief description of what it can do and optionally some [input suggestions](#suggest-input) to help the user get started quickly.
+Startup messages are a great place to introduce the chatbot with a brief description of what it can do and, optionally, some [input suggestions](#suggest-input) to help the user get started quickly.
 Messages can also contain arbitrary Shiny UI [components](../components/index.qmd), so you could even include something like a [tooltip](../components/display-messages/tooltips/index.qmd) to provide additional details on demand.
 
 ::: {.panel-tabset .panel-pills}
@@ -690,10 +689,6 @@ chat.ui(messages=[welcome])
 @chat.on_user_submit
 async def _(user_input: str):
     await chat.append_message(f"You said: {user_input}")
-
-@reactive.effect
-async def _():
-    await chat.update_user_input(value="")
 
 ## file: suggestions.py
 from shiny.express import expressify, ui

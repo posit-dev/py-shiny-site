@@ -33,7 +33,7 @@ Chatbots are the most familiar interface to Generative AI, and can be used for a
 
 LLMs excel when they are instructed to focus on particular task(s), and provided the context necessary to complete them accurately.
 This is especially true for coding assistants, such as the [Shiny Assistant](https://shiny.posit.co/blog/posts/shiny-assistant/) which leverages an LLM to help you build Shiny apps faster.
-Just describe the app you want to build, and Shiny Assistant does it's best to give you a complete working example that runs in your browser.
+Just describe the app you want to build, and Shiny Assistant does its best to give you a complete working example that runs in your browser.
 
 {{< video https://shiny.posit.co/blog/posts/shiny-assistant/mortgage-calculator-1.mp4 title="Building a mortgage calculator with Shiny Assistant" >}}
 
@@ -48,14 +48,14 @@ One such example includes the [chatlas assistant](https://github.com/cpsievert/c
 
 ### Enhanced dashboards 📊
 
-LLMs are also very good at extracting [structured data](genai-structured-data.qmd) from unstructured text, is useful for a wide variety of tasks.
+LLMs are also very good at extracting [structured data](genai-structured-data.qmd) from unstructured text, which is useful for a wide variety of tasks.
 One interesting application is translating a user's natural language query into a SQL query.
 Combining this ability with [tools](genai-tools.qmd) to actually run the SQL query on the data and [reactively](reactive-foundations.qmd) update relevant views makes for a powerful way to "drill down" into your data.
 Moreover, by making the SQL query accessible to the user, you can enhance the verifiability and reproducibility of the LLM's response.
 
 #### Query chat
 
-The [`querychat` package](https://github.com/posit-dev/querychat) provides some tools to help you more easily leverage this idea in your own Shiny apps.
+The [`querychat` package](https://github.com/posit-dev/querychat) provides tools to help you more easily leverage this idea in your own Shiny apps.
 A straightforward use of querychat is shown below, where the user can ask a natural language question about the `titanic` dataset, and the LLM generates a SQL query that can be run on the data:
 
 ![Screenshot of the "querychat" app, which leverages LLMs to generate SQL queries that match a user's natural language query.](/images/genai-querychat.png){class="rounded shadow lightbox mt-3"}
@@ -75,7 +75,7 @@ A more advanced application of this concept is to drive multiple views of the da
 An implementation of this idea is available in the [sidebot](https://github.com/jcheng5/py-sidebot) repo.
 It defaults to the `tips` dataset, but without much effort, you can adapt it to another dataset of your choosing.
 
-![Screenshot of the "sidebot" app, which leverages LLMs to translate nature language to SQL, and tools to reactively update the dashboard.](/images/genai-sidebot.png){class="rounded shadow lightbox mt-3"}
+![Screenshot of the "sidebot" app, which leverages LLMs to translate natural language to SQL, and tools to reactively update the dashboard.](/images/genai-sidebot.png){class="rounded shadow lightbox mt-3"}
 
 ::: callout-note
 The app above is available as a [template](../templates/sidebot/index.qmd):
@@ -86,7 +86,7 @@ shiny create --template querychat \
 ```
 :::
 
-Sidebot also demonstrates how one could lean into an LLM's ability to "see" images and generate natural language descriptions of them.
+Sidebot also demonstrates how one can leverage an LLM's ability to "see" images and generate natural language descriptions of them.
 Specifically, by clicking on the ✨ icon, the user is provided with a natural language description of the visualization, which can be useful for accessibility or for users who are not as familiar with the data.
 
 ![Screenshot of the "sidebot" app with a tooltip describing the visualization.](/images/genai-sidebot-tooltip.png){class="rounded shadow lightbox mt-3"}
@@ -94,11 +94,11 @@ Specifically, by clicking on the ✨ icon, the user is provided with a natural l
 
 ### Guided exploration 🧭
 
-Chatbots are also a great way to guide users through an experience, like a story, game, or learning activity.
-The `Chat()` component's [input suggestion](genai-chatbots.qmd#suggest-input) feature provides a particularly useful interface for this, as it makes it super easy on the user to 'choose their own adventure' with little to no typing.
+Chatbots are also a great way to guide users through an experience, such as a story, game, or learning activity.
+The `Chat()` component's [input suggestion](genai-chatbots.qmd#suggest-input) feature provides a particularly useful interface for this, as it makes it very easy for users to 'choose their own adventure' with little to no typing.
 
 For example, this "Choose your own Data Science Adventure" app starts by collecting some basic user information, then generates relevant hypothetical data science scenarios.
-Based on what scenario the user chooses, the app then guides the user through a series of questions, ultimately leading to a data science project idea and deliverable:
+Based on the scenario the user chooses, the app then guides the user through a series of questions, ultimately leading to a data science project idea and deliverable:
 
 ![Screenshot of the "Choose your own Data Science Adventure" app.](/images/genai-data-science-adventure.png){class="rounded shadow lightbox mt-3"}
 
@@ -177,10 +177,10 @@ The app below uses an LLM to generate a description of an image based on a user-
 
 ![Screenshot of an app that generates an image description.](/images/genai-image-describer.png){class="rounded shadow lightbox mt-3"}
 
-When the user clicks 'Describe Image', the app passes the image URL to the LLM, which generates a overall description, tag keywords, as well as estimates on location, photographer, etc.
+When the user clicks 'Describe Image', the app passes the image URL to the LLM, which generates an overall description, tag keywords, as well as estimates on location, photographer, etc.
 This content is then streamed into the `MarkdownStream()` component (inside of a card) as it's being produced.
 
-This slightly more advanced example also demonstrates how to route the same response stream to multiple output views: namely both the `MarkdownStream()` and a `Chat()` component.
+This slightly more advanced example also demonstrates how to route the same response stream to multiple output views: namely, both the `MarkdownStream()` and a `Chat()` component.
 This allows the user to make follow-up requests or ask questions about the image description.
 
 ![Screenshot of the image description app with the offcanvas chat made visible.](/images/genai-image-describer-chat.png){class="rounded shadow lightbox mt-3"}

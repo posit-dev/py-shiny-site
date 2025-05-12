@@ -8,8 +8,8 @@ lightbox:
 callout-appearance: simple
 ---
 
-LLMs are quite good at extracting structured data from unstructured text, images, etc.
-Though not always perfect, this can be a very helpful way to reduce the amount of manual work needed to extract information from a large amount of text or documents.
+LLMs are quite good at extracting structured data from unstructured text, images, and more.
+Although not always perfect, they can greatly reduce the manual work needed to extract information from large amounts of text or documents.
 Here are just a few scenarios where this can be useful:
 
 1. **Form processing**: Extract structured field-value pairs from scanned documents, invoices, and forms to reduce manual data entry.
@@ -121,7 +121,7 @@ async def data():
 ## Editable data
 
 Remember that the LLM is not perfect -- you may want to manually correct or refine the extracted data.
-In this scenario, it may be useful to allow the user to edit the extracted data, and download it when they are done.
+In this scenario, it may be useful to allow the user to edit the extracted data and download it when done.
 Here's an example of how to do this in a named entity extraction app.
 
 <details>
@@ -211,14 +211,135 @@ async def data():
 ![Screenshot of the editable structured data app](/images/genai-structured-editable.png){class="rounded shadow mb-5"}
 
 
-<!--
-TODO: maybe get into this and point to a template?
 
 ## Populating inputs
 
-For data extraction that isn't tabular in nature, you might consider using extracted data to populate input controls that the user can then edit.
--->
+For data extraction that isn't tabular in nature, you might consider using extracted data to populate input controls that the user can make changes to.
 
+Building on [Google's invoice and form data extraction example](https://github.com/google-gemini/cookbook/blob/main/examples/Pdf_structured_outputs_on_invoices_and_forms.ipynb), here's an example of how you could use structured data to populate input controls (in addition to an editable table).
+
+
+<details>
+<summary> <code>data_model.py</code> </summary>
+
+```python
+from pydantic import BaseModel, Field
+
+class Item(BaseModel):
+    description: str = Field(description="The description of the item")
+    quantity: float = Field(description="The Qty of the item")
+    gross_worth: float = Field(description="The gross worth of the item")
+
+
+class Invoice(BaseModel):
+    """Extract the invoice number, date and all list items with description, quantity and gross worth and the total gross worth."""
+
+    invoice_number: str = Field(description="The invoice number e.g. 1234567890")
+    date: str = Field(description="The date of the invoice e.g. 10/09/2012")
+    items: list[Item] = Field(
+        description="The list of items with description, quantity and gross worth"
+    )
+    total_gross_worth: float = Field(description="The total gross worth of the invoice")
+
+_ = Invoice.model_rebuild()
+```
+
+</details>
+
+
+<details>
+<summary> <code>app.py</code> </summary>
+
+```python
+import chatlas as ctl
+import dateparser
+import faicons
+import pandas as pd
+
+from shiny import reactive
+from shiny.express import input, render, ui
+
+from data_model import Invoice
+
+ui.page_opts(
+    title="Invoice data extractor",
+    fillable=True,
+)
+
+with ui.sidebar():
+    ui.input_text(
+        "url",
+        "Enter URL to PDF invoice",
+        "https://storage.googleapis.com/generativeai-downloads/data/pdf_structured_outputs/invoice.pdf",
+    )
+
+    ui.input_task_button(
+        "extract",
+        "Extract data",
+        class_="btn btn-primary",
+        icon=faicons.icon_svg("person-digging"),
+    )
+
+chat_client = ctl.ChatGoogle()
+
+@reactive.calc
+def invoice_data():
+    return chat_client.extract_data(
+        ctl.content_pdf_url(input.url()),
+        data_model=Invoice,
+    )
+
+
+with ui.layout_column_wrap(height_equal="row"):
+
+    with ui.card():
+        ui.card_header("Invoice metadata")
+
+        @render.express
+        def invoice_metadata():
+            if not input.extract():
+                "Click the button to extract data"
+                return
+
+            d = invoice_data()
+
+            ui.input_text(
+                "invoice_number",
+                label="Invoice number",
+                value=d["invoice_number"],
+                width="auto",
+            )
+            ui.input_date(
+                "date",
+                label="Date",
+                value=dateparser.parse(d["date"]),
+                width="auto",
+            )
+            ui.input_numeric(
+                "total_gross_worth",
+                label="Total gross worth",
+                value=d["total_gross_worth"],
+                width="auto",
+            )
+
+    with ui.card():
+        ui.card_header("Invoice items")
+
+        @render.express(fill=True, fillable=True)
+        def invoice_items():
+            if not input.extract():
+                "Click the button to extract data"
+                return
+
+            @render.data_frame
+            def invoice_items_df():
+                df = pd.DataFrame(invoice_data()["items"])
+                return render.DataGrid(df, editable=True)
+```
+</details>
+
+
+![Screenshot of the editable invoice data app](/images/genai-invoice-data.png){class="rounded shadow mb-5"}
 
 
 <!--

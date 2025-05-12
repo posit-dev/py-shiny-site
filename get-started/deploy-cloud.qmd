@@ -1,12 +1,15 @@
 ---
 title: "Cloud hosting"
+
+aliases:
+  - /docs/deploy-cloud.html
 ---
 
 ## Posit Connect Cloud
 
-The quickest way to get started is [Posit Connect Cloud](https://connect.posit.cloud/), our next-generation online publishing platform. 
+The quickest way to get started is [Posit Connect Cloud](https://connect.posit.cloud/), our next-generation online publishing platform.
 
-You can deploy Shiny applications---and other data frameworks---from GitHub to Connect Cloud in under a minute. All you need is your code and a requirements.txt dependency file. 
+You can deploy Shiny applications---and other data frameworks---from [GitHub](https://github.com/) to [Connect Cloud](https://connect.posit.cloud/) in under a minute. All you need is your code and a `requirements.txt` dependency file.
 
 Quickly showcase your work with a public portfolio and leverage powerful features such as secret environment variable management and automatic push-to-publish for seamless continuous deployment. Free and paid plans are available.
 
@@ -49,4 +52,3 @@ Please see the [full documentation](https://docs.posit.co/shinyapps.io/getting-s
 Hugging Face is an open-source platform that provides state-of-the-art natural language processing (NLP) tools and models.
 You can host a variety of applications, including Shiny apps, on Hugging Face using [Hugging Face spaces](https://huggingface.co/spaces) which makes it easy to integrate their hosted models into your Shiny app without having to build everything from scratch.
 Hugging Face has implemented [templated spaces](https://huggingface.co/new-space?template=posit/shiny-for-python-template) for Shiny applications which will populate all the files you need to get started.
-

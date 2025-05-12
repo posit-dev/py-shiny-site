@@ -1,0 +1,264 @@
+---
+title: "Welcome"
+subtitle: "Shiny for Python: Effortless Python web applications"
+
+format:
+  html:
+    toc: false
+
+freeze: false
+
+listing:
+  - id: gallery-highlight
+    template: gallery-highlight.ejs
+    contents: gallery-highlight.yml
+    sort: false
+
+filters:
+  - shinylive
+
+editor:
+  markdown:
+    wrap: sentence
+
+aliases:
+  - welcome.html
+
+repo-actions: false
+---
+
+Create efficient, reactive, and robust web applications and dashboards.
+
+::: {.floating-code-app .column-page-inset-right}
+::: {.floating-code}
+```{=html}
+<!-- Prism.js for syntax highlighting -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<div class="traffic-lights">
+  <div class="traffic-light red"></div>
+  <div class="traffic-light yellow"></div>
+  <div class="traffic-light green"></div>
+</div>
+```
+<pre><code class="language-python">
+{{< include assets/code-welcome.py >}}
+</code></pre>
+<script>(function() {
+  // Trim leading/trailing newlines from the code-welcome code block
+  const preElement = document.currentScript.previousElementSibling;
+  if (!preElement || preElement.tagName !== 'PRE') return;
+  const codeElement = preElement.querySelector('code');
+  if (!codeElement) return;
+  codeElement.textContent = codeElement.textContent.trim();
+})();
+</script>
+:::
+
+::: {.floating-app}
+```{=html}
+<div class="traffic-lights">
+  <div class="traffic-light red"></div>
+  <div class="traffic-light yellow"></div>
+  <div class="traffic-light green"></div>
+</div>
+```
+```{shinylive-python}
+##| standalone: true
+##| components: [viewer]
+##| viewerHeight: 400px
+
+{{< include assets/code-welcome.py >}}
+```
+:::
+
+```{=html}
+<style>
+.floating-app .shinylive-wrapper {
+  padding: 0.5em;
+  background-color: white;
+  margin: 0;
+  border-radius: 0 0 8px 8px;
+  border-right: none;
+  border-bottom: none;
+  border-left: none;
+}
+
+.shinylive-python code {
+  visibility: hidden;
+  height: 400px;
+}
+
+.floating-code-app {
+  position: relative;
+  width: 100%;
+  min-height: 500px;
+}
+
+.floating-code,
+.floating-app {
+  border-radius: 8px;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: 100ms;
+}
+
+.floating-code {
+  overflow: hidden;
+  background: #2d2d2d;
+  margin: 1em 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  font-family: var(--bs-font-monospace);
+}
+
+.floating-code pre {
+  padding-block: 0;
+  padding-inline: 10px;
+}
+
+.floating-code::selection {
+  background-color: #8d959e57;
+}
+
+/* Traffic lights */
+.traffic-lights {
+  --traffic-light-size: 12px;
+  --traffic-light-gap: 6px;
+  --traffic-light-padding: 10px;
+  display: flex;
+  gap: var(--traffic-light-gap);
+  padding: var(--traffic-light-padding);
+}
+
+.traffic-light {
+  width: var(--traffic-light-size);
+  height: var(--traffic-light-size);
+  border-radius: 50%;
+}
+
+.red { background: #FF5F56; }
+.yellow { background: #FFBD2E; }
+.green { background: #27C93F; }
+
+/* Desktop/tablet layout */
+@media (min-width: 768px) {
+  .floating-code,
+  .floating-app {
+    position: absolute;
+  }
+
+  .floating-code {
+    left: 0;
+    top: 55px;
+    width: max-content;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    z-index: 1; /* Below app by default */
+    transform: scale(0.66);
+    transform-origin: left center;
+  }
+
+  .floating-app {
+    right: 0;
+    top: 10px;
+    width: 70%;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    z-index: 2; /* Above code by default */
+  }
+
+  .floating-code:hover {
+    transform: translate(0, -14px) scale(0.8);
+    box-shadow: -8px 12px 32px rgba(0, 0, 0, 0.2) !important;
+    z-index: 3; /* Above app on hover */
+  }
+
+  .floating-code:hover + .floating-app {
+    transform: translate(-20px, 0px) scale(0.9);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    opacity: 0.8;
+  }
+}
+
+/* Mobile layout */
+@media (max-width: 767px) {
+  .floating-code,
+  .floating-app {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  .floating-code pre {
+    font-size: 12px;
+  }
+
+  .traffic-lights {
+    --traffic-light-padding: 6px;
+    --traffic-light-gap: 4px;
+    --traffic-light-size: clamp(5px, 1.66vw, 12px);
+  }
+}
+</style>
+```
+:::
+
+## Why Shiny?
+
+Shiny for Python empowers you to bring your data to life with interactive applications that are easy to build, customize, and share.
+
+- **Pure Python – no JS required**<br>
+  Create sophisticated web apps in pure Python, using libraries you already know and love.
+  Get started now by [trying Shiny in your browser](https://shinylive.io/py/examples/), asking [Shiny Assistant](https://shiny.posit.co/blog/posts/shiny-assistant/) to build you an app, or develop locally by [installing](install.qmd) and [running](create-run.qmd) a starter [template](/templates/).
+
+- **Batteries Included**<br>
+  Build delightful user interfaces using an extensive library of simple yet composable [components](/components/) and [layouts](/layouts/).
+  As your app grows, you'll also appreciate advanced features like [modules](/docs/modules.qmd), [theming](/docs/ui-customize.qmd), [non-blocking tasks](/docs/nonblocking.qmd), [bookmarking](https://shiny.posit.co/blog/posts/shiny-python-1.4/), and more.
+
+- **Ready for AI**<br>
+  Quickly build [beautiful AI apps](/docs/genai-inspiration.qmd) like [chatbots](/docs/genai-chatbots.qmd) and other [streaming](/docs/genai-stream.qmd) interfaces.
+
+
+- **Efficiently scalable**<br>
+  [Reactivity](/docs/reactive-foundations.qmd) enables Shiny to perform minimal updates, allowing you to develop sophisticated apps without the hassle of state management.
+
+- **From demo to production-ready**<br>
+  Shiny is great for one-off apps that help you [demo a concept](https://shinylive.io/py/app/#orbit-simulation) or quickly [see your data](https://gallery.shinyapps.io/superzip/).
+  But Shiny apps aren’t toy apps–Shiny's powerful [reactive framework](/docs/reactive-foundations.qmd) and [extensible components](/docs/custom-component-one-off.qmd) mean your applications can evolve alongside your needs.
+  Start simple, then [customize and scale](https://gallery.shinyapps.io/aws-community-builders-dashboard/) without switching frameworks.
+
+- **Plays well with others**<br>
+  Bring to life the Python packages you know and love with Shiny.
+  Turn polars and pandas data frames into [dynamic data grids](/components/outputs/data-grid/). Breathe interactivity into any [matplotlib](/components/outputs/plot-matplotlib/) or [seaborn](/components/outputs/plot-seaborn/) plot.
+  Go further and build an app around sophisticated displays from [altair](/docs/jupyter-widgets.qmd), [plotly](/components/outputs/plot-plotly/index.qmd), or any [Jupyter Widget](/docs/jupyter-widgets.qmd).
+
+- **Deploy with confidence**<br>
+  When it’s time to put your Shiny app on the web, you can choose to deploy [on your own servers](/get-started/deploy-on-prem.qmd), on our [hosting services](/get-started/deploy-cloud.qmd), or even [serverless with shinylive](/get-started/shinylive.qmd).
+
+- **Open source**<br>
+  Inspect, adapt, contribute, or join the [forum](https://forum.posit.co/c/shiny) or [discord](https://discord.com/invite/yMGCamUMnS) community! You can check out the [code](https://github.com/posit-dev/py-shiny/) or make your own [extensions](/docs/custom-component-one-off.qmd).
+
+Ready to dive deeper? [Learn more about what makes Shiny unique](what-is-shiny.qmd).
+
+
+## Gallery and templates
+
+Check out the [Shiny Gallery](/gallery/) for inspiration.
+Or kick start a new project with one of our [starter templates](/templates/).
+
+
+:::: {.column-page-inset-right}
+::: {#gallery-highlight}
+:::
+::::
+
+
+## Take Shiny for a spin
+
+The next pages in this guide will help you [install shiny](install.qmd), [create and run](create-run.qmd) your first application, help you find [troubleshooting help](debug.qmd), and [deploy your app](deploy.qmd) to the web ([for free](deploy-cloud.qmd)).
+
+Or skip installation and [try the shinylive playground in the browser](https://shinylive.io/py/examples/)!
+
+Have a question?
+Join our community on our [Discord server](https://discord.com/invite/yMGCamUMnS)!

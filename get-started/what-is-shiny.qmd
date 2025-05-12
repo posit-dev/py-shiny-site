@@ -1,0 +1,179 @@
+---
+title: What is Shiny?
+
+repo-actions: false
+---
+
+```{=html}
+<style>
+  .btn-links {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn-link-large {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 150px;
+    font-size: 1.5rem;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 1.25rem;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .btn-link-large i {
+    margin-top: 10px;
+    font-size: 2rem;
+  }
+
+  .btn-link-large:hover {
+    text-decoration: none;
+    border: 1px solid var(--bs-primary);
+  }
+</style>
+```
+
+Whether you’re a data scientist, analyst, or developer, Shiny makes it easy to [create](create-run.qmd) rich, [interactive experiences](/docs/ui-overview.qmd) in pure Python with a fully [reactive framework](/docs/reactive-foundations.qmd).
+No need to learn JavaScript or front-end frameworks.
+
+## Batteries included {#batteries-included}
+
+Shiny for Python comes fully equipped with everything you need to build a dashboard right out of the box, including a rich set of [input](/components/#inputs) and [output](/components/#outputs) components.
+There is an entire [components gallery](/components/) to help you quickly build interactive applications.
+
+[Layout options](/layouts/) let you organize your UI efficiently, while [built-in theming](/docs/ui-customize.qmd) (including [dark mode](/components/inputs/dark-mode)) ensures your app looks great with minimal effort.
+
+Already have a brand guideline?
+You can use [brand.yml](https://posit-dev.github.io/brand-yml/) to apply consistent branding, colors, and logos across your application.
+
+<div class="btn-links">
+  <a href="/components/#inputs" class="btn-link-large">
+    Inputs
+    <i class="bi bi-sliders primary" role="img" aria-hidden="true"></i>
+  </a>
+
+  <a href="/components/#outputs" class="btn-link-large">
+    Outputs
+    <i class="bi bi-bar-chart-line-fill primary" role="img" aria-hidden="true"></i>
+  </a>
+
+  <a  href="/layouts" class="btn-link-large">
+    Layouts
+    <i class="bi bi-layout-text-window-reverse primary" role="img" aria-hidden="true"></i>
+  </a>
+</div>
+
+## Reactivity {#reactivity}
+
+At the heart of Shiny is [reactivity](/docs/reactive-foundations.qmd), a system that automatically updates [outputs](/components/#outputs) when [inputs](/components/#inputs) change for seamless interactivity, without manually writing callbacks.
+
+Shiny's reactive engine avoids unnecessary computations by only re-calculating the outputs whose inputs have changed, making Shiny ideal for fast data-driven applications, enabling live updates for [charts, tables](/components/#outputs), and [reports](https://quarto.org/docs/interactive/shiny/) with minimal effort.
+
+Below is a live Shiny application and its accompanying code.
+The first output text shows the square of the first slider value,
+and the second row of text shows the sum of _both_ slider values.
+
+Try updating the sliders below and see how the text reacts.
+Also change what value gets returned on lines 11 or 17 and click the play button ▶️ for the app to refresh.
+
+```{shinylive-python}
+# | standalone: true
+# | components: [editor, viewer]
+# | layout: vertical
+# | viewerHeight: 250
+
+from shiny import reactive
+from shiny.express import ui, render, input
+
+ui.input_slider("s1", "Slider 1", min=0, max=10, value=5)
+ui.input_slider("s2", "Slider 2", min=0, max=100, value=50)
+
+
+# This output only reacts to the first slider
+@render.text
+def result():
+    return f"{input.s1()} squared is {input.s1() ** 2}."
+
+
+# This output reacts to both sliders
+@render.text
+def both_sliders_output():
+    return f"{input.s1()} + {input.s2()} is {input.s1() + input.s2()}."
+```
+
+## Jumpstart with templates {#templates}
+
+Here's a full Shiny application in action, complete with [reactivity](/docs/reactive-foundations.qmd) and a [user interface](/docs/ui-overview.qmd)!
+
+::::: {.column-screen-inset .mb-4}
+::: {.hello-output}
+<iframe
+  src="https://gallery.shinyapps.io/template-dashboard/"
+  frameborder="0"
+  width="100%"
+  class="mb-0 card hello-output-iframe"
+></iframe>
+
+<style>
+  .hello-output-iframe {
+    height: 700px;
+  }
+@media only screen and (max-width: 611px) {
+  .hello-output-iframe {
+    height: 2125px;
+  }
+}
+</style>
+:::
+:::::
+
+Hit the ground running with one of our [starter templates](/templates/), like the app above, by using `shiny create`.
+
+There are templates for common use cases.
+For example, [data dashboards](templates/dashboard/), [data applications](/templates/database-explorer/), [streaming updates](/templates/monitor-database/), or [data entry](/templates/survey/).
+
+Use the terminal command below to [create and run](create-run.qmd) the same dashboard locally with `shiny create`, starting from a [template](/templates/).
+
+```bash
+shiny create --template dashboard
+```
+
+
+## Extensibility {#extensible}
+
+While Shiny includes everything you need to build an app, it is also built on a foundation of web standards, making it highly [extensible](/docs/custom-component-one-off.qmd).
+Many of Shiny's components are just plain HTML elements with the right classes to connect to Shiny's client-side JavaScript.
+
+Take the [action button](/components/inputs/action-button/index.qmd), for example.
+You can print the input in the Python console to see that it's just a regular HTML `<button>` element.
+
+```python
+>>> from shiny import ui
+>>> ui.input_action_button("update_data", "Button")
+```
+
+```html
+<button class="btn btn-default action-button" id="update_data" type="button">Button</button>
+```
+
+This means that you can use Shiny to learn web development---and [many people have](https://jnolis.com/talks/shiny_conf_2022/)!
+
+But this also means that Shiny doesn't lock you into a particular front-end framework.
+At the more advanced end of the spectrum, Shiny components can be highly sophisticated and can leverage modern web frameworks.
+For example, [Data Grids](/components/outputs/data-grid/index.qmd) are React components that use the popular [TanStack Table](https://tanstack.com/table/latest) React library under the hood.
+
+If you're versed in web programming, you can use Shiny to build [one-off custom components](/docs/custom-component-one-off.qmd) that integrate your favorite JavaScript framework directly from Python.
+For more advanced needs, you can develop a [reusable component package](/docs/custom-components-pkg.qmd) or [customize the user interface](/docs/ui-customize.qmd) by incrementally [adding JavaScript](/docs/custom-component-one-off.qmd) or custom [HTML](/docs/ui-html.qmd) or [CSS](/docs/ui-customize.qmd).
+
+
+## Install, create, and run
+
+Now that you know a little more about Shiny for Python, let's go [install Shiny](install.qmd) so you can [create your first application](create-run.qmd)!

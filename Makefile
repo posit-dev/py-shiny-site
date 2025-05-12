@@ -13,7 +13,7 @@ VENV = venv
 PYBIN = $(VENV)/bin
 
 
-QUARTO_VERSION ?= 1.6.42
+QUARTO_VERSION ?= 1.7.23
 QUARTO_PATH = ~/.local/share/qvm/versions/v${QUARTO_VERSION}/bin/quarto
 
 .PHONY: install-quarto
@@ -23,7 +23,7 @@ install-quarto:
 		@echo "Error: qvm is not installed. Please visit https://github.com/dpastoor/qvm/releases/ to install it." >&2 \
 		exit 1; \
 	fi
-	qvm install ${QUARTO_VERSION}
+	qvm install v${QUARTO_VERSION}
 	@echo "🔹 Updating .vscode/settings.json"
 	@awk -v path="${QUARTO_PATH}" '/"quarto.path":/ {gsub(/"quarto.path": ".*"/, "\"quarto.path\": \"" path "\"")} 1' .vscode/settings.json > .vscode/settings.json.tmp && mv .vscode/settings.json.tmp .vscode/settings.json
 	@echo "🔹 Updating .github/workflows/deploy-docs.yml"
