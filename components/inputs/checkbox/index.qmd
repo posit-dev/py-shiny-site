@@ -54,4 +54,4 @@ The value of an input component is accessible as a reactive value within the `se
 
   1. Use `input.<checkbox_id>()` (e.g., `input.checkbox()`) to access the value of a checkbox. The server value of a checkbox is `True` if checked and `False` if not checked.
 
-See also: Checkbox Group([Checkbox](../checkbox/index.qmd)
+See also: [Checkbox Group](../checkbox/index.qmd)

@@ -19,16 +19,22 @@ The article pages (/components/_____/index.qmd) get styling from here.
 
 /* Add rule and spacing between sections */
 
-section.level2:not(:first-child) h2, section.level3:not(:first-child) h2 {
+/* remove extra space below tab content section */
+.tab-content {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+section.level2:not(:first-child) h2, section.level2.kitchensink h2, section.level3:not(:first-child) h2 {
   border-top: 1px solid var(--bs-primary);
-  padding-top: 5rem !important;
-  margin-top: 5rem !important;
+  padding-top: 4rem !important;
+  margin-top: 4rem !important;
 }
 
 section.level2:not(:first-child) > :last-child, section.level3:not(:first-child) > :last-child {
   margin-bottom: 0;
 }
-
+ 
 /*Make code in Relavent Functions wrap*/
 
 #relevant-functions ul li code {
