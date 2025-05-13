@@ -25,6 +25,13 @@ listing:
   - title: ui.input_checkbox()
     href: https://shiny.posit.co/py/api/ui.input_checkbox.html
     signature: ui.input_checkbox(id, label, value=False, *, width=None)
+- id: kitchen-sink
+  template: ../../_partials/components-detail-kitchen-sink.ejs
+  contents:
+  - title: checkbox
+    core: https://shinylive.io/py/editor/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJMAgujxM6cKITIcAbnAlSIAEzh0JAVw4AdCPoDETACJwaXOEzJsrAVQCS+tKgD6OpgF4mOrFADmcK40ADY6qgAU+kwxTMYAwlB0qkwk5FBcXP5MUCEhTHAhcPDkLNGxvoRJkeWxFRwYVcmutlDqdFFg8baEANYARsQAHqbFxLpgAJR4tXVxTABCUCwchKk9A8NMAO4cNkzqNFBaIcLyuVpWEQBiuSxwk7N1vlyoWmSuhBuDQxEcqp4Jv1lqsJhIQlB+oVAWAlis1l84H0fhNpk96hhiO83h8KEMyJ1gfDXOcwnBURJ5g41Ap-lpckwsWQcUwaIImETVuskZshuiYvz5t0eT8dns2LwIHsOAzSZdWHBhGRiEwACp0S6Cl4QHGfb7DKIQObG3gAiaoKT3D5y8n4JgQqEhGHC5FbXb7C1wK1MG1gn0XOCedWao0mtGh42+Jm6vEE82WxUkgOuWMUmLGamqWmqen5aPvVnsz3exGuvkRuaChL6kbuiWELQsZXMXaqGxahqvd56kUGwV1f4whtNxiuVvt-D92IO6ETF28sX7YfNsVtiURADMAAYt6gho9JxWTf6yZ5biF7jMjybx2wYdvd3zD8fw8eo9ju7HOsvR7eU3B8VRdMmEzbNc0ZD9hDZOhUkbFdb25MtZkeCAUP0IxRgsCArBsKx7joRQ6H0Q4FQIjQ-h1d4JHzMgJHuFgVlISZEFmAABFR2gwVMKxIzlCCTMkImYwUpDILQ6CNGgJgANQDRAmBALsyAwPihIAXwmWY2I4jQuIAshZhI4tExtf98SEljrxiUTxMkmS5IUpSsATa0A3UzSK20yhOO4uoSJ-GAx3+GwzIJYSrMkRVbNZeyyXkxTKOUgKgrXdywHQgwIASKQoAoaxbBydBnHQLxRHQCIXHcDg6I0QiULANSAF0gA
+    express: https://shinylive.io/py/editor/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAMwCdiYACAZwAsBLCbJjmVYnTJM6cKITIcAbnAA6Eeo1aduGOAA9Uoli179BwrqgCuZPE2MdzoiABM4defMtYoAczgB9YqjIsAFDTGADbBngDuHLZkbAC8ACp0xnAAlE4QkTEWHBiEUHS2-imI8kxl2bn5tp5sYvZ0-rJgAMK1hADWAEbE6kwAInAwxE1pEKXlAMRMAEJQLByETIRtXT1MmWxM9jRQIcJSUMHJTP4AYocsqeNlLkamnstwHd3q-lGxTZ1zC03mwVCdODBD5gWbzRaPZ49EbXJiwgACNnqGAo6jIsO2TC+4M8ByOcCKJQg5RJIjgZGMdGJNCaADVDslEEwQHcyBhsQsigBfJrpElTVpPVa9Da8CAcSSHJh446XYRkYhMRLJWG3CAmMgPFYvN62EFaOBy3EMuT4Jj-QHApqCqEiiWbA1y6Um37O-EJJJXYnlBFIhwojTo71lTGO8nG-GeVFkQmwkmiClUpg0sD0-FMlnq0xYbThmUElI8sB8yZMG3C9b2pbGFgK5iRaJsVU5VlaoU6uPld5NQg1usRKIxX6dsoWoEg8svStZXu1pQNrL+ADMAAYV6h1Gl8CO3clYudgpc8DuF3Emqv1+ph8GmKMSb7KMjoxi4DRq3OYAPG1HA7Gb-HyUpak6RNDNWVyPtGC-GJuV5CAwC5ABdIA
+    image: thumbnail.png
 ---
 
 :::{#example}
@@ -47,4 +54,4 @@ The value of an input component is accessible as a reactive value within the `se
 
   1. Use `input.<checkbox_id>()` (e.g., `input.checkbox()`) to access the value of a checkbox. The server value of a checkbox is `True` if checked and `False` if not checked.
 
-See also: Checkbox Group([Checkbox](../checkbox/index.qmd)
+See also: [Checkbox Group](../checkbox/index.qmd)
