@@ -1,0 +1,14 @@
+The term, _user interface_ (UI), refers to the part of an application that is visible to the user.
+The UI is typically composed of a collection of components (e.g. buttons, sliders, plots, etc) that allow the user to interact with the application.
+Shiny provides roughly three types of UI components:
+
+1. **Inputs**: Components that gather user input (e.g. sliders, text boxes, etc).
+2. **Outputs**: Components that display the results (e.g. plots, tables, etc).
+3. **Layouts**: Components that arrange other components (e.g. columns, tabs, etc). Page layouts are a special type of layout that are used to start a new UI.
+
+::: callout-note
+### Component galleries
+
+The [component](/components) and [layout](/layouts) galleries provide a great visual overview of available components.
+This article focuses more on the shared concepts and patterns of UI components.
+:::
