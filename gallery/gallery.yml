@@ -13,7 +13,7 @@
       thumbnail: restaurant-tips.png
     - title: Stock prices
       description: null
-      href: https://gallery.shinyapps.io/template-stock-app/
+      href: https://gallery.shinyapps.io/stock-app/
       code: https://github.com/posit-dev/py-shiny-templates/tree/main/stock-app
       thumbnail: stock-prices.png
     - title: Regularization strength

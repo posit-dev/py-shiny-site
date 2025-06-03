@@ -9,7 +9,7 @@
   thumbnail: ../gallery/restaurant-tips.png
 
 - title: Stock prices
-  href: https://gallery.shinyapps.io/template-stock-app/
+  href: https://gallery.shinyapps.io/stock-app/
   code: ../templates/stock-app/
   thumbnail: ../gallery/stock-prices.png
 

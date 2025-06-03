@@ -4,7 +4,7 @@ description:  Use the stock-app template as a foundation for your next Shiny app
 date:         2024-03-04
 image:        thumbnail.png
 imagealt:     "A screenshot of the stock-app template"
-appurl:       https://gallery.shinyapps.io/template-stock-app/
+appurl:       https://gallery.shinyapps.io/stock-app/
 sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/stock-app
 ---
 
