@@ -62,7 +62,7 @@ If you want it to execute once when the session starts, you can use `@reactive.e
 
 Using `with isolate()`, a block of code is run inside a reactive function, but without taking a reactive dependency on the code inside the block.
 This means that any reactive inputs in that block will not cause the function to re-execute.
-In the example below, the `result` takes a dependency on `input.button()`, but not `input.x()`:
+In the example below, the `result` takes a dependency on `input.button()`, but not `input.n()`:
 
 ```{shinylive-python}
 #| standalone: true
