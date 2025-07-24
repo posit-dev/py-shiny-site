@@ -57,6 +57,17 @@ listing:
     - title: Core
       file: app-variation-update-an-input-core.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLBai5SCiprJWYEVnYQjsFOWNzonpoMUNKcpJoARp4U5AH2IRnKYDCksllEWQAinKzorrw5eYTIwFkAKlAJFnD5yFkAChakFFkAukSscM3EVNK69Y3NWekZAJQEMyGGHhQRXkp22blmZJRMFqxZ84uzqqdqF7J0bHIAbnI24Z5EK2sDcKyscRCziIsAAlIILIGFglIsrshKjtyBR9gFfotgpxrk8KFhoTZZnp9BMmi0kEiMsgmAB3Vh6PgQNZYMkIvjXLJ0rJUqlrZBDQbIACMAAYiRkfBT9GisEKsQy2mAhSzuGzPByDnBkAAWAUhKQUBQMIKGBrGAAyJQogWJZtCaM0rAsnBBm2Z1SyACVSOS-tVblArHBdHSiDBuLpuf6oAAPIO845Bc0ZQyW622h5ZGWOsAAYVIvn87qInu9uiF-sDwahYYjUZjDnOZs5cD+0Zj7DgnGM7BEIupniwTZbbYlKKlPdbPTArLRiq5AFZefyG+bSbaKOxKaKF9Il-3GWA10vZUFx7XkNPZ5WSXAtTrQvqjawTeqzXHO14E3askO260sgAJZvDnPIPMFB9d8KCLCAI15ENwz5GcK1PRxHzWK0bVfbdF3YT8wAAdXQ-9AJ9Hd2DAiCoIgyMFjnM1zlUdRMEpcR0BsDRtE4d4GHuBhzmqMAKFwdAEBQHi4FDCgwAAX16IA
+  - title: Login/logout application
+    description: 'Dynamic UI can be used to create completely different interfaces based on application state. This login example demonstrates switching between a login form and a dashboard interface using `@render.ui`.
+
+      The app maintains authentication state using reactive values and renders different UIs based on whether the user is logged in or not.'
+    apps:
+    - title: Preview
+      file: app-variation-login-core.py
+      height: 350
+    - title: Core
+      file: app-variation-login-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhCMZ0AfSXIAvMi04oAczia6AGyXSAFKuQODnLBai5SCimLJmyhBfLs+jqGRiEhYZJkJMJuMmBOjsyuJnZKbGoAFFCGTgAqcJqsRQBOcOycEgSarNZOCeFh5jZw9vYKMQnIcqHIDZws7cEAhgxgWZKycJrIanAAltKlcNy8bqUKVHTt0hl9KjpZBWZaKQBGCmFwSfV19VDIchxaO57e7T1GepFKh8eiTEgaGjWYIZAAUW2QcFhyWu3zudxibQgZV4cBOHkI5wYcjQ7GBlyIAHd2MggSNLnJHvY1K9lONwlA8BRaNlPo80u1pnJGm0Oop2GZqYZyZ5uCJNIgzDhVNiEANJIQWa4lUQAGy6xlM9JKEoVeTcPZzJRERxEaGqZJqFKcLQKA5mWgvRFwZAARiIEeVwMAIpILJaaAoWjL1kkAG5QfzlRUKJCxN2zJKsLxSEzlWZgY2aOYUSJMKAjKQNJ3lZI2R1yE5FqAVlWaKoSdRkpR0eRO4rOQhOLxBQZV5TdNrxlU8KCm7YNP1+4JBNwRb1RlBZcozJRAA
 ---
 
 :::{#example}
