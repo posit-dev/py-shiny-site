@@ -67,7 +67,7 @@ Follow these steps to create an app with a tabset with pill navigation layout:
 
   1. Add `ui.navset_pill()` inside any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.navset_pill()` creates a pillset.
 
-  2. Pass nav items (e.g., [`ui.nav_panel()`](https://shiny.posit.co/py/api/ui.nav.html) and [`ui.nav_menu()`](https://shiny.posit.co/py/api/ui.nav_menu.html)) to `ui.navset_pill()` to set the items displayed in the navset.
+  2. Pass nav items (e.g., [`ui.nav_panel()`](https://shiny.posit.co/py/api/core/ui.nav_panel.html) and [`ui.nav_menu()`](https://shiny.posit.co/py/api/core/ui.nav_menu.html)) to `ui.navset_pill()` to set the items displayed in the navset.
 
   3. Pass arguments to the nav items to control each item's title, appearance, and associated content. For example, set the `title` argument of `ui.nav_panel()` to control the displayed title of the nav item. Pass UI elements as additional arguments to `ui.nav_panel()`. These elements will be displayed when the tab is active.
 
@@ -91,7 +91,7 @@ Follow these steps to create an app with a pill list navigation layout. A pill l
 
   1. Add `ui.navset_pill_list()` inside any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.navset_pill()` creates a pill list.
 
-  2. Pass nav items (e.g., [`ui.nav_panel()`](https://shiny.posit.co/py/api/ui.nav.html) and [`ui.nav_menu()`](https://shiny.posit.co/py/api/ui.nav_menu.html)) to `ui.navset_pill_list()` to set the items displayed in the pillset.
+  2. Pass nav items (e.g., [`ui.nav_panel()`](https://shiny.posit.co/py/api/core/ui.nav_panel.html) and [`ui.nav_menu()`](https://shiny.posit.co/py/api/core/ui.nav_menu.html)) to `ui.navset_pill_list()` to set the items displayed in the pillset.
 
   3. Pass arguments to the nav items to control each item's title, appearance, and associated content. For example, set the `title` argument of `ui.nav_panel()` to control the displayed title of the nav item. Pass UI elements as additional arguments to `ui.nav_panel()`. These elements will be displayed when the tab is active.
 
@@ -115,7 +115,7 @@ Follow these steps to create an app with a tab navigation layout:
 
   1. Add `ui.navset_tab()` inside any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.navset_tab()` creates a tabset.
 
-  2. Pass nav items (e.g., [`ui.nav_panel()`](https://shiny.posit.co/py/api/ui.nav.html) and [`ui.nav_menu()`](https://shiny.posit.co/py/api/ui.nav_menu.html)) to `ui.navset_tab()` to set the items displayed in the tabset.
+  2. Pass nav items (e.g., [`ui.nav_panel()`](https://shiny.posit.co/py/api/core/ui.nav_panel.html) and [`ui.nav_menu()`](https://shiny.posit.co/py/api/core/ui.nav_menu.html)) to `ui.navset_tab()` to set the items displayed in the tabset.
 
   3. Pass arguments to the nav items to control each item's title, appearance, and associated content. For example, set the `title` argument of `ui.nav_panel()` to control the displayed title of the nav item. Pass UI elements as additional arguments to `ui.nav_panel()`. These elements will be displayed when the tab is active.
 
@@ -139,7 +139,7 @@ Follow these steps to add a card with a tabbed tabset to your app:
 
   1. Add `ui.navset_card_tab()` inside any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.navset_card_tab()` creates a tabset inside a card.
 
-  2. Pass nav items (e.g., [`ui.nav_panel()`](https://shiny.posit.co/py/api/ui.nav.html) and [`ui.nav_menu()`](https://shiny.posit.co/py/api/ui.nav_menu.html)) to `ui.navset_card_tab()` to set the items displayed in the tabset inside the card.
+  2. Pass nav items (e.g., [`ui.nav_panel()`](https://shiny.posit.co/py/api/core/ui.nav_panel.html) and [`ui.nav_menu()`](https://shiny.posit.co/py/api/core/ui.nav_menu.html)) to `ui.navset_card_tab()` to set the items displayed in the tabset inside the card.
 
   3. Pass arguments to the nav items to control each item's title, appearance, and associated content. For example, set the `title` argument of `ui.nav_panel()` to control the displayed title of the nav item. Pass UI elements as additional arguments to `ui.nav_panel()`. These elements will be displayed when the tab is active.
 
@@ -163,7 +163,7 @@ Follow these steps to add a card with a pill tabset to your app:
 
   1. Add `ui.navset_card_pill()` inside any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.navset_card_pill()` creates a pillset inside a card.
 
-  2. Pass nav items (e.g., [`ui.nav_panel()`](https://shiny.posit.co/py/api/ui.nav.html) and [`ui.nav_menu()`](https://shiny.posit.co/py/api/ui.nav_menu.html)) to `ui.navset_card_pill()` to set the items displayed in the pillset inside the card.
+  2. Pass nav items (e.g., [`ui.nav_panel()`](https://shiny.posit.co/py/api/core/ui.nav_panel.html) and [`ui.nav_menu()`](https://shiny.posit.co/py/api/core/ui.nav_menu.html)) to `ui.navset_card_pill()` to set the items displayed in the pillset inside the card.
 
   3. Pass arguments to the nav items to control each item's title, appearance, and associated content. For example, set the `title` argument of `ui.nav_panel()` to control the displayed title of the nav item. Pass UI elements as additional arguments to `ui.nav_panel()`. These elements will be displayed when the tab is active.
 

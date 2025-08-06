@@ -119,7 +119,7 @@ There's a lot more that `layout_columns()` can do with `col_widths` to make high
 
 -   Insert empty space between items with a negative column width, e.g. `col_widths=c(4, -4, 4)` creates two columns 4 units wide with an empty space of 4 units between them.
 
-Learn more in the API reference: [Express](https://shiny.posit.co/py/api/express/ui.layout_columns.html) \| [Core](https://shiny.posit.co/py/api/core/ui.layout_columns.html)
+Learn more in the API reference: [Express](https://shiny.posit.co/py/api/express/express.ui.layout_columns.html) \| [Core](https://shiny.posit.co/py/api/core/ui.layout_columns.html)
 :::
 
 
