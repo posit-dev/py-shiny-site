@@ -1,0 +1,218 @@
+---
+title: "Layouts"
+---
+
+{{< include includes/ui-component-intro.qmd >}}
+
+### Page layouts
+
+A special type of layout is the page layout, which is used to start a new UI.
+In [Shiny Express](express-vs-core.qmd), the page layout is implicit, and automatically inferred from the top-level UI components.
+In [Shiny Core](express-vs-core.qmd), the page layout is explicit, meaning that the UI starts with a page layout component (e.g. `ui.page_fluid()`, `ui.page_sidebar()`, etc).
+
+::: {.column-body-outset-right .panel-tabset .panel-pills}
+
+#### Sidebar
+
+::: {.column-body-outset-right .panel-tabset .shiny-mode-tabset group="shiny-app-mode"}
+
+##### Express
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+from shiny.express import ui
+
+ui.page_opts(title="Page title")
+
+with ui.sidebar():
+    "Sidebar content"
+
+"Main content"
+```
+
+##### Core
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny import App, ui
+
+app_ui = ui.page_sidebar(
+    ui.sidebar("Sidebar content"),
+    "Main content",
+    title="Page title"
+)
+
+app = App(app_ui, None)
+```
+
+:::
+
+
+#### Navbar
+
+::: {.column-body-outset-right .panel-tabset .shiny-mode-tabset group="shiny-app-mode"}
+
+##### Express
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny.express import ui
+
+ui.page_opts(title="Page title")
+
+with ui.nav_panel("Page 1"):
+    "Page 1 content"
+
+with ui.nav_panel("Page 2"):
+    "Page 2 content"
+```
+
+##### Core
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny import App, ui
+
+app_ui = ui.page_navbar(
+    ui.nav_panel("Page 1", "Page 1 content"),
+    ui.nav_panel("Page 2", "Page 2 content"),
+    title="Page title"
+)
+
+app = App(app_ui, None)
+```
+
+:::
+
+#### Fillable
+
+::: {.column-body-outset-right .panel-tabset .shiny-mode-tabset group="shiny-app-mode"}
+
+##### Express
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny.express import ui
+
+ui.page_opts(fillable=True)
+
+with ui.card():
+    "Card content"
+```
+
+##### Core
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny import App, ui
+
+app_ui = ui.page_fillable(
+    ui.card("Card content")
+)
+
+app = App(app_ui, None)
+```
+
+:::
+
+#### Restricted width
+
+
+::: {.column-body-outset-right .panel-tabset .shiny-mode-tabset group="shiny-app-mode"}
+
+##### Express
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny.express import ui
+
+with ui.card():
+    "Card content"
+```
+
+##### Core
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny import App, ui
+
+app_ui = ui.page_fixed(
+    ui.card("Card content")
+)
+
+app = App(app_ui, None)
+```
+
+:::
+
+#### Full width
+
+::: {.column-body-outset-right .panel-tabset .shiny-mode-tabset group="shiny-app-mode"}
+
+##### Express
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny.express import ui
+
+ui.page_opts(full_width=True)
+
+with ui.card():
+    "Card content"
+```
+
+##### Core
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 150
+
+from shiny import App, ui
+
+app_ui = ui.page_fluid(
+    ui.card("Card content")
+)
+
+app = App(app_ui, None)
+```
+
+:::
+
+:::

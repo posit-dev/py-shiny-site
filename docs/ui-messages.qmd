@@ -1,0 +1,12 @@
+---
+title: "Dispaly messages"
+---
+
+Another type of UI component is one used to display messages to the user (e.g. notifications, modals, tooltips, etc).
+Display messages like notifications and modals require server-side code to manage their state, so they are typically created in the server and then shown/hidden using the `ui.*_show()` and `ui.*_hide()` functions. Tooltips and popovers, on the other hand, can be created directly in the UI definition (i.e., statically rendered, without any server-side code).
+
+::: {.callout-tip}
+#### Display message gallery
+
+See [this section of the component gallery](/components/#display-messages) for an overview of available display messages.
+:::
