@@ -189,7 +189,7 @@ pip install "shiny[test,testgen]"
   - Anthropic: `export ANTHROPIC_API_KEY=...`
   - OpenAI: `export OPENAI_API_KEY=...`
 
-::: callout-important
+::: callout-note
 The generated file is a **starting point**, not a full coverage suite. Iterate toward meaningful, stable assertions aligned with your app’s business logic.
 :::
 
