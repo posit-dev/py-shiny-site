@@ -174,35 +174,33 @@ shiny add test
 ```
 
 1. Answer the prompts: It will ask for the path to your app file (e.g., `app.py`) and a name for your test file (e.g., `test_myapp.py`). Remember, the test file name must start with `test_`.
-1. The generated test file typically provides basic assertions that verify visible text and interactive state changes for Shiny components (e.g., slider values, output text).
+1. Generated test files usually include simple assertions that check visible UI text and interactive states for Shiny components (for example, slider values or checkbox output). Treat these as a starting point and expand them to cover additional behaviors, edge cases, and integration points as needed.
 
 Before generating tests, make sure you have:
-
-- A working Shiny app file (e.g. `app.py`).
-- Shiny testing dependencies installed. If you haven't installed the extras yet:
-
-```bash
-pip install "shiny[test,testgen]"
-```
 
 - An API key or credentials for the provider you intend to use:
   - Anthropic: `export ANTHROPIC_API_KEY=...`
   - OpenAI: `export OPENAI_API_KEY=...`
 
+- A working Shiny app file (e.g. `app.py`).
+- Shiny testing dependencies installed. If you haven't installed the extras yet:
+
+```bash
+pip install "shiny[add-test]"
+```
 
 #### Choosing a provider for generating tests
 
 ```bash
 # Anthropic (default)
-shiny add test --app app.py --provider anthropic --model sonnet
+shiny add test --app app.py
 
-# OpenAI
-shiny add test --app app.py --provider openai --model gpt-5
+# OpenAI (will use gpt-5)
+shiny add test --app app.py --provider openai
+
+# explicitly use gpt-5-mini model
+shiny add test --app app.py --provider openai --model gpt-5-mini
 ```
-
-::: callout-note
-The generated file is a **starting point**, not a full coverage suite. Iterate toward meaningful, stable assertions aligned with your app’s business logic.
-:::
 
 ### Troubleshooting Common Issues
 
