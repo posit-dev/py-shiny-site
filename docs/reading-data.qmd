@@ -1,0 +1,368 @@
+---
+title: Reading data in Shiny
+editor:
+  markdown:
+    wrap: sentence
+lightbox:
+  effect: fade
+---
+
+## Intro
+
+From CSVs to parquet files to cloud-hosted databases, if you can access it from Python, you can access it from Shiny. We won't go through every possible configuration here, but we'll choose a handful to explore. Our examples will start simple and build in complexity.
+
+## Reading data into memory
+
+### Read from CSV (or analogous file format) into your Shiny appliation {#read-from-csv}
+
+A common pattern in Shiny apps is reading in data from a file on your computer, such as a CSV. We use an example CSV in the example below, but the strategy holds for other file formats you might want to use.
+
+::: {.panel-tabset .panel-pills}
+
+### Polars
+```python
+df = pl.read_csv(Path(__file__).parent / "test_data.csv")
+```
+
+### Pandas
+```python
+df = pd.read_csv(Path(__file__).parent / "test_data.csv")
+```
+
+### DuckDB
+```python
+df = duckdb.read_csv(Path(__file__).parent / "test_data.csv").df()
+```
+:::
+
+
+::: callout-note
+### Remember: Put your data in a module!
+
+For better performance in situations where you are loading an entire dataset into memory, it is best to load your data from within a separate module and import it in your `app.py` file. This makes sure it is only loaded once. For more info why, see the Express documentation [here](express-in-depth.qmd#shared-objects) but for now, let's just make sure we read our csv in a separate module, then import it in our `app.py`.
+
+<details>
+<summary>Show example code</summary>
+
+```{.python filename="app.py"}
+from shiny.express import ui, render
+import data_load_module
+
+ui.page_opts(title="Data", full_width=True, id="page")
+
+@render.data_frame
+def results_df():
+    return render.DataGrid(data_load_module.df)
+```
+```{.python filename="load_data.py"}
+import polars as pl
+from pathlib import Path
+
+df = pl.read_csv(Path(__file__).parent / "test_data.csv")
+```
+</details>
+:::
+
+## Working with large datasets and databases
+Some datasets are too large to fit cleanly in memory or don't live on our computer. Perhaps you want to connect to a remote database or perform complicated filtering operations on a large dataset.
+In both cases, we define our query (our data manipulations) and then rely on an external 'engine' to optimize it, run it, and provide us with the results.
+We'll go over two examples here:
+1) You have a large amount of data available on your computer that you want to use in a Shiny app. This is a great case for Polars *Lazy API*, which optimizes data manipulation tasks to run as quickly and using as little memory as possible.
+2) You are connecting to a remote database. Your query will run remotely on that database and you will then need to collect the result.
+
+Let's start with the first case.
+
+# TODO: Lazy read into memory/not in memory
+Lazy case where you don't need to split into a module because of Lazy evaluation
+Maybe slot in the SQLAlchemy example here as well as Polars lazy
+
+## Large datasets and Polars' Lazy API
+
+As mentioned before, we can also read larger data into our Shiny apps. If it can fit in memory, it can fit in Shiny.
+Moving forward in this example, we're going to use Polars, a Python library highly optimized for perfoming data tasks *fast*.
+
+For example, if we wanted to read from a parquet file:
+
+```{.python filename="app.py"}
+from shiny.express import ui, render
+import load_data_module
+
+ui.page_opts(title="My Table", full_width=True, id="page")
+
+
+@render.data_frame
+def results_df():
+    return render.DataGrid(load_data_module.df.collect())
+```
+
+```{.python filename="load_data.py"}
+import polars as pl
+from pathlib import Path
+
+df = pl.scan_parquet(Path(__file__).parent / "filename.parquet")
+```
+
+You might notice that the syntax we've been using (ex. `.collect()`) looks different than what you are familiar with. That's because we're using a special feature of Polars called the *lazy API*. We'll talk more about that in the next section.
+
+### Lazy Evaluation
+
+Polars has a great toolset for efficiently working with large data called the *lazy API*. The lazy API takes your query as a whole instead of line-by-line and processes only what's needed when it's needed. It does this using its internal query optimizer and uses streaming to work with data sets larger than could otherwise fit in memory.
+
+Let's look at an example with the classic [Airlines Flight Data](https://www.kaggle.com/datasets/rohitgrewal/airlines-flights-data). This dataset has ~3M rows, so taking advantage of lazy evaluation will make our application a lot faster!
+# TODO: See if theres's a parquet version of this
+
+```python
+from shiny.express import ui, render, input
+import polars as pl
+import load_data_module
+
+ui.page_opts(title="Flights", full_width=True, id="page")
+# Add filter by airline
+"""
+ui.input_selectize(
+    "airline",
+    "Airline",
+    choices=load_data_module.df.select("airline")
+    .unique()
+    .collect()
+    .select("airline")
+    .to_series()
+    .to_list(),
+)
+"""
+# Add filter by stops
+ui.input_radio_buttons(
+    "stops",
+    "Number of Stops",
+    {"zero": "zero", "one": "one"},
+)
+
+
+@render.data_frame
+def results_df():
+    print(input.stops())
+    results = (
+        load_data_module.df
+        # .filter(pl.col("airline").is_in(input.airline()))
+        .filter(pl.col("stops") == input.stops()).collect()
+    )
+    return render.DataGrid(results)
+```
+
+END IMPORTING DATA ARTICLE
+
+Top level:
+Importing Data
+    Potentially have a 'my data lives remotely' skip down to bottom link
+    * In-memory data importing
+    * Out of memory/lazyframe/remote data
+        * Callout a few different options
+            * Ibis
+            * SQLAlchemy
+            * Polars Lazyframe
+            * Something else?
+        * Lazyframe
+            * How we interact with this in the app based on when it becomes in memory
+        * Now our data is totally remote:
+            * Ibis example (local connect) supports in memory too callout
+            * SQLAlchemy remote (postgres? in AWS RDS)
+            * Pins callout supports in memory too callout
+            * Recommendation for connecting to data warehouses
+
+Doing stuff to data - callout to mutability article
+Persistant Storage/Writing
+* Callout connect cloud and support for secrets and persistent storage, link to docs, tehre's a talk that aleks chisolm did at conf
+
+
+
+
+### Reactivity and display
+
+
+### Advanced: Streaming & Batching, Caching
+
+
+
+## Read from a remote DB or source
+
+What if your data is already in a database or hosted somewhere else on the cloud? Shiny can interact with that too.
+
+We've collected a few examples below, but any data source with the appropriate Python drivers should be able to work with Shiny.
+
+
+
+
+::: {.panel-tabset .panel-pills}
+
+#### Read from an RDS Postgres Store
+```python
+# Examples
+```
+
+#### Connect to Snowflake
+
+#### Connect to Databricks
+
+#### Read from a shared object store using Pins
+:::
+
+
+::: callout-note
+### Remember: Be careful of SQL injection vulnerabilities
+
+When you start giving users more access to your data, you have to be careful of SQL injection attacks.
+
+
+:::
+
+
+## What about writing to a data store? When to consider persistent storage
+
+
+
+
+END SO FAR
+
+
+
+
+For instructions on XYZ, see HEADERLINK
+
+We've outlined two main cases below, one SQL case and one NoSQL case.
+
+## Callout on SQL Injection Attacks?
+
+## Example App
+
+Let's start from the simplest possible case: an app with no persistent storage.
+Now, what if we want to save these results somewhere?
+
+```python
+from shiny import App, Inputs, Outputs, Session, ui, reactive, render
+import pandas as pd
+
+app_ui = ui.page_fluid(
+    ui.h2("Submitted Results"),
+    ui.output_data_frame("results_df"),
+    ui.input_text("text", "Enter text", value=""),
+    ui.input_checkbox("checkbox", "I like checkboxes"),
+    ui.input_slider("slider", "My favorite number is:", min=0, max=100, value=50),
+    ui.input_action_button("submit", "Submit"),
+)
+
+
+def server(input: Inputs, output: Outputs, session: Session):
+    df = reactive.value(pd.DataFrame(columns=["text", "checkbox", "slider"]))
+
+    @reactive.effect
+    @reactive.event(input.submit)
+    def results():
+        row = {
+            "text": input.text(),
+            "checkbox": input.checkbox(),
+            "slider": input.slider(),
+        }
+        row_df = pd.DataFrame([row])
+        new_df = pd.concat([df.get(), row_df], ignore_index=True)
+        df.set(new_df)
+
+    @render.data_frame
+    def results_df():
+        return render.DataGrid(df.get())
+
+
+app = App(app_ui, server)
+```
+
+## Connecting a database with DuckDB or Polars
+
+### Setup
+
+### Example App
+::: {.panel-tabset .panel-pills}
+
+#### DuckDB
+```python
+from shiny import App, Inputs, Outputs, Session, ui, reactive, render
+import duckdb
+
+con = duckdb.connect("test_db.db")
+
+app_ui = ui.page_fluid(
+    ui.h2("Submitted Results"),
+    ui.output_data_frame("results_df"),
+    ui.input_text("text", "Enter text", value=""),
+    ui.input_checkbox("checkbox", "I like checkboxes"),
+    ui.input_slider("slider", "My favorite number is:", min=0, max=100, value=50),
+    ui.input_action_button("submit", "Submit"),
+)
+
+
+def server(input: Inputs, output: Outputs, session: Session):
+    # Initialize a reactive value so we start with the table visible.
+    df = reactive.value(con.sql("SELECT * FROM data").df())
+
+    @reactive.effect
+    @reactive.event(input.submit)
+    def save():
+        row = [input.text(), input.checkbox(), input.slider()]
+
+        # We use a prepared statement here to avoid SQL injection
+        con.execute("INSERT INTO data VALUES (?, ?, ?)", row)
+        con.commit()
+
+        # Set the reactive value so the table updates
+        df.set(con.sql("SELECT * FROM data").df())
+
+    @render.data_frame
+    def results_df():
+        return df()
+
+
+app = App(app_ui, server, debug=True)
+```
+
+#### Polars
+```python
+```
+:::
+
+
+
+### Connection Pooling
+
+### Example App
+
+
+
+## Connecting a remote database with Postgres and SQLAlchemy
+### Setup
+
+### Connection Pooling
+
+### Example App
+
+## Connecting a database with AWS DynamoDB (or MongoDB?)
+
+### Setup
+
+### Connection Pooling
+
+### Example App
+
+
+### Example Applications
+::: {.panel-tabset .panel-pills}
+
+#### Polars
+
+
+#### DuckDB
+Outliers app: Reads and writes from DuckDB https://github.com/skaltman/outliers-app-db-python/blob/main/app.py
+Database Explorer: https://shiny.posit.co/py/templates/database-explorer/
+
+#### Pandas
+AWS-Community-Builders-App: Process data from a CSV and displays it https://github.com/robertgv/aws-community-builders-dashboard
+
+#### Sqlite3
+Database monitoring app: https://github.com/posit-dev/py-shiny-templates/tree/main/monitor-database
