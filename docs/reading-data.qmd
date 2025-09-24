@@ -72,17 +72,21 @@ We'll go over two examples here:
 
 Let's start with the first case.
 
-# TODO: Lazy read into memory/not in memory
-Lazy case where you don't need to split into a module because of Lazy evaluation
-Maybe slot in the SQLAlchemy example here as well as Polars lazy
-
 ## Large datasets and Polars' Lazy API
 
-As mentioned before, we can also read larger data into our Shiny apps. If it can fit in memory, it can fit in Shiny.
-Moving forward in this example, we're going to use Polars, a Python library highly optimized for perfoming data tasks *fast*.
+### Lazy Evaluation
 
-For example, if we wanted to read from a parquet file:
+Polars has a great toolset for efficiently working with large data called the *lazy API*. The lazy API takes your query as a whole instead of line-by-line and processes only what's needed when it's needed. It does this using its internal query optimizer and uses streaming to work with data sets larger than could otherwise fit in memory.
 
+Let's modify our work above to use the Lazy API.
+```{.python filename="load_data.py"}
+import polars as pl
+from pathlib import Path
+
+# Use `scan_*` instead of `read_*` to use the lazy API
+df = pl.scan_parquet(Path(__file__).parent / "filename.parquet")
+
+```
 ```{.python filename="app.py"}
 from shiny.express import ui, render
 import load_data_module
@@ -92,25 +96,19 @@ ui.page_opts(title="My Table", full_width=True, id="page")
 
 @render.data_frame
 def results_df():
-    return render.DataGrid(load_data_module.df.collect())
+    # Use `.collect()` to get our result (in this case, getting the first 100 rows)
+    return render.DataGrid(load_data_module.df.head(100).collect())
 ```
 
-```{.python filename="load_data.py"}
-import polars as pl
-from pathlib import Path
+You might notice that the syntax has changed a little bit. We've used   been using (ex. `.collect()`) looks different than what you are familiar with. That's because we're using a special feature of Polars called the *lazy API*. We'll talk more about that in the next section.
 
-df = pl.scan_parquet(Path(__file__).parent / "filename.parquet")
-```
 
-You might notice that the syntax we've been using (ex. `.collect()`) looks different than what you are familiar with. That's because we're using a special feature of Polars called the *lazy API*. We'll talk more about that in the next section.
 
-### Lazy Evaluation
 
-Polars has a great toolset for efficiently working with large data called the *lazy API*. The lazy API takes your query as a whole instead of line-by-line and processes only what's needed when it's needed. It does this using its internal query optimizer and uses streaming to work with data sets larger than could otherwise fit in memory.
+Let's look at an example with the [The Weather Dataset](https://www.kaggle.com/datasets/guillemservera/global-daily-climate-data). This dataset has
 
-Let's look at an example with the classic [Airlines Flight Data](https://www.kaggle.com/datasets/rohitgrewal/airlines-flights-data). This dataset has ~3M rows, so taking advantage of lazy evaluation will make our application a lot faster!
-# TODO: See if theres's a parquet version of this
 
+# TODO: Test this with Weather and update it
 ```python
 from shiny.express import ui, render, input
 import polars as pl
@@ -322,33 +320,8 @@ def server(input: Inputs, output: Outputs, session: Session):
 app = App(app_ui, server, debug=True)
 ```
 
-#### Polars
-```python
-```
-:::
 
 
-
-### Connection Pooling
-
-### Example App
-
-
-
-## Connecting a remote database with Postgres and SQLAlchemy
-### Setup
-
-### Connection Pooling
-
-### Example App
-
-## Connecting a database with AWS DynamoDB (or MongoDB?)
-
-### Setup
-
-### Connection Pooling
-
-### Example App
 
 
 ### Example Applications

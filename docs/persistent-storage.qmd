@@ -1,0 +1,58 @@
+---
+title: Persistent storage & writing data
+editor:
+  markdown:
+    wrap: sentence
+lightbox:
+  effect: fade
+---
+
+## Intro
+
+## When do you actually need persistent storage
+* You want your application to collect and save information from your users. Example, forms.
+* You need to save a result that your users generate? (ex. save a copy of report generated)
+
+Note: What are we not talking about here: Auth. Link to any auth docs we have.
+
+CALLOUT: Connect does both Auth and supports secrets for storage. Link to those docs.
+
+## Saving to the filesystem?
+Cover best practices with saving to shared servers/spaces?
+Ex. Saving to a shared drive from a local server?
+
+### Example with pins and polars? (use a form, save the result)
+
+### Example with DuckDB (use a form, save the result)
+
+## Connecting to databases
+
+### Example connecting with SQLAlchemy and saving to db with a form
+
+### SQL injection prevention
+
+### Connection pooling & transaction locking?
+
+### Note on credentials? (don't use your admin creds in your app, have user creds for db, scope them narrowly, etc.)
+
+
+
+### Example Applications
+::: {.panel-tabset .panel-pills}
+
+#### Polars
+
+
+#### DuckDB
+Outliers app: Reads and writes from DuckDB https://github.com/skaltman/outliers-app-db-python/blob/main/app.py
+Database Explorer: https://shiny.posit.co/py/templates/database-explorer/
+
+#### Pandas
+AWS-Community-Builders-App: Process data from a CSV and displays it https://github.com/robertgv/aws-community-builders-dashboard
+
+#### Sqlite3
+Database monitoring app: https://github.com/posit-dev/py-shiny-templates/tree/main/monitor-database
+
+
+
+
