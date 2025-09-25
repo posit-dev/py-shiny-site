@@ -27,7 +27,7 @@ Ex. Saving to a shared drive from a local server?
 
 ## Connecting to databases
 
-### Example connecting with SQLAlchemy and saving to db with a form
+### Example connecting with Ibis and saving to db with a form
 
 ### SQL injection prevention
 

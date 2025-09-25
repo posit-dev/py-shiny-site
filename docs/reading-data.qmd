@@ -7,16 +7,13 @@ lightbox:
   effect: fade
 ---
 
-## Intro
-
 From CSVs to parquet files to cloud-hosted databases, if you can access it from Python, you can access it from Shiny. We won't go through every possible configuration here, but we'll choose a handful to explore. Our examples will start simple and build in complexity.
 
-## Reading data into memory
-
-### Read from CSV (or analogous file format) into your Shiny appliation {#read-from-csv}
+## Reading data into memory {#read-into-memory}
 
 A common pattern in Shiny apps is reading in data from a file on your computer, such as a CSV. We use an example CSV in the example below, but the strategy holds for other file formats you might want to use.
 
+### Examples
 ::: {.panel-tabset .panel-pills}
 
 ### Polars
@@ -34,7 +31,6 @@ df = pd.read_csv(Path(__file__).parent / "test_data.csv")
 df = duckdb.read_csv(Path(__file__).parent / "test_data.csv").df()
 ```
 :::
-
 
 ::: callout-note
 ### Remember: Put your data in a module!
@@ -63,22 +59,73 @@ df = pl.read_csv(Path(__file__).parent / "test_data.csv")
 </details>
 :::
 
-## Working with large datasets and databases
+## Databases and larger-than-memory data {#read-db}
 Some datasets are too large to fit cleanly in memory or don't live on our computer. Perhaps you want to connect to a remote database or perform complicated filtering operations on a large dataset.
+
+### Examples
+::: {.panel-tabset .panel-pills}
+### Polars LazyFrame
+```python
+df = pl.scan_csv(Path(__file__).parent / "test_data.csv")
+
+# Example query
+query_result = df.head(100).collect()
+```
+### Ibis
+Ibis provides a data table interface for a wide variety of backends, including in-memory data via sources like DuckDB or SQLite and remote data, like Postgres.
+We'll use Postgres in the below example, but know that Ibis supports many backends.
+```bash
+pip install 'ibis-framework[postgres]'
+```
+
+```python
+import ibis
+
+con = ibis.postgres.connect(
+    user="username",
+    password="password",
+    host="hostname",
+    port=5432,
+    database="database",
+)
+my_table = con.table("mytablename")
+
+# This is when Ibis will perform your query operations
+query_result = my_table.head(100)
+
+```
+
+### SQLAlchemy
+SQLAlchemy allows for more fine-grained SQL usage with either plain SQL text execution or SQLAlchemy's own Object-Relational Mapping syntax, which allows you to use a similar syntax to Polars and Ibis.
+
+SQLAlchemy is the most flexible method of all of these, but with this flexibility comes much greater complexity.
+```python
+from sqlalchemy import create_engine, text
+
+# Note: You will need to also install psycopg2 (or specify another supported connector)
+engine = create_engine('postgresql://user:password@hostname/database_name')
+with engine.connect() as conn:
+    result = conn.execute (text("SELECT * FROM tablename LIMIT 100"))
+```
+:::
+
 In both cases, we define our query (our data manipulations) and then rely on an external 'engine' to optimize it, run it, and provide us with the results.
+
 We'll go over two examples here:
-1) You have a large amount of data available on your computer that you want to use in a Shiny app. This is a great case for Polars *Lazy API*, which optimizes data manipulation tasks to run as quickly and using as little memory as possible.
-2) You are connecting to a remote database. Your query will run remotely on that database and you will then need to collect the result.
+
+1. You have a large amount of data available on your computer that you want to use in a Shiny app. This is a great case for Polars *Lazy API*, which optimizes data manipulation tasks to run as quickly and using as little memory as possible.
+2. You are connecting to a remote database. Your query will run remotely on that database and return a result to you (ex. Ibis with remote datastore, SQLAlchemy)
 
 Let's start with the first case.
 
-## Large datasets and Polars' Lazy API
+### Large datasets and Polars' Lazy API
 
-### Lazy Evaluation
+#### Lazy Evaluation
 
 Polars has a great toolset for efficiently working with large data called the *lazy API*. The lazy API takes your query as a whole instead of line-by-line and processes only what's needed when it's needed. It does this using its internal query optimizer and uses streaming to work with data sets larger than could otherwise fit in memory.
 
-Let's modify our work above to use the Lazy API.
+Let's modify our work from above to use the Lazy API.
+
 ```{.python filename="load_data.py"}
 import polars as pl
 from pathlib import Path
@@ -100,60 +147,80 @@ def results_df():
     return render.DataGrid(load_data_module.df.head(100).collect())
 ```
 
-You might notice that the syntax has changed a little bit. We've used   been using (ex. `.collect()`) looks different than what you are familiar with. That's because we're using a special feature of Polars called the *lazy API*. We'll talk more about that in the next section.
+You might notice that the syntax has changed a little bit. We use `scan_parquet()` instead of `read_parquet` to return a Lazy Frame instead of a DataFrame. This means that when we import our data in the module, we're not actually loading it in yet.
+Polars waits until it sees the `.collect()` to execute the sequence of commands to
+1. Read in the data
+2. Get the first 100 rows (`.head(100)`) and then
+3. `.collect()` the results.
 
+In this case, that's immediately since we're rendering the data frame as soon as we load the app.
+However, there may be cases where you delay execution. For example, you might wait until after you've collected user-inputs or users have clicked a button.
 
+Let's look at an example with the [The Weather Dataset](https://www.kaggle.com/datasets/guillemservera/global-daily-climate-data).
+This dataset is much, much bigger (nearly 28M rows) and so we'll take full advantage of Polars Lazy API to keep our app fast.
 
+::: callout-note
+### Modules and Laziness
+Remember how before we had to put our data in a module? Now that we're only loading our data and querying when we need it (when we've called `.collect`), we don't need to worry about that!
 
-Let's look at an example with the [The Weather Dataset](https://www.kaggle.com/datasets/guillemservera/global-daily-climate-data). This dataset has
+If you're using the Lazy API or reading from a database, you can create that connection to your data in a module, or not. It's up to you.
+:::
 
+#### Example Application
 
-# TODO: Test this with Weather and update it
+Here's a simple app that takes advantage of Polars Lazy API:
+
+TODO: Add run it in shiny live link?
+
 ```python
 from shiny.express import ui, render, input
 import polars as pl
-import load_data_module
 
-ui.page_opts(title="Flights", full_width=True, id="page")
-# Add filter by airline
-"""
+# Scan the parquet file. It won't be truly read until it's needed.
+df = pl.scan_parquet("./daily_weather.parquet")
+
+ui.page_opts(title="Weather", full_width=True, id="page")
+
+# Create a checkbox input so our users can select one or all seasons
+ui.input_checkbox_group(
+    "season",
+    "Season",
+    choices=["Summer", "Winter", "Fall", "Spring"],
+    selected="Summer",
+)
+
+# Create a multi-select input so users can select a city from those in our dataset
 ui.input_selectize(
-    "airline",
-    "Airline",
-    choices=load_data_module.df.select("airline")
-    .unique()
-    .collect()
-    .select("airline")
-    .to_series()
-    .to_list(),
-)
-"""
-# Add filter by stops
-ui.input_radio_buttons(
-    "stops",
-    "Number of Stops",
-    {"zero": "zero", "one": "one"},
+    "city",
+    "City",
+    choices=df.select("city_name").unique().collect().to_series().to_list(),
 )
 
-
+# Filter the data frame based on the user inputs above
 @render.data_frame
 def results_df():
-    print(input.stops())
     results = (
-        load_data_module.df
-        # .filter(pl.col("airline").is_in(input.airline()))
-        .filter(pl.col("stops") == input.stops()).collect()
+        df.filter(pl.col("city_name") == input.city())
+        .filter(pl.col("season").is_in(input.season()))
+        .collect()
     )
     return render.DataGrid(results)
+
 ```
+
+We can make this same applciation using Ibis and a remote data store:
+
+
+
+
 
 END IMPORTING DATA ARTICLE
 
 Top level:
 Importing Data
     Potentially have a 'my data lives remotely' skip down to bottom link
-    * In-memory data importing
-    * Out of memory/lazyframe/remote data
+    x * In-memory data importing
+    x * Out of memory/lazyframe/remote data
         * Callout a few different options
             * Ibis
             * SQLAlchemy
