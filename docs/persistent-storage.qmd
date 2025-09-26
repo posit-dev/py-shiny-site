@@ -23,8 +23,86 @@ Ex. Saving to a shared drive from a local server?
 
 ### Example with pins and polars? (use a form, save the result)
 
+TODO: Update this
+```python
+from shiny import App, Inputs, Outputs, Session, ui, reactive, render
+import pandas as pd
+
+app_ui = ui.page_fluid(
+    ui.h2("Submitted Results"),
+    ui.output_data_frame("results_df"),
+    ui.input_text("text", "Enter text", value=""),
+    ui.input_checkbox("checkbox", "I like checkboxes"),
+    ui.input_slider("slider", "My favorite number is:", min=0, max=100, value=50),
+    ui.input_action_button("submit", "Submit"),
+)
+
+
+def server(input: Inputs, output: Outputs, session: Session):
+    df = reactive.value(pd.DataFrame(columns=["text", "checkbox", "slider"]))
+
+    @reactive.effect
+    @reactive.event(input.submit)
+    def results():
+        row = {
+            "text": input.text(),
+            "checkbox": input.checkbox(),
+            "slider": input.slider(),
+        }
+        row_df = pd.DataFrame([row])
+        new_df = pd.concat([df.get(), row_df], ignore_index=True)
+        df.set(new_df)
+
+    @render.data_frame
+    def results_df():
+        return render.DataGrid(df.get())
+
+
+app = App(app_ui, server)
+```
+
+
 ### Example with DuckDB (use a form, save the result)
 
+#### DuckDB
+```python
+from shiny import App, Inputs, Outputs, Session, ui, reactive, render
+import duckdb
+
+con = duckdb.connect("test_db.db")
+
+app_ui = ui.page_fluid(
+    ui.h2("Submitted Results"),
+    ui.output_data_frame("results_df"),
+    ui.input_text("text", "Enter text", value=""),
+    ui.input_checkbox("checkbox", "I like checkboxes"),
+    ui.input_slider("slider", "My favorite number is:", min=0, max=100, value=50),
+    ui.input_action_button("submit", "Submit"),
+)
+
+def server(input: Inputs, output: Outputs, session: Session):
+    # Initialize a reactive value so we start with the table visible.
+    df = reactive.value(con.sql("SELECT * FROM data").df())
+
+    @reactive.effect
+    @reactive.event(input.submit)
+    def save():
+        row = [input.text(), input.checkbox(), input.slider()]
+
+        # We use a prepared statement here to avoid SQL injection
+        con.execute("INSERT INTO data VALUES (?, ?, ?)", row)
+        con.commit()
+
+        # Set the reactive value so the table updates
+        df.set(con.sql("SELECT * FROM data").df())
+
+    @render.data_frame
+    def results_df():
+        return df()
+
+
+app = App(app_ui, server, debug=True)
+```
 ## Connecting to databases
 
 ### Example connecting with Ibis and saving to db with a form
