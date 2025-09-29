@@ -69,7 +69,9 @@ df = pl.read_csv(Path(__file__).parent / "test_data.csv")
 Some datasets are too large to fit cleanly in memory or don't live on our computer. Perhaps you want to connect to a remote database or perform complicated filtering operations on a large dataset. In these cases, where and when your database is loaded and operations are performed becomes more important.
 
 There are two strategies you can use to make working with large data fast and efficient:
+
 1. Use tools like Polars' Lazy Frame to perform calculations only when needed and with internal optimization tooling.
+
 2. Store your data in a remote database and bring only what you need into memory using a tool like Ibis, SQLAlchemy, or another database connection library.
 
 We'll go over a few examples below.
@@ -115,7 +117,7 @@ SQLAlchemy allows for more fine-grained SQL usage with either plain SQL text exe
 
 SQLAlchemy is the most flexible method of all of these, but with this flexibility comes much greater complexity.
 
-#TODO: Add ORM example
+#TODO: Add ORM example?
 ```python
 from sqlalchemy import create_engine, text
 
@@ -128,10 +130,11 @@ with engine.connect() as conn:
 
 In both cases, we define our query (our data manipulations) and then rely on an external 'engine' to optimize it, run it, and provide us with the results.
 
-We'll go over two examples below:
+We'll go over two examples below.
 
-1. You have a large amount of data available on your computer (or that you can download from an object store) that you want to use in a Shiny app. This is a great case for Polars' *Lazy API*, which optimizes data manipulation tasks to run as quickly and using as little memory as possible.
-2. You are connecting to a remote database. Your query will run remotely on that database and return a result to you. Our example will use Ibis for this.
+* The first application loads data from a file and uses *Polars' LazyFrames* for highly optimized data manipulation.
+
+* The second connects to a Postgres database using *Ibis* to pass user-inputs to the database, perform calculations, and then return the result back to the application.
 
 Let's start with the first case.
 
@@ -165,8 +168,11 @@ def results_df():
 
 You might notice that the syntax has changed a little bit. We use `scan_parquet()` instead of `read_parquet` to return a Lazy Frame instead of a DataFrame. This means that when we import our data in the module, we're not actually loading it in yet.
 Polars waits until it sees the `.collect()` to execute the sequence of commands to
+
 1. Read in the data
+
 2. Get the first 100 rows (`.head(100)`) and then
+
 3. `.collect()` the results.
 
 In this case, that's immediately since we're rendering the data frame as soon as we load the app.
@@ -331,13 +337,12 @@ def results_df():
 ```
 
 This syntax should look pretty familiar! Polars and Ibis have similar syntax, but you'll notice we cue the execution of operations (filters, etc.) on our lazy tables using `.execute()` when we use Ibis.
-:::
 
 ## Best practices
 
-Now that you have data in your application, it's worthwhile to consider reading up on a few topics. You might consider this article on [mutability](link). This is likely to come up as you store and update filtered datasets.
+Now that you have data in your application, it's worthwhile to consider reading up on a few topics. You might consider this article on [mutability](https://shiny.posit.co/py/docs/reactive-mutable.html). This is likely to come up as you store and update filtered datasets.
 
-You might also consider visiting our sections on [reactivity](link) as you think about how filtering your dataset should affect your other outputs.
+You might also consider visiting our sections on [reactivity](https://shiny.posit.co/py/docs/reactive-foundations.html) as you think about how filtering your dataset should affect your other outputs.
 
 We also have numerous full examples and starter templates of dashboards using different datastores. We've sorted them into categories roughly corresponding to the tech stack at the bottom of this article.
 
