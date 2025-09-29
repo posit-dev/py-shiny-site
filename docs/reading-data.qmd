@@ -66,7 +66,13 @@ df = pl.read_csv(Path(__file__).parent / "test_data.csv")
 :::
 
 ## Databases and larger-than-memory data {#read-db}
-Some datasets are too large to fit cleanly in memory or don't live on our computer. Perhaps you want to connect to a remote database or perform complicated filtering operations on a large dataset.
+Some datasets are too large to fit cleanly in memory or don't live on our computer. Perhaps you want to connect to a remote database or perform complicated filtering operations on a large dataset. In these cases, where and when your database is loaded and operations are performed becomes more important.
+
+There are two strategies you can use to make working with large data fast and efficient:
+1. Use tools like Polars' Lazy Frame to perform calculations only when needed and with internal optimization tooling.
+2. Store your data in a remote database and bring only what you need into memory using a tool like Ibis, SQLAlchemy, or another database connection library.
+
+We'll go over a few examples below.
 
 ### Examples
 ::: {.panel-tabset .panel-pills}
@@ -79,7 +85,7 @@ query_result = df.head(100).collect()
 ```
 
 ### Ibis
-[Ibis](https://ibis-project.org/) provides a shared dataframe interface for a wide variety of backends, including DuckDB, Postgres, BigQuery, etc.
+[Ibis](https://ibis-project.org/) provides a shared dataframe interface for a wide variety of backends, including DuckDB, Postgres, BigQuery, etc. Ibis uses a form of lazy evaluation by default, but it tends to be slower than Polars.
 
 We'll use Postgres in the below example to demonstrate connecting to a remote data source.
 
@@ -122,10 +128,10 @@ with engine.connect() as conn:
 
 In both cases, we define our query (our data manipulations) and then rely on an external 'engine' to optimize it, run it, and provide us with the results.
 
-We'll go over two examples here:
+We'll go over two examples below:
 
-1. You have a large amount of data available on your computer that you want to use in a Shiny app. This is a great case for Polars *Lazy API*, which optimizes data manipulation tasks to run as quickly and using as little memory as possible.
-2. You are connecting to a remote database. Your query will run remotely on that database and return a result to you (ex. Ibis with remote database, SQLAlchemy with remote database)
+1. You have a large amount of data available on your computer (or that you can download from an object store) that you want to use in a Shiny app. This is a great case for Polars' *Lazy API*, which optimizes data manipulation tasks to run as quickly and using as little memory as possible.
+2. You are connecting to a remote database. Your query will run remotely on that database and return a result to you. Our example will use Ibis for this.
 
 Let's start with the first case.
 
@@ -150,7 +156,6 @@ from shiny.express import ui, render
 import load_data_module
 
 ui.page_opts(title="My Table", full_width=True, id="page")
-
 
 @render.data_frame
 def results_df():
@@ -179,10 +184,7 @@ If you're using the Lazy API or reading from a database, you can create that con
 
 #### Example Application: Polars
 
-Here's a simple app that takes advantage of Polars Lazy API:
-
-TODO: Add run it in shiny live link?
-Callout: You can read from a db here too!
+Here's a simple app that takes advantage of Polars Lazy API. In this example, we have the dataset on our computer, but we could also easily load from a shared, remote location using a tool like [Pins](https://rstudio.github.io/pins-python/) or a package like [boto3](https://docs.aws.amazon.com/code-library/latest/ug/python_3_s3_code_examples.html) to read from AWS S3.
 
 ```python
 from shiny.express import ui, render, input
@@ -222,7 +224,7 @@ def results_df():
 
 ::: callout-note
 ### You can read from a database in Polars!
-Polars can read from a databases too! It's important to note though that Polars essentially reads in the database table like a file--you'll still need to have it in memory. For best results, try and scope down your initial query to pull the minimum data needed for your application and if you require many database queries and user inputs, consider a more sophisticated connector.
+Polars can read from a databases too! It's important to note though that Polars essentially reads in the database table like a file, you'll still need to have it on disk (saved locally). For best results, try and scope down your initial query to pull the minimum data needed for your application and if you require many database queries and user inputs, consider a more sophisticated connector.
 
 <details>
 <summary>Show example code</summary>
@@ -230,11 +232,13 @@ Polars can read from a databases too! It's important to note though that Polars 
 ```{.python filename="load_data.py"}
 import polars as pl
 
-uri = "yourURIhere"
+uri = "postgresql://user:password@hostname/database_name"
 # This is where you should scope down your query if you can.
 query = "SELECT * FROM weather"
 
-# Notice that this uses `read_*`. Polars cannot read the data lazily from the database, so this will load the entire query into memory. That's why we've put this into a module again.
+# Notice that this uses `read_*`.
+# Polars cannot read the data lazily from the database, so this will load the entire query into memory.
+# That's why we've put this into a module again.
 data = pl.read_database_uri(query, uri)
 ```
 
@@ -279,23 +283,19 @@ def results_df():
 
 ### Working with remote data and databases
 
-We can make this same application using Ibis and a remote data store:
+We can make this same application using a remote datastore. In this example, we'll use Ibis and Postgres, but you could easily substitute another database or a data warehouse like Snowflake or Databricks. Similarly, Ibis is the connector we will demonstrate, but you can substitute whatever database connector works best for your use case.
 
-* You can get data in two ways or through Ibis' syntax to do the initial query and then pull a chunk
+Regardless of what remote database solution or connector we use here, the anatomy of the application is roughly the same. We will take the user-inputs from the UI and pass them to the database for execution rather than keeping the *whole* dataset in the application for processing.
 
-Callout: There's no magical way to go from db to polars, if you want true lazy execution with db, need to be going through Ibis, to lazyframe it, this is nice if there's a big split in our data.
-Otherwise you need to read into memory or preprocessing
+::: {.callout-tip collapse="true"}
+## Advanced: Ibis + Polars + Postgres
+You might be wondering at this point, could I use Ibis to pull data, then Polars to manipulate it and get the benefits of both? Yes and no.
 
-::: {.panel-tabset .panel-pills}
+This might be a helpful approach in a situation where you can break your data easily into segments (ex. an analysis of all data prior to the year 2000 and all data after) and are planning to do a lot of analytics in your application itself.
+However, Ibis and Polars have very similar syntax to their calcuations. For applications with less memory-consuming analytics, it is likely not worth the headache.
+:::
 
-
-### Postgres -> Ibis -> Polars
-
-
-
-
-
-### Postgres -> Ibis
+#### Example Application: Ibis Connecting to Remote Database (Postgres)
 ```python
 from shiny.express import ui, render, input
 import ibis
@@ -331,51 +331,35 @@ def results_df():
 ```
 
 This syntax should look pretty familiar! Polars and Ibis have similar syntax, but you'll notice we cue the execution of operations (filters, etc.) on our lazy tables using `.execute()` when we use Ibis.
-
 :::
 
-END IMPORTING DATA ARTICLE
+## Best practices
 
-Top level:
-Importing Data
-    Potentially have a 'my data lives remotely' skip down to bottom link
-    x * In-memory data importing
-    x * Out of memory/lazyframe/remote data
-        * Callout a few different options
-            * Ibis
-            * SQLAlchemy
-            * Polars Lazyframe
-            * Something else?
-        * Lazyframe
-            * How we interact with this in the app based on when it becomes in memory
-        * Now our data is totally remote:
-            * Ibis example (local connect) supports in memory too callout
-            * SQLAlchemy remote (postgres? in AWS RDS)
-            * Pins callout supports in memory too callout
-            * Recommendation for connecting to data warehouses
+Now that you have data in your application, it's worthwhile to consider reading up on a few topics. You might consider this article on [mutability](link). This is likely to come up as you store and update filtered datasets.
 
-Doing stuff to data - callout to mutability article
-Persistant Storage/Writing
-* Callout connect cloud and support for secrets and persistent storage, link to docs, tehre's a talk that aleks chisolm did at conf
+You might also consider visiting our sections on [reactivity](link) as you think about how filtering your dataset should affect your other outputs.
+
+We also have numerous full examples and starter templates of dashboards using different datastores. We've sorted them into categories roughly corresponding to the tech stack at the bottom of this article.
+
+## What about writing to a data store?
+
+The scenarios we've covered above are focused on reading in data to an application and performing queries with user-inputs. If you need to *write* data to the database, this introduces additional considerations we'll cover in a separate article on persistant storage in Shiny apps.
 
 
-
-## What about writing to a data store? When to consider persistent storage
-
-
-
-### Example Applications
+### Example Applications {#read-data-examples}
 ::: {.panel-tabset .panel-pills}
 
 #### Polars
-
+TODO: Do we have any of these?
 
 #### DuckDB
-Outliers app: Reads and writes from DuckDB https://github.com/skaltman/outliers-app-db-python/blob/main/app.py
+Outliers app: https://github.com/skaltman/outliers-app-db-python/blob/main/app.py
 Database Explorer: https://shiny.posit.co/py/templates/database-explorer/
 
 #### Pandas
-AWS-Community-Builders-App: Process data from a CSV and displays it https://github.com/robertgv/aws-community-builders-dashboard
+AWS-Community-Builders-App: https://github.com/robertgv/aws-community-builders-dashboard
+Restaurant Tips: https://shiny.posit.co/py/templates/dashboard-tips/
 
 #### Sqlite3
 Database monitoring app: https://github.com/posit-dev/py-shiny-templates/tree/main/monitor-database
+:::
