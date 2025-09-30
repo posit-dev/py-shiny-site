@@ -161,7 +161,7 @@ ui.page_opts(title="My Table", full_width=True, id="page")
 @render.data_frame
 def results_df():
     # Use `.collect()` to get our result (in this case, getting the first 100 rows)
-    return render.DataGrid(load_data_module.df.head(100).collect())
+    return render.DataGrid(df.head(100).collect())
 ```
 
 You might notice that the syntax has changed a little bit. We use `scan_parquet()` instead of `read_parquet` to return a Lazy Frame instead of a DataFrame.
