@@ -151,7 +151,6 @@ Let's modify our work from above to use the Lazy API.
 from shiny.express import ui, render
 import polars as pl
 from pathlib import Path
-import load_data_module
 
 # Use `scan_*` instead of `read_*` to use the lazy API
 # Notice we're not in a module anymore. More on that below.

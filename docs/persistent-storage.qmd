@@ -19,10 +19,24 @@ CALLOUT: Connect does both Auth and supports secrets for storage. Link to those 
 
 ### Example with pins and polars? (use a form, save the result)
 
-TODO: Update this
+Callout: Potential concerns with lots of parallel users or nonblocking setting, then think about switching to a database
+
+# Example 1
+Pins + google drive folder
+
+Callout, pins does this other stuff, plus has some reactive support
+
+# Example 2
+Polars and postgres, callout with vanilla SQL
+
 ```python
 from shiny import App, Inputs, Outputs, Session, ui, reactive, render
 import pandas as pd
+
+# Do this dashboard style with a side bar you have user inputs with an output they change
+# Submit, it gets appended to the data store and you see that in the app
+
+# track if we're in a dirty db state, append row df as whole table append, reactive poll to get data if it's updated
 
 app_ui = ui.page_fluid(
     ui.h2("Submitted Results"),
@@ -35,6 +49,7 @@ app_ui = ui.page_fluid(
 
 
 def server(input: Inputs, output: Outputs, session: Session):
+
     df = reactive.value(pd.DataFrame(columns=["text", "checkbox", "slider"]))
 
     @reactive.effect
