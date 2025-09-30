@@ -8,7 +8,7 @@ lightbox:
 ---
 
 ## Intro
-
+* Callout connect cloud and support for secrets and persistent storage, link to docs, tehre's a talk that aleks chisolm did at conf
 ## When do you actually need persistent storage
 * You want your application to collect and save information from your users. Example, forms.
 * You need to save a result that your users generate? (ex. save a copy of report generated)
@@ -16,10 +16,6 @@ lightbox:
 Note: What are we not talking about here: Auth. Link to any auth docs we have.
 
 CALLOUT: Connect does both Auth and supports secrets for storage. Link to those docs.
-
-## Saving to the filesystem?
-Cover best practices with saving to shared servers/spaces?
-Ex. Saving to a shared drive from a local server?
 
 ### Example with pins and polars? (use a form, save the result)
 
@@ -103,11 +99,18 @@ def server(input: Inputs, output: Outputs, session: Session):
 
 app = App(app_ui, server, debug=True)
 ```
+
 ## Connecting to databases
 
 ### Example connecting with Ibis and saving to db with a form
 
+## Deployment options
+
+### Auth - connect callout
+
 ### SQL injection prevention
+Callout near wherever we first execute SQL, be careful, diff libraries have tooling
+
 
 ### Connection pooling & transaction locking?
 
