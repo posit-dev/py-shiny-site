@@ -343,20 +343,136 @@ This syntax should look pretty familiar! Polars and Ibis have similar syntax, bu
 
 ## Best practices
 
-Now that you have data in your application, it's worthwhile to consider reading up on a few topics. You might consider this article on [mutability](https://shiny.posit.co/py/docs/reactive-mutable.html). This is likely to come up as you store and update filtered datasets.
+Now that you have data in your application, it's worthwhile to consider reading up on a few topics.
 
-You might also consider visiting our sections on [reactivity](https://shiny.posit.co/py/docs/reactive-foundations.html) as you think about how filtering your dataset should affect your other outputs.
+[Reactive calculations](https://shiny.posit.co/py/api/core/reactive.calc.html#returns) allow us to perform calculations once, when inputs change, and propagate that change into outputs. For example, we could extract our filtering logic from the above application into a reactive calculation so it can be used across the application.
 
-We also have numerous full examples and starter templates of dashboards using different datastores. We've sorted them into categories roughly corresponding to the tech stack at the bottom of this article.
+Note, this is using the Polars Lazy API version of the app.
+<details>
+<summary>Show example code</summary>
+
+```python
+from shiny.express import ui, render, input
+from shiny import reactive
+import polars as pl
 
 
+df = pl.scan_parquet("./daily_weather.parquet")
+ui.page_opts(title="Weather", full_width=True, id="page")
+
+ui.input_checkbox_group(
+    "season",
+    "Season",
+    choices=["Summer", "Winter", "Autumn", "Spring"],
+    selected="Summer",
+)
+
+ui.input_selectize(
+    "city",
+    "City",
+    choices=df.select("city_name").unique().collect().to_series().to_list(),
+)
+
+@reactive.calc
+def result():
+    result_df = df.filter(pl.col("city_name") == input.city())
+        .filter(pl.col("season").is_in(input.season()))
+        .collect()
+
+    return result_df
+
+# Create a checkbox input so our users can select one or all seasons
+ui.input_checkbox_group(
+    "season",
+    "Season",
+    choices=["Summer", "Winter", "Fall", "Spring"],
+    selected="Summer",
+)
+
+# Create a multi-select input so users can select a city from those in our dataset
+ui.input_selectize(
+    "city",
+    "City",
+    choices=df.select("city_name").unique().collect().to_series().to_list(),
+)
+
+# Filter the data frame based on the user inputs above
+@render.data_frame
+def results_df():
+    return render.DataGrid(result())
+
+# Render some other output using `result()` dataframe
+@render.data_frame
+def results_df_2():
+    return render.DataGrid(result().head(1))
+
+# Render some additional outputs using `result()` dataframe
+```
+
+</summary>
+
+You might also consider waiting to filter until after the user presses a button.
+
+<details>
+<summary>Show example code</summary>
+
+```python
+from shiny.express import ui, render, input
+from shiny import reactive
+import polars as pl
+
+
+df = pl.scan_parquet("./daily_weather.parquet")
+ui.page_opts(title="Weather", full_width=True, id="page")
+
+ui.input_checkbox_group(
+    "season",
+    "Season",
+    choices=["Summer", "Winter", "Autumn", "Spring"],
+    selected="Summer",
+)
+
+ui.input_selectize(
+    "city",
+    "City",
+    choices=df.select("city_name").unique().collect().to_series().to_list(),
+)
+
+# Add a submit button
+ui.input_action_button("submit", "Submit")
+
+# This calculation won't update until the user hits the submit button
+@reactive.calc
+@reactive.event(input.submit)
+def result():
+    result_df = (
+        df.filter(pl.col("city_name") == input.city())
+        .filter(pl.col("season").is_in(input.season()))
+        .collect()
+    )
+
+    return result_df
+
+# This will not update until the reactive calc updates after submission
+@render.data_frame
+def results_df():
+    return render.DataGrid(result())
+
+# This will not update until the reactive calc updates after submission
+@render.data_frame
+def results_df_2():
+    return render.DataGrid(result().head(1))
+```
+
+</summary>
+
+We're filtering our dataset in a compact way here, but especially if you are storing intermediate steps, it is worth reviewing our article on [mutability](https://shiny.posit.co/py/docs/reactive-mutable.html).
+
+We have numerous full examples and starter templates of dashboards using different datastores. We've sorted them into categories roughly corresponding to the tech stack at the bottom of this article.
 
 
 ## Example Applications {#read-data-examples}
 ::: {.panel-tabset .panel-pills}
-
-#### Polars
-TODO: Do we have any of these?
 
 #### DuckDB
 Outliers app: https://github.com/skaltman/outliers-app-db-python/blob/main/app.py

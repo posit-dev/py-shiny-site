@@ -251,6 +251,7 @@ website:
           contents:
             - docs/overview.qmd
             - docs/user-interfaces.qmd
+            - docs/reading-data.qmd
         - section: "<span class='emoji-icon'>🤖</span> __Generative AI__"
           contents:
             - docs/genai-inspiration.qmd
