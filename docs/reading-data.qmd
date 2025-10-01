@@ -1,5 +1,5 @@
 ---
-title: Reading data in Shiny
+title: Reading data
 editor:
   markdown:
     wrap: sentence
@@ -66,16 +66,20 @@ def results_df():
 </details>
 :::
 
+These strategies will serve us well with small to medium datasets. However, as our data gets larger, it becomes more critical to optimize what we are keeping in memory at any given time and when and where our computations are performed.
+
+In the next section, we'll talk through strategies for working with larger data and remote datastores.
+
 ## Databases and larger-than-memory data {#read-db}
-Data that fits in memory makes it simpler to filter and perform calculations based on reactive inputs. If you can have your data in memory or on disk, we recommend you start there and make use of Polars' Lazy API when possible to use memory effectively.
+Some datasets are too large to fit cleanly in memory or don't live on our computer. Perhaps you want to connect to a remote database and/or perform complicated filtering operations on a large dataset. In these cases, knowing when you are loading data into memory and where and when you are performing calculations becomes more critial.
 
-Some datasets are too large to fit cleanly in memory or don't live on our computer. Perhaps you want to connect to a remote database or perform complicated filtering operations on a large dataset. In these cases, knowing when you are loading data into memory and where and when you are performing calculations becomes more critial.
+You'll notice a common pattern among toolsets for working with large and/or remote data. First, you make a connection to the data store. Then, you write some kind of operation you wish to perform on that data (ex. fetch 100 rows, fetch the top 3 records across each group, etc.). Finally, you execute that operation and read the result into memory.
 
-There are two strategies you can use to make working with large data fast and efficient:
+There are two general types of tools you can use to make working with large data fast and efficient:
 
-1. Use tools like Polars' Lazy API to perform calculations only when needed and with internal optimization tooling. Load your data from storage on-disk using formats optimized for large data, like Parquet.
+1. Tools like Polars' Lazy API, which perform calculations only when needed and with internal optimization tooling. You can load massive datasets from storage on-disk using formats optimized for large data, like Parquet.
 
-2. Store your data in a remote database and bring only what you need into memory using a tool like Ibis, SQLAlchemy, or another database connection library.
+2. Tools for interacting with remote databases. These tools let you query a database and and bring only what you need into memory. These tools include Ibis, SQLAlchemy, and other database connection libraries.
 
 We'll go over a few examples below.
 
@@ -85,8 +89,9 @@ We'll go over a few examples below.
 ```python
 df = pl.scan_csv(Path(__file__).parent / "test_data.csv")
 
-# Example query
+# Example queries
 query_result = df.head(100).collect()
+another_result = df.filter(pl.col("colname") == "value").collect()
 ```
 
 ### Ibis
@@ -111,7 +116,11 @@ con = ibis.postgres.connect(
 my_table = con.table("mytablename")
 
 # This is when Ibis will perform your query operations
+# Ibis combines the query and execute stages we described above in one step
 query_result = my_table.head(100)
+
+# In other cases, we may want to separate these steps and call `execute()` explicitly
+another_result = df.filter(df.colname == "value").execute()
 
 ```
 
@@ -125,13 +134,15 @@ from sqlalchemy import create_engine, text
 # Note: You will need to also install psycopg2 (or specify another supported connector)
 engine = create_engine('postgresql://user:password@hostname/database_name')
 with engine.connect() as conn:
-    result = conn.execute(text("SELECT * FROM tablename LIMIT 100"))
+    query_result = conn.execute(text("SELECT * FROM tablename LIMIT 100"))
+
+    another_result = conn.execute(text("SELECT * from table where colname='value'"))
 ```
 :::
 
-In both cases, we define our query (our data manipulations) and then rely on an external 'engine' to optimize it, run it, and provide us with the results, at which point those results are loaded into memory.
+In all cases, we define our query (our data manipulations) and then rely on an external 'engine' to optimize it, run it, and provide us with the results, at which point those results are loaded into memory.
 
-We'll go over two examples below.
+We'll go over two more complicated examples below.
 
 * The first application loads data from a file and uses *Polars' LazyFrames* for highly optimized data manipulation.
 
@@ -347,6 +358,7 @@ Now that you have data in your application, it's worthwhile to consider reading 
 [Reactive calculations](https://shiny.posit.co/py/api/core/reactive.calc.html#returns) allow us to perform calculations once, when inputs change, and propagate that change into outputs. For example, we could extract our filtering logic from the above application into a reactive calculation so it can be used across the application.
 
 Note, this is using the Polars Lazy API version of the app.
+
 <details>
 <summary>Show example code</summary>
 
@@ -380,21 +392,6 @@ def result():
 
     return result_df
 
-# Create a checkbox input so our users can select one or all seasons
-ui.input_checkbox_group(
-    "season",
-    "Season",
-    choices=["Summer", "Winter", "Fall", "Spring"],
-    selected="Summer",
-)
-
-# Create a multi-select input so users can select a city from those in our dataset
-ui.input_selectize(
-    "city",
-    "City",
-    choices=df.select("city_name").unique().collect().to_series().to_list(),
-)
-
 # Filter the data frame based on the user inputs above
 @render.data_frame
 def results_df():
@@ -408,7 +405,7 @@ def results_df_2():
 # Render some additional outputs using `result()` dataframe
 ```
 
-</summary>
+</details>
 
 You might also consider waiting to filter until after the user presses a button.
 
@@ -463,7 +460,7 @@ def results_df_2():
     return render.DataGrid(result().head(1))
 ```
 
-</summary>
+</details>
 
 We're filtering our dataset in a compact way here, but especially if you are storing intermediate steps, it is worth reviewing our article on [mutability](https://shiny.posit.co/py/docs/reactive-mutable.html).
 
@@ -474,15 +471,30 @@ We have numerous full examples and starter templates of dashboards using differe
 ::: {.panel-tabset .panel-pills}
 
 #### DuckDB
-Outliers app: https://github.com/skaltman/outliers-app-db-python/blob/main/app.py
-Database Explorer: https://shiny.posit.co/py/templates/database-explorer/
+
+::: {layout-ncol=2}
+##### Query Explorer Template
+![DuckDB Query Explorer App](../templates/database-explorer/thumbnail.png)
+[See the code](https://shiny.posit.co/py/templates/database-explorer/)
+
+##### Identify Outliers App
+![Identify Outliers App](../gallery/identify-outliers.jpg)
+[See the code](https://github.com/skaltman/outliers-app-db-python/)
+
+:::
 
 #### Pandas
-AWS-Community-Builders-App: https://github.com/robertgv/aws-community-builders-dashboard
-Restaurant Tips: https://shiny.posit.co/py/templates/dashboard-tips/
 
-#### Sqlite3
-Database monitoring app: https://github.com/posit-dev/py-shiny-templates/tree/main/monitor-database
+::: {layout-ncol=2}
+##### Restaurant Tips Template
+![Restaurant tips dashboard](../templates/dashboard-tips/thumbnail.png)
+[See the code](https://shiny.posit.co/py/templates/dashboard-tips/)
+
+##### AWS Community Builders App
+![AWS Community Builders App](../gallery/aws-builders.jpg)
+[See the code](https://github.com/robertgv/aws-community-builders-dashboard)
+:::
+
 :::
 
 ## What about writing to a database or object store?
