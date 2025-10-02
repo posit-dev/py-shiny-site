@@ -82,6 +82,23 @@ shiny add test --app app.py --model sonnet
 shiny add test --app app.py --provider openai --model gpt-5-mini
 ```
 
+## What You'll See After Generation
+
+When your test is generated, you'll see output similar to this:
+
+**Example output:**
+```
+🤖 Generating test using anthropic provider...
+LLM token usage and cost:
+Anthropic (claude-sonnet-4-20250514): 12.3k input, 2.1k output | Cost $0.0845 | Time taken: 8.45s
+
+✅ Test file generated successfully: test_app.py
+
+Next steps:
+- Run pytest test_app.py to run the generated test
+- Review and customize the test as needed
+```
+
 ## What Happens Behind the Scenes?
 
 When you run `shiny add test`, the AI:
