@@ -285,8 +285,6 @@ website:
           contents:
             - docs/unit-testing.qmd
             - docs/end-to-end-testing.qmd
-        - section: "<span class='emoji-icon'>🤖</span>  __AI-Assisted Testing__"
-          contents:
             - docs/ai-assisted-testing.qmd
         - section: "<span class='emoji-icon'>🏗️</span>  __Extending__"
           contents:
