@@ -1,0 +1,141 @@
+---
+title: AI-Assisted Testing
+description: Learn how to leverage AI to automatically generate tests for your Shiny applications using the `shiny add test` command.
+editor:
+  markdown:
+    wrap: sentence
+---
+
+
+Testing web applications can be time-consuming and complex, but what if AI could help you write tests automatically? Shiny for Python now includes an AI-powered testing feature that analyzes your app and generates comprehensive test files for you!
+
+## What is `shiny add test`?
+
+The `shiny add test` command is a built-in CLI tool that uses AI to read your Shiny application code and automatically generate test files.
+
+## Getting Started
+
+Before using this feature, you'll need:
+
+1. **Shiny for Python** installed (with testing dependencies)
+2. **An API key** from one of the supported AI providers:
+   - **Anthropic** (Claude) - Set `ANTHROPIC_API_KEY` environment variable
+   - **OpenAI** (ChatGPT) - Set `OPENAI_API_KEY` environment variable
+
+## Basic Usage
+
+### Example 1: Simple Interactive Mode
+
+The easiest way to get started is to run the command without any arguments:
+
+```bash
+shiny add test
+```
+
+This launches an interactive prompt that will:
+1. Ask for your app file path (defaults to `app.py`)
+2. Suggest a test file name (e.g., `test_app.py`)
+3. Generate tests using Anthropic's Claude by default
+
+### Example 2: Specify Your App File
+
+If you have a specific app file, provide it directly:
+
+```bash
+shiny add test --app app_dashboard.py
+```
+
+The command will automatically suggest `test_app_dashboard.py` as the output file.
+
+### Example 3: Full Control with Custom Paths
+
+Want to specify both the app file and test file name?
+
+```bash
+shiny add test --app app_dashboard.py --test-file test_app_dashboard.py
+```
+
+```bash
+shiny add test --app app.py --test-file test_my_app.py
+```
+
+**Important:** Test file names must start with `test_` (pytest convention).
+
+### Example 4: Using Different AI Providers
+
+Choose your preferred AI provider with the `--provider` flag:
+
+**Using OpenAI:**
+```bash
+shiny add test --app app.py --provider openai
+```
+
+### Example 5: Selecting a Specific Model
+
+Want to use a particular AI model? Use the `--model` flag:
+
+**With Anthropic:**
+```bash
+shiny add test --app app.py --model sonnet
+```
+
+**With OpenAI:**
+```bash
+shiny add test --app app.py --provider openai --model gpt-5-mini
+```
+
+## What You'll See After Generation
+
+When your test is generated, you'll see output similar to this:
+
+**Example output:**
+```
+🤖 Generating test using anthropic provider...
+LLM token usage and cost:
+Anthropic (claude-sonnet-4-20250514): 12.3k input, 2.1k output | Cost $0.0845 | Time taken: 8.45s
+
+✅ Test file generated successfully: test_app.py
+
+Next steps:
+- Run pytest test_app.py to run the generated test
+- Review and customize the test as needed
+```
+
+## What Happens Behind the Scenes?
+
+When you run `shiny add test`, the AI:
+
+1. **Reads your app code** - Analyzes the structure, UI components, and server logic
+2. **Identifies test scenarios** - Determines what needs testing (inputs, outputs, interactions)
+3. **Generates test code** - Creates comprehensive test cases with assertions
+4. **Writes the test file** - Saves it with proper pytest formatting
+
+## Running Your Generated Tests
+
+Once the test file is created, run it with pytest:
+
+```bash
+pytest test_app.py
+```
+
+For more verbose output:
+
+```bash
+pytest test_app.py -v
+```
+
+
+::: callout-tip
+### Tip: Review and Customize
+The AI generates solid test foundations, but always review and customize tests to match your specific requirements.
+:::
+
+
+## Why Use AI-Assisted Testing?
+
+- **Saves Time**: Generates tests in seconds instead of hours
+- **Comprehensive Coverage**: AI identifies test cases you might miss
+- **Best Practices**: Follows pytest conventions and Shiny testing patterns
+
+
+Start testing smarter, not harder!
