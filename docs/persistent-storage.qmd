@@ -8,6 +8,8 @@ lightbox:
 ---
 
 ## Intro
+
+
 * Callout connect cloud and support for secrets and persistent storage, link to docs, tehre's a talk that aleks chisolm did at conf
 ## When do you actually need persistent storage
 * You want your application to collect and save information from your users. Example, forms.
@@ -21,99 +23,156 @@ CALLOUT: Connect does both Auth and supports secrets for storage. Link to those 
 
 Callout: Potential concerns with lots of parallel users or nonblocking setting, then think about switching to a database
 
-# Example 1
-Pins + google drive folder
+## Working with non-database stores (ex. Google Sheets, Object Stores)
+Polars + AWS S3
 
 Callout, pins does this other stuff, plus has some reactive support
 
-# Example 2
-Polars and postgres, callout with vanilla SQL
+## Working with Databases
 
-```python
-from shiny import App, Inputs, Outputs, Session, ui, reactive, render
-import pandas as pd
+### Reading from and writing to databases
 
-# Do this dashboard style with a side bar you have user inputs with an output they change
-# Submit, it gets appended to the data store and you see that in the app
+```{.python filename="setup.py"}
+import polars as pl
 
-# track if we're in a dirty db state, append row df as whole table append, reactive poll to get data if it's updated
+# Don't store your creds in plain text, load them from a environment variables or a secrets manager
+uri = "postgresql://postgres@localhost:5432/template1"
 
-app_ui = ui.page_fluid(
-    ui.h2("Submitted Results"),
-    ui.output_data_frame("results_df"),
-    ui.input_text("text", "Enter text", value=""),
-    ui.input_checkbox("checkbox", "I like checkboxes"),
-    ui.input_slider("slider", "My favorite number is:", min=0, max=100, value=50),
-    ui.input_action_button("submit", "Submit"),
-)
+# Notice that this uses `read_*`. Polars cannot read the data lazily from the database, so this will load the entire query into memory.
+def run_query(query):
+    return pl.read_database_uri(query, uri)
+
+```
+
+```{.python filename="app.py"}
+from shiny.express import ui, render, input, app_opts
+from shiny import reactive
+import polars as pl
+import load_data
+
+app_opts(debug=True)
+
+full_query = "SELECT * FROM testapp"
+
+with ui.sidebar():
+    ui.input_text("name_input", "Enter your name:", placeholder="Your name here")
+    ui.input_checkbox("checkbox", "I like checkboxes")
+    ui.input_slider("slider", "My favorite number is:", min=0, max=100, value=50)
+    ui.input_action_button("submit_button", "Submit")
+
+# If this value is 1, our data is dirty, if it is 0, our data is clean
+flag = reactive.value(0)
+df = reactive.value(pl.LazyFrame(load_data.run_query(full_query)))
 
 
-def server(input: Inputs, output: Outputs, session: Session):
-
-    df = reactive.value(pd.DataFrame(columns=["text", "checkbox", "slider"]))
-
-    @reactive.effect
-    @reactive.event(input.submit)
-    def results():
-        row = {
-            "text": input.text(),
+@reactive.effect
+@reactive.event(input.submit_button)
+def add_row():
+    new_row = pl.DataFrame(
+        {
+            "name": input.name_input(),
             "checkbox": input.checkbox(),
-            "slider": input.slider(),
+            "favorite_number": input.slider(),
         }
-        row_df = pd.DataFrame([row])
-        new_df = pd.concat([df.get(), row_df], ignore_index=True)
-        df.set(new_df)
+    )
+    new_row.write_database("testapp", load_data.uri, if_table_exists="append")
 
-    @render.data_frame
-    def results_df():
-        return render.DataGrid(df.get())
+    # The table we're displaying no longer reflects the reality of the database because we just added a row, so we mark the data as dirty.
+
+    flag.set(1)
+    print("Added a new row!")
 
 
-app = App(app_ui, server)
+@reactive.effect
+def refresh_data_if_dirty():
+    if flag() == 1:
+        df.set(pl.LazyFrame(load_data.run_query(full_query)))
+        print("Data is dirty, refreshing...")
+        flag.set(0)
+
+
+@render.data_frame
+def show_results():
+    return render.DataGrid(df().collect())
+
 ```
 
+Introduce the motivation for polling using the above example
 
-### Example with DuckDB (use a form, save the result)
+### Reactive Polling
 
-#### DuckDB
-```python
-from shiny import App, Inputs, Outputs, Session, ui, reactive, render
-import duckdb
+### App examples with polling
+::: {.panel-tabset .panel-pills}
 
-con = duckdb.connect("test_db.db")
+#### Polars + Postgres
+```{.python filename="setup.py"}
+import polars as pl
 
-app_ui = ui.page_fluid(
-    ui.h2("Submitted Results"),
-    ui.output_data_frame("results_df"),
-    ui.input_text("text", "Enter text", value=""),
-    ui.input_checkbox("checkbox", "I like checkboxes"),
-    ui.input_slider("slider", "My favorite number is:", min=0, max=100, value=50),
-    ui.input_action_button("submit", "Submit"),
-)
-
-def server(input: Inputs, output: Outputs, session: Session):
-    # Initialize a reactive value so we start with the table visible.
-    df = reactive.value(con.sql("SELECT * FROM data").df())
-
-    @reactive.effect
-    @reactive.event(input.submit)
-    def save():
-        row = [input.text(), input.checkbox(), input.slider()]
-
-        # We use a prepared statement here to avoid SQL injection
-        con.execute("INSERT INTO data VALUES (?, ?, ?)", row)
-        con.commit()
-
-        # Set the reactive value so the table updates
-        df.set(con.sql("SELECT * FROM data").df())
-
-    @render.data_frame
-    def results_df():
-        return df()
+# Don't store your creds in plain text, load them from a environment variables or a secrets manager
+uri = "postgresql://postgres@localhost:5432/template1"
 
 
-app = App(app_ui, server, debug=True)
+# Notice that this uses `read_*`. Polars cannot read the data lazily from the database, so this will load the entire query into memory.
+def run_query(query):
+    return pl.read_database_uri(query, uri)
+
+
 ```
+
+```{.python filename="app.py"}
+
+from shiny.express import ui, render, input, app_opts
+from shiny import reactive
+import polars as pl
+import setup
+
+app_opts(debug=True)
+
+full_query = "SELECT * FROM testapp"
+starting_data = pl.LazyFrame(setup.run_query(full_query))
+
+with ui.sidebar():
+    ui.input_text("name_input", "Enter your name:", placeholder="Your name here")
+    ui.input_checkbox("checkbox", "I like checkboxes")
+    ui.input_slider("slider", "My favorite number is:", min=0, max=100, value=50)
+    ui.input_action_button("submit_button", "Submit")
+
+
+@reactive.effect
+@reactive.event(input.submit_button)
+def add_row():
+    new_row = pl.DataFrame(
+        {
+            "name": input.name_input(),
+            "checkbox": input.checkbox(),
+            "favorite_number": input.slider(),
+        }
+    )
+    new_row.write_database("testapp", setup.uri, if_table_exists="append")
+    print("Added a new row!")
+
+
+def num_rows():
+    return load_data.run_query("SELECT COUNT(*) FROM testapp").item()
+
+
+@reactive.poll(num_rows, 1)
+def get_data():
+    print("Checking for new data...")
+    data = setup.update_data()
+    return data
+
+
+@render.data_frame
+def show_results():
+    return render.DataGrid(get_data())
+
+```
+:::
+
+
+
+
 
 ## Connecting to databases
 
