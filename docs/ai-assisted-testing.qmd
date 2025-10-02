@@ -1,5 +1,5 @@
 ---
-title: AI-Assisted Testing with Shiny for Python
+title: AI-Assisted Testing
 description: Learn how to leverage AI to automatically generate tests for your Shiny applications using the `shiny add test` command.
 editor:
   markdown:
