@@ -53,6 +53,8 @@ Want to specify both the app file and test file name?
 
 ```bash
 shiny add test --app app_dashboard.py --test-file test_app_dashboard.py
+```
+
 ```bash
 shiny add test --app app.py --test-file test_my_app.py
 ```
