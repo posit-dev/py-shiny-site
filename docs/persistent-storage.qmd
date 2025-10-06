@@ -7,31 +7,94 @@ lightbox:
   effect: fade
 ---
 
-## Intro
+## What is persistent storage and when do we need it?
+
+User data collected and saved somewhere across sessions
+Ex. Users submit a form
+
+Not:
+Data store we read from for display only (see Reading Data article)
 
 
-* Callout connect cloud and support for secrets and persistent storage, link to docs, tehre's a talk that aleks chisolm did at conf
-## When do you actually need persistent storage
-* You want your application to collect and save information from your users. Example, forms.
-* You need to save a result that your users generate? (ex. save a copy of report generated)
+Note: We're not talking about saving user login information or authentication.
 
-Note: What are we not talking about here: Auth. Link to any auth docs we have.
-
-CALLOUT: Connect does both Auth and supports secrets for storage. Link to those docs.
-
-### Example with pins and polars? (use a form, save the result)
-
-Callout: Potential concerns with lots of parallel users or nonblocking setting, then think about switching to a database
+CALLOUT: If you are a Connect user, Connect has support for both Auth and supports secrets for storage. Link to those docs.
 
 ## Working with non-database stores (ex. Google Sheets, Object Stores)
-Polars + AWS S3
 
-Callout, pins does this other stuff, plus has some reactive support
+```python
+from shiny.express import ui, render, input
+from shiny import reactive
+import polars as pl
+import gspread
+
+gc = gspread.service_account(filename="../.config/gspread/service_account.json")
+url = "https://docs.google.com/spreadsheets/d/166uMLi75GLD7eFUKe-vdKIpCk0EwbYWa2md4Zn9vJO4/edit?gid=0#gid=0"
+
+sheet = gc.open_by_url(url)
+worksheet = sheet.get_worksheet(0)
+last_updated = None
+
+with ui.sidebar():
+    ui.input_text("name_input", "Enter your name:", placeholder="Your name here")
+    ui.input_checkbox("checkbox", "I like checkboxes")
+    ui.input_slider("slider", "My favorite number is:", min=0, max=100, value=50)
+    ui.input_action_button("submit_button", "Submit")
+print(worksheet.get_all_records())
+
+flag = reactive.value(0)
+df = reactive.value(
+    pl.from_dicts(
+        worksheet.get_all_records(expected_headers=["name", "checkbox", "number"]),
+        schema={"name": pl.Utf8, "checkbox": pl.String, "number": pl.Int64},
+    )
+)
+
+
+@reactive.effect
+@reactive.event(input.submit_button)
+def add_row():
+    new_row = [input.name_input(), input.checkbox(), input.slider()]
+    worksheet.append_row(new_row, insert_data_option="INSERT_ROWS")
+    flag.set(1)
+
+
+@reactive.effect
+def refresh_data_if_dirty():
+    if flag() == 1:
+        df.set(
+            pl.from_dicts(
+                worksheet.get_all_records(),
+                schema={"name": pl.Utf8, "checkbox": pl.String, "number": pl.Int64},
+            )
+        )
+        print("Data is dirty, refreshing...")
+        flag.set(0)
+
+
+@render.data_frame
+def show_results():
+    return render.DataGrid(df())
+
+```
+
+
+CALLOUT: pins does this other stuff, plus has some reactive support
+
+You might think of potential concerns with lots of parallel users or nonblocking setting
+use this to motivate DB section
+
 
 ## Working with Databases
 
 ### Reading from and writing to databases
 
+We'll ground this initial example in an app that reads, writes, and updats the visualization based on a simple flag that tells us if the data is dirty or not.
+
+
+::: {.panel-tabset .panel-pills}
+
+#### Polars & Postgres
 ```{.python filename="setup.py"}
 import polars as pl
 
@@ -96,6 +159,8 @@ def show_results():
     return render.DataGrid(df().collect())
 
 ```
+:::
+
 
 Introduce the motivation for polling using the above example
 
@@ -189,24 +254,6 @@ Callout near wherever we first execute SQL, be careful, diff libraries have tool
 ### Connection pooling & transaction locking?
 
 ### Note on credentials? (don't use your admin creds in your app, have user creds for db, scope them narrowly, etc.)
-
-
-
-### Example Applications
-::: {.panel-tabset .panel-pills}
-
-#### Polars
-
-
-#### DuckDB
-Outliers app: Reads and writes from DuckDB https://github.com/skaltman/outliers-app-db-python/blob/main/app.py
-Database Explorer: https://shiny.posit.co/py/templates/database-explorer/
-
-#### Pandas
-AWS-Community-Builders-App: Process data from a CSV and displays it https://github.com/robertgv/aws-community-builders-dashboard
-
-#### Sqlite3
-Database monitoring app: https://github.com/posit-dev/py-shiny-templates/tree/main/monitor-database
 
 
 
