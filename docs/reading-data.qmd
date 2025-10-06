@@ -7,97 +7,137 @@ lightbox:
   effect: fade
 ---
 
-From CSVs to parquet files to cloud-hosted databases, if you can access it from Python, you can access it from Shiny. We won't go through every possible configuration here, but we'll choose a handful to explore. Our examples will start simple and build in complexity.
+From local files, databases, cloud-hosted data stores, and beyond, if you can read your data into Python, you can also read it into Shiny. Here we'll highlight some of our recommended ways to read data, which can be grouped into two main categories: [eager](#eager) and [lazy](#lazy). By eager, we mean loading all your data into memory when the app first starts. By lazy, we mean loading _portions_ of data into memory _as needed_. The eager approach is generally recommended for small to moderately sized datasets -- for larger data, lazy loading may be necessary, but it will add complexity to your app logic.
 
-## Reading data into memory {#read-into-memory}
+## Eager loading {#eager}
 
-A common pattern in Shiny apps is reading in data from a file on your computer, such as a CSV. We use an example CSV in the example below, but the strategy holds for other file formats you might want to use.
+Loading all your data into memory when your app first starts is the simplest way to work with data in Shiny.
+This makes it easy create UI from data, and more generally reason about your app's data logic. However, this also means that before a user can interact with your app, the data must be loaded into memory, so be mindful to keep this step as fast and efficient as possible (or consider [lazy](#lazy) loading).
 
-### Examples
+### From a file
+
+If your data lives in a file (e.g., CSV, Parquet, etc.), you can read it into memory using a variety of tools. Popular libraries for this include [Polars](https://pola.rs/), [DuckDB](https://duckdb.org/), and [Pandas](https://pandas.pydata.org/):
+
 ::: {.panel-tabset .panel-pills}
 
-### Polars
-[Polars](https://pola.rs/) is an open-source library for data manipulation. It provides tooling to make data processing fast and intuitive. It is particularly helpful for large datasets, as its optimization engine can significantly speed up costly processes.
+#### Polars
+
+[Polars](https://pola.rs/) is a fantastic library that makes data manipulation fast and intuitive. We recommend starting here for most data analysis tasks in Shiny apps.
 
 ```python
-df = pl.read_csv(Path(__file__).parent / "test_data.csv")
+import polars as pl
+dat = pl.read_csv(Path(__file__).parent / "my_data.csv")
 ```
 
-### Pandas
-[Pandas](https://pandas.pydata.org/) is one of the most widely used open-source data analysis libraries.
+#### DuckDB
+
+[DuckDB](https://duckdb.org/) is a fast analytical database system. It's a great choice to quickly import data into memory.
 
 ```python
-df = pd.read_csv(Path(__file__).parent / "test_data.csv")
-```
-
-### DuckDB
-[DuckDB](https://duckdb.org/) is an open-source, in process database system which allows you to perform data analysis tasks quickly and with SQL syntax. Its memory usage optimizations make complex calculations quicker to run.
-
-```python
-df = duckdb.read_csv(Path(__file__).parent / "test_data.csv").df()
+import duckdb
+dat = duckdb.read_csv(Path(__file__).parent / "my_data.csv")
 ```
 :::
 
-::: callout-note
-### Remember: Put your data in a module!
+#### Pandas
 
-For better performance in situations where you are loading an entire dataset into memory, it is best to load your data from within a separate module and import it in your `app.py` file. This makes sure it is only loaded once. For more info why, see the Express documentation [here](express-in-depth.qmd#shared-objects) but for now, let's just make sure we read our csv in a separate module, then import it in our `app.py`.
+[Pandas](https://pandas.pydata.org/) is a widely used data manipulation library in Python. While it may not be as fast and ergonomic as Polars for large datasets, it is still a solid choice for many apps.
 
-<details>
-<summary>Show example code</summary>
+```python
+import pandas as pd
+dat = pd.read_csv(Path(__file__).parent / "my_data.csv")
+```
 
-```{.python filename="load_data.py"}
+
+### From a database
+
+If your data lives in a database, reading it into memory can be done using similar tools like Polars. Most databases have a connection interface via [SQLAlchemy](https://www.sqlalchemy.org/), which has integration with packages like Polars (and Pandas):
+
+```python
+import polars as pl
+dat = pl.read_database_uri(
+    "postgresql://user:password@hostname/database_name",
+    "SELECT * FROM tablename"
+)
+```
+
+See [SQLAlchemy's documentation](https://docs.sqlalchemy.org/en/20/core/engines.html) for more information on connection strings for different databases.
+
+
+::: callout-tip
+### Multiple tables
+
+`pl.read_database_uri()` opens a connection to the database, runs the provided query, and then closes the connection. If you need to read multiple tables, consider using a database-centric library like [Ibis](https://ibis-project.org/) to manage the connection and queries more effectively.
+We'll cover this (explicitly opening/closing connections) more in the [lazy loading](#lazy) section below.
+:::
+
+
+### From a cloud store
+
+<!-- TODO: AWS with Polars? -->
+
+### Performance tips
+
+When eagerly reading data into memory, it's important to consider the performance implications. Here are some tips to help keep your app fast and responsive:
+
+#### Express
+
+When in Express mode (i.e., using `shiny.express`), we highly recommended reading data (or other expensive setup code) in a separate module, then import it into your `app.py` file. This ensures the data is loaded only once, improving performance. For more details, refer to the Express documentation [here](express-in-depth.qmd#shared-objects).
+
+```{.python filename="setup.py"}
 import polars as pl
 from pathlib import Path
 
-df = pl.read_csv(Path(__file__).parent / "test_data.csv")
+dat = pl.read_csv(Path(__file__).parent / "my_data.csv")
 ```
 
 ```{.python filename="app.py"}
-from shiny.express import ui, render
-import data_load_module
-
-ui.page_opts(title="Data", full_width=True, id="page")
+from shiny.express import render
+from setup import dat
 
 @render.data_frame
-def results_df():
-    return render.DataGrid(data_load_module.df)
+def df():
+    return dat
 ```
-</details>
-:::
 
-These strategies will serve us well with small to medium datasets. However, as our data gets larger, it becomes more critical to optimize what we are keeping in memory at any given time and when and where our computations are performed.
+#### Large data
 
-In the next section, we'll talk through strategies for working with larger data and remote datastores.
+If you have larger data, eagerly reading all of it into memory may not be feasible, so you may need a smarter approach than loading it all into memory when your app first starts. The next section covers some more advanced techniques for lazily loading data into memory as needed.
 
-## Databases and larger-than-memory data {#read-db}
-Some datasets are too large to fit cleanly in memory or don't live on our computer. Perhaps you want to connect to a remote database and/or perform complicated filtering operations on a large dataset. In these cases, knowing when you are loading data into memory and where and when you are performing calculations becomes more critial.
+However, before reaching for lazy loading (which will add complexity to your app), consider the following optimizations for reading data into memory:
 
-You'll notice a common pattern among toolsets for working with large and/or remote data. First, you make a connection to the data store. Then, you write some kind of operation you wish to perform on that data (ex. fetch 100 rows, fetch the top 3 records across each group, etc.). Finally, you execute that operation and read the result into memory.
+1. **File format**: Use efficient file formats like Parquet instead of CSV for large datasets.
+2. **ETL process**: Preprocess and clean your data before loading it into your app to reduce size and complexity.
+3. **Database optimization**: If reading from a database, ensure it's optimized for analytical queries (e.g., using indexes, partitioning, etc.).
 
-There are two general types of tools you can use to make working with large data fast and efficient:
+## Lazy reading {#lazy}
 
-1. Tools like Polars' Lazy API, which perform calculations only when needed and with internal optimization tooling. You can load massive datasets from storage on-disk using formats optimized for large data, like Parquet.
+Some datasets are too costly to read into memory when an app first loads. In this situation, we can leverage tools to lazily load data into memory as needed, helping to keep our app fast and responsive.
 
-2. Tools for interacting with remote databases. These tools let you query a database and and bring only what you need into memory. These tools include Ibis, SQLAlchemy, and other database connection libraries.
+### From a file
 
-We'll go over a few examples below.
+A fantastic tool for lazily reading data from a file is [Polars' Lazy API](https://docs.pola.rs/user-guide/lazy/). This way, you express data manipulations, but don't actually perform them until you need to `.collect()` results. This looks something roughly like this:
 
-### Examples
-::: {.panel-tabset .panel-pills}
-### Polars LazyFrame
 ```python
-df = pl.scan_csv(Path(__file__).parent / "test_data.csv")
+import polars as pl
+from shiny.express import render
+from pathlib import Path
 
-# Example queries
-query_result = df.head(100).collect()
-another_result = df.filter(pl.col("colname") == "value").collect()
+# Executes instantly (it doesn't load the data into memory)
+dat = pl.scan_parquet(Path(__file__).parent / "test_data.parquet")
+
+@render.data_frame
+def df():
+    # Express manipulations and .collect() only when needed
+    return dat.head(100).collect()
 ```
 
-### Ibis
-[Ibis](https://ibis-project.org/) provides a shared dataframe interface for a wide variety of backends, including DuckDB, Postgres, BigQuery, etc. Ibis uses a form of lazy evaluation by default, but it tends to be slower than Polars.
+If you have a choice, we recommend using Polars' Lazy API over running queries against a database, as it is often simpler and faster. That said, there are certainly cases where a database is more appropriate or necessary.
 
-We'll use Postgres in the below example to demonstrate connecting to a remote data source.
+
+### From a database
+
+Some fantastic tools for lazy loading data from a database are [Ibis](https://ibis-project.org/) and [SQLAlchemy](https://www.sqlalchemy.org/). With these tools, you can connnect to practically any database, and express data manipulations in Python (or SQL with SQLAlchemy), which are only executed when you call `.execute()`. When using these tools, it's important to explicitly open and close the database connection to avoid connection leaks. Here's an example using Ibis with a PostgreSQL database:
 
 ```bash
 pip install 'ibis-framework[postgres]'
@@ -105,7 +145,9 @@ pip install 'ibis-framework[postgres]'
 
 ```python
 import ibis
+from shiny.express import render, session
 
+# Connect to the database (nearly instant)
 con = ibis.postgres.connect(
     user="username",
     password="password",
@@ -113,391 +155,217 @@ con = ibis.postgres.connect(
     port=5432,
     database="database",
 )
-my_table = con.table("mytablename")
+dat = con.table("tablename")
 
-# This is when Ibis will perform your query operations
-# Ibis combines the query and execute stages we described above in one step
-query_result = my_table.head(100)
-
-# In other cases, we may want to separate these steps and call `execute()` explicitly
-another_result = df.filter(df.colname == "value").execute()
-
-```
-
-### SQLAlchemy
-SQLAlchemy allows for more fine-grained SQL usage with either plain SQL text execution or SQLAlchemy's own Object-Relational Mapping syntax, which allows you to use a similar syntax to Polars and Ibis. We use raw SQL in the below example to reduce the complexity of the example.
-
-SQLAlchemy is the most flexible method of all of these, but with this flexibility comes much greater complexity.
-```python
-from sqlalchemy import create_engine, text
-
-# Note: You will need to also install psycopg2 (or specify another supported connector)
-engine = create_engine('postgresql://user:password@hostname/database_name')
-with engine.connect() as conn:
-    query_result = conn.execute(text("SELECT * FROM tablename LIMIT 100"))
-
-    another_result = conn.execute(text("SELECT * from table where colname='value'"))
-```
-:::
-
-In all cases, we define our query (our data manipulations) and then rely on an external 'engine' to optimize it, run it, and provide us with the results, at which point those results are loaded into memory.
-
-We'll go over two more complicated examples below.
-
-* The first application loads data from a file and uses *Polars' LazyFrames* for highly optimized data manipulation.
-
-* The second connects to a Postgres database using *Ibis* to pass user-inputs to the database, perform calculations, and then return the result back to the application.
-
-Let's start with the first case.
-
-### Large datasets and Polars' Lazy API
-
-#### Lazy Evaluation
-
-Polars has a great toolset for efficiently working with large data called the *lazy API*. The lazy API takes your query as a whole instead of line-by-line and processes only what's needed when it's needed. It does this using its internal query optimizer and uses streaming to work with data sets larger than could otherwise fit in memory.
-
-Let's modify our work from above to use the Lazy API.
-
-```{.python filename="app.py"}
-from shiny.express import ui, render
-import polars as pl
-from pathlib import Path
-
-# Use `scan_*` instead of `read_*` to use the lazy API
-# Notice we're not in a module anymore. More on that below.
-df = pl.scan_parquet(Path(__file__).parent / "filename.parquet")
-
-ui.page_opts(title="My Table", full_width=True, id="page")
+# Cleanup connection when the session ends
+_ = session.on_ended(con.close)
 
 @render.data_frame
-def results_df():
-    # Use `.collect()` to get our result (in this case, getting the first 100 rows)
-    return render.DataGrid(df.head(100).collect())
+def df():
+    # Perform manipulations and .execute() only when needed
+    return dat.head(100).execute()
 ```
 
-You might notice that the syntax has changed a little bit. We use `scan_parquet()` instead of `read_parquet` to return a Lazy Frame instead of a DataFrame.
+::: callout-tip
+### Using SQL directly
 
-Polars waits until it sees the `.collect()` to execute the sequence of commands to
-
-1. Use the reference to the data that was created by `scan_parquet()`
-
-2. Get the first 100 rows (`.head(100)`) and then
-
-3. `.collect()` the results into memory.
-
-This is also what allows us to move connecting to our data source back into the main application instead of in a module, because when we use `scan_*()`, we are getting a pointer to the data, not loading it into memory.
-
-In this example, we collect our results as soon as we load the application so we can render the data frame immediately. However, there may be cases where you delay execution. For example, you might wait until after you've collected user-inputs or users have clicked a button.
-
-Let's look at an example with the [The Weather Dataset](https://www.kaggle.com/datasets/guillemservera/global-daily-climate-data).
-This dataset is much, much bigger (nearly 28M rows) and so we'll take full advantage of Polars Lazy API to keep our app fast.
-
-::: callout-note
-### Modules and Laziness
-Remember how before we had to put our data in a module? Now that we're only loading our data and querying when we need it (when we've called `.collect`), we don't need to worry about that!
-
-If you're using the Lazy API or reading from a database, you can create that connection to your data in a module, or not. It's up to you.
-:::
-
-#### Example Application: Polars
-
-Here's a simple app that takes advantage of Polars Lazy API. In this example, we have the dataset on our computer, but we could also easily load from a shared, remote location using a tool like [Pins](https://rstudio.github.io/pins-python/) or a package like [boto3](https://docs.aws.amazon.com/code-library/latest/ug/python_3_s3_code_examples.html) to read from AWS S3. We'll talk more about tools like Pins in our next article when we look at how to *write* to remote data stores.
-
-```python
-from shiny.express import ui, render, input
-import polars as pl
-
-# Scan the parquet file. It won't be truly read until it's needed.
-df = pl.scan_parquet("./daily_weather.parquet")
-
-ui.page_opts(title="Weather", full_width=True, id="page")
-
-# Create a checkbox input so our users can select one or all seasons
-ui.input_checkbox_group(
-    "season",
-    "Season",
-    choices=["Summer", "Winter", "Fall", "Spring"],
-    selected="Summer",
-)
-
-# Create a multi-select input so users can select a city from those in our dataset
-ui.input_selectize(
-    "city",
-    "City",
-    choices=df.select("city_name").unique().collect().to_series().to_list(),
-)
-
-# Filter the data frame based on the user inputs above
-@render.data_frame
-def results_df():
-    results = (
-        df.filter(pl.col("city_name") == input.city())
-        .filter(pl.col("season").is_in(input.season()))
-        .collect()
-    )
-    return render.DataGrid(results)
-
-```
-
-::: callout-note
-### You can read from a database in Polars!
-Polars can read from a databases too! It's important to note though that Polars essentially reads in the database table like a file, you'll still need to have it on disk (saved locally). For best results, try and scope down your initial query to pull the minimum data needed for your application and if you require many database queries and user inputs, consider a more sophisticated connector.
+If you prefer to write SQL more directly, use SQLAlchemy to connect to your database and execute SQL queries. This approach provides more flexibility but requires more manual handling of SQL queries.
 
 <details>
 <summary>Show example code</summary>
 
-```{.python filename="load_data.py"}
-import polars as pl
-
-uri = "postgresql://user:password@hostname/database_name"
-# This is where you should scope down your query if you can.
-query = "SELECT * FROM weather"
-
-# Notice that this uses `read_*`. Polars cannot read the data lazily from the database, so this will load the entire query into memory.
-# That's why we've put this into a module again.
-data = pl.read_database_uri(query, uri)
-```
-
 ```python
-from shiny.express import ui, render, input
-import polars as pl
-from load_data import data
+from shiny.express import render
+from sqlalchemy import create_engine, text
 
-# This creates a LazyFrame from the whole dataset, which we loaded into memory in the module.
-df = pl.LazyFrame(data)
-
-ui.page_opts(title="Weather", full_width=True, id="page")
-
-# Create a checkbox input so our users can select one or all seasons
-ui.input_checkbox_group(
-    "season",
-    "Season",
-    choices=["Summer", "Winter", "Fall", "Spring"],
-    selected="Summer",
-)
-
-# Create a multi-select input so users can select a city from those in our dataset
-ui.input_selectize(
-    "city",
-    "City",
-    choices=df.select("city_name").unique().collect().to_series().to_list(),
-)
-
-# Filter the data frame based on the user inputs above
-@render.data_frame
-def results_df():
-    results = (
-        df.filter(pl.col("city_name") == input.city())
-        .filter(pl.col("season").is_in(input.season()))
-        .collect()
-    )
-    return render.DataGrid(results)
-
+engine = create_engine('postgresql://user:password@hostname/database_name')
+with engine.connect() as conn:
+    dat = conn.execute(text("SELECT * FROM tablename LIMIT 100"))
 ```
 </details>
 :::
 
-### Working with remote data and databases
+### From a cloud store
 
-We can make this same application using a remote datastore. In this example, we'll use Ibis and Postgres, but you could easily substitute another database or a data warehouse like Snowflake or Databricks. Similarly, Ibis is the connector we will demonstrate, but you can substitute whatever database connector works best for your use case.
+<!-- TODO: AWS with Polars? -->
 
-Regardless of what remote database solution or connector we use here, the anatomy of the application is roughly the same. We will take the user-inputs from the UI and pass them to the database for execution rather than keeping the *whole* dataset in the application for processing.
 
-::: {.callout-tip collapse="true"}
-## Advanced: Hybrid in-memory and remote approaches
+### A real example
 
-Working with large data effectively requires a strong awareness of when you are transferring data across the network, how much data is in memory, how computationally intensive your calculations are, and when visualizations and computations are being triggered.
+Let's look at an example with the [The Weather Dataset](https://www.kaggle.com/datasets/guillemservera/global-daily-climate-data). This data is fairly large (nearly 28M rows), but by loading it lazily, we can keep our app responsive by only loading one city+season data at a time. 
 
-There are scenarios where you may find it compelling to mix and match the discussed approaches.
-For example, you may want to download a large dataset on a schedule using Ibis, then load it into your Shiny app from a saved Parquet file.
-You might also want to update the data in your app only when new data is available, in which case [reactive polling](https://shiny.posit.co/py/api/core/reactive.poll.html) may be of interset to you.
-If you need greater interoperability between libraries like Ibis, Polars, Pandas, and others, [Narwhals](https://narwhals-dev.github.io/narwhals/) may be helpful. It provides a compatibility layer to unify your dataframe syntax.
-:::
+::: {.panel-tabset .panel-pills}
 
-#### Example Application: Ibis Connecting to Remote Database (Postgres)
+#### Polars (file)
+
 ```python
-from shiny.express import ui, render, input
-import ibis
+import polars as pl
 
-# Connect to the database
+from shiny.express import ui, render, input
+
+# Use `scan_*` instead of `read_*` to use the lazy API
+dat = pl.scan_parquet("./daily_weather.parquet")
+
+with ui.sidebar():
+    ui.input_checkbox_group(
+        "season",
+        "Season",
+        choices=["Summer", "Winter", "Fall", "Spring"],
+        selected="Summer",
+    )
+    # Import just the unique city names for our selectize input
+    cities = dat.select("city_name").unique().collect().to_series().to_list()
+    ui.input_selectize("city", "City", choices=cities)
+
+# Store manipulation in a reactive calc
+# (convenient for writing once and using in multiple places)
+@reactive.calc
+def filtered_dat():
+    return (
+        dat
+          .filter(pl.col("city_name") == input.city())
+          .filter(pl.col("season").is_in(input.season()))
+    )
+
+# Display the filtered data
+@render.data_frame
+def results_df():
+    return filtered_dat().collect()
+```
+
+#### Ibis (database)
+
+```python
+import ibis
+from shiny.express import ui, render, input, reactive, session
+
+# Connect to the database (quick, doesn't load data)
 con = ibis.postgres.connect(
     user="", password="", host="", port=, database=""
 )
-df = con.table("weather")
+dat = con.table("weather")
+_ = session.on_ended(con.close)
 
-ui.page_opts(title="Weather", full_width=True, id="page")
-
-# Create a checkbox input so our users can select one or all seasons
-ui.input_checkbox_group(
-    "season",
-    "Season",
-    choices=["Summer", "Winter", "Autumn", "Spring"],
-    selected="Summer",
-)
-
-# Create a multi-select input so users can select a city from those in our dataset
-ui.input_selectize(
-    "city", "City", choices=df[["city_name"]].distinct().execute()["city_name"].tolist()
-)
-
-# Filter the data frame based on the user inputs above
-@render.data_frame
-def results_df():
-    results = df.filter(
-        [df.city_name == input.city(), df.season.isin(input.season())]
-    ).execute()
-    return render.DataGrid(results)
-```
-
-This syntax should look pretty familiar! Polars and Ibis have similar syntax, but you'll notice we cue the execution of operations (filters, etc.) on our lazy tables using `.execute()` when we use Ibis.
-
-## Best practices
-
-Now that you have data in your application, it's worthwhile to consider reading up on a few topics.
-
-[Reactive calculations](https://shiny.posit.co/py/api/core/reactive.calc.html#returns) allow us to perform calculations once, when inputs change, and propagate that change into outputs. For example, we could extract our filtering logic from the above application into a reactive calculation so it can be used across the application.
-
-Note, this is using the Polars Lazy API version of the app.
-
-<details>
-<summary>Show example code</summary>
-
-```python
-from shiny.express import ui, render, input
-from shiny import reactive
-import polars as pl
+with ui.sidebar():
+    ui.input_checkbox_group(
+        "season",
+        "Season",
+        choices=["Summer", "Winter", "Autumn", "Spring"],
+        selected="Summer",
+    )
+    # Import just the unique city names for our selectize input
+    cities = dat.select("city_name").distinct().execute().tolist()
+    ui.input_selectize("city", "City", choices=cities)
 
 
-df = pl.scan_parquet("./daily_weather.parquet")
-ui.page_opts(title="Weather", full_width=True, id="page")
-
-ui.input_checkbox_group(
-    "season",
-    "Season",
-    choices=["Summer", "Winter", "Autumn", "Spring"],
-    selected="Summer",
-)
-
-ui.input_selectize(
-    "city",
-    "City",
-    choices=df.select("city_name").unique().collect().to_series().to_list(),
-)
-
+# Store data manipulations in a reactive calculation
+# (convenient when using the data in multiple places)
 @reactive.calc
-def result():
-    result_df = df.filter(pl.col("city_name") == input.city())
-        .filter(pl.col("season").is_in(input.season()))
-        .collect()
-
-    return result_df
-
-# Filter the data frame based on the user inputs above
-@render.data_frame
-def results_df():
-    return render.DataGrid(result())
-
-# Render some other output using `result()` dataframe
-@render.data_frame
-def results_df_2():
-    return render.DataGrid(result().head(1))
-
-# Render some additional outputs using `result()` dataframe
-```
-
-</details>
-
-You might also consider waiting to filter until after the user presses a button.
-
-<details>
-<summary>Show example code</summary>
-
-```python
-from shiny.express import ui, render, input
-from shiny import reactive
-import polars as pl
-
-
-df = pl.scan_parquet("./daily_weather.parquet")
-ui.page_opts(title="Weather", full_width=True, id="page")
-
-ui.input_checkbox_group(
-    "season",
-    "Season",
-    choices=["Summer", "Winter", "Autumn", "Spring"],
-    selected="Summer",
-)
-
-ui.input_selectize(
-    "city",
-    "City",
-    choices=df.select("city_name").unique().collect().to_series().to_list(),
-)
-
-# Add a submit button
-ui.input_action_button("submit", "Submit")
-
-# This calculation won't update until the user hits the submit button
-@reactive.calc
-@reactive.event(input.submit)
-def result():
-    result_df = (
-        df.filter(pl.col("city_name") == input.city())
-        .filter(pl.col("season").is_in(input.season()))
-        .collect()
+def filtered_dat():
+    return dat.filter(
+        [_.city_name == input.city(), _.season.isin(input.season())]
     )
 
-    return result_df
-
-# This will not update until the reactive calc updates after submission
+# Display the filtered data
 @render.data_frame
 def results_df():
-    return render.DataGrid(result())
-
-# This will not update until the reactive calc updates after submission
-@render.data_frame
-def results_df_2():
-    return render.DataGrid(result().head(1))
+    return filtered_dat().execute()
 ```
+:::
 
-</details>
 
-We're filtering our dataset in a compact way here, but especially if you are storing intermediate steps, it is worth reviewing our article on [mutability](https://shiny.posit.co/py/docs/reactive-mutable.html).
+## Examples
 
 We have numerous full examples and starter templates of dashboards using different datastores. We've sorted them into categories roughly corresponding to the tech stack at the bottom of this article.
 
-
-## Example Applications {#read-data-examples}
 ::: {.panel-tabset .panel-pills}
-
 #### DuckDB
 
 ::: {layout-ncol=2}
 ##### Query Explorer Template
+
 ![DuckDB Query Explorer App](../templates/database-explorer/thumbnail.png)
 [See the code](https://shiny.posit.co/py/templates/database-explorer/)
 
 ##### Identify Outliers App
+
 ![Identify Outliers App](../gallery/identify-outliers.jpg)
 [See the code](https://github.com/skaltman/outliers-app-db-python/)
-
 :::
 
 #### Pandas
 
 ::: {layout-ncol=2}
 ##### Restaurant Tips Template
+
 ![Restaurant tips dashboard](../templates/dashboard-tips/thumbnail.png)
 [See the code](https://shiny.posit.co/py/templates/dashboard-tips/)
 
 ##### AWS Community Builders App
+
 ![AWS Community Builders App](../gallery/aws-builders.jpg)
 [See the code](https://github.com/robertgv/aws-community-builders-dashboard)
 :::
 
 :::
 
-## What about writing to a database or object store?
+## Reactive reading {#reactive}
 
-The scenarios we've covered above are focused on reading in data to an application and performing queries with user-inputs. If you need to *write* data to the database or other remote location, there are additional considerations we'll cover in a separate article on persistant storage in Shiny apps.
+In some cases, you may need your app to occasionally re-read an updated data source _while the app is running_. This is a more advanced use case, but Shiny provides tools to help with this scenario.
 
+### From a file
+
+If your data lives in a local file, use [`reactive.file_reader()`](https://shiny.posit.co/py/api/express/reactive.file_reader.html) to monitor the file for changes and re-read it when it changes.
+By default, `reactive.file_reader()` checks the file's modification time every second, but you can adjust this with the `interval` argument.
+
+```python
+import polars as pl
+from shiny import reactive
+from shiny.express import render
+
+file = pathlib.Path(__file__).parent / "mtcars.csv"
+@reactive.file_reader(file)
+def read_file():
+    return pl.read_csv(file)
+
+@render.data_frame
+def result():
+    return read_file()
+```
+
+### From a database
+
+If your data lives in a database, use [`reactive.poll()`](https://shiny.posit.co/py/api/express/reactive.poll.html) to periodically check if the data has changed and re-read it when it has.
+With `reactive.poll()`, you're required to provide a function to check if the data has changed, which should be as efficient as possible.
+Unfortunately, there is no universal way to check if data has changed in a database, so you'll need to implement this logic based on your specific use case.
+In general, you might check a "last updated" timestamp column:
+
+```python
+import ibis
+from shiny.express import reactive
+
+con = ibis.postgres.connect(user="", password="", host="", port=, database="")
+table = con.table("tablename")
+
+def check_last_updated():
+    return table.last_updated.max().execute()
+
+# Every 5 seconds, check if the max timestamp has changed
+@reactive.poll(check_last_updated, interval=5)
+def data():
+    return table.execute()
+```
+
+::: callout-note
+### Polling to export to file
+
+Since Polars is so good at (lazily) reading data from files, it's tempting to export from a database to a file. In this case, you could set up a `reactive.poll()` to save the database table as a file whenever it changes, and `reactive.file_reader()` to re-read the file when the file changes.
+:::
+
+
+For a deeper dive into reactively reading "streaming" data, see the [Streaming Data](../templates/monitor-database/index.qmd) template.
+
+
+## What about saving data?
+
+In some cases, you may need to save data from your application back to a database or other remote location. This is a more advanced use case, but Shiny provides tools to help with this scenario. In the next article, we'll cover some strategies for persisting data from your Shiny app.
