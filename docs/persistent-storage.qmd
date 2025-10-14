@@ -9,16 +9,27 @@ lightbox:
 
 ## What is persistent storage and when do we need it?
 
-User data collected and saved somewhere across sessions
-Ex. Users submit a form
+For our purposes, **persistent storage** is when we store data that persistes across sessions or browsers. In this article, we'll explore how to handle situations where your data is updated based on the actions of users.
 
-Not:
-Data store we read from for display only (see Reading Data article)
+For example, we may want to collect and display survey information from users. We could also have users entering data into a database through multiple platforms, including a shiny app, and want to ensure our dashboard is continuously displayed.
 
+These situations entail both reading and writing to a data store that exists outside of a user's individual session.
 
-Note: We're not talking about saving user login information or authentication.
+If you're looking for how to work with data on a **read-only** basis, please refer to our other article [here](/docs/reading-data.qmd).
 
-CALLOUT: If you are a Connect user, Connect has support for both Auth and supports secrets for storage. Link to those docs.
+::: callout-note {collapse="true"}
+### Authentication and Login Management
+Authentication is a special case of collecting information from users to be used in an application. We're not going to talk about authentication or login management in this article and would highly recommend you look into integrations that handle this specifically.
+
+If you're using Posit Connect, good news, we handle this for you! See documentation here for information on persistent storage and authentication in Shiny apps.
+
+For others, we recommend checking out purpose-built integrations for authentication like:
+* Auth0
+Any others?
+
+If you work for an organization with its own intranet or authentication system, they may also have preferences and/or tools for you to take into account.
+:::
+
 
 ## Working with non-database stores (ex. Google Sheets, Object Stores)
 
@@ -32,6 +43,7 @@ gc = gspread.service_account(filename="../.config/gspread/service_account.json")
 url = "https://docs.google.com/spreadsheets/d/166uMLi75GLD7eFUKe-vdKIpCk0EwbYWa2md4Zn9vJO4/edit?gid=0#gid=0"
 
 sheet = gc.open_by_url(url)
+# Set the worksheet you want to access based on the index here
 worksheet = sheet.get_worksheet(0)
 last_updated = None
 
@@ -40,7 +52,6 @@ with ui.sidebar():
     ui.input_checkbox("checkbox", "I like checkboxes")
     ui.input_slider("slider", "My favorite number is:", min=0, max=100, value=50)
     ui.input_action_button("submit_button", "Submit")
-print(worksheet.get_all_records())
 
 flag = reactive.value(0)
 df = reactive.value(
@@ -78,6 +89,7 @@ def show_results():
 
 ```
 
+This spreadsheet example is great for simple data collection, but there are a number of reasons why you may prefer another option.
 
 CALLOUT: pins does this other stuff, plus has some reactive support
 
@@ -141,8 +153,8 @@ def add_row():
     new_row.write_database("testapp", load_data.uri, if_table_exists="append")
 
     # The table we're displaying no longer reflects the reality of the database because we just added a row, so we mark the data as dirty.
-
     flag.set(1)
+
     print("Added a new row!")
 
 
@@ -151,6 +163,7 @@ def refresh_data_if_dirty():
     if flag() == 1:
         df.set(pl.LazyFrame(load_data.run_query(full_query)))
         print("Data is dirty, refreshing...")
+        # We set the flag back to 0 because we have just refreshed our data
         flag.set(0)
 
 
@@ -163,8 +176,13 @@ def show_results():
 
 
 Introduce the motivation for polling using the above example
+Why polling?
+* What if we have multiple users? Or a mixture of UI and database-based users? Or something that can updates the underlying data? If the user isn't the only one updating the data, our 'mark dirty on submit' logic isn't enough to keep the data up to date.
+If you want to continuously check for changes to the data, polling is a much safer option.
 
 ### Reactive Polling
+
+What is polling? When you use polling, every so often (based on an interval you set) Shiny will check with your database if there are any changes, based on a function you set. For example, you might have multiple applications inserting rows into a table. When a row is added, the count of rows changes, and the displayed data in the app needs to be updated to reflect this. See below for an example.
 
 ### App examples with polling
 ::: {.panel-tabset .panel-pills}
@@ -180,8 +198,6 @@ uri = "postgresql://postgres@localhost:5432/template1"
 # Notice that this uses `read_*`. Polars cannot read the data lazily from the database, so this will load the entire query into memory.
 def run_query(query):
     return pl.read_database_uri(query, uri)
-
-
 ```
 
 ```{.python filename="app.py"}
