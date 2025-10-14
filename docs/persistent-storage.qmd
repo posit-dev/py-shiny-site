@@ -21,7 +21,7 @@ If you're looking for how to work with data on a **read-only** basis, please ref
 ### Authentication and Login Management
 Authentication is a special case of collecting information from users to be used in an application. We're not going to talk about authentication or login management in this article and would highly recommend you look into integrations that handle this specifically.
 
-If you're using Posit Connect, good news, we handle this for you! See documentation here for information on persistent storage and authentication in Shiny apps.
+If you're using Posit Connect, good news, we handle this for you! Your Connect admin should have more information for you on how authentication for your Connect
 
 For others, we recommend checking out purpose-built integrations for authentication like:
 * Auth0
@@ -89,13 +89,7 @@ def show_results():
 
 ```
 
-This spreadsheet example is great for simple data collection, but there are a number of reasons why you may prefer another option.
-
-CALLOUT: pins does this other stuff, plus has some reactive support
-
-You might think of potential concerns with lots of parallel users or nonblocking setting
-use this to motivate DB section
-
+This spreadsheet example is great for simple data collection, but there are a number of reasons why you may prefer another option. In the next example, we'll replace our Google Sheets workbook with a Postgres database. This gets us much closer to a traditional web application, with a persistent database for storage and all the standard database features like transaction locking, query optimization, and concurrency management.
 
 ## Working with Databases
 
