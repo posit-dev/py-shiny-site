@@ -264,7 +264,59 @@ def show_results():
 
 #### Ibis & Postgres
 
+```python
+from shiny.express import ui, render, input, app_opts
+from shiny import reactive
+import ibis
+import pandas as pd
 
+app_opts(debug=True)
+
+con = ibis.postgres.connect(
+    user="postgres", password="", host="localhost", port=5432, database="template1"
+)
+df = con.table("testapp")
+
+with ui.sidebar():
+    ui.input_text("name_input", "Enter your name:", placeholder="Your name here")
+    ui.input_checkbox("checkbox", "I like checkboxes")
+    ui.input_slider("slider", "My favorite number is:", min=0, max=100, value=50)
+    ui.input_action_button("submit_button", "Submit")
+
+# If this value is 1, our data is dirty, if it is 0, our data is clean
+flag = reactive.value(0)
+data = reactive.value(df.to_pandas())
+
+
+@reactive.effect
+@reactive.event(input.submit_button)
+def add_row():
+    new_row = pd.DataFrame.from_records(
+        [
+            {
+                "name": input.name_input(),
+                "checkbox": input.checkbox(),
+                "favorite_number": input.slider(),
+            }
+        ]
+    )
+    con.insert("testapp", new_row, overwrite=False)
+    flag.set(1)
+    print("Added a new row!")
+
+
+@reactive.effect
+def refresh_data_if_dirty():
+    if flag() == 1:
+        data.set(df.to_pandas())
+        print("Data is dirty, refreshing...")
+        flag.set(0)
+
+
+@render.data_frame
+def show_results():
+    return render.DataGrid(data())
+```
 
 :::
 
@@ -304,7 +356,6 @@ import setup
 app_opts(debug=True)
 
 full_query = "SELECT * FROM testapp"
-starting_data = pl.LazyFrame(setup.run_query(full_query))
 
 with ui.sidebar():
     ui.input_text("name_input", "Enter your name:", placeholder="Your name here")
@@ -415,6 +466,6 @@ For others, we recommend checking out purpose-built integrations for authenticat
 It's best not to use your own, personal credentials and instead have a specific user account or service account just for app usage. Ask your database administrator for appropriately scoped credentials for your use case. If that's you, think about what you want users to be able to do (read, read and write) and consult the documentation for your database system.
 
 #### SQL injection protection
-Allowing users to read and write from a database, particularly using SQL, opens up a potential vector for attackers. Follow commonly accepted best practices for avoiding SQL injection attacks like using prepared statements instead of string concatenation.
+Allowing users to read and write from a database, particularly using SQL, opens up a potential vector for attackers. Follow commonly accepted best practices for avoiding SQL injection attacks like using prepared statements or object mappings (like Ibis provides) instead of string concatenation.
 
 :::
