@@ -231,7 +231,7 @@ with ui.sidebar():
 
 # If this value is 1, our data is dirty, if it is 0, our data is clean
 flag = reactive.value(0)
-df = reactive.value(pl.LazyFrame(load_data.run_query(full_query)))
+df = reactive.value(load_data.run_query(full_query))
 
 
 @reactive.effect
@@ -254,7 +254,7 @@ def add_row():
 @reactive.effect
 def refresh_data_if_dirty():
     if flag() == 1:
-        df.set(pl.LazyFrame(load_data.run_query(full_query)))
+        df.set(load_data.run_query(full_query))
         print("Data is dirty, refreshing...")
         # We set the flag back to 0 because we have just refreshed our data
         flag.set(0)
@@ -262,7 +262,7 @@ def refresh_data_if_dirty():
 
 @render.data_frame
 def show_results():
-    return render.DataGrid(df().collect())
+    return render.DataGrid(df())
 
 ```
 
