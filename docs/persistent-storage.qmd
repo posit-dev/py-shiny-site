@@ -249,9 +249,7 @@ def add_row():
     # The table we're displaying no longer reflects the reality of the database
     # because we just added a row, so we mark the data as dirty.
     flag.set(1)
-
-    print("Added a new row!")
-
+    ui.show_notification("Added a new row!")
 
 @reactive.effect
 def refresh_data_if_dirty():
@@ -308,7 +306,7 @@ def add_row():
     )
     con.insert("testapp", new_row, overwrite=False)
     flag.set(1)
-    print("Added a new row!")
+    ui.show_notification("Added a new row!")
 
 
 @reactive.effect
@@ -385,7 +383,7 @@ def add_row():
         }
     )
     new_row.write_database("testapp", setup.uri, if_table_exists="append")
-    print("Added a new row!")
+    ui.show_notification("Added a new row!")
 
 
 def num_rows():
@@ -439,8 +437,7 @@ def add_row():
         ]
     )
     con.insert("testapp", new_row, overwrite=False)
-    print("Added a new row!")
-
+    ui.show_notification("Added a new row!")
 
 def num_rows():
     return df.count().execute()
