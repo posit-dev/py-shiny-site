@@ -9,7 +9,9 @@ lightbox:
 
 ## What is persistent storage and when do we need it?
 
-Shiny apps often need to read and write data. When we are displaying data and allowing users to interact with it, that is, allowing them **read-only** access, we can use the techniques in [Reading Data](/docs/reading-data.qmd). When we want to collect information from users, additional techniques are necessary. In this article, we'll cover how to gather and **store** information from your users, as well as how to make sure your app displays those updates to users.
+Shiny apps often need to read and write data. When we are displaying data and allowing users to interact with it, that is, allowing them **read-only** access, we can use the techniques in [Reading Data](/docs/reading-data.qmd). When we want to collect information from users, additional techniques are necessary.
+
+In this article, we'll cover how to gather and **store** information from your users, as well as how to make sure your app displays those updates to users.
 
 Let's start with a simple form-submission app. This application will
 
@@ -160,7 +162,8 @@ df = reactive.value(
 def add_row():
     new_row = [input.name_input(), input.checkbox(), input.slider()]
     worksheet.append_row(new_row, insert_data_option="INSERT_ROWS")
-    # Set the dirty data flag to 1 because we know we've just inserted new values into the worksheet that aren't currently reflected
+    # Set the dirty data flag to 1 because we know we've just inserted
+    # new values into the worksheet that aren't currently reflected
     flag.set(1)
 
 
@@ -199,10 +202,12 @@ We'll ground this initial example in an app that reads, writes, and updates the 
 ```{.python filename="setup.py"}
 import polars as pl
 
-# Don't store your creds in plain text, load them from a environment variables or a secrets manager
+# Don't store your creds in plain text, load them from a environment variables
+# or a secrets manager
 uri = "postgresql://postgres@localhost:5432/template1"
 
-# Notice that this uses `read_*`. Polars cannot read the data lazily from the database, so this will load the entire query into memory.
+# Notice that this uses `read_*`. Polars cannot read the data lazily from the database,
+# so this will load the entire query into memory.
 def run_query(query):
     return pl.read_database_uri(query, uri)
 
@@ -241,7 +246,8 @@ def add_row():
     )
     new_row.write_database("testapp", load_data.uri, if_table_exists="append")
 
-    # The table we're displaying no longer reflects the reality of the database because we just added a row, so we mark the data as dirty.
+    # The table we're displaying no longer reflects the reality of the database
+    # because we just added a row, so we mark the data as dirty.
     flag.set(1)
 
     print("Added a new row!")
@@ -326,7 +332,11 @@ To help with this sort of problem, Shiny provides tools for **polling**, that is
 
 ### Reactive Polling
 
-What is polling? When you use polling, every so often (based on an interval you set) Shiny will check with your database if there are any changes, based on a function you set. For example, you might have multiple applications inserting rows into a table. When a row is added, the count of rows changes, and the displayed data in the app needs to be updated to reflect this. See below for an example.
+What is polling? When you use polling, every so often (based on an interval you set) Shiny will check with your database if there are any changes, based on a function you set.
+
+For example, you might have multiple applications inserting rows into a table. When a row is added, the count of rows changes, and the displayed data in the app needs to be updated to reflect this.
+
+See below for an example.
 
 ### App examples with polling
 ::: {.panel-tabset .panel-pills}
@@ -335,11 +345,13 @@ What is polling? When you use polling, every so often (based on an interval you 
 ```{.python filename="setup.py"}
 import polars as pl
 
-# Don't store your creds in plain text, load them from a environment variables or a secrets manager
+# Don't store your creds in plain text,
+# load them from a environment variables or a secrets manager
 uri = "postgresql://postgres@localhost:5432/template1"
 
 
-# Notice that this uses `read_*`. Polars cannot read the data lazily from the database, so this will load the entire query into memory.
+# Notice that this uses `read_*`. Polars cannot read the data lazily from the database,
+# so this will load the entire query into memory.
 def run_query(query):
     return pl.read_database_uri(query, uri)
 ```
@@ -449,9 +461,10 @@ def show_results():
 
 
 
-::: {.callout-note collapse="true"}
+::: callout-note
 ### Getting ready for production
-You might notice we're getting closer and closer to a standard, full-stack web application as we move through this article. As you add features like database connections and saved user-inputs, there are additional considerations to opening up usage of your application.
+You might notice we're getting closer and closer to a standard, full-stack web application as we move through this article.
+As you add features like database connections and saved user-inputs, there are additional considerations to opening up usage of your application.
 
 #### Authentication
 Authentication is a special case of collecting information from users to be used in an application. There are additional security considerations to take into account when storing usernames and passwords.
@@ -461,9 +474,11 @@ If you're using Posit Connect, good news, we handle this for you! Your Connect a
 For others, we recommend checking out purpose-built integrations for authentication. If you work for an organization with its own intranet or authentication system, they may also have preferences and/or tools for you to take into account.
 
 #### Database credentials
-It's best not to use your own, personal credentials and instead have a specific user account or service account just for app usage. Ask your database administrator for appropriately scoped credentials for your use case. If that's you, think about what you want users to be able to do (read, read and write) and consult the documentation for your database system.
+It's best not to use your own, personal credentials and instead have a specific user account or service account just for app usage. Ask your database administrator for appropriately scoped credentials for your use case.
+If that's you, think about what you want users to be able to do (read, read and write) and consult the documentation for your database system.
 
 #### SQL injection protection
-Allowing users to read and write from a database, particularly using SQL, opens up a potential vector for attackers. Follow commonly accepted best practices for avoiding SQL injection attacks like using prepared statements or object mappings (like Ibis provides) instead of string concatenation.
+Allowing users to read and write from a database, particularly using SQL, opens up a potential vector for attackers.
+Follow commonly accepted best practices for avoiding SQL injection attacks like using prepared statements or object mappings (like Ibis provides) instead of string concatenation.
 
 :::
