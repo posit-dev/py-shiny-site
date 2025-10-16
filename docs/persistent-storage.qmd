@@ -389,13 +389,13 @@ def add_row():
 
 
 def num_rows():
-    return load_data.run_query("SELECT COUNT(*) FROM testapp").item()
+    return setup.run_query("SELECT COUNT(*) FROM testapp").item()
 
 
 @reactive.poll(num_rows, 1)
 def get_data():
     print("Checking for new data...")
-    data = setup.update_data()
+    data = setup.run_query()
     return data
 
 
