@@ -491,7 +491,7 @@ As a developer, Posit Connect and Posit Connect Cloud allow you to publish Shiny
 
 Your Connect administrator can control app access through standard Single Sign-On (SSO) tools or custom controls.
 
-Connect also provides secrets-management tools for your database credentials and can access other data sources through [Pins](https://rstudio.github.io/pins-python/).
+Connect also provides secrets-management tools for your database credentials and can access other data sources through [Pins](https://rstudio.github.io/pins-python/). See more about how Posit Connect facilitates connections to data sources [here](https://solutions.posit.co/connections/deploying-data/).
 
 You can try Connect Cloud for free [here](https://connect.posit.cloud/) assuming your app can be hosted publicly.
 
