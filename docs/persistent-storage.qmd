@@ -462,6 +462,20 @@ def show_results():
 
 ## Getting ready for production
 
+
+::: {.callout-note collapse="true"}
+### With Posit Connect Cloud or Posit Connect
+
+As a developer, Posit Connect and Posit Connect Cloud allow you to publish Shiny apps with fine-grained access. You can choose to give individuals and groups of users collaborator permissions, view-only, or keep your applications private.
+
+Your Connect administrator can control app access through standard Single Sign-On (SSO) tools or custom controls.
+
+Connect also provides secrets-management tools for your database credentials and can access other data sources through [Pins](https://rstudio.github.io/pins-python/). See more about how Posit Connect facilitates connections to data sources [here](https://solutions.posit.co/connections/deploying-data/).
+
+You can try Connect Cloud for free [here](https://connect.posit.cloud/) assuming your app can be hosted publicly.
+
+:::
+
 ::: {.callout-note collapse="true"}
 ### On your own
 You might notice we're getting closer and closer to a standard, full-stack web application as we move through this article.
@@ -484,15 +498,3 @@ Follow commonly accepted best practices for avoiding SQL injection attacks like 
 
 :::
 
-::: {.callout-note collapse="true"}
-### With Posit Connect Cloud or Posit Connect
-
-As a developer, Posit Connect and Posit Connect Cloud allow you to publish Shiny apps with fine-grained access. You can choose to give individuals and groups of users collaborator permissions, view-only, or keep your applications private.
-
-Your Connect administrator can control app access through standard Single Sign-On (SSO) tools or custom controls.
-
-Connect also provides secrets-management tools for your database credentials and can access other data sources through [Pins](https://rstudio.github.io/pins-python/). See more about how Posit Connect facilitates connections to data sources [here](https://solutions.posit.co/connections/deploying-data/).
-
-You can try Connect Cloud for free [here](https://connect.posit.cloud/) assuming your app can be hosted publicly.
-
-:::
