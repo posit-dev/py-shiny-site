@@ -320,11 +320,9 @@ def show_results():
 
 :::
 
+While managing a flag with this scale of app isn't too bad, you can imagine it would get complicated if there are lots of different things in and out of the Shiny app that might lead the displayed data to be out of date.
 
-Introduce the motivation for polling using the above example
-Why polling?
-* What if we have multiple users? Or a mixture of UI and database-based users? Or something that can updates the underlying data? If the user isn't the only one updating the data, our 'mark dirty on submit' logic isn't enough to keep the data up to date.
-If you want to continuously check for changes to the data, polling is a much safer option.
+To help with this sort of problem, Shiny provides tools for **polling**, that is, checking in with the data source for changes at a specified interval. We'll take our application and simplify it with polling in the next example.
 
 ### Reactive Polling
 
