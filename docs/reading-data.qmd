@@ -37,7 +37,6 @@ dat = pl.read_csv(Path(__file__).parent / "my_data.csv")
 import duckdb
 dat = duckdb.read_csv(Path(__file__).parent / "my_data.csv")
 ```
-:::
 
 #### Pandas
 
@@ -47,7 +46,7 @@ dat = duckdb.read_csv(Path(__file__).parent / "my_data.csv")
 import pandas as pd
 dat = pd.read_csv(Path(__file__).parent / "my_data.csv")
 ```
-
+:::
 
 ### From a database
 
@@ -72,10 +71,18 @@ We'll cover this (explicitly opening/closing connections) more in the [lazy load
 :::
 
 
-### From a cloud store
+### From a cloud store (ex. AWS S3)
+Polars can read Parquet, CSV, IPC, and NDJSON files directly from cloud storage providers such as AWS, Azure, and Google Cloud Storage.
 
-<!-- TODO: AWS with Polars? -->
+Depending on the provider, you will have to set up the appropriate credentialing (more info [here](https://docs.pola.rs/user-guide/io/cloud-storage/#cloud-authentication)). Once you've done so, reading from the cloud is just like reading from a file on disk.
 
+```python
+import polars as pl
+
+source = "s3://bucket/yourfilehere.parquet"
+
+df = pl.read_parquet(source)
+```
 ### Performance tips
 
 When eagerly reading data into memory, it's important to consider the performance implications. Here are some tips to help keep your app fast and responsive:
@@ -132,6 +139,20 @@ def df():
     return dat.head(100).collect()
 ```
 
+::: callout-tip
+### Reading from a file stored in the cloud
+
+Polars also supports lazy reading from cloud storage using its query optimization tooling. This is very helpful for limiting how much information is downloaded, especially if you only need a small portion of a much larger dataset for your application (ex. You have data from 1900-present but you only need 2000-present.)
+
+```python
+import polars as pl
+
+source = "s3://bucket/yourfilename.parquet"
+
+df = pl.scan_parquet(source).filter("your filter here").collect()
+```
+:::
+
 If you have a choice, we recommend using Polars' Lazy API over running queries against a database, as it is often simpler and faster. That said, there are certainly cases where a database is more appropriate or necessary.
 
 
@@ -185,14 +206,9 @@ with engine.connect() as conn:
 </details>
 :::
 
-### From a cloud store
-
-<!-- TODO: AWS with Polars? -->
-
-
 ### A real example
 
-Let's look at an example with the [The Weather Dataset](https://www.kaggle.com/datasets/guillemservera/global-daily-climate-data). This data is fairly large (nearly 28M rows), but by loading it lazily, we can keep our app responsive by only loading one city+season data at a time. 
+Let's look at an example with the [The Weather Dataset](https://www.kaggle.com/datasets/guillemservera/global-daily-climate-data). This data is fairly large (nearly 28M rows), but by loading it lazily, we can keep our app responsive by only loading one city+season data at a time.
 
 ::: {.panel-tabset .panel-pills}
 
