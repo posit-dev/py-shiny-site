@@ -1,5 +1,5 @@
 ---
-title: Persistent storage & writing data
+title: Persistent data
 editor:
   markdown:
     wrap: sentence
@@ -7,491 +7,335 @@ lightbox:
   effect: fade
 ---
 
-## What is persistent storage and when do we need it?
+Shiny apps often need to save data, either to load it back into a different session or to simply log some information. In this case, it's tempting to save to a local file, but this approach has drawbacks, especially if the data must persist across sessions, be shared among multiple users, or be mutable in some way. Unfortunately, it may not be obvious this is a problem until deploying your app to a server, where multiple users may be using the app at the same time.[^1]
 
-Shiny apps often need to read and write data. When we are displaying data and allowing users to interact with it, that is, allowing them **read-only** access, we can use the techniques in [Reading Data](/docs/reading-data.qmd). When we want to collect information from users, additional techniques are necessary.
+[^1]: Depending on the load balancing strategy of your [hosting provider](../get-started/deploy.qmd), you may be directed to different servers on different visits, meaning that data saved to a local file on one server may not be accessible on another server.
 
-In this article, we'll cover how to gather and **store** information from your users, as well as how to make sure your app displays those updates to users.
+In this case, instead of using the local file system to persist data, it's often better to use a remote data store. This could be a database, a cloud storage service, or even a collaborative tool like Google Sheets. In this article, we'll explore some common options for persistent storage in Shiny apps, along with some best practices for managing data in a multi-user environment.
 
-Let's start with a simple form-submission app. This application will
+## An example: user forms {#user-form-example}
 
-1. Collect information from users
+To help us illustrate how to persist data in a Shiny app (using various backends), lets build on a simple user form example. In this app, users can submit their name, whether they like checkboxes, and their favorite number. The app will then display all the information that has been submitted so far.
 
-2. Store their responses, and
+::: callout-warning
+### Pause here
 
-3. Show all the information we've collected so far
-
-We'll start from an app that doesn't save information beyond the Python session at all. In other words, if you refresh this app after submitting information, all the information will be gone and you'll be back to a blank slate once more.
-
-
-```python
-from shiny.express import ui, render, input
-from shiny import reactive
-import polars as pl
-
-
-with ui.sidebar():
-    ui.input_text("name_input", "Enter your name", placeholder="Your name here"),
-    ui.input_checkbox("checkbox", "I like checkboxes"),
-    ui.input_slider("slider", "My favorite number is:", min=0, max=100, value=50),
-    ui.input_action_button("submit_button", "Submit"),
-
-# This holds our data and is updated to reflect user submissions
-# If we refresh the app, this goes back to the starting value (an empty dataframe)
-data = reactive.value(
-    pl.DataFrame(
-        schema={
-            "name": pl.Utf8,
-            "checkbox": pl.Boolean,
-            "favorite_number": pl.Int64,
-        }
-    )
-)
-
-
-@reactive.effect
-@reactive.event(input.submit_button)
-def results():
-    row = {
-        "name": input.name_input(),
-        "checkbox": input.checkbox(),
-        "favorite_number": input.slider(),
-    }
-    new_df = pl.concat([data.get(), pl.DataFrame(row)], how="vertical")
-    data.set(new_df)
-
-
-@render.data_frame
-def show_results():
-    return render.DataGrid(data())
-
-```
-
-Now, let's add in saving and loading our data. We'll start simple, with a CSV.
-
-```{.python filename="setup.py"}
-import polars as pl
-from pathlib import Path
-
-def load_data():
-    return pl.read_csv(Path(__file__).parent / "saved_data.csv", has_header=True)
-
-```
-
-```{.python filename="app.py"}
-from shiny.express import ui, render, input
-from shiny import reactive
-import polars as pl
-import setup
-
-
-with ui.sidebar():
-    ui.input_text("name_input", "Enter your name", placeholder="Your name here"),
-    ui.input_checkbox("checkbox", "I like checkboxes"),
-    ui.input_slider("slider", "My favorite number is:", min=0, max=100, value=50),
-    ui.input_action_button("submit_button", "Submit"),
-
-data = reactive.value(setup.load_data())
-
-
-@reactive.effect
-@reactive.event(input.submit_button)
-def results():
-    row = {
-        "name": input.name_input(),
-        "checkbox": input.checkbox(),
-        "favorite_number": input.slider(),
-    }
-    new_df = pl.concat([data.get(), pl.DataFrame(row)], how="vertical")
-    data.set(new_df)
-    data.get().write_csv("saved_data.csv")
-
-
-@render.data_frame
-def show_results():
-    return render.DataGrid(data())
-
-```
-
-While this does work, it saves and loads the CSV from the file system from which the Python script is running. Frequently, we don't want to be reliant on running from the same machine or even the same server. In these cases, having our storage located in a remote location, be it Google Sheets, an object store like AWS S3, or a database, is very useful.
-
-## Working with non-database data stores
-
-Let's take this same application and build it with a Google Sheets integration. Google Sheets is frequently used as a collaboration tool and a way to collect survey results through different tools. We'll use the `gspread` package to integrate a simple Google Sheets connection into our application.
-
-::: callout-note
-### Google Sheets Integration
-In the below example, we use `gspread` ([documentation](https://docs.gspread.org/en/latest/index.html)).
-You'll need to follow their instructions for creating a service account in order to use the below code. Your organization may or may not support creating your own service account, so you may have to contact your IT department if you can't create one on your own.
+Before proceeding, make sure you read and understand the `app.py` logic below. This portion will stay fixed -- we'll only be changing only the `setup.py` file to implement different persistent storage backends.
 :::
 
 
-```python
+```{.python filename="app.py"}
+import polars as pl
 from shiny.express import ui, render, input
 from shiny import reactive
+from setup import load_data, save_info, append_info
+
+with ui.sidebar():
+    ui.input_text("name_input", "Enter your name", placeholder="Your name here")
+    ui.input_checkbox("checkbox", "I like checkboxes")
+    ui.input_slider("slider", "My favorite number is:", min=0, max=100, value=50)
+    ui.input_action_button("submit_button", "Submit")
+
+# Load the initial data into a reactive value when the app starts
+data = reactive.value(load_data())
+
+# Append new user data on submit
+@reactive.effect
+@reactive.event(input.submit_button)
+def submit_data():
+    info = {
+        "name": input.name_input(),
+        "checkbox": input.checkbox(),
+        "favorite_number": input.slider(),
+    }
+    # Update the (in-memory) data
+    d = data()
+    data.set(append_info(d, info))
+    # Save info to persistent storage (out-of-memory)
+    save_info(info)
+    # Provide some user feedback
+    ui.show_notification("Submitted, thanks!")
+
+# Data grid that shows the current data
+@render.data_frame
+def show_results():
+    return render.DataGrid(data())
+```
+
+<!-- TODO: add a screenshot of the app here -->
+
+Note that we're importing three helper functions from a `setup.py` file: `load_data()`, `save_info()`, and `append_info()`. These functions will be responsible for loading/saving data to persistent storage, as well as updating our in-memory data. For now, we'll just have some placeholders, but we'll fill these in with actual implementations in the next section.
+
+```{.python filename="setup.py"}
+import polars as pl
+
+# A polars schema that the data should conform to
+SCHEMA = {"name": pl.Utf8, "checkbox": pl.String, "favorite_number": pl.Int64}
+
+# A template for loading data from our persistent storage
+def load_data():
+    return pl.DataFrame(schema=SCHEMA)
+
+# A template for saving new info to our persistent storage
+def save_info(info: dict):
+    pass
+
+# Helper to append new info to our in-memory data
+def append_info(d: pl.DataFrame, info: dict):
+    return pl.concat([d, pl.DataFrame(info, schema=SCHEMA)], how="vertical")
+```
+
+## Persistent storage options
+
+As long as you can read/write data between Python and a data store, you can use it with Shiny as a persistent storage backend. Here are some common options, along with some example implementations.
+
+### Google Sheets
+
+Google Sheets is a great lightweight option for persistent storage. It has a familiar web interface, built-in sharing and collaboration features, and a free tier that is sufficient for many applications.
+There's also a nice library, [`gspread`](https://docs.gspread.org/en/latest/index.html), that makes it easy to read and write data to Google Sheets.
+We'll use it here to demonstrate how to persist data in a Shiny app.
+
+
+::: callout-note
+### Authentication
+
+In order to use Google Sheets as a data store, you'll need to set up authentication with Google. Try following the authentication instructions in the [`gspread` documentation](https://docs.gspread.org/en/latest/oauth2.html). Your organization may or may not support creating your own service account, so you may have to contact your IT department if you can't create one on your own.
+:::
+
+
+```{.python filename="setup.py"}
 import polars as pl
 import gspread
 
-# Create variables for our service account info and the URL for our workbook
+# Authenticate with Google Sheets using a service account
 gc = gspread.service_account(filename="service_account.json")
-url = "workbook_url"
 
-sheet = gc.open_by_url(url)
-# Set the worksheet you want to access based on the index here
-worksheet = sheet.get_worksheet(0)
+# Put your URL here
+sheet = gc.open_by_url("https://docs.google.com/spreadsheets/d/your_workbook_id")
+WORKSHEET = sheet.get_worksheet(0)
 
-with ui.sidebar():
-    ui.input_text("name_input", "Enter your name:", placeholder="Your name here")
-    ui.input_checkbox("checkbox", "I like checkboxes")
-    ui.input_slider("slider", "My favorite number is:", min=0, max=100, value=50)
-    ui.input_action_button("submit_button", "Submit")
+# A polars schema that the data should conform to
+SCHEMA = {"name": pl.Utf8, "checkbox": pl.String, "favorite_number": pl.Int64}
 
-# Create a flag to mark when we need to update data
-flag = reactive.value(0)
-# Load the current data from the worksheet
-df = reactive.value(
-    pl.from_dicts(
-        worksheet.get_all_records(expected_headers=["name", "checkbox", "number"]),
-        schema={"name": pl.Utf8, "checkbox": pl.String, "number": pl.Int64},
+def load_data():
+    return pl.from_dicts(
+        WORKSHEET.get_all_records(expected_headers=SCHEMA.keys()),
+        schema=SCHEMA,
     )
-)
 
+def save_info(info: dict):
+    WORKSHEET.append_row(info, insert_data_option="INSERT_ROWS")
 
-@reactive.effect
-@reactive.event(input.submit_button)
-def add_row():
-    new_row = [input.name_input(), input.checkbox(), input.slider()]
-    worksheet.append_row(new_row, insert_data_option="INSERT_ROWS")
-    # Set the dirty data flag to 1 because we know we've just inserted
-    # new values into the worksheet that aren't currently reflected
-    flag.set(1)
-
-
-@reactive.effect
-def refresh_data_if_dirty():
-    if flag() == 1:
-        # Set our data reactive value to the current worksheet contents
-        df.set(
-            pl.from_dicts(
-                worksheet.get_all_records(),
-                schema={"name": pl.Utf8, "checkbox": pl.String, "number": pl.Int64},
-            )
-        )
-        # Set the dirty data flag back to 0 because our data should now be refreshed
-        flag.set(0)
-
-
-@render.data_frame
-def show_results():
-    return render.DataGrid(df())
-
+def append_info(d: pl.DataFrame, info: dict):
+    return pl.concat([d, pl.DataFrame(info, schema=SCHEMA)], how="vertical")
 ```
 
-This spreadsheet example is great for simple data collection, but there are a number of reasons why you may prefer another option (ex. concurrency management, larger data, more secure storage, etc.)
-In the next example, we'll replace our Google Sheets workbook with a Postgres database. This gets us much closer to a traditional web application, with a persistent database for storage and all the standard database features like transaction locking, query optimization, and concurrency management.
 
-## Working with Databases
+Although Google Sheets is a nice, simple, option for data collection, there are a number of reasons why you may prefer a more sophisticated option (e.g., security, governance, efficiency, concurrency, etc.).
+In the next example, we'll replace our Google Sheets workbook with a (Postgres) database. This gets us much closer to a traditional web application, with a persistent database for storage and all the standard database features like transaction locking, query optimization, and concurrency management.
 
-### Reading from and writing to databases
+### Cloud storage
 
-We'll ground this initial example in an app that reads, writes, and updates the visualization based on a simple flag that tells us if the data is dirty or not.
+Polars provides built-in support for working with [cloud storage services](https://docs.pola.rs/user-guide/io/cloud-storage/) like AWS S3, Google Cloud Storage, and Azure Blob Storage.
 
+Efficiently updating data in cloud storage can be tricky, since these services are typically optimized for large, immutable files. That said, if your data can be stored in a columnar format like Parquet, you can take advantage of partitioning to efficiently append new data without having to rewrite the entire dataset.
 
-::: {.panel-tabset .panel-pills}
-#### Polars & Postgres
 ```{.python filename="setup.py"}
 import polars as pl
 
-# Don't store your creds in plain text, load them from a environment variables
-# or a secrets manager
-uri = "postgresql://postgres@localhost:5432/template1"
+DATA_BUCKET = "s3://my-bucket/data/"
+STORAGE_OPTIONS = {
+    "aws_access_key_id": "<secret>",
+    "aws_secret_access_key": "<secret>",
+    "aws_region": "us-east-1",
+}
 
-# Notice that this uses `read_*`. Polars cannot read the data lazily from the database,
-# so this will load the entire query into memory.
-def run_query(query):
-    return pl.read_database_uri(query, uri)
+SCHEMA = {"name": pl.Utf8, "checkbox": pl.String, "favorite_number": pl.Int64, "date": pl.Date}
 
+def load_data():
+    return pl.scan_parquet(f"{DATA_BUCKET}**/*.parquet")
+
+def save_info(info: dict):
+    new_row = pl.DataFrame(info, schema=SCHEMA)
+    new_row.write_parquet(f"{DATA_BUCKET}", partition_by="date")
+
+def append_info(d: pl.DataFrame, info: dict):
+    return pl.concat([d, pl.DataFrame(info, schema=SCHEMA)], how="vertical")
 ```
 
-```{.python filename="app.py"}
-from shiny.express import ui, render, input, app_opts
-from shiny import reactive
+::: callout-tip
+### Pins
+
+[Pins](https://rstudio.github.io/pins-python/) offers another option for working with cloud storage. It provides a higher-level interface for storing and retrieving data, along with built-in support for versioning and metadata. Pins offers some nice cloud storage integrations you may not find elsewhere, like [Posit Connect](https://pins.rstudio.com/reference/board_connect.html) and [Databricks](https://pins.rstudio.com/reference/board_databricks.html).
+:::
+
+### Databases
+
+Compared to cloud storage, databases offer a much more robust option for persistent storage. They can handle large datasets, more complex queries, and offer concurrency guarantees. There are many different types of databases, but for this example, we'll use Postgres, a popular open-source relational database. That said, Polars (and other libraries) [support many different databases](https://docs.pola.rs/user-guide/io/database/), so you can adapt this example to your preferred database system.
+
+::: callout-important
+### Authentication
+
+When connecting to a database, it's important to keep your credentials secure. Don't hard-code your username and password in your application code. Instead, consider using environment variables or a secrets manager to store your credentials securely.
+:::
+
+```{.python filename="setup.py"}
 import polars as pl
-import load_data
 
-app_opts(debug=True)
+URI = "postgresql://postgres@localhost:5432/template1"
+TABLE_NAME = "testapp"
 
-full_query = "SELECT * FROM testapp"
+SCHEMA = {"name": pl.Utf8, "checkbox": pl.String, "favorite_number": pl.Int64}
 
-with ui.sidebar():
-    ui.input_text("name_input", "Enter your name:", placeholder="Your name here")
-    ui.input_checkbox("checkbox", "I like checkboxes")
-    ui.input_slider("slider", "My favorite number is:", min=0, max=100, value=50)
-    ui.input_action_button("submit_button", "Submit")
+def load_data():
+    return pl.read_database_uri(f"SELECT * FROM {TABLE_NAME}", URI)
 
-# If this value is 1, our data is dirty, if it is 0, our data is clean
-flag = reactive.value(0)
-df = reactive.value(load_data.run_query(full_query))
+def save_info(info: dict):
+    new_row = pl.DataFrame(info, schema=SCHEMA)
+    new_row.write_database(TABLE_NAME, URI, if_table_exists="append")
 
-
-@reactive.effect
-@reactive.event(input.submit_button)
-def add_row():
-    new_row = pl.DataFrame(
-        {
-            "name": input.name_input(),
-            "checkbox": input.checkbox(),
-            "favorite_number": input.slider(),
-        }
-    )
-    new_row.write_database("testapp", load_data.uri, if_table_exists="append")
-
-    # The table we're displaying no longer reflects the reality of the database
-    # because we just added a row, so we mark the data as dirty.
-    flag.set(1)
-    ui.show_notification("Added a new row!")
-
-@reactive.effect
-def refresh_data_if_dirty():
-    if flag() == 1:
-        df.set(load_data.run_query(full_query))
-        print("Data is dirty, refreshing...")
-        # We set the flag back to 0 because we have just refreshed our data
-        flag.set(0)
-
-
-@render.data_frame
-def show_results():
-    return render.DataGrid(df())
-
+def append_info(d: pl.DataFrame, info: dict):
+    return pl.concat([d, pl.DataFrame(info, schema=SCHEMA)], how="vertical")
 ```
 
-#### Ibis & Postgres
+::: {.callout-note collapse="true"}
+### What about Ibis?
 
-```python
-from shiny.express import ui, render, input, app_opts
-from shiny import reactive
+Ibis is another useful Python package for working with databases. It may be a preferable option to Polars if you need more complex queries and/or read from multiple tables efficiently.
+
+```{.python filename="setup.py"}
 import ibis
-import pandas as pd
+import polars as pl
 
-app_opts(debug=True)
-
-con = ibis.postgres.connect(
+# NOTE:  app.py should import CONN and close it via
+# `_ = session.on_close(CONN.close)` or similar
+CONN = ibis.postgres.connect(
     user="postgres", password="", host="localhost", port=5432, database="template1"
 )
-df = con.table("testapp")
+TABLE_NAME = "testapp"
 
-with ui.sidebar():
-    ui.input_text("name_input", "Enter your name:", placeholder="Your name here")
-    ui.input_checkbox("checkbox", "I like checkboxes")
-    ui.input_slider("slider", "My favorite number is:", min=0, max=100, value=50)
-    ui.input_action_button("submit_button", "Submit")
+SCHEMA = {"name": pl.Utf8, "checkbox": pl.String, "favorite_number": pl.Int64}
 
-# If this value is 1, our data is dirty, if it is 0, our data is clean
-flag = reactive.value(0)
-data = reactive.value(df.to_pandas())
+def load_data():
+    return CONN.table(TABLE_NAME).to_polars()
 
+def save_info(info: dict):
+    new_row = pl.DataFrame(info, schema=SCHEMA)
+    CONN.insert(TABLE_NAME, new_row, overwrite=False)
 
-@reactive.effect
-@reactive.event(input.submit_button)
-def add_row():
-    new_row = pd.DataFrame.from_records(
-        [
-            {
-                "name": input.name_input(),
-                "checkbox": input.checkbox(),
-                "favorite_number": input.slider(),
-            }
-        ]
-    )
-    con.insert("testapp", new_row, overwrite=False)
-    flag.set(1)
-    ui.show_notification("Added a new row!")
-
-
-@reactive.effect
-def refresh_data_if_dirty():
-    if flag() == 1:
-        data.set(df.to_pandas())
-        print("Data is dirty, refreshing...")
-        flag.set(0)
-
-
-@render.data_frame
-def show_results():
-    return render.DataGrid(data())
+def append_info(d: pl.DataFrame, info: dict):
+    return pl.concat([d, pl.DataFrame(info, schema=SCHEMA)], how="vertical")
 ```
-
 :::
 
-While managing a flag with this scale of app isn't too bad, you can imagine it would get complicated if there are lots of different things in and out of the Shiny app that might lead the displayed data to be out of date.
 
-To help with this sort of problem, Shiny provides tools for **polling**, that is, checking in with the data source for changes at a specified interval. We'll take our application and simplify it with polling in the next example.
+## Adding polish
 
-### Reactive Polling
+The [user form example](#user-form-example) that we've been using so far is a good start, but it has a few small issues we could improve upon. Here are some suggestions for making the app a bit more robust, user-friendly, and production-ready.
 
-What is polling? When you use polling, every so often (based on an interval you set) Shiny will check with your database if there are any changes, based on a function you set.
+### Error handling
 
-For example, you might have multiple applications inserting rows into a table. When a row is added, the count of rows changes, and the displayed data in the app needs to be updated to reflect this.
+The app currently doesn't handle any errors that may occur when loading or saving data. For example, if the database is down or the Google Sheets API is unreachable, the app will crash. To make the app more robust, consider adding error handling to the `load_data()` and `save_info()` functions in `setup.py`. For example, you could use try/except blocks to catch exceptions and re-throw them as `NotifyException`, which will display a notification to the user without crashing the app.
 
-See below for an example.
-
-### App examples with polling
-::: {.panel-tabset .panel-pills}
-
-#### Polars + Postgres
-```{.python filename="setup.py"}
-import polars as pl
-
-# Don't store your creds in plain text,
-# load them from a environment variables or a secrets manager
-uri = "postgresql://postgres@localhost:5432/template1"
-
-
-# Notice that this uses `read_*`. Polars cannot read the data lazily from the database,
-# so this will load the entire query into memory.
-def run_query(query):
-    return pl.read_database_uri(query, uri)
-```
-
-```{.python filename="app.py"}
-
-from shiny.express import ui, render, input, app_opts
-from shiny import reactive
-import polars as pl
-import setup
-
-app_opts(debug=True)
-
-full_query = "SELECT * FROM testapp"
-
-with ui.sidebar():
-    ui.input_text("name_input", "Enter your name:", placeholder="Your name here")
-    ui.input_checkbox("checkbox", "I like checkboxes")
-    ui.input_slider("slider", "My favorite number is:", min=0, max=100, value=50)
-    ui.input_action_button("submit_button", "Submit")
-
-
-@reactive.effect
-@reactive.event(input.submit_button)
-def add_row():
-    new_row = pl.DataFrame(
-        {
-            "name": input.name_input(),
-            "checkbox": input.checkbox(),
-            "favorite_number": input.slider(),
-        }
-    )
-    new_row.write_database("testapp", setup.uri, if_table_exists="append")
-    ui.show_notification("Added a new row!")
-
-
-def num_rows():
-    return setup.run_query("SELECT COUNT(*) FROM testapp").item()
-
-
-@reactive.poll(num_rows, 1)
-def get_data():
-    print("Checking for new data...")
-    data = setup.run_query()
-    return data
-
-
-@render.data_frame
-def show_results():
-    return render.DataGrid(get_data())
-
-```
-
-#### Ibis + Postgres
 ```python
-from shiny.express import ui, render, input, app_opts
+from shiny.types import NotifyException
+
+def load_data():
+    try:
+        return pl.read_database_uri(f"SELECT * FROM {TABLE_NAME}", URI)
+    except Exception as e:
+        raise NotifyException(f"Error loading data: {e}")
+```
+
+### Concurrent users
+
+If multiple users are using the app at the same time, data submitted from user A's session may not be reflected in user B's session. This is because the data is only loaded once when the app starts and any future updates to the in-memory data is scoped to each user. One way to address this problem is to [reactively poll the data](reading-data.qmd#reactive-reading) for changes at a specified interval. How you check for changes will depend on your data backend, but a simple approach is that works for our case is to check the number of rows in the data. To do that, we could change this line in `app.py`:
+
+```python
+data = reactive.value(load_data())
+```
+
+to something like this (for the Postgres example):
+
+```python
 from shiny import reactive
-import pandas as pd
-import ibis
+from setup import TABLE_NAME, URI
 
-app_opts(debug=True)
-
-con = ibis.postgres.connect(
-    user="", password="", host="", port=, database=""
-)
-df = con.table("yourTable")
-
-with ui.sidebar():
-    ui.input_text("name_input", "Enter your name:", placeholder="Your name here")
-    ui.input_checkbox("checkbox", "I like checkboxes")
-    ui.input_slider("slider", "My favorite number is:", min=0, max=100, value=50)
-    ui.input_action_button("submit_button", "Submit")
-
+d = load_data()
+data = reactive.value(d)
+nrows = reactive.value(d.height)
 
 @reactive.effect
-@reactive.event(input.submit_button)
-def add_row():
-    new_row = pd.DataFrame.from_records(
-        [
-            {
-                "name": input.name_input(),
-                "checkbox": input.checkbox(),
-                "favorite_number": input.slider(),
-            }
-        ]
-    )
-    con.insert("testapp", new_row, overwrite=False)
-    ui.show_notification("Added a new row!")
-
-def num_rows():
-    return df.count().execute()
-
-
-@reactive.poll(num_rows, 1)
-def get_data():
-    print("Checking for new data...")
-    return df.to_pandas()
-
-
-@render.data_frame
-def show_results():
-    return render.DataGrid(get_data())
-
+def _():
+    # check every two seconds for changes
+    reactive.invalidate_later(2000)
+    # efficiently check the number of rows in the database
+    new_nrows = pl.read_database_uri(f"SELECT COUNT(*) FROM {TABLE_NAME}", URI).item()
+    if new_nrows != nrows():
+        data.set(load_data())
+        nrows.set(new_nrows)
 ```
-:::
 
 
-## Getting ready for production
+### Prod vs dev environments
+
+Before [going to production](#going-to-production), consider that you likely don't want to use your production data store for testing and development. Instead, consider using a separate store for development and testing. Generally speaking, environment variables work great for switching between different backends. For example, you could set an environment variable `APP_ENV` to either `prod` or `dev`, and then use that variable to determine which backend to use in `setup.py`.
+
+```{.python filename="setup.py"}
+import os
+import polars as pl
+
+ENV = os.getenv("APP_ENV")
+
+if ENV == "prod":
+    URI = "postgresql://postgres@localhost:5432/prod_db"
+    TABLE_NAME = "prod_table"
+else:
+    URI = "postgresql://postgres@localhost:5432/dev_db"
+    TABLE_NAME = "dev_table"
+```
+
+In fact, you may also want to consider using scoping credentials for different environments, so that you don't accidentally use your production database during development.
+
+### SQL injection
+
+When working with databases, it's important to be aware of SQL injection attacks. These occur when an attacker is able to manipulate your SQL queries by injecting malicious code via user inputs. In our example, we don't have any user inputs that are directly used in SQL queries, so we're safe. However, if you do have user inputs that are used in SQL queries, make sure to use parameterized queries or an ORM to avoid SQL injection attacks. For example, if we wanted to allow users to filter the data by name, we could add a text input to the UI and then modify the `load_data()` function to use a parameterized query.
+
+### Limit user access
+
+Apps that need to persist data often need different types of users with different levels of access. For example, your app might need users to authenticate in order to be accessed, or you might want to allow some users to view data but not submit new data. If your app requires user authentication and/or fine-grained access control, consider using a hosting provider that supports these features out-of-the-box, like Posit [Connect](https://solutions.posit.co/secure-access) or [Connect Cloud](https://docs.posit.co/connect-cloud/user/share). These platforms provide built-in authentication and access control features that make it easy to manage user access to your app.
+
+## Going to production {#going-to-production}
+
+### Cloud
+
+The quickest way to deploy a Shiny app is [Posit Connect Cloud](https://connect.posit.cloud/?_gl=1*1fac2m0*_ga*NjQ5MTQ4OTUxLjE2ODM4MTk5Mjg.*_ga_2C0WZ1JHG0*czE3NjA2NDc3NTkkbzIwJGcxJHQxNzYwNjQ3NzcyJGo0NyRsMCRoMA..). There you from GitHub can deploy Shiny (and other!) apps in under a minute. All you need is your code and a `requirements.txt` dependency file.
+<!-- TODO: link to Cloud's secret management feature -->
+https://docs.posit.co/connect-cloud/user/publish/github.html#advanced-settings
+
+To learn more about cloud-based deployment options, see [here](../get-started/deploy-cloud.qmd).
+
+### Self-hosted
+
+If you or your orgainization prefers to self-host, consider [Posit Connect](https://posit.co/products/connect), which is Posit's flagship publishing platform for the work your teams create in Python or R.
+Posit Connect is widely used in highly regulated environments, with strict security and compliance requirements.
+<!-- TODO: link to Connect's secret management feature? Or just set environment variables in the app? -->
+
+
+To learn more about self-hosted deployment options, see [here](../get-started/deploy-on-prem.qmd).
+
+
+
+
+
+
 
 
 ::: {.callout-note collapse="true"}
 ### With Posit Connect Cloud or Posit Connect
-
-As a developer, Posit Connect and Posit Connect Cloud allow you to publish Shiny apps with fine-grained access. You can choose to give individuals and groups of users collaborator permissions, view-only, or keep your applications private.
-
-Your Connect administrator can control app access through standard Single Sign-On (SSO) tools or custom controls.
 
 Connect also provides secrets-management tools for your database credentials and can access other data sources through [Pins](https://rstudio.github.io/pins-python/). See more about how Posit Connect facilitates connections to data sources [here](https://solutions.posit.co/connections/deploying-data/).
 
 You can try Connect Cloud for free [here](https://connect.posit.cloud/) assuming your app can be hosted publicly.
 
 :::
-
-::: {.callout-note collapse="true"}
-### On your own
-You might notice we're getting closer and closer to a standard, full-stack web application as we move through this article.
-As you add features like database connections and saved user-inputs, there are additional considerations to opening up usage of your application.
-
-#### Authentication
-Authentication is a special case of collecting information from users to be used in an application. There are additional security considerations to take into account when storing usernames and passwords.
-
-If you're using Posit Connect, good news, we handle this for you! Your Connect admin should have more information for you on how authentication for your Connect instance is handled and how to restrict access to your application.
-
-For others, we recommend checking out purpose-built integrations for authentication. If you work for an organization with its own intranet or authentication system, they may also have preferences and/or tools for you to take into account.
-
-#### Database credentials
-It's best not to use your own, personal credentials and instead have a specific user account or service account just for app usage. Ask your database administrator for appropriately scoped credentials for your use case.
-If that's you, think about what you want users to be able to do (read, read and write) and consult the documentation for your database system.
-
-#### SQL injection protection
-Allowing users to read and write from a database, particularly using SQL, opens up a potential vector for attackers.
-Follow commonly accepted best practices for avoiding SQL injection attacks like using prepared statements or object mappings (like Ibis provides) instead of string concatenation.
-
-:::
-
