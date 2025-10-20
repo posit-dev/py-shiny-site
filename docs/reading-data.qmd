@@ -14,7 +14,7 @@ By eager, we mean loading all your data into memory when the app first starts. B
 ## Eager loading {#eager}
 
 Loading all your data into memory when your app first starts is the simplest way to work with data in Shiny.
-This makes it easy create UI from data, and more generally reason about your app's data logic. However, this also means that before a user can interact with your app, the data must be loaded into memory, so be mindful to keep this step as fast and efficient as possible (or consider [lazy](#lazy) loading).
+This makes it easy create UI from data, and more generally reason about your app's data logic. However, this also means that before a user can interact with your app, the data must finish being loaded into memory, so be mindful to keep this step as fast and efficient as possible (or consider [lazy](#lazy) loading).
 
 ### From a file
 
