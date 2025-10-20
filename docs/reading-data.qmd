@@ -37,6 +37,8 @@ dat = pl.read_csv(Path(__file__).parent / "my_data.csv")
 
 ```python
 import duckdb
+from pathlib import Path
+
 dat = duckdb.read_csv(Path(__file__).parent / "my_data.csv")
 ```
 
@@ -46,6 +48,8 @@ dat = duckdb.read_csv(Path(__file__).parent / "my_data.csv")
 
 ```python
 import pandas as pd
+from pathlib import Path
+
 dat = pd.read_csv(Path(__file__).parent / "my_data.csv")
 ```
 :::
@@ -57,8 +61,8 @@ If your data lives in a database, reading it into memory can be done using simil
 ```python
 import polars as pl
 dat = pl.read_database_uri(
-    "postgresql://user:password@hostname/database_name",
-    "SELECT * FROM tablename"
+    "SELECT * FROM tablename",
+    "postgresql://user:password@hostname/database_name"
 )
 ```
 
