@@ -26,7 +26,7 @@ Before proceeding, make sure you read and understand the `app.py` logic below. T
 
 ```{.python filename="app.py"}
 import polars as pl
-from shiny.express import ui, render, input
+from shiny.express import ui, render, input, app_opts
 from shiny import reactive
 from setup import load_data, save_info, append_info
 
@@ -46,8 +46,7 @@ data = reactive.value(load_data())
 def submit_data():
     info = {
         "name": input.name_input(),
-        # We convert the boolean checkbox value to a string for storage
-        "checkbox": str(input.checkbox()),
+        "checkbox": input.checkbox(),
         "favorite_number": input.slider(),
     }
     # Update the (in-memory) data
@@ -111,31 +110,28 @@ In order to use Google Sheets as a data store, you'll need to set up authenticat
 
 
 ```{.python filename="setup.py"}
-import polars as pl
-import gspread
 
-# Authenticate with Google Sheets using a service account
-gc = gspread.service_account(filename="service_account.json")
-
-# Put your URL here
-sheet = gc.open_by_url("https://docs.google.com/spreadsheets/d/your_workbook_id")
-WORKSHEET = sheet.get_worksheet(0)
 # A polars schema that the data should conform to
 SCHEMA = {"name": pl.Utf8, "checkbox": pl.String, "favorite_number": pl.Int64}
+
 
 def load_data():
     return pl.from_dicts(
         WORKSHEET.get_all_records(expected_headers=SCHEMA.keys()),
         schema=SCHEMA,
+        strict=False,
     )
+
 
 def save_info(info: dict):
     # Google Sheets expects a list of values for the new row
-    new_row = [info["name"], info["checkbox"], info["favorite_number"]]
+    new_row = [info["name"], str(info["checkbox"]), info["favorite_number"]]
     WORKSHEET.append_row(new_row, insert_data_option="INSERT_ROWS")
 
 
 def append_info(d: pl.DataFrame, info: dict):
+    # Cast the boolean to a string for storage
+    info["checkbox"] = str(info["checkbox"])
     return pl.concat([d, pl.DataFrame(info, schema=SCHEMA)], how="vertical")
 ```
 
