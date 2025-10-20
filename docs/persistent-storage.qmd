@@ -294,6 +294,9 @@ Before deploying your app into production, consider that you likely don't want t
 ```{.python filename="setup.py"}
 import os
 import polars as pl
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # In your production environment, set APP_ENV=prod
 ENV = os.getenv("APP_ENV")
