@@ -7,7 +7,7 @@ lightbox:
   effect: fade
 ---
 
-Shiny apps often need to save data, either to load it back into a different session or to simply log some information. In this case, it's tempting to save to a local file, but this approach has drawbacks, especially if the data must persist across sessions, be shared among multiple users, or be mutable in some way. Unfortunately, it may not be obvious this is a problem until deploying your app to a server, where multiple users may be using the app at the same time.[^1]
+Shiny apps often need to save data, either to load it back into a different session or to simply log some information. In this case, it's tempting to save to a local file, but this approach has drawbacks, especially if the data must persist across sessions, be shared among multiple users, or be mutable in some way. Unfortunately, it may not be obvious this is a problem until you deploy your app to a server, where multiple users may be using the app at the same time.[^1]
 
 [^1]: Depending on the load balancing strategy of your [hosting provider](../get-started/deploy.qmd), you may be directed to different servers on different visits, meaning that data saved to a local file on one server may not be accessible on another server.
 
@@ -39,22 +39,29 @@ with ui.sidebar():
 # Load the initial data into a reactive value when the app starts
 data = reactive.value(load_data())
 
+
 # Append new user data on submit
 @reactive.effect
 @reactive.event(input.submit_button)
 def submit_data():
     info = {
         "name": input.name_input(),
-        "checkbox": input.checkbox(),
+        # We convert the boolean checkbox value to a string for storage
+        "checkbox": str(input.checkbox()),
         "favorite_number": input.slider(),
     }
     # Update the (in-memory) data
     d = data()
-    data.set(append_info(d, info))
-    # Save info to persistent storage (out-of-memory)
-    save_info(info)
-    # Provide some user feedback
-    ui.show_notification("Submitted, thanks!")
+
+    try:
+        data.set(append_info(d, info))
+        # Save info to persistent storage (out-of-memory)
+        save_info(info)
+        # Provide some user feedback
+        ui.notification_show("Submitted, thanks!")
+    except Exception as e:
+        ui.notification_show(f"Error submitting: {e}", type="error")
+
 
 # Data grid that shows the current data
 @render.data_frame
