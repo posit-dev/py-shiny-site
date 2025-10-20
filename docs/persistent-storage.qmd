@@ -216,7 +216,7 @@ import ibis
 import polars as pl
 
 # NOTE:  app.py should import CONN and close it via
-# `_ = session.on_close(CONN.close)` or similar
+# `_ = session.on_close(CONN.disconnect)` or similar
 CONN = ibis.postgres.connect(
     user="postgres", password="", host="localhost", port=5432, database="template1"
 )
