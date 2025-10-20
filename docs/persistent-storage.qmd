@@ -131,7 +131,7 @@ def load_data():
 
 def save_info(info: dict):
     # Google Sheets expects a list of values for the new row
-    new_row = [info["name"], str(info["checkbox"]), info["favorite_number"]]
+    new_row = list(info.values())
     WORKSHEET.append_row(new_row, insert_data_option="INSERT_ROWS")
 
 
@@ -164,11 +164,11 @@ STORAGE_OPTIONS = {
 SCHEMA = {"name": pl.Utf8, "checkbox": pl.String, "favorite_number": pl.Int32, "date": pl.Date}
 
 def load_data():
-    return pl.scan_parquet(f"{DATA_BUCKET}**/*.parquet")
+    return pl.read_parquet(f"{DATA_BUCKET}**/*.parquet", storage_options=STORAGE_OPTIONS)
 
 def save_info(info: dict):
     new_row = pl.DataFrame(info, schema=SCHEMA)
-    new_row.write_parquet(f"{DATA_BUCKET}", partition_by="date")
+    new_row.write_parquet(f"{DATA_BUCKET}", partition_by="date", storage_options=STORAGE_OPTIONS)
 
 def append_info(d: pl.DataFrame, info: dict):
     return pl.concat([d, pl.DataFrame(info, schema=SCHEMA)], how="vertical")
@@ -184,7 +184,7 @@ def append_info(d: pl.DataFrame, info: dict):
 
 Compared to cloud storage, databases offer a much more robust option for persistent storage. They can handle large datasets, more complex queries, and offer concurrency guarantees. There are many different types of databases, but for this example, we'll use Postgres, a popular open-source relational database. That said, Polars (and other libraries) [support many different databases](https://docs.pola.rs/user-guide/io/database/), so you can adapt this example to your preferred database system.
 
-::: callout-important
+::: callout-tip
 ### Authentication
 
 When connecting to a database, it's important to keep your credentials secure. Don't hard-code your username and password in your application code. Instead, consider using environment variables or a secrets manager to store your credentials securely.
@@ -247,16 +247,25 @@ First, let's assume we're using a [database backend](#databases), since that is 
 
 ### Error handling
 
-The app currently doesn't handle any errors that may occur when loading or saving data. For example, if the database is down or the Google Sheets API is unreachable, the app will crash. To make the app more robust, consider adding error handling to the `load_data()` and `save_info()` functions in `setup.py`. For example, you could use try/except blocks to catch exceptions and re-throw them as `NotifyException`, which will display a notification to the user without crashing the app.
+The app currently doesn't handle any errors that may occur when loading or saving data. For example, if the database is down or the Google Sheets API is unreachable, the app will crash. To make the app more robust, consider adding error handling to `load_data()` and `save_info()` in `setup.py`. For example, you could use try/except blocks to catch exceptions and re-throw them as `NotifyException`, which will display a notification to the user without crashing the app. This could like something like changing this line in `app.py`:
+
+```python
+data = reactive.value(load_data())
+```
+
+to
 
 ```python
 from shiny.types import NotifyException
 
-def load_data():
+data = reactive.value()
+
+@reactive.effect
+def _():
     try:
-        return pl.read_database_uri(f"SELECT * FROM {TABLE_NAME}", URI)
+        data.set(load_data())
     except Exception as e:
-        raise NotifyException(f"Error loading data: {e}")
+        raise NotifyException(f"Error loading data: {e}") from e
 ```
 
 ### Sharing data
