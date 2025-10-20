@@ -52,14 +52,11 @@ def submit_data():
     # Update the (in-memory) data
     d = data()
 
-    try:
-        data.set(append_info(d, info))
-        # Save info to persistent storage (out-of-memory)
-        save_info(info)
-        # Provide some user feedback
-        ui.notification_show("Submitted, thanks!")
-    except Exception as e:
-        ui.notification_show(f"Error submitting: {e}", type="error")
+    data.set(append_info(d, info))
+    # Save info to persistent storage (out-of-memory)
+    save_info(info)
+    # Provide some user feedback
+    ui.notification_show("Submitted, thanks!")
 
 
 # Data grid that shows the current data
@@ -228,7 +225,7 @@ CONN = ibis.postgres.connect(
 )
 TABLE_NAME = "testapp"
 
-SCHEMA = {"name": pl.Utf8, "checkbox": pl.String, "favorite_number": pl.Int64}
+SCHEMA = {"name": pl.Utf8, "checkbox": pl.Boolean, "favorite_number": pl.Int32}
 
 def load_data():
     return CONN.table(TABLE_NAME).to_polars()
