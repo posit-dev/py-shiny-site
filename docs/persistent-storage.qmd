@@ -76,7 +76,7 @@ Note that we're importing three helper functions from a `setup.py` file: `load_d
 import polars as pl
 
 # A polars schema that the data should conform to
-SCHEMA = {"name": pl.Utf8, "checkbox": pl.String, "favorite_number": pl.Int64}
+SCHEMA = {"name": pl.Utf8, "checkbox": pl.String, "favorite_number": pl.Int32}
 
 # A template for loading data from our persistent storage
 def load_data():
@@ -110,16 +110,25 @@ In order to use Google Sheets as a data store, you'll need to set up authenticat
 
 
 ```{.python filename="setup.py"}
+import polars as pl
+import gspread
+
+# Authenticate with Google Sheets using a service account
+gc = gspread.service_account(filename="service_account.json")
+
+# Put your URL here
+sheet = gc.open_by_url("https://docs.google.com/spreadsheets/d/your_workbook_id")
+WORKSHEET = sheet.get_worksheet(0)
+
+import polars as pl
 
 # A polars schema that the data should conform to
-SCHEMA = {"name": pl.Utf8, "checkbox": pl.String, "favorite_number": pl.Int64}
+SCHEMA = {"name": pl.Utf8, "checkbox": pl.String, "favorite_number": pl.Int32}
 
 
 def load_data():
     return pl.from_dicts(
-        WORKSHEET.get_all_records(expected_headers=SCHEMA.keys()),
-        schema=SCHEMA,
-        strict=False,
+        WORKSHEET.get_all_records(expected_headers=SCHEMA.keys()), schema=SCHEMA
     )
 
 
@@ -155,7 +164,7 @@ STORAGE_OPTIONS = {
     "aws_region": "us-east-1",
 }
 
-SCHEMA = {"name": pl.Utf8, "checkbox": pl.String, "favorite_number": pl.Int64, "date": pl.Date}
+SCHEMA = {"name": pl.Utf8, "checkbox": pl.String, "favorite_number": pl.Int32, "date": pl.Date}
 
 def load_data():
     return pl.scan_parquet(f"{DATA_BUCKET}**/*.parquet")
@@ -190,7 +199,7 @@ import polars as pl
 URI = "postgresql://postgres@localhost:5432/template1"
 TABLE_NAME = "testapp"
 
-SCHEMA = {"name": pl.Utf8, "checkbox": pl.String, "favorite_number": pl.Int64}
+SCHEMA = {"name": pl.Utf8, "checkbox": pl.Boolean, "favorite_number": pl.Int32}
 
 def load_data():
     return pl.read_database_uri(f"SELECT * FROM {TABLE_NAME}", URI)
