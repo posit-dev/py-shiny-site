@@ -14,7 +14,7 @@ By eager, we mean loading all your data into memory when the app first starts. B
 ## Eager loading {#eager}
 
 Loading all your data into memory when your app first starts is the simplest way to work with data in Shiny.
-This makes it easy create UI from data, and more generally reason about your app's data logic. However, this also means that before a user can interact with your app, the data must finish being loaded into memory, so be mindful to keep this step as fast and efficient as possible (or consider [lazy](#lazy) loading).
+This makes it easy to create UI from data, and more generally reason about your app's data logic. However, this also means that before a user can interact with your app, the data must finish being loaded into memory, so be mindful to keep this step as fast and efficient as possible (or consider [lazy](#lazy) loading).
 
 ### From a file
 
@@ -78,21 +78,14 @@ We'll cover this (explicitly opening/closing connections) more in the [lazy load
 
 
 ### From a cloud store (ex. AWS S3)
+
 Polars can read Parquet, CSV, IPC, and NDJSON files directly from cloud storage providers such as AWS, Azure, and Google Cloud Storage.
 
 Depending on the provider, you will have to set up the appropriate credentialing (more info [here](https://docs.pola.rs/user-guide/io/cloud-storage/#cloud-authentication)). Once you've done so, reading from the cloud is just like reading from a file on disk.
 
 ```python
 import polars as pl
-
-DATA_BUCKET = "s3://my-bucket/data/"
-STORAGE_OPTIONS = {
-    "aws_access_key_id": "<secret>",
-    "aws_secret_access_key": "<secret>",
-    "aws_region": "us-east-1",
-}
-
-df = pl.read_parquet(f"{DATA_BUCKET}**/*.parquet")
+dat = pl.read_parquet("s3://bucket/yourfilehere.parquet")
 ```
 ### Performance tips
 
@@ -158,17 +151,8 @@ Polars also supports lazy reading from cloud storage using its query optimizatio
 ```python
 import polars as pl
 
-
-DATA_BUCKET = "s3://my-bucket/data/"
-STORAGE_OPTIONS = {
-    "aws_access_key_id": "<secret>",
-    "aws_secret_access_key": "<secret>",
-    "aws_region": "us-east-1",
-}
-
-# Polars will perform filtering, selection, and other manipulations here and only pull down
-# the portions of the dataset you actually need from the remote store
-df = pl.scan_parquet(f"{DATA_BUCKET}**/*.parquet").filter("your filter here").collect()
+source = "s3://bucket/yourfilename.parquet"
+dat = pl.scan_parquet(source).filter("your filter here").collect()
 ```
 :::
 
