@@ -225,6 +225,7 @@ Let's look at an example with the [The Weather Dataset](https://www.kaggle.com/d
 import polars as pl
 
 from shiny.express import ui, render, input
+from shiny import reactive
 
 # Use `scan_*` instead of `read_*` to use the lazy API
 dat = pl.scan_parquet("./daily_weather.parquet")
@@ -277,7 +278,7 @@ with ui.sidebar():
         selected="Summer",
     )
     # Import just the unique city names for our selectize input
-    cities = dat.select("city_name").distinct().execute().tolist()
+    cities = dat.select("city_name").distinct().execute()["city_name"].to_list()
     ui.input_selectize("city", "City", choices=cities)
 
 
