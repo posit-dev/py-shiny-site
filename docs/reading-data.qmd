@@ -261,7 +261,9 @@ def results_df():
 
 ```python
 import ibis
-from shiny.express import ui, render, input, reactive, session
+from ibis import _
+from shiny.express import ui, render, input, session
+from shiny import reactive
 
 # Connect to the database (quick, doesn't load data)
 con = ibis.postgres.connect(
@@ -345,6 +347,7 @@ If your data lives in a local file, use [`reactive.file_reader()`](https://shiny
 By default, `reactive.file_reader()` checks the file's modification time every second, but you can adjust this with the `interval` argument.
 
 ```python
+import pathlib
 import polars as pl
 from shiny import reactive
 from shiny.express import render
@@ -369,7 +372,8 @@ In general, you might check a "last updated" timestamp column:
 
 ```python
 import ibis
-from shiny.express import reactive
+from shiny.express import render
+from shiny import reactive
 
 con = ibis.postgres.connect(user="", password="", host="", port=, database="")
 table = con.table("tablename")
@@ -378,9 +382,13 @@ def check_last_updated():
     return table.last_updated.max().execute()
 
 # Every 5 seconds, check if the max timestamp has changed
-@reactive.poll(check_last_updated, interval=5)
+@reactive.poll(check_last_updated, interval_secs=5)
 def data():
     return table.execute()
+
+@render.data_frame
+def result():
+    return data()
 ```
 
 ::: callout-note
