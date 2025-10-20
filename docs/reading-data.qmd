@@ -186,7 +186,7 @@ con = ibis.postgres.connect(
 dat = con.table("tablename")
 
 # Cleanup connection when the session ends
-_ = session.on_ended(con.close)
+_ = session.on_ended(con.disconnect)
 
 @render.data_frame
 def df():
@@ -270,7 +270,7 @@ con = ibis.postgres.connect(
     user="", password="", host="", port=, database=""
 )
 dat = con.table("weather")
-_ = session.on_ended(con.close)
+end_session = session.on_ended(con.disconnect)
 
 with ui.sidebar():
     ui.input_checkbox_group(
