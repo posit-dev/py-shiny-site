@@ -7,7 +7,7 @@ lightbox:
   effect: fade
 ---
 
-From local files, databases, cloud-hosted data stores, and beyond, if you can read your data into Python, you can also read it into Shiny. Here we'll highlight some of our recommended ways to read data, which can be grouped into two main categories: [eager](#eager) and [lazy](#lazy).
+From local files, databases, cloud-hosted data stores, and beyond, if you can read your data into Python, you can also read it into Shiny. Here we'll highlight some of our recommended ways to read data, which can be grouped into two main categories: [eager](#eager) and [lazy](#lazy) loading.
 
 By eager, we mean loading all your data into memory when the app first starts. By lazy, we mean loading _portions_ of data into memory _as needed_. The eager approach is generally recommended for small to moderately sized datasets -- for larger data, lazy loading may be necessary, but it will add complexity to your app logic.
 
@@ -66,7 +66,8 @@ dat = pl.read_database_uri(
 )
 ```
 
-See [SQLAlchemy's documentation](https://docs.sqlalchemy.org/en/20/core/engines.html) for more information on connection strings for different databases.
+
+See [Polars](https://docs.pola.rs/user-guide/io/database/) and [SQLAlchemy's](https://docs.sqlalchemy.org/en/20/core/engines.html) docs for more info, like connecting to other database types.
 
 
 ::: callout-tip
@@ -77,16 +78,19 @@ We'll cover this (explicitly opening/closing connections) more in the [lazy load
 :::
 
 
-### From a cloud store (ex. AWS S3)
+### From the cloud
 
 Polars can read Parquet, CSV, IPC, and NDJSON files directly from cloud storage providers such as AWS, Azure, and Google Cloud Storage.
 
-Depending on the provider, you will have to set up the appropriate credentialing (more info [here](https://docs.pola.rs/user-guide/io/cloud-storage/#cloud-authentication)). Once you've done so, reading from the cloud is just like reading from a file on disk.
+Depending on the provider, you will have to set up the appropriate [credentialing](https://docs.pola.rs/user-guide/io/cloud-storage/#cloud-authentication). Once you've done so, reading from the cloud is just like reading from a file on disk.
 
 ```python
 import polars as pl
-dat = pl.read_parquet("s3://bucket/yourfilehere.parquet")
+dat = pl.read_parquet("s3://bucket/yourfile.parquet")
 ```
+
+For more, see Polars' [cloud storage documentation](https://docs.pola.rs/user-guide/io/cloud-storage/).
+
 ### Performance tips
 
 When eagerly reading data into memory, it's important to consider the performance implications. Here are some tips to help keep your app fast and responsive:
@@ -144,14 +148,14 @@ def df():
 ```
 
 ::: callout-tip
-### Reading from a file stored in the cloud
+### Cloud-based files
 
-Polars also supports lazy reading from cloud storage using its query optimization tooling. This is very helpful for limiting how much information is downloaded to memory, especially if you only need a small portion of a much larger dataset for your application (ex. You have data from 1900-present but you only need 2000-present.)
+Polars also supports lazy reading from [cloud storage](https://docs.pola.rs/user-guide/io/cloud-storage/). This is very helpful for limiting how much information is downloaded to memory, especially if you only need a small portion of a much larger dataset for your application (e.g., You have data from 1900-present but you only need 2000-present.)
 
 ```python
 import polars as pl
 
-source = "s3://bucket/yourfilename.parquet"
+source = "s3://bucket/yourfile.parquet"
 dat = pl.scan_parquet(source).filter("your filter here").collect()
 ```
 :::

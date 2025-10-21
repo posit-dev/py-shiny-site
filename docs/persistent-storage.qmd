@@ -39,7 +39,6 @@ with ui.sidebar():
 # Load the initial data into a reactive value when the app starts
 data = reactive.value(load_data())
 
-
 # Append new user data on submit
 @reactive.effect
 @reactive.event(input.submit_button)
@@ -51,13 +50,11 @@ def submit_data():
     }
     # Update the (in-memory) data
     d = data()
-
     data.set(append_info(d, info))
     # Save info to persistent storage (out-of-memory)
     save_info(info)
     # Provide some user feedback
     ui.notification_show("Submitted, thanks!")
-
 
 # Data grid that shows the current data
 @render.data_frame
@@ -222,7 +219,7 @@ import ibis
 import polars as pl
 
 # NOTE:  app.py should import CONN and close it via
-# `_ = session.on_close(CONN.close)` or similar
+# `_ = session.on_close(CONN.disconnect)` or similar
 CONN = ibis.postgres.connect(
     user="postgres", password="", host="localhost", port=5432, database="template1"
 )
@@ -325,13 +322,13 @@ In fact, you may also want to consider using different credentials for different
 
 ### Cloud
 
-The quickest and easiest way to deploy your app is through [Posit Connect Cloud](https://connect.posit.cloud/), which has a generous [free tier](https://connect.posit.cloud/plans). All you need is your app code and a `requirements.txt` file. From there, you can deploy via a Github repo or from within [VSCode](https://code.visualstudio.com/)/[Positron](https://positron.posit.co/) via the [Publisher extension](https://marketplace.visualstudio.com/items?itemName=Posit.publisher). Note that it's [encrypted secrets](https://connect.posit.cloud/plans) feature will come in handy for authenticating with your persistent storage backend.
+The quickest and easiest way to deploy your app is through [Posit Connect Cloud](https://connect.posit.cloud/), which has a generous [free tier](https://connect.posit.cloud/plans). All you need is your app code and a `requirements.txt` file. From there, you can deploy via a Github repo or from within [VSCode](https://code.visualstudio.com/)/[Positron](https://positron.posit.co/) via the [Publisher extension](https://marketplace.visualstudio.com/items?itemName=Posit.publisher). Note that its [encrypted secrets](https://connect.posit.cloud/plans) feature will come in handy for authenticating with your persistent storage backend.
 
 To learn more about other cloud-based deployment options, see [here](../get-started/deploy-cloud.qmd).
 
 ### Self-hosted
 
 If you or your organization prefers to self-host, consider [Posit Connect](https://posit.co/products/connect), which is Posit's flagship publishing platform for the work your teams create in Python or R.
-Posit Connect is widely used in highly regulated environments, with strict security and compliance requirements. It includes robust features for managing user access, scheduling content updates, and monitoring application performance. Note that it's [content settings panel](https://docs.posit.co/connect/user/content-settings/) will come in handy for configuring environment variables and other settings needed to connect to your persistent storage backend.
+Posit Connect is widely used in highly regulated environments, with strict security and compliance requirements. It includes robust features for managing user access, scheduling content updates, and monitoring application performance. Note that its [content settings panel](https://docs.posit.co/connect/user/content-settings/) will come in handy for configuring environment variables and other settings needed to connect to your persistent storage backend.
 
-To learn more about other self-hosted deployment options, see [here](../get-started/deploy-on-prem.qmd).
+To learn more about other self-hosted deployment options (including free and open source ones), see [here](../get-started/deploy-on-prem.qmd).
