@@ -242,6 +242,18 @@ Let's look at an example with the [The Weather Dataset](https://www.kaggle.com/d
 We have numerous full examples and starter templates of dashboards using different datastores. We've sorted them into categories roughly corresponding to the tech stack at the bottom of this article.
 
 ::: {.panel-tabset .panel-pills}
+
+#### Polars
+::: {layout-ncol=2}
+##### Restaurant Tips Dashboard Template
+![Restaurant tips dashboard](../templates/dashboard-tips/thumbnail.png)
+[See the code](https://shiny.posit.co/py/templates/dashboard-tips/)
+
+##### Model Scoring Dashboard Template
+![Model scoring dashboard](../templates/model-scoring/thumbnail.png)
+[See the code](https://shiny.posit.co/py/templates/model-scoring/)
+:::
+
 #### DuckDB
 
 ::: {layout-ncol=2}
@@ -259,11 +271,6 @@ We have numerous full examples and starter templates of dashboards using differe
 #### Pandas
 
 ::: {layout-ncol=2}
-##### Restaurant Tips Template
-
-![Restaurant tips dashboard](../templates/dashboard-tips/thumbnail.png)
-[See the code](https://shiny.posit.co/py/templates/dashboard-tips/)
-
 ##### AWS Community Builders App
 
 ![AWS Community Builders App](../gallery/aws-builders.jpg)
