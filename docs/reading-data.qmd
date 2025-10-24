@@ -226,80 +226,13 @@ Let's look at an example with the [The Weather Dataset](https://www.kaggle.com/d
 #### Polars (file)
 
 ```python
-import polars as pl
-
-from shiny.express import ui, render, input
-from shiny import reactive
-
-# Use `scan_*` instead of `read_*` to use the lazy API
-dat = pl.scan_parquet("./daily_weather.parquet")
-
-with ui.sidebar():
-    ui.input_checkbox_group(
-        "season",
-        "Season",
-        choices=["Summer", "Winter", "Fall", "Spring"],
-        selected="Summer",
-    )
-    # Import just the unique city names for our selectize input
-    cities = dat.select("city_name").unique().collect().to_series().to_list()
-    ui.input_selectize("city", "City", choices=cities)
-
-# Store manipulation in a reactive calc
-# (convenient for writing once and using in multiple places)
-@reactive.calc
-def filtered_dat():
-    return (
-        dat
-          .filter(pl.col("city_name") == input.city())
-          .filter(pl.col("season").is_in(input.season()))
-    )
-
-# Display the filtered data
-@render.data_frame
-def results_df():
-    return filtered_dat().collect()
+{{< include apps/reading-data/polars-app.py >}}
 ```
 
 #### Ibis (database)
 
 ```python
-import ibis
-from ibis import _
-from shiny.express import ui, render, input, session
-from shiny import reactive
-
-# Connect to the database (quick, doesn't load data)
-con = ibis.postgres.connect(
-    user="", password="", host="", port=, database=""
-)
-dat = con.table("weather")
-end_session = session.on_ended(con.disconnect)
-
-with ui.sidebar():
-    ui.input_checkbox_group(
-        "season",
-        "Season",
-        choices=["Summer", "Winter", "Autumn", "Spring"],
-        selected="Summer",
-    )
-    # Import just the unique city names for our selectize input
-    cities = dat.select("city_name").distinct().execute()["city_name"].to_list()
-    ui.input_selectize("city", "City", choices=cities)
-
-
-# Store data manipulations in a reactive calculation
-# (convenient when using the data in multiple places)
-@reactive.calc
-def filtered_dat():
-    return dat.filter(
-        [_.city_name == input.city(), _.season.isin(input.season())]
-    )
-
-# Display the filtered data
-@render.data_frame
-def results_df():
-    return filtered_dat().execute()
+{{< include apps/reading-data/ibis-app.py >}}
 ```
 :::
 
@@ -375,24 +308,7 @@ Unfortunately, there is no universal way to check if data has changed in a datab
 In general, you might check a "last updated" timestamp column:
 
 ```python
-import ibis
-from shiny.express import render
-from shiny import reactive
-
-con = ibis.postgres.connect(user="", password="", host="", port=, database="")
-table = con.table("tablename")
-
-def check_last_updated():
-    return table.last_updated.max().execute()
-
-# Every 5 seconds, check if the max timestamp has changed
-@reactive.poll(check_last_updated, interval_secs=5)
-def data():
-    return table.execute()
-
-@render.data_frame
-def result():
-    return data()
+{{< include apps/reading-data/reactive-read-ibis-app.py >}}
 ```
 
 ::: callout-note

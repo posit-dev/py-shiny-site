@@ -25,44 +25,10 @@ Before proceeding, make sure you read and understand the `app.py` logic below. T
 
 
 ```{.python filename="app.py"}
-import polars as pl
-from shiny.express import ui, render, input, app_opts
-from shiny import reactive
-from setup import load_data, save_info, append_info
-
-with ui.sidebar():
-    ui.input_text("name_input", "Enter your name", placeholder="Your name here")
-    ui.input_checkbox("checkbox", "I like checkboxes")
-    ui.input_slider("slider", "My favorite number is:", min=0, max=100, value=50)
-    ui.input_action_button("submit_button", "Submit")
-
-# Load the initial data into a reactive value when the app starts
-data = reactive.value(load_data())
-
-# Append new user data on submit
-@reactive.effect
-@reactive.event(input.submit_button)
-def submit_data():
-    info = {
-        "name": input.name_input(),
-        "checkbox": input.checkbox(),
-        "favorite_number": input.slider(),
-    }
-    # Update the (in-memory) data
-    d = data()
-    data.set(append_info(d, info))
-    # Save info to persistent storage (out-of-memory)
-    save_info(info)
-    # Provide some user feedback
-    ui.notification_show("Submitted, thanks!")
-
-# Data grid that shows the current data
-@render.data_frame
-def show_results():
-    return render.DataGrid(data())
+{{< include apps/persistent-storage/app.py >}}
 ```
 
-<!-- TODO: add a screenshot of the app here -->
+![Simple Form Submission App](./apps/persistent-storage/simple_form_app.jpeg)
 
 Note that we're importing three helper functions from a `setup.py` file: `load_data()`, `save_info()`, and `append_info()`. These functions will be responsible for loading/saving data to persistent storage, as well as updating our in-memory data. For now, we'll just have some placeholders, but we'll fill these in with actual implementations in the next section.
 
@@ -104,38 +70,7 @@ In order to use Google Sheets as a data store, you'll need to set up authenticat
 
 
 ```{.python filename="setup.py"}
-import polars as pl
-import gspread
-
-# Authenticate with Google Sheets using a service account
-gc = gspread.service_account(filename="service_account.json")
-
-# Put your URL here
-sheet = gc.open_by_url("https://docs.google.com/spreadsheets/d/your_workbook_id")
-WORKSHEET = sheet.get_worksheet(0)
-
-import polars as pl
-
-# A polars schema that the data should conform to
-SCHEMA = {"name": pl.Utf8, "checkbox": pl.String, "favorite_number": pl.Int32}
-
-
-def load_data():
-    return pl.from_dicts(
-        WORKSHEET.get_all_records(expected_headers=SCHEMA.keys()), schema=SCHEMA
-    )
-
-
-def save_info(info: dict):
-    # Google Sheets expects a list of values for the new row
-    new_row = list(info.values())
-    WORKSHEET.append_row(new_row, insert_data_option="INSERT_ROWS")
-
-
-def append_info(d: pl.DataFrame, info: dict):
-    # Cast the boolean to a string for storage
-    info["checkbox"] = str(info["checkbox"])
-    return pl.concat([d, pl.DataFrame(info, schema=SCHEMA)], how="vertical")
+{{< include apps/persistent-storage/gs-setup.py >}}
 ```
 
 
@@ -149,29 +84,7 @@ Polars provides built-in support for working with [cloud storage services](https
 Efficiently updating data in cloud storage can be tricky, since these services are typically optimized for large, immutable files. That said, if your data can be stored in a columnar format like Parquet, you can take advantage of partitioning to efficiently append new data without having to rewrite the entire dataset.
 
 ```{.python filename="setup.py"}
-import polars as pl
-from datetime import datetime
-
-DATA_BUCKET = "s3://my-bucket/data/"
-STORAGE_OPTIONS = {
-    "aws_access_key_id": "<secret>",
-    "aws_secret_access_key": "<secret>",
-    "aws_region": "us-east-1",
-}
-
-SCHEMA = {"name": pl.Utf8, "checkbox": pl.String, "favorite_number": pl.Int32, "date": pl.Datetime}
-
-def load_data():
-    return pl.read_parquet(f"{DATA_BUCKET}**/*.parquet", storage_options=STORAGE_OPTIONS)
-
-def save_info(info: dict):
-    info["date"] = datetime.now()
-    new_row = pl.DataFrame(info, schema=SCHEMA)
-    new_row.write_parquet(f"{DATA_BUCKET}", partition_by="date", storage_options=STORAGE_OPTIONS)
-
-def append_info(d: pl.DataFrame, info: dict):
-    info["date"] = datetime.now()
-    return pl.concat([d, pl.DataFrame(info, schema=SCHEMA)], how="vertical")
+{{< include apps/persistent-storage/s3-setup.py >}}
 ```
 
 ::: callout-tip
@@ -191,22 +104,8 @@ When connecting to a database, it's important to keep your credentials secure. D
 :::
 
 ```{.python filename="setup.py"}
-import polars as pl
+{{< include apps/persistent-storage/pg-setup.py >}}
 
-URI = "postgresql://postgres@localhost:5432/template1"
-TABLE_NAME = "testapp"
-
-SCHEMA = {"name": pl.Utf8, "checkbox": pl.Boolean, "favorite_number": pl.Int32}
-
-def load_data():
-    return pl.read_database_uri(f"SELECT * FROM {TABLE_NAME}", URI)
-
-def save_info(info: dict):
-    new_row = pl.DataFrame(info, schema=SCHEMA)
-    new_row.write_database(TABLE_NAME, URI, if_table_exists="append")
-
-def append_info(d: pl.DataFrame, info: dict):
-    return pl.concat([d, pl.DataFrame(info, schema=SCHEMA)], how="vertical")
 ```
 
 ::: {.callout-note collapse="true"}
@@ -215,27 +114,7 @@ def append_info(d: pl.DataFrame, info: dict):
 Ibis is another useful Python package for working with databases. It may be a preferable option to Polars if you need more complex queries and/or read from multiple tables efficiently.
 
 ```{.python filename="setup.py"}
-import ibis
-import polars as pl
-
-# NOTE:  app.py should import CONN and close it via
-# `_ = session.on_close(CONN.disconnect)` or similar
-CONN = ibis.postgres.connect(
-    user="postgres", password="", host="localhost", port=5432, database="template1"
-)
-TABLE_NAME = "testapp"
-
-SCHEMA = {"name": pl.Utf8, "checkbox": pl.Boolean, "favorite_number": pl.Int32}
-
-def load_data():
-    return CONN.table(TABLE_NAME).to_polars()
-
-def save_info(info: dict):
-    new_row = pl.DataFrame(info, schema=SCHEMA)
-    CONN.insert(TABLE_NAME, new_row, overwrite=False)
-
-def append_info(d: pl.DataFrame, info: dict):
-    return pl.concat([d, pl.DataFrame(info, schema=SCHEMA)], how="vertical")
+{{< include apps/persistent-storage/ibis-setup.py >}}
 ```
 :::
 
