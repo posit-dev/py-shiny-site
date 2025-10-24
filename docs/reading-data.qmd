@@ -97,7 +97,7 @@ When eagerly reading data into memory, it's important to consider the performanc
 
 #### Express
 
-When in Express mode (i.e., using `shiny.express`), we highly recommended reading data (or other expensive setup code) in a separate module, then import it into your `app.py` file. This ensures the data is loaded only once, improving performance. For more details, refer to the Express documentation [here](express-in-depth.qmd#shared-objects).
+When in Express mode (i.e., using `shiny.express`), we highly recommended reading data (or other expensive setup code) in a separate module, then importing it into your `app.py` file. This ensures the data is loaded only once, improving performance. For more details, refer to the Express documentation [here](express-in-depth.qmd#shared-objects).
 
 ```{.python filename="setup.py"}
 import polars as pl
@@ -219,7 +219,7 @@ with engine.connect() as conn:
 
 ### A real example
 
-Let's look at an example with the [The Weather Dataset](https://www.kaggle.com/datasets/guillemservera/global-daily-climate-data). This data is fairly large (nearly 28M rows), but by loading it lazily, we can keep our app responsive by only loading one city+season data at a time.
+Let's look at an example with the [The Weather Dataset](https://www.kaggle.com/datasets/guillemservera/global-daily-climate-data). This data is fairly large (nearly 28M rows), but by loading it lazily, we can keep our app responsive.
 
 ::: {.panel-tabset .panel-pills}
 
@@ -239,7 +239,7 @@ Let's look at an example with the [The Weather Dataset](https://www.kaggle.com/d
 
 ## Examples
 
-We have numerous full examples and starter templates of dashboards using different datastores. We've sorted them into categories roughly corresponding to the tech stack at the bottom of this article.
+We have numerous full examples and starter templates of dashboards using different datastores. We've sorted them into categories roughly corresponding to the tech stack.
 
 ::: {.panel-tabset .panel-pills}
 
