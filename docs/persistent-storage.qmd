@@ -15,7 +15,7 @@ In this case, instead of using the local file system to persist data, it's often
 
 ## An example: user forms {#user-form-example}
 
-To help us illustrate how to persist data in a Shiny app (using various backends), lets build on a simple user form example. In this app, users can submit their name, whether they like checkboxes, and their favorite number. The app will then display all the information that has been submitted so far.
+To help us illustrate how to persist data in a Shiny app (using various backends), let's build on a simple user form example. In this app, users can submit their name, whether they like checkboxes, and their favorite number. The app will then display all the information that has been submitted so far.
 
 ::: callout-warning
 ### Pause here
@@ -74,7 +74,7 @@ In order to use Google Sheets as a data store, you'll need to set up authenticat
 ```
 
 
-Although Google Sheets is a nice, simple, option for data collection, there are a number of reasons why you may prefer a more sophisticated option (e.g., security, governance, efficiency, concurrency, etc.).
+Although Google Sheets is a nice, simple option for data collection, there are a number of reasons why you may prefer a more sophisticated option (e.g., security, governance, efficiency, concurrency, etc.).
 In the next example, we'll replace our Google Sheets workbook with a (Postgres) database. This gets us much closer to a traditional web application, with a persistent database for storage and all the standard database features like transaction locking, query optimization, and concurrency management.
 
 ### Cloud storage
@@ -121,7 +121,7 @@ Ibis is another useful Python package for working with databases. It may be a pr
 
 ## Adding polish
 
-The [user form example](#user-form-example) that we've been building from is a good/simple start, but there are a few things we could do to make it a bit more robust, user-friendly, and production-ready.
+The [user form example](#user-form-example) that we've been building from is a good start, but there are a few things we could do to make it a bit more robust, user-friendly, and production-ready.
 First, let's assume we're using a [database backend](#databases), since that is the robust and scalable option for production apps.
 
 ### Error handling
