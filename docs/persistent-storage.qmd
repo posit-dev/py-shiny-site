@@ -1,0 +1,213 @@
+---
+title: Persistent data
+editor:
+  markdown:
+    wrap: sentence
+lightbox:
+  effect: fade
+---
+
+Shiny apps often need to save data, either to load it back into a different session or to simply log some information. In this case, it's tempting to save to a local file, but this approach has drawbacks, especially if the data must persist across sessions, be shared among multiple users, or be mutable in some way. Unfortunately, it may not be obvious this is a problem until you deploy your app to a server, where multiple users may be using the app at the same time.[^1]
+
+[^1]: Depending on the load balancing strategy of your [hosting provider](../get-started/deploy.qmd), you may be directed to different servers on different visits, meaning that data saved to a local file on one server may not be accessible on another server.
+
+In this case, instead of using the local file system to persist data, it's often better to use a remote data store. This could be a database, a cloud storage service, or even a collaborative tool like Google Sheets. In this article, we'll explore some common options for persistent storage in Shiny apps, along with some best practices for managing data in a multi-user environment.
+
+## An example: user forms {#user-form-example}
+
+To help us illustrate how to persist data in a Shiny app (using various backends), let's build on a simple user form example. In this app, users can submit their name, whether they like checkboxes, and their favorite number. The app will then display all the information that has been submitted so far.
+
+::: callout-warning
+### Pause here
+
+Before proceeding, make sure you read and understand the `app.py` logic below. This portion will stay fixed -- we'll only be changing only the `setup.py` file to implement different persistent storage backends.
+:::
+
+
+```{.python filename="app.py"}
+{{< include apps/persistent-storage/app.py >}}
+```
+
+![Simple Form Submission App](./apps/persistent-storage/simple_form_app.jpeg)
+
+Note that we're importing three helper functions from a `setup.py` file: `load_data()`, `save_info()`, and `append_info()`. These functions will be responsible for loading/saving data to persistent storage, as well as updating our in-memory data. For now, we'll just have some placeholders, but we'll fill these in with actual implementations in the next section.
+
+```{.python filename="setup.py"}
+import polars as pl
+
+# A polars schema that the data should conform to
+SCHEMA = {"name": pl.Utf8, "checkbox": pl.String, "favorite_number": pl.Int32}
+
+# A template for loading data from our persistent storage
+def load_data():
+    return pl.DataFrame(schema=SCHEMA)
+
+# A template for saving new info to our persistent storage
+def save_info(info: dict):
+    pass
+
+# Helper to append new info to our in-memory data
+def append_info(d: pl.DataFrame, info: dict):
+    return pl.concat([d, pl.DataFrame(info, schema=SCHEMA)], how="vertical")
+```
+
+## Persistent storage options
+
+As long as you can read/write data between Python and a data store, you can use it as persistent storage with Shiny. Here are some common options, along with some example implementations.
+
+### Google Sheets
+
+Google Sheets is a great lightweight option for persistent storage. It has a familiar web interface, built-in sharing and collaboration features, and a free tier that is sufficient for many applications.
+There's also a nice library, [`gspread`](https://docs.gspread.org/en/latest/index.html), that makes it easy to read and write data to Google Sheets.
+We'll use it here to demonstrate how to persist data in a Shiny app.
+
+
+::: callout-note
+### Authentication
+
+In order to use Google Sheets as a data store, you'll need to set up authentication with Google. Try following the authentication instructions in the [`gspread` documentation](https://docs.gspread.org/en/latest/oauth2.html). Your organization may or may not support creating your own service account, so you may have to contact your IT department if you can't create one on your own.
+:::
+
+
+```{.python filename="setup.py"}
+{{< include apps/persistent-storage/gs-setup.py >}}
+```
+
+
+Although Google Sheets is a nice, simple option for data collection, there are a number of reasons why you may prefer a more sophisticated option (e.g., security, governance, efficiency, concurrency, etc.).
+In the next example, we'll replace our Google Sheets workbook with a (Postgres) database. This gets us much closer to a traditional web application, with a persistent database for storage and all the standard database features like transaction locking, query optimization, and concurrency management.
+
+### Cloud storage
+
+Polars provides built-in support for working with [cloud storage services](https://docs.pola.rs/user-guide/io/cloud-storage/) like AWS S3, Google Cloud Storage, and Azure Blob Storage.
+
+Efficiently updating data in cloud storage can be tricky, since these services are typically optimized for large, immutable files. That said, if your data can be stored in a columnar format like Parquet, you can take advantage of partitioning to efficiently append new data without having to rewrite the entire dataset.
+
+```{.python filename="setup.py"}
+{{< include apps/persistent-storage/s3-setup.py >}}
+```
+
+::: callout-tip
+### Pins
+
+[Pins](https://rstudio.github.io/pins-python/) offers another option for working with cloud storage. It provides a higher-level interface for storing and retrieving data, along with built-in support for versioning and metadata. Pins offers some nice cloud storage integrations you may not find elsewhere, like [Posit Connect](https://pins.rstudio.com/reference/board_connect.html) and [Databricks](https://pins.rstudio.com/reference/board_databricks.html).
+:::
+
+### Databases {#databases}
+
+Compared to cloud storage, databases offer a much more robust option for persistent storage. They can handle large datasets, more complex queries, and offer concurrency guarantees. There are many different types of databases, but for this example, we'll use Postgres, a popular open-source relational database. That said, Polars (and other libraries) [support many different databases](https://docs.pola.rs/user-guide/io/database/), so you can adapt this example to your preferred database system.
+
+::: callout-tip
+### Authentication
+
+When connecting to a database, it's important to keep your credentials secure. Don't hard-code your username and password in your application code. Instead, consider using environment variables or a secrets manager to store your credentials securely.
+:::
+
+```{.python filename="setup.py"}
+{{< include apps/persistent-storage/pg-setup.py >}}
+
+```
+
+::: {.callout-note collapse="true"}
+### What about Ibis?
+
+Ibis is another useful Python package for working with databases. It may be a preferable option to Polars if you need more complex queries and/or read from multiple tables efficiently.
+
+```{.python filename="setup.py"}
+{{< include apps/persistent-storage/ibis-setup.py >}}
+```
+:::
+
+
+## Adding polish
+
+The [user form example](#user-form-example) that we've been building from is a good start, but there are a few things we could do to make it a bit more robust, user-friendly, and production-ready.
+First, let's assume we're using a [database backend](#databases), since that is the robust and scalable option for production apps.
+
+### Error handling
+
+The app currently doesn't handle any errors that may occur when loading or saving data. For example, if the database is down or the Google Sheets API is unreachable, the app will crash. To make the app more robust, consider adding error handling to `load_data()` and `save_info()` in `setup.py`. For example, you could use try/except blocks to catch exceptions and re-throw them as `NotifyException`, which will display a notification to the user without crashing the app. This could like something like changing this line in `app.py`:
+
+```python
+data = reactive.value(load_data())
+```
+
+to
+
+```python
+from shiny.types import NotifyException
+
+data = reactive.value()
+
+@reactive.effect
+def _():
+    try:
+        data.set(load_data())
+    except Exception as e:
+        raise NotifyException(f"Error loading data: {e}") from e
+```
+
+### Sharing data
+
+Suppose two users visit our app at the same time: user A and user B. Then, user A submits their info, which gets saved to the database. This action won't affect user B's in-memory view of the data, since `load_data()` only gets called once (when a user first visits the app). If we wanted _all_ users to see the updated data whenever _any_ user submits data, we could move the line:
+
+```python
+data = reactive.value(load_data())
+```
+
+from the `app.py` file to the `setup.py` file -- this changes `data` from being a user-scoped reactive value to a globally-scoped reactive value (i.e. [shared among all users](express-in-depth.qmd#shared-objects)).
+
+Sharing data in this way works fine when only users can change the data, but it wouldn't work in a scenario where data can be changed outside of the app (e.g., another app or a database admin). In this case, we would need to periodically check for updates using something like [reactive polling](reading-data.qmd#reactive-reading).
+
+### SQL injection
+
+When working with databases, it's important to be aware of SQL injection attacks. These occur when an attacker is able to manipulate your SQL queries by injecting malicious code via user inputs. In our example, we don't have any user inputs that are directly used in SQL queries, so we're safe. However, if you do have user inputs that are used in SQL queries, make sure to use parameterized queries or an ORM to avoid SQL injection attacks. For example, if we wanted to allow users to filter the data by name, we could add a text input to the UI and then modify the `load_data()` function to use a parameterized query.
+
+### Limit user access
+
+Apps that need to persist data often need to restrict access to the app (and/or underlying data). For example, your app might need users to authenticate in order to be accessed, or you might want to allow some users to view data but not submit new data. If your app requires user authentication and/or fine-grained access control, consider using a hosting provider that supports these features out-of-the-box, like Posit [Connect](https://solutions.posit.co/secure-access) or [Connect Cloud](https://docs.posit.co/connect-cloud/user/share). These platforms provide built-in authentication and access control features that make it easy to manage user access.
+
+::: callout-note
+### Want to roll your own?
+
+Since Shiny is built on FastAPI and Starlette, you can also implement your own authentication and access control mechanisms using standard Python libraries like [FastAPI Users](https://fastapi-users.github.io/fastapi-users/) or [Authlib](https://docs.authlib.org/en/latest/). However, this approach requires significant work and maintenance on your part, so it's generally recommended to use a hosting provider that supports these features if possible.
+:::
+
+## Deployment
+
+### Prod vs dev
+
+Before deploying your app into production, consider that you likely don't want to use your production data store for testing and development. Instead, consider setting up at least two different data stores: one for production and one for development. Generally speaking, environment variables work great for switching between different backends. For example, you could set an environment variable `APP_ENV` to either `prod` or `dev`, and then use that variable to determine which backend to use in `setup.py`.
+
+```{.python filename="setup.py"}
+import os
+import polars as pl
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# In your production environment, set APP_ENV=prod
+ENV = os.getenv("APP_ENV")
+
+if ENV == "prod":
+    URI = "postgresql://postgres@localhost:5432/prod_db"
+    TABLE_NAME = "prod_table"
+else:
+    URI = "postgresql://postgres@localhost:5432/dev_db"
+    TABLE_NAME = "dev_table"
+```
+
+In fact, you may also want to consider using different credentials for different environments: one for you (the developer) and one for the production app. This way, you'll minimize the risk of accidentally writing test data to your production database.
+
+### Cloud
+
+The quickest and easiest way to deploy your app is through [Posit Connect Cloud](https://connect.posit.cloud/), which has a generous [free tier](https://connect.posit.cloud/plans). All you need is your app code and a `requirements.txt` file. From there, you can deploy via a Github repo or from within [VSCode](https://code.visualstudio.com/)/[Positron](https://positron.posit.co/) via the [Publisher extension](https://marketplace.visualstudio.com/items?itemName=Posit.publisher). Note that its [encrypted secrets](https://connect.posit.cloud/plans) feature will come in handy for authenticating with your persistent storage backend.
+
+To learn more about other cloud-based deployment options, see [here](../get-started/deploy-cloud.qmd).
+
+### Self-hosted
+
+If you or your organization prefers to self-host, consider [Posit Connect](https://posit.co/products/connect), which is Posit's flagship publishing platform for the work your teams create in Python or R.
+Posit Connect is widely used in highly regulated environments, with strict security and compliance requirements. It includes robust features for managing user access, scheduling content updates, and monitoring application performance. Note that its [content settings panel](https://docs.posit.co/connect/user/content-settings/) will come in handy for configuring environment variables and other settings needed to connect to your persistent storage backend.
+
+To learn more about other self-hosted deployment options (including free and open source ones), see [here](../get-started/deploy-on-prem.qmd).

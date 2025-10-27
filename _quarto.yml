@@ -271,6 +271,10 @@ website:
             - docs/reactive-foundations.qmd
             - docs/reactive-patterns.qmd
             - docs/reactive-mutable.qmd
+        - section: "<span class='emoji-icon'>🗃️</span>  __Data__"
+          contents:
+            - docs/reading-data.qmd
+            - docs/persistent-storage.qmd
         - section: "<span class='emoji-icon'>📝</span>  __Syntax modes__"
           contents:
             - docs/express-vs-core.qmd
