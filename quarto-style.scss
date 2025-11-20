@@ -291,11 +291,11 @@ div.callout-important.callout-style-default .callout-header {
 }
 
 /* Navs */
-.navbar {
-  padding-top: 6px;
-  padding-bottom: 6px;
+@media only screen and (min-width:992px) {
+  .navbar {
+    height: 60px;
+  }
 }
-
 .navbar-nav .nav-link.active {
   text-decoration: underline;
 }
@@ -1480,7 +1480,7 @@ caption,
   }
   ul.navbar-nav.navbar-nav-scroll {
     padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-bottom: 0.5rem;
     text-align: center;
   }
   ul.navbar-nav.navbar-nav-scroll .dropdown-menu {
@@ -2018,4 +2018,16 @@ figcaption {
 
 .callout-note div.sourceCode {
   margin-top: 0.5em;
+}
+
+/* Supported by Posit badge in navbar */ 
+
+#supported-by-posit {
+    height: calc(60px - 12px) !important;
+}
+@media only screen and (max-width:991px) {
+  #supported-by-posit {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
 }
