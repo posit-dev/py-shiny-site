@@ -2020,14 +2020,20 @@ figcaption {
   margin-top: 0.5em;
 }
 
+
 /* Supported by Posit badge in navbar */ 
 
 #supported-by-posit {
     height: calc(60px - 12px) !important;
 }
+
 @media only screen and (max-width:991px) {
   #supported-by-posit {
     margin-left: auto !important;
     margin-right: auto !important;
   }
+}
+
+#supported-by-posit:focus-visible {
+  box-shadow: 0 0 0 .25rem rgba(0,0,0,.25);
 }
