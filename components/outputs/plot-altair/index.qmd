@@ -1,0 +1,60 @@
+---
+title: Plot (Altair)
+sidebar: components
+preview: '<div class="px-3"> <p class="mb-0"> <img style="width: 100%;height:auto;max-height:130px;"
+  src="/images/altair.jpg"> </p> </div> '
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/outputs/plot-altair/
+  contents:
+  - title: Preview
+    file: app-core.py
+    height: 500
+  - title: Express
+    file: app-express.py
+    shinylive:
+  - title: Core
+    file: app-core.py
+    shinylive:
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  template-params:
+    dir: components/outputs/plot-altair/
+  contents:
+  - title: ui.output_plot
+    href: https://shiny.posit.co/py/api/ui.output_plot.html
+    signature: ui.output_plot(id, width='100%', height='400px', *, inline=False, click=False,
+      dblclick=False, hover=False, brush=False, fill=MISSING)
+  - title: '@render.plot'
+    href: https://shiny.posit.co/py/api/render.plot.html
+    signature: render.plot(_fn=None, *, alt=None, width=MISSING, height=MISSING, **kwargs)
+  - title: '@render_altair'
+    href: https://shiny.posit.co/py/docs/jupyter-widgets.html
+    signature: render.plot(_fn=None, *, width=None, height=None, fill=None, fillable=None)
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+[Vega-Altair](https://altair-viz.github.io/index.html) is an interactive declarative visualization library in Python.
+It is based on the [Vega-Lite](https://vega.github.io/vega-lite/) grammar of interactive graphics.
+
+To make an interactive plot with Altair in Shiny for Python,
+we will need to use the [`shinywidgets`](https://shiny.posit.co/py/docs/jupyter-widgets.html)
+library to connect Shiny with [`ipywidgets`](https://ipywidgets.readthedocs.io/en/latest/)
+
+To make an Altair figure, we ned to do the following steps:
+
+1. Import the `output_widget()` and `render_altair()` functions from `shinywidgets`.
+   If you are using Shiny Express syntax, you will only need the `render_altair()` function.
+
+2. (Core Only): Call `output_widget()` to the UI of your app to create a div in which to display the figure.
+   Where you call this function will determine where the figure will appear within the layout of the app.
+   The `id` parameter you provide will be used to link to other parts of the Shiny app.
