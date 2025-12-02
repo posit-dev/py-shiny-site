@@ -31,8 +31,11 @@ listing:
     href: https://shiny.posit.co/py/api/render.plot.html
     signature: render.plot(_fn=None, *, alt=None, width=MISSING, height=MISSING, **kwargs)
   - title: '@render_altair'
-    href: https://shiny.posit.co/py/docs/jupyter-widgets.html
+    href: https://shiny.posit.co/py/docs/jupyter-widgets.html#get-started
     signature: render.plot(_fn=None, *, width=None, height=None, fill=None, fillable=None)
+  - title: 'reactive_read'
+    href: https://shiny.posit.co/py/docs/jupyter-widgets.html#reactive-read
+    signature: reactive_read(widget, names)
 
 - id: variations
   template: ../../_partials/components-variations.ejs
