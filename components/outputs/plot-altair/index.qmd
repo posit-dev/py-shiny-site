@@ -37,16 +37,16 @@ listing:
 - id: variations
   template: ../../_partials/components-variations.ejs
   template-params:
-    dir: components/outputs/plot-plotly/
+    dir: components/outputs/plot-altair/
   contents:
   - title: Plot as input
     description: "TODO: finish this section"
     apps:
     - title: Preview
-      file: app-variation-plot-as-input-core.py
+      file: app-variation-select-point-express.py.py
       height: 720
     - title: Express
-      file: app-variation-plot-as-input-express.py
+      file: app-variation-select-point-express.py.py
       shinylive:
       height: 720
     - title: Core
