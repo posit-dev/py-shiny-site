@@ -46,10 +46,10 @@ listing:
     description: "TODO: finish this section"
     apps:
     - title: Preview
-      file: app-variation-select-point-express.py.py
+      file: app-variation-select-point-express.py
       height: 720
     - title: Express
-      file: app-variation-select-point-express.py.py
+      file: app-variation-select-point-express.py
       shinylive:
       height: 720
     - title: Core
