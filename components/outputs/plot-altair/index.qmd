@@ -81,14 +81,11 @@ To make an Altair figure, we ned to do the following steps:
 1. Import the `render_altair()` functions from `shinywidgets`.
 
 2. Define a function where you want to create the figure.
-
-   - If your function calls reactive values, Shiny will update your figure whenever those values change, in a [reactive fashion](https://shiny.posit.co/py/docs/reactive-programming.html).
-
-  - Do not forget to return the plot object from your function.
+    - If your function calls reactive values, Shiny will update your figure whenever those values change, in a [reactive fashion](https://shiny.posit.co/py/docs/reactive-programming.html).
+    - Do not forget to return the plot object from your function.
 
 3. Decorate your plotting function with a `@render_altair()` decorator.
-
-     - If your plotting function is not the same as the `id` you used in the `ui.output_widget()`, you can add an additional `@output(id=...)` decorator.
+    - If your plotting function is not the same as the `id` you used in the `ui.output_widget()`, you can add an additional `@output(id=...)` decorator.
 
 ## Core
 
@@ -99,19 +96,15 @@ To make an Altair figure, we ned to do the following steps:
    The `id` parameter you provide will be used to link to other parts of the Shiny app.
 
 3. Define a function within the `server()` function that creates the figure.
-
-   - The name of the function should be the same value you passed into the `id` parameter in your `output_widget()` function call in the UI.
-
-   - If your function calls reactive values, Shiny will update your figure whenever those values change, in a [reactive fashion](https://shiny.posit.co/py/docs/reactive-programming.html).
-
-  - Do not forget to return the plot object from your function.
+    - The name of the function should be the same value you passed into the `id` parameter in your `output_widget()` function call in the UI.
+    - If your function calls reactive values, Shiny will update your figure whenever those values change, in a [reactive fashion](https://shiny.posit.co/py/docs/reactive-programming.html).
+    - Do not forget to return the plot object from your function.
 
 4. Decorate your plotting function with a `@render_altair()` decorator.
-
-     - If your plotting function is not the same as the `id` you used in the `ui.output_widget()`, you can add an additional `@output(id=...)` decorator.
+    - If your plotting function is not the same as the `id` you used in the `ui.output_widget()`, you can add an additional `@output(id=...)` decorator.
 :::
 
- Visit [shiny.posit.co/py/docs/ipywidgets.html](https://shiny.posit.co/py/docs/ipywidgets.html) to learn more about using ipywidgets with Shiny.
+To learn more about using ipywidgets with Shiny visit: [shiny.posit.co/py/docs/ipywidgets.html](https://shiny.posit.co/py/docs/ipywidgets.html).
 
 
 ### Plots as inputs
