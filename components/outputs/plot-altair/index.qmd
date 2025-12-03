@@ -142,13 +142,13 @@ To learn more about using ipywidgets with Shiny visit: [shiny.posit.co/py/docs/i
 Altair allows you to interact with plots and capture user interactions such as clicks, hovers, and selections.
 In fact, you can actually create [bindings and widgets directly within Altair](https://altair-viz.github.io/user_guide/interactions/bindings_widgets.html).
 However, if we want to connect an Altair figure to Shiny, we need to access the underlying state of the Altair figure.
-We can do with the [`JupyterChart`](https://altair-viz.github.io/user_guide/interactions/jupyter_chart.html) representation of the Altair figure.
+We can do that with the [`JupyterChart`](https://altair-viz.github.io/user_guide/interactions/jupyter_chart.html) representation of the Altair figure.
 In shiny,
 when we create an Altair figure using the `@render_altair` decorator,
 we can access the JupyterChart object using the `.widget` attribute of the `render_altair` object.
 
 From there, the `.selections` attribute contains the selected points from the Altair figure
-which can be reactively read into Shiny using the `shiny.widgets_reactive_read()` function.
+which can be reactively read into Shiny using the `shinywidgets.reactive_read()` function.
 The type of object returned depends on the type of selection you created in Altair.
 
 For more information see the [Shiny Jupyter Widgets documentation on responding to user interactions](https://shiny.posit.co/py/docs/jupyter-widgets.html#user-input) and the [Altair JupyterChart documentation](https://altair-viz.github.io/user_guide/interactions/jupyter_chart.html).
