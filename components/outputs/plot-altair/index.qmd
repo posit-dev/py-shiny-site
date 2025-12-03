@@ -47,14 +47,14 @@ listing:
     description: "Shows how to access the Altair JupyterChart object from shiny using the `.widget` attribute of the `render_altair` object. This is the basic entry point that shows the interface between Altair and Shiny so you are able to follow along the [Altair JupyterChart documentation](https://altair-viz.github.io/user_guide/interactions/jupyter_chart.html)"
     apps:
     - title: Preview
-      file: app-variation-basic-express-.py
+      file: app-variation-basic-express.py
       height: 720
     - title: Express
-      file: app-variation-basic-express-.py
+      file: app-variation-basic-express.py
       shinylive:
       height: 720
     - title: Core
-      file: app-variation-basic-core-.py
+      file: app-variation-basic-core.py
       shinylive:
       height: 720
 
