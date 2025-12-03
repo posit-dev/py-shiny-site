@@ -42,48 +42,49 @@ listing:
   template-params:
     dir: components/outputs/plot-altair/
   contents:
-  - title: Get hovered point
-    description: "Captures the hovered point in Altair and reactively displays the dataframe data. The hovered point is an [Altair `IndexSelection` object](https://altair-viz.github.io/user_guide/interactions/jupyter_chart.html#index-selections)"
-    apps:
-    - title: Preview
-      file: app-variation-hover-point-express.py
-      height: 720
-    - title: Express
-      file: app-variation-hover-point-express.py
-      shinylive:
-      height: 720
-    - title: Core
-      file: app-variation-hover-point-core.py
-      shinylive:
-      height: 720
 
-  - title: Get brushed points
-    description: "Captures the brushed point(s) in Altair and reactively displays the dataframe data. The brushed points is an [Altair `IntervalSelection` object](https://altair-viz.github.io/user_guide/interactions/jupyter_chart.html#interval-selections)"
-    apps:
-    - title: Preview
-      file: app-variation-brush-express.py
-      height: 720
-    - title: Express
-      file: app-variation-brush-express.py
-      shinylive:
-      height: 720
-    - title: Core
-      file: app-variation-brush-core.py
-      shinylive:
-      height: 720
-
-  - title: Get point data
+  - title: Point selection parameter with legend
     description: "Captures the data from a legend point selection in Altair and reactively displays the dataframe data. The selected legend point is an [Altair `PointSelection` object](https://altair-viz.github.io/user_guide/interactions/jupyter_chart.html#point-selections)"
     apps:
     - title: Preview
-      file: app-variation-point-express.py
+      file: app-variation-selection-point-legend-express.py
       height: 720
     - title: Express
-      file: app-variation-point-express.py
+      file: app-variation-selection-point-legend-express.py
       shinylive:
       height: 720
     - title: Core
-      file: app-variation-point-core.py
+      file: app-variation-selection-point-legend-core.py
+      shinylive:
+      height: 720
+
+  - title: Index selection parameter with hover
+    description: "Captures the hovered point in Altair and reactively displays the dataframe data. The hovered point is an [Altair `IndexSelection` object](https://altair-viz.github.io/user_guide/interactions/jupyter_chart.html#index-selections)"
+    apps:
+    - title: Preview
+      file: app-variation-selection-index-hover-express.py
+      height: 720
+    - title: Express
+      file: app-variation-selection-index-hover-express.py
+      shinylive:
+      height: 720
+    - title: Core
+      file: app-variation-selection-index-hover-core.py
+      shinylive:
+      height: 720
+
+  - title: Interval selection parameter with brush
+    description: "Captures the brushed point(s) in Altair and reactively displays the dataframe data. The brushed points is an [Altair `IntervalSelection` object](https://altair-viz.github.io/user_guide/interactions/jupyter_chart.html#interval-selections)"
+    apps:
+    - title: Preview
+      file: app-variation-selection-interval-brush-express.py
+      height: 720
+    - title: Express
+      file: app-variation-selection-interval-brush-express.py
+      shinylive:
+      height: 720
+    - title: Core
+      file: app-variation-selection-interval-brush-core.py
       shinylive:
       height: 720
 ---
