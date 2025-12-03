@@ -42,8 +42,23 @@ listing:
   template-params:
     dir: components/outputs/plot-altair/
   contents:
-  - title: Get hover over point information
-    description: "Captures the hovered point in Altair and reactively displays the dataframe data."
+  - title: Get hovered point
+    description: "Captures the hovered point in Altair and reactively displays the dataframe data. The hovered point is an [Altair `IndexSelection` object](https://altair-viz.github.io/user_guide/interactions/jupyter_chart.html#index-selections)"
+    apps:
+    - title: Preview
+      file: app-variation-hover-point-express.py
+      height: 720
+    - title: Express
+      file: app-variation-hover-point-express.py
+      shinylive:
+      height: 720
+    - title: Core
+      file: app-variation-hover-point-core.py
+      shinylive:
+      height: 720
+
+  - title: Get brused points
+    description: "Captures the brushed point(s) in Altair and reactively displays the dataframe data. The hovered point is an [Altair `IntervalSelection` object](https://altair-viz.github.io/user_guide/interactions/jupyter_chart.html#interval-selections)"
     apps:
     - title: Preview
       file: app-variation-hover-point-express.py
