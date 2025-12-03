@@ -43,6 +43,66 @@ listing:
     dir: components/outputs/plot-altair/
   contents:
 
+  - title: Basic JupyterChart example
+    description: "Shows how to access the Altair JupyterChart object from shiny using the `.widget` attribute of the `render_altair` object. This is the basic entry point that shows the interface between Altair and Shiny so you are able to follow along the [Altair JupyterChart documentation](https://altair-viz.github.io/user_guide/interactions/jupyter_chart.html)"
+    apps:
+    - title: Preview
+      file: app-variation-basic-express-.py
+      height: 720
+    - title: Express
+      file: app-variation-basic-express-.py
+      shinylive:
+      height: 720
+    - title: Core
+      file: app-variation-basic-core-.py
+      shinylive:
+      height: 720
+
+  - title: JupyterChart update
+    description: "Shows how Shiny can access and update an Altair figure using the JupyterChart representation. This example builds on the previous basic example to show how Shiny can update the Altair figure reactively."
+    apps:
+    - title: Preview
+      file: app-variation-update-express.py
+      height: 720
+    - title: Express
+      file: app-variation-update-express.py
+      shinylive:
+      height: 720
+    - title: Core
+      file: app-variation-update-core.py
+      shinylive:
+      height: 720
+
+  - title: Accessing and observing variable parameters
+    description: "Demonstrates how to access and observe variable parameters from an Altair plot in Shiny. This example shows how to capture changes in variable parameters and reactively update the Shiny app based on those changes."
+    apps:
+    - title: Preview
+      file: app-variation-variable-access-express.py
+      height: 720
+    - title: Express
+      file: app-variation-variable-access-express.py
+      shinylive:
+      height: 720
+    - title: Core
+      file: app-variation-variable-access-core.py
+      shinylive:
+      height: 720
+
+  - title: Setting variable parameters
+    description: "Builds on the update variation to show Shiny components updating and modifying an Altair JupyterChart object."
+    apps:
+    - title: Preview
+      file: app-variation-variable-set-express.py
+      height: 720
+    - title: Express
+      file: app-variation-variable-set-express.py
+      shinylive:
+      height: 720
+    - title: Core
+      file: app-variation-variable-set-core.py
+      shinylive:
+      height: 720
+
   - title: Point selection parameter with legend
     description: "Captures the data from a legend point selection in Altair and reactively displays the dataframe data. The selected legend point is an [Altair `PointSelection` object](https://altair-viz.github.io/user_guide/interactions/jupyter_chart.html#point-selections)"
     apps:
