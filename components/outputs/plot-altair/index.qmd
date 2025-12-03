@@ -57,18 +57,18 @@ listing:
       shinylive:
       height: 720
 
-  - title: Get brused points
+  - title: Get brushed points
     description: "Captures the brushed point(s) in Altair and reactively displays the dataframe data. The hovered point is an [Altair `IntervalSelection` object](https://altair-viz.github.io/user_guide/interactions/jupyter_chart.html#interval-selections)"
     apps:
     - title: Preview
-      file: app-variation-hover-point-express.py
+      file: app-variation-brush-express.py
       height: 720
     - title: Express
-      file: app-variation-hover-point-express.py
+      file: app-variation-brush-express.py
       shinylive:
       height: 720
     - title: Core
-      file: app-variation-hover-point-core.py
+      file: app-variation-brush-core.py
       shinylive:
       height: 720
 ---

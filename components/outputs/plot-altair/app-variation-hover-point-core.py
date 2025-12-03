@@ -6,18 +6,16 @@ from vega_datasets import data
 
 df = data.cars()
 
-app_ui = ui.page_fillable(
+app_ui = ui.page_fixed(
     "Hover over a point to see its info",
-    ui.layout_column_wrap(
-        output_widget("jchart"),
-        ui.output_data_frame("hover_info"),
-    ),
+    output_widget("chart"),
+    ui.output_data_frame("hover_info"),
 )
 
 
 def server(input, output, session):
     @render_altair
-    def jchart():
+    def chart():
         hover = alt.selection_point(
             name="hover",
             on="mouseover",
@@ -38,16 +36,11 @@ def server(input, output, session):
 
     @render.data_frame
     def hover_info():
+        jchart = chart.widget
         # pt is an IndexSelection object
-        pt = reactive_read(jchart.widget.selections, "hover")
+        pt = reactive_read(jchart.selections, names="hover")
         hover_idx = pt.value
-        selected = df.iloc[hover_idx]
-        if hover_idx:
-            transposed = selected.T.reset_index()
-            transposed.columns = ["Variable", "Value"]
-            return transposed
-        else:
-            return pd.DataFrame({"Variable": df.columns, "Value": ""})
+        return df.iloc[hover_idx]
 
 
 app = App(app_ui, server)

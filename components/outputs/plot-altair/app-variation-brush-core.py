@@ -6,9 +6,9 @@ from vega_datasets import data
 
 df = data.cars()
 
-app_ui = ui.page_fluid(
-    ui.p("Hover over a point to see its info"),
-    output_widget("jchart"),
+app_ui = ui.page_fixed(
+    ui.p("Click a box over points to see its data"),
+    output_widget("chart"),
     ui.output_data_frame("hover_info"),
 )
 
@@ -16,7 +16,7 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
 
     @render_altair
-    def jchart():
+    def chart():
         brush = alt.selection_interval(name="brush")
         return (
             alt.Chart(df)
@@ -31,8 +31,9 @@ def server(input, output, session):
 
     @render.data_frame
     def hover_info():
+        jchart = chart.widget
         # brushed is an IntervalSelection object
-        brushed = reactive_read(jchart.widget.selections, "brush")
+        brushed = reactive_read(jchart.selections, names="brush")
 
         brush_idx = brushed.value.items()
         filter = " and ".join([
