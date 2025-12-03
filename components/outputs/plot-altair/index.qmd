@@ -116,11 +116,12 @@ We can do with the [`JupyterChart`](https://altair-viz.github.io/user_guide/inte
 In shiny,
 when we create an Altair figure using the `@render_altair` decorator,
 we can access the JupyterChart object using the `.widget` attribute of the `render_altair` object.
-From there, the `.selections` attribute contains the selected points from the Altair figure as an [Altair `IndexSelection` object](https://altair-viz.github.io/user_guide/interactions/jupyter_chart.html#index-selections).
-The selected points can be captured as reactive values with the `shiny.widgets_reactive_read()` function,
-the `.value` attribute of the `IndexSelection` object contains the indices of the selected points.
 
-For more information see the [Shiny Jupyter Widgets documentation on responding to user interactions](https://shiny.posit.co/py/docs/jupyter-widgets.html#user-input)
+From there, the `.selections` attribute contains the selected points from the Altair figure
+which can be reactively read into Shiny using the `shiny.widgets_reactive_read()` function.
+The type of object returned depends on the type of selection you created in Altair.
+
+For more information see the [Shiny Jupyter Widgets documentation on responding to user interactions](https://shiny.posit.co/py/docs/jupyter-widgets.html#user-input) and the [Altair JupyterChart documentation](https://altair-viz.github.io/user_guide/interactions/jupyter_chart.html).
 
 ## Variations
 
