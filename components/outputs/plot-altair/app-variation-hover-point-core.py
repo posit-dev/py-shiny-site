@@ -38,6 +38,7 @@ def server(input, output, session):
 
     @render.data_frame
     def hover_info():
+        # pt is an IndexSelection object
         pt = reactive_read(jchart.widget.selections, "hover")
         hover_idx = pt.value
         selected = df.iloc[hover_idx]
