@@ -375,6 +375,8 @@ Under the hood, `reactive_read()` uses [ipywidgets' `observe()` method](https://
 Some widgets have attributes that _contain_ observable traits.
 One practical example of this is the `selections` attribute of altair's `JupyterChart` class, which has an [observable `point` trait](https://altair-viz.github.io/user_guide/interactions/jupyter_chart.html#point-selections).
 
+For more information about Shiny, Alatir, and JupyterChart, see the [Altair components page](/components/outputs/plot-altair/index.qmd).
+
 ```{shinylive-python}
 #| standalone: true
 #| components: [editor, viewer]
