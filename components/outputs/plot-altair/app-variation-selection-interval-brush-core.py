@@ -7,7 +7,7 @@ from vega_datasets import data
 df = data.cars()
 
 app_ui = ui.page_fixed(
-    ui.p("Click a box over points to see its data"),
+    ui.p("Click and drag a box over points to see its data"),
     output_widget("chart"),
     ui.output_data_frame("hover_info"),
 )
