@@ -195,7 +195,7 @@ To make an Altair figure, we ned to do the following steps:
     - If your plotting function is not the same as the `id` you used in the `ui.output_widget()`, you can add an additional `@output(id=...)` decorator.
 :::
 
-To learn more about using ipywidgets with Shiny visit: [shiny.posit.co/py/docs/ipywidgets.html](https://shiny.posit.co/py/docs/ipywidgets.html).
+To learn more about using Jupyter widgets with Shiny visit: [shiny.posit.co/py/docs/jupyter-widgets.html](https://shiny.posit.co/py/docs/jupyter-widgets.html).
 
 
 ### Plots as inputs
