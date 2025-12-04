@@ -1,5 +1,4 @@
 import altair as alt
-import pandas as pd
 from shiny.express import render
 from shinywidgets import reactive_read, render_altair
 from vega_datasets import data
