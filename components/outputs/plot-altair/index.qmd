@@ -164,7 +164,7 @@ To make an interactive plot with Altair in Shiny for Python,
 we will need to use the [`shinywidgets`](https://shiny.posit.co/py/docs/jupyter-widgets.html)
 library to connect Shiny with [`ipywidgets`](https://ipywidgets.readthedocs.io/en/latest/)
 
-To make an Altair figure, we ned to do the following steps:
+To make an Altair figure, we need to do the following steps:
 
 ::: {.panel-tabset group="syntax"}
 ## Express
