@@ -6,7 +6,7 @@ from vega_datasets import data
 
 df = data.cars()
 
-"Click a box over points to see its data"
+"Click and drag a box over points to see its data"
 
 
 @render_altair
