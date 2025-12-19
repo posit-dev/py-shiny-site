@@ -6,19 +6,12 @@ image:        thumbnail.png
 imagealt:     "A screenshot of the sidebot template"
 app-height:   900px
 appurl:       https://jcheng.shinyapps.io/sidebot
-sourceurl:    https://github.com/jcheng5/py-databot
+sourceurl:    https://github.com/jcheng5/py-sidebot
 ---
 
-::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
-## Express
 ``` bash
-shiny create --mode express --github jcheng5/py-databot
+shiny create --github jcheng5/py-sidebot
 ```
-## Core
-``` bash
-shiny create --mode core --github jcheng5/py-databot
-```
-:::
 
 
 The sidebot app template extends the idea of the [Query Chat](../querychat/index.qmd) template to a full blown dashboard.
