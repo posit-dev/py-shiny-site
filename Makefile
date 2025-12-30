@@ -107,7 +107,7 @@ deps: $(PYBIN)
 
 
 ## Build qmd files for Shiny API docs
-quartodoc: $(PYBIN) deps install-quarto quarto-extensions
+quartodoc: $(PYBIN) deps install-quarto
 	. $(PYBIN)/activate && cd py-shiny/docs && make quartodoc
 	# Copy all generated files except index.qmd
 	rsync -av --exclude="index.qmd" py-shiny/docs/api/ ./api
