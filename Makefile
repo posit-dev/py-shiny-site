@@ -25,12 +25,12 @@ all: quartodoc components site
 ## Build website
 .PHONY: site
 site: $(PYBIN) install-quarto
-	source $(PYBIN)/activate && ${QUARTO_PATH} render
+	. $(PYBIN)/activate && ${QUARTO_PATH} render
 
 ## Build website and serve
 .PHONY: serve
 serve: $(PYBIN) install-quarto
-	source $(PYBIN)/activate && ${QUARTO_PATH} preview
+	. $(PYBIN)/activate && ${QUARTO_PATH} preview
 
 
 ## Install uv if not already installed
@@ -104,12 +104,12 @@ quarto-extensions: _extensions/quarto-ext/shinylive _extensions/shafayetShafee/l
 # Install build dependencies
 deps: $(PYBIN)
 	uv pip install -r requirements.txt
-	source $(PYBIN)/activate && cd py-shiny && make ci-install-docs
+	. $(PYBIN)/activate && cd py-shiny && make ci-install-docs
 
 
 ## Build qmd files for Shiny API docs
 quartodoc: $(PYBIN) deps install-quarto quarto-extensions
-	source $(PYBIN)/activate && cd py-shiny/docs && make quartodoc
+	. $(PYBIN)/activate && cd py-shiny/docs && make quartodoc
 	# Copy all generated files except index.qmd
 	rsync -av --exclude="index.qmd" py-shiny/docs/api/ ./api
 	cp -R py-shiny/docs/_inv py-shiny/docs/objects.json ./
