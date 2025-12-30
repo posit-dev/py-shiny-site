@@ -117,7 +117,7 @@ The build follows this sequence:
 - **Quartodoc** - API documentation generation from docstrings
 - **Griffe** - Python code inspection
 - **Shinylive 0.8.5** - WebAssembly-based Python runtime for browser-based examples
-- **Python 3.12** - Development environment (CI uses 3.10)
+- **Python 3.12** - Development environment (CI uses 3.12)
 
 ### Custom Documentation Renderer
 
@@ -221,7 +221,7 @@ The custom renderer automatically extracts examples from `py-shiny/shiny/example
 ## Dependencies and Version Management
 
 - **Quarto version:** Managed via qvm (Quarto Version Manager), pinned to 1.7.23
-- **Python version:** 3.12 for development, 3.10 for CI
+- **Python version:** 3.12 for development, 3.12 for CI
 - **Shinylive version:** Pinned to 0.8.5 in requirements.txt
 - **Package manager:** uv for fast Python package installation
 
