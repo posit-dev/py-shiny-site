@@ -52,28 +52,27 @@ install-quarto:
 		echo "🔍 CI environment detected, checking for quarto..."; \
 		if command -v quarto > /dev/null 2>&1; then \
 			echo "✓ quarto is available"; \
-			exit 0; \
 		else \
 			echo "❌ Error: quarto is not available in CI environment" >&2; \
 			exit 1; \
 		fi; \
-	fi
-	# Install quarto using qvm if not already installed
-	@echo "🔵 Installing quarto"
-	@if ! command -v qvm > /dev/null 2>&1; then \
-	  if command -v brew > /dev/null 2>&1; then \
-	    echo "🔹 Installing qvm via Homebrew"; \
-	    brew install dpastoor/tap/qvm; \
-	  else \
-			echo "❌ Error: qvm is not installed. Please visit https://github.com/dpastoor/qvm/releases/ to install it." >&2; \
-			exit 1; \
+	else \
+		echo "🔵 Installing quarto"; \
+		if ! command -v qvm > /dev/null 2>&1; then \
+			if command -v brew > /dev/null 2>&1; then \
+				echo "🔹 Installing qvm via Homebrew"; \
+				brew install dpastoor/tap/qvm; \
+			else \
+				echo "❌ Error: qvm is not installed. Please visit https://github.com/dpastoor/qvm/releases/ to install it." >&2; \
+				exit 1; \
+			fi; \
 		fi; \
+		qvm install v${QUARTO_VERSION}; \
+		echo "🔹 Updating .vscode/settings.json"; \
+		awk -v path="${QUARTO_PATH}" '/"quarto.path":/ {gsub(/"quarto.path": ".*"/, "\"quarto.path\": \"" path "\"")} 1' .vscode/settings.json > .vscode/settings.json.tmp && mv .vscode/settings.json.tmp .vscode/settings.json; \
+		echo "🔹 Updating .github/workflows/deploy-docs.yml"; \
+		awk -v ver="${QUARTO_VERSION}" '/QUARTO_VERSION:/ {gsub(/QUARTO_VERSION: .*/, "QUARTO_VERSION: " ver)} 1' .github/workflows/deploy-docs.yml > .github/workflows/deploy-docs.yml.tmp && mv .github/workflows/deploy-docs.yml.tmp .github/workflows/deploy-docs.yml; \
 	fi
-	qvm install v${QUARTO_VERSION}
-	@echo "🔹 Updating .vscode/settings.json"
-	@awk -v path="${QUARTO_PATH}" '/"quarto.path":/ {gsub(/"quarto.path": ".*"/, "\"quarto.path\": \"" path "\"")} 1' .vscode/settings.json > .vscode/settings.json.tmp && mv .vscode/settings.json.tmp .vscode/settings.json
-	@echo "🔹 Updating .github/workflows/deploy-docs.yml"
-	@awk -v ver="${QUARTO_VERSION}" '/QUARTO_VERSION:/ {gsub(/QUARTO_VERSION: .*/, "QUARTO_VERSION: " ver)} 1' .github/workflows/deploy-docs.yml > .github/workflows/deploy-docs.yml.tmp && mv .github/workflows/deploy-docs.yml.tmp .github/workflows/deploy-docs.yml
 
 $(QUARTO_PATH): install-quarto
 
