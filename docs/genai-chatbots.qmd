@@ -235,7 +235,7 @@ As we'll see later, there a couple other ways to append messages to the chat, li
 
 ## Bookmark messages
 
-When a Shiny app reloads, the app returns to it's original state, unless the URL includes [bookmarked](../api/express/session.Session.qmd) state.[^1]
+When a Shiny app reloads, the app returns to it's original state, unless the URL includes [bookmarked](../api/core/Session.qmd) state.[^1]
 Automatically updating the URL to include a bookmark of the chat state is a great way to help users return to their work if they accidentally refresh the page or unexpectedly lose their connection.
 
 Adding bookmark support to an app generally requires some extra effort.
