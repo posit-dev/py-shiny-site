@@ -1,20 +1,13 @@
 name: 'Save build cache'
-description: 'Upload _build/ folder as artifact'
+description: 'Save _build/ folder to GitHub Actions cache'
 runs:
   using: "composite"
   steps:
-    - name: Upload PR build
-      if: github.event_name == 'pull_request'
-      uses: actions/upload-artifact@v4
+    - name: Save build cache
+      uses: actions/cache/save@v4
       with:
-        name: build-pr-${{ github.event.number }}
         path: _build/
-        retention-days: 7
-
-    - name: Upload main build
-      if: github.ref == 'refs/heads/main'
-      uses: actions/upload-artifact@v4
-      with:
-        name: build-main
-        path: _build/
-        retention-days: 90
+        key: build-${{ github.ref }}-${{ github.sha }}
+        restore-keys: |
+          build-${{ github.ref }}-
+          build-refs/heads/main-
