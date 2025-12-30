@@ -275,6 +275,9 @@ website:
           contents:
             - docs/reading-data.qmd
             - docs/persistent-storage.qmd
+        - section: "<span class='emoji-icon'>🔖</span>  __Bookmarking__"
+          contents:
+            - docs/bookmarking.qmd
         - section: "<span class='emoji-icon'>📝</span>  __Syntax modes__"
           contents:
             - docs/express-vs-core.qmd

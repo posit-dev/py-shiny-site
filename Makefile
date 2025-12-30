@@ -5,7 +5,7 @@ PYBIN ?= $(VENV)/bin
 PYTHON_VERSION ?= 3.12
 PIP3 ?= pip3
 
-QUARTO_VERSION ?= 1.7.23
+QUARTO_VERSION ?= 1.8.26
 QUARTO_PATH ?= ~/.local/share/qvm/versions/v${QUARTO_VERSION}/bin/quarto
 
 # Any targets that depend on $(VENV) or $(PYBIN) will cause the venv to be
