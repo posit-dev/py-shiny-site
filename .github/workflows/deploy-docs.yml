@@ -19,6 +19,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - uses: ./.github/internal/build-cache-restore
       - name: Install uv
         uses: astral-sh/setup-uv@v7
         with:
@@ -107,3 +108,4 @@ jobs:
           env: ${{ steps.deployment.outputs.env }}
           env_url: "https://${{ steps.deployment.outputs.env }}--pyshiny.netlify.app"
           logs: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+      - uses: ./.github/internal/build-cache-save

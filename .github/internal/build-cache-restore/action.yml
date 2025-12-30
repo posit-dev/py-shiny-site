@@ -1,0 +1,37 @@
+name: 'Restore build cache'
+description: 'Download previous _build/ folder from artifacts'
+runs:
+  using: "composite"
+  steps:
+    - name: Download previous PR build
+      id: download-pr-build
+      if: github.event_name == 'pull_request'
+      uses: dawidd6/action-download-artifact@v6
+      continue-on-error: true
+      with:
+        name: build-pr-${{ github.event.number }}
+        path: _build/
+        workflow: deploy-docs.yml
+        workflow_conclusion: success
+
+    - name: Download main build as fallback
+      if: github.event_name == 'pull_request' && steps.download-pr-build.outcome != 'success'
+      uses: dawidd6/action-download-artifact@v6
+      continue-on-error: true
+      with:
+        name: build-main
+        path: _build/
+        workflow: deploy-docs.yml
+        branch: main
+        workflow_conclusion: success
+
+    - name: Download previous main build
+      if: github.event_name != 'pull_request'
+      uses: dawidd6/action-download-artifact@v6
+      continue-on-error: true
+      with:
+        name: build-main
+        path: _build/
+        workflow: deploy-docs.yml
+        branch: main
+        workflow_conclusion: success
