@@ -33,17 +33,17 @@ Running `make` by itself will print out the available `make` targets:
 
 ```
 $ make
-all                    Build everything
-submodules             Update git submodules to commits referenced in this repository
-submodules-pull        Pull latest commits in git submodules
-build_pkgs             Build and install htmltools and shiny
-shinylive              Build JS components for shinylive
-pypi                   Create a local pypi repository with htmltools and shiny
-api_docs               Build shiny API documentation
+all                    Build assets and render site
 site                   Build website
 serve                  Build website and serve
+install-uv             Install uv if not already installed
+submodules             Update git submodules to commits referenced in this repository
+submodules-pull        Pull latest commits in git submodules
+quarto-extensions      Update Quarto extensions
+quartodoc              Build qmd files for Shiny API docs
+components             Build component static previews and update shinylive links
 clean                  Remove Quarto website build files
-distclean              Remove all build files (packages, API docs, shinylive, Quarto website)
+distclean              Remove all build files (Quarto website, quarto extensions, venv)
 ```
 
 
@@ -81,10 +81,10 @@ make components
 
 When running `make`, all of the Python scripts and commands run in a virtualenv. If you want to run commands at the terminal in the same virtualenv, you will need to do the following:
 
-Set up virtualenv (this only needs to be done once, and is done automatically by `make all`):
+Set up virtualenv (this only needs to be done once, and is done automatically by `make all` and `make install-uv`):
 
 ```bash
-make venv
+make install-uv
 ```
 
 After the virtualenv is created, activate it with:
@@ -115,7 +115,7 @@ Update submodules. For example, if the upstream pyshiny-site points to a new com
 make submodules
 ```
 
-Install dependencies and build the site:
+Install dependencies, build the assets, and finally build the site:
 
 ```bash
 make all
@@ -129,7 +129,7 @@ In some cases, you may need to run `make clean`, to make sure everything is rebu
 This site is built using a number of Quarto extensions. The extensions are checked into the repository so they do not need to be installed separately. However, if you want to update the extensions to the latest version, you can do so by running:
 
 ```bash
-make quarto-exts
+make clean-extensions quarto-extensions
 ```
 
 Then commit the changes to the repository.

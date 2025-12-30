@@ -50,9 +50,11 @@ jobs:
             any::rmarkdown
             any::reticulate
 
-      - name: Install build dependencies
-        run: |
-          make deps
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          # The version of Python to set UV_PYTHON to
+          python-version: "3.12"
 
       # =====================================================
       # Build
