@@ -24,6 +24,6 @@
   thumbnail: ../gallery/aws-builders.jpg
 
 - title: Identify Outliers
-  href: https://connect.posit.cloud/skaltman/content/01922aab-06e0-fc8f-8958-30dd67f9af51
+  href: https://skaltman-outliers-app-db-python.share.connect.posit.cloud/
   code: https://github.com/skaltman/outliers-app-db-python
   thumbnail: ../gallery/identify-outliers.jpg
