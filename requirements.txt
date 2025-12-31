@@ -3,3 +3,5 @@ jupyter_client < 8.0.0
 tabulate
 shinylive==0.8.5
 griffe
+scikit-learn==1.5.1
+scipy
