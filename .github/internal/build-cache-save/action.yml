@@ -1,0 +1,13 @@
+name: 'Save build cache'
+description: 'Save _build/ folder to GitHub Actions cache'
+runs:
+  using: "composite"
+  steps:
+    - name: Save build cache
+      uses: actions/cache/save@v4
+      with:
+        path: _build/
+        key: build-${{ github.ref }}-${{ github.sha }}
+        restore-keys: |
+          build-${{ github.ref }}-
+          build-refs/heads/main-

@@ -1,0 +1,13 @@
+name: 'Restore build cache'
+description: 'Restore _build/ folder from GitHub Actions cache'
+runs:
+  using: "composite"
+  steps:
+    - name: Restore build cache
+      uses: actions/cache/restore@v4
+      with:
+        path: _build/
+        key: build-${{ github.ref }}-${{ github.sha }}
+        restore-keys: |
+          build-${{ github.ref }}-
+          build-refs/heads/main-
