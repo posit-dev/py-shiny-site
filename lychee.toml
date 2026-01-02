@@ -1,0 +1,19 @@
+# Enable link caching. This can be helpful to avoid checking the same links on
+# multiple runs.
+cache = true
+
+# Discard all cached requests older than this duration.
+max_cache_age = "2d"
+
+#############################  Exclusions  ##########################
+
+# Check links inside `<code>` and `<pre>` blocks as well as Markdown code
+# blocks.
+include_verbatim = false
+
+# Exclude URLs and mail addresses from checking (supports regex).
+exclude = [
+  '^https://github.com/posit-dev/py-shiny-site/edit/main/.*',
+  '^file:.*',
+  "^https://support.posit.co",
+]
