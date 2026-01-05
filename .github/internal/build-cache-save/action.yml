@@ -8,6 +8,3 @@ runs:
       with:
         path: _build/
         key: build-${{ github.ref }}-${{ github.sha }}
-        restore-keys: |
-          build-${{ github.ref }}-
-          build-refs/heads/main-
