@@ -20,3 +20,5 @@ __pycache__/
 
 components/static/
 .claude/
+
+**/*.quarto_ipynb
