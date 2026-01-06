@@ -167,7 +167,7 @@ async def _(url: str):
 
 When executed, this displays a modal with the bookmark URL prominently displayed:
 
-![Bookmark Modal](bookmarking-bookmark-modal.png)
+![Bookmark modal with copyable URL](bookmarking-bookmark-modal.png)
 
 
 ## Excluding `input`s from Bookmarks
