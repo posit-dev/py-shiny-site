@@ -1218,6 +1218,10 @@ h2.header-indigo {
 
 div.sourceCode,
 pre.console {
+
+  .code-annotation-gutter {
+    background-color: rgba(250, 250, 250, 0.9);
+  }
   background-color: rgba(250, 250, 250, 0.9);
   border: 1px solid rgba(233, 236, 239, 0.9);
   border-radius: 0.5rem;
@@ -2021,7 +2025,7 @@ figcaption {
 }
 
 
-/* Supported by Posit badge in navbar */ 
+/* Supported by Posit badge in navbar */
 
 #supported-by-posit {
     height: calc(60px - 12px) !important;
