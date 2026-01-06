@@ -287,9 +287,12 @@ website:
             - docs/module-communication.qmd
         - section: "<span class='emoji-icon'>🔖</span>  __Bookmarking__"
           contents:
-            - docs/bookmarking.qmd
-            - docs/bookmarking-advanced.qmd
-            - docs/bookmarking-modules.qmd
+            - text: "Overview"
+              href: docs/bookmarking.qmd
+            - text: "Advanced"
+              href: docs/bookmarking-advanced.qmd
+            - text: "Modules"
+              href: docs/bookmarking-modules.qmd
         - section: "<span class='emoji-icon'>🧪</span>  __Testing__"
           contents:
             - docs/unit-testing.qmd
