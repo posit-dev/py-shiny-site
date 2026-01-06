@@ -168,60 +168,6 @@ async def _():
 :::
 
 
-## Server-Side Bookmarking
-
-
-For production applications with larger state or sensitive data, use server-side bookmarking.
-
-::: {.callout-note}
-
-## Professional products
-
-Shiny for Python's server-side bookmarking is already integrated into Posit's professional products. No need to configure anything if you are using Posit Connect or Posit Workbench.
-
-:::
-
-To control where bookmarks are stored, you need to configure the storage location by setting global functions for saving and restoring bookmark directories. Here's an example using the `pathlib` module to create a directory for bookmarks:
-
-```{.python}
-from pathlib import Path
-from shiny.bookmark import set_global_save_dir_fn, set_global_restore_dir_fn
-
-# Define where bookmarks are stored
-bookmark_dir = Path(__file__).parent / "bookmarks"
-bookmark_dir.mkdir(exist_ok=True)
-
-def save_bookmark_dir(id: str) -> Path:
-    """Create and return the directory for saving a bookmark."""
-    save_dir = bookmark_dir / id
-    save_dir.mkdir(parents=True, exist_ok=True)
-    return save_dir
-
-def restore_bookmark_dir(id: str) -> Path:
-    """Return the directory for restoring a bookmark."""
-    return bookmark_dir / id
-
-# Set global defaults
-set_global_save_dir_fn(save_bookmark_dir)
-set_global_restore_dir_fn(restore_bookmark_dir)
-
-# ... define app_ui and server ...
-```
-
-::: {.callout-warning}
-Server bookmarking is designed for hosting environments. In production, ensure you have:
-
-- Persistent storage that survives app restarts
-- Appropriate cleanup policies for old bookmarks
-- Sufficient disk space for bookmark storage
-:::
-
-::: {.callout-important}
-
-[Shinyapps.io](https://www.shinyapps.io/) and [Posit Cloud Connect](https://connect.posit.cloud/), by design, do not support server-side bookmarking as Apps are deployed within a temporary virtual environment. Any files that are saved will be lost when the virtual environment is shut down.
-
-:::
-
 ## Best Practices
 
 * **Use `reactive.isolate()`** - When reading reactive values in `on_bookmark`, use `reactive.isolate()` to avoid creating reactive dependencies.
@@ -389,6 +335,59 @@ async def _(url: str):
 ```
 :::
 
+
+## Server-Side Bookmarking
+
+For production applications with larger state or sensitive data, use server-side bookmarking.
+
+::: {.callout-note}
+
+## Professional products
+
+Shiny for Python's server-side bookmarking is already integrated into Posit's professional products. No need to configure anything if you are using Posit Connect or Posit Workbench.
+
+:::
+
+To control where bookmarks are stored, you need to configure the storage location by setting global functions for saving and restoring bookmark directories. Here's an example using the `pathlib` module to create a directory for bookmarks:
+
+```{.python}
+from pathlib import Path
+from shiny.bookmark import set_global_save_dir_fn, set_global_restore_dir_fn
+
+# Define where bookmarks are stored
+bookmark_dir = Path(__file__).parent / "bookmarks"
+bookmark_dir.mkdir(exist_ok=True)
+
+def save_bookmark_dir(id: str) -> Path:
+    """Create and return the directory for saving a bookmark."""
+    save_dir = bookmark_dir / id
+    save_dir.mkdir(parents=True, exist_ok=True)
+    return save_dir
+
+def restore_bookmark_dir(id: str) -> Path:
+    """Return the directory for restoring a bookmark."""
+    return bookmark_dir / id
+
+# Set global defaults
+set_global_save_dir_fn(save_bookmark_dir)
+set_global_restore_dir_fn(restore_bookmark_dir)
+
+# ... define app_ui and server ...
+```
+
+::: {.callout-warning}
+Server bookmarking is designed for hosting environments. In production, ensure you have:
+
+- Persistent storage that survives app restarts
+- Appropriate cleanup policies for old bookmarks
+- Sufficient disk space for bookmark storage
+:::
+
+::: {.callout-important}
+
+[Shinyapps.io](https://www.shinyapps.io/) and [Posit Cloud Connect](https://connect.posit.cloud/), by design, do not support server-side bookmarking as Apps are deployed within a temporary virtual environment. Any files that are saved will be lost when the virtual environment is shut down.
+
+:::
 
 ## See Also
 

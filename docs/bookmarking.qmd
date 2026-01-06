@@ -16,59 +16,6 @@ Bookmarking is particularly useful for:
 - Enabling users to resume where they left off
 - Creating shareable links to specific data views or visualizations
 
-## Bookmarking styles
-
-Bookmarks are created by calling `await session.bookmark()`. This function captures the current state of all `input`s (except those explicitly excluded) and saves it according to the configured bookmarking style (URL or server).
-
-Shiny provides two approaches for storing bookmarked state:
-
-### URL Bookmarking
-
-With URL bookmarking, the application state is encoded directly in the URL query string. This makes sharing as simple as copying a link, but has some limitations:
-
-**Advantages:**
-
-- Easy to share \- just copy the URL
-- No server-side storage required
-- Works across any deployment
-
-**Limitations:**
-
-- URL length limits (~65,000 characters)
-- State is visible in the URL
-- Not suitable for sensitive data
-
-**Example URL:**
-```
-https://myapp.example.com/?_inputs_&choice=%22B%22&number=42
-```
-
-### Server-side Bookmarking
-
-With server-side bookmarking, the state is stored on the server with a unique identifier in the URL:
-
-**Advantages:**
-
-- No character URL size limitations; Data is stored server-side
-- State is not visible in URL
-- Can include files and large data structures
-
-**Limitations:**
-
-- Requires server-side storage configuration
-- Bookmarks are tied to that server
-- May need cleanup policies for old bookmarks
-
-**Example URL:**
-```
-https://myapp.example.com/?_state_id_=d80625dc681e913a
-```
-
-::: {.callout-tip}
-Use URL bookmarking if your state can fit in ~65k characters. It's simpler to set up and more portable. This is great for smaller apps. However, generative-AI apps or apps with data uploads may require or are better suited to server-side bookmarking.
-:::
-
-
 ## Enable Bookmarking
 
 Bookmarking works by updating the URL whenever specified `input` values change. To achieve automatic bookmarking within your app, you'll need a few updates to your app structure.
@@ -278,6 +225,58 @@ With the `id` parameter set, the active tab will be included in the bookmark sta
 ## Need more control?
 
 For advanced bookmarking scenarios like saving custom values, using bookmark lifecycle callbacks, server-side storage, or bookmarking with modules, see [Advanced Bookmarking](bookmarking-advanced.qmd).
+:::
+
+## Bookmarking Styles
+
+Bookmarks are created by calling `await session.bookmark()`. This function captures the current state of all `input`s (except those explicitly excluded) and saves it according to the configured bookmarking style (URL or server).
+
+Shiny provides two approaches for storing bookmarked state:
+
+### URL Bookmarking
+
+With URL bookmarking, the application state is encoded directly in the URL query string. This makes sharing as simple as copying a link, but has some limitations:
+
+**Advantages:**
+
+- Easy to share \- just copy the URL
+- No server-side storage required
+- Works across any deployment
+
+**Limitations:**
+
+- URL length limits (~65,000 characters)
+- State is visible in the URL
+- Not suitable for sensitive data
+
+**Example URL:**
+```
+https://myapp.example.com/?_inputs_&choice=%22B%22&number=42
+```
+
+### Server-side Bookmarking
+
+With server-side bookmarking, the state is stored on the server with a unique identifier in the URL:
+
+**Advantages:**
+
+- No character URL size limitations; Data is stored server-side
+- State is not visible in URL
+- Can include files and large data structures
+
+**Limitations:**
+
+- Requires server-side storage configuration
+- Bookmarks are tied to that server
+- May need cleanup policies for old bookmarks
+
+**Example URL:**
+```
+https://myapp.example.com/?_state_id_=d80625dc681e913a
+```
+
+::: {.callout-tip}
+Use URL bookmarking if your state can fit in ~65k characters. It's simpler to set up and more portable. This is great for smaller apps. However, generative-AI apps or apps with data uploads may require or are better suited to server-side bookmarking.
 :::
 
 ## Best Practices
