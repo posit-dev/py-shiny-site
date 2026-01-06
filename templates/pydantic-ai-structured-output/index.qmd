@@ -1,0 +1,36 @@
+---
+title:        "Structured Output with Pydantic-AI"
+description:  Uses Pydantic models to shape and validate structured responses from the model.
+date:         2025-01-05
+image:        thumbnail.png
+imagealt:     "A screenshot of the pydantic-ai-structured-output template"
+appurl:       https://posit-ai-pydantic-ai-structured-output.share.connect.posit.cloud/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/gen-ai/interactive-chat-explorer/pydantic-ai-structured-output
+---
+
+::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
+## Express
+``` bash
+shiny create --template pydantic-ai-structured-output --mode express --github posit-dev/py-shiny-templates/gen-ai/interactive-chat-explorer
+```
+:::
+
+Uses Pydantic models to shape and validate structured responses from the model.
+
+:::: {.grid .tags}
+
+::: {.g-col-6}
+**Components:**
+
+* [Chat](/components/inputs/chat/index.qmd)
+:::
+
+::: {.g-col-6}
+**Packages:**
+
+* `pydantic-ai`
+* `dotenv`
+* `pydantic`
+:::
+
+::::

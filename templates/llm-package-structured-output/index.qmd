@@ -1,0 +1,37 @@
+---
+title:        "Structured Output with llm package"
+description:  Shows enforcing structured schema in responses using llm package utilities.
+date:         2025-01-05
+image:        thumbnail.png
+imagealt:     "A screenshot of the llm-package-structured-output template"
+appurl:       https://posit-ai-llm-package-structured-output.share.connect.posit.cloud/
+sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/gen-ai/interactive-chat-explorer/llm-package-structured-output
+---
+
+::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
+## Express
+``` bash
+shiny create --template llm-package-structured-output --mode express --github posit-dev/py-shiny-templates/gen-ai/interactive-chat-explorer
+```
+:::
+
+Shows enforcing structured schema in responses using llm package utilities.
+
+:::: {.grid .tags}
+
+::: {.g-col-6}
+**Components:**
+
+* [Chat](/components/inputs/chat/index.qmd)
+:::
+
+::: {.g-col-6}
+**Packages:**
+
+* `openai`
+* `dotenv`
+* `llm`
+* `pydantic`
+:::
+
+::::
