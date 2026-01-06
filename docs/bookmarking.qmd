@@ -155,12 +155,17 @@ When clicked, this button triggers the bookmarking process. This will update the
 It is recommended to remove the `await session.bookmark()` call when using the bookmark button to avoid extraneous bookmark updates. By default, Shiny listens for when a (non-module) bookmark button is clicked and calls `await session.bookmark()` automatically.
 :::
 
-## Bookmark Overlay
+## Bookmark Modal
 
-To provide an obvious URL interaction with the bookmarking process, you can use the bookmark overlay. This overlay displays the bookmark URL and allows users to copy it easily.
+To provide a more prominent way for users to copy bookmark URLs, you can display a modal dialog instead of silently updating the query string. Use `show_bookmark_url_modal()` instead of `update_query_string()` in your `on_bookmarked` callback. The modal is particularly useful with the bookmark button, as it provides clear visual feedback when the app state is saved.
 
-When executed, `session.bookmark.show_overlay()` will display a modal similar to the following:
+```{.python}
+@session.bookmark.on_bookmarked
+async def _(url: str):
+    await session.bookmark.show_bookmark_url_modal(url)
+```
 
+When executed, this displays a modal with the bookmark URL prominently displayed:
 
 ![Bookmark Modal](bookmarking-bookmark-modal.png)
 
