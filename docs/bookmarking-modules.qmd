@@ -24,24 +24,40 @@ Each module instance maintains its own bookmark state, automatically namespaced 
 
 Here's a simple counter module that bookmarks its state:
 
-::: {.panel-tabset .panel-pills}
+- Each `counter` instance (`counter1` and `counter2`) maintains its own count
+- The `count` reactive value is saved and restored independently for each module
+- The `increment` and `reset` buttons are excluded from bookmarking in each module instance
+- Each module's bookmark state is automatically namespaced
 
-### Express
 
-```{.python}
-from shiny.express import app_opts, module, render, ui
+::: {.column-page}
+```{shinylive-python}
+# | standalone: true
+# | components: [editor, viewer]
+## file: app.py
+from urllib.parse import parse_qs, urlparse
+
 from shiny import reactive
+from shiny.express import app_opts, module, render, session, ui
 
 app_opts(bookmark_store="url")
+
 
 @module
 def counter_module(input, output, session, initial_value=0):
     count = reactive.value(initial_value)
 
     ## Module bookmarking
+
     # Exclude the module's increment, reset buttons from bookmarking
     session.bookmark.exclude.append("increment")
     session.bookmark.exclude.append("reset")
+
+    # Update url when count changes
+    @reactive.effect
+    @reactive.event(count, ignore_init=True)
+    async def _():
+        await session.bookmark()
 
     # Save custom module state
     @session.bookmark.on_bookmark
@@ -53,6 +69,7 @@ def counter_module(input, output, session, initial_value=0):
     def _(state):
         if "count" in state.values:
             count.set(state.values["count"])
+
     ## /Module bookmarking
 
     with ui.card():
@@ -77,78 +94,39 @@ def counter_module(input, output, session, initial_value=0):
 # Use the module
 counter_module("counter1")
 counter_module("counter2")
+
+app_url = reactive.value(None)
+
+
+@session.bookmark.on_bookmarked
+def _(url):
+    app_url.set(url)
+
+
+ui.h3("Bookmarked Query Parameters")
+
+
+@render.code
+def _():
+    url = app_url()
+    if not url:
+        return "(adjust counter to generate a bookmark URL)"
+
+    # Parse the URL
+    parsed = urlparse(url)
+    query_params = parse_qs(parsed.query)
+
+    if not query_params:
+        return "(none)"
+    txt = ""
+    for key, values in query_params.items():
+        for value in values:
+            txt += f"{key} = {value}\n"
+
+    return txt
 ```
-
-### Core
-
-```{.python}
-from shiny import App, Inputs, Outputs, Session, module, reactive, render, ui
-
-@module.ui
-def counter_ui():
-    return ui.card(
-        ui.input_action_button("increment", "Increment"),
-        ui.input_action_button("reset", "Reset"),
-        ui.output_text("display")
-    )
-
-@module.server
-def counter_server(input: Inputs, output: Outputs, session: Session, initial_value=0):
-    count = reactive.value(initial_value)
-
-    ## Module bookmarking
-    # Exclude the module's increment, reset buttons from bookmarking
-    session.bookmark.exclude.append("increment")
-    session.bookmark.exclude.append("reset")
-
-    # Save module state
-    @session.bookmark.on_bookmark
-    async def _(state):
-        state.values["count"] = count()
-
-    # Restore module state
-    @session.bookmark.on_restore
-    def _(state):
-        if "count" in state.values:
-            count.set(state.values["count"])
-    ## /Module bookmarking
-
-    @render.text
-    def display():
-        return f"Count: {count()}"
-
-    @reactive.effect
-    @reactive.event(input.increment)
-    def _():
-        count.set(count() + 1)
-
-    @reactive.effect
-    @reactive.event(input.reset)
-    def _():
-        count.set(0)
-
-
-def app_ui(request):
-    return ui.page_fluid(
-        counter_ui("counter1"),
-        counter_ui("counter2")
-    )
-
-def server(input, output, session):
-    counter_server("counter1")
-    counter_server("counter2")
-
-app = App(app_ui, server, bookmark_store="url")
-```
-
 :::
 
-In this example:
-
-- Each counter instance (`counter1` and `counter2`) maintains its own count
-- The `count` reactive value is saved and restored independently for each module
-- The `increment` and `reset` buttons are excluded from bookmarking in each module instance
-- Each module's bookmark state is automatically namespaced
 
 ## Namespacing Behavior
 
@@ -239,30 +217,27 @@ Here's a complete example showing multiple modules with bookmarking support:
 
 ::: {.column-page}
 ```{shinylive-python}
-# | standalone: true
-# | components: [editor, viewer]
+#| standalone: true
+#| components: [editor, viewer]
 ## file: app.py
-from shiny.express import session, ui
-from shiny import Inputs, Outputs, Session, module, reactive, render
+from urllib.parse import parse_qs, urlparse
 
-ui.page_opts(
-    title="Module Bookmarking Example",
-    bookmark_store="url"
-)
+from shiny import Inputs, Outputs, Session, reactive, render
+from shiny.express import app_opts, module, session, ui
+
+ui.page_opts(title="Module Bookmarking Example")
+app_opts(bookmark_store="url")
+
 
 # Filter module
-@module.ui
-def filter_ui():
-    return ui.card(
-        ui.card_header("Filters"),
-        ui.input_slider("min_value", "Minimum", min=0, max=100, value=0),
-        ui.input_slider("max_value", "Maximum", min=0, max=100, value=100),
-        ui.input_action_button("reset", "Reset Filters"),
-    )
+@module
+def filter_mod(input: Inputs, output: Outputs, session: Session):
+    with ui.card():
+        ui.card_header("Filters")
+        ui.input_slider("min_value", "Minimum", min=0, max=100, value=0)
+        ui.input_slider("max_value", "Maximum", min=0, max=100, value=100)
+        ui.input_action_button("reset", "Reset Filters")
 
-
-@module.server
-def filter_server(input: Inputs, output: Outputs, session: Session):
     session.bookmark.exclude.append("reset")
 
     @reactive.effect
@@ -276,58 +251,88 @@ def filter_server(input: Inputs, output: Outputs, session: Session):
 
 
 # Stats module
-@module.ui
-def stats_ui():
-    return ui.card(ui.card_header("Statistics"), ui.output_text_verbatim("stats"))
+@module
+def stats_mod(input: Inputs, output: Outputs, session: Session, filters):
+    update_count = reactive.value(0)
 
+    with ui.card():
+        ui.card_header("Statistics")
 
-@module.server
-def stats_server(input: Inputs, output: Outputs, session: Session, filters):
-    view_count = reactive.value(0)
-
-    @render.text
-    def stats():
-        view_count.set(view_count() + 1)
-        return f"""
-        Current Filters:
-        Min: {filters['min']()}
-        Max: {filters['max']()}
-
-        Views: {view_count()}
-        """
+        @render.code
+        def stats():
+            return (
+                ""
+                "Filters:\n"
+                f"  Min: {filters['min']()}\n"
+                f"  Max: {filters['max']()}\n"
+                "\n"
+                f"Updates: {update_count()}"
+            )
 
     # Bookmark the view count
     @session.bookmark.on_bookmark
     async def _(state):
-        state.values["views"] = view_count()
+        state.values["updates"] = update_count()
+
+    @reactive.effect
+    @reactive.event(filters["min"], filters["max"], ignore_init=True)
+    def _():
+        update_count.set(update_count() + 1)
 
     @session.bookmark.on_restore
     def _(state):
-        if "views" in state.values:
-            view_count.set(state.values["views"])
+        if "updates" in state.values:
+            update_count.set(state.values["updates"])
 
 
 # Main app UI
-ui.h2("Module Bookmarking Example")
-ui.p("Adjust filters and watch the view count. The URL updates automatically.")
+ui.p(
+    "Adjust filters and watch the update count increase. The URL updates automatically."
+)
 
 with ui.layout_columns():
-    filter_ui("filters")
-    stats_ui("stats")
+    # Set up modules
+    filters = filter_mod("filters")
+    stats_mod("stats", filters=filters)
 
-# Set up modules
-filters = filter_server("filters")
-stats_server("stats", filters=filters)
+
+app_url = reactive.value(None)
+
 
 # Set up automatic bookmarking
 @session.bookmark.on_bookmarked
 async def _(url: str):
+    app_url.set(url)
     await session.bookmark.update_query_string(url)
+
 
 @reactive.effect
 @reactive.event(filters["min"], filters["max"], ignore_init=True)
 async def _():
     await session.bookmark()
+
+
+ui.h3("Bookmarked Query Parameters:")
+
+
+@render.code
+def _():
+    url = app_url()
+    if not url:
+        return "(adjust filters to generate a bookmark URL)"
+
+    # Parse the URL
+    parsed = urlparse(url)
+    query_params = parse_qs(parsed.query)
+
+    if not query_params:
+        return "(none)"
+    txt = ""
+    for key, values in query_params.items():
+        for value in values:
+            txt += f"{key} = {value}\n"
+
+    return txt
 ```
 :::
 

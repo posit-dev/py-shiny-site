@@ -108,13 +108,12 @@ Shiny provides four callbacks for customizing the bookmark process:
 #| standalone: true
 #| components: [editor, viewer]
 ## file: app.py
-from shiny.express import input, render, session, ui
+from shiny.express import app_opts, input, render, session, ui
 from shiny import reactive
 
-ui.page_opts(
-    title="Bookmark Lifecycle Example",
-    bookmark_store="url"
-)
+app_opts(bookmark_store="url")
+
+ui.page_opts(title="Bookmark Lifecycle Example")
 
 ui.markdown(
     """
@@ -132,7 +131,7 @@ def add_log(message: str):
     current = log_messages()
     log_messages.set(current + [message])
 
-@render.text
+@render.code
 def log():
     return "\n".join(log_messages())
 
@@ -205,8 +204,8 @@ Bookmarking features demonstrated in this example:
 
 ::: {.column-page}
 ```{shinylive-python}
-# | standalone: true
-# | components: [editor, viewer]
+#| standalone: true
+#| components: [editor, viewer]
 ## file: app.py
 from shiny.express import input, render, session, ui
 from shiny import reactive
@@ -225,70 +224,70 @@ session.bookmark.exclude.append("reset")
 # Track number of resets (custom state not tied to an input)
 reset_count = reactive.value(0)
 
-with ui.layout_sidebar():
-    with ui.sidebar(width=300):
-        ui.markdown(
+ui.markdown(
+    """
+    ### Bookmarkable Statistics App
+
+    Adjust the parameters below. The URL automatically updates
+    so you can share your configuration.
+    """
+)
+ui.input_slider("n", "Sample size", min=10, max=500, value=100)
+ui.input_select(
+    "dist", "Distribution", choices=["Normal", "Exponential", "Uniform"]
+)
+ui.input_checkbox("show_mean", "Show mean line", value=True)
+ui.input_action_button("reset", "Reset to defaults")
+
+ui.hr()
+
+with ui.navset_tab(id="tabs"):
+    with ui.nav_panel("Plot"):
+        @render.plot
+        def histogram():
+            data = generate_data()
+
+            fig, ax = plt.subplots(figsize=(8, 5))
+            ax.hist(data, bins=30, edgecolor="black", alpha=0.7)
+            ax.set_xlabel("Value")
+            ax.set_ylabel("Frequency")
+            ax.set_title(f"{input.dist()} Distribution (n={input.n()})")
+
+            if input.show_mean():
+                mean = np.mean(data)
+                ax.axvline(
+                    mean,
+                    color="red",
+                    linestyle="--",
+                    linewidth=2,
+                    label=f"Mean: {mean:.2f}",
+                )
+                ax.legend()
+
+            return fig
+
+    with ui.nav_panel("Summary"):
+        @render.text
+        def summary():
+            data = generate_data()
+            return f"""
+            Statistics for {input.dist()} distribution:
+
+            Sample size: {len(data)}
+            Mean:        {np.mean(data):.4f}
+            Std Dev:     {np.std(data):.4f}
+            Min:         {np.min(data):.4f}
+            Max:         {np.max(data):.4f}
+
+            App has been reset {reset_count()} times
             """
-            ### Bookmarkable Statistics App
 
-            Adjust the parameters below. The URL automatically updates
-            so you can share your configuration.
-            """
-        )
-        ui.input_slider("n", "Sample size", min=10, max=500, value=100)
-        ui.input_select(
-            "dist", "Distribution", choices=["Normal", "Exponential", "Uniform"]
-        )
-        ui.input_checkbox("show_mean", "Show mean line", value=True)
-        ui.input_action_button("reset", "Reset to defaults")
-
-    with ui.navset_tab(id="tabs"):
-        with ui.nav_panel("Plot"):
-            @render.plot
-            def histogram():
-                data = generate_data()
-
-                fig, ax = plt.subplots(figsize=(8, 5))
-                ax.hist(data, bins=30, edgecolor="black", alpha=0.7)
-                ax.set_xlabel("Value")
-                ax.set_ylabel("Frequency")
-                ax.set_title(f"{input.dist()} Distribution (n={input.n()})")
-
-                if input.show_mean():
-                    mean = np.mean(data)
-                    ax.axvline(
-                        mean,
-                        color="red",
-                        linestyle="--",
-                        linewidth=2,
-                        label=f"Mean: {mean:.2f}",
-                    )
-                    ax.legend()
-
-                return fig
-
-        with ui.nav_panel("Summary"):
-            @render.text
-            def summary():
-                data = generate_data()
-                return f"""
-                Statistics for {input.dist()} distribution:
-
-                Sample size: {len(data)}
-                Mean:        {np.mean(data):.4f}
-                Std Dev:     {np.std(data):.4f}
-                Min:         {np.min(data):.4f}
-                Max:         {np.max(data):.4f}
-
-                App has been reset {reset_count()} times
-                """
-
-        with ui.nav_panel("Data"):
-            @render.data_frame
-            def data_table():
-                data = generate_data()
-                df = pd.DataFrame({"Value": data})
-                return df.head(100)
+    with ui.nav_panel("Data"):
+        @render.data_frame
+        def data_table():
+            data = generate_data()
+            df = pd.DataFrame({"Value": data})
+            return df.head(100)
 
 @reactive.calc
 def generate_data():
