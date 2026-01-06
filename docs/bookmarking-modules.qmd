@@ -29,7 +29,7 @@ Here's a simple counter module that bookmarks its state:
 ### Express
 
 ```{.python}
-from shiny.express import app_opts, module, input, render, ui, session
+from shiny.express import app_opts, module, render, ui
 from shiny import reactive
 
 app_opts(bookmark_store="url")
@@ -155,6 +155,9 @@ In this example:
 When you save custom values in a module, they're automatically prefixed with the module's namespace. For example:
 
 ```{.python}
+from shiny.express import module
+from shiny import reactive
+
 @module
 def my_module(input, output, session):
     value = reactive.value(42)
@@ -172,6 +175,9 @@ If this module is instantiated with ID `"widget1"`, the bookmark will contain `w
 When modules communicate with each other (see [Module Communication](module-communication.qmd)), bookmark state is still maintained independently. However, you may need to coordinate bookmarking responsibilities across modules:
 
 ```{.python}
+from shiny.express import module
+from shiny import reactive
+
 @module
 def data_module(input, output, session):
     data_source = reactive.value(None)
@@ -207,43 +213,42 @@ mod1_data_source = data_module("mod1")
 visualization_module("mod1_viz", data_source=mod1_data_source)
 ```
 
-## Always Implement Bookmarking
-
-TODO:
-
-When making a resuable Shiny component, you should ensure it fully supports bookmarking.
-
-When developing packages that use bookmarking, you should always implement full bookmarking for your Shiny components. This includes:
-
-Leave it up to the user to enable bookmarking, but ensure your components support it when enabled.
-
 
 ## Best Practices
 
 * **Namespace awareness** - Remember that module state is automatically namespaced. Use consistent key names within modules.
 
-* **Exclude transient inputs** - Action buttons and temporary controls within modules should be excluded from bookmarking.
-
-* **Return values** - If a module returns reactive values that other modules depend on, only the source module needs to bookmark that state.
+* **Return values coordination** - If a module returns reactive values that other modules depend on, only the source module needs to bookmark that state. Avoid duplicating bookmarked state across modules.
 
 * **Module independence** - Design modules so their bookmark state is self-contained and doesn't depend on the order of restoration.
 
-* **Test module instances** - When testing bookmarking, create multiple instances of your module to ensure namespacing works correctly.
+* **Test module instances** - When testing bookmarking, create multiple instances of your module to ensure namespacing works correctly and instances don't interfere with each other.
 
-* **Always implement bookmarking handlers** - When
+* **Always implement bookmarking** - When creating reusable module components (especially for packages), implement bookmark handlers even if bookmarking isn't enabled. This ensures your modules work correctly when users enable bookmarking in their apps.
 
 ## Complete Example
 
-Here's a complete example showing multiple modules with bookmarking:
+Here's a complete example showing multiple modules with bookmarking support:
+
+- Two independent modules (`filter` and `stats`) with their own state
+- The filter module provides reactive values to the stats module
+- The stats module bookmarks its view count
+- Filter values are automatically bookmarked (as inputs)
+- Each module manages its own bookmark callbacks
+
 
 ::: {.column-page}
 ```{shinylive-python}
 # | standalone: true
 # | components: [editor, viewer]
 ## file: app.py
-from starlette.requests import Request
-from shiny import App, Inputs, Outputs, Session, module, reactive, render, ui
+from shiny.express import session, ui
+from shiny import Inputs, Outputs, Session, module, reactive, render
 
+ui.page_opts(
+    title="Module Bookmarking Example",
+    bookmark_store="url"
+)
 
 # Filter module
 @module.ui
@@ -302,42 +307,30 @@ def stats_server(input: Inputs, output: Outputs, session: Session, filters):
             view_count.set(state.values["views"])
 
 
-# Main app
-def app_ui(request: Request):
-    return ui.page_fluid(
-        ui.h2("Module Bookmarking Example"),
-        ui.p("Adjust filters and watch the view count. The URL updates automatically."),
-        ui.layout_columns(filter_ui("filters"), stats_ui("stats")),
-    )
+# Main app UI
+ui.h2("Module Bookmarking Example")
+ui.p("Adjust filters and watch the view count. The URL updates automatically.")
 
+with ui.layout_columns():
+    filter_ui("filters")
+    stats_ui("stats")
 
-def server(input: Inputs, output: Outputs, session: Session):
-    # Set up modules
-    filters = filter_server("filters")
-    stats_server("stats", filters=filters)
+# Set up modules
+filters = filter_server("filters")
+stats_server("stats", filters=filters)
 
-    # Set up automatic bookmarking
-    @session.bookmark.on_bookmarked
-    async def _(url: str):
-        await session.bookmark.update_query_string(url)
+# Set up automatic bookmarking
+@session.bookmark.on_bookmarked
+async def _(url: str):
+    await session.bookmark.update_query_string(url)
 
-    @reactive.effect
-    @reactive.event(filters["min"], filters["max"], ignore_init=True)
-    async def _():
-        await session.bookmark()
-
-
-app = App(app_ui, server, bookmark_store="url")
+@reactive.effect
+@reactive.event(filters["min"], filters["max"], ignore_init=True)
+async def _():
+    await session.bookmark()
 ```
 :::
 
-This example demonstrates:
-
-- Two independent modules (`filter` and `stats`) with their own state
-- The filter module provides reactive values to the stats module
-- The stats module bookmarks its view count
-- Filter values are automatically bookmarked (as inputs)
-- Each module manages its own bookmark callbacks
 
 ## See Also
 

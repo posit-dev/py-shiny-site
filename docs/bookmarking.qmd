@@ -282,33 +282,25 @@ For advanced bookmarking scenarios like saving custom values, using bookmark lif
 
 ## Best Practices
 
-TODO: RElocate items to appropriate files; Make bullets `*`
+* **Always make your UI a function** (core only) that accepts a `Request` parameter - this is required for bookmarking to work.
 
-1. (For `core` more only) **Always make your UI a function** that accepts a `Request` parameter - this is required for bookmarking to work.
+* **Update the query string** - Use `session.bookmark.update_query_string()` in an `on_bookmarked` callback to keep the browser URL in sync.
 
-2. **Use URL bookmarking when possible** - it's simpler and more portable than server bookmarking.
+* **Use URL bookmarking when possible** - it's simpler and more portable than server bookmarking.
 
-3. **Update the query string** - Use `session.bookmark.update_query_string()` in an `on_bookmarked` callback to keep the browser URL in sync.
+* **Exclude transient inputs** - Action buttons, file uploads, and other temporary controls usually shouldn't be bookmarked.
 
-4. **Exclude transient inputs** - Action buttons, file uploads, and other temporary controls usually shouldn't be bookmarked.
+* **Test restoration thoroughly** - Load your app with bookmarked URLs to ensure state is restored correctly.
 
-5. **Test restoration thoroughly** - Load your app with bookmarked URLs to ensure state is restored correctly.
-
-6. **Consider URL size limits** - Keep bookmarked state compact for URL bookmarking (~65k character limit).
-
-7. **Use `reactive.isolate()`** - When reading reactive values in `on_bookmark`, use `reactive.isolate()` to avoid creating dependencies.
-
-8. **Handle missing values** - Always check if a key exists in `state.values` before trying to restore it.
+* **Consider URL size limits** - Keep bookmarked state compact for URL bookmarking (~65k character limit).
 
 ## Limitations
 
 - **URL length limits**: Browsers limit URL length to approximately 65,000 characters. Use server bookmarking for larger state.
 
-- **File uploads**: File inputs should not be bookmarked with URL storage. With server storage, you need custom logic to save/restore files.
+- **File uploads**: File inputs should not be bookmarked with URL storage with most files being too large to store within the URL. With server storage, you need custom logic to save/restore files.
 
-- **Security**: URL bookmarks are visible to users / their browser. Don't include sensitive information in URL bookmarks.
-
-- **Computed values**: Only `input` values are automatically bookmarked. You must *manually* save and restore reactive values and other computed state.
+- **Security**: URL bookmarks are visible to users / their browser. Do not include sensitive information in URL bookmarks.
 
 ## See Also
 
