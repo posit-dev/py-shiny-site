@@ -275,9 +275,6 @@ website:
           contents:
             - docs/reading-data.qmd
             - docs/persistent-storage.qmd
-        - section: "<span class='emoji-icon'>🔖</span>  __Bookmarking__"
-          contents:
-            - docs/bookmarking.qmd
         - section: "<span class='emoji-icon'>📝</span>  __Syntax modes__"
           contents:
             - docs/express-vs-core.qmd
@@ -288,6 +285,11 @@ website:
           contents:
             - docs/modules.qmd
             - docs/module-communication.qmd
+        - section: "<span class='emoji-icon'>🔖</span>  __Bookmarking__"
+          contents:
+            - docs/bookmarking.qmd
+            - docs/bookmarking-advanced.qmd
+            - docs/bookmarking-modules.qmd
         - section: "<span class='emoji-icon'>🧪</span>  __Testing__"
           contents:
             - docs/unit-testing.qmd
@@ -316,7 +318,7 @@ format:
     toc: true
     theme: quarto-style.scss
     include-before-body: include-before-body.html
-    include-in-header: 
+    include-in-header:
       - "include-in-header.html"
       - text: |
           <script src="https://cdn.jsdelivr.net/gh/posit-dev/supported-by-posit/js/badge.min.js"

@@ -1,0 +1,385 @@
+---
+title: Advanced Bookmarking
+code-annotations: hover
+---
+
+## Introduction
+
+While basic bookmarking automatically captures input values and updates URLs, many applications need more sophisticated state management. This guide covers advanced bookmarking techniques for complex scenarios.
+
+::: {.callout-note}
+Before reading this guide, make sure you're familiar with the concepts in [Bookmarking State](bookmarking.qmd), including automatic bookmarking, bookmark buttons, and excluding inputs.
+:::
+
+**What you'll learn:**
+
+- **Custom state** - Save reactive values and computed state that aren't tied to inputs
+- **Lifecycle callbacks** - Hook into the bookmarking process at different stages
+- **Input updates** - Programmatically update inputs during restoration
+- **Server-side storage** - Configure persistent storage for large or sensitive data
+
+These techniques are essential for applications with:
+
+- Complex derived state or calculations that need preservation
+- Large state that exceeds URL length limits
+- Sensitive data that shouldn't appear in URLs
+- File uploads or other data that can't be encoded in URLs
+
+## Saving Custom Values
+
+Sometimes you need to save state that isn't directly tied to an input. For example, a calculated value, accumulated state, or reactive value. Use the `on_bookmark` callback to save custom values into the `state.values` dictionary. This dictionary is serialized after bookmarking and provided during bookmark restoration.
+
+```{.python}
+def server(input: Inputs, output: Outputs, session: Session):
+    total = reactive.value(0)
+
+    # Save `total` in custom values
+    @session.bookmark.on_bookmark
+    async def _(state):
+        state.values["total"] = total()
+
+    # Restore `total` (when possible)
+    @session.bookmark.on_restore
+    def _(state):
+        if "total" in state.values:
+            total.set(state.values["total"])
+
+    # Other code to alter the value of `total`...
+```
+
+In this example:
+
+1. The `total` reactive value isn't tied to an input
+2. We use `@session.bookmark.on_bookmark` to save it to `state.values`
+3. We use `@session.bookmark.on_restore` to restore it when the app loads
+
+## Updating Inputs During Restoration
+
+Sometimes you need to update one input based on a bookmarked value. Use the `on_restore` callback:
+
+```{.python}
+def server(input: Inputs, output: Outputs, session: Session):
+    # Exclude this input from automatic bookmarking
+    session.bookmark.exclude.append("computed_choice")
+
+    computed_value = reactive.value()
+
+    @reactive.effect
+    @reactive.event(input.base_choice)
+    def _():
+        # Compute derived value
+        computed_value.set(input.base_choice().lower())
+
+    @session.bookmark.on_bookmark
+    async def _(state):
+        # Save the computed value
+        state.values["computed"] = computed_value()
+
+    @session.bookmark.on_restore
+    def _(state):
+        # Restore and update the UI
+        if "computed" in state.values:
+            uppercase = state.values["computed"].upper()
+            ui.update_radio_buttons("computed_choice", selected=uppercase)
+```
+
+
+
+## Bookmark Lifecycle Callbacks
+
+Shiny provides four callbacks for customizing the bookmark process:
+
+**During Bookmarking:**
+
+- `@session.bookmark.on_bookmark` - Called **before** saving state. Use this to add custom values to `state.values`.
+- `@session.bookmark.on_bookmarked` - Called **after** saving state. Use this to handle the bookmark URL (e.g., update the browser's address bar).
+
+**During Restoration:**
+
+- `@session.bookmark.on_restore` - Called **before** the session is fully initialized. Use this to update inputs with restored values.
+- `@session.bookmark.on_restored` - Called **after** the session is fully initialized. Use this for operations that require a fully working app.
+
+::: {.column-page}
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+## file: app.py
+from starlette.requests import Request
+from shiny import App, Inputs, Outputs, Session, reactive, render, ui
+
+def app_ui(request: Request):
+    return ui.page_fluid(
+        ui.markdown(
+            """
+            This example demonstrates all four bookmark lifecycle callbacks.
+            Change inputs and watch the log to see when callbacks fire.
+            """
+        ),
+        ui.input_text("name", "Your name", value=""),
+        ui.input_slider("age", "Your age", min=1, max=100, value=30),
+        ui.output_text_verbatim("log")
+    )
+
+def server(input: Inputs, output: Outputs, session: Session):
+    log_messages = reactive.value([])
+
+    def add_log(message: str):
+        current = log_messages()
+        log_messages.set(current + [message])
+
+    @render.text
+    def log():
+        return "\n".join(log_messages())
+
+    # Bookmark lifecycle
+    @session.bookmark.on_bookmark
+    async def _(state):
+        add_log("on_bookmark: Preparing to save state")
+        state.values["timestamp"] = "2024-01-01"  # In real app, use datetime
+
+    @session.bookmark.on_bookmarked
+    async def _(url: str):
+        add_log(f"on_bookmarked: Bookmark created")
+        await session.bookmark.update_query_string(url)
+
+    @session.bookmark.on_restore
+    def _(state):
+        add_log("on_restore: Restoring state before session init")
+        if "timestamp" in state.values:
+            # This log will only be shown when running the app outside of documentation
+            add_log(f"  Timestamp from bookmark: {state.values['timestamp']}")
+
+    @session.bookmark.on_restored
+    def _(state):
+        add_log("on_restored: State fully restored")
+
+    # Auto-bookmark on input change
+    @reactive.effect
+    @reactive.event(input.name, input.age, ignore_init=True)
+    async def _():
+        add_log("Input changed, creating bookmark...")
+        await session.bookmark()
+
+app = App(app_ui, server, bookmark_store="url")
+```
+:::
+
+
+## Server-Side Bookmarking
+
+
+For production applications with larger state or sensitive data, use server-side bookmarking.
+
+::: {.callout-note}
+
+## Professional products
+
+Shiny for Python's server-side bookmarking is already integrated into Posit's professional products. No need to configure anything if you are using Posit Connect or Posit Workbench.
+
+:::
+
+To control where bookmarks are stored, you need to configure the storage location by setting global functions for saving and restoring bookmark directories. Here's an example using the `pathlib` module to create a directory for bookmarks:
+
+```{.python}
+from pathlib import Path
+from shiny.bookmark import set_global_save_dir_fn, set_global_restore_dir_fn
+
+# Define where bookmarks are stored
+bookmark_dir = Path(__file__).parent / "bookmarks"
+bookmark_dir.mkdir(exist_ok=True)
+
+def save_bookmark_dir(id: str) -> Path:
+    """Create and return the directory for saving a bookmark."""
+    save_dir = bookmark_dir / id
+    save_dir.mkdir(parents=True, exist_ok=True)
+    return save_dir
+
+def restore_bookmark_dir(id: str) -> Path:
+    """Return the directory for restoring a bookmark."""
+    return bookmark_dir / id
+
+# Set global defaults
+set_global_save_dir_fn(save_bookmark_dir)
+set_global_restore_dir_fn(restore_bookmark_dir)
+
+# ... define app_ui and server ...
+
+# Create app with server bookmarking
+app = App(app_ui, server, bookmark_store="server")
+```
+
+::: {.callout-warning}
+Server bookmarking is designed for hosting environments. In production, ensure you have:
+
+- Persistent storage that survives app restarts
+- Appropriate cleanup policies for old bookmarks
+- Sufficient disk space for bookmark storage
+:::
+
+::: {.callout-important}
+
+[Shinyapps.io](https://www.shinyapps.io/) and [Posit Cloud Connect](https://connect.posit.cloud/), by design, do not support server-side bookmarking as Apps are deployed within a temporary virtual environment. Any files that are saved will be lost when the virtual environment is shut down.
+
+:::
+
+## Complete Example
+
+Here's a complete example demonstrating multiple advanced bookmarking features:
+
+::: {.column-page}
+```{shinylive-python}
+# | standalone: true
+# | components: [editor, viewer]
+## file: app.py
+from starlette.requests import Request
+from shiny import App, Inputs, Outputs, Session, reactive, render, ui
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+def app_ui(request: Request):
+    return ui.page_fluid(
+        ui.layout_sidebar(
+            ui.sidebar(
+                ui.markdown(
+                    """
+                    ### Bookmarkable Statistics App
+
+                    Adjust the parameters below. The URL automatically updates
+                    so you can share your configuration.
+                    """
+                ),
+                ui.input_slider("n", "Sample size", min=10, max=500, value=100),
+                ui.input_select(
+                    "dist", "Distribution", choices=["Normal", "Exponential", "Uniform"]
+                ),
+                ui.input_checkbox("show_mean", "Show mean line", value=True),
+                ui.input_action_button("reset", "Reset to defaults"),
+                width=300,
+            ),
+            ui.navset_tab(
+                ui.nav_panel("Plot", ui.output_plot("histogram")),
+                ui.nav_panel("Summary", ui.output_text_verbatim("summary")),
+                ui.nav_panel("Data", ui.output_data_frame("data_table")),
+                id="tabs",
+            ),
+        )
+    )
+
+
+def server(input: Inputs, output: Outputs, session: Session):
+    # Don't bookmark the reset button
+    session.bookmark.exclude.append("reset")
+
+    # Track number of resets (custom state not tied to an input)
+    reset_count = reactive.value(0)
+
+    @reactive.calc
+    def generate_data():
+        """Generate random data based on selected distribution."""
+        n = input.n()
+        dist = input.dist()
+
+        if dist == "Normal":
+            return np.random.normal(0, 1, n)
+        elif dist == "Exponential":
+            return np.random.exponential(1, n)
+        else:  # Uniform
+            return np.random.uniform(-2, 2, n)
+
+    @render.plot
+    def histogram():
+        data = generate_data()
+
+        fig, ax = plt.subplots(figsize=(8, 5))
+        ax.hist(data, bins=30, edgecolor="black", alpha=0.7)
+        ax.set_xlabel("Value")
+        ax.set_ylabel("Frequency")
+        ax.set_title(f"{input.dist()} Distribution (n={input.n()})")
+
+        if input.show_mean():
+            mean = np.mean(data)
+            ax.axvline(
+                mean,
+                color="red",
+                linestyle="--",
+                linewidth=2,
+                label=f"Mean: {mean:.2f}",
+            )
+            ax.legend()
+
+        return fig
+
+    @render.text
+    def summary():
+        data = generate_data()
+        return f"""
+        Statistics for {input.dist()} distribution:
+
+        Sample size: {len(data)}
+        Mean:        {np.mean(data):.4f}
+        Std Dev:     {np.std(data):.4f}
+        Min:         {np.min(data):.4f}
+        Max:         {np.max(data):.4f}
+
+        App has been reset {reset_count()} times
+        """
+
+    @render.data_frame
+    def data_table():
+        import pandas as pd
+
+        data = generate_data()
+        df = pd.DataFrame({"Value": data})
+        return df.head(100)  # Show first 100 rows
+
+    @reactive.effect
+    @reactive.event(input.reset)
+    def _():
+        ui.update_slider("n", value=100)
+        ui.update_select("dist", selected="Normal")
+        ui.update_checkbox("show_mean", value=True)
+        reset_count.set(reset_count() + 1)
+
+    # Bookmark when inputs change
+    @reactive.effect
+    @reactive.event(input.n, input.dist, input.show_mean, ignore_init=True)
+    async def _():
+        await session.bookmark()
+
+    # Save custom state
+    @session.bookmark.on_bookmark
+    async def _(state):
+        state.values["reset_count"] = reset_count()
+
+    # Restore custom state
+    @session.bookmark.on_restore
+    def _(state):
+        if "reset_count" in state.values:
+            reset_count.set(state.values["reset_count"])
+
+    # Update URL bar
+    @session.bookmark.on_bookmarked
+    async def _(url: str):
+        await session.bookmark.update_query_string(url)
+
+
+app = App(app_ui, server, bookmark_store="url")
+```
+:::
+
+This example demonstrates:
+
+- Automatic URL updates as inputs change
+- Bookmarking tab state (via `id="tabs"`)
+- Excluding action buttons from bookmarks
+- Saving and restoring custom values (reset count)
+- Multiple input types and outputs
+
+## See Also
+
+- [Bookmarking State](bookmarking.qmd) - Basic bookmarking concepts
+- [Bookmarking with Modules](bookmarking-modules.qmd) - Using bookmarking with Shiny modules
+- [Modules](modules.qmd) - Organizing code with modules
+- [Persistent Storage](persistent-storage.qmd) - Saving data between sessions
+- [Reactivity Patterns](reactive-patterns.qmd) - Working with reactive values
