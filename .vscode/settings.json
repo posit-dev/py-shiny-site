@@ -40,6 +40,6 @@
     "reportWildcardImportFromLibrary": "none"
   },
   "flake8.args": ["--ignore=E501,E203"],
-  "quarto.path": "~/.local/share/qvm/versions/v1.8.26/bin/quarto",
+  "quarto.path": "~/.local/share/qvm/versions/v1.7.23/bin/quarto",
   "r.lsp.promptToInstall": false
 }

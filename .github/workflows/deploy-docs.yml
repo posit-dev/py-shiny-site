@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  QUARTO_VERSION: 1.8.26
+  QUARTO_VERSION: 1.7.23
 
 jobs:
   build:
