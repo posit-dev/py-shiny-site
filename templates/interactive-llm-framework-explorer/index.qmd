@@ -1,0 +1,58 @@
+---
+title: "Interactive LLM Framework Explorer"
+description: Explore different Python LLM frameworks and their capabilities through interactive Shiny templates
+---
+
+Explore various Python frameworks for building LLM-powered applications. Each template demonstrates different capabilities including basic chat, structured output, and tool calling.
+
+::: {.panel-tabset .panel-pills}
+
+### LangChain Basic
+
+{{< include langchain-basic/index.qmd >}}
+
+### LangChain Structured Output
+
+{{< include langchain-structured-output/index.qmd >}}
+
+### LangChain Tool Calling
+
+{{< include langchain-tool-calling/index.qmd >}}
+
+### LlamaIndex Basic
+
+{{< include llama-index-basic/index.qmd >}}
+
+### LlamaIndex Structured Output
+
+{{< include llama-index-structured-output/index.qmd >}}
+
+### LlamaIndex Tool Calling
+
+{{< include llama-index-tool-calling/index.qmd >}}
+
+### LLM Package Basic
+
+{{< include llm-package-basic/index.qmd >}}
+
+### LLM Package Structured Output
+
+{{< include llm-package-structured-output/index.qmd >}}
+
+### LLM Package Tool Calling
+
+{{< include llm-package-tool-calling/index.qmd >}}
+
+### Pydantic AI Basic
+
+{{< include pydantic-ai-basic/index.qmd >}}
+
+### Pydantic AI Structured Output
+
+{{< include pydantic-ai-structured-output/index.qmd >}}
+
+### Pydantic AI Tool Calling
+
+{{< include pydantic-ai-tool-calling/index.qmd >}}
+
+:::

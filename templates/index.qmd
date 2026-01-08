@@ -46,30 +46,8 @@ listing:
         path: querychat
       - title: Side bot
         path: sidebot
-      - title: LangChain Basic Chat
-        path: langchain-basic
-      - title: LangChain Structured Output
-        path: langchain-structured-output
-      - title: LangChain Tool Calling
-        path: langchain-tool-calling
-      - title: LlamaIndex Basic Chat
-        path: llama-index-basic
-      - title: LlamaIndex Structured Output
-        path: llama-index-structured-output
-      - title: LlamaIndex Tool Calling
-        path: llama-index-tool-calling
-      - title: llm Basic Chat
-        path: llm-package-basic
-      - title: llm Structured Output
-        path: llm-package-structured-output
-      - title: llm Tool Calling
-        path: llm-package-tool-calling
-      - title: PydanticAI Basic Chat
-        path: pydantic-ai-basic
-      - title: PydanticAI Structured Output
-        path: pydantic-ai-structured-output
-      - title: PydanticAI Tool Calling
-        path: pydantic-ai-tool-calling
+      - title: Interactive LLM Framework Explorer
+        path: interactive-llm-framework-explorer
   - id: _dashboards
     template: _partials/template-listing.ejs
     contents:
