@@ -171,10 +171,10 @@ The examples above automatically update the URL as inputs change, which happens 
 ui.input_bookmark_button(label="Save current state")
 ```
 
-When clicked, this button triggers the bookmarking process. The button works together with your `@session.bookmark.on_bookmarked` callback:
+When clicked, this button triggers the bookmarking process (by internally calling `await session.bookmark()`). The button works together with your `@session.bookmark.on_bookmarked` callbacks:
 
 - If you've set up `session.bookmark.update_query_string()` in your `on_bookmarked` callback, clicking the button will update the browser's URL
-- If you haven't defined an `on_bookmarked` callback, clicking the button will display the bookmark URL in a modal dialog
+- If you haven't defined an `on_bookmarked` callback, clicking the button will display the bookmark URL in a modal dialog (see next section)
 
 ::: {.callout-tip}
 ## Disable automatic bookmarking
@@ -205,7 +205,12 @@ async def _(url: str):
     app_url.set(url)  # Store for display
 
 
-# Note: No @reactive.effect trigger - button handles bookmarking
+# Note: No @reactive.effect trigger needed
+#       Bookmark button already handles bookmark creation
+# @reactive.effect
+# @reactive.event(input.n, input.dist, ignore_init=True)
+# async def _():
+#     await session.bookmark()
 
 
 ui.page_opts(title="Bookmarking Example")
@@ -245,9 +250,9 @@ def plot():
 """Latest Bookmarked URL:"""
 
 
-@render.code
+@render.express
 def _():
-    return app_url()
+    ui.code(app_url(), style="white-space: pre-wrap;")
 ```
 :::
 
@@ -264,6 +269,52 @@ async def _(url: str):
 When executed, this displays a modal with the bookmark URL prominently displayed:
 
 ![Bookmark modal with copyable URL](bookmarking-bookmark-modal.png)
+
+::: {.column-page}
+```{shinylive-python}
+# | standalone: true
+# | components: [editor, viewer]
+## file: app.py
+from shiny import reactive
+from shiny.express import app_opts, input, render, session, ui
+
+# Set the `bookmark_store` option
+app_opts(bookmark_store="url")
+
+ui.page_opts(title="Bookmarking Example")
+
+"""
+Adjust the inputs below and click the button to create a bookmark.
+The URL will update only when you click the button.
+"""
+
+# Add the bookmark button
+ui.input_bookmark_button(label="Bookmark current state")
+ui.hr()
+
+ui.input_slider("n", "Sample size", min=10, max=100, value=30)
+ui.input_radio_buttons(
+    "dist", "Distribution", choices=["Normal", "Uniform", "Exponential"]
+)
+
+
+@render.plot
+def plot():
+    import numpy as np
+    import matplotlib.pyplot as plt
+
+    if input.dist() == "Normal":
+        data = np.random.normal(size=input.n())
+    elif input.dist() == "Uniform":
+        data = np.random.uniform(size=input.n())
+    else:
+        data = np.random.exponential(size=input.n())
+
+    fig, ax = plt.subplots()
+    ax.hist(data, bins=20)
+    return fig
+```
+:::
 
 
 ## Excluding `input`s from Bookmarks
@@ -283,55 +334,130 @@ Common inputs to exclude:
 
 The `session.bookmark.exclude` list can be modified at any time during the server function execution, including from within modals.
 
+::: {.column-page}
+```{shinylive-python}
+# | standalone: true
+# | components: [editor, viewer]
+## file: app.py
+from shiny import reactive
+from shiny.express import app_opts, input, render, session, ui
+
+# Set the `bookmark_store` option
+app_opts(bookmark_store="url")
+
+ui.page_opts(title="Bookmarking Example")
+
+"""
+Adjust the inputs below and click the button to create a bookmark.
+The URL will update only when you click the button.
+"""
+
+# Add the bookmark button
+ui.input_bookmark_button(label="Bookmark current state")
+ui.hr()
+
+ui.input_slider("n", "Sample size", min=10, max=100, value=30)
+# Do not bookmark input.n
+session.bookmark.exclude.append("n")
+
+ui.input_radio_buttons(
+    "dist", "Distribution", choices=["Normal", "Uniform", "Exponential"]
+)
+
+
+@render.plot
+def plot():
+    import numpy as np
+    import matplotlib.pyplot as plt
+
+    if input.dist() == "Normal":
+        data = np.random.normal(size=input.n())
+    elif input.dist() == "Uniform":
+        data = np.random.uniform(size=input.n())
+    else:
+        data = np.random.exponential(size=input.n())
+
+    fig, ax = plt.subplots()
+    ax.hist(data, bins=20)
+    return fig
+```
+:::
+
 
 ## Bookmarking Tabs
 
-When using tabbed interfaces, you'll want to bookmark which tab is active. To enable this, add an `id` parameter to your tabset:
+When using tabbed interfaces, you'll want to bookmark which tab is active. To enable this, add an `id` parameter to your tabset. The active tab will then be automatically included in the bookmark state.
 
-::: {.panel-tabset .panel-pills}
+::: {.column-page}
+```{shinylive-python}
+# | standalone: true
+# | components: [editor, viewer]
+## file: app.py
+from shiny import reactive
+from shiny.express import app_opts, input, render, session, ui
 
-### Express
+# Set the `bookmark_store` option
+app_opts(bookmark_store="url")
 
-```{.python}
-from shiny.express import ui
-from starlette.requests import Request
+app_url = reactive.value("")
 
-ui.page_opts(title="Tabbed App")
 
+# Integrate bookmarking callbacks
+@session.bookmark.on_bookmarked
+async def _(url: str):
+    await session.bookmark.update_query_string(url)
+    app_url.set(url)  # Store for display
+
+
+@reactive.effect
+@reactive.event(input.main_tabs, ignore_init=True)
+async def _():
+    await session.bookmark()
+
+
+ui.page_opts(title="Tabbed App with Bookmarking")
+
+ui.markdown(
+    """
+Switch between tabs and click the button to bookmark.
+The active tab will be saved in the URL.
+
+Latest Bookmarked URL:
+"""
+)
+
+
+@render.express
+def _():
+    ui.code(app_url(), style="white-space: pre-wrap;")
+
+
+ui.hr()
+
+# Add id parameter to enable tab bookmarking
 with ui.navset_tab(id="main_tabs"):
     with ui.nav_panel("Plot"):
-        "Plot content here"
+        ui.input_slider("n", "Sample size", min=10, max=100, value=50)
+
+        @render.plot
+        def plot():
+            import numpy as np
+            import matplotlib.pyplot as plt
+
+            data = np.random.normal(size=input.n())
+            fig, ax = plt.subplots()
+            ax.hist(data, bins=20)
+            ax.set_title("Normal Distribution")
+            return fig
 
     with ui.nav_panel("Data"):
-        "Data content here"
+        "Data analysis content here"
 
     with ui.nav_panel("About"):
-        "About content here"
+        "About this application"
 ```
-
-### Core
-
-```{.python}
-def app_ui(request: Request):
-    return ui.page_fluid(
-        ui.navset_tab(
-            ui.nav_panel("Plot", "Plot content here"),
-            ui.nav_panel("Data", "Data content here"),
-            ui.nav_panel("About", "About content here"),
-            id="main_tabs"  # This enables tab bookmarking
-        )
-    )
-```
-
 :::
 
-With the `id` parameter set, the active tab will be included in the bookmark state.
-
-::: {.callout-tip}
-## Need more control?
-
-For advanced bookmarking scenarios like saving custom values, using bookmark lifecycle callbacks, server-side storage, or bookmarking with modules, see [Advanced Bookmarking](bookmarking-advanced.qmd).
-:::
 
 ## Bookmarking Styles
 
