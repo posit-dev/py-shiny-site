@@ -186,8 +186,8 @@ Here's the earlier example modified to use a bookmark button:
 
 ::: {.column-page}
 ```{shinylive-python}
-#| standalone: true
-#| components: [editor, viewer]
+# | standalone: true
+# | components: [editor, viewer]
 ## file: app.py
 from shiny import reactive
 from shiny.express import app_opts, input, render, session, ui
@@ -195,39 +195,41 @@ from shiny.express import app_opts, input, render, session, ui
 # Set the `bookmark_store` option
 app_opts(bookmark_store="url")
 
+app_url = reactive.value("")
+
+
 # Integrate bookmarking callbacks
 @session.bookmark.on_bookmarked
 async def _(url: str):
     await session.bookmark.update_query_string(url)
+    app_url.set(url)  # Store for display
 
-# Note: No @reactive.effect to trigger bookmarking automatically
 
-# -- Example app UI and logic --
+# Note: No @reactive.effect trigger - button handles bookmarking
+
 
 ui.page_opts(title="Bookmarking Example")
 
-ui.markdown(
-    """
-    Adjust the inputs below and click the button to create a bookmark.
-    The URL will update only when you click the button.
-    """
-)
+"""
+Adjust the inputs below and click the button to create a bookmark.
+The URL will update only when you click the button.
+"""
 
+# Add the bookmark button
 ui.input_bookmark_button(label="Bookmark current state")
+ui.hr()
 
 ui.input_slider("n", "Sample size", min=10, max=100, value=30)
 ui.input_radio_buttons(
-    "dist",
-    "Distribution",
-    choices=["Normal", "Uniform", "Exponential"]
+    "dist", "Distribution", choices=["Normal", "Uniform", "Exponential"]
 )
+
 
 @render.plot
 def plot():
     import numpy as np
     import matplotlib.pyplot as plt
 
-    # Generate data based on inputs
     if input.dist() == "Normal":
         data = np.random.normal(size=input.n())
     elif input.dist() == "Uniform":
@@ -238,6 +240,14 @@ def plot():
     fig, ax = plt.subplots()
     ax.hist(data, bins=20)
     return fig
+
+
+"""Latest Bookmarked URL:"""
+
+
+@render.code
+def _():
+    return app_url()
 ```
 :::
 
