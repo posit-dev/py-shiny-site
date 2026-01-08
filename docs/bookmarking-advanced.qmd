@@ -209,16 +209,15 @@ Bookmarking features demonstrated in this example:
 #| standalone: true
 #| components: [editor, viewer]
 ## file: app.py
-from shiny.express import input, render, session, ui
+from shiny.express import app_opts, input, render, session, ui
 from shiny import reactive
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-ui.page_opts(
-    title="Bookmarkable Statistics App",
-    bookmark_store="url"
-)
+ui.page_opts(title="Bookmarkable Statistics App")
+
+app_opts(bookmark_store="url")
 
 # Don't bookmark the reset button
 session.bookmark.exclude.append("reset")
@@ -227,23 +226,20 @@ session.bookmark.exclude.append("reset")
 reset_count = reactive.value(0)
 
 # Track the current bookmark URL for display
-current_url = reactive.value("")
+app_url = reactive.value("")
 
 ui.markdown(
     """
-    ### Bookmarkable Statistics App
-
     Adjust the parameters below. The URL automatically updates
     so you can share your configuration.
+
+    Latest Bookmarked URL:
     """
 )
 
-@render.code
+@render.express
 def bookmark_url():
-    url = current_url()
-    if url:
-        return f"Current bookmark URL:\n{url}"
-    return "No bookmark created yet"
+    ui.code(app_url())
 
 ui.input_slider("n", "Sample size", min=10, max=500, value=100)
 ui.input_select(
@@ -343,8 +339,8 @@ def _(state):
 # Update URL bar and display
 @session.bookmark.on_bookmarked
 async def _(url: str):
-    current_url.set(url)  # Store for display
     await session.bookmark.update_query_string(url)
+    app_url.set(url)  # Store for display
 ```
 :::
 
@@ -360,6 +356,13 @@ For production applications with larger state or sensitive data, use server-side
 Shiny for Python's server-side bookmarking is already integrated into Posit's professional products. No need to configure anything if you are using Posit Connect or Posit Workbench.
 
 :::
+
+::: {.callout-important}
+
+[Shinyapps.io](https://www.shinyapps.io/) and [Posit Cloud Connect](https://connect.posit.cloud/), by design, do not support server-side bookmarking as Apps are deployed within a temporary virtual environment. Any files that are saved will be lost when the virtual environment is shut down.
+
+:::
+
 
 To control where bookmark data is stored, you need to configure the storage location by setting global functions for saving and restoring bookmark directories. Here's an example using the `pathlib` module to create a directory for bookmarks:
 
@@ -396,11 +399,6 @@ Server bookmarking is designed for hosting environments. In production, ensure y
 - Sufficient disk space for bookmark storage
 :::
 
-::: {.callout-important}
-
-[Shinyapps.io](https://www.shinyapps.io/) and [Posit Cloud Connect](https://connect.posit.cloud/), by design, do not support server-side bookmarking as Apps are deployed within a temporary virtual environment. Any files that are saved will be lost when the virtual environment is shut down.
-
-:::
 
 ## See Also
 

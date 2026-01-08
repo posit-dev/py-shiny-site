@@ -252,7 +252,7 @@ def plot():
 
 @render.express
 def _():
-    ui.code(app_url(), style="white-space: pre-wrap;")
+    ui.code(app_url())
 ```
 :::
 
@@ -429,7 +429,7 @@ Latest Bookmarked URL:
 
 @render.express
 def _():
-    ui.code(app_url(), style="white-space: pre-wrap;")
+    ui.code(app_url())
 
 
 ui.hr()
