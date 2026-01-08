@@ -166,18 +166,21 @@ app = App(app_ui, server, bookmark_store="url") # <4>
 
 ## Bookmark Button
 
-The simplest way to let users create bookmarks is to add a bookmark button to your UI:
+The examples above automatically update the URL as inputs change, which happens silently in the background. If you prefer to give users explicit control over when bookmarks are created, add a bookmark button to your UI:
 
 ```{.python}
 ui.input_bookmark_button(label="Save current state")
 ```
 
-When clicked, this button triggers the bookmarking process. This will update the URL if `session.bookmark.update_query_string()` has been registered or will display the bookmark URL to the user in a modal if nothing has been registered with `session.on_bookmarked`.
+When clicked, this button triggers the bookmarking process. The button works together with your `@session.bookmark.on_bookmarked` callback:
+
+- If you've set up `session.bookmark.update_query_string()` in your `on_bookmarked` callback, clicking the button will update the browser's URL
+- If you haven't defined an `on_bookmarked` callback, clicking the button will display the bookmark URL in a modal dialog
 
 ::: {.callout-tip}
 ## Disable automatic bookmarking
 
-It is recommended to remove the `await session.bookmark()` call when using the bookmark button to avoid extraneous bookmark updates. By default, Shiny listens for when a (non-module) bookmark button is clicked and calls `await session.bookmark()` automatically.
+When using the bookmark button, you can remove the `@reactive.effect` that calls `await session.bookmark()` on input changes. This prevents extraneous bookmark updates since Shiny automatically calls `await session.bookmark()` when the button is clicked.
 :::
 
 ## Bookmark Modal
@@ -197,15 +200,20 @@ When executed, this displays a modal with the bookmark URL prominently displayed
 
 ## Excluding `input`s from Bookmarks
 
-Not every input is bookmark-worthy; some `input`s should not be bookmarked. For example, if you wanted to exclude `input.n` from the bookmark to force it to reset on every app load, you can call:
+By default, **all input values are automatically included in bookmarks**. However, some inputs shouldn't be bookmarked. For example, if you want to make sure a particular input isn't included in the bookmark and resets to its default value on every app load, you can exclude it:
 
 ```{.python}
+# Exclude input.n from bookmarking
 session.bookmark.exclude.append("n")
 ```
 
-By default, password inputs are excluded from bookmarking to protect sensitive information.
+Common inputs to exclude:
 
-The `session.bookmark.exclude` list can be modified at any time during the server function execution and within modals.
+- Action buttons (they represent one-time actions, not persistent state)
+- Password fields (already excluded by default for security)
+- Temporary UI state that shouldn't persist
+
+The `session.bookmark.exclude` list can be modified at any time during the server function execution, including from within modals.
 
 
 ## Bookmarking Tabs
