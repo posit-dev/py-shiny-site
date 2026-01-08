@@ -24,7 +24,11 @@ This app allows users to interact with a language model using the LangChain fram
 shiny create --template langchain-basic --mode express --github posit-dev/py-shiny-templates/gen-ai/interactive-chat-explorer
 ```
 
-**Packages:** `langchain-core`, `langchain-openai`, `langchain`, `dotenv`
+**Packages:**
+- `langchain-core`
+- `langchain-openai`
+- `langchain`
+- `dotenv`
 
 ### Structured Output
 
@@ -39,7 +43,12 @@ Shows how to constrain model responses to a structured schema using LangChain (e
 shiny create --template langchain-structured-output --mode express --github posit-dev/py-shiny-templates/gen-ai/interactive-chat-explorer
 ```
 
-**Packages:** `langchain-core`, `langchain-openai`, `langchain`, `pydantic`, `dotenv`
+**Packages:**
+- `langchain-core`
+- `langchain-openai`
+- `langchain`
+- `pydantic`
+- `dotenv`
 
 ### Tool Calling
 
@@ -54,7 +63,11 @@ Demonstrates using LangChain to enable the model to select and invoke tools/func
 shiny create --template langchain-tool-calling --mode express --github posit-dev/py-shiny-templates/gen-ai/interactive-chat-explorer
 ```
 
-**Packages:** `langchain-core`, `langchain-openai`, `langchain`, `dotenv`
+**Packages:**
+- `langchain-core`
+- `langchain-openai`
+- `langchain`
+- `dotenv`
 
 :::
 
@@ -75,7 +88,11 @@ Minimal LlamaIndex-powered chat demonstrating a direct LLM conversation loop.
 shiny create --template llama-index-basic --mode express --github posit-dev/py-shiny-templates/gen-ai/interactive-chat-explorer
 ```
 
-**Packages:** `llama-index`, `llama-index-llms-openai`, `pydantic`, `dotenv`
+**Packages:**
+- `llama-index`
+- `llama-index-llms-openai`
+- `pydantic`
+- `dotenv`
 
 ### Structured Output
 
@@ -90,7 +107,11 @@ Chat example producing structured (JSON / schema) responses using LlamaIndex too
 shiny create --template llama-index-structured-output --mode express --github posit-dev/py-shiny-templates/gen-ai/interactive-chat-explorer
 ```
 
-**Packages:** `llama-index`, `llama-index-llms-openai`, `pydantic`, `dotenv`
+**Packages:**
+- `llama-index`
+- `llama-index-llms-openai`
+- `pydantic`
+- `dotenv`
 
 ### Tool Calling
 
@@ -105,7 +126,11 @@ Demonstrates model-invoked tool (function) calls orchestrated by LlamaIndex.
 shiny create --template llama-index-tool-calling --mode express --github posit-dev/py-shiny-templates/gen-ai/interactive-chat-explorer
 ```
 
-**Packages:** `llama-index`, `llama-index-llms-openai`, `pytz`, `dotenv`
+**Packages:**
+- `llama-index`
+- `llama-index-llms-openai`
+- `pytz`
+- `dotenv`
 
 :::
 
@@ -126,7 +151,10 @@ Simple chat illustrating a direct conversation loop with llm package abstraction
 shiny create --template llm-package-basic --mode express --github posit-dev/py-shiny-templates/gen-ai/interactive-chat-explorer
 ```
 
-**Packages:** `llm`, `openai`, `dotenv`
+**Packages:**
+- `llm`
+- `openai`
+- `dotenv`
 
 ### Structured Output
 
@@ -141,7 +169,11 @@ Shows enforcing structured schema in responses using llm package utilities.
 shiny create --template llm-package-structured-output --mode express --github posit-dev/py-shiny-templates/gen-ai/interactive-chat-explorer
 ```
 
-**Packages:** `llm`, `openai`, `pydantic`, `dotenv`
+**Packages:**
+- `llm`
+- `openai`
+- `pydantic`
+- `dotenv`
 
 ### Tool Calling
 
@@ -156,7 +188,10 @@ Demonstrates dispatching tool/function calls via llm package orchestration.
 shiny create --template llm-package-tool-calling --mode express --github posit-dev/py-shiny-templates/gen-ai/interactive-chat-explorer
 ```
 
-**Packages:** `llm`, `openai`, `dotenv`
+**Packages:**
+- `llm`
+- `openai`
+- `dotenv`
 
 :::
 
@@ -177,7 +212,9 @@ Simple chat using Pydantic models for validated inputs/outputs.
 shiny create --template pydantic-ai-basic --mode express --github posit-dev/py-shiny-templates/gen-ai/interactive-chat-explorer
 ```
 
-**Packages:** `pydantic-ai`, `dotenv`
+**Packages:**
+- `pydantic-ai`
+- `dotenv`
 
 ### Structured Output
 
@@ -192,7 +229,10 @@ Uses Pydantic models to shape and validate structured responses from the model.
 shiny create --template pydantic-ai-structured-output --mode express --github posit-dev/py-shiny-templates/gen-ai/interactive-chat-explorer
 ```
 
-**Packages:** `pydantic-ai`, `pydantic`, `dotenv`
+**Packages:**
+- `pydantic-ai`
+- `pydantic`
+- `dotenv`
 
 ### Tool Calling
 
@@ -207,7 +247,9 @@ Demonstrates invoking and validating tool calls with Pydantic-AI patterns.
 shiny create --template pydantic-ai-tool-calling --mode express --github posit-dev/py-shiny-templates/gen-ai/interactive-chat-explorer
 ```
 
-**Packages:** `pydantic-ai`, `dotenv`
+**Packages:**
+- `pydantic-ai`
+- `dotenv`
 
 :::
 
