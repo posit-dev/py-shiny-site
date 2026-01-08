@@ -369,6 +369,10 @@ To control where bookmark data is stored, you need to configure the storage loca
 ```{.python}
 from pathlib import Path
 from shiny.bookmark import set_global_save_dir_fn, set_global_restore_dir_fn
+from shiny.express import app_opts
+
+# Configure app for server-side bookmarking
+app_opts(bookmark_store="server")
 
 # Define where bookmarks are stored
 bookmark_dir = Path(__file__).parent / "bookmarks"
