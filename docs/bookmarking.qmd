@@ -182,6 +182,65 @@ When clicked, this button triggers the bookmarking process. The button works tog
 When using the bookmark button, you can remove the `@reactive.effect` that calls `await session.bookmark()` on input changes. This prevents extraneous bookmark updates since Shiny automatically calls `await session.bookmark()` when the button is clicked.
 :::
 
+Here's the earlier example modified to use a bookmark button:
+
+::: {.column-page}
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+## file: app.py
+from shiny import reactive
+from shiny.express import app_opts, input, render, session, ui
+
+# Set the `bookmark_store` option
+app_opts(bookmark_store="url")
+
+# Integrate bookmarking callbacks
+@session.bookmark.on_bookmarked
+async def _(url: str):
+    await session.bookmark.update_query_string(url)
+
+# Note: No @reactive.effect to trigger bookmarking automatically
+
+# -- Example app UI and logic --
+
+ui.page_opts(title="Bookmarking Example")
+
+ui.markdown(
+    """
+    Adjust the inputs below and click the button to create a bookmark.
+    The URL will update only when you click the button.
+    """
+)
+
+ui.input_bookmark_button(label="Bookmark current state")
+
+ui.input_slider("n", "Sample size", min=10, max=100, value=30)
+ui.input_radio_buttons(
+    "dist",
+    "Distribution",
+    choices=["Normal", "Uniform", "Exponential"]
+)
+
+@render.plot
+def plot():
+    import numpy as np
+    import matplotlib.pyplot as plt
+
+    # Generate data based on inputs
+    if input.dist() == "Normal":
+        data = np.random.normal(size=input.n())
+    elif input.dist() == "Uniform":
+        data = np.random.uniform(size=input.n())
+    else:
+        data = np.random.exponential(size=input.n())
+
+    fig, ax = plt.subplots()
+    ax.hist(data, bins=20)
+    return fig
+```
+:::
+
 ## Bookmark Modal
 
 To provide a more prominent way for users to copy bookmark URLs, you can display a modal dialog instead of silently updating the query string. Use `show_bookmark_url_modal()` instead of `update_query_string()` in your `on_bookmarked` callback. The modal is particularly useful with the bookmark button, as it provides clear visual feedback when the app state is saved.
