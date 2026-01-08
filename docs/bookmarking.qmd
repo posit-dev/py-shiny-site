@@ -20,12 +20,7 @@ Bookmarking is particularly useful for:
 - Enabling users to resume where they left off
 - Creating shareable links to specific data views or visualizations
 
-## Enable Bookmarking
-
-Bookmarking works by updating the URL whenever specified `input` values change. To achieve automatic bookmarking within your app, you'll need a few updates to your app structure.
-
-::: {.callout-note collapse="true"}
-## How bookmarking works
+## How Bookmarking Works
 
 Bookmarking has three main components:
 
@@ -34,7 +29,10 @@ Bookmarking has three main components:
 3. **Triggers** - Events that initiate the bookmarking process (e.g., input changes or button clicks)
 
 In the examples below, you'll see each of these components in action. The numbered annotations (hover over the numbers) highlight where each piece fits in the code.
-:::
+
+## Enable Bookmarking
+
+Bookmarking works by updating the URL whenever specified `input` values change. To achieve automatic bookmarking within your app, you'll need a few updates to your app structure.
 
 
 ::: {.panel-tabset .panel-pills}
