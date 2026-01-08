@@ -267,7 +267,7 @@ For advanced bookmarking scenarios like saving custom values, using bookmark lif
 
 ## Bookmarking Styles
 
-Bookmarks are created by calling `await session.bookmark()`. This function captures the current state of all `input`s (except those explicitly excluded) and saves it according to the configured bookmarking style (URL or server).
+Bookmarks are created by calling `await session.bookmark()`. This function captures the current state of all `input` values (except those explicitly excluded) and saves it according to the configured bookmarking style (URL or server).
 
 Shiny provides two approaches for storing bookmarked state:
 
@@ -314,12 +314,12 @@ https://myapp.example.com/?_state_id_=d80625dc681e913a
 ```
 
 ::: {.callout-tip}
-Use URL bookmarking if your state can fit in ~65k characters. It's simpler to set up and more portable. This is great for smaller apps. However, generative-AI apps or apps with data uploads may require or are better suited to server-side bookmarking.
+Use URL bookmarking if your state can fit in ~65k characters. It's simpler to set up and more portable. This is great for smaller apps. However, generative-AI apps or apps with data uploads are better suited for and may even require server-side bookmarking.
 :::
 
 ## Best Practices
 
-* **Always make your UI a function** (core only) that accepts a `Request` parameter - this is required for bookmarking to work.
+* **Always make your UI a function** (when using Shiny Core syntax) that accepts a `Request` parameter - this is required for bookmarking to work.
 
 * **Update the query string** - Use `session.bookmark.update_query_string()` in an `on_bookmarked` callback to keep the browser URL in sync.
 
