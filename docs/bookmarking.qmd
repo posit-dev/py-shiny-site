@@ -48,14 +48,15 @@ Bookmarking works by updating the URL whenever specified `input` values change. 
 from shiny import reactive
 from shiny.express import app_opts, input, render, session, ui
 
-# -- Bookmarking setup (rest is example app code) --
-
+# Set the `bookmark_store` option                               # <1>
 app_opts(bookmark_store="url") # or "server"                    # <1>
 
+# Integrate bookmarking callbacks                               # <2>
 @session.bookmark.on_bookmarked                                 # <2>
 async def _(url: str):                                          # <2>
     await session.bookmark.update_query_string(url)             # <2>
 
+# Trigger bookmarking                                           # <3>
 @reactive.effect                                                # <3>
 @reactive.event(input.n, input.dist, ignore_init=True)          # <3>
 async def _():                                                  # <3>
@@ -109,8 +110,8 @@ from shiny import App, Inputs, Outputs, Session, reactive, render, ui
 import numpy as np
 import matplotlib.pyplot as plt
 
-# -- Bookmarking setup: UI function accepts Request parameter --
 
+# Define your UI as a function                                          # <1>
 def app_ui(request: Request):                                           # <1>
     return ui.page_fluid(                                               # <1>
         ui.input_slider("n", "Sample size", min=10, max=100, value=30), # <1>
@@ -123,18 +124,17 @@ def app_ui(request: Request):                                           # <1>
     )
 
 def server(input: Inputs, output: Outputs, session: Session):
-    # -- Bookmarking callbacks --
 
+    # Integrate bookmarking callbacks                       # <2>
     @session.bookmark.on_bookmarked                         # <2>
     async def _(url: str):                                  # <2>
         await session.bookmark.update_query_string(url)     # <2>
 
+    # Trigger bookmarking                                   # <3>
     @reactive.effect                                        # <3>
     @reactive.event(input.n, input.dist, ignore_init=True)  # <3>
     async def _():                                          # <3>
         await session.bookmark()                            # <3>
-
-    # -- Example app logic --
 
     @render.plot
     def plot():
@@ -150,7 +150,8 @@ def server(input: Inputs, output: Outputs, session: Session):
         ax.hist(data, bins=20)
         return fig
 
-app = App(app_ui, server, bookmark_store="url") # <4>
+# Set the `bookmark_store`                       # <4>
+app = App(app_ui, server, bookmark_store="url")  # <4>
 ```
 
 1. **Define your UI as a function** that accepts a starlette `Request` parameter and returns the UI layout. This allows Shiny to extract bookmark data from the URL during UI restoration.
