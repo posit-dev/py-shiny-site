@@ -29,7 +29,7 @@ These techniques are essential for applications with:
 
 Sometimes you need to save state that isn't directly tied to an input. For example, a calculated value, accumulated state, or reactive value. Use the `on_bookmark` callback to save custom values into the `state.values` dictionary.
 
-The `state.values` dictionary works with both URL and server-side bookmarking (configured via `bookmark_store`). It's automatically serialized when a bookmark is created and made available to your app during restoration through the `on_restore` and `on_restored` callbacks.
+The `state.values` dictionary works with both URL and server-side bookmarking (configured via the `bookmark_store` app option). The `state.values` is serialized after all `on_bookmark` callbacks have run and unserialized before calling any `on_restore` callbacks.
 
 ```{.python}
 from shiny.express import session
