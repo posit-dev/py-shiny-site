@@ -40,6 +40,9 @@ total = reactive.value(0)
 # Save `total` in custom values
 @session.bookmark.on_bookmark
 async def _(state):
+    # Use reactive.isolate() if you need to avoid creating dependencies
+    # In this case, on_bookmark callbacks don't create reactive contexts,
+    # so total() can be read directly
     state.values["total"] = total()
 
 # Restore `total` (when possible)
@@ -197,7 +200,7 @@ async def _():
 
 Bookmarking features demonstrated in this example:
 
-- Automatic URL updates as inputs change
+- Automatic URL updates as inputs change (with visible URL display)
 - Bookmarking tab state (via `id="tabs"`)
 - Excluding action buttons from bookmarks
 - Saving and restoring custom values (reset count)
@@ -226,6 +229,9 @@ session.bookmark.exclude.append("reset")
 # Track number of resets (custom state not tied to an input)
 reset_count = reactive.value(0)
 
+# Track the current bookmark URL for display
+current_url = reactive.value("")
+
 ui.markdown(
     """
     ### Bookmarkable Statistics App
@@ -234,6 +240,14 @@ ui.markdown(
     so you can share your configuration.
     """
 )
+
+@render.code
+def bookmark_url():
+    url = current_url()
+    if url:
+        return f"Current bookmark URL:\n{url}"
+    return "No bookmark created yet"
+
 ui.input_slider("n", "Sample size", min=10, max=500, value=100)
 ui.input_select(
     "dist", "Distribution", choices=["Normal", "Exponential", "Uniform"]
@@ -329,9 +343,10 @@ def _(state):
     if "reset_count" in state.values:
         reset_count.set(state.values["reset_count"])
 
-# Update URL bar
+# Update URL bar and display
 @session.bookmark.on_bookmarked
 async def _(url: str):
+    current_url.set(url)  # Store for display
     await session.bookmark.update_query_string(url)
 ```
 :::
