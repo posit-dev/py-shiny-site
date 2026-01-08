@@ -7,7 +7,11 @@ code-annotations: hover
 
 ## Introduction
 
-Bookmarking in Shiny for Python allows users to save and restore the state of an application. This makes it possible to share specific application states via URLs or to restore previous sessions. Think of it as taking a snapshot of your app's current state that can be loaded later.
+Bookmarking in Shiny for Python allows users to save and restore the state of an application. This makes it possible to share specific application states via URLs or restore previous sessions from inputs saved on your server. Think of it as taking a snapshot of your app's current state so it can be reloaded later.
+
+For example, imagine you've configured a data visualization with specific filters and parameters. With bookmarking, you can send a colleague the URL, and when they open it, they'll see the exact same view you created—same filters, same settings, everything.
+
+This guide focuses on **URL bookmarking**, the simpler approach where state is encoded in the URL. For information about server-side bookmarking (where state is stored on the server), see [Advanced Bookmarking](bookmarking-advanced.qmd).
 
 Bookmarking is particularly useful for:
 
