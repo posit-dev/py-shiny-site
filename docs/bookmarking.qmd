@@ -508,7 +508,7 @@ https://myapp.example.com/?_state_id_=d80625dc681e913a
 ```
 
 ::: {.callout-tip}
-Use URL bookmarking if your state can fit in ~65k characters. It's simpler to set up and more portable. This is great for smaller apps. However, generative-AI apps or apps with data uploads are better suited for and may even require server-side bookmarking.
+Use URL bookmarking if your state can fit in ~65k characters. It's simpler to set up and more portable. This is great for smaller apps. However, generative-AI apps or apps with data uploads are better suited for server-side bookmarking.
 :::
 
 ## Best Practices
