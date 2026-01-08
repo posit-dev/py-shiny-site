@@ -285,6 +285,14 @@ website:
           contents:
             - docs/modules.qmd
             - docs/module-communication.qmd
+        - section: "<span class='emoji-icon'>🔖</span>  __Bookmarking__"
+          contents:
+            - text: "Overview"
+              href: docs/bookmarking.qmd
+            - text: "Advanced"
+              href: docs/bookmarking-advanced.qmd
+            - text: "Modules"
+              href: docs/bookmarking-modules.qmd
         - section: "<span class='emoji-icon'>🧪</span>  __Testing__"
           contents:
             - docs/unit-testing.qmd
@@ -313,7 +321,7 @@ format:
     toc: true
     theme: quarto-style.scss
     include-before-body: include-before-body.html
-    include-in-header: 
+    include-in-header:
       - "include-in-header.html"
       - text: |
           <script src="https://cdn.jsdelivr.net/gh/posit-dev/supported-by-posit/js/badge.min.js"
