@@ -27,7 +27,9 @@ These techniques are essential for applications with:
 
 ## Saving Custom Values
 
-Sometimes you need to save state that isn't directly tied to an input. For example, a calculated value, accumulated state, or reactive value. Use the `on_bookmark` callback to save custom values into the `state.values` dictionary. This dictionary is serialized after bookmarking and provided during bookmark restoration.
+Sometimes you need to save state that isn't directly tied to an input. For example, a calculated value, accumulated state, or reactive value. Use the `on_bookmark` callback to save custom values into the `state.values` dictionary.
+
+The `state.values` dictionary works with both URL and server-side bookmarking (configured via `bookmark_store`). It's automatically serialized when a bookmark is created and made available to your app during restoration through the `on_restore` and `on_restored` callbacks.
 
 ```{.python}
 from shiny.express import session
@@ -95,13 +97,13 @@ Shiny provides four callbacks for customizing the bookmark process:
 
 **During Bookmarking:**
 
-- `@session.bookmark.on_bookmark` - Called **before** saving state. Use this to add custom values to `state.values`.
+- `@session.bookmark.on_bookmark` - Called **before** saving state. Use this to add custom values to `state.values`. For URL bookmarking, values are serialized into the URL query string. For server-side bookmarking, values are written to a file on the server.
 - `@session.bookmark.on_bookmarked` - Called **after** saving state. Use this to handle the bookmark URL (e.g., update the browser's address bar).
 
 **During Restoration:**
 
 - `@session.bookmark.on_restore` - Called **before** the session is fully initialized. Use this to update inputs with restored values.
-- `@session.bookmark.on_restored` - Called **after** the session is fully initialized. Use this for operations that require a fully working app.
+- `@session.bookmark.on_restored` - Called **after** the session is fully initialized. Use this for operations that require a fully initialized application.
 
 ::: {.column-page}
 ```{shinylive-python}
