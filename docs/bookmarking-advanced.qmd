@@ -99,13 +99,13 @@ Shiny provides four callbacks for customizing the bookmark process:
 
 **During Bookmarking:**
 
-- `@session.bookmark.on_bookmark` - Called **before** saving state. Use this to add custom values to `state.values`. The final `state.values` is used for the bookmarked state. For URL bookmarking, values are serialized into the URL query string. For server-side bookmarking, values are written to a JSON file on the server.
+- `@session.bookmark.on_bookmark` - Called **before** saving state. Use this callback to add custom values to `state.values`. The final `state.values` value is used for the bookmarked state. For URL bookmarking, values are serialized into the URL query string. For server-side bookmarking, values are written to a JSON file on the server.
 - `@session.bookmark.on_bookmarked` - Called **after** saving state. Use this to handle the bookmark URL (e.g., update the browser's address bar or display a modal).
 
 **During Restoration:**
 
 - `@session.bookmark.on_restore` - Called **before** the session is fully initialized. Use this to update inputs with restored values.
-- `@session.bookmark.on_restored` - Called **after** the session is fully initialized. Use this for operations that require a fully initialized application.
+- `@session.bookmark.on_restored` - Called **after** the session is fully initialized. Use this for operations that require a fully initialized application, such as updating reactive values or input values.
 
 ::: {.column-page}
 ```{shinylive-python}
