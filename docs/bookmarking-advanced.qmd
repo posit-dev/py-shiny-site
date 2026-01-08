@@ -40,7 +40,6 @@ total = reactive.value(0)
 # Save `total` in custom values
 @session.bookmark.on_bookmark
 async def _(state):
-    # Use reactive.isolate() if you need to avoid creating dependencies
     # In this case, on_bookmark callbacks don't create reactive contexts,
     # so total() can be read directly
     state.values["total"] = total()
@@ -100,8 +99,8 @@ Shiny provides four callbacks for customizing the bookmark process:
 
 **During Bookmarking:**
 
-- `@session.bookmark.on_bookmark` - Called **before** saving state. Use this to add custom values to `state.values`. For URL bookmarking, values are serialized into the URL query string. For server-side bookmarking, values are written to a file on the server.
-- `@session.bookmark.on_bookmarked` - Called **after** saving state. Use this to handle the bookmark URL (e.g., update the browser's address bar).
+- `@session.bookmark.on_bookmark` - Called **before** saving state. Use this to add custom values to `state.values`. The final `state.values` is used for the bookmarked state. For URL bookmarking, values are serialized into the URL query string. For server-side bookmarking, values are written to a JSON file on the server.
+- `@session.bookmark.on_bookmarked` - Called **after** saving state. Use this to handle the bookmark URL (e.g., update the browser's address bar or display a modal).
 
 **During Restoration:**
 
@@ -173,8 +172,6 @@ async def _():
 
 
 ## Best Practices
-
-* **Use `reactive.isolate()`** - When reading reactive values in `on_bookmark`, use `reactive.isolate()` to avoid creating reactive dependencies.
 
 * **Handle missing values** - Always check if a key exists in `state.values` before trying to restore it during `on_restore`.
 
