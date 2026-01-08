@@ -270,6 +270,8 @@ When executed, this displays a modal with the bookmark URL prominently displayed
 
 ![Bookmark modal with copyable URL](bookmarking-bookmark-modal.png)
 
+By default, when no `on_bookmarked` callback is defined, clicking the bookmark button will automatically show this modal.
+
 ::: {.column-page}
 ```{shinylive-python}
 # | standalone: true
