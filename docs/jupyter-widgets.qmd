@@ -548,7 +548,7 @@ For more shinywidgets examples, see the [`examples/` directory](https://github.c
 ## Troubleshooting
 
 If after [installing](#installation) `shinywidgets`, you have trouble rendering widgets,
-first try running this "hello world" ipywidgets [example](https://github.com/rstudio/py-shinywidgets/blob/main/examples/ipywidgets/app.py).
+first try running this "hello world" ipywidgets [example](https://github.com/posit-dev/py-shinywidgets/blob/main/examples/ipywidgets/app.py).
 If that doesn't work, it could be that you have an unsupported version of a dependency like `ipywidgets` or `shiny`.
 
 If you can run the "hello world" example, but other widgets don't work, first

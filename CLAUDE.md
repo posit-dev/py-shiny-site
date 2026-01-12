@@ -12,8 +12,8 @@ This is the **Shiny for Python documentation website** - the official documentat
 
 ```bash
 # Clone and initialize submodules
-git clone https://github.com/rstudio/pyshiny-site.git
-cd pyshiny-site
+git clone https://github.com/posit-dev/py-shiny-site.git
+cd py-shiny-site
 make submodules
 
 # Full build (creates venv, installs deps, generates API docs, builds site)
