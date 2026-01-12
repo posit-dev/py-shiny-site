@@ -88,10 +88,10 @@ in a [reactive fashion](https://shiny.posit.co/py/docs/reactive-programming.html
           - An object with a ‘figure’ attribute pointing to a `matplotlib.figure.Figure` instance
           - A `PIL.Image.Image` instance
 
-  3. Decorate your plotting function with a `@render.plot()` decorator.
+  3. Decorate your plotting function with a `@render.plot` decorator.
 
       - If your plotting function is not the same as the `id` you used in the `ui.output_plot()`, you can add an additional `@output(id=...)` decorator.
-      - If you use the `@output()` decorator, make sure it is __above__ the `@render.plot()` decorator.
+      - If you use the `@output()` decorator, make sure it is __above__ the `@render.plot` decorator.
 
 
 ### Plots as Inputs

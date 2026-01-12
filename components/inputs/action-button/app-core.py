@@ -7,7 +7,7 @@ app_ui = ui.page_fluid(
 
 
 def server(input, output, session):
-    @render.text()
+    @render.text
     @reactive.event(input.action_button)
     def counter():
         return f"{input.action_button()}"
