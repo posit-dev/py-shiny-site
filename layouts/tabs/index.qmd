@@ -89,7 +89,7 @@ express_core_preview("app-tabset-pill-list-express.py", "app-tabset-pill-list-co
 
 Follow these steps to create an app with a pill list navigation layout. A pill list is a vertical pillset navigation.
 
-  1. Add `ui.navset_pill_list()` inside any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.navset_pill()` creates a pill list.
+  1. Add `ui.navset_pill_list()` inside any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.navset_pill_list()` creates a pill list.
 
   2. Pass nav items (e.g., [`ui.nav_panel()`](https://shiny.posit.co/py/api/core/ui.nav_panel.html) and [`ui.nav_menu()`](https://shiny.posit.co/py/api/core/ui.nav_menu.html)) to `ui.navset_pill_list()` to set the items displayed in the pillset.
 

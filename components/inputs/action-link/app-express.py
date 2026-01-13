@@ -13,6 +13,6 @@ def _():
     count.set(count() + 1)
 
 
-@render.text()
+@render.text
 def counter():
     return f"{count()}"

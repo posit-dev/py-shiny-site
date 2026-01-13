@@ -223,7 +223,7 @@ If your Shiny application is running with [Shinylive (Python in the browser)](sh
 
   1. For documentation and instructions on how to use [shinyapps.io](http://shinyapps.io){target="_blank"}, see the [shinyapps.io user guide](https://docs.posit.co/shinyapps.io/){target="_blank"}.
 
-  2. The best place to get community support for shinyapps.io is the [shinyapps.io category on Posit Community](https://community.rstudio.com/tags/shinyappsio){target="_blank"}. If you're having difficulties with shinyapps.io, feel free to ask questions there. Another option is to file an issue in the [rsconnect-python package repo](https://github.com/rstudio/rsconnect-python/issues){target="_blank"}.
+  2. The best place to get community support for shinyapps.io is the [shinyapps.io category on Posit Community](https://forum.posit.co/tag/shinyappsio){target="_blank"}. If you're having difficulties with shinyapps.io, feel free to ask questions there. Another option is to file an issue in the [rsconnect-python package repo](https://github.com/posit-dev/rsconnect-python/issues){target="_blank"}.
 
   3. Customers with Starter, Basic, Standard or Pro subscriptions can get direct access to our support engineers by opening a case on [the Posit Support site](https://support.posit.co/){target="_blank"}. Questions are answered from 9AM - 5PM(EST) Monday - Friday.
 

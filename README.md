@@ -7,8 +7,8 @@ Install Quarto. Because Quarto is under rapid development, it's best to install 
 Clone this repository:
 
 ```bash
-git clone https://github.com/rstudio/pyshiny-site.git
-cd pyshiny-site
+git clone https://github.com/posit-dev/py-shiny-site.git
+cd py-shiny-site
 ```
 
 Set up git submodules:

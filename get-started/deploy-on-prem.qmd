@@ -19,13 +19,13 @@ There are two main ways to deploy Shiny apps to Posit Connect:
 
 ### Command line deployment
 
-1.  Install the [rsconnect-python](https://github.com/rstudio/rsconnect-python) package using pip.
+1.  Install the [rsconnect-python](https://github.com/posit-dev/rsconnect-python) package using pip.
 
     ``` bash
     pip install rsconnect-python
     ```
 
-    Deploying [Shiny Express](https://shiny.posit.co/blog/posts/shiny-express/) applications requires version 1.22.0 or later of the [rsconnect-python package](https://github.com/rstudio/rsconnect-python).
+    Deploying [Shiny Express](https://shiny.posit.co/blog/posts/shiny-express/) applications requires version 1.22.0 or later of the [rsconnect-python package](https://github.com/posit-dev/rsconnect-python).
 
 2.  Generate an [API key](https://docs.posit.co/connect/user/api-keys/) on Connect.
 
