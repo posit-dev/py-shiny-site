@@ -74,5 +74,5 @@
     # - title: Shinywidgets output examples
     #   description: null
     #   href: ./shinywidgets-outputs.qmd
-    #   code: https://github.com/posit-dev/py-shiny-site/blob/main/gallery/shinywidgets-outputs.qmd
+    #   code: https://github.com/rstudio/pyshiny-site/blob/main/gallery/shinywidgets-outputs.qmd
     #   thumbnail: shinywidgets-outputs.png
