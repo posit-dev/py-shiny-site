@@ -1,0 +1,67 @@
+---
+title: Code
+sidebar: components
+appPreview:
+  file: components/outputs/code/app-preview.py
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/outputs/code/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 400
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWTCIAEzgMAOhDUABeUoZYyS5AGJkAHhNqldZPrgB9UgFcK6JwAoAlIjXIfcuBQcGCGQVMEtkdjgAGyjSDy9vXyFuClcAcgAJaNiiAHdpKIUAQjT3ULVCVApcdAQUMCp+CjAAXwBdIA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAV05EG1ACZwGRAIKYAOhFUZ0AfXHIAvGM44oAczia6AG3HSAFKuQODWUqIrpXmsrLtgvZl26uymAAlEQAxMgAPFGqIaqqsnRscgBucjbc7hREAdlErHCsrJzkIYj2jgACUhCyDFh+lQ5JyH6aea425c2ODlIUogwQyMGt7HAWFqTdFb3oDNwUNgDkABKT00QA7kIW0gCEK-FgCdCYeshK6DYa2hIpDOkM8RCEqBS46AgoYFQAHhQwABfAC6QA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: '@render.code'
+    href: https://shiny.posit.co/py/api/render.code.html
+    signature: '@render.code'
+  - title: ui.output_code
+    href: https://shiny.posit.co/py/api/ui.output_code.html
+    signature: ui.output_code(id, placeholder=False, fill=False, **kwargs)
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A code output displays formatted code in a monospace font within a bordered container. It's similar to verbatim text output but specifically designed for displaying code.
+
+To add code output to your app:
+
+  1. Add `ui.output_code()` to the UI, providing a unique `id`.
+
+  2. In the server function, define a function with the same name as the output `id` and decorate it with `@render.code`.
+
+  3. Return a string containing the code to display. Use `\n` for line breaks or return multi-line strings with triple quotes.
+
+The output appears in a monospace font within a bordered, slightly shaded container that clearly identifies it as code.
+
+**Formatting**: The code renderer automatically:
+  - Uses monospace font
+  - Preserves whitespace and indentation
+  - Shows line breaks exactly as formatted
+  - Wraps in a bordered container
+
+**Use Cases**:
+  - Displaying generated code snippets
+  - Showing SQL queries
+  - Presenting configuration files
+  - Displaying command-line instructions
+  - Showing code examples or templates
+
+**Dynamic Code**: The render function can generate code dynamically based on user inputs, allowing you to build code generators, query builders, or configuration tools.
+
+See Also: [Verbatim Text](../verbatim-text/index.qmd) provides similar monospace output but without the code-specific styling context.

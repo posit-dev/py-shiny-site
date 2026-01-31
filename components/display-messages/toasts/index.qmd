@@ -1,0 +1,118 @@
+---
+title: Toasts
+sidebar: components
+appPreview:
+  file: components/display-messages/toasts/app-preview.py
+  static: true
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/display-messages/toasts/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhXER0AVwpEFnADoQNqrN0UUA+lGIVO5fQCMlFcgAo1YDqQDu9ovYDK7Z8mtRWFewBKDQ0AAW04Ojo4YzCIgDdqChtdJSxHJ2CIABNI5H0bQMQNZFLkbQz9X387MAAJOAAbRtIAQmQAFS4xTjEoH1I-WXhRKABzOCwg5ABiZAAeeY1CVApcdAQUMCp+CjAAXwBdIA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAV05EGcKMQqcAbnCIBBTAB0IGjOgD645AF4xnHFADmcHXQA24gCYAKDchfGs3dKIo6Zc8joAjLwpyJzAOUgB3NUJkGIBldijkEKhWChiASgINTI0NOzg6NjgGRQYHDy8iUi9PCiJWOFZWTnJMxGdXAAEpXwU4LCK6OFkul17pWQGhxUpKiHqsCMi8iFdkQuKdBw7xjbcVnVT0sIAJOGtrUgBCZAAVLlY+Z6gU0jSReBbzQazkADEyAAPMD8tBMIZkKp0A5tHoJCUyqU1rEwBRcOgECh0XAAB4UMAAXwAukA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.toast
+    href: https://shiny.posit.co/py/api/ui.toast.html
+    signature: ui.toast(body, header=None, icon=None, *, id=None, type=None, duration=5000,
+      position='top-right', closable=True, **kwargs)
+  - title: ui.toast_header
+    href: https://shiny.posit.co/py/api/ui.toast_header.html
+    signature: ui.toast_header(title, content=None, icon=None, status=None, **kwargs)
+  - title: ui.show_toast
+    href: https://shiny.posit.co/py/api/ui.show_toast.html
+    signature: ui.show_toast(toast, *, session=None)
+  - title: ui.hide_toast
+    href: https://shiny.posit.co/py/api/ui.hide_toast.html
+    signature: ui.hide_toast(id, *, session=None)
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/display-messages/toasts/
+  contents:
+  - title: Toast positions
+    description: 'Toasts can appear in 9 different screen positions: `"top-left"`,
+      `"top-center"`, `"top-right"`, `"middle-left"`, `"middle-center"`, `"middle-right"`,
+      `"bottom-left"`, `"bottom-center"`, and `"bottom-right"`. The default is `"top-right"`.
+
+      '
+    apps:
+    - title: Preview
+      file: app-variation-positions-core.py
+      height: 250
+    - title: Express
+      file: app-variation-positions-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhXER0AVwpEFnADoQNqrOwAsACjVgAKqSitZABVKtOFTuVZGAlFs5ZuiigH0oxe+TeAEZKFOSGYGHo3gA2cHQURkRGpujIADLxiWCuENqeSr7+DhDBoeFGUd7E1FQMScgppGkAwrVw9TluHvKFfgGlIRRhEBFVDJwA5uzZySbNyABKUzMu3QU+-SVlwxVgQaS7MLFZDUYAQodhLJkJa3nuG0UDOyMRB0feE9OzjWCXRyWK2yuQ0AAFtPE6HB-ODIQA3Wr6DZYKpxBK5AAm8WQ3n0zkQGmQxOQ2g4pAA7t4wuYKPptDSLBFUsh0bIpLYBg0OXYSgBeSrNAC0bJcoIgEPcUJhiQlCKRKKqNUoHSxOLxBKJJLJ7Ep1LMTIZBrpTTSyrqyB5XMIlpsvPIAsiwvNHTFGjhUro0NhcqliMoyN6FFRzS+wLVdFx+MJEBJpPc5KpjLpRtpzIW3xmts5JW5doGjqiQszIPFkr4XplHr4-rpKI+1xOGI02MjGpjcZ1euT9PcPYuV2YrKy2ftmhtVv5RgbzBFpxyZchlZ95bgtcDXiwM+OJYjUc1se1Cd1SeNvZDaYHgJLo+tREnDung5gxeBbogNsiuHQCBQkQEFBgAAvgAukAA
+    - title: Core
+      file: app-variation-positions-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAV05EGcKMQqcAbnCIBBTAB0IGjOgD645AF4xnHFADmcHXQA24gCYAKDchfGs7ACxOwAFVJRWEQAFUlZOOXJWNTAASgJnV3EsbnRRCh0ZCIgdACM0inJvAt1rODoKaKJov3RkABkyitj4iFc3FLSM2U5yXPzC6OKdYmoqBkrkatJagGFRuHHmhJckjvTMnuy8igKIIumdBk4zdiaq32nkACVj0+i45faIVPXu3u3d7xzSHeYdUvKE2iACEfgUWA1AUtWokTGsulk+r89tFvr8YIdbmdJmBQejrlj7i0YhoNHYymwFooGA41kRSGkXkRWHBWGFyDFEI8AAJSDaKLBlOhwWQ8vndAVwRSUWnPNJYIYAigkmEucl0ZA6Bycx5tJIcUgAdx0BQCFAcSVNgW8NWQSuQgjCWQmjvCmwMg2mAFolfcVWLpBK4IK6MLRarkLzA3JJdLzWsFQcRpQFiq2urNdquRG9SYDcarebLf5rVNasmxg7Qm7yC7q1kPWBil6Kws-aSI1H+cGhSKKp3xTGe3HZS9E7ojidlY8M1qdTnYVh8yaS0WTIWbZdJ6cq07NnW9+RG83t00Yv6B9GFD3Q32A93BSOE2jwf9GmnXLOs7rF8uN8WzW8PFwTtRpdxrTRCHAhtUTBZgfUadtNEvB9e3DNouyDR9RlHeUXz+U8PzVCk52zNpcyXdgjRXQCANLXE4JYU9oP3KDXRgsB8JgL1TyQrRMEMZBVHQBxtD0CRKQYakVSgptcHQBAUCbOAAA8KDAABfABdIA
+  - title: Toast types
+    description: 'Toasts support different types for color-coding messages: `"primary"`,
+      `"secondary"`, `"success"`, `"info"`, `"warning"`, `"danger"` (or `"error"`),
+      `"light"`, and `"dark"`. Use these to indicate the nature of the message.
+
+      '
+    apps:
+    - title: Preview
+      file: app-variation-types-core.py
+      height: 220
+    - title: Express
+      file: app-variation-types-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhXER0AVwpEFnADoQNqrOwAsACjVgAKqSitZx3OhFGAlFs5ZuiigH0oxCp3JuARkoU5IZgrArExCKsRkRGAMrhkaL2js7ySh5ePhD+gcFG3HSkMchGAJIQRSkQ2i4Znt6+ARRBECEA7lAMENwA5iVGAOpdPRD9YA41TnXuDdm5LflgACZQY3AMA2AAImu9G9UaAALacHR0cF7HpwBu1BT6M1hhEVGTy2fIbvp2iBrIAOQ2g4pHabiC5ge2ghFhCAHkbAwoI0IGxElE6AoADYAQhKFGscAAvEYXklohNJtcnGcLlcICcaXdKI90hQ0kV3p9vr9-oDgexQeCzLDoSKHkYABIbOAAcjErGYcDkRQYMGR2XxhJJYEKxUpGmpfHOlwoRrgzIeT063T6XLoXx+f1R-KcILBMKhTk9IWGtrGKAAwuxLgBrZC4UgKBhyVxamw6m2jcZ2KkM04m+mMviW1muLCrdYMe2O3kugECoU+sWQkIAUQYTAYKARGw15GQdCgnCxcGW8eJRkL+02BoghFQBJstDAVH4FDAAF8ALpAA
+    - title: Core
+      file: app-variation-types-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAV05EGcKMQqcAbnCIBBTAB0IGjOgD645AF4xnHFADmcHXQA24gCYAKDchfGs7ACxOwAFVJRWER9cdDhWNTAASgJnV3EsbnRRCh0ZOXIdACNkinJvVlFiYjDwwmQIgGVC4tZS6NiXeMTk1NlODOyKXIhvbjpSCKIIgEkIfoj6iFc3ZpS09ogsnLyIgHcoBghuM0HysAB1Da2IHaiYqbiTWdb0xc7u7zsoE7gGXYiAEWeLN7ONSI0GjscDobFeigYDlmRFIySSFCIrBKC0iiAayAAAlJ5oosCC6HBZOisdI2ri4IpKFCIPCsAUiiUARcXMDQToHKj0dN4hxSKsdLkAhQHPFBYFvAB5UIMKC3NjVEp0UTWACEuwoITgBgi9JqdSZxOxZLgeLoBKJzMxRrk5MpwtmCTGpCZ01ZyHZnMt3JMvP5YuFov84oiAAlXnAAOSsNjMOB8J0MGCyhbqzXasB9AZRA2Wkk4k34wkUQ2km0Fu3U2nrTbbF2uN0etFey509h8gVBgMmf3eQ41k4oADC7EJAGtkLhYQx4-DU6F09XjqdIjnpnnjabzcXc9aFOXqPaacksE8Xgw6yyQe6OU3pt7W+2e4Ghd4AKIMJgMFBS17J8jIOgoE4aw4DsOctQiU8fgmHNtEMZBVHQBxtD0CQwQYCEmTKMANVCWgcLgAAPCgwAAXwAXSAA
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+Toasts are temporary notification messages that appear on screen to provide feedback about operations. They automatically dismiss after a few seconds and can be positioned anywhere on the screen.
+
+To show a toast notification:
+
+  1. Call `ui.show_toast()` within a reactive effect or event handler, typically triggered by a button click or other user action.
+
+  2. For simple messages, pass a string directly: `ui.show_toast("Operation complete!")`.
+
+  3. For more control, create a toast object with `ui.toast()` and pass it to `ui.show_toast()`. This allows you to specify the type, position, duration, header, and icon.
+
+**Toast Types**: Use the `type` parameter to color-code your messages:
+  - `"success"` - Green, for successful operations
+  - `"info"` - Blue, for informational messages
+  - `"warning"` - Yellow, for warnings
+  - `"danger"` or `"error"` - Red, for errors
+  - `"primary"`, `"secondary"`, `"light"`, `"dark"` - Other styling options
+
+**Positioning**: Toasts can appear in 9 positions using the `position` parameter:
+  - Top: `"top-left"`, `"top-center"`, `"top-right"` (default)
+  - Middle: `"middle-left"`, `"middle-center"`, `"middle-right"`
+  - Bottom: `"bottom-left"`, `"bottom-center"`, `"bottom-right"`
+
+**Auto-hide**: By default, toasts disappear after 5 seconds (`duration=5000` milliseconds). Set `duration=None` to keep the toast visible until the user manually closes it.
+
+**Progress Bar**: Toasts include an animated progress bar that shows the remaining time before auto-hide.
+
+**Programmatic Control**: Use `ui.hide_toast(id)` to manually dismiss a toast. When creating a toast, specify an `id` parameter to reference it later.
+
+**Toasts vs Notifications**: Toasts are a more modern alternative to `ui.notification_show()` with more positioning options, types, and visual polish. For new applications, toasts are recommended.
+
+## Variations
+
+:::{#variations}
+:::

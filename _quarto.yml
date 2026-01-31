@@ -136,11 +136,14 @@ website:
           contents:
             - components/inputs/action-button/index.qmd
             - components/inputs/action-link/index.qmd
+            - components/inputs/bookmark-button/index.qmd
             - components/inputs/checkbox/index.qmd
             - components/inputs/checkbox-group/index.qmd
+            - components/inputs/code-editor/index.qmd
             - components/inputs/dark-mode/index.qmd
             - components/inputs/date-range-selector/index.qmd
             - components/inputs/date-selector/index.qmd
+            - components/inputs/download-button/index.qmd
             - components/inputs/file/index.qmd
             - components/inputs/numeric-input/index.qmd
             - components/inputs/password-field/index.qmd
@@ -151,15 +154,19 @@ website:
             - components/inputs/selectize-multiple/index.qmd
             - components/inputs/slider/index.qmd
             - components/inputs/slider-range/index.qmd
+            - components/inputs/submit-textarea/index.qmd
             - components/inputs/switch/index.qmd
+            - components/inputs/task-button/index.qmd
             - components/inputs/text-area/index.qmd
             - components/inputs/text-box/index.qmd
         - section: "![](/images/bar-chart-line-fill.svg){.sidebar-icon .sidebar-subtitle}__Outputs__"
           contents:
+            - components/outputs/code/index.qmd
             - components/outputs/data-grid/index.qmd
             - components/outputs/data-table/index.qmd
             - components/outputs/image/index.qmd
             - components/outputs/map-ipyleaflet/index.qmd
+            - components/outputs/markdown-stream/index.qmd
             - components/outputs/plot-matplotlib/index.qmd
             - components/outputs/plot-plotly/index.qmd
             - components/outputs/plot-seaborn/index.qmd
@@ -172,7 +179,9 @@ website:
             - components/display-messages/chat/index.qmd
             - components/display-messages/modal/index.qmd
             - components/display-messages/notifications/index.qmd
+            - components/display-messages/popovers/index.qmd
             - components/display-messages/progress-bar/index.qmd
+            - components/display-messages/toasts/index.qmd
             - components/display-messages/tooltips/index.qmd
 
     - id: layouts

@@ -1,0 +1,116 @@
+---
+title: Code Editor
+sidebar: components
+appPreview:
+  file: components/inputs/code-editor/app-preview.py
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/code-editor/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 350
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhXER0AVwpFhEACZwGRBZwA6EfTqzdFFAPpkNZuGs4VpACl1hLcZ0WcBRSpuQAFXAp2cmRXRHdkZyFuCgcAcgAJOAAbZNIiAHdpZLUAQjiASmcC5ABiZAAeCv19AAFVDQYsV30NOlDSK1IlUwcC8IhkIeRhCgUGQZMlZs64Pv1CVApcdAQUMCp+CjAAXwBdIA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAV05EG1ACZwGRAIKYAOhFUZ0AfXHIAvGM44oAczia6AG3HSAFKuQODWbulEVNZWZrjTOFIXZgnnDKhMihAKKUcsgACrgU7OTIwYihRKHoDNwUNgDkABJwFhakRADuQhbSAIR5AJSh9UQAxMgAPO32juJYpG6u7sGBwZr9FINNBKqNahCydGxyAG5yNi5uROODRKxwrKyc5PVpEI7IAAJS83JYwd0OCymkXttuNicP58hSFKIMZw2FDuLzgH1U6kwemQSnQNg02gkSwYqwYszCYAouHQCBQmLgAA8KGAAL4AXSAA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.input_code_editor
+    href: https://shiny.posit.co/py/api/ui.input_code_editor.html
+    signature: ui.input_code_editor(id, label=None, value='', *, language='plain',
+      height='auto', width='100%', theme_light='github-light', theme_dark='github-dark',
+      read_only=False, line_numbers=None, word_wrap=None, tab_size=4, indentation='space',
+      fill=True, **kwargs)
+  - title: ui.update_code_editor
+    href: https://shiny.posit.co/py/api/ui.update_code_editor.html
+    signature: ui.update_code_editor(id, *, label=None, value=None, language=None,
+      theme_light=None, theme_dark=None, read_only=None, line_numbers=None, word_wrap=None,
+      tab_size=None, indentation=None, session=None)
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/inputs/code-editor/
+  contents:
+  - title: Different programming languages
+    description: 'The code editor supports syntax highlighting for many programming
+      languages including Python, JavaScript, R, SQL, HTML, CSS, JSON, Markdown, and
+      more. Set the `language` parameter to enable syntax highlighting for your preferred
+      language.
+
+      '
+    apps:
+    - title: Preview
+      file: app-variation-languages-core.py
+      height: 450
+    - title: Express
+      file: app-variation-languages-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhXER0AVwpFhEACZwGRBZwA6EfTqzsALAApdYACKc6dTdVkAFJgHMGsGN1fIAMlAhXBShXEUsASn1DTixuRQoAfTINBLg1TgppCwhkXORLPAp2ciTSDUsCfTz8sCdcIvIKqrzLDTpkdjgAGy7SM3DEXWbcoW4KMwByAAlu3qI6hogAQgnIwmHkLoCgkLgAXgL64oN1nLzOzld2CgOwAEYAJgAGdH4miEiDCCM4pVKUtIZLIbSwAKygADcoKxiAxOOhEsk4O9qpYAFKQqAAZVh8IoKJaYDoCggxAonHIHVmfXCyBAQzOZAgrFIXTgWF6rkmMx6pCIGKhOLhCJW4QA3AyAL4E3JbQLBUK3cFQmHC-GnaoXK43SyPF5vU6faKxeR-JGpdKZBjZVFgVgARy6-2RGsJWIAir4ZTUsQBRXy+gDCABVkAAqZAAMQASgB5ACyyAUrE0rAZAHUpr7o77kFAyZwIXBkHtkBQGAo4BLXbLtgr9pYHV1vVrrrc7k99e9PoRUBRcOgECgwFR+BQwJKALpAA
+    - title: Core
+      file: app-variation-languages-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAV05EAgpgA6EORnQB9ccgC8YzjigBzOEroAbcQBMAFHORXNWdgBYLYACKc6dOA2oiACkx0NYGG4dZAAZKAgdUV04VhkwAEoCS2txLG50UQolMhN9OBNOCiELCGty5Hi8CnZyHNI8+OSyiqt471wa8iaU1vi8umR2OENDUjMExBle5HQGbgozAHIACRGxog6uiABCJYSeltbDCKiYtSrO2vlCGfLhzh12CguwAEYAJgAGdAAPQ-KSRmaQyWXqeSUBSKJTu1niACsoAA3KCsYjzdDZXJwAGtSpgABSyKgAGV0ZxMbi+mA6KIIMQKJxyEN1uMEsgQNMWmQIKxSIY4FgxjplmtRqQiESUWSMRQ9gkANxcgC+VIqJ0i0T0r0RKLRsrV9zgj2er0+P3+tyOyCB1pBEEyWIa+UKxQYpTx+NYAEdDOCcVbPfESQBFUKGuFgEkAUVC0YAwgAVZAAKmQADEAEoAeQAsmJWB44nIAOoraOZ6PIKAMzhIuDqZAUBiiOBKwN4jVnbXxH2GCNWB5PF7xN5fC1q20HeQQAZsDz192gihEUhZR1EQusVhMiCTGboVFxGeKRvSdBmRQqCTzhiL6eEVAUXDoBAoMBUX4UMDKgC6QA
+  - title: Read-only display
+    description: 'Set `read_only=True` to display code that cannot be edited. This
+      is useful for showing example code or documentation.
+
+      '
+    apps:
+    - title: Preview
+      file: app-variation-read-only-core.py
+      height: 300
+    - title: Express
+      file: app-variation-read-only-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IyhVnYAWABSKwAJThQAJgFpyAG1zIAwqSNxkAEU6t05qLl0BKZas5ZudDkKAH0yexC4I04KaR0IZETkXWFjC1wwuzhdAmUk5LAAUX5YNwdbe2QtA2MzCEsfQjyk3QBiZAAVLjFwh2IoCAhSWQAjByiYqMVlezpkfvNiOXcqENY5GC0oIhGvRGmEpOEKOQYEqGQAamQRg4PhdfNZAF55qEXlqFX1zYBGAAYiAAmf4+ZRCbgULR0ADkBkeFBQIAeywoAF8YY1codEu4IABzORQfFwZ66PAUdjkHLNRLsOCcfHsChksC-AAc-3Q-BpOOQqSMIXSzw6DDkcGxPgghFQFFw6AQKDAVH4FDAaIAukA
+    - title: Core
+      file: app-variation-read-only-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAV05EAgpgA6EORnQB9ccgC8YzjigBzOEroAbcQBMAFHORXNWdgBYLYAEpwoJgLTlDvAMKkTcMgAIpys6IZQuDJgAJQEltbiWNzoohRKZAFKcCacFEIWENbFyNEMriZeuBn+cNHxRSVW0QCiAB6w4YF+AchmLm6eEN4x9QlN0QDEyAAqXKzImYHEUBAQpCIARoE5eTkycgF0i1CGxKIRVEqsojBmUESbMYgHjVblFKIMRVDIANTITavV7lG6GEQaFZnC5QK43O4ARgADEQAExI0ZydAMbgUMx0ADkLjBFBQIFBFwoAF8CaNCOMShEIDpRLo4GpongKOxyGM3iV2HBODp2BQOWAEQAOJHoNp8prvCpKKpqGYMURwBrFOJyUbyCBHNhwBgAN2NZhSaSIpDSqQoRFYcFYrE45GeDPQUGdcgUmHUyGk6HumBUEiNpuNesIqAouHQCBQYCobQoYCpAF0gA
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A code editor input provides an interactive code editing experience with syntax highlighting, line numbers, and keyboard shortcuts. It's powered by [Prism Code Editor](https://prism-code-editor.netlify.app/) and supports many programming languages.
+
+To add a code editor to your app:
+
+  1. Add `ui.input_code_editor()` to the UI of your app to create a code editor. Specify the `id` and `label` parameters. The `id` will be used to access the editor's value.
+
+  2. Set the initial code with the `value` parameter. This can be a string or a list of strings (one per line).
+
+  3. Specify the programming `language` for syntax highlighting. The editor supports many languages including `"python"`, `"javascript"`, `"r"`, `"sql"`, `"html"`, `"css"`, `"json"`, `"markdown"`, and more.
+
+The value of a code editor is accessible as a reactive value within the `server()` function. To access the value:
+
+  1. Use `input.<code_editor_id>()` (e.g., `input.code()`) to access the current code as a string.
+
+**Value Updates**: Unlike text inputs that update on every keystroke, the code editor only sends its value to the server when:
+  - The user presses `Ctrl/Cmd + Enter`
+  - The editor loses focus (blur event)
+
+This reduces server load while editing code.
+
+**Keyboard Shortcuts**:
+  - `Ctrl/Cmd + Enter`: Submit code to server
+  - `Ctrl/Cmd + Z`: Undo
+  - `Ctrl/Cmd + Shift + Z`: Redo
+  - `Tab`: Indent selection
+  - `Shift + Tab`: Dedent selection
+
+**Dark Mode**: The editor automatically switches between `theme_light` and `theme_dark` themes when used with `ui.input_dark_mode()`.
+
+**Height and Sizing**: Set `height="auto"` to grow with content, or use a fixed height like `"300px"`. When `fill=True` (the default), the editor participates in fillable layouts and can expand to fill available space.
+
+## Variations
+
+:::{#variations}
+:::
