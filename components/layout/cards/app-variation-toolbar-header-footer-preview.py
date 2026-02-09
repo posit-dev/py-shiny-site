@@ -43,8 +43,7 @@ app_ui = ui.page_fluid(
                     icon=icon_svg("floppy-disk"),
                 ),
             ),
-        ),
-        full_screen=True
+        )
     )
 )
 

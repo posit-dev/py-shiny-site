@@ -1,7 +1,7 @@
 from faicons import icon_svg
 from shiny.express import input, ui
 
-with ui.card(full_screen=True):
+with ui.card():
     with ui.card_header(class_="bg-dark text-white"):
         "Data Analysis Report"
         with ui.toolbar(align="right"):
