@@ -14,7 +14,7 @@ with ui.card(full_screen=True):
             ui.toolbar_input_button(
                 id="help",
                 label="Help",
-                icon=icon_svg("circle-question"),
+                icon=icon_svg("arrow-right"),
             )
 
     ui.p("Toolbar spacer pushes buttons to opposite ends.")

@@ -115,6 +115,12 @@ If you don't use `ui.card_body()`, any direct children of `ui.card()` that aren'
 
 Cards and card items accept Bootstrap utility classes for customization. Use the `class_` parameter to apply classes for [colors](https://getbootstrap.com/docs/5.2/utilities/background/), [text](https://getbootstrap.com/docs/5.2/utilities/text/), [borders](https://getbootstrap.com/docs/5.2/utilities/borders), and more.
 
+### Toolbars in cards
+
+Add toolbars to card headers and footers to provide interactive controls. Use `ui.toolbar()` within a `ui.card_header()` or `ui.card_footer()` to create a compact row of buttons or inputs. Toolbars are particularly useful for actions like refreshing data, downloading reports, or accessing settings.
+
+By default, toolbars align to the right. Set `align="left"` to position controls on the left side instead. Use `ui.toolbar_spacer()` and `ui.toolbar_divider()` to manipulate toolbar visual spacing.
+
 ### Card size
 
 By default, a card grows to accommodate its contents. Set the `height` or `max_height` parameter to control the card's size. If your card contains large amounts of text, tables, or other content, setting a `height` or `max_height` enables scrolling. When laying out [multiple cards](#variations), let the layout function determine the card heights rather than setting fixed heights.

@@ -15,7 +15,7 @@ app_ui = ui.page_fixed(
                 ui.toolbar_input_button(
                     id="help",
                     label="Help",
-                    icon=icon_svg("circle-question"),
+                    icon=icon_svg("arrow-right"),
                 ),
                 align="left",
                 width="100%",

@@ -6,17 +6,6 @@ app_ui = ui.page_fluid(
         ui.card_header(
             "Advanced Toolbar",
             ui.toolbar(
-                ui.toolbar_input_button(
-                    id="new",
-                    label="New",
-                    icon=icon_svg("plus"),
-                ),
-                ui.toolbar_input_button(
-                    id="save",
-                    label="Save",
-                    icon=icon_svg("floppy-disk"),
-                ),
-                ui.toolbar_spacer(),
                 ui.toolbar_input_select(
                     id="view",
                     label="View",
@@ -30,7 +19,6 @@ app_ui = ui.page_fluid(
                     icon=icon_svg("gear"),
                 ),
                 align="right",
-                width="100%",
             ),
         ),
         ui.card_body(

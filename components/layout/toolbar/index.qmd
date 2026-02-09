@@ -43,7 +43,7 @@ listing:
     dir: components/layout/toolbar/
   contents:
   - title: Toolbar with spacer
-    description: Use toolbar_spacer() to push elements to opposite ends of the toolbar.
+    description: Use `toolbar_spacer()` to push elements to opposite ends of the toolbar.
     apps:
     - title: Preview
       file: app-variation-with-spacer-preview.py
@@ -55,7 +55,7 @@ listing:
       file: app-variation-with-spacer-core.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGjOgD6q5AF5k0nFADmcJXQA2qigH1V3nNJxQA5nCV0AogCkw0jg4UjA4F2R+MjgAWhDkUJJWKFEoAHM4BmyoUIB3OFYKNlY2AG1cgs4S5AAKV2QlFN9lCkS0soxLRQArczg4CmMKYxKHC08IACoMcnAASk5kAGJkAB4ZigArUZ9ZOBp1RQLXC2QAVTh52Wk4Ujx0BAoYEe6IXQA+IA
   - title: Left-aligned toolbar
-    description: Set align="left" to position the toolbar on the left side of the header.
+    description: Set `align="left"` to position the toolbar on the left side of the header.
     apps:
     - title: Preview
       file: app-variation-left-aligned-preview.py
@@ -67,7 +67,7 @@ listing:
       file: app-variation-left-aligned-core.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGjOgD6q5AF5k0nFADmcJXQA2qigH1V3nNJxQA5nCV0AogCkw0jg4UjA4F2R+MjgAWhDkUJJWKFEoAHM4BmyoUIB3OFYKNlY2AG1cgs4S5AAKV2QlFN9lCkS0soxLRQArczg4CmMKYxKHC08IACoMcnAASk5kAGJkAB4ZigArUZ9ZOBp1RQLXC2QAVTh52Wk4Ujx0BAoYEe6IXQA+IA
   - title: Toolbar in input label
-    description: Use toolbar as the label for input_text_area() or input_numeric() to add formatting or action buttons directly in the input label.
+    description: Use toolbar as the label for `input_text_area()` or `input_numeric()` to add formatting or action buttons directly in the input label.
     apps:
     - title: Preview
       file: app-variation-input-label-preview.py
@@ -79,7 +79,7 @@ listing:
       file: app-variation-input-label-core.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGjOgD6q5AF5k0nFADmcJXQA2qigH1V3nNJxQA5nCV0AogCkw0jg4UjA4F2R+MjgAWhDkUJJWKFEoAHM4BmyoUIB3OFYKNlY2AG1cgs4S5AAKV2QlFN9lCkS0soxLRQArczg4CmMKYxKHC08IACoMcnAASk5kAGJkAB4ZigArUZ9ZOBp1RQLXC2QAVTh52Wk4Ujx0BAoYEe6IXQA+IA
   - title: Toolbar in submit textarea
-    description: Add a toolbar parameter to input_submit_textarea() to include action buttons and selects in the textarea's submit area.
+    description: Add a `toolbar` parameter to `input_submit_textarea()` to include toolbar inputs in the `textarea`'s submit area.
     apps:
     - title: Preview
       file: app-variation-submit-textarea-preview.py
@@ -102,37 +102,26 @@ listing:
 
 A toolbar is a container for buttons, select inputs, and other UI elements in a compact form suitable for card headers, footers, and constrained spaces.
 
-To add a toolbar to your app:
+To make a toolbar:
 
-1. Add `ui.toolbar()` to create a toolbar container, typically within `ui.card_header()` or `ui.card_footer()`.
-2. Add toolbar elements inside using `ui.toolbar_input_button()`, `ui.toolbar_input_select()`, and other toolbar components.
-3. Use `ui.toolbar_divider()` to add visual separators between toolbar elements.
-4. Use `ui.toolbar_spacer()` to create flexible space that pushes subsequent elements to the opposite end.
-5. Set the `align` parameter to `"left"` or `"right"` (default) to control toolbar alignment.
+  1. Create a toolbar with `ui.toolbar()`, typically within [`ui.card_header()`](../cards/index.qmd) or [`ui.card_footer()`](../cards/index.qmd), or within an input component as seen in the examples below.
+
+  2. Add toolbar elements inside, such as [`ui.toolbar_input_button()`](../../inputs/toolbar-button/index.qmd) and [`ui.toolbar_input_select()`](../../inputs/toolbar-select/index.qmd). Use [`ui.toolbar_divider()`](https://shiny.posit.co/py/api/ui.toolbar_divider.html) to add visual separators and [`ui.toolbar_spacer()`](https://shiny.posit.co/py/api/ui.toolbar_spacer.html) to create flexible space that pushes subsequent elements to the opposite end.
 
 ### Toolbar alignment
 
-Toolbars support two alignment modes:
+By default, toolbars align to the right side of the container. Set `align="left"` to position the toolbar at the start of a card header or footer instead.
 
-- `align="right"` (default): Toolbar elements are aligned to the right side of the container
-- `align="left"`: Toolbar elements are aligned to the left side of the container
-
-When using `align="left"`, the toolbar typically appears at the start of a card header or footer.
+Set `width="100%"` on the toolbar to make it expand to fill available space. This is required for `ui.toolbar_spacer()` to push elements effectively and is automatically set when the toolbar is a direct child of a label element.
 
 ### Toolbar elements
 
 Toolbars can contain:
 
-- **Buttons**: Use `ui.toolbar_input_button()` for action buttons
-- **Selects**: Use `ui.toolbar_input_select()` for dropdown selections
-- **Dividers**: Use `ui.toolbar_divider()` to add visual separators
-- **Spacers**: Use `ui.toolbar_spacer()` to push elements apart
-
-### Spacing and width
-
-Control toolbar spacing with the `gap` parameter, which sets the spacing between elements. The default is no gap (`0`).
-
-Set `width="100%"` to make the toolbar expand to fill available space. This is required for `ui.toolbar_spacer()` to work effectively and is automatically set when the toolbar is a direct child of a label element.
+- **Buttons**: Use [`ui.toolbar_input_button()`](../../inputs/toolbar-button/index.qmd) for action buttons. When an icon is provided, the label is hidden by default but available to screen readers and tooltips.
+- **Selects**: Use [`ui.toolbar_input_select()`](../../inputs/toolbar-select/index.qmd) for dropdown selections. Labels are visually hidden by default but available to screen readers.
+- **Dividers**: Use [`ui.toolbar_divider()`](https://shiny.posit.co/py/api/ui.toolbar_divider.html) to add visual separator lines between groups of elements.
+- **Spacers**: Use [`ui.toolbar_spacer()`](https://shiny.posit.co/py/api/ui.toolbar_spacer.html) to create flexible space that pushes subsequent elements to the opposite end of the toolbar.
 
 ### Toolbar in card headers
 
