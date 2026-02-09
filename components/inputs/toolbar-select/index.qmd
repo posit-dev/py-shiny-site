@@ -33,12 +33,27 @@ listing:
   - title: ui.toolbar
     href: https://shiny.posit.co/py/api/ui.toolbar.html
     signature: ui.toolbar(*args, align="right", gap=None, width=None)
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/inputs/toolbar-select/
+  contents:
+  - title: Updating toolbar selects
+    description: Use `ui.update_toolbar_input_select()` to dynamically change a toolbar select's choices, selection, label, or icon from the server.
+    apps:
+    - title: Express
+      file: app-variation-updating-express.py
+    - title: Core
+      file: app-variation-updating-core.py
 ---
 
 :::{#example}
 :::
 
 :::{#relevant-functions}
+:::
+
+:::{#variations}
 :::
 
 ## Details
@@ -77,10 +92,11 @@ Use `selected` to set the initially selected value. If not specified, the first 
 
 ### Updating selects
 
-Use `ui.update_toolbar_input_select()` to change the select's appearance and options from the server:
+Use [`ui.update_toolbar_input_select()`](https://shiny.posit.co/py/api/ui.update_toolbar_input_select.html) to change the select's appearance and options from the server:
 
 - Update the `label`, `icon`, `choices`, `selected` value, or `show_label` state
-- Cannot update `tooltip` after creation (use `ui.update_tooltip()` to update tooltip text)
+- Cannot update `tooltip` after creation
+- Use [`ui.update_tooltip()`](https://shiny.posit.co/py/api/ui.update_tooltip.html) to update tooltip text dynamically
 
 ### Accessibility
 

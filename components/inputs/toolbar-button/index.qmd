@@ -31,12 +31,27 @@ listing:
   - title: ui.toolbar
     href: https://shiny.posit.co/py/api/ui.toolbar.html
     signature: ui.toolbar(*args, align="right", gap=None, width=None)
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/inputs/toolbar-button/
+  contents:
+  - title: Updating toolbar buttons
+    description: Use `ui.update_toolbar_input_button()` to dynamically change a toolbar button's label, icon, or disabled state from the server.
+    apps:
+    - title: Express
+      file: app-variation-updating-express.py
+    - title: Core
+      file: app-variation-updating-core.py
 ---
 
 :::{#example}
 :::
 
 :::{#relevant-functions}
+:::
+
+:::{#variations}
 :::
 
 ## Details
@@ -48,7 +63,6 @@ To add a toolbar button to your app:
 1. Add `ui.toolbar()` to create a toolbar container, typically within `ui.card_header()` or another compact location.
 2. Inside the toolbar, add `ui.toolbar_input_button()` with an `id` and `label`.
 3. Optionally add an `icon` parameter. When an icon is provided without `show_label=True`, only the icon is visible and a tooltip with the label text appears on hover.
-4. Set `show_label=True` to display both the label text and icon.
 
 The value of a toolbar button is accessible as a reactive value within the `server()` function. To access the value:
 
@@ -63,13 +77,16 @@ Toolbar buttons are designed to be minimal and space-efficient. By default:
 - Use `show_label=True` with an icon to show both the icon and label text
 - Set `border=True` to add a border around the button
 - Set `disabled=True` to make the button non-clickable
+- Set `tooltip="my custom text here"` to set tooltip text to a something other than the `label` text
+- Set `tooltip=False` to remove the tooltip entirely
 
 ### Updating buttons
 
-Use `ui.update_toolbar_input_button()` to change the button's appearance from the server:
+Use [`ui.update_toolbar_input_button()`](https://shiny.posit.co/py/api/ui.update_toolbar_input_button.html) to change the button's appearance from the server:
 
 - Update the `label`, `icon`, `show_label`, or `disabled` state
-- Cannot update `tooltip` or `border` after creation (use `ui.update_tooltip()` to update tooltip text)
+- You cannot add/remove a `border` or `tooltip` after creation
+- Use [`ui.update_tooltip()`](https://shiny.posit.co/py/api/ui.update_tooltip.html) to update tooltip text from the server
 
 ### Accessibility
 

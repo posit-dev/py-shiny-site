@@ -7,14 +7,19 @@ app_ui = ui.page_fixed(
             "Document Editor",
             ui.toolbar(
                 ui.toolbar_input_button(
-                    id="save",
-                    label="Save",
-                    icon=icon_svg("floppy-disk"),
+                    id="label_only",
+                    label="Label Only",
                 ),
                 ui.toolbar_input_button(
-                    id="edit",
-                    label="Edit",
-                    icon=icon_svg("pencil"),
+                    id="icon_and_label",
+                    label="Icon + Label",
+                    icon=icon_svg("download"),
+                    show_label=True,
+                ),
+                ui.toolbar_input_button(
+                    id="icon_only",
+                    label="Icon Only",
+                    icon=icon_svg("floppy-disk"),
                 ),
                 align="right",
             ),

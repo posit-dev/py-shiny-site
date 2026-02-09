@@ -7,15 +7,25 @@ app_ui = ui.page_fixed(
             "Document Actions",
             ui.toolbar(
                 ui.toolbar_input_button(
-                    id="save",
-                    label="Save",
+                    id="label_only",
+                    label="Label Only",
+                ),
+                ui.toolbar_input_button(
+                    id="icon_and_label",
+                    label="Icon + Label",
+                    icon=icon_svg("download"),
+                    show_label=True,
+                ),
+                ui.toolbar_input_button(
+                    id="icon_only",
+                    label="Icon Only",
                     icon=icon_svg("floppy-disk"),
                 ),
                 align="right",
             ),
         ),
         ui.card_body(
-            ui.output_text("save_status"),
+            ui.output_text("button_status"),
         ),
         full_screen=True,
     )
@@ -24,8 +34,8 @@ app_ui = ui.page_fixed(
 
 def server(input, output, session):
     @render.text
-    def save_status():
-        return f"Save button clicked {input.save()} times"
+    def button_status():
+        return f"Buttons clicked - Label: {input.label_only()}, Icon: {input.icon_only()}, Both: {input.icon_and_label()}"
 
 
 app = App(app_ui, server)
