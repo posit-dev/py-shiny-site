@@ -1,0 +1,165 @@
+---
+title: Toolbar
+sidebar: components
+appPreview:
+  file: components/layout/toolbar/app-preview.py
+  static: true
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/layout/toolbar/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 400
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IGjOgD6q5AF5k0nFADmcJXQBGpU+bNQp0owBJvOXPoO65AFQY65AOyP2AF8g5BDnElYoUSgAczgGFzhLZBE4AAk4GiMNThAqCMQUSDhrOBMYMgAVKN88ADVs0jggA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGjOgD6q5AF5k0nFADmcJXQA2qigH1V3nNJxQA5nCV0AogCkw0jg4UjA4F2R+MjgAWhDkUJJWKFEoAHM4BmyoUIB3OFYKNlY2AG1cgs4S5AAKV2QlFN9lCkS0soxLRQArczg4CmMKYxKHC08IACoMcnAASk5kAGJkAB4ZigArUZ9ZOBp1RQLXC2QAVTh52Wk4Ujx0BAoYEe6IXQA+IA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.toolbar
+    href: https://shiny.posit.co/py/api/ui.toolbar.html
+    signature: ui.toolbar(*args, align="right", gap=None, width=None)
+  - title: ui.toolbar_input_button
+    href: https://shiny.posit.co/py/api/ui.toolbar_input_button.html
+    signature: ui.toolbar_input_button(id, label, *, icon=None, show_label=MISSING, tooltip=MISSING, disabled=False, border=False, **kwargs)
+  - title: ui.toolbar_input_select
+    href: https://shiny.posit.co/py/api/ui.toolbar_input_select.html
+    signature: ui.toolbar_input_select(id, label, choices, *, selected=None, icon=None, show_label=False, tooltip=MISSING, **kwargs)
+  - title: ui.toolbar_divider
+    href: https://shiny.posit.co/py/api/ui.toolbar_divider.html
+    signature: ui.toolbar_divider(width=None, gap=None)
+  - title: ui.toolbar_spacer
+    href: https://shiny.posit.co/py/api/ui.toolbar_spacer.html
+    signature: ui.toolbar_spacer()
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/layout/toolbar/
+  contents:
+  - title: Toolbar with spacer
+    description: Use toolbar_spacer() to push elements to opposite ends of the toolbar.
+    apps:
+    - title: Preview
+      file: app-variation-with-spacer-preview.py
+      height: 250
+    - title: Express
+      file: app-variation-with-spacer-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IGjOgD6q5AF5k0nFADmcJXQBGpU+bNQp0owBJvOXPoO65AFQY65AOyP2AF8g5BDnElYoUSgAczgGFzhLZBE4AAk4GiMNThAqCMQUSDhrOBMYMgAVKN88ADVs0jggA
+    - title: Core
+      file: app-variation-with-spacer-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGjOgD6q5AF5k0nFADmcJXQA2qigH1V3nNJxQA5nCV0AogCkw0jg4UjA4F2R+MjgAWhDkUJJWKFEoAHM4BmyoUIB3OFYKNlY2AG1cgs4S5AAKV2QlFN9lCkS0soxLRQArczg4CmMKYxKHC08IACoMcnAASk5kAGJkAB4ZigArUZ9ZOBp1RQLXC2QAVTh52Wk4Ujx0BAoYEe6IXQA+IA
+  - title: Left-aligned toolbar
+    description: Set align="left" to position the toolbar on the left side of the header.
+    apps:
+    - title: Preview
+      file: app-variation-left-aligned-preview.py
+      height: 250
+    - title: Express
+      file: app-variation-left-aligned-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IGjOgD6q5AF5k0nFADmcJXQBGpU+bNQp0owBJvOXPoO65AFQY65AOyP2AF8g5BDnElYoUSgAczgGFzhLZBE4AAk4GiMNThAqCMQUSDhrOBMYMgAVKN88ADVs0jggA
+    - title: Core
+      file: app-variation-left-aligned-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGjOgD6q5AF5k0nFADmcJXQA2qigH1V3nNJxQA5nCV0AogCkw0jg4UjA4F2R+MjgAWhDkUJJWKFEoAHM4BmyoUIB3OFYKNlY2AG1cgs4S5AAKV2QlFN9lCkS0soxLRQArczg4CmMKYxKHC08IACoMcnAASk5kAGJkAB4ZigArUZ9ZOBp1RQLXC2QAVTh52Wk4Ujx0BAoYEe6IXQA+IA
+  - title: Toolbar in input label
+    description: Use toolbar as the label for input_text_area() or input_numeric() to add formatting or action buttons directly in the input label.
+    apps:
+    - title: Preview
+      file: app-variation-input-label-preview.py
+      height: 350
+    - title: Express
+      file: app-variation-input-label-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IGjOgD6q5AF5k0nFADmcJXQBGpU+bNQp0owBJvOXPoO65AFQY65AOyP2AF8g5BDnElYoUSgAczgGFzhLZBE4AAk4GiMNThAqCMQUSDhrOBMYMgAVKN88ADVs0jggA
+    - title: Core
+      file: app-variation-input-label-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGjOgD6q5AF5k0nFADmcJXQA2qigH1V3nNJxQA5nCV0AogCkw0jg4UjA4F2R+MjgAWhDkUJJWKFEoAHM4BmyoUIB3OFYKNlY2AG1cgs4S5AAKV2QlFN9lCkS0soxLRQArczg4CmMKYxKHC08IACoMcnAASk5kAGJkAB4ZigArUZ9ZOBp1RQLXC2QAVTh52Wk4Ujx0BAoYEe6IXQA+IA
+  - title: Toolbar in submit textarea
+    description: Add a toolbar parameter to input_submit_textarea() to include action buttons and selects in the textarea's submit area.
+    apps:
+    - title: Preview
+      file: app-variation-submit-textarea-preview.py
+      height: 300
+    - title: Express
+      file: app-variation-submit-textarea-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IGjOgD6q5AF5k0nFADmcJXQBGpU+bNQp0owBJvOXPoO65AFQY65AOyP2AF8g5BDnElYoUSgAczgGFzhLZBE4AAk4GiMNThAqCMQUSDhrOBMYMgAVKN88ADVs0jggA
+    - title: Core
+      file: app-variation-submit-textarea-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGjOgD6q5AF5k0nFADmcJXQA2qigH1V3nNJxQA5nCV0AogCkw0jg4UjA4F2R+MjgAWhDkUJJWKFEoAHM4BmyoUIB3OFYKNlY2AG1cgs4S5AAKV2QlFN9lCkS0soxLRQArczg4CmMKYxKHC08IACoMcnAASk5kAGJkAB4ZigArUZ9ZOBp1RQLXC2QAVTh52Wk4Ujx0BAoYEe6IXQA+IA
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A toolbar is a container for buttons, select inputs, and other UI elements in a compact form suitable for card headers, footers, and constrained spaces.
+
+To add a toolbar to your app:
+
+1. Add `ui.toolbar()` to create a toolbar container, typically within `ui.card_header()` or `ui.card_footer()`.
+2. Add toolbar elements inside using `ui.toolbar_input_button()`, `ui.toolbar_input_select()`, and other toolbar components.
+3. Use `ui.toolbar_divider()` to add visual separators between toolbar elements.
+4. Use `ui.toolbar_spacer()` to create flexible space that pushes subsequent elements to the opposite end.
+5. Set the `align` parameter to `"left"` or `"right"` (default) to control toolbar alignment.
+
+### Toolbar alignment
+
+Toolbars support two alignment modes:
+
+- `align="right"` (default): Toolbar elements are aligned to the right side of the container
+- `align="left"`: Toolbar elements are aligned to the left side of the container
+
+When using `align="left"`, the toolbar typically appears at the start of a card header or footer.
+
+### Toolbar elements
+
+Toolbars can contain:
+
+- **Buttons**: Use `ui.toolbar_input_button()` for action buttons
+- **Selects**: Use `ui.toolbar_input_select()` for dropdown selections
+- **Dividers**: Use `ui.toolbar_divider()` to add visual separators
+- **Spacers**: Use `ui.toolbar_spacer()` to push elements apart
+
+### Spacing and width
+
+Control toolbar spacing with the `gap` parameter, which sets the spacing between elements. The default is no gap (`0`).
+
+Set `width="100%"` to make the toolbar expand to fill available space. This is required for `ui.toolbar_spacer()` to work effectively and is automatically set when the toolbar is a direct child of a label element.
+
+### Toolbar in card headers
+
+Toolbars are commonly used in card headers to provide contextual actions:
+
+```python
+ui.card(
+    ui.card_header(
+        "Card Title",
+        ui.toolbar(
+            ui.toolbar_input_button(id="action", label="Action"),
+            align="right"
+        )
+    ),
+    ui.card_body("Card content")
+)
+```
+
+The toolbar appears alongside the card title, providing a clean and organized interface for card-level actions.
+
+### Accessibility
+
+All toolbar inputs support full keyboard navigation and screen reader accessibility. Always provide meaningful labels for toolbar buttons and selects, even when using icon-only displays.
+
+See Also: [Toolbar Button](../../inputs/toolbar-button/index.qmd) | [Toolbar Select](../../inputs/toolbar-select/index.qmd) | [Card](../cards/index.qmd)
+
+## Variations
+
+:::{#variations}
+:::

@@ -123,6 +123,6 @@ def rewrite_shinylive_links_all(index_qmds):
 
 
 if __name__ == "__main__":
-    dirs = ["inputs", "outputs", "display-messages"]
+    dirs = ["inputs", "outputs", "display-messages", "layout"]
     index_qmds = find_index_qmds([os.path.join("components", d) for d in dirs])
     rewrite_shinylive_links_all(index_qmds)

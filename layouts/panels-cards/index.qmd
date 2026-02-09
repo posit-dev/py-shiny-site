@@ -1,7 +1,7 @@
 ---
-title: "Panels and cards"
+title: "Cards and panels"
 description: >
-  Use panels and cards to define areas of related content in your Shiny app.
+  Use cards and panels to define areas of related content in your Shiny app.
 
 listing:
 - id: relevant-functions
@@ -11,13 +11,17 @@ listing:
     href: https://shiny.posit.co/py/api/ui.card.html
     signature: ui.card(*args, full_screen=False, height=None, max_height=None, min_height=None, fill=True, class_=None, **kwargs)
 
-  - title: ui.card_footer
-    href: https://shiny.posit.co/py/api/ui.card_footer.html
-    signature: ui.card_footer(*args, **kwargs)
-
   - title: ui.card_header
     href: https://shiny.posit.co/py/api/ui.card_header.html
     signature: ui.card_header(*args, container=tags.div, **kwargs)
+
+  - title: ui.card_body
+    href: https://shiny.posit.co/py/api/ui.card_body.html
+    signature: ui.card_body(*args, fillable=True, min_height=None, max_height=None, max_height_full_screen=None, height=None, padding=None, gap=None, fill=True, class_=None, **kwargs)
+
+  - title: ui.card_footer
+    href: https://shiny.posit.co/py/api/ui.card_footer.html
+    signature: ui.card_footer(*args, **kwargs)
 
   - title: ui.panel_absolute
     href: https://shiny.posit.co/py/api/ui.panel_absolute.html
@@ -40,10 +44,206 @@ sys.path.append("../..")
 from docs.helpers import express_core_preview, shinylive_app_preview
 ```
 
-Use panels and cards to define areas of related content.
+Use cards and panels to define areas of related content.
 
 :::{#relevant-functions}
 :::
+
+## Cards
+
+Cards are a common organizing unit for modern user interfaces (UI). At their core, they're just rectangular containers with borders and padding. However, when utilized properly to group related information, they help users better digest, engage, and navigate through content.
+
+### Hello `card()`
+
+::: {.row .mt-3}
+::: {.col-md-6}
+
+A `ui.card()` is designed to handle any number of "known" card items (e.g., `ui.card_header()`, `ui.card_body()`, etc) as unnamed arguments (i.e., children). As we'll see shortly, `ui.card()` also has some useful named arguments (e.g., `full_screen`, `height`, etc).
+
+At their core, `ui.card()` and card items are just an HTML `div()` with a special Bootstrap class, so you can use Bootstrap's utility classes to customize things like [colors](https://getbootstrap.com/docs/5.2/utilities/background/), [text](https://getbootstrap.com/docs/5.2/utilities/text/), [borders](https://getbootstrap.com/docs/5.2/utilities/borders), etc.
+
+:::
+::: {.col-md-6}
+
+```python
+from shiny import ui
+
+ui.card(
+    ui.card_header(
+        "A header",
+        class_="bg-dark"
+    ),
+    ui.card_body(
+        ui.markdown("Some text with a [link](https://github.com)")
+    )
+)
+```
+
+```{python}
+#| echo: false
+from shiny import ui
+
+ui.card(
+    ui.card_header(
+        "A header",
+        class_="bg-dark"
+    ),
+    ui.card_body(
+        ui.markdown("Some text with a [link](https://github.com)")
+    )
+)
+```
+
+:::
+:::
+
+### Implicit `card_body()`
+
+::: {.row .mt-3}
+::: {.col-md-6}
+
+If you find yourself using `ui.card_body()` without changing any of its defaults, consider dropping it altogether since any direct children of `ui.card()` that aren't "known" `ui.card()` items are wrapped together into an implicit `ui.card_body()` call. For example, the code to the right generates HTML that is identical to the previous example:
+
+:::
+::: {.col-md-6}
+
+```python
+from shiny import ui
+
+ui.card(
+    ui.card_header(
+        "A header",
+        class_="bg-dark"
+    ),
+    ui.markdown("Some text with a [link](https://github.com).")
+)
+```
+
+```{python}
+#| echo: false
+from shiny import ui
+
+ui.card(
+    ui.card_header(
+        "A header",
+        class_="bg-dark"
+    ),
+    ui.markdown("Some text with a [link](https://github.com).")
+)
+```
+
+:::
+:::
+
+### Restricting growth
+
+::: {.row .mt-3}
+::: {.col-md-6}
+
+By default, a `ui.card()`'s size grows to accommodate the size of its contents. Thus, if a `ui.card_body()` contains a large amount of text, tables, etc., you may want to specify a `height` or `max_height`. That said, when laying out [multiple cards](#multiple-cards), it's likely best not to specify height on the `ui.card()`, and instead, let the layout determine the height.
+
+Although scrolling is convenient for reducing the amount of space required to park lots of content, it can also be a nuisance to the user. To help reduce the need for scrolling, consider pairing scrolling with `full_screen=True` (which adds an icon to expand the card's size to the browser window). Notice how, when the card is expanded to full-screen, `max_height`/`height` won't affect the full-screen size of the card.
+
+:::
+::: {.col-md-6}
+
+```python
+from shiny import ui
+
+ui.card(
+    ui.card_header("A long, scrolling, description"),
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " * 50,
+    max_height="250px",
+    full_screen=True
+)
+```
+
+```{python}
+#| echo: false
+from shiny import ui
+
+ui.card(
+    ui.card_header("A long, scrolling, description"),
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. " * 15,
+    max_height="250px",
+    full_screen=True
+)
+```
+
+:::
+:::
+
+### Filling outputs
+
+::: {.row .mt-3}
+::: {.col-md-6}
+
+A `ui.card()`'s default behavior is optimized for facilitating filling layouts. More specifically, if a **fill item** (e.g., `ui.output_plot()`), appears as a *direct child* of a `ui.card_body()`, it resizes to fit the `ui.card()`'s specified height. This means, by specifying `height="250px"` we've effectively shrunk the plot's height from its default of 400 down to about 200 pixels. And, when expanded to `full_screen`, the plot grows to match the `ui.card()`'s new size.
+
+:::
+::: {.col-md-6}
+
+```python
+from shiny import ui, render
+import matplotlib.pyplot as plt
+
+app_ui = ui.page_fluid(
+    ui.card(
+        height="250px",
+        full_screen=True,
+        ui.card_header("A filling plot"),
+        ui.card_body(ui.output_plot("plot"))
+    )
+)
+
+def server(input, output, session):
+    @render.plot
+    def plot():
+        fig, ax = plt.subplots()
+        ax.plot([1, 2, 3], [1, 4, 9])
+        return fig
+```
+
+```{python}
+#| echo: false
+from shiny import ui
+
+ui.card(
+    ui.card_header("A filling plot"),
+    ui.div(
+        "Plot placeholder - view in interactive mode",
+        style="height: 150px; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px; display: flex; align-items: center; justify-content: center;"
+    ),
+    height="250px",
+    full_screen=True
+)
+```
+
+:::
+:::
+
+### Multiple cards {#multiple-cards}
+
+`ui.layout_column_wrap()` is especially nice for laying out multiple cards since each card in a particular row will have the same height (by default).
+
+```{python}
+from shiny import ui
+
+ui.layout_column_wrap(
+    ui.card(
+        ui.card_header("Card 1"),
+        ui.card_body("Content for card 1"),
+        full_screen=True
+    ),
+    ui.card(
+        ui.card_header("Card 2"),
+        ui.card_body("Content for card 2"),
+        full_screen=True
+    ),
+    width=1/2,
+    height="300px"
+)
+```
 
 ## Floating panel
 

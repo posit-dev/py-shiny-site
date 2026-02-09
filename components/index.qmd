@@ -29,6 +29,11 @@ listing:
     template: _partials/components-list.ejs
     contents:
       - display-messages/*/*.qmd
+  - id: layout
+    type: grid
+    template: _partials/components-list.ejs
+    contents:
+      - layout/*/*.qmd
 ---
 
 
@@ -109,6 +114,23 @@ Provide feedback to your user with notifications, progress bars, and confirmatio
 ::::
 :::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
 ::: {#display-message .grid}
+:::
+
+::::
+
+::::::
+:::::: {.grid .list-section style="margin-top: -1px;" #layout}
+:::: {.g-col-xl-3 .g-col-12}
+::: {.sticky-xl-top .pt-4}
+
+<h2 class="mt-4"> <i class="bi bi-layout-text-window-reverse indigo"></i> Layout </h2>
+
+Organize and structure your app's content with cards and other layout components.
+
+:::
+::::
+:::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
+::: {#layout .grid}
 :::
 
 ::::

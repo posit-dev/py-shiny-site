@@ -1,0 +1,118 @@
+---
+title: Card
+sidebar: components
+appPreview:
+  file: components/layout/cards/app-preview.py
+  static: true
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/layout/cards/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 400
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IEqTOToANqQqbeAoSLFQx6fsuUB3ThXbzOWYlAYATABQwo-APrs4nAHN2CgBeRTAAFgAGKLNwojo5TU1vVmJhahCAFQY5OABKFGQAYmQAHjLlZGr7R2cXXzgoFzgGN2rSiqqanvCAEU5YchdkAGE5WQHWCgZOACMJznJ4jvLKiB6e4k0TVm8wsDmAgFoXZwBrFZK17ur81a6NmvCsrjEnV2QXTlYtKFxjMg3hRSAEGLBkKQ6F9BjBhshiBMxIxmMhbHAYUMIC4xGcKCY4BQsOEHutCKgKLh0AgUGAqPwKGAAL4AXSAA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGjOgD6q5AF5kqnFADmcHXU4APOABMAFBu5Zy7LN3TKKOmXPIdACI-ChDkUQ4ANzgfCnJnMABGTjg2TlZOcnMI5DwsWTo4aKy1MDSAHA5YrOQEhJJsnJ9nFwBfIA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.card
+    href: https://shiny.posit.co/py/api/ui.card.html
+    signature: ui.card(*args, full_screen=False, height=None, max_height=None, min_height=None, fill=True, class_=None, **kwargs)
+  - title: ui.card_header
+    href: https://shiny.posit.co/py/api/ui.card_header.html
+    signature: ui.card_header(*args, container=..., **kwargs)
+  - title: ui.card_body
+    href: https://shiny.posit.co/py/api/ui.card_body.html
+    signature: ui.card_body(*args, fillable=True, min_height=None, max_height=None, max_height_full_screen=None, height=None, padding=None, gap=None, fill=True, class_=None, **kwargs)
+  - title: ui.card_footer
+    href: https://shiny.posit.co/py/api/ui.card_footer.html
+    signature: ui.card_footer(*args, **kwargs)
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/layout/cards/
+  contents:
+  - title: Card with header and footer
+    description: Add a header and footer to your card for additional context and actions.
+    apps:
+    - title: Preview
+      file: app-variation-header-footer-preview.py
+      height: 400
+    - title: Express
+      file: app-variation-header-footer-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IygO6cK7eZyzEoDACYAKOnIA2ZgPqtiw6gF4AKgzlwAlImXJv23foOW7HBQBnAMRl4+UYpgAApMAFZwxLIA8gBuYemccKoxBJFR3sRmUKKW9jEARgDmALRCEvq4yFT8FHWqXFQxhchufQo4EWCOXGJCpEkpyFDQZrgAXiLIxHKsFMxhyAZQFFCtpOKhlJx0LRTCEAZicwbI6HtUDBCsWDEDEFFD6CMA0nAWvBLpxiGJuCU5KE2FAzCt0qQzHJ4EQ1hstgxkMIqKdyEQ7sgYPoANZwWQ1JiqTTvMCfb46PSGSx0UikZ4RL5FbxDfY1N5VOQUTYQEYANRyqmQABEyVBOGZWPlVqVypUwFUKF8NRA6qwWNqGgwmgxcB8CpyuTyoHysAKheQRlLSKoIGZSCFkAAlOBSGRKkplVgVaqa5AGvVhzV1UiCszcOC65LkXYmwmsOoAJjNfU+hFQFFw6AQKDAbQoYAAvgBdIA
+    - title: Core
+      file: app-variation-header-footer-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEArpwA6EORnQB9acgC8yaTigBzOEroAbaQBMAFHORXNnLMSgNzl6y633HS9nCgm4DCxAuQdYyYAAKTABWcMQiAPIAbn4JnHAA7qEEzsEuxIZQrKxKaqEARjoAtOgM-A68VAAeFBVpXFSh2UEAlFmBOW4OJkqlpCa4ATlBWugWYAAqXKzI1aTRschQ0Ia4AF5wS8SSrBTMfsgmUBRQyCd8vpScdPUM1CZLmybLl1QMEKxYoR6nUm01mAGk4Lx4BQasQltw8pJfGwoIZ9sgEqRjPAiIdjqcGMgXlQHuQiB9kDAHABrOAiHRMNIUdgAsBAvrBdkg2zuIZ0UikH4TSbWLRXHT-UqSCgnCCzABqqTSyAAInSoJxDKxMsg8gUiiUwKUKIFjRAKqwWGaqjUqQxcIDeiLRbZxZLpbLZirSGkIIZSD5kAAlOCCYQ6vWFYplE3Ia2WuMmiqkaWGbhwC0xcgXe2U1gVABMjuB1i5OTokkMhiUrGIL2oajmDEkcE6XTk7fkXd8dDYyT8Zm46GlRBTFGHFCIrH2rE45C6iE66H1clX0Ew6jEmDMihUnCn-YYncIqAouHQCBQYEaFDAAF8ALpAA
+  - title: Multiple cards with layout
+    description: Use layout functions to arrange multiple cards in a grid.
+    apps:
+    - title: Preview
+      file: app-variation-multiple-cards-preview.py
+      height: 500
+    - title: Express
+      file: app-variation-multiple-cards-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IygO6cK7eZywAbKLlJyKAfTK65MCCdUMMACnUATTQF4AjAHoAzEXZxOAHN2CldFMAAmAAYo9H5wgEpEZWRU5HVNbSxiKAYnezo5XV0TVmJhalcAFQY5OCSUtKaFbNynE38oJzgGe3CAZShdEUTGptSW9m8+sAASABYAVgII73dRiHG0lvQZgFV0ZHcIgFJkRmZkfVZZGHJNcKJia9YTMLAqfgoAWlY5YmIIlYGzG6Q0WhaOTyBSKJTKFQg1Vq9WSmy2WSh7U63V64QAwnIbswesCwAlQc0dFMZhECN4lht0VlduEDsgABxnC4sa63e7sR7IZ5QURvcKfH5-AFAkFo1IZCE6TEw4qlcpwSo1OoNOXjSFtDpwLo9GZ48gANxJnHIyAASlAqIz0ZNpuFvFhTk6tjsZgARUiqTanc5MHkivmUAWEIUvMUfAQ-JxQCCBHobaMfXDoBAoeNfMAAXwAukA
+    - title: Core
+      file: app-variation-multiple-cards-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEArpwA6EORnQB9acgC8yaTigBzOEroAbaQBMAFHORXNnLIai5SkikrLGYEJQHcGGCxGtAmyxiKAZzSyCorVDwpXY4KBM4BgswAGUoQzhWGTAASgJIqMCYsJMlACNSE1x-Eobg9gBmNIASABYAVgIAJmaARjzC4sbS23Q0gFV0ZAHegFJkRmZke1YRGHIKdjyiYnXWJTU8qgAPCgBaVkliYhzcgtGGkYCx5clDQyVWYgY4ahqAAqDEkcGe1leDTK4Xq7xhFQSSRSaQAwpINswUo8ofDbLEKtVanD3tYtC00r0CM1usMim9SVYtJM8jNkAAOJYrFjrTbbXaEZAHKCsI4nMDnK43O4PYYQqK4sZ0T7fX7-QEgsHy5CKoIIkmNBHxRLJVJ5VHkABu2M45GQACUoFQ6drxiFylUanVXSVya08s0sIsXQzGcy0gARUheAKLZZMHkivmUAX7Q7HU5wC6XExQCB6Bhy0Mvemk5VfH5-AEQYGg8HFyGlkpeTgmHZqAYAemaTaiCU4OnYFHFvQADKP0Gc8qN8nJZ-IF8k6GwUtbUtx0M4iE4KJuKERWA9bRB8ohRugRbkFwpMOoxJgzIoVJwD6uUvPBRLcOgECgJVmKDAABfABdIA
+  - title: Card with filling plot
+    description: Cards can contain filling outputs like plots that resize to fit the card's size.
+    apps:
+    - title: Preview
+      file: app-variation-filling-plot-preview.py
+      height: 500
+    - title: Express
+      file: app-variation-filling-plot-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTkWEQAJnAYAdCBKkzkMKBXQAbUhWOcARjlwmzyKGJMUtO6bIhzJuB2IjotLQB3Tgp2eU4sYigGFQAKdjhOAHN2CgBeDTAAFgAGXPR+LKI6OWNjAH1WYmFqdIAVBjk4AEpELWROiKiYlQrEqDUGOKyAZShjEWRG6hUslsCILuQAAWUhnFMXJa61OmQ7Cji2juWugGJkAHFqdUM4NlgTB5VDKFOz-XIwsXTkYAA5AApKAQAFEAEAMTglnByABAFkYnCAQBBIQopG4FFAuRggC6HzOrAmUz+wGyAFYiJSAExEbIADiIADYAIw05nIFkAdkJECJyzoKSIUH4yD+ziwrDklkOrDiwuSrE4AC84Ok4lyWS0FjtPmLNmY4jBvuxWEQSZMLfoYgBrdTpAGkOEWCBwEIqMLpem2hgOhgq9XpLlkUwMJ2sKhwYyWYzNAF6z6dQ2sOAUCoUUKTEZgBFm4w+cbW6breaCrqp9MVfjGKCWGO5-OUdjl-VnKsZ3B1hvGXPFqZxAAkAGkFmAk8nDckGJx4o1mqLjOh2FB0rksABmSefYQUOQMJZKrSEVAUWwIFBgKj8ChgAC++KAA
+    - title: Core
+      file: app-variation-filling-plot-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhH6DhyGFAroANqQp7OAIxy59h5FFbJ9FVeqEiICgbxvII6VaozoAfSVkAF5kJRwoAHM4ALo9JWkAClVkNPDOLGIoBmTU9IKI7NyA9jgoWQYUsABlKD04WwAVKQhpZTAASgJ8grSI0gVdIYDLCmqxju7evrLOKPYKEI6AFgAGNfQADw6eiD70ugU9PQDWYilqEJaFOBnO1QeIXza4OjY5ADc5JO50IaIg2GFCIrEarE45E6iBmAAFWpUcAYHPt0rJ3mMktCZgUAMTIADi1DkOjgbFg+jJ0h0UBx6Rg5Ao7FsYWAAHIAFJQCBsohsgBicBMvOQbIAsjkRWzxAwpRLcFKOQoeQBdOlpVj1RqhZDAFYAViI+oATEQVgAOIgANgAjEbLcgrQB2NXPVEHOjzIhQLY6+xYVgKExjVhJT1RCEALzgISSDqtnSeBzSPqRhiSDMozNBWtYRG0DAA1nIQmzSCLjBA4AB3TjSJkhU1aHLFhhRmMOsgGBil1hUOB6EwJOBspPJ1NgigBCicIxwapixnsPS8OoNZoIqbq6xbANwKdbPRQEwDhdLrfuvoT-cBXBHk96apr7VJAAkAGkHl1t6mogw60kNxwN6ejoOwUAhGsWAAMxjgcUgUAoDD7OGLx+JgOriOgST+EEnCgl8chPIQqAUBYCAoGAVBbBQYAAL4qkAA
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A card is a rectangular container with borders and padding that groups related UI elements together.
+
+To add a card to your app:
+
+1. Add `ui.card()` to your UI.
+2. Place UI elements inside the card as direct children, or use `ui.card_header()`, `ui.card_body()`, and `ui.card_footer()` to organize content into distinct sections.
+3. Set the `height` or `max_height` parameter to control the card's size.
+4. Use `full_screen=True` to add an icon that expands the card to fill the browser window.
+
+If you don't use `ui.card_body()`, any direct children of `ui.card()` that aren't card items (like `ui.card_header()` or `ui.card_footer()`) are automatically wrapped in an implicit `ui.card_body()`.
+
+Cards and card items accept Bootstrap utility classes for customization. Use the `class_` parameter to apply classes for [colors](https://getbootstrap.com/docs/5.2/utilities/background/), [text](https://getbootstrap.com/docs/5.2/utilities/text/), [borders](https://getbootstrap.com/docs/5.2/utilities/borders), and more.
+
+### Card size
+
+By default, a card grows to accommodate its contents. If your card contains large amounts of text, tables, or other content, set a `height` or `max_height` to control the size and enable scrolling. When laying out [multiple cards](#variations), let the layout function determine the card heights rather than setting fixed heights.
+
+Pair `max_height` with `full_screen=True` to provide an expansion icon. When users click the icon, the card fills the browser window. The `max_height` constraint only applies to the normal view, not the full-screen view.
+
+### Filling layouts
+
+Cards support filling layouts where outputs automatically resize to fit the available space. When a fill item like `ui.output_plot()` appears as a direct child of a `ui.card_body()`, it resizes to match the card's height. For example, setting `height="250px"` on a card reduces the plot's height from its default 400px to approximately 200px. When expanded to full-screen, the plot grows to match the card's new size.
+
+### Multiple cards
+
+Use `ui.layout_column_wrap()` to arrange multiple cards in a grid. Cards in the same row automatically share the same height. See the variations below for examples of multiple-card layouts.
+
+## Variations
+
+:::{#variations}
+:::

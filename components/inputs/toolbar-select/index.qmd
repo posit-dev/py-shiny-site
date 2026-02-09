@@ -1,0 +1,89 @@
+---
+title: Toolbar Select
+sidebar: components
+appPreview:
+  file: components/inputs/toolbar-select/app-preview.py
+  static: true
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/toolbar-select/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 400
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4scAB7oGcbr36DhfCOgCuFIvogATOAyIX28+QHd2FFchdZiUAx2ABR0FgA24RLE+tQAvAAqDBZwAJSI8shZyJ7evuz+gXZiKnBQDgzB6ZnZtbJgACJQFFDIAGrscO71NbVZuT5+FKSk4QBGgcFQ4ezSEHH1DLMqFPXVEH2b+VjDoxMMYuqWFBJw4XDEFMG9W5vsdgtgkp3uYjCkDvUEN7e14VBjM6PDpdZAAWQ+cC+P1+WWIKlInAMcWA9QSAPOX2Q9QAwipAqtCNiwGCMPUALrfDawvqcchxOkQCQya5gOC4KFgVJUmnIVJualZAACtgqOx0q0FyAcdGUZwuVGKzy6VQyUtq+goFgYGzouO1tgo4VwyGVngg0hQICOViwZrekKqAF8ehAiWAKLh0AgUB6JWAneSgA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIg2oATOAyIBXdvPkZ0Yq8gC8yKzijS4YuuwAecYwAKeWRQ13YsYigGIJCw+LcomLEVOChTBmCIeJyw2TAAESgKKGQANXY4AHd8gjjchIiKUlIAGwAjaKyGnvCsZrbOhjF1dAsKCThWuGIKbt6F9mMnfMlKqrEYUlNa+oWG1qh2qZWwCurkAFltuF3s-Z7iFVJOOG4nYHyAFSPp2uR8gBhFTRCj-fKXDD5AC6dXuD1ynHITiREAkMmCYDguFuYAAlHCEWECXsHlBWuxpBBTgxKSowYRSQ0SfCciyeolosYxO1trh5gs3KRxmMJlRfHN8twpjMqNy1tV8uzmYSGnQLK1WhJiEZqE4vgwLHBVaE8fIzRAbBBTHRlGZJGZAqNxkRhRRRURpdxuOxyHjEHsAAJGa1mfpwCV7G126azAJiBVVQL+pmhIwUCwMbJ0IGZkMUVqaRPqaQoEDOihYRObG7JgC++SttkwzmQ+nQgTsDnYnvtZgthFQFFw6AQKDA4ooYDr0KAA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.toolbar_input_select
+    href: https://shiny.posit.co/py/api/ui.toolbar_input_select.html
+    signature: ui.toolbar_input_select(id, label, choices, *, selected=None, icon=None,
+      show_label=False, tooltip=MISSING, **kwargs)
+  - title: ui.update_toolbar_input_select
+    href: https://shiny.posit.co/py/api/ui.update_toolbar_input_select.html
+    signature: ui.update_toolbar_input_select(id, *, label=None, show_label=None,
+      choices=None, selected=None, icon=None, session=None)
+  - title: ui.toolbar
+    href: https://shiny.posit.co/py/api/ui.toolbar.html
+    signature: ui.toolbar(*args, align="right", gap=None, width=None)
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A toolbar select is a compact select input designed for use in toolbars within card headers, footers, and other constrained spaces.
+
+To add a toolbar select to your app:
+
+1. Add `ui.toolbar()` to create a toolbar container, typically within `ui.card_header()` or another compact location.
+2. Inside the toolbar, add `ui.toolbar_input_select()` with an `id`, `label`, and `choices`.
+3. Optionally add an `icon` parameter. The icon is displayed alongside the select dropdown.
+4. Set `show_label=True` to display the label text alongside the icon (by default, the label is hidden but available to screen readers).
+
+The value of a toolbar select is accessible as a reactive value within the `server()` function. To access the value:
+
+1. Use `input.<select_id>()` (e.g., `input.view_mode()`) to access the currently selected value.
+
+### Select appearance
+
+Toolbar selects are designed to be minimal and space-efficient. By default:
+
+- The label is visually hidden but available to screen readers
+- An optional icon can be displayed alongside the select dropdown
+- Use `show_label=True` to make the label visible
+- A tooltip with the label text appears on hover when the label is hidden
+
+### Choices
+
+The `choices` parameter accepts:
+
+- A list of strings: `["Option 1", "Option 2", "Option 3"]`
+- A dictionary mapping values to labels: `{"val1": "Option 1", "val2": "Option 2"}`
+- A nested dictionary for grouped choices (optgroups): `{"Group 1": {"val1": "Option 1"}, "Group 2": {"val2": "Option 2"}}`
+
+Use `selected` to set the initially selected value. If not specified, the first choice is selected by default.
+
+### Updating selects
+
+Use `ui.update_toolbar_input_select()` to change the select's appearance and options from the server:
+
+- Update the `label`, `icon`, `choices`, `selected` value, or `show_label` state
+- Cannot update `tooltip` after creation (use `ui.update_tooltip()` to update tooltip text)
+
+### Accessibility
+
+Always provide a meaningful `label` even when using `show_label=False`. The label is used for screen readers and tooltips, ensuring your app is accessible to all users.
+
+See Also: [Toolbar](../../layout/toolbar/index.qmd) | [Select](../select-single/index.qmd)
