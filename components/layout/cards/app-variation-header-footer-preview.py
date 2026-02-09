@@ -1,18 +1,28 @@
+from faicons import icon_svg
 from shiny import App, ui
 
 app_ui = ui.page_fluid(
     ui.card(
         ui.card_header(
             "Project Overview",
+            ui.toolbar(
+                ui.toolbar_input_button(
+                    id="view_details",
+                    label="View Details",
+                    icon=icon_svg("eye"),
+                ),
+                ui.toolbar_input_button(
+                    id="download",
+                    label="Download",
+                    icon=icon_svg("download"),
+                ),
+                align="right",
+            ),
             class_="bg-primary text-white"
         ),
         ui.card_body(
             ui.p("This project analyzes customer data to identify trends and patterns."),
             ui.p("Key metrics include sales volume, customer retention, and market growth."),
-        ),
-        ui.card_footer(
-            ui.tags.button("View Details", class_="btn btn-sm btn-primary"),
-            ui.tags.button("Download Report", class_="btn btn-sm btn-outline-secondary ms-2"),
         ),
         full_screen=True
     )

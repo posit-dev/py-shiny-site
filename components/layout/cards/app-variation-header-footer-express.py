@@ -1,13 +1,20 @@
-from shiny.express import ui
+from faicons import icon_svg
+from shiny.express import input, ui
 
 with ui.card(full_screen=True):
-    ui.card_header(
-        "Project Overview",
-        class_="bg-primary text-white"
-    )
+    with ui.card_header(class_="bg-primary text-white"):
+        "Project Overview"
+        with ui.toolbar(align="right"):
+            ui.toolbar_input_button(
+                id="view_details",
+                label="View Details",
+                icon=icon_svg("eye"),
+            )
+            ui.toolbar_input_button(
+                id="download",
+                label="Download",
+                icon=icon_svg("download"),
+            )
+
     ui.p("This project analyzes customer data to identify trends and patterns.")
     ui.p("Key metrics include sales volume, customer retention, and market growth.")
-    ui.card_footer(
-        ui.tags.button("View Details", class_="btn btn-sm btn-primary"),
-        ui.tags.button("Download Report", class_="btn btn-sm btn-outline-secondary ms-2"),
-    )

@@ -24,13 +24,16 @@ listing:
   contents:
   - title: ui.card
     href: https://shiny.posit.co/py/api/ui.card.html
-    signature: ui.card(*args, full_screen=False, height=None, max_height=None, min_height=None, fill=True, class_=None, **kwargs)
+    signature: ui.card(*args, full_screen=False, height=None, max_height=None, min_height=None,
+      fill=True, class_=None, **kwargs)
   - title: ui.card_header
     href: https://shiny.posit.co/py/api/ui.card_header.html
     signature: ui.card_header(*args, container=..., **kwargs)
   - title: ui.card_body
     href: https://shiny.posit.co/py/api/ui.card_body.html
-    signature: ui.card_body(*args, fillable=True, min_height=None, max_height=None, max_height_full_screen=None, height=None, padding=None, gap=None, fill=True, class_=None, **kwargs)
+    signature: ui.card_body(*args, fillable=True, min_height=None, max_height=None,
+      max_height_full_screen=None, height=None, padding=None, gap=None, fill=True,
+      class_=None, **kwargs)
   - title: ui.card_footer
     href: https://shiny.posit.co/py/api/ui.card_footer.html
     signature: ui.card_footer(*args, **kwargs)
@@ -47,10 +50,23 @@ listing:
       height: 400
     - title: Express
       file: app-variation-header-footer-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IygO6cK7eZyzEoDACYAKOnIA2ZgPqtiw6gF4AKgzlwAlImXJv23foOW7HBQBnAMRl4+UYpgAApMAFZwxLIA8gBuYemccKoxBJFR3sRmUKKW9jEARgDmALRCEvq4yFT8FHWqXFQxhchufQo4EWCOXGJCpEkpyFDQZrgAXiLIxHKsFMxhyAZQFFCtpOKhlJx0LRTCEAZicwbI6HtUDBCsWDEDEFFD6CMA0nAWvBLpxiGJuCU5KE2FAzCt0qQzHJ4EQ1hstgxkMIqKdyEQ7sgYPoANZwWQ1JiqTTvMCfb46PSGSx0UikZ4RL5FbxDfY1N5VOQUTYQEYANRyqmQABEyVBOGZWPlVqVypUwFUKF8NRA6qwWNqGgwmgxcB8CpyuTyoHysAKheQRlLSKoIGZSCFkAAlOBSGRKkplVgVaqa5AGvVhzV1UiCszcOC65LkXYmwmsOoAJjNfU+hFQFFw6AQKDAbQoYAAvgBdIA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4scAB7oGcbr36DhfCOgCuFIhfbz5Ad3YUVyW1mJQGAEwAUdCwAbQIlifWoAXgAVBgs4AEpEeWQU5CcXN3YPL28xFTgobzgGX2JAqEMxCNkwACNpAFo9fi9cZCptCgaHNSoaxOTUoZqABSYAKzhiEQB5SWLJdjgHGsGhlPTXdwpSUkDar18oQPZpCGqwBlOVCn6kiHXHzKwdvYOGMXVLCjFaqx2IL41k9HuxvBdFssxEUKBxAtwagRgSChuVanBAhcAGpLBzIAAicFh7HhiORKJSnHIESpEAkMiBYDguDg-SRDwpyHi5Me212+y8n3MVl+-3IQI5nNSYIu3lIDgggVIhTJkqlyDRGIu+PliuV3lV6ulXBp4ik0kZcoVSpVYHi7Kl3IgwPc6EZUTUvD0pEm02QUGggVwAC8DMhiBZuDt4AxkN4oLD2qQ+EVKOw6G0KPoIN5eAHvMh0AmqAweFh+i6sm6agBpZnIeBZzhGCBlCxFZTHMOSPYWeBECNR5jFZD6Khp8hEfMNrwAayJyGkTAcLnLdvkhFQFFw6AQKDAHQoYAAvgBdIA
     - title: Core
       file: app-variation-header-footer-core.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEArpwA6EORnQB9acgC8yaTigBzOEroAbaQBMAFHORXNnLMSgNzl6y633HS9nCgm4DCxAuQdYyYAAKTABWcMQiAPIAbn4JnHAA7qEEzsEuxIZQrKxKaqEARjoAtOgM-A68VAAeFBVpXFSh2UEAlFmBOW4OJkqlpCa4ATlBWugWYAAqXKzI1aTRschQ0Ia4AF5wS8SSrBTMfsgmUBRQyCd8vpScdPUM1CZLmybLl1QMEKxYoR6nUm01mAGk4Lx4BQasQltw8pJfGwoIZ9sgEqRjPAiIdjqcGMgXlQHuQiB9kDAHABrOAiHRMNIUdgAsBAvrBdkg2zuIZ0UikH4TSbWLRXHT-UqSCgnCCzABqqTSyAAInSoJxDKxMsg8gUiiUwKUKIFjRAKqwWGaqjUqQxcIDeiLRbZxZLpbLZirSGkIIZSD5kAAlOCCYQ6vWFYplE3Ia2WuMmiqkaWGbhwC0xcgXe2U1gVABMjuB1i5OTokkMhiUrGIL2oajmDEkcE6XTk7fkXd8dDYyT8Zm46GlRBTFGHFCIrH2rE45C6iE66H1clX0Ew6jEmDMihUnCn-YYncIqAouHQCBQYEaFDAAF8ALpAA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIgFd28+RnRjjyALzJjOKNLhi6AG2MATABTzkfu+xYxFAM3r7+EfbBoWIqcFAecAw+EBFp-rJgAApMAFZwxCIA8pJJkuxwAO6ZBOHpkYEUpKSuAEYhKfVdAVhNLe0MYurohhRiraNNEJ3ds+we1pnlVWKJFByu3DV1s-WuUK1wrotgAGoVlcgAInDr7JvbqbtdnOTWrxASMj5gcLhwmQAlLUns8-MCds97H02iEhhARmMJhQpjMwWl5icPKRKhBXKQEo90el9odjpkrji8QSPETiREPu9xFJpD9sbj8YSwBDQWCefSoK52NIICcGMKVBQ6bN+btiPtuNwxCdWtIALTocUwEKaKgADwoasqaiomUh-ll6SiIQ841IHlwaO69nQPwAKmpeJrSPlCsgoNBXLgAF5wXjEQzcJrwBjIDxQdbIJp8RKUdh0XUMageXgBjzIdAJqgMHhYIEgqGBV2ZADSf2Q8Ao4uIvHU8sMiWUgrDyEkLUM8CIEajzCSyCzVDT5CIeYbIQA1rdkNImJUKCoy9yK-VLWk6IZXK4JMQs9RrG6GIYAbzAfJbxBTBBEnRlGUkl5hqMiKRRoiiNww24dhyEBRAdkLRVHzMTAbGQfRXXMSx2H-N8GHvQhUAoXB0AQFAwH1CgwAAXwAXSAA
+  - title: Card with toolbar in header and footer
+    description: Use toolbars in the header and footer to provide interactive controls
+      and actions.
+    apps:
+    - title: Preview
+      file: app-variation-toolbar-header-footer-preview.py
+      height: 400
+    - title: Express
+      file: app-variation-toolbar-header-footer-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4scAB7oGcbr36DhfCOgCuFIhfbz5Ad3YUVyW1mJQGAEwAUdCwAbQIlifWoAXgAVBgs4AEpEeWQU5CcXN3YPL28xFTgobzgGX2JAqEMxCNkwACNpAFpvLwBrZCptCgaHNSoaxOTUoZqAESgKKGQAQWhA3G52XgAlOBMKGsGhlPTXdwpSUkDar18oQPZpCGqwBguVdbABiC2XzKx9w+OGMXVLCjFalZ9hBfJtXi92N5rvpGAYVDUCGDwUNyrU4IFritYaoEUjkSlOOQIoSIBIZKC0AwmA5uA0mBM+o9Ec98ch4niXnsDkcvD9zFYAUDyKCWazUpDrtw4BQKOppNxcaKxchUejrgBlaWyiDyxXK8VcYniKTSCnSAoMfrMsXsiBg9zoCkzM7zRbIUh0ZAARQALMozgZkM0JsoVKQachJgAmADMAFIzGEClKzMh9JJqHFkGQBF44N52qRvTGsP17VlHTUAMIWbj7eAMSPEACOtgWsvI2dIdd4RSTFXzyFquGQAEYAKxxog9diBOBp6XUDvPBjjQPGJgZgvD5AADjjpce9iVOzenh8YjoByoJSe4NPXM+JzvrMfPO+vwFgJlwo5yIlNQ6Gser6iqUBohiNQAKK6EIDzWqBJJGuQZKmjUdCznADRAXBVp-kMtpim+Xx8n8go-iC+GvABYCqHmIH6qqkFgOqKj0YQVEQoaJKoRSdH6A0ECkEUCpMpxbLicRvLcOgUDEMUviEa+WQfO+pFfkKlFKmKNHcFAGYMcqTEavpcCGTp3HGuS6GBKQmC4E0iwtHh2mvLahCoBQuDoAgKBgB0FBgAAvgAukAA
+    - title: Core
+      file: app-variation-toolbar-header-footer-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIgFd28+RnRjjyALzJjOKNLhi6AG2MATABTzkfu+xYxFAM3r7+EfbBoWIqcFAecAw+EBFp-rJgACJQFFDIutCuuNzsvABKcILCmQTh6ZGBFKSkrgBGISkN3QFYza0dDGLq6IYUYm1jzRBdPXPsHtaZDHCMcKq19XMNrlBtcK5LYJVrG4Rb22mc5NbXEBIyPmgMTADu3AC0THlUmQCUdVSl38AIu23s-XaIWGEFG40mFGms2BV0WmW4cER6mk3E2QJREV2+0OmQAypiKNjced8QS-HdbuIpNInk4Qv9AXTQbTLlBXOxpBAjgwBSoKHjLtzLsRdtxuGIjm1pB8PCEANbIKgADwoH1eal+YDBfilDSiIQ8E1IHlwyJ69nQT0KfJKZWQpDoyAAigAWZR89bIVV5ZQqUjvZD5ABMAGYAKR8CDEFZQDGJ5ArSTUQxwZBkAQhOAeTWkb0xrAc41pB1PADChm4zXgDEjxAAjsZSpTyHnSI3eIlk-EMcW2poAIwAVjjRH17FcuZWVEo7B7DFygf46CYWdHmgAHHGK2BTelT9XAtFLXQWlRklXGn0WlD7zzwU1n4MYXCJlNyHa6QWI44C1apxRpOlCT2A4jgAUVAnQJUg+kuEZcgHhZTI6HnOAPhAsDKzfOZz0uCFP2hEYxl-RF-wfbYgPRFRCyQ5CiRgskmJWFjIIZO4MKeVRCw+CBrXWQiuU5AkyIGaFuHQKBiCSLwSPfJ8ZKGSj4T-GY6PmNEwG4KAs24uk2JJMBSSMuATIJXimUeLDXFITBcBVMo1XEgkVLPSSfKrOhDFcVwJCHahrAAFQYHMtj+eRYogUwIEST0MQYLNkk0ohSDGOEiAxOVVwgP5EC2eS5USsxMBsApMC8cxLHYPKknS+LCFQChcHQBAUDAbUKDAABfABdIA
   - title: Multiple cards with layout
     description: Use layout functions to arrange multiple cards in a grid.
     apps:
@@ -64,7 +80,8 @@ listing:
       file: app-variation-multiple-cards-core.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEArpwA6EORnQB9acgC8yaTigBzOEroAbaQBMAFHORXNnLIai5SkikrLGYEJQHcGGCxGtAmyxiKAZzSyCorVDwpXY4KBM4BgswAGUoQzhWGTAASgJIqMCYsJMlACNSE1x-Eobg9gBmNIASABYAVgIAJmaARjzC4sbS23Q0gFV0ZAHegFJkRmZke1YRGHIKdjyiYnXWJTU8qgAPCgBaVkliYhzcgtGGkYCx5clDQyVWYgY4ahqAAqDEkcGe1leDTK4Xq7xhFQSSRSaQAwpINswUo8ofDbLEKtVanD3tYtC00r0CM1usMim9SVYtJM8jNkAAOJYrFjrTbbXaEZAHKCsI4nMDnK43O4PYYQqK4sZ0T7fX7-QEgsHy5CKoIIkmNBHxRLJVJ5VHkABu2M45GQACUoFQ6drxiFylUanVXSVya08s0sIsXQzGcy0gARUheAKLZZMHkivmUAX7Q7HU5wC6XExQCB6Bhy0Mvemk5VfH5-AEQYGg8HFyGlkpeTgmHZqAYAemaTaiCU4OnYFHFvQADKP0Gc8qN8nJZ-IF8k6GwUtbUtx0M4iE4KJuKERWA9bRB8ohRugRbkFwpMOoxJgzIoVJwD6uUvPBRLcOgECgJVmKDAABfABdIA
   - title: Card with filling plot
-    description: Cards can contain filling outputs like plots that resize to fit the card's size.
+    description: Cards can contain filling outputs like plots that resize to fit the
+      card's size.
     apps:
     - title: Preview
       file: app-variation-filling-plot-preview.py
@@ -91,18 +108,18 @@ To add a card to your app:
 
 1. Add `ui.card()` to your UI.
 2. Place UI elements inside the card as direct children, or use `ui.card_header()`, `ui.card_body()`, and `ui.card_footer()` to organize content into distinct sections.
-3. Set the `height` or `max_height` parameter to control the card's size.
-4. Use `full_screen=True` to add an icon that expands the card to fill the browser window.
 
 If you don't use `ui.card_body()`, any direct children of `ui.card()` that aren't card items (like `ui.card_header()` or `ui.card_footer()`) are automatically wrapped in an implicit `ui.card_body()`.
+
+### Card customization
 
 Cards and card items accept Bootstrap utility classes for customization. Use the `class_` parameter to apply classes for [colors](https://getbootstrap.com/docs/5.2/utilities/background/), [text](https://getbootstrap.com/docs/5.2/utilities/text/), [borders](https://getbootstrap.com/docs/5.2/utilities/borders), and more.
 
 ### Card size
 
-By default, a card grows to accommodate its contents. If your card contains large amounts of text, tables, or other content, set a `height` or `max_height` to control the size and enable scrolling. When laying out [multiple cards](#variations), let the layout function determine the card heights rather than setting fixed heights.
+By default, a card grows to accommodate its contents. Set the `height` or `max_height` parameter to control the card's size. If your card contains large amounts of text, tables, or other content, setting a `height` or `max_height` enables scrolling. When laying out [multiple cards](#variations), let the layout function determine the card heights rather than setting fixed heights.
 
-Pair `max_height` with `full_screen=True` to provide an expansion icon. When users click the icon, the card fills the browser window. The `max_height` constraint only applies to the normal view, not the full-screen view.
+Use `full_screen=True` to add an icon that expands the card to fill the browser window. Pair `max_height` with `full_screen=True` to provide an expansion icon. When users click the icon, the card fills the browser window. The `max_height` constraint only applies to the normal view, not the full-screen view.
 
 ### Filling layouts
 
