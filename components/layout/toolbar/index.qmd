@@ -15,10 +15,10 @@ listing:
     height: 400
   - title: Express
     file: app-express.py
-    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IGjOgD6q5AF5k0nFADmcJXQBGpU+bNQp0owBJvOXPoO65AFQY65AOyP2AF8g5BDnElYoUSgAczgGFzhLZBE4AAk4GiMNThAqCMQUSDhrOBMYMgAVKN88ADVs0jggA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4scAB7oGcbr36DhfCOgCuFIvogATOAyIX28+QHd2FFchdZiUAx2ABR0FgA24RLE+tQAvAAqDBZwAJSI8shZyJ7evuz+gXZiKnBQDgzB6ZnZtbJgCaSk4QBGgcgAotqw6OFw9TW1Wbk+fhRNrYHBUOHs0hBx9QxzKhT11RBDW-lY481tDGLqlhRiLVbjEMGD21vsdotoxBTs5ACM9QQ3t7XhUC1wcKPACCz1eEE+3x+WU45DisIgEhk1zALWaazAqS+m2hyFSUK2YwmBzEdnYknujiqBKGRP2gSO5isEkBcGe1xxuOy90epHQL3I3EhnK5yD+AKB9QA8vzwULCDTbsQVKROAY4sBpbLyMgPoRkFqBZsAEyfA1gGVG5AAZnqAF1saLuVx4eIpNIUdxZhV5VjFdl8RCRQABWwVXY6NYihx0ZB7SaHbgUKAUCzcKoZEW1fSphibOj1ABCFx1xFmxAA1twUCBjlYsFAwe8qgBfIgAZVZzzgdhrdYoWD5RvTqRbAwg+rAFFw6AQKCnkbALbtQA
   - title: Core
     file: app-core.py
-    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGjOgD6q5AF5k0nFADmcJXQA2qigH1V3nNJxQA5nCV0AogCkw0jg4UjA4F2R+MjgAWhDkUJJWKFEoAHM4BmyoUIB3OFYKNlY2AG1cgs4S5AAKV2QlFN9lCkS0soxLRQArczg4CmMKYxKHC08IACoMcnAASk5kAGJkAB4ZigArUZ9ZOBp1RQLXC2QAVTh52Wk4Ujx0BAoYEe6IXQA+IA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIg2oATOAyIBXdvPkZ0Yq8gC8yKzijS4YuuwAecYwAKeWRQ13YsYigGIJCw+LcomLEVOChTBmCIeJyw2TAAFVJSABsAI2jkAFFfWHQSuHyCONyEiIpi8uis1t7wrA7SioYxdXQLCjEyiY6IHr6F9mMnfKhiCnZyAEYmloXWkqgyuBKVsF11zYhd7P3eznInB4gJGWCwMtKKfIBKZtu7qE-ns7m5Bl0RsZ2JIlmZAsCAYCwZ1hqMIONJtwTnB1vNATklmdSOgNuRuDd8blDsdTvkAPIkq7kwggynEFSkThwbhOYD0xnkZA7QjIfmk7IAJiaorADPFyAAzPkALr-SkErhPcRSaTvbglWEMZkI9UmylQA3SCBnBjsaQqb4sxG9M25V05RLRYxTUjGXB4vpuUgTDFiKi+CjvcGo7gUKAUCzGtWtd3xOgWEolCTEIzUJwFBgWODJoHyH42a4QUx0ZRmSRwsYTIjBigYohY7jcK4-RB7AACRirZgGcAje2ryGj0QkcYT3HhvedYSMCYY2To+QAQjNBcQDcQANbcFAgRsULBrcVbeEAXyIAGVsesAiez1hieL5z8b-kK7ZMM4yD6OggR2A47DtnWZjlhAIpgBQuDoAgKDwaOFBgDeypAA
 - id: relevant-functions
   template: ../../_partials/components-detail-relevant-functions.ejs
   contents:
@@ -27,10 +27,12 @@ listing:
     signature: ui.toolbar(*args, align="right", gap=None, width=None)
   - title: ui.toolbar_input_button
     href: https://shiny.posit.co/py/api/ui.toolbar_input_button.html
-    signature: ui.toolbar_input_button(id, label, *, icon=None, show_label=MISSING, tooltip=MISSING, disabled=False, border=False, **kwargs)
+    signature: ui.toolbar_input_button(id, label, *, icon=None, show_label=MISSING,
+      tooltip=MISSING, disabled=False, border=False, **kwargs)
   - title: ui.toolbar_input_select
     href: https://shiny.posit.co/py/api/ui.toolbar_input_select.html
-    signature: ui.toolbar_input_select(id, label, choices, *, selected=None, icon=None, show_label=False, tooltip=MISSING, **kwargs)
+    signature: ui.toolbar_input_select(id, label, choices, *, selected=None, icon=None,
+      show_label=False, tooltip=MISSING, **kwargs)
   - title: ui.toolbar_divider
     href: https://shiny.posit.co/py/api/ui.toolbar_divider.html
     signature: ui.toolbar_divider(width=None, gap=None)
@@ -50,46 +52,49 @@ listing:
       height: 250
     - title: Express
       file: app-variation-with-spacer-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IGjOgD6q5AF5k0nFADmcJXQBGpU+bNQp0owBJvOXPoO65AFQY65AOyP2AF8g5BDnElYoUSgAczgGFzhLZBE4AAk4GiMNThAqCMQUSDhrOBMYMgAVKN88ADVs0jggA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4scAB7oGcbr36DhyAK7t58gO7sKK8+yzEoDACYAKOmYA2PicT61AC8ACoMZnAAlIjyyPHItvaOzq5uYipwUG5wDB4xcQlFsmAAyug+dsihpKQ+AEauJYVF8UkOFlgUtQ2uHlCV0hDBJT5wdBQlRLZu9iNgAIwADEsApCUFEK3bKd11jQxi6uhmFGL1p90QHi072+xu843EANZTt3dFPlD1cD7zACEoK93ltPvcuMFOOQJDIbmgGExrABaMYTDYED47KJY7adPa9Q7cdDA3L5XGtfE9A5HCAnM4XChXG5g8FFB7zTI+dCgtmtb6-f4lAASfx5hApd2hw2lsOk8NcSORDHY0hUkzAUUxrM+OIgt066HhNX2rmUJOIuWQJ1UBmQjKuvG6yFImFI3DscGQ1Dc3CwG3khFQFFw6AQKDAVG0FDAAF8ALpAA
     - title: Core
       file: app-variation-with-spacer-core.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGjOgD6q5AF5k0nFADmcJXQA2qigH1V3nNJxQA5nCV0AogCkw0jg4UjA4F2R+MjgAWhDkUJJWKFEoAHM4BmyoUIB3OFYKNlY2AG1cgs4S5AAKV2QlFN9lCkS0soxLRQArczg4CmMKYxKHC08IACoMcnAASk5kAGJkAB4ZigArUZ9ZOBp1RQLXC2QAVTh52Wk4Ujx0BAoYEe6IXQA+IA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIgFd28+RnRjjyALzJjOKNLhi67AB5wAJgAp5yf3bsWMRQDD5+AZH2IWFiKnBQnnAMvhCR6QGyYADK6AA27CIAKqSkeQBGoVkEERlRQRSlFaGpdW2BWI1llQxi6uiGFGLlg40Qre2T7J7WWZXEANbVtZN1eVDlcHmzYABCUIvLaattnOTWZxASMr5oDEwA7gC0eXB0FFkAlDXHJ-7fKxO9i6zV63HQB2S3gBvz+wKaPT6EAGQxGFDGEz+6WmO3ieXQRyxGXWm22WQAElsCYRAUTLhdxFJpLdQo8ngx2NIVB8wDCicg+USoAVpBAdq93oSiQ9phQVDsAIwABiVAFIpZNBRkteloqFPMNSJ5cJj2vZ0LcSt1QsoIcRksgBqo4Lw0WNeI1kKRMKRuIU4MhqJ5uFgvj82jrInRDHk8hJiAw4NRrEUGIY4OGAp95NmIKYIEk6MpkpIof1BkRSIMUURuC6-eRPogVhDuNx82ZMDZkPoLeZLOxayXkrnCKgKLh0AgUGAqG4KGAAL4AXSAA
   - title: Left-aligned toolbar
-    description: Set `align="left"` to position the toolbar on the left side of the header.
+    description: Set `align="left"` to position the toolbar on the left side of the
+      header.
     apps:
     - title: Preview
       file: app-variation-left-aligned-preview.py
       height: 250
     - title: Express
       file: app-variation-left-aligned-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IGjOgD6q5AF5k0nFADmcJXQBGpU+bNQp0owBJvOXPoO65AFQY65AOyP2AF8g5BDnElYoUSgAczgGFzhLZBE4AAk4GiMNThAqCMQUSDhrOBMYMgAVKN88ADVs0jggA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4scAB7oGcbr36DhyAK7t58gO7sKK8+yzEoDACYAKOmYA2PicT61AC8ACoMZnAAlIjyyPHItvaOzq5uYipwUG5wDB4xcQlFsmAAMnB0FAC0AII+7NIQcG7IoaSkPgBGriWFRfFJDhZYFO1drh5Q9Y3BJT4VFCUFEP2rKaMd3Qxi6uhmFGKd+6MQHn1rq+xus2BmEG6kJQTnF0U+UJ1wPjcAqvePhBer3inHIwVBEAkMjOYCYFCgVCq80qS2eK2ByCiQNWww2422u32h2O5DO6IxCSuN30Dye2Ne70+3xKACVmgC0RSihDweIpNIYXCEXAqgwGipFmAopyMViIOdhugYW1Nq5kFMGk0WqNkPY4MhkSJuFd9aQ6LrMshMtlclglvJCKgKLh0AgUGAqNoKGAAL4AXSAA
     - title: Core
       file: app-variation-left-aligned-core.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGjOgD6q5AF5k0nFADmcJXQA2qigH1V3nNJxQA5nCV0AogCkw0jg4UjA4F2R+MjgAWhDkUJJWKFEoAHM4BmyoUIB3OFYKNlY2AG1cgs4S5AAKV2QlFN9lCkS0soxLRQArczg4CmMKYxKHC08IACoMcnAASk5kAGJkAB4ZigArUZ9ZOBp1RQLXC2QAVTh52Wk4Ujx0BAoYEe6IXQA+IA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIgFd28+RnRjjyALzJjOKNLhi67AB5wAJgAp5yf3bsWMRQDD5+AZH2IWFiKnBQnnAMvhCR6QGyYAAycHQUALS6ADbs0hBeyAAqpKTFAEahWQQRGVFBFLUNoaltfYFYnXWNDGLq6IYUYvWTnRC9-YvsntZZhhCepM2ti23FUPVwxatgAKobW4Q7u+mc5NZ3EBIyvmBMFFBUBcV5FFkAlC00jcAoDrrt7ENuqNxpNprNyAsQbcVlkGF5LkDkRl9odjlkAEoY7bA7EBR4PcRSaSvd6fOAFBhlFR-MBg0kg9lkqClconH75Ek3LltEUZaKhTzTUieXBI-r2dCvGrDULIHllCqeZCdHXxZACkTcZZwZCkOh603xRLJLAArGih0ZOiGYrFCTEdHUaxVBiGOBO5D-eTBiCmDZ5ZTJSTJbywihEUiTCYJqPcY3kf6IHboKDp8NmTA2ZD6JXmSzsIjcaPJUOEVAUXDoBAoMBUNwUMAAXwAukA
   - title: Toolbar in input label
-    description: Use toolbar as the label for `input_text_area()` or `input_numeric()` to add formatting or action buttons directly in the input label.
+    description: Use toolbar as the label for `input_text_area()` or `input_numeric()`
+      to add formatting or action buttons directly in the input label.
     apps:
     - title: Preview
       file: app-variation-input-label-preview.py
       height: 350
     - title: Express
       file: app-variation-input-label-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IGjOgD6q5AF5k0nFADmcJXQBGpU+bNQp0owBJvOXPoO65AFQY65AOyP2AF8g5BDnElYoUSgAczgGFzhLZBE4AAk4GiMNThAqCMQUSDhrOBMYMgAVKN88ADVs0jggA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4scAB7oGcbr36DhfCOgCuFIvogATOAyIX28+QHd2FFchdZiUAx2ABR0FgA24RLE+tQAvAAqDBZwAJSI8shZvuz+gXZiKnBQDgzBsmAJOiIAonZeQsie3sgAYkIwUBQU6tLICaSk4QBGgRWpbhDZOVjqlhRiVNoLgcXlU9PZFVxUlBUEmZtZ4VDDcOFxfhSDI4HrR0dXN6MMYnNWYsNW1xD3D-8VYZDOz7Q7-I4nM4XCoAIWBoI24M2nHIcRREAkMnKYCB4RBYFSB0R4MJYPBTyGLze5g+X265D+SOmFS8UHCnARTM2kPOcQqAEkKGyOYQyVz0WjxFJpNjWeziOMiVzScT-hTbq93gs6T9GVzkNtSA5OfrjqdeRUAMJGuAm00S9GYmWG40EpVMlVc4XSCB8sAMdjSFQUO2bT0PdAnYhwFTAxx+hK4dBwZC4UgWBjIHbUERFfRYAuh6ZMdzcOIADndWQmEDJAAFbKUsEsQ8SHHRWB0uj0INIJEKKBZuMF0mLsvpBwwpnRYcCUCAtVhcSFUgBfZAAH2QguFxHni7lnBH6631oc+5pFH8NuPFXkhFQFCTCBQYBbYFXAF0gA
     - title: Core
       file: app-variation-input-label-core.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGjOgD6q5AF5k0nFADmcJXQA2qigH1V3nNJxQA5nCV0AogCkw0jg4UjA4F2R+MjgAWhDkUJJWKFEoAHM4BmyoUIB3OFYKNlY2AG1cgs4S5AAKV2QlFN9lCkS0soxLRQArczg4CmMKYxKHC08IACoMcnAASk5kAGJkAB4ZigArUZ9ZOBp1RQLXC2QAVTh52Wk4Ujx0BAoYEe6IXQA+IA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIg2oATOAyIBXdvPkZ0Yq8gC8yKzijS4YuuwAecYwAKeWRQ13YsYigGIJCw+LcomLEVOChTBmCwABU4XxEAUWN2CiFkAHcSlWQAMSEYKAoKdWlkbNJSABsAI2jZMABKAjj40MTo4zFu0mNcYIhRxfCsdXQLCjEqfLFotPmlg+R+ripKfuGFw8XOqG64Tqc3Uq7ezJGrpaeOnuixVfWputShB9h8wf1pp1jOd3mCDjc7g9+gAhLrQwiwuGLTjkJw4iASGRZSHooaYrFky5YhIRZ4-Bh-CBrDbdIHkUHUpb9EpQTqcGFUzmjBH3Jz9ACSFF5-IxgqFYXxePEUmkWR5fOI-Up8tC2p1Xxev3+LLZIPJQuOMzgAp1wtuov6AGErTbbQquEryITVZbTFqLra9fLpdIIGKwAx2NIVBRXRSA9T0DdiHAVGizOHsrh0HBkLhSBYGMgTtQRKkjFhK3G4UxytwnAAOBNXIOHNwFijMzZ5ChZOj1RrNCDSCRSigWbj+82t+J0CydToSYhGahObIMCxwZvIAbyXcQGwQUx0ZRmSRmQLGogd5lEbhwbjcdjkAaId4AASMR7MWC2scFx6sAOTQtKOjQToEr7mkY44MAsdAomiKAgMaWAkpBAC+yAAD7IJK0rEMhqHqpwmE4cgzqmERTLrJEVqYf0h62JgzjIPo6CBHYDjsHeZ5mPuhCoBQ2YICgYB-mAGEALpAA
   - title: Toolbar in submit textarea
-    description: Add a `toolbar` parameter to `input_submit_textarea()` to include toolbar inputs in the `textarea`'s submit area.
+    description: Add a `toolbar` parameter to `input_submit_textarea()` to include
+      toolbar inputs in the `textarea`'s submit area.
     apps:
     - title: Preview
       file: app-variation-submit-textarea-preview.py
       height: 300
     - title: Express
       file: app-variation-submit-textarea-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IGjOgD6q5AF5k0nFADmcJXQBGpU+bNQp0owBJvOXPoO65AFQY65AOyP2AF8g5BDnElYoUSgAczgGFzhLZBE4AAk4GiMNThAqCMQUSDhrOBMYMgAVKN88ADVs0jggA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSIZwoxCu0lx5ilqvW4scAB7o93Xv0HC+EdAFcKRPRAAmcAxEnuzy8gDu7BQqyKFYxFAM-gAUdJ4ANhkSxHrUALwAKgyecACUiPLI1XHsCUn+Yir6gQwpsmAAsnBOUNJwyADCzILcQR1l4RA1yFExtVgZULik3mJkGZ4wPCkbYlH+Mdz5wABsRKcAuhVVMzXx6l4UEp4ARjDRYlS2FEn67dM7kCOvBev0OgRbkCZktXnAMvkOt0waZCFDodV0EtiHAVKQMq1EWBhtoxsgVp4GMhQdw+nAsAyIeiMUwIsdzszoRRSPjXkl8vFubykgCMRjBTyMnyGGJHmsxhk4IZRWLVR0HOwhNFcEzAaqMbD4USAAoMTVmig6tF6-VA4h4zg9fIgDoZUgRDooDoAGXdEOQILg-nYW09Aa6QZDMH9HTU0hUYY6AAl2PGOgBfSE220zBVKqj+InwYOh6056Gccj5SsQCQydpgOhLORgMpZ8vVNuc1US4Uy4OSditFJd7P63tSpKyjxrV7ebkQFUdmodKAUX723XLmFQOEIjoAQXXBgTZe31Rr1fEUmkDfQGCCxAy7HQE3bHdHy6gz+kECJZvjCgt31T9oUmCBu1maJYniAcR0qMcgXiFQAFYGwAZWoERkVpfpuAmKZbQAAT8VosFCSCZkCOhqR6XCejEVYKCeeDKOhGBuGkMRn24ER8lolFuCwfoKBHNigXYGiIFIEQOK4niKAQ89qj0ChKWmeJ0AbAA5UgBPo3gxkock4AoLB-V43BFSJDYhBQABiAAOZyAG4CIgxCxWiOAOOQfjgEucS7joIRqU49xkD0EwGDGVI5O49heJuTzbW8jisAwdBqFSILbVg4wl2UpC6l4pgIFvOgOhAOTgAAcg1LVLVqy4sCMChFRHdNkFNc1tTfXKO3iV42lAoriqwbh70XGqOm+ICwGud8xruSzrPVKB-GDcqUEc9BbBc6kkmkdQAFpXhk7kYB2vaDvO5IghQABGPblHxIdkHszb-FuoRWhOhgNpDbgUAAFhu5Bg0mpZcBQV43WIABrNyz2W8CirRjtVPUhY4IAKjS7hwKmGk6V4fi9AMIwTCwSRv1KFIAqJjySP0QxjHpOA6DofN5BZyn2ZsExKBSOUzJJ-pwOo5AxFYm1xbgL47D49wniweWxJtBqLU0fjRZwM1GtwDWZkk-S6UVn5kCgAIzf6C2zNKl9ZYxYhKT8ZWFJSeWhJEkcMbtN2sIyzBspSF0wDmsN5ftoh1QN7Wwy17V039u5vYm0zdkDyhwMIVBLSy2gI6VsB00uIA
     - title: Core
       file: app-variation-submit-textarea-core.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGjOgD6q5AF5k0nFADmcJXQA2qigH1V3nNJxQA5nCV0AogCkw0jg4UjA4F2R+MjgAWhDkUJJWKFEoAHM4BmyoUIB3OFYKNlY2AG1cgs4S5AAKV2QlFN9lCkS0soxLRQArczg4CmMKYxKHC08IACoMcnAASk5kAGJkAB4ZigArUZ9ZOBp1RQLXC2QAVTh52Wk4Ujx0BAoYEe6IXQA+IA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIgzhRiFdpLiHqAEzgMiAV3bz5GdGKfIAvMic4o0nBidOwAHnDWABTyyLG+7FjEUAxRMXHpfkkpYirGtgzRYACycNzcAXDIAMLMgtx2smAAlARp6bGZydZiAEak1rjREO0j8VgANlC4pA4UYmTjDjA8Q6NrY+rosxIOPTDsc1ShFMnGq+sXjfBlFY2twxfrkz1w416NJTeBd22PI+iTYhwFSkcb5d5gGraerIaYOBjIa7lQJYVE-B5-EZMADu3C8ADZ7pjRhRSKCeskvH5SeTkudiWtqWTxhSGGJNtt6uM4KZ6QzLmB0Ax2EIDrh0fy-s9XhCAArC0UUcWEX6S0bEEGcUpeECNcakbGNFCNAAyBruyCuEXYSyNluK1tthHtamkKjtjQAEuw3Y0AL5EtXrLk8qjWCHwaw2mASoNrTjkLwJiASGSFOiTOTNQNx2ItVVBpm0tlRyTsfKRfMY3NFlnJdkQLZzHqzUkQPm5uKNKAUE4a2Od9LSt6NXS9kzulXVweiRPJ1PSQroDB2YjjdjoRpVmfbwdQdfSCAQ4VuigDyW74mXzF+Usdhl+FQAVkKAGVqCJPsjSluc5K-DMFBNh47CFEiFTcGIgFNr+BYXNefwLGI2LlhQKh4sAhLIPiAC6f5rAhcSEbEdAOOM4wSMQRjUF4AAqDAOJYvxNPILEQC4EC2HQyh2BYBQchQRDQbMRD1GUIoQE0iC-OBgS8D4RgmGYFhYJI+6MZEwA4WxvwAAJGJxdhYE4vxcYipTfpBwkUJW0nTnEMDcNIYjrtwIg+LJpRYIENlsfG3EQKQIiOc5rkUHZfxGBQ8LDH46CFAAcqQ5lfKUPGULCcAUFgFpubg3IQgsQgoAAxAAHBVADcW4cfGVCOd4yBaXBrBCIiTl8MMRh8fUUQhS57BuVJLXpAccCOVgbg2PeFy3uYM03gkblMBAi50I0IAhcAADkQoisKSrbThWBmBQ3KVn6yDyvtYqwfZxJ+D0BTEYtWDcMu7ZbY0RxnmA2n4QyeUFY0y7WFGq0oGV6ChJViLJNI6gALR9L2zCQ9DsN9CkdgoAAjNDyiguWyAlWD1iY0I+SIwwUBRg43AoAALBjyBRu9ky4CgPT6sQADW1VTvyfmPMLWJZTFYx3gAVGNjk6dW+nGKY5hwFgcB0HQoZ6YpysqXAFiUJEAlYJ5ous+ryBiLZLWeWIP2NcbnmVi1e2KpoPjG67B2DGbo3cbb9tQJxKXfnbcDHG9FDCvFw33e0xDwgZ7nIGFkSedw3lZZWvvqonH6TZg026mAP12gH4eCfaXu3bQ1dKn6OcjOnb1ZwnDBJ-LriYI1+jxW4IGibxdhsc6Je4OgCAoCXFdgH6OFAA
 ---
 
 :::{#example}

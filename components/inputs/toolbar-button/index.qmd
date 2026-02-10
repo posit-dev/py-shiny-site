@@ -15,19 +15,21 @@ listing:
     height: 400
   - title: Express
     file: app-express.py
-    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IGjOgD6q5AF5k0nFADmcJXQBGpU+bNQp0owBJvOXPoO65AFQY65AOyP2AF8g5BDnElYoUSgAczgGFzhLZBE4AAk4GiMNThAqCMQUSDhrOBMYMgAVKN88ADVs0jggA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4scAB7oGcbr36DhfCOgCuFIvogATOAyIX28+QHd2FFchdZiUAx2ABR0FgA24RLE+tQAvAAqDBZwAJSI8shZyJ7evuz+gXZiKnBQDgzB6ZnZtbJgACKkxBbwlMgAgsQU7OTc9TW1Wbk+fhSkpOEARoHBUOHs0hBx9QyLKhT11RBDu-lY45MzDGLqlhRiU1bjEMGDe7vsditg4VBTcFHk4bj1BPcPWpvD7hF4AGXen2QAHkID8-gC9qlEbsxhNpoFTuYrJdruQ7jtAY9nvVOOQxFB7GJgZ8EYSiUDIaD6gBJLjIADUyAhILpDKGZOWgokMjuYDspHccNI5S2-3p-OUKkl1KZiWScHl-ORCoeaKOmLOOKuFBuBMV2SeL2F31+hBRgJpzLAbPIMLhdq1FtE5Diwqk0jFdHCpEwuAAtHZ2NwANZyh21HX3AACtgqBx0mwVDjoyBNNwkFCgFAs3CqGV12X0JYYOzo9QAQnieMhiAtiDG4HZkOHuUyUCAjRQsE6xLaqgBfIiuiADodYG0eydEBukbxz7HD4WU4pOycDCCEVAUXDoBAoMBUbQUMATgC6QA
   - title: Core
     file: app-core.py
-    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGjOgD6q5AF5k0nFADmcJXQA2qigH1V3nNJxQA5nCV0AogCkw0jg4UjA4F2R+MjgAWhDkUJJWKFEoAHM4BmyoUIB3OFYKNlY2AG1cgs4S5AAKV2QlFN9lCkS0soxLRQArczg4CmMKYxKHC08IACoMcnAASk5kAGJkAB4ZigArUZ9ZOBp1RQLXC2QAVTh52Wk4Ujx0BAoYEe6IXQA+IA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIg2oATOAyIBXdvPkZ0Yq8gC8yKzijS4YuuwAecYwAKeWRQ13YsYigGIJCw+LcomLEVOChTBmCIeJyw2TAAEVJiC3hKZF1iCnZybnyCONyEiIpSUgAbACNorKa+8KxWju6GMXV0CwoxTsnWiF7+xfZjJ3z2qE64drFydtx6xsWm9c321bAAGQ2t5AB5CD2D7KP4gEoG55fQtyGu6LGIBMpjMKHMFl8cstzpxyGIoBBjGITlsnhDcsizvkAJJcZAAamQV1OqLR8RhECc5IkMmCYGMpAA7g9SOl8u9DqTVIykdczgAVBgWOAfUnsz5fH5tP6jcaTaazcjg0l8Fb5Km7faEDlojHnHHkO4PTUi5WhcmU8RSaS0ujtUiYXAAWmM7G4AGs2SaIWLSVB2uxpBT8gwAyoKCTFj6mlHcoloojOqRjLglX03KRJkCxFRfBRaSC5hIKFAKBY6mAYzlK-E6BZ2ttuMQjNQnAKhV7kK95F2IDYEXA6MozJIzIFZRQiBmKECiNw4NxuDUIK9EIcAAJGfsMQZwXOHUyDguw7jF0vcQIr7WhIylhjZOj5ABCCp4yGI-uIboCyEdhN5KBAccsAxHYjQvABfIh9QgACgPVMDXkg5BH1ICgVFgwFJiwKl4URDEIPyPtbEwZwKkwQI7AcdhZ2HMwe0IVAKFwdAEBQMAcwoMBwIAXSAA
 - id: relevant-functions
   template: ../../_partials/components-detail-relevant-functions.ejs
   contents:
   - title: ui.toolbar_input_button
     href: https://shiny.posit.co/py/api/ui.toolbar_input_button.html
-    signature: ui.toolbar_input_button(id, label, *, icon=None, show_label=MISSING, tooltip=MISSING, disabled=False, border=False, **kwargs)
+    signature: ui.toolbar_input_button(id, label, *, icon=None, show_label=MISSING,
+      tooltip=MISSING, disabled=False, border=False, **kwargs)
   - title: ui.update_toolbar_input_button
     href: https://shiny.posit.co/py/api/ui.update_toolbar_input_button.html
-    signature: ui.update_toolbar_input_button(id, *, label=None, show_label=None, icon=None, disabled=None, session=None)
+    signature: ui.update_toolbar_input_button(id, *, label=None, show_label=None,
+      icon=None, disabled=None, session=None)
   - title: ui.toolbar
     href: https://shiny.posit.co/py/api/ui.toolbar.html
     signature: ui.toolbar(*args, align="right", gap=None, width=None)
@@ -37,7 +39,8 @@ listing:
     dir: components/inputs/toolbar-button/
   contents:
   - title: Updating toolbar buttons
-    description: Use `ui.update_toolbar_input_button()` to dynamically change a toolbar button's label, icon, or disabled state from the server.
+    description: Use `ui.update_toolbar_input_button()` to dynamically change a toolbar
+      button's label, icon, or disabled state from the server.
     apps:
     - title: Express
       file: app-variation-updating-express.py
