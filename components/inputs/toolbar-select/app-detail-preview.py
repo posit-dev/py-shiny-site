@@ -17,6 +17,7 @@ app_ui = ui.page_fluid(
                     },
                     selected="30d",
                     icon=icon_svg("calendar"),
+                    show_label=True,
                 ),
                 ui.toolbar_divider(),
                 ui.toolbar_input_select(

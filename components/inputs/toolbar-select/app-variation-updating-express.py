@@ -1,6 +1,6 @@
 from faicons import icon_svg
 from shiny import reactive
-from shiny.express import input, ui
+from shiny.express import input, render, ui
 
 with ui.card(full_screen=True):
     with ui.card_header():
@@ -13,11 +13,13 @@ with ui.card(full_screen=True):
                 icon=icon_svg("eye"),
             )
 
-    with ui.card_body():
-        ui.input_action_button("add_option", "Add 'Grid' Option")
-        ui.input_action_button("change_selection", "Select Chart")
+    ui.input_action_button("add_option", "Add 'Grid' Option")
+    ui.input_action_button("change_selection", "Select Chart")
+    ui.input_action_button("toggle_label", "Toggle Show Label")
 
-        ui.output_text("selected_view")
+    @render.text
+    def selected_view():
+        return f"Currently viewing: {input.view_mode()}"
 
 
 @reactive.effect
@@ -41,6 +43,12 @@ def _():
     )
 
 
-@ui.render.text
-def selected_view():
-    return f"Currently viewing: {input.view_mode()}"
+@reactive.effect
+@reactive.event(input.toggle_label)
+def _():
+    # Toggle show_label to display both icon and label
+    current_click = input.toggle_label()
+    ui.update_toolbar_input_select(
+        "view_mode",
+        show_label=current_click % 2 == 1,
+    )

@@ -18,6 +18,7 @@ app_ui = ui.page_fixed(
         ui.card_body(
             ui.input_action_button("add_option", "Add 'Grid' Option"),
             ui.input_action_button("change_selection", "Select Chart"),
+            ui.input_action_button("toggle_label", "Toggle Show Label"),
             ui.output_text("selected_view"),
         ),
         full_screen=True,
@@ -43,6 +44,16 @@ def server(input, output, session):
         ui.update_toolbar_input_select(
             "view_mode",
             selected="Chart",
+        )
+
+    @reactive.effect
+    @reactive.event(input.toggle_label)
+    def _():
+        # Toggle show_label to display both icon and label
+        current_click = input.toggle_label()
+        ui.update_toolbar_input_select(
+            "view_mode",
+            show_label=current_click % 2 == 1,
         )
 
     @render.text

@@ -11,6 +11,13 @@ app_ui = ui.page_fixed(
                     label="View Mode",
                     choices=["Table", "Chart", "Map"],
                     icon=icon_svg("eye"),
+                    show_label=True,
+                ),
+                ui.toolbar_input_select(
+                    id="filter",
+                    label="Filter",
+                    choices=["All", "Active", "Archived"],
+                    icon=icon_svg("filter"),
                 ),
                 align="right",
             ),

@@ -11,6 +11,13 @@ app_ui = ui.page_fixed(
                     label="View Mode",
                     choices=["Table", "Chart", "Map"],
                     icon=icon_svg("eye"),
+                    show_label=True,
+                ),
+                ui.toolbar_input_select(
+                    id="filter",
+                    label="Filter",
+                    choices=["All", "Active", "Archived"],
+                    icon=icon_svg("filter"),
                 ),
                 align="right",
             ),
@@ -26,7 +33,7 @@ app_ui = ui.page_fixed(
 def server(input, output, session):
     @render.text
     def selected_view():
-        return f"Currently viewing: {input.view_mode()}"
+        return f"View Mode: {input.view_mode()}, Filter: {input.filter()}"
 
 
 app = App(app_ui, server)

@@ -60,11 +60,11 @@ A toolbar button is a compact button designed for use in toolbars within card he
 
 To add a toolbar button to your app:
 
-1. Add `ui.toolbar()` to create a toolbar container, typically within `ui.card_header()` or another compact location.
-2. Inside the toolbar, add `ui.toolbar_input_button()` with an `id` and `label`.
+1. Add [`ui.toolbar()`](https://shiny.posit.co/py/api/ui.toolbar.html) to create a toolbar container, typically within [`ui.card_header()`](https://shiny.posit.co/py/api/ui.card_header.html) or another compact location.
+2. Inside the toolbar, add [`ui.toolbar_input_button()`](https://shiny.posit.co/py/api/ui.toolbar_input_button.html) with an `id` and `label`.
 3. Optionally add an `icon` parameter. When an icon is provided without `show_label=True`, only the icon is visible and a tooltip with the label text appears on hover.
 
-The value of a toolbar button is accessible as a reactive value within the `server()` function. To access the value:
+The value of a toolbar button is accessible as a reactive value. To access the value:
 
 1. Use `input.<button_id>()` (e.g., `input.save()`) to access the click count. The value is an integer representing the number of times the button has been clicked.
 
@@ -86,7 +86,7 @@ Use [`ui.update_toolbar_input_button()`](https://shiny.posit.co/py/api/ui.update
 
 - Update the `label`, `icon`, `show_label`, or `disabled` state
 - You cannot add/remove a `border` or `tooltip` after creation
-- Use [`ui.update_tooltip()`](https://shiny.posit.co/py/api/ui.update_tooltip.html) to update tooltip text from the server
+- Use [`ui.update_tooltip()`](https://shiny.posit.co/py/api/ui.update_tooltip.html) to update tooltip text
 
 ### Accessibility
 
