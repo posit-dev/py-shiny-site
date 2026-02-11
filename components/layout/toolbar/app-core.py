@@ -4,19 +4,18 @@ from shiny import App, render, ui
 app_ui = ui.page_fixed(
     ui.card(
         ui.card_header(
-            "Toolbar Example",
+            "Header",
             ui.toolbar(
                 ui.toolbar_input_button(
                     id="action1",
-                    label="Action",
-                    icon=icon_svg("bolt"),
+                    label="Refresh",
+                    icon=icon_svg("arrows-rotate"),
                 ),
                 ui.toolbar_divider(),
                 ui.toolbar_input_select(
                     id="options",
-                    label="Options",
-                    choices=["Option 1", "Option 2", "Option 3"],
-                    icon=icon_svg("sliders"),
+                    label="Filter",
+                    choices=["ABC", "CDE", "EFG"],
                 ),
                 align="right",
             ),

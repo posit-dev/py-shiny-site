@@ -3,19 +3,18 @@ from shiny.express import input, render, ui
 
 with ui.card(full_screen=True):
     with ui.card_header():
-        "Toolbar Example"
+        "Header"
         with ui.toolbar(align="right"):
             ui.toolbar_input_button(
                 id="action1",
-                label="Action",
-                icon=icon_svg("bolt"),
+                label="Refresh",
+                icon=icon_svg("arrows-rotate"),
             )
             ui.toolbar_divider()
             ui.toolbar_input_select(
                 id="options",
-                label="Options",
-                choices=["Option 1", "Option 2", "Option 3"],
-                icon=icon_svg("sliders"),
+                label="Filter",
+                choices=["ABC", "CDE", "EFG"],
             )
 
     @render.text

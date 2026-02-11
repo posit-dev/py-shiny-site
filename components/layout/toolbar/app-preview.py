@@ -4,7 +4,7 @@ from shiny import App, ui
 app_ui = ui.page_fixed(
     ui.card(
         ui.card_header(
-            "Project Dashboard",
+            "Header",
             ui.toolbar(
                 ui.toolbar_input_button(
                     id="refresh",
@@ -15,17 +15,16 @@ app_ui = ui.page_fixed(
                 ui.toolbar_input_select(
                     id="filter",
                     label="Filter",
-                    choices=["All", "Active", "Completed"],
-                    icon=icon_svg("filter"),
+                    choices=["ABC", "CDE", "EFG"],
                 ),
                 align="right",
             ),
         ),
         ui.card_body(
-            ui.p("Toolbar with buttons, selects, and dividers."),
+            ui.div("Card body", class_="small"),
         ),
-        full_screen=True,
-    )
+    ),
+    {"class": "vh-100 d-flex justify-content-center align-items-center px-4"},
 )
 
 

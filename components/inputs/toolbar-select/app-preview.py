@@ -1,18 +1,11 @@
 from faicons import icon_svg
 from shiny import App, ui
 
-app_ui = ui.page_fixed(
+app_ui = ui.page_fluid(
     ui.card(
         ui.card_header(
-            "Data View",
+            "Card",
             ui.toolbar(
-                ui.toolbar_input_select(
-                    id="view_mode",
-                    label="View Mode",
-                    choices=["Table", "Chart", "Map"],
-                    icon=icon_svg("eye"),
-                    show_label=True,
-                ),
                 ui.toolbar_input_select(
                     id="filter",
                     label="Filter",
@@ -23,10 +16,10 @@ app_ui = ui.page_fixed(
             ),
         ),
         ui.card_body(
-            ui.p("Select a view mode from the toolbar."),
+            ui.div("Card body", class_="small"),
         ),
-        full_screen=True,
-    )
+    ),
+    {"class": "vh-100 d-flex justify-content-center align-items-center px-4"},
 )
 
 

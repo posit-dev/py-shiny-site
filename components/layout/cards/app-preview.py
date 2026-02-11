@@ -7,12 +7,12 @@ app_ui = ui.page_fixed(
             class_="bg-dark",
         ),
         ui.card_body(
-            ui.p("This card displays key sales metrics and trends."),
-            ui.p("Track monthly performance and year-over-year growth.")
+            "This is a card body."
         ),
         max_height="400px",
         full_screen=True,
-    )
+    ),
+    {"class": "vh-100 d-flex justify-content-center align-items-center px-4"},
 )
 
 
