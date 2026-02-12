@@ -37,7 +37,7 @@ listing:
   - title: ui.card_footer
     href: https://shiny.posit.co/py/api/ui.card_footer.html
     signature: ui.card_footer(*args, **kwargs)
-- id: variations
+- id: variation-header-footer
   template: ../../_partials/components-variations.ejs
   template-params:
     dir: components/layout/cards/
@@ -54,6 +54,11 @@ listing:
     - title: Core
       file: app-variation-header-footer-core.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIgFd28+RnRjjyALzJjOKNLhi6AG2MATABTzkfu+xYxFAM3r7+EfbBoWIqcFAecAw+EBFp-rJgAApMAFZwxCIA8pJJkuxwAO6ZBOHpkYEUpKSuAEYhKfVdAVhNLe0MYurohhRiraNNEJ3ds+we1pnlVWKJFByu3DV1s-WuUK1wrotgAGoVlcgAInDr7JvbqbtdnOTWrxASMj5gcLhwmQAlLUns8-MCds97H02iEhhARmMJhQpjMwWl5icPKRKhBXKQEo90el9odjpkrji8QSPETiREPu9xFJpD9sbj8YSwBDQWCefSoK52NIICcGMKVBQ6bN+btiPtuNwxCdWtIALTocUwEKaKgADwoasqaiomUh-ll6SiIQ841IHlwaO69nQPwAKmpeJrSPlCsgoNBXLgAF5wXjEQzcJrwBjIDxQdbIJp8RKUdh0XUMageXgBjzIdAJqgMHhYIEgqGBV2ZADSf2Q8Ao4uIvHU8sMiWUgrDyEkLUM8CIEajzCSyCzVDT5CIeYbIQA1rdkNImJUKCoy9yK-VLWk6IZXK4JMQs9RrG6GIYAbzAfJbxBTBBEnRlGUkl5hqMiKRRoiiNww24dhyEBRAdkLRVHzMTAbGQfRXXMSx2H-N8GHvQhUAoXB0AQFAwH1CgwAAXwAXSAA
+- id: variation-toolbar-header-footer
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/layout/cards/
+  contents:
   - title: Card with toolbar in header and footer
     description: Use toolbars in the header and footer to provide interactive controls
       and actions.
@@ -67,6 +72,11 @@ listing:
     - title: Core
       file: app-variation-toolbar-header-footer-core.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIgFd28+RnRjjyALzJjOKNLhi6AG2MATABTzkfu+xYxFAM3r7+EfbBoWIqcFAecAw+EBFp-rJgACJQFFDIutCuuNzsvABKcILCmQTh6ZGBFKSkrgBGISkN3QFYza0dDGLq6IYUYm1jzRBdPXPsHtaZDHCMcKq19XMNrlBtcK5LYJVrG4Rb22mc5NbXEBIyPmgMTADu3AC0THlUmQCUdVSl38AIu23s-XaIWGEFG40mFGms2BV0WmW4cER6mk3E2QJREV2+0OmQAypiKNjced8QS-HdbuIpNInk4Qv9AXTQbTLlBXOxpBAjgwBSoKHjLtzLsRdtxuGIjm1pB8PCEANbIKgADwoH1eal+YDBfilDSiIQ8E1IHlwyJ69nQT0KfJKZWQpDoyAAigAWZR89bIVV5ZQqUjvZD5ABMAGYAKR8CDEFZQDGJ5ArSTUQxwZBkAQhOAeTWkb0xrAc41pB1PADChm4zXgDEjxAAjsZSpTyHnSI3eIlk-EMcW2poAIwAVjjRH17FcuZWVEo7B7DFygf46CYWdHmgAHHGK2BTelT9XAtFLXQWlRklXGn0WlD7zzwU1n4MYXCJlNyHa6QWI44C1apxRpOlCT2A4jgAUVAnQJUg+kuEZcgHhZTI6HnOAPhAsDKzfOZz0uCFP2hEYxl-RF-wfbYgPRFRCyQ5CiRgskmJWFjIIZO4MKeVRCw+CBrXWQiuU5AkyIGaFuHQKBiCSLwSPfJ8ZKGSj4T-GY6PmNEwG4KAs24uk2JJMBSSMuATIJXimUeLDXFITBcBVMo1XEgkVLPSSzy2P55ACiBTAgRJPQxBgs2STSiFIMY4SIDE5VXCA-kQLZ5LlEKzEwGwCkwLxzEsdhEqSKKgsIVAKFwdAEBQMBtQoMAAF8AF0gA
+- id: variation-multiple-cards
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/layout/cards/
+  contents:
   - title: Multiple cards with layout
     description: Use layout functions to arrange multiple cards in a grid.
     apps:
@@ -79,6 +89,11 @@ listing:
     - title: Core
       file: app-variation-multiple-cards-core.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEArpwA6EORnQB9acgC8yaTigBzOEroAbaQBMAFHORXNnLIai5SkikrLGYEJQHcGGCxGtAmyxiKAZzSyCorVDwpXY4KBM4BgswAGUoQzhWGTAASgJIqMCYsJMlACNSE1x-Eobg9gBmNIASABYAVgIAJmaARjzC4sbS23Q0gFV0ZAHegFJkRmZke1YRGHIKdjyiYnXWJTU8qgAPCgBaVkliYhzcgtGGkYCx5clDQyVWYgY4ahqAAqDEkcGe1leDTK4Xq7xhFQSSRSaQAwpINswUo8ofDbLEKtVanD3tYtC00r0CM1usMim9SVYtJM8jNkAAOJYrFjrTbbXaEZAHKCsI4nMDnK43O4PYYQqK4sZ0T7fX7-QEgsHy5CKoIIkmNBHxRLJVJ5VHkABu2M45GQACUoFQ6drxiFylUanVXSVya08s0sIsXQzGcy0gARUheAKLZZMHkivmUAX7Q7HU5wC6XExQCB6Bhy0Mvemk5VfH5-AEQYGg8HFyGlkpeTgmHZqAYAemaTaiCU4OnYFHFvQADKP0Gc8qN8nJZ-IF8k6GwUtbUtx0M4iE4KJuKERWA9bRB8ohRugRbkFwpMOoxJgzIoVJwD6uUvPBRLcOgECgJVmKDAABfABdIA
+- id: variation-filling-plot
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/layout/cards/
+  contents:
   - title: Card with filling plot
     description: Cards can contain filling outputs like plots that resize to fit the
       card's size.
@@ -111,15 +126,12 @@ To add a card to your app:
 
 If you don't use `ui.card_body()`, any direct children of `ui.card()` that aren't card items (like `ui.card_header()` or `ui.card_footer()`) are automatically wrapped in an implicit `ui.card_body()`.
 
+:::{#variation-header-footer}
+:::
+
 ### Card customization
 
 Cards and card items accept Bootstrap utility classes for customization. Use the `class_` parameter to apply classes for [colors](https://getbootstrap.com/docs/5.2/utilities/background/), [text](https://getbootstrap.com/docs/5.2/utilities/text/), [borders](https://getbootstrap.com/docs/5.2/utilities/borders), and more.
-
-### Toolbars in cards
-
-Add toolbars to card headers and footers to provide interactive controls. Use `ui.toolbar()` within a `ui.card_header()` or `ui.card_footer()` to create a compact row of buttons or inputs. Toolbars are particularly useful for actions like refreshing data, downloading reports, or accessing settings.
-
-By default, toolbars align to the right. Set `align="left"` to position controls on the left side instead. Use `ui.toolbar_spacer()` and `ui.toolbar_divider()` to manipulate toolbar visual spacing.
 
 ### Card size
 
@@ -131,11 +143,21 @@ Use `full_screen=True` to add an icon that expands the card to fill the browser 
 
 Cards support filling layouts where outputs automatically resize to fit the available space. When a fill item like `ui.output_plot()` appears as a direct child of a `ui.card_body()`, it resizes to match the card's height. For example, setting `height="250px"` on a card reduces the plot's height from its default 400px to approximately 200px. When expanded to full-screen, the plot grows to match the card's new size.
 
+:::{#variation-filling-plot}
+:::
+
 ### Multiple cards
 
 Use `ui.layout_column_wrap()` to arrange multiple cards in a grid. Cards in the same row automatically share the same height. See the variations below for examples of multiple-card layouts.
 
-## Variations
+:::{#variation-multiple-cards}
+:::
 
-:::{#variations}
+### Toolbars in cards
+
+Add toolbars to card headers and footers to provide interactive controls. Use `ui.toolbar()` within a `ui.card_header()` or `ui.card_footer()` to create a compact row of buttons or inputs. Toolbars are particularly useful for actions like refreshing data, downloading reports, or accessing settings.
+
+By default, toolbars align to the right. Set `align="left"` to position controls on the left side instead. Use `ui.toolbar_spacer()` and `ui.toolbar_divider()` to manipulate toolbar visual spacing.
+
+:::{#variation-toolbar-header-footer}
 :::

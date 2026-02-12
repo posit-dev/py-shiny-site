@@ -39,7 +39,7 @@ listing:
   - title: ui.toolbar_spacer
     href: https://shiny.posit.co/py/api/ui.toolbar_spacer.html
     signature: ui.toolbar_spacer()
-- id: variations
+- id: variation-with-spacer
   template: ../../_partials/components-variations.ejs
   template-params:
     dir: components/layout/toolbar/
@@ -56,19 +56,11 @@ listing:
     - title: Core
       file: app-variation-with-spacer-core.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIgFd28+RnRjjyALzJjOKNLhi67AB5wAJgAp5yf3bsWMRQDD5+AZH2IWFiKnBQnnAMvhCR6QGyYADK6AA27CIAKqSkeQBGoVkEERlRQRSlFaGpdW2BWI1llQxi6uiGFGLlg40Qre2T7J7WWZXEANbVtZN1eVDlcHmzYABCUIvLaattnOTWZxASMr5oDEwA7gC0eXB0FFkAlDXHJ-7fKxO9i6zV63HQB2S3gBvz+wKaPT6EAGQxGFDGEz+6WmO3ieXQRyxGXWm22WQAElsCYRAUTLhdxFJpLdQo8ngx2NIVB8wDCicg+USoAVpBAdq93oSiQ9phQVDsAIwABiVAFIpZNBRkteloqFPMNSJ5cJj2vZ0LcSt1QsoIcRksgBqo4Lw0WNeI1kKRMKRuIU4MhqJ5uFgvj82jrInRDHk8hJiAw4NRrEUGIY4OGAp95NmIKYIEk6MpkpIof1BkRSIMUURuC6-eRPogVhDuNx82ZMDZkPoLeZLOxayXkrnCKgKLh0AgUGAqG4KGAAL4AXSAA
-  - title: Left-aligned toolbar
-    description: Set `align="left"` to position the toolbar on the left side of the
-      header.
-    apps:
-    - title: Preview
-      file: app-variation-left-aligned-preview.py
-      height: 250
-    - title: Express
-      file: app-variation-left-aligned-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4scAB7oGcbr36DhyAK7t58gO7sKK8+yzEoDACYAKOmYA2PicT61AC8ACoMZnAAlIjyyPHItvaOzq5uYipwUG5wDB4xcQlFsmAAMnB0FAC0AII+7NIQcG7IoaSkPgBGriWFRfFJDhZYFO1drh5Q9Y3BJT4VFCUFEP2rKaMd3Qxi6uhmFGKd+6MQHn1rq+xus2BmEG6kJQTnF0U+UJ1wPjcAqvePhBer3inHIwVBEAkMjOYCYFCgVCq80qS2eK2ByCiQNWww2422u32h2O5DO6IxCSuN30Dye2Ne70+3xKACVmgC0RSihDweIpNIYXCEXAqgwGipFmAopyMViIOdhugYW1Nq5kFMGk0WqNkPY4MhkSJuFd9aQ6LrMshMtlclglvJCKgKLh0AgUGAqNoKGAAL4AXSAA
-    - title: Core
-      file: app-variation-left-aligned-core.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIgFd28+RnRjjyALzJjOKNLhi67AB5wAJgAp5yf3bsWMRQDD5+AZH2IWFiKnBQnnAMvhCR6QGyYAAycHQUALS6ADbs0hBeyAAqpKTFAEahWQQRGVFBFLUNoaltfYFYnXWNDGLq6IYUYvWTnRC9-YvsntZZhhCepM2ti23FUPVwxatgAKobW4Q7u+mc5NZ3EBIyvmBMFFBUBcV5FFkAlC00jcAoDrrt7ENuqNxpNprNyAsQbcVlkGF5LkDkRl9odjlkAEoY7bA7EBR4PcRSaSvd6fOAFBhlFR-MBg0kg9lkqClconH75Ek3LltEUZaKhTzTUieXBI-r2dCvGrDULIHllCqeZCdHXxZACkTcZZwZCkOh603xRLJLAArGih0ZOiGYrFCTEdHUaxVBiGOBO5D-eTBiCmDZ5ZTJSTJbywihEUiTCYJqPcY3kf6IHboKDp8NmTA2ZD6JXmSzsIjcaPJUOEVAUXDoBAoMBUNwUMAAXwAukA
+- id: variation-input-label
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/layout/toolbar/
+  contents:
   - title: Toolbar in input label
     description: Use toolbar as the label for `input_text_area()` or `input_numeric()`
       to add formatting or action buttons directly in the input label.
@@ -82,6 +74,11 @@ listing:
     - title: Core
       file: app-variation-input-label-core.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIg2oATOAyIBXdvPkZ0Yq8gC8yKzijS4YuuwAecYwAKeWRQ13YsYigGIJCw+LcomLEVOChTBmCwABU4XxEAUWN2CiFkAHcSlWQAMSEYKAoKdWlkbNJSABsAI2jZMABKAjj40MTo4zFu0mNcYIhRxfCsdXQLCjEqfLFotPmlg+R+ripKfuGFw8XOqG64Tqc3Uq7ezJGrpaeOnuixVfWputShB9h8wf1pp1jOd3mCDjc7g9+gAhLrQwiwuGLTjkJw4iASGRZSHooaYrFky5YhIRZ4-Bh-CBrDbdIHkUHUpb9EpQTqcGFUzmjBH3Jz9ACSFF5-IxgqFYXxePEUmkWR5fOI-Up8tC2p1Xxev3+LLZIPJQuOMzgAp1wtuov6AGErTbbQquEryITVZbTFqLra9fLpdIIGKwAx2NIVBRXRSA9T0DdiHAVGizOHsrh0HBkLhSBYGMgTtQRKkjFhK3G4UxytwnAAOBNXIOHNwFijMzZ5ChZOj1RrNCDSCRSigWbj+82t+J0CydToSYhGahObIMCxwZvIAbyXcQGwQUx0ZRmSRmQLGogd5lEbhwbjcdjkAaId4AASMR7MWC2scFx6sAOTQtKOjQToEr7mkY44MAsdAomiKAgMaWAkpBAC+yAAD7IJK0rEMhqHqpwmE4cgzqmERTLrJEVqYf0h62JgzjIPo6CBHYDjsHeZ5mPuhCoBQ2YICgYB-mAGEALpAA
+- id: variation-submit-textarea
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/layout/toolbar/
+  contents:
   - title: Toolbar in submit textarea
     description: Add a `toolbar` parameter to `input_submit_textarea()` to include
       toolbar inputs in the `textarea`'s submit area.
@@ -113,7 +110,7 @@ To make a toolbar:
 
   2. Add toolbar elements inside, such as [`ui.toolbar_input_button()`](../../inputs/toolbar-button/index.qmd) and [`ui.toolbar_input_select()`](../../inputs/toolbar-select/index.qmd). Use [`ui.toolbar_divider()`](https://shiny.posit.co/py/api/ui.toolbar_divider.html) to add visual separators and [`ui.toolbar_spacer()`](https://shiny.posit.co/py/api/ui.toolbar_spacer.html) to create flexible space that pushes subsequent elements to the opposite end.
 
-### Toolbar alignment
+### Toolbar alignment and width
 
 By default, toolbars align to the right side of the container. Set `align="left"` to position the toolbar at the start of a card header or footer instead.
 
@@ -128,32 +125,23 @@ Toolbars can contain:
 - **Dividers**: Use [`ui.toolbar_divider()`](https://shiny.posit.co/py/api/ui.toolbar_divider.html) to add visual separator lines between groups of elements.
 - **Spacers**: Use [`ui.toolbar_spacer()`](https://shiny.posit.co/py/api/ui.toolbar_spacer.html) to create flexible space that pushes subsequent elements to the opposite end of the toolbar.
 
-### Toolbar in card headers
+:::{#variation-with-spacer}
+:::
 
-Toolbars are commonly used in card headers to provide contextual actions:
+### Toolbar in input components
 
-```python
-ui.card(
-    ui.card_header(
-        "Card Title",
-        ui.toolbar(
-            ui.toolbar_input_button(id="action", label="Action"),
-            align="right"
-        )
-    ),
-    ui.card_body("Card content")
-)
-```
+You can use a toolbar as the label for input components like `input_text_area()` or `input_numeric()`. This allows you to add formatting or action buttons directly in the input label, creating a more integrated interface.
 
-The toolbar appears alongside the card title, providing a clean and organized interface for card-level actions.
+You can also add a `toolbar` parameter to `input_submit_textarea()` to include toolbar inputs in the textarea's submit area.
+
+:::{#variation-input-label}
+:::
+
+:::{#variation-submit-textarea}
+:::
 
 ### Accessibility
 
 All toolbar inputs support full keyboard navigation and screen reader accessibility. Always provide meaningful labels for toolbar buttons and selects, even when using icon-only displays.
 
 See Also: [Toolbar Button](../../inputs/toolbar-button/index.qmd) | [Toolbar Select](../../inputs/toolbar-select/index.qmd) | [Card](../cards/index.qmd)
-
-## Variations
-
-:::{#variations}
-:::
