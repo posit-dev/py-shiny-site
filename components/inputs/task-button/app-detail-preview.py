@@ -1,5 +1,5 @@
 import asyncio
-from shiny import ui, render, App
+from shiny import ui, render, reactive, App
 
 app_ui = ui.page_fluid(
     ui.h4("Task Button Demo"),
@@ -10,7 +10,7 @@ app_ui = ui.page_fluid(
 
 def server(input, output, session):
     @render.text
-    @ui.event(input.process)
+    @reactive.event(input.process)
     async def result():
         await asyncio.sleep(3)
         return f"Task completed at {asyncio.get_event_loop().time():.1f}"

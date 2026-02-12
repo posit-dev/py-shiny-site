@@ -49,7 +49,7 @@ To add a task button to your app:
 
   1. Add `ui.input_task_button()` to the UI with a unique `id` and descriptive `label`.
 
-  2. In the server function, create an async function decorated with `@ui.event(input.<button_id>)` that performs the long-running operation.
+  2. In the server function, create an async function decorated with `@reactive.event(input.<button_id>)` (Core) or `@ui.event(input.<button_id>)` (Express) that performs the long-running operation.
 
   3. The button automatically shows a spinner and disables while the async function runs. When the function completes, the button re-enables automatically.
 

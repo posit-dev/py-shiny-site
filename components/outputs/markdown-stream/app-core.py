@@ -1,5 +1,5 @@
 import asyncio
-from shiny import ui, render, App
+from shiny import ui, render, reactive, App
 
 app_ui = ui.page_fluid(
     ui.input_action_button("stream", "Start streaming"),
@@ -8,7 +8,7 @@ app_ui = ui.page_fluid(
 
 def server(input, output, session):
     @render.markdown_stream
-    @ui.event(input.stream)
+    @reactive.event(input.stream)
     async def markdown_output():
         lines = [
             "# Streaming Content\n\n",
