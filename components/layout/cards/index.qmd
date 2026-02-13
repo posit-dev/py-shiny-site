@@ -42,8 +42,6 @@ listing:
   template-params:
     dir: components/layout/cards/
   contents:
-  - title: Card with header and footer
-    description: Add a header and footer to your card for additional context and actions.
     apps:
     - title: Preview
       file: app-variation-header-footer-preview.py
@@ -59,9 +57,6 @@ listing:
   template-params:
     dir: components/layout/cards/
   contents:
-  - title: Card with toolbar in header and footer
-    description: Use toolbars in the header and footer to provide interactive controls
-      and actions.
     apps:
     - title: Preview
       file: app-variation-toolbar-header-footer-preview.py
@@ -77,8 +72,6 @@ listing:
   template-params:
     dir: components/layout/cards/
   contents:
-  - title: Multiple cards with layout
-    description: Use layout functions to arrange multiple cards in a grid.
     apps:
     - title: Preview
       file: app-variation-multiple-cards-preview.py
@@ -94,9 +87,6 @@ listing:
   template-params:
     dir: components/layout/cards/
   contents:
-  - title: Card with filling plot
-    description: Cards can contain filling outputs like plots that resize to fit the
-      card's size.
     apps:
     - title: Preview
       file: app-variation-filling-plot-preview.py
