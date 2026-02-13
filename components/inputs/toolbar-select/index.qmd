@@ -33,7 +33,7 @@ listing:
   - title: ui.toolbar
     href: https://shiny.posit.co/py/api/ui.toolbar.html
     signature: ui.toolbar(*args, align="right", gap=None, width=None)
-- id: variations
+- id: variations-updating
   template: ../../_partials/components-variations.ejs
   template-params:
     dir: components/inputs/toolbar-select/
@@ -98,7 +98,7 @@ Use [`ui.update_toolbar_input_select()`](https://shiny.posit.co/py/api/ui.update
 - You cannot add/remove a `tooltip` after creation
 - Use [`ui.update_tooltip()`](https://shiny.posit.co/py/api/ui.update_tooltip.html) to update tooltip text
 
-:::{#variations}
+:::{#variations-updating}
 :::
 
 ### Accessibility
