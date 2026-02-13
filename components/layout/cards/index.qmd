@@ -87,7 +87,7 @@ listing:
   template-params:
     dir: components/layout/cards/
   contents:
-    apps:
+  - apps:
     - title: Preview
       file: app-variation-filling-plot-preview.py
       height: 500
