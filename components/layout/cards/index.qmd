@@ -116,9 +116,6 @@ To add a card to your app:
 
 If you don't use `ui.card_body()`, any direct children of `ui.card()` that aren't card items (like `ui.card_header()` or `ui.card_footer()`) are automatically wrapped in an implicit `ui.card_body()`.
 
-:::{#variation-header-footer}
-:::
-
 ### Card customization
 
 Cards and card items accept Bootstrap utility classes for customization. Use the `class_` parameter to apply classes for [colors](https://getbootstrap.com/docs/5.2/utilities/background/), [text](https://getbootstrap.com/docs/5.2/utilities/text/), [borders](https://getbootstrap.com/docs/5.2/utilities/borders), and more.
