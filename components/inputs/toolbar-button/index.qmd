@@ -33,15 +33,15 @@ listing:
   - title: ui.toolbar
     href: https://shiny.posit.co/py/api/ui.toolbar.html
     signature: ui.toolbar(*args, align="right", gap=None, width=None)
-- id: variations
+- id: variations-update-buttons
   template: ../../_partials/components-variations.ejs
   template-params:
     dir: components/inputs/toolbar-button/
   contents:
-  - title: Updating toolbar buttons
-    description: Use `ui.update_toolbar_input_button()` to dynamically change a toolbar
-      button's label, icon, or disabled state from the server.
     apps:
+    - title: Preview
+      file: app-variation-updating-core.py
+      height: 400
     - title: Express
       file: app-variation-updating-express.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSIZwoxCu0lx5ilqvW4scAB7o93Xv0HC+EdAFcKRPRAAmcAxEnuzy8gDu7BQqyKFYxFAM-gAUdJ4ANhkSxHrUALwAKgyecACUiPLI1chRMXHsCUn+Yir6gQwpFVU1vbJgACKkxJ7wlMgAov7RQv09vdV1sfEUpKQZAEZJKVAZ7NIQ+f0M+yoU-d0QC9cNWKvrWwxi6l4UYhveqxAp8zfX7P4jmBuFATP0CL8-r0MlANnAMkCAMqg0yESFQ6qccj5LEQCQyH5gOgZUiYXAAWmm3AA1hcIVcMcgyuEGdV4i9vGIDEZyO9PuRCatpNIMnAxFTYaL-ODkP1CqRhaLkMiTMgAEL8q6IihQKgXX7sjyc7nsXkfChfQUKkVi3EyuXWpUASS4+ogvwAAn4Onc7OdWchAnRlDqKJ5uF1KgHenowwwrnR+iq4MhzV9kMQ9sRqXB-MgQByKFgQSYugBfZBGeDcObuuvyL36QzGOA2Oh0OCGBt6E0mGwmSgpQt3R1iiUbKXMgJwYNiSO-ADEyHlipTcIoETg1GQ1ElueQUACgfYIInud+IwYfjemc41OQ+XcrxHq-FJ73qSnvRPb9PUofGaeFe1A3lm94AKTIAATA+j4AIwGo0njoP4upivcmxJM8RpvGmArotU-Qlqi9J-OOUo4twv4fqRNwwnCCJJiiyApAM75nv4zJgHwwY-uR+7wtwKZMWCaIBlOLKNr2rYzh2XYQFJzZ9nAA4UEOOEvjazxcFOQbIHOly9EuK42qmcAbluVwbqQx7tkEIGiOQNYBpe15iLe2YAcOQpabiXS-OwwauSB7lgcgkEwfk8FRn88TIahVBiBhjzYa8fIWvh0Y3ERKLggRCy4ji4hSNIhL+KQEQQCSUDSmAZS0Ri9HwkCQyVdVtUNQsX41IJcAxTccUoWhSVrJhTyFullr5X0wK5WJjKOYcuL4qV-TEqSeCUietJ1Z1fxNYxYDJnlWXVFOhCoBQuDoAgKBgFQtgUGAZYALpAA
@@ -54,9 +54,6 @@ listing:
 :::
 
 :::{#relevant-functions}
-:::
-
-:::{#variations}
 :::
 
 ## Details
@@ -92,6 +89,9 @@ Use [`ui.update_toolbar_input_button()`](https://shiny.posit.co/py/api/ui.update
 - Update the `label`, `icon`, `show_label`, or `disabled` state
 - You cannot add/remove a `border` or `tooltip` after creation
 - Use [`ui.update_tooltip()`](https://shiny.posit.co/py/api/ui.update_tooltip.html) to update tooltip text
+
+:::{#variations-update-buttons}
+:::
 
 ### Accessibility
 

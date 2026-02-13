@@ -38,10 +38,10 @@ listing:
   template-params:
     dir: components/inputs/toolbar-select/
   contents:
-  - title: Updating toolbar selects
-    description: Use `ui.update_toolbar_input_select()` to dynamically change a toolbar
-      select's choices, selection, label, or icon from the server.
     apps:
+    - title: Preview
+      file: app-variation-updating-core.py
+      height: 400
     - title: Express
       file: app-variation-updating-express.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSIZwoxCu0lx5ilqvW4scAB7o93Xv0HC+EdAFcKRPRAAmcAxEnuzy8gDu7BQqyKFYxFAM-gAUdJ4ANhkSxHrUALwAKgyecACUiPLI1chRMXHsCUn+Yir6gQwpFVU1vbJgACJQFFDIQ6oARqTN-T291XWx8RSkpBkTSSlQGezSEPn9DLsqFP3dEPOXDVgraxsMYupeFBJwGXCGKXNXl+z+B2BJOw4BExDBSIF+gRvj9ehkoBM3gCAGrAiLIACyENMhBhsOqxBUpE4cG4+WA-UKCPeUOQ-QAwiokqdCHSwBiMP0ALrQi74+accj5QUQCQyL5gOC4HFlXn85BlcJ86rxJ7eMQGIzkMQTbwrCASqD+FqkdBaiC0-oAQWNyAA5ABxI7+O3IADyZvY5DO31VHnVmq9ot1FH1EsJUAg0jgr3ehiDlrAAGU3h8RIzmT7ldc1S9A9qQ2H+itpNJ3mJ4YiMonCqRS+9kEmieiADIIt5Z74AAT8HRudlO2cCdGUqcMcBaQJBXUq2d6egongYFzoDKXfgoGU0U6iUZQIFzWB3YOxXQAvrMLVee-p4yYbHQ6Gn5DfA-e4CZKClD0aTZ7yIqARwCOYgzt8ADEyA2v4yCjBAILIISxLEHAyArGhbSjnGg69PEnjoP4wwxrc6xJI8-ovNwY4UF8c41P0x7gpCuJ0QSRIkmSFJgFSEw0qyDJMsIiYcugiZOn83JylclZIv0qIIVigTICkACqBFEf4iosb0gFKq+d5wA+T6GC+ehvoZH7UDRh4RlGMZUdhQaAcOyCgecvSQRmdkYahDlphOyCSNspS+o0+GEVQYgkfc5HPLGaa0T8DFoiezFSZcfnjv8AmZtpNS6deZkGUZz4QPpRjvp+1kUTcdZljGMkZM5wGuWB2aQbW9a+c2FbthkaGkMg-jsNw6DwpoUz1CKsEBMgjXfMQ65WWIxA7MQADWyD5O4zy1V1vVVl0oVYOFRFRaspEPLm8WfHi1TJSCqU4ul8yqKQoKNfki0MBuK1rZtACkyAAExbdtACML2AayYAULg6AICgsMDmAZ5ckAA
@@ -54,9 +54,6 @@ listing:
 :::
 
 :::{#relevant-functions}
-:::
-
-:::{#variations}
 :::
 
 ## Details
@@ -100,6 +97,9 @@ Use [`ui.update_toolbar_input_select()`](https://shiny.posit.co/py/api/ui.update
 - Update the `label`, `icon`, `choices`, `selected` value, or `show_label` state
 - You cannot add/remove a `tooltip` after creation
 - Use [`ui.update_tooltip()`](https://shiny.posit.co/py/api/ui.update_tooltip.html) to update tooltip text
+
+:::{#variations}
+:::
 
 ### Accessibility
 
