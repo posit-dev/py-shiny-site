@@ -53,10 +53,10 @@ jobs:
             any::reticulate
 
       # =====================================================
-      # Install dependencies (with custom Shinylive if branch name starts with shinylive-)
+      # Install dependencies (with custom Shinylive if branch name contains /shinylive-)
       # =====================================================
       - name: Install dependencies and build with develop Shinylive
-        if: startsWith(github.head_ref, 'shinylive-') || startsWith(github.ref_name, 'shinylive-')
+        if: contains(github.head_ref, '/shinylive-') || contains(github.ref_name, '/shinylive-')
         run: |
           # Extract branch name (works for both PR and push)
           if [ -n "${{ github.head_ref }}" ]; then
@@ -72,7 +72,7 @@ jobs:
           make deps-dev
 
       - name: Install dependencies (standard)
-        if: ${{ !startsWith(github.head_ref, 'shinylive-') && !startsWith(github.ref_name, 'shinylive-') }}
+        if: ${{ !contains(github.head_ref, '/shinylive-') && !contains(github.ref_name, '/shinylive-') }}
         run: |
           make deps
 
@@ -80,13 +80,13 @@ jobs:
       # Build
       # =====================================================
       - name: Build site (with shinylive develop)
-        if: startsWith(github.head_ref, 'shinylive-') || startsWith(github.ref_name, 'shinylive-')
+        if: contains(github.head_ref, '/shinylive-') || contains(github.ref_name, '/shinylive-')
         run: |
           # Use quartodoc-no-deps since deps-dev was already run
           make quartodoc-no-deps components site QUARTO_PATH=quarto
 
       - name: Build site (standard)
-        if: ${{ !startsWith(github.head_ref, 'shinylive-') && !startsWith(github.ref_name, 'shinylive-') }}
+        if: ${{ !contains(github.head_ref, '/shinylive-') && !contains(github.ref_name, '/shinylive-') }}
         run: |
           make all QUARTO_PATH=quarto
 

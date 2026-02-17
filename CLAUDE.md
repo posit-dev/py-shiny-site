@@ -82,7 +82,7 @@ make quartodoc components site
 ```
 
 **CI/CD with Shinylive Develop:**
-Branches prefixed with `shinylive-` (e.g., `shinylive-test-feature`) automatically build using the shinylive develop branch in CI/CD. This allows you to preview documentation changes with unreleased Shinylive features before they're published to PyPI.
+Branches containing `/shinylive-` (e.g., `feat/shinylive-test-feature`, `chore/shinylive-update`) automatically build using the shinylive develop branch in CI/CD. This allows you to preview documentation changes with unreleased Shinylive features before they're published to PyPI.
 
 ### Virtual Environment
 
