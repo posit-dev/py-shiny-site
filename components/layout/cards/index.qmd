@@ -37,21 +37,6 @@ listing:
   - title: ui.card_footer
     href: https://shiny.posit.co/py/api/ui.card_footer.html
     signature: ui.card_footer(*args, **kwargs)
-- id: variation-header-footer
-  template: ../../_partials/components-variations.ejs
-  template-params:
-    dir: components/layout/cards/
-  contents:
-  - apps:
-    - title: Preview
-      file: app-variation-header-footer-preview.py
-      height: 400
-    - title: Express
-      file: app-variation-header-footer-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4scAB7oGcbr36DhfCOgCuFIhfbz5Ad3YUVyW1mJQGAEwAUdCwAbQIlifWoAXgAVBgs4AEpEeWQU5CcXN3YPL28xFTgobzgGX2JAqEMxCNkwACNpAFo9fi9cZCptCgaHNSoaxOTUoZqABSYAKzhiEQB5SWLJdjgHGsGhlPTXdwpSUkDar18oQPZpCGqwBlOVCn6kiHXHzKwdvYOGMXVLCjFaqx2IL41k9HuxvBdFssxEUKBxAtwagRgSChuVanBAhcAGpLBzIAAicFh7HhiORKJSnHIESpEAkMiBYDguDg-SRDwpyHi5Me212+y8n3MVl+-3IQI5nNSYIu3lIDgggVIhTJkqlyDRGIu+PliuV3lV6ulXBp4ik0kZcoVSpVYHi7Kl3IgwPc6EZUTUvD0pEm02QUGggVwAC8DMhiBZuDt4AxkN4oLD2qQ+EVKOw6G0KPoIN5eAHvMh0AmqAweFh+i6sm6agBpZnIeBZzhGCBlCxFZTHMOSPYWeBECNR5jFZD6Khp8hEfMNrwAayJyGkTAcLnLdvkhFQFFw6AQKDAHQoYAAvgBdIA
-    - title: Core
-      file: app-variation-header-footer-core.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIgFd28+RnRjjyALzJjOKNLhi6AG2MATABTzkfu+xYxFAM3r7+EfbBoWIqcFAecAw+EBFp-rJgAApMAFZwxCIA8pJJkuxwAO6ZBOHpkYEUpKSuAEYhKfVdAVhNLe0MYurohhRiraNNEJ3ds+we1pnlVWKJFByu3DV1s-WuUK1wrotgAGoVlcgAInDr7JvbqbtdnOTWrxASMj5gcLhwmQAlLUns8-MCds97H02iEhhARmMJhQpjMwWl5icPKRKhBXKQEo90el9odjpkrji8QSPETiREPu9xFJpD9sbj8YSwBDQWCefSoK52NIICcGMKVBQ6bN+btiPtuNwxCdWtIALTocUwEKaKgADwoasqaiomUh-ll6SiIQ841IHlwaO69nQPwAKmpeJrSPlCsgoNBXLgAF5wXjEQzcJrwBjIDxQdbIJp8RKUdh0XUMageXgBjzIdAJqgMHhYIEgqGBV2ZADSf2Q8Ao4uIvHU8sMiWUgrDyEkLUM8CIEajzCSyCzVDT5CIeYbIQA1rdkNImJUKCoy9yK-VLWk6IZXK4JMQs9RrG6GIYAbzAfJbxBTBBEnRlGUkl5hqMiKRRoiiNww24dhyEBRAdkLRVHzMTAbGQfRXXMSx2H-N8GHvQhUAoXB0AQFAwH1CgwAAXwAXSAA
 - id: variation-toolbar-header-footer
   template: ../../_partials/components-variations.ejs
   template-params:
@@ -87,7 +72,7 @@ listing:
   template-params:
     dir: components/layout/cards/
   contents:
-    apps:
+  - apps:
     - title: Preview
       file: app-variation-filling-plot-preview.py
       height: 500
@@ -115,9 +100,6 @@ To add a card to your app:
 2. Place UI elements inside the card as direct children, or use `ui.card_header()`, `ui.card_body()`, and `ui.card_footer()` to organize content into distinct sections.
 
 If you don't use `ui.card_body()`, any direct children of `ui.card()` that aren't card items (like `ui.card_header()` or `ui.card_footer()`) are automatically wrapped in an implicit `ui.card_body()`.
-
-:::{#variation-header-footer}
-:::
 
 ### Card customization
 
