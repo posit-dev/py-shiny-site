@@ -119,7 +119,7 @@ Provide feedback to your user with notifications, progress bars, and confirmatio
 ::::
 
 ::::::
-:::::: {.grid .list-section style="margin-top: -1px;" #layout}
+:::::: {.grid .list-section style="margin-top: -1px;" #layouts}
 :::: {.g-col-xl-3 .g-col-12}
 ::: {.sticky-xl-top .pt-4}
 
