@@ -57,7 +57,7 @@ listing:
   template-params:
     dir: components/layout/cards/
   contents:
-    apps:
+  - apps:
     - title: Preview
       file: app-variation-toolbar-header-footer-preview.py
       height: 400
@@ -72,7 +72,7 @@ listing:
   template-params:
     dir: components/layout/cards/
   contents:
-    apps:
+  - apps:
     - title: Preview
       file: app-variation-multiple-cards-preview.py
       height: 500
