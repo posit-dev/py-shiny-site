@@ -220,8 +220,8 @@ website:
           contents:
             - text: "Cards"
               href: "/layouts/panels-cards/index.html#cards"
-            - text: "Content Divided by Cards"
-              href: "/layouts/panels-cards/index.html#content-divided-by-cards"
+            - text: "Multiple Cards"
+              href: "/layouts/panels-cards/index.html#multiple-cards"
             - text: "Floating Panel"
               href: "/layouts/panels-cards/index.html#floating-panel"
         - section: "![](/images/arrange-blue.svg){.sidebar-icon .sidebar-subtitle}__Arrange Elements__"

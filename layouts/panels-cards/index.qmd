@@ -36,112 +36,79 @@ listing:
     signature: ui.panel_well(*args, **kwargs)
 
 - id: variation-hello-card
-  template: ../../components/_partials/components-variations.ejs
+  template: ../../components/_partials/components-detail-example.ejs
   template-params:
     dir: layouts/panels-cards/
   contents:
-  - title: Hello card()
-    description: A basic card with a header and body content.
-    apps:
-    - title: Preview
-      file: app-hello-card-preview.py
-      height: 200
-    - title: Express
-      file: app-hello-card-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IygO6cK7eZyzEoDACYAKAJSJlyS9t36DAfXZwoBuAyOKwAQWSPnrj0TEADZQonYAvB4ARgDmALQG+gDWHiYWVgpYMMkGpKoQ7mAAysxwyFT8suqayFDIwEHcSQC6RuwUFOisiAD0PTEa7HJRusxpYGkQhKgUuOgIKGAVFGAAvs1AA
-    - title: Core
-      file: app-hello-card-core.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEArpwA6EORnQB9acgC8yaTigBzOEroAbaQBMAFHORXNnLMSgNzl6y633HS9nCgm4DCxAuQdYyYKLIXj5+oQTOwS7EhlCsrEpqoQBGOgC0Jg4A1qFxQQCUsYHxbg4mShmkJrgB8UFaMAUmpADuEBZgAMrMcMhUAB4inZwU7MhQyMCG3PkAumbsFBTorIgA9Ns6k+ySGXbMJaFnFcEXLhcXcnK+dGx+AG5+ZtzokhREpN9fP2eKU45BKiGK6GSrHu8mgmHUYkwZkUKk4RFYrz8F0IqAouHQCBQYFGFDAAF8lkA
+  - title: Preview
+    file: app-hello-card-preview.py
+    height: 200
+  - title: Express
+    file: app-hello-card-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IygO6cK7eZyzEoDACYAKAJSJlyS9t36DAfXZwoBuAyOKwAQWSPnrj0TEADZQonYAvB4ARgDmALQG+gDWHiYWVgpYMMkGpKoQ7mAAysxwyFT8suqayFDIwEHcSQC6RuwUFOisiAD0PTEa7HJRusxpYGkQhKgUuOgIKGAVFGAAvs1AA
+  - title: Core
+    file: app-hello-card-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEArpwA6EORnQB9acgC8yaTigBzOEroAbaQBMAFHORXNnLMSgNzl6y633HS9nCgm4DCxAuQdYyYKLIXj5+oQTOwS7EhlCsrEpqoQBGOgC0Jg4A1qFxQQCUsYHxbg4mShmkJrgB8UFaMAUmpADuEBZgAMrMcMhUAB4inZwU7MhQyMCG3PkAumbsFBTorIgA9Ns6k+ySGXbMJaFnFcEXLhcXcnK+dGx+AG5+ZtzokhREpN9fP2eKU45BKiGK6GSrHu8mgmHUYkwZkUKk4RFYrz8F0IqAouHQCBQYFGFDAAF8lkA
 
 - id: variation-implicit-card-body
-  template: ../../components/_partials/components-variations.ejs
+  template: ../../components/_partials/components-detail-example.ejs
   template-params:
     dir: layouts/panels-cards/
   contents:
-  - title: Implicit card_body()
-    description: Direct children of `ui.card()` that aren't known card items are wrapped into an implicit `ui.card_body()` call.
-    apps:
-    - title: Preview
-      file: app-implicit-card-body-preview.py
-      height: 200
-    - title: Express
-      file: app-implicit-card-body-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IygO6cK7eZyzEoDACYAKAJSJlyS9t36DAfXZwoBuAyOKwAQWSPnrj0TEADZQonYAvB4ARgDmALQG+gDWHiYWVgpYMMkGpKoQ7mAAysxwyFT8suqayFDIwEHcSQC6RuwUFOisiAD0PTEa7HJRuswmWKnKhKgUuOgIKGAVFGAAvs1AA
-    - title: Core
-      file: app-implicit-card-body-core.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEArpwA6EORnQB9acgC8yaTigBzOEroAbaQBMAFHORXNnLMSgNzl6y633HS9nCgm4DCxAuQdYyYKLIXj5+oQTOwS7EhlCsrEpqoQBGOgC0Jg4A1qFxQQCUsYHxWjAFJqQA7hAWYADKzHDIVAAeInWcFOzIUMjAhtz5ALpm7BQU6KyIAPQLOn3skhl2zCVYoSXFexAHcnK+dGx+AG5+ZtzokhREpPd3D+cpnOQliMXoyazH8mgmHUYkwZkUKk4RFYlz8B0IqAouHQCBQYC6FDAAF9xkA
+  - title: Preview
+    file: app-implicit-card-body-preview.py
+    height: 200
+  - title: Express
+    file: app-implicit-card-body-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IygO6cK7eZyzEoDACYAKAJSJlyS9t36DAfXZwoBuAyOKwAQWSPnrj0TEADZQonYAvB4ARgDmALQG+gDWHiYWVgpYMMkGpKoQ7mAAysxwyFT8suqayFDIwEHcSQC6RuwUFOisiAD0PTEa7HJRuswmWKnKhKgUuOgIKGAVFGAAvs1AA
+  - title: Core
+    file: app-implicit-card-body-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEArpwA6EORnQB9acgC8yaTigBzOEroAbaQBMAFHORXNnLMSgNzl6y633HS9nCgm4DCxAuQdYyYKLIXj5+oQTOwS7EhlCsrEpqoQBGOgC0Jg4A1qFxQQCUsYHxWjAFJqQA7hAWYADKzHDIVAAeInWcFOzIUMjAhtz5ALpm7BQU6KyIAPQLOn3skhl2zCVYoSXFexAHcnK+dGx+AG5+ZtzokhREpPd3D+cpnOQliMXoyazH8mgmHUYkwZkUKk4RFYlz8B0IqAouHQCBQYC6FDAAF9xkA
 
 - id: variation-restricting-growth
-  template: ../../components/_partials/components-variations.ejs
+  template: ../../components/_partials/components-detail-example.ejs
   template-params:
     dir: layouts/panels-cards/
   contents:
-  - title: Restricting growth
-    description: Specify `height` or `max_height` to limit card size. Use `full_screen=True` to allow expansion.
-    apps:
-    - title: Preview
-      file: app-restricting-growth-preview.py
-      height: 300
-    - title: Express
-      file: app-restricting-growth-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IygO6cK7eZyzEoDACYAKGFH4B9dnE4BzdhQC8isACYArAAZ0-Z0TpyAGwDzVmJhagcAFQY5OABKRGVkZO1dfQNLOCgDOAYjZwBBZADyGyJQpiDuMuQcis50Ck5yZziklOcAGWk4FgbWORYDUhKGNg1kWDgKIjIIVjhiKgo5MeyGzlDq5DgAjSxkZ2QAKmRPZUJUClx0BBQwKn4KMABfAF0gA
-    - title: Core
-      file: app-restricting-growth-core.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEArpwA6EORnQB9acgC8yaTigBzOEroAbaQBMAFHORXNnLMSgNzl6y633HS9nCgm4DC2CiyIbkOkSsxEyGhtxhyL4RDJzoFJzkMmAAlATOLlYZADJCcCzJrJIsJqQhDGycIrBwFERkEKxwxFQUkrU+yZwRschwMRRYyBnIAFTIAKwADDkQedYwUAAennCcOuwUahkATAvo6xlLK1Z0ktFKiXDUagAqDJJwuciZcl-yv750bD8ADc-GZuOhJM1kKRIRCoe1WKw0hBMogPugoIi5NjoJh1GJMGZFCpOOFgX4foRUBRcOgECgwFR1hQwABfAC6QA
+  - title: Preview
+    file: app-restricting-growth-preview.py
+    height: 300
+  - title: Express
+    file: app-restricting-growth-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IygO6cK7eZyzEoDACYAKGFH4B9dnE4BzdhQC8isACYArAAZ0-Z0TpyAGwDzVmJhagcAFQY5OABKRGVkZO1dfQNLOCgDOAYjZwBBZADyGyJQpiDuMuQcis50Ck5yZziklOcAGWk4FgbWORYDUhKGNg1kWDgKIjIIVjhiKgo5MeyGzlDq5DgAjSxkZ2QAKmRPZUJUClx0BBQwKn4KMABfAF0gA
+  - title: Core
+    file: app-restricting-growth-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEArpwA6EORnQB9acgC8yaTigBzOEroAbaQBMAFHORXNnLMSgNzl6y633HS9nCgm4DC2CiyIbkOkSsxEyGhtxhyL4RDJzoFJzkMmAAlATOLlYZADJCcCzJrJIsJqQhDGycIrBwFERkEKxwxFQUkrU+yZwRschwMRRYyBnIAFTIAKwADDkQedYwUAAennCcOuwUahkATAvo6xlLK1Z0ktFKiXDUagAqDJJwuciZcl-yv750bD8ADc-GZuOhJM1kKRIRCoe1WKw0hBMogPugoIi5NjoJh1GJMGZFCpOOFgX4foRUBRcOgECgwFR1hQwABfAC6QA
 
 - id: variation-filling-outputs
-  template: ../../components/_partials/components-variations.ejs
+  template: ../../components/_partials/components-detail-example.ejs
   template-params:
     dir: layouts/panels-cards/
   contents:
-  - title: Output Plot Example
-    description: Fill items like `ui.output_plot()` resize to fit the card's specified height.
-    apps:
-    - title: Preview
-      file: app-filling-outputs-preview.py
-      height: 300
-    - title: Express
-      file: app-filling-outputs-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWTCIAEzgMiAV04AdCBKkzkMKBXQAbUhWOcARjlwmzyKGJMUtWgO6cK7ZOqzEoDAoAFOxwnADm7BQAvBpgAEwArAAM6PxxRHSqxsYA+qzEwtTRACoMqnAAlIhayHU+nH4BCrmhUEoMQXEAgsh0nDnc4ch2LmCVrhD1yAAC8h04pi5T9Up0I0tB1bXT9f3hRFD8yNEbFFisqpajrFs7uw78i2ZBwACMRPFEAMwAukTvIgAFiIAE5fhMVg9hBRVAwpvstIRUBRbAgUGAqPwKGAAL6-IA
-    - title: Core
-      file: app-filling-outputs-core.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhH6DhyGFAroANqQp7OAIxy59h5FFbJ9FVaozoA+kuQBeZEpxQA5nAudHpK0gAUqshR3pxYxFAM4ZHRKexwnH7sFB7KYABMAKwADOgAHrkEySlRdAp6ei6sxFLUHgAqDApwlRDV0T7xiS5pULIMEWCiyHSc9dx+dgYOYACUPX1RAwnSLiak0rhhPqQKuqculhQTl7krK1XI9xBPjhCydGxyAG5yYdzopyIJzOFCIrDgrFYnHIK0QDwAAlI3nIcEsHu9FoYwrCHikZn4iFBSp5FhQsKwFCZLqxsbjokTUVjgABGIh5IgAZgAukQWUQACxEACcXKeG2QUgoCgYvXxrycmBJ4nQYWcbk4YO+ciehFQFAsCBQYCopQoYAAvlygA
-
-- id: variation-multiple-cards
-  template: ../../components/_partials/components-variations.ejs
-  template-params:
-    dir: layouts/panels-cards/
-  contents:
-  - title: Multiple Cards
-    description: Use `ui.layout_column_wrap()` is especially nice for laying out multiple cards since each card in a particular row will have the same height (by default).
-    apps:
-    - title: Preview
-      file: app-multiple-cards-preview.py
-      height: 350
-    - title: Express
-      file: app-multiple-cards-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IygO6cK7eZywAbKLlJyKAfTK65MCCdUMMACnUATTQF4AjAHoATEXZxOAHN2CldFMABmAAYo9H5wgEpEZWRU5HVNbSxiKAYnezo5XV0TVmJhalcAFQY5OCSUtKaFbNynE38oJzgGe3CAYTbkd0TGptSB8ipKZDppZBy84fDlMfSNLRbF-MLi0vK4Spq6hohxtK22jrgunr6wQaXvUbPz5EnKalk5hgWh57AykIqAouHQCBQYCo-AoYAAvgBdIA
-    - title: Core
-      file: app-multiple-cards-core.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEArpwA6EORnQB9acgC8yaTigBzOEroAbaQBMAFHORXNnLIai5SkikrLGYEJQHcGGCxGtAmyxiKAZzSyCorVDwpXY4KBM4BgswAGEwk2QARhkwAEoCSKjAmKylACNSE1w09PIqSmQ6IWRY7LzC4oDSwLpJQ0MlVmIGOGo1ABUGSTgSoKKFstsO-z6VkIqEpJT6rOQAJnyl3o3gjqqauvyGymoRVoZ2g+Pu5dKBoZGxiYhp2bzM6LHp9LycEwUdhqHIAekOoNKCU4OnYFDU+QAzAAGbHoAAe+QWBTkJPk5OSdDYKQAbntuOhnEQnBRGRQiKw4KxWJxyAVEAt0FBuXJRdBMOoxJgzIoVJwObSUmTCKgKLh0AgUGAqPiKGAAL4AXSAA
+  - title: Preview
+    file: app-filling-outputs-preview.py
+    height: 300
+  - title: Express
+    file: app-filling-outputs-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWTCIAEzgMiAV04AdCBKkzkMKBXQAbUhWOcARjlwmzyKGJMUtWgO6cK7ZOqzEoDAoAFOxwnADm7BQAvBpgAEwArAAM6PxxRHSqxsYA+qzEwtTRACoMqnAAlIhayHU+nH4BCrmhUEoMQXEAgsh0nDnc4ch2LmCVrhD1yAAC8h04pi5T9Up0I0tB1bXT9f3hRFD8yNEbFFisqpajrFs7uw78i2ZBwACMRPFEAMwAukTvIgAFiIAE5fhMVg9hBRVAwpvstIRUBRbAgUGAqPwKGAAL6-IA
+  - title: Core
+    file: app-filling-outputs-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhH6DhyGFAroANqQp7OAIxy59h5FFbJ9FVaozoA+kuQBeZEpxQA5nAudHpK0gAUqshR3pxYxFAM4ZHRKexwnH7sFB7KYABMAKwADOgAHrkEySlRdAp6ei6sxFLUHgAqDApwlRDV0T7xiS5pULIMEWCiyHSc9dx+dgYOYACUPX1RAwnSLiak0rhhPqQKuqculhQTl7krK1XI9xBPjhCydGxyAG5yYdzopyIJzOFCIrDgrFYnHIK0QDwAAlI3nIcEsHu9FoYwrCHikZn4iFBSp5FhQsKwFCZLqxsbjokTUVjgABGIh5IgAZgAukQWUQACxEACcXKeG2QUgoCgYvXxrycmBJ4nQYWcbk4YO+ciehFQFAsCBQYCopQoYAAvlygA
 
 - id: variation-content-divided-by-cards
-  template: ../../components/_partials/components-variations.ejs
+  template: ../../components/_partials/components-detail-example.ejs
   template-params:
     dir: layouts/panels-cards/
   contents:
-  - title: Content divided by cards
-    description: Cards are general purpose containers used to group related UI elements together with a border and optional padding.
-    apps:
-    - title: Preview
-      file: app-two-cards-preview.py
-      height: 320
-    - title: Express
-      file: app-two-cards-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IyhTigBzOAH1S6CqwAUdTgBtTUAEam4AXgAqDOXACUy5QHdOFdvM5YLXFI5Cm0yUzkYCCMXFGQAYmQAHiTlZHTkLx8-LGIoBgATQ1j0xJS0jMq1PMLtdjgoArgGQ0UwAGF8guQARmR6xua2twhKqv90Vo6u3uRLUgLcYYqxnO50EO1WU04mlrbt3aHCZDaAZR29tqIABiIeu+QAVhGVzO9faq7iuLLU0dWORqBTqDT2U06hWQACZ+mDjiNATlJm1Id1YfNFssAas1OtNlR+BQpoSKNdTmAAIIFbqk8ltbEnMAUXDoBAoZkCChgAC+AF0gA
-    - title: Core
-      file: app-two-cards-core.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEArpwA6EORnQB9acgC8yaTigBzOErqcANkagAjI3AAUc5Hc2csp3KUkUlZI5JgRWVuwDEyAA8wbb2EVrEUAwAJv7IQaHhEakOWNFxSuxwULFwDDZgAMIxscgAjMg5eQUyYACUBClp9lroRaVxlchmpLG49U0trenc6G5KrEac+YX107N1hMj1AMozc-VEAAxEFXvIAKzDEKNNgSFhZ61RZQlJ16ORjpmx2blznWXIAEzVn2Wp2ebUcHXqXXK-z6AyGzRuIK040mVAAHhQimiKNtVmBRLFylicfU4SN7BdElcWg1LskIA05IyIPk6GwCgA3ApWZEUIiuCgTXls1isTjkBqIFroKAipkKTDqMSYKyKFScIisDkFBkQFZgCi4dAIFD6uDosAAXwAukA
+  - title: Preview
+    file: app-two-cards-preview.py
+    height: 320
+  - title: Express
+    file: app-two-cards-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IygO6cK7eZywAbKLlJyKAfTK65MCCdUMMACnUATTQF4AjAHoATEXZxOAHN2CldFMABmAAYo9H5wgEpEZWRU5HVNbSxiKAYnezo5XV0TVmJhalcAFQY5OCSUtKaFbNynE38oJzgGe3CAYTbkd0TGptSW9D6wQbzh5AAjUidcUYhxtJbudGNS3U5u3vDWfcPwonCAZVOe8+QooncH5ABWBOUx9I0tFpy8gqKJTKFQg1Vq9WS6w2WT+7U6h2msycyG8a2hWSmAyG3kWy1WYHeUI2WwgO1MVH4FGmFIod3CAEEnMiaXSwGtCKgKLh0AgUGAaWAAL4AXSAA
+  - title: Core
+    file: app-two-cards-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEArpwA6EORnQB9acgC8yaTigBzOEroAbaQBMAFHORXNnLIai5SkikrLGYEJQHcGGCxGtAmyxiKAZzSyCorVDwpXY4KBM4BgswAGEwk2QARhkwAEoCSKjArXQ0zPDc5AAjUhNcfKKS0qstbnRnJVZDTmTU-N7+lPyifIBlPoGx5AAGIhyF5ABWFoC26zpJQ0Me4gY4ajUAFQZJOGKNqPW2mKz-Tet7uISklMqs5AAmZqun9q2Cr5KrZb51BpNQr-AEdCBdFxUAAeFDSyIos3yohM2XRmLAf1abW2u32h2OZwuMJu1KCXn6FHYahyAHpvrTAglODp2BQ1PkAMxzOboJFjVoFOSS+Qy5J0NgpABuH06ziITgoCKIrDgrFYnHIBUQrXQUD1cgt0Ew6jEmDMihUnG1SpS0sIqAouHQCBQYHRYAAvgBdIA
 ---
 
 ```{python}
@@ -197,21 +164,16 @@ A `ui.card()`'s default behavior is optimized for facilitating filling layouts. 
 
 `ui.layout_column_wrap()` is especially nice for laying out multiple cards since each card in a particular row will have the same height (by default).
 
-:::{#variation-multiple-cards}
-:::
-
-### Content divided by cards
-
 :::{#variation-content-divided-by-cards}
 :::
 
 Follow these steps to create an app with content separated into cards:
 
-  1. Add `ui.card()` inside any Shiny UI page method (e.g., `ui.page_fluid()`) to create a card. Add additional cards by adding additional calls to `ui.card()`.
+  1. Use `ui.layout_column_wrap()` to arrange multiple cards in a grid. Set `width` to control how many cards appear per row (e.g., `width=1/2` for two cards per row).
 
-  2. Define the contents of each card. Inside `ui.card()`, pass elements that you would like to appear inside the card (e.g., inputs, text). You can also use `ui.card_header()` and `ui.card_footer()` to create a card header and footer.
+  2. Add `ui.card()` calls inside `ui.layout_column_wrap()`. You can use `ui.card_header()` and `ui.card_footer()` to create card headers and footers.
 
-  3. Control the appearance and functionality of each card by passing additional arguments to `ui.card()`. For example, you can set `full_screen` to `True` to allow the user to expand the card to fullscreen, or control the height of the card with the `height` parameter.
+  3. Control the appearance and functionality of each card by passing additional arguments to `ui.card()`. For example, set `full_screen=True` to allow users to expand the card to fullscreen.
 
 ## Floating panel
 
