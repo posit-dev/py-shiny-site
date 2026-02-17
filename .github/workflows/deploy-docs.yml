@@ -20,6 +20,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/internal/build-cache-restore
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
       - name: Install uv
         uses: astral-sh/setup-uv@v7
         with:
@@ -49,11 +53,35 @@ jobs:
             any::reticulate
 
       # =====================================================
+      # Install dependencies (with custom Shinylive if branch name starts with shinylive-)
+      # =====================================================
+      - name: Install dependencies and build with develop Shinylive
+        if: startsWith(github.head_ref, 'shinylive-') || startsWith(github.ref_name, 'shinylive-')
+        run: |
+          # Extract branch name (works for both PR and push)
+          if [ -n "${{ github.head_ref }}" ]; then
+            BRANCH_NAME="${{ github.head_ref }}"
+          else
+            BRANCH_NAME="${{ github.ref_name }}"
+          fi
+
+          echo "🔵 Detected shinylive branch: ${BRANCH_NAME}"
+          echo "🔵 Building custom Shinylive from posit-dev/shinylive@develop"
+
+          # Use deps-dev to install dependencies and build shinylive from develop
+          make deps-dev
+
+      - name: Install dependencies (standard)
+        if: ${{ !startsWith(github.head_ref, 'shinylive-') && !startsWith(github.ref_name, 'shinylive-') }}
+        run: |
+          make deps
+
+      # =====================================================
       # Build
       # =====================================================
       - name: Build site
         run: |
-          make all QUARTO_PATH=quarto
+          make quartodoc components site QUARTO_PATH=quarto
 
       # =====================================================
       # Deploy docs to Netlify

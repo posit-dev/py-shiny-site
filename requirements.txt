@@ -1,5 +1,7 @@
 jupyter
 jupyter_client < 8.0.0
 tabulate
+# shinylive version used for CI/CD builds
+# For local development with develop branch, use: make deps-dev or make serve-dev
 shinylive==0.8.5
 griffe

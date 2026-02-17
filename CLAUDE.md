@@ -52,6 +52,9 @@ When iterating, run steps separately for efficiency:
 # Install/update Python dependencies
 make deps
 
+# Install dependencies with shinylive develop branch (for testing unreleased features)
+make deps-dev
+
 # Generate API docs (outputs to api/)
 make quartodoc
 
@@ -61,6 +64,25 @@ make components-shinylive-links
 # Generate static component previews
 make components-static
 ```
+
+### Working with Shinylive Develop Branch
+
+To test unreleased Shinylive features locally:
+
+```bash
+# Option 1: Quick serve with develop branch
+make serve-dev
+
+# Option 2: Full build with develop branch
+make all-dev
+
+# Option 3: Manual - install deps with develop, then build normally
+make deps-dev
+make quartodoc components site
+```
+
+**CI/CD with Shinylive Develop:**
+Branches prefixed with `shinylive-` (e.g., `shinylive-test-feature`) automatically build using the shinylive develop branch in CI/CD. This allows you to preview documentation changes with unreleased Shinylive features before they're published to PyPI.
 
 ### Virtual Environment
 
