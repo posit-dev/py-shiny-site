@@ -79,9 +79,16 @@ jobs:
       # =====================================================
       # Build
       # =====================================================
-      - name: Build site
+      - name: Build site (with shinylive develop)
+        if: startsWith(github.head_ref, 'shinylive-') || startsWith(github.ref_name, 'shinylive-')
         run: |
-          make quartodoc components site QUARTO_PATH=quarto
+          # Use quartodoc-no-deps since deps-dev was already run
+          make quartodoc-no-deps components site QUARTO_PATH=quarto
+
+      - name: Build site (standard)
+        if: ${{ !startsWith(github.head_ref, 'shinylive-') && !startsWith(github.ref_name, 'shinylive-') }}
+        run: |
+          make all QUARTO_PATH=quarto
 
       # =====================================================
       # Deploy docs to Netlify
