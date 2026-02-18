@@ -8,6 +8,8 @@ PIP3 ?= pip3
 QUARTO_VERSION ?= 1.7.23
 QUARTO_PATH ?= ~/.local/share/qvm/versions/v${QUARTO_VERSION}/bin/quarto
 
+SHINYLIVE_VERSION ?= 0.8.5
+
 # Any targets that depend on $(VENV) or $(PYBIN) will cause the venv to be
 # created using uv (much faster than standard venv). To use the venv, python
 # scripts should run with the prefix $(PYBIN), as in `$(PYBIN)/python`.
@@ -22,6 +24,10 @@ $(PYBIN): $(VENV)
 .PHONY: all
 all: quartodoc components site
 
+## Build assets and render site using develop branch shinylive
+.PHONY: all-dev
+all-dev: deps-dev quartodoc-no-deps components site
+
 ## Build website
 .PHONY: site
 site: $(PYBIN) install-quarto
@@ -30,6 +36,11 @@ site: $(PYBIN) install-quarto
 ## Build website and serve
 .PHONY: serve
 serve: $(PYBIN) install-quarto
+	. $(PYBIN)/activate && ${QUARTO_PATH} preview
+
+## Build website and serve using develop branch shinylive
+.PHONY: serve-dev
+serve-dev: deps-dev install-quarto
 	. $(PYBIN)/activate && ${QUARTO_PATH} preview
 
 
@@ -100,15 +111,21 @@ _extensions/machow/quartodoc: install-quarto
 quarto-extensions: _extensions/quarto-ext/shinylive _extensions/shafayetShafee/line-highlight _extensions/machow/quartodoc
 
 
-# Install build dependencies
+# Install build dependencies (using PyPI shinylive)
 deps: $(PYBIN)
 	uv pip install -r requirements.txt
 	. $(PYBIN)/activate && cd py-shiny && make ci-install-docs
 
+# Install build dependencies with develop branch shinylive
+deps-dev: $(PYBIN)
+	uv pip install -r requirements.txt
+	. $(PYBIN)/activate && cd py-shiny && make ci-install-docs
+	$(MAKE) build-shinylive
 
-## Build qmd files for Shiny API docs
-quartodoc: $(PYBIN) deps install-quarto
-	. $(PYBIN)/activate && cd py-shiny/docs && make quartodoc
+
+## Internal target: copy quartodoc output files
+.PHONY: _quartodoc-copy
+_quartodoc-copy:
 	# Copy all generated files except index.qmd
 	rsync -av --exclude="index.qmd" py-shiny/docs/api/ ./api
 	cp -R py-shiny/docs/_inv py-shiny/docs/objects.json ./
@@ -116,6 +133,16 @@ quartodoc: $(PYBIN) deps install-quarto
 	cp py-shiny/docs/api/express/index.qmd ./api/express/_api_index.qmd
 	cp py-shiny/docs/api/core/index.qmd ./api/core/_api_index.qmd
 	cp py-shiny/docs/api/testing/index.qmd ./api/testing/_api_index.qmd
+
+## Build qmd files for Shiny API docs
+quartodoc: $(PYBIN) deps install-quarto
+	. $(PYBIN)/activate && cd py-shiny/docs && make quartodoc
+	$(MAKE) _quartodoc-copy
+
+## Build qmd files for Shiny API docs (without installing deps - assumes deps already installed)
+quartodoc-no-deps: $(PYBIN) install-quarto
+	. $(PYBIN)/activate && cd py-shiny/docs && make quartodoc
+	$(MAKE) _quartodoc-copy
 
 
 ## Build component static previews and update shinylive links
@@ -130,6 +157,73 @@ components-static: $(PYBIN) deps
 .PHONY: components-shinylive-links
 components-shinylive-links: $(PYBIN) deps
 	. $(PYBIN)/activate && python components/update-shinylive-links.py
+
+
+SHINYLIVE_DIR ?= _shinylive-source
+
+## Clone shinylive repository (for building from source)
+.PHONY: clone-shinylive
+clone-shinylive:
+	@if [ ! -d "$(SHINYLIVE_DIR)" ]; then \
+		echo "🔵 Cloning shinylive repository..."; \
+		git clone https://github.com/posit-dev/shinylive.git $(SHINYLIVE_DIR); \
+	else \
+		echo "✓ shinylive directory already exists"; \
+	fi
+
+## Build shinylive from the develop branch for previewing unreleased features
+# Note, the develop branch's submodules MUST be up-to-date for this to work correctly.
+.PHONY: build-shinylive
+build-shinylive: $(PYBIN) clean-shinylive clone-shinylive
+	@echo "🔵 Checking out develop branch..."
+	@cd $(SHINYLIVE_DIR) && \
+		git checkout develop && \
+		git pull origin develop && \
+		echo "🔵 Updating submodules..." && \
+		git submodule init && \
+		git submodule update --recursive --remote && \
+		cd packages/py-shiny && git fetch --tags || true
+	@echo "🔵 Building shinylive assets from source..."
+	@cd $(SHINYLIVE_DIR) && \
+		npm install && \
+		make all && \
+		make dist
+	@echo "🔵 Installing locally-built shinylive assets..."
+	@ASSETS_VERSION=$$(cd $(SHINYLIVE_DIR) && node -p "require('./package.json').version"); \
+	ASSETS_DIR=$$(. $(PYBIN)/activate && python -c "import appdirs; print(appdirs.user_cache_dir('shinylive'))"); \
+	SHINYLIVE_ABS=$$(cd $(SHINYLIVE_DIR) && pwd); \
+	if [ -z "$$ASSETS_VERSION" ] || [ -z "$$ASSETS_DIR" ]; then \
+		echo "❌ Error: Failed to determine version or cache directory"; \
+		exit 1; \
+	fi; \
+	echo "🔹 Extracting and installing shinylive $${ASSETS_VERSION}"; \
+	cd "$$SHINYLIVE_ABS" && \
+		tar -xzf dist/shinylive-$${ASSETS_VERSION}.tar.gz && \
+		mkdir -p "$${ASSETS_DIR}" && \
+		rm -rf "$${ASSETS_DIR}/shinylive-$${ASSETS_VERSION}" && \
+		mv shinylive-$${ASSETS_VERSION} "$${ASSETS_DIR}/" && \
+		[ -d "$${ASSETS_DIR}/shinylive-$${ASSETS_VERSION}/shinylive" ] || \
+		(echo "❌ Error: Assets installation incomplete" && exit 1); \
+	echo "✓ Shinylive $${ASSETS_VERSION} installed to $${ASSETS_DIR}"
+
+## Update shinylive source and rebuild
+.PHONY: update-shinylive
+update-shinylive: clone-shinylive
+	@echo "🔵 Updating shinylive repository..."
+	cd $(SHINYLIVE_DIR) && git pull
+	$(MAKE) build-shinylive
+
+## Clean shinylive build artifacts and cached assets
+.PHONY: clean-shinylive
+clean-shinylive:
+	rm -rf $(SHINYLIVE_DIR)
+	@if [ -n "$(PYBIN)" ] && [ -f "$(PYBIN)/python" ]; then \
+		ASSETS_DIR=$$(. $(PYBIN)/activate && shinylive assets info 2>/dev/null | grep -A1 "Local cached" | tail -1 | tr -d ' '); \
+		if [ -n "$$ASSETS_DIR" ] && [ -d "$$ASSETS_DIR" ]; then \
+			echo "🔹 Removing all cached shinylive assets from $$ASSETS_DIR"; \
+			rm -rf "$$ASSETS_DIR"/shinylive-*; \
+		fi; \
+	fi
 
 
 ## Remove Quarto website build files
@@ -147,9 +241,9 @@ clean-extensions:
 clean-venv:
 	rm -rf $(VENV)
 
-## Remove all build files (Quarto website, quarto extensions, venv)
+## Remove all build files (Quarto website, quarto extensions, venv, shinylive)
 .PHONY: distclean
-distclean: clean clean-extensions clean-venv
+distclean: clean clean-extensions clean-venv clean-shinylive
 
 
 
