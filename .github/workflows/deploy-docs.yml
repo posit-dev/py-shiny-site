@@ -74,9 +74,8 @@ jobs:
         if: steps.check_artifact.outcome == 'success'
         run: |
           echo "🔵 Found py-shiny shinylive artifact, installing assets..."
-          . .venv/bin/activate && shinylive assets install-from-local _shinylive-pr-build/
+          . .venv/bin/activate && shinylive assets install-from-local "${GITHUB_WORKSPACE}/_shinylive-pr-build"
           echo "✓ Shinylive artifact assets installed successfully"
-          echo "   (shinylive CLI from PyPI: $(shinylive --version))"
 
       - name: Log using standard shinylive
         if: steps.check_artifact.outcome != 'success'
