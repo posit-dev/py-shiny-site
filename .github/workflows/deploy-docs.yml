@@ -100,7 +100,7 @@ jobs:
           echo "✓ Shinylive artifact assets installed successfully"
 
       - name: Log using standard shinylive
-        if: steps.check_artifact_main.outcome != 'success' && steps.check_artifact_any.outcome != 'success'
+        if: steps.artifact_main.outcome != 'success' && steps.artifact_any.outcome != 'success'
         run: |
           echo "ℹ️  No py-shiny shinylive artifact found, using standard PyPI shinylive assets"
           . .venv/bin/activate && echo "   (shinylive version: $(shinylive --version))"
