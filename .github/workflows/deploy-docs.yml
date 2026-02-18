@@ -53,42 +53,40 @@ jobs:
             any::reticulate
 
       # =====================================================
-      # Install dependencies (with custom Shinylive if branch name contains /shinylive-)
+      # Detect if this is a shinylive development branch
       # =====================================================
-      - name: Install dependencies and build with develop Shinylive
-        if: contains(github.head_ref, '/shinylive-') || contains(github.ref_name, '/shinylive-')
+      - name: Check if shinylive development branch
         run: |
-          # Extract branch name (works for both PR and push)
-          if [ -n "${{ github.head_ref }}" ]; then
-            BRANCH_NAME="${{ github.head_ref }}"
+          BRANCH_NAME="${{ github.head_ref || github.ref_name }}"
+          if echo "$BRANCH_NAME" | grep -q '/shinylive-'; then
+            echo "USE_SHINYLIVE_DEVELOP=true" >> $GITHUB_ENV
+            echo "🔵 Detected shinylive branch: ${BRANCH_NAME}"
+            echo "🔵 Will build with shinylive develop branch"
           else
-            BRANCH_NAME="${{ github.ref_name }}"
+            echo "USE_SHINYLIVE_DEVELOP=false" >> $GITHUB_ENV
           fi
 
-          echo "🔵 Detected shinylive branch: ${BRANCH_NAME}"
-          echo "🔵 Building custom Shinylive from posit-dev/shinylive@develop"
-
-          # Use deps-dev to install dependencies and build shinylive from develop
-          make deps-dev
+      # =====================================================
+      # Install dependencies
+      # =====================================================
+      - name: Install dependencies with develop Shinylive
+        if: env.USE_SHINYLIVE_DEVELOP == 'true'
+        run: make deps-dev
 
       - name: Install dependencies (standard)
-        if: ${{ !contains(github.head_ref, '/shinylive-') && !contains(github.ref_name, '/shinylive-') }}
-        run: |
-          make deps
+        if: env.USE_SHINYLIVE_DEVELOP == 'false'
+        run: make deps
 
       # =====================================================
       # Build
       # =====================================================
-      - name: Build site (with shinylive develop)
-        if: contains(github.head_ref, '/shinylive-') || contains(github.ref_name, '/shinylive-')
-        run: |
-          # Use quartodoc-no-deps since deps-dev was already run
-          make quartodoc-no-deps components site QUARTO_PATH=quarto
+      - name: Build site with shinylive develop
+        if: env.USE_SHINYLIVE_DEVELOP == 'true'
+        run: make quartodoc-no-deps components site QUARTO_PATH=quarto
 
       - name: Build site (standard)
-        if: ${{ !contains(github.head_ref, '/shinylive-') && !contains(github.ref_name, '/shinylive-') }}
-        run: |
-          make all QUARTO_PATH=quarto
+        if: env.USE_SHINYLIVE_DEVELOP == 'false'
+        run: make all QUARTO_PATH=quarto
 
       # =====================================================
       # Deploy docs to Netlify

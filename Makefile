@@ -26,7 +26,7 @@ all: quartodoc components site
 
 ## Build assets and render site using develop branch shinylive
 .PHONY: all-dev
-all-dev: deps-dev quartodoc components site
+all-dev: deps-dev quartodoc-no-deps components site
 
 ## Build website
 .PHONY: site
@@ -123,9 +123,9 @@ deps-dev: $(PYBIN)
 	$(MAKE) build-shinylive
 
 
-## Build qmd files for Shiny API docs
-quartodoc: $(PYBIN) deps install-quarto
-	. $(PYBIN)/activate && cd py-shiny/docs && make quartodoc
+## Internal target: copy quartodoc output files
+.PHONY: _quartodoc-copy
+_quartodoc-copy:
 	# Copy all generated files except index.qmd
 	rsync -av --exclude="index.qmd" py-shiny/docs/api/ ./api
 	cp -R py-shiny/docs/_inv py-shiny/docs/objects.json ./
@@ -134,16 +134,15 @@ quartodoc: $(PYBIN) deps install-quarto
 	cp py-shiny/docs/api/core/index.qmd ./api/core/_api_index.qmd
 	cp py-shiny/docs/api/testing/index.qmd ./api/testing/_api_index.qmd
 
+## Build qmd files for Shiny API docs
+quartodoc: $(PYBIN) deps install-quarto
+	. $(PYBIN)/activate && cd py-shiny/docs && make quartodoc
+	$(MAKE) _quartodoc-copy
+
 ## Build qmd files for Shiny API docs (without installing deps - assumes deps already installed)
 quartodoc-no-deps: $(PYBIN) install-quarto
 	. $(PYBIN)/activate && cd py-shiny/docs && make quartodoc
-	# Copy all generated files except index.qmd
-	rsync -av --exclude="index.qmd" py-shiny/docs/api/ ./api
-	cp -R py-shiny/docs/_inv py-shiny/docs/objects.json ./
-	# Copy over index.qmd, but rename it to _api_index.qmd
-	cp py-shiny/docs/api/express/index.qmd ./api/express/_api_index.qmd
-	cp py-shiny/docs/api/core/index.qmd ./api/core/_api_index.qmd
-	cp py-shiny/docs/api/testing/index.qmd ./api/testing/_api_index.qmd
+	$(MAKE) _quartodoc-copy
 
 
 ## Build component static previews and update shinylive links
@@ -177,39 +176,35 @@ clone-shinylive:
 .PHONY: build-shinylive
 build-shinylive: $(PYBIN) clean-shinylive clone-shinylive
 	@echo "🔵 Checking out develop branch..."
-	cd $(SHINYLIVE_DIR) && git checkout develop && git pull origin develop
-	@echo "🔵 Updating submodules..."
-	cd $(SHINYLIVE_DIR) && git submodule init
-	cd $(SHINYLIVE_DIR) && git submodule update --recursive --remote
-	cd $(SHINYLIVE_DIR)/packages/py-shiny && git fetch --tags || true
+	@cd $(SHINYLIVE_DIR) && \
+		git checkout develop && \
+		git pull origin develop && \
+		echo "🔵 Updating submodules..." && \
+		git submodule init && \
+		git submodule update --recursive --remote && \
+		cd packages/py-shiny && git fetch --tags || true
 	@echo "🔵 Building shinylive assets from source..."
-	cd $(SHINYLIVE_DIR) && npm install
-	cd $(SHINYLIVE_DIR) && make all
-	cd $(SHINYLIVE_DIR) && make dist
+	@cd $(SHINYLIVE_DIR) && \
+		npm install && \
+		make all && \
+		make dist
 	@echo "🔵 Installing locally-built shinylive assets..."
 	@ASSETS_VERSION=$$(cd $(SHINYLIVE_DIR) && node -p "require('./package.json').version"); \
 	ASSETS_DIR=$$(. $(PYBIN)/activate && python -c "import appdirs; print(appdirs.user_cache_dir('shinylive'))"); \
 	SHINYLIVE_ABS=$$(cd $(SHINYLIVE_DIR) && pwd); \
-	if [ -z "$$ASSETS_VERSION" ] || [ -z "$$ASSETS_DIR" ] || [ -z "$$SHINYLIVE_ABS" ]; then \
-		echo "❌ Error: Failed to determine version or paths"; \
+	if [ -z "$$ASSETS_VERSION" ] || [ -z "$$ASSETS_DIR" ]; then \
+		echo "❌ Error: Failed to determine version or cache directory"; \
 		exit 1; \
 	fi; \
-	echo "🔹 Extracting assets version $${ASSETS_VERSION}"; \
-	cd "$$SHINYLIVE_ABS" && tar -xzf dist/shinylive-$${ASSETS_VERSION}.tar.gz; \
-	if [ ! -d "$$SHINYLIVE_ABS/shinylive-$${ASSETS_VERSION}" ]; then \
-		echo "❌ Error: Extraction failed - directory not found"; \
-		exit 1; \
-	fi; \
-	echo "🔹 Installing to $${ASSETS_DIR}/shinylive-$${ASSETS_VERSION}"; \
-	mkdir -p "$${ASSETS_DIR}"; \
-	rm -rf "$${ASSETS_DIR}/shinylive-$${ASSETS_VERSION}"; \
-	mv "$$SHINYLIVE_ABS/shinylive-$${ASSETS_VERSION}" "$${ASSETS_DIR}/"; \
-	if [ ! -d "$${ASSETS_DIR}/shinylive-$${ASSETS_VERSION}/shinylive" ]; then \
-		echo "❌ Error: Assets installation failed - directory structure incomplete"; \
-		exit 1; \
-	fi; \
-	echo "✓ Shinylive assets version $${ASSETS_VERSION} installed successfully"; \
-	echo "  Assets location: $${ASSETS_DIR}/shinylive-$${ASSETS_VERSION}"
+	echo "🔹 Extracting and installing shinylive $${ASSETS_VERSION}"; \
+	cd "$$SHINYLIVE_ABS" && \
+		tar -xzf dist/shinylive-$${ASSETS_VERSION}.tar.gz && \
+		mkdir -p "$${ASSETS_DIR}" && \
+		rm -rf "$${ASSETS_DIR}/shinylive-$${ASSETS_VERSION}" && \
+		mv shinylive-$${ASSETS_VERSION} "$${ASSETS_DIR}/" && \
+		[ -d "$${ASSETS_DIR}/shinylive-$${ASSETS_VERSION}/shinylive" ] || \
+		(echo "❌ Error: Assets installation incomplete" && exit 1); \
+	echo "✓ Shinylive $${ASSETS_VERSION} installed to $${ASSETS_DIR}"
 
 ## Update shinylive source and rebuild
 .PHONY: update-shinylive
