@@ -58,8 +58,24 @@ jobs:
       # =====================================================
       # Try to use py-shiny shinylive artifact
       # =====================================================
-      - name: Check for py-shiny shinylive artifact
-        id: check_artifact
+      - name: Check for py-shiny shinylive artifact (main branch)
+        id: check_artifact_main
+        continue-on-error: true
+        uses: dawidd6/action-download-artifact@v6
+        with:
+          repo: posit-dev/py-shiny
+          workflow: build-docs.yaml
+          workflow_conclusion: success
+          branch: main
+          name: shinylive-build
+          path: _shinylive-pr-build/
+          if_no_artifact_found: ignore
+          check_artifacts: true
+          allow_forks: false
+
+      - name: Check for py-shiny shinylive artifact (any branch)
+        id: check_artifact_any
+        if: steps.check_artifact_main.outcome != 'success'
         continue-on-error: true
         uses: dawidd6/action-download-artifact@v6
         with:
@@ -69,16 +85,23 @@ jobs:
           name: shinylive-build
           path: _shinylive-pr-build/
           if_no_artifact_found: ignore
+          # No branch specified = search all branches
+          check_artifacts: true
+          allow_forks: false
 
       - name: Install py-shiny shinylive artifact assets
-        if: steps.check_artifact.outcome == 'success'
+        if: steps.check_artifact_main.outcome == 'success' || steps.check_artifact_any.outcome == 'success'
         run: |
-          echo "🔵 Found py-shiny shinylive artifact, installing assets..."
+          if [ "${{ steps.check_artifact_main.outcome }}" == "success" ]; then
+            echo "🔵 Found py-shiny shinylive artifact from main branch, installing assets..."
+          else
+            echo "🔵 Found py-shiny shinylive artifact from feature branch, installing assets..."
+          fi
           . .venv/bin/activate && shinylive assets install-from-local "${GITHUB_WORKSPACE}/_shinylive-pr-build"
           echo "✓ Shinylive artifact assets installed successfully"
 
       - name: Log using standard shinylive
-        if: steps.check_artifact.outcome != 'success'
+        if: steps.check_artifact_main.outcome != 'success' && steps.check_artifact_any.outcome != 'success'
         run: |
           echo "ℹ️  No py-shiny shinylive artifact found, using standard PyPI shinylive assets"
           . .venv/bin/activate && echo "   (shinylive version: $(shinylive --version))"
