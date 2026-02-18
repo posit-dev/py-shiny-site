@@ -49,6 +49,42 @@ jobs:
             any::reticulate
 
       # =====================================================
+      # Install Python dependencies
+      # =====================================================
+      - name: Install Python dependencies
+        run: |
+          make deps
+
+      # =====================================================
+      # Try to use py-shiny shinylive artifact
+      # =====================================================
+      - name: Check for py-shiny shinylive artifact
+        id: check_artifact
+        continue-on-error: true
+        uses: dawidd6/action-download-artifact@v6
+        with:
+          repo: posit-dev/py-shiny
+          workflow: build-docs.yaml
+          name: shinylive-build
+          path: _shinylive-pr-build/
+          search_artifacts: true
+          if_no_artifact_found: warn
+
+      - name: Install py-shiny shinylive artifact assets
+        if: steps.check_artifact.outcome == 'success'
+        run: |
+          echo "🔵 Found py-shiny shinylive artifact, installing assets..."
+          . .venv/bin/activate && shinylive assets install-from-local _shinylive-pr-build/
+          echo "✓ Shinylive artifact assets installed successfully"
+          echo "   (shinylive CLI from PyPI: $(shinylive --version))"
+
+      - name: Log using standard shinylive
+        if: steps.check_artifact.outcome != 'success'
+        run: |
+          echo "ℹ️  No py-shiny shinylive artifact found, using standard PyPI shinylive assets"
+          . .venv/bin/activate && echo "   (shinylive version: $(shinylive --version))"
+
+      # =====================================================
       # Build
       # =====================================================
       - name: Build site
