@@ -1,0 +1,100 @@
+---
+title: Toolbar Button
+sidebar: components
+appPreview:
+  file: components/inputs/toolbar-button/app-preview.py
+  static: true
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/toolbar-button/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 400
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4scAB7oGcbr36DhfCOgCuFIvogATOAyIX28+QHd2FFchdZiUAx2ABR0FgA24RLE+tQAvAAqDBZwAJSI8shZyJ7evuz+gXZiKnBQDgzB6ZnZtbJgACKkxBbwlMgAgsQU7OTc9TW1Wbk+fhSkpOEARoHBUOHs0hBx9QyLKhT11RBDu-lY45MzDGLqlhRiU1bjEMGDe7vsditg4VBTcFHk4bj1BPcPWpvD7hF4AGXen2QAHkID8-gC9qlEbsxhNpoFTuYrJdruQ7jtAY9nvVOOQxFB7GJgZ8EYSiUDIaD6gBJLjIADUyAhILpDKGZOWgokMjuYDspHccNI5S2-3p-OUKkl1KZiWScHl-ORCoeaKOmLOOKuFBuBMV2SeL2F31+hBRgJpzLAbPIMLhdq1FtE5Diwqk0jFdHCpEwuAAtHZ2NwANZyh21HX3AACtgqBx0mwVDjoyBNNwkFCgFAs3CqGV12X0JYYOzo9QAQnieMhiAtiDG4HZkOHuUyUCAjRQsE6xLaqgBfIiuiADodYG0eydEBukbxz7HD4WU4pOycDCCEVAUXDoBAoMBUbQUMATgC6QA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIg2oATOAyIBXdvPkZ0Yq8gC8yKzijS4YuuwAecYwAKeWRQ13YsYigGIJCw+LcomLEVOChTBmCIeJyw2TAAEVJiC3hKZF1iCnZybnyCONyEiIpSUgAbACNorKa+8KxWju6GMXV0CwoxTsnWiF7+xfZjJ3z2qE64drFydtx6xsWm9c321bAAGQ2t5AB5CD2D7KP4gEoG55fQtyGu6LGIBMpjMKHMFl8cstzpxyGIoBBjGITlsnhDcsizvkAJJcZAAamQV1OqLR8RhECc5IkMmCYGMpAA7g9SOl8u9DqTVIykdczgAVBgWOAfUnsz5fH5tP6jcaTaazcjg0l8Fb5Km7faEDlojHnHHkO4PTUi5WhcmU8RSaS0ujtUiYXAAWmM7G4AGs2SaIWLSVB2uxpBT8gwAyoKCTFj6mlHcoloojOqRjLglX03KRJkCxFRfBRaSC5hIKFAKBY6mAYzlK-E6BZ2ttuMQjNQnAKhV7kK95F2IDYEXA6MozJIzIFZRQiBmKECiNw4NxuDUIK9EIcAAJGfsMQZwXOHUyDguw7jF0vcQIr7WhIylhjZOj5ABCCp4yGI-uIboCyEdhN5KBAccsAxHYjQvABfIh9QgACgPVMDXkg5BH1ICgVFgwFJiwKl4URDEIPyPtbEwZwKkwQI7AcdhZ2HMwe0IVAKFwdAEBQMAcwoMBwIAXSAA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.toolbar_input_button
+    href: https://shiny.posit.co/py/api/ui.toolbar_input_button.html
+    signature: ui.toolbar_input_button(id, label, *, icon=None, show_label=MISSING,
+      tooltip=MISSING, disabled=False, border=False, **kwargs)
+  - title: ui.update_toolbar_input_button
+    href: https://shiny.posit.co/py/api/ui.update_toolbar_input_button.html
+    signature: ui.update_toolbar_input_button(id, *, label=None, show_label=None,
+      icon=None, disabled=None, session=None)
+  - title: ui.toolbar
+    href: https://shiny.posit.co/py/api/ui.toolbar.html
+    signature: ui.toolbar(*args, align="right", gap=None, width=None)
+- id: variations-update-buttons
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/inputs/toolbar-button/
+  contents:
+    apps:
+    - title: Preview
+      file: app-variation-updating-core.py
+      height: 400
+    - title: Express
+      file: app-variation-updating-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSIZwoxCu0lx5ilqvW4scAB7o93Xv0HC+EdAFcKRPRAAmcAxEnuzy8gDu7BQqyKFYxFAM-gAUdJ4ANhkSxHrUALwAKgyecACUiPLI1chRMXHsCUn+Yir6gQwpFVU1vbJgACKkxJ7wlMgAov7RQv09vdV1sfEUpKQZAEZJKVAZ7NIQ+f0M+yoU-d0QC9cNWKvrWwxi6l4UYhveqxAp8zfX7P4jmBuFATP0CL8-r0MlANnAMkCAMqg0yESFQ6qccj5LEQCQyH5gOgZUiYXAAWmm3AA1hcIVcMcgyuEGdV4i9vGIDEZyO9PuRCatpNIMnAxFTYaL-ODkP1CqRhaLkMiTMgAEL8q6IihQKgXX7sjyc7nsXkfChfQUKkVi3EyuXWpUASS4+ogvwAAn4Onc7OdWchAnRlDqKJ5uF1KgHenowwwrnR+iq4MhzV9kMQ9sRqXB-MgQByKFgQSYugBfZBGeDcObuuvyL36QzGOA2Oh0OCGBt6E0mGwmSgpQt3R1iiUbKXMgJwYNiSO-ADEyHlipTcIoETg1GQ1ElueQUACgfYIInud+IwYfjemc41OQ+XcrxHq-FJ73qSnvRPb9PUofGaeFe1A3lm94AKTIAATA+j4AIwGo0njoP4upivcmxJM8RpvGmArotU-Qlqi9J-OOUo4twv4fqRNwwnCCJJiiyApAM75nv4zJgHwwY-uR+7wtwKZMWCaIBlOLKNr2rYzh2XYQFJzZ9nAA4UEOOEvjazxcFOQbIHOly9EuK42qmcAbluVwbqQx7tkEIGiOQNYBpe15iLe2YAcOQpabiXS-OwwauSB7lgcgkEwfk8FRn88TIahVBiBhjzYa8fIWvh0Y3ERKLggRCy4ji4hSNIhL+KQEQQCSUDSmAZS0Ri9HwkCQyVdVtUNQsX41IJcAxTccUoWhSVrJhTyFullr5X0wK5WJjKOYcuL4qV-TEqSeCUietJ1Z1fxNYxYDJnlWXVFOhCoBQuDoAgKBgFQtgUGAZYALpAA
+    - title: Core
+      file: app-variation-updating-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIgzhRiFdpLiHqAEzgMiAV3bz5GdGKfIAvMic4o0nBidOwAHnDWABTyyLG+7FjEUAxRMXHpfkkpYirGtgzREOnFcbJgACKkxA7wlMgAotbsFEJlBGklGQktpAA2AEbJhZ0j8Vg9A8li6ugOFGL9cy0Qw6Nr7NZeZdxQFm0da529UP1wvVtgAMq7cPtFhyOc5F5PEBIy0WB0vaSYuAC0TW4AGsygBKdr3B6xCEHB5QXrsaQQC4MJEqCh3B6wqHFHEjTLJawLUjWXCrNZ+GZzMQmMzkBZLcifFrSaS9IJAk4c6xtZBlAAqpDZHOQ1wsyAAQkyipcKFAqODIQ8qRBZvM6ewGYsKMsWcL2UFXnzBQbRQBJLhKuGdPykObqsRUUIUT7ceUUBzca249L4zp0By9XoSYhGaheAUMByWA5g+TxiAuCC2OjKOwWArUihEe0UdVEbhwbjcLUQMGIA4AASMmosWDgdDocFM1drpnMcAbFkokWz4zNnPYO36PMT6VTyDEkQrNtiAGJkEKRXBkKcKAB3ODUZDUbkRZBQFPILmjiJz5DVBhGShiYiI4jA7x8NVzAcrsSnnkzi-Dz-D-drGfK8b3me9OCfABSZAACZvB8ABGC8-AcdBrAVIIJkGBhplfeYdT1C90m2G4sUOL8Ihebh-xHHllUOY5TnOMpxVXSJygAs9rHjMA+DTP8KKAs4i35K5SMIC9EzbYwO3rRtm1bXEaxksw5J7V1+1ZQ1pi4cc4knadZ19OJF2XQ01zgTdtyKTdSBPdgmzsagRFeb1jNiEDnLvB8nx8TTBx05k9JKBzLwca8vPAx9kGguCvEQyt3OKFC0Iwp1SD6bDcMdAjmSIzoSL2CSkseLgXnEKRpE+axSA3CAfigXkwH9aFkEYs4LkqOqGqa+i1mC4phLgRKVQSVD0KodLMqmbNGV1PKSoKsAdiKvroVecqGUqz5vl+PBAWHUFmrWh52uYsTVvymFk3SZSUzscY4BdA5J3dBUvRnEbOiMT0GCKOgWJuNcZUvHyDxAfsVrgGcAF9kDMeBvTAZNXEwZ99HQSI3A8dhCwzOxE0IVAKFwdAEBQMBnQoMAYYAXSAA
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A toolbar button is a compact button designed for use in toolbars within card headers, footers, and other constrained spaces.
+
+To add a toolbar button to your app:
+
+1. Add [`ui.toolbar()`](https://shiny.posit.co/py/api/ui.toolbar.html) to create a toolbar container, typically within [`ui.card_header()`](https://shiny.posit.co/py/api/ui.card_header.html) or another compact location.
+2. Inside the toolbar, add [`ui.toolbar_input_button()`](https://shiny.posit.co/py/api/ui.toolbar_input_button.html) with an `id` and `label`.
+3. Optionally add an `icon` parameter. When an icon is provided without `show_label=True`, only the icon is visible and a tooltip with the label text appears on hover.
+
+The value of a toolbar button is accessible as a reactive value. To access the value:
+
+1. Use `input.<button_id>()` (e.g., `input.save()`) to access the click count. The value is an integer representing the number of times the button has been clicked.
+
+### Button appearance
+
+Toolbar buttons are designed to be minimal and space-efficient. By default:
+
+- When no icon is provided, the label text is shown
+- When an icon is provided, only the icon is shown with a tooltip containing the label text
+- Use `show_label=True` with an icon to show both the icon and label text
+- Set `border=True` to add a border around the button
+- Set `disabled=True` to make the button non-clickable
+- Set `tooltip="my custom text here"` to set tooltip text to a something other than the `label` text
+- Set `tooltip=False` to remove the tooltip entirely
+
+### Updating buttons
+
+Use [`ui.update_toolbar_input_button()`](https://shiny.posit.co/py/api/ui.update_toolbar_input_button.html) to change the button's appearance from the server:
+
+- Update the `label`, `icon`, `show_label`, or `disabled` state
+- You cannot add/remove a `border` or `tooltip` after creation
+- Use [`ui.update_tooltip()`](https://shiny.posit.co/py/api/ui.update_tooltip.html) to update tooltip text
+
+:::{#variations-update-buttons}
+:::
+
+### Accessibility
+
+Always provide a meaningful `label` even when using icon-only buttons. The label is used for screen readers and tooltips, ensuring your app is accessible to all users.
+
+See Also: [Toolbar](../../layout/toolbar/index.qmd) | [Action Button](../action-button/index.qmd)
