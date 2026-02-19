@@ -151,7 +151,46 @@ clean-venv:
 .PHONY: distclean
 distclean: clean clean-extensions clean-venv
 
+SHINYLIVE_ARTIFACT_DIR ?= _shinylive-pr-build
 
+## Download and install shinylive artifact from py-shiny CI/CD (requires gh and jq)
+.PHONY: use-shinylive-artifact
+use-shinylive-artifact: $(PYBIN) deps
+	@command -v gh jq > /dev/null || (echo "❌ Install: brew install gh jq && gh auth login" && exit 1)
+	@gh auth status > /dev/null 2>&1 || (echo "❌ Authenticate: gh auth login" && exit 1)
+	@rm -rf $(SHINYLIVE_ARTIFACT_DIR)
+	@. $(PYBIN)/activate && python -c "import appdirs, shutil; shutil.rmtree(appdirs.user_cache_dir('shinylive'), ignore_errors=True)"
+	@echo "🔵 Finding shinylive-build artifact in py-shiny workflows..."
+	@FOUND=false; \
+	for RUN_ID in $$(gh run list --repo posit-dev/py-shiny --workflow build-docs.yaml --limit 20 --json databaseId --jq '.[].databaseId'); do \
+		if gh api repos/posit-dev/py-shiny/actions/runs/$$RUN_ID/artifacts --jq '.artifacts[].name' 2>/dev/null | grep -q '^shinylive-build$$'; then \
+			echo "🔹 Found artifact in run $$RUN_ID"; \
+			gh run download --repo posit-dev/py-shiny --name shinylive-build --dir $(SHINYLIVE_ARTIFACT_DIR) $$RUN_ID && \
+			. $(PYBIN)/activate && shinylive assets install-from-local "$(SHINYLIVE_ARTIFACT_DIR)" && \
+			echo "✓ Shinylive artifact installed" && \
+			FOUND=true && \
+			break; \
+		fi; \
+	done; \
+	if [ "$$FOUND" != "true" ]; then \
+		echo "❌ No shinylive-build artifact found in recent py-shiny builds"; \
+		exit 1; \
+	fi
+
+## Build documentation with py-shiny shinylive artifact
+.PHONY: all-with-artifact
+all-with-artifact: use-shinylive-artifact quartodoc components site
+	@echo "✓ Documentation built with py-shiny shinylive artifact"
+
+## Serve documentation with py-shiny shinylive artifact
+.PHONY: serve-with-artifact
+serve-with-artifact: use-shinylive-artifact quartodoc components
+	. $(PYBIN)/activate && ${QUARTO_PATH} preview
+
+## Clean shinylive artifact download
+.PHONY: clean-shinylive-artifact
+clean-shinylive-artifact:
+	rm -rf $(SHINYLIVE_ARTIFACT_DIR)
 
 
 
