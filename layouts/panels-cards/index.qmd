@@ -109,6 +109,40 @@ listing:
   - title: Core
     file: app-two-cards-core.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEArpwA6EORnQB9acgC8yaTigBzOEroAbaQBMAFHORXNnLIai5SkikrLGYEJQHcGGCxGtAmyxiKAZzSyCorVDwpXY4KBM4BgswAGEwk2QARhkwAEoCSKjArXQ0zPDc5AAjUhNcfKKS0qstbnRnJVZDTmTU-N7+lPyifIBlPoGx5AAGIhyF5ABWFoC26zpJQ0Me4gY4ajUAFQZJOGKNqPW2mKz-Tet7uISklMqs5AAmZqun9q2Cr5KrZb51BpNQr-AEdCBdFxUAAeFDSyIos3yohM2XRmLAf1abW2u32h2OZwuMJu1KCXn6FHYahyAHpvrTAglODp2BQ1PkAMxzOboJFjVoFOSS+Qy5J0NgpABuH06ziITgoCKIrDgrFYnHIBUQrXQUD1cgt0Ew6jEmDMihUnG1SpS0sIqAouHQCBQYHRYAAvgBdIA
+
+- id: variation-tabbed-card
+  template: ../../components/_partials/components-detail-example.ejs
+  template-params:
+    dir: layouts/panels-cards/
+  contents:
+  - title: Tabbed card
+    description: Use `ui.navset_tab()` inside a card to create tabbed content.
+  - title: Preview
+    file: app-tabbed-card-preview.py
+    height: 300
+  - title: Express
+    file: app-tabbed-card-express.py
+    shinylive: https://shinylive.io/py/editor/#code=PLACEHOLDER_TABBED_EXPRESS
+  - title: Core
+    file: app-tabbed-card-core.py
+    shinylive: https://shinylive.io/py/editor/#code=PLACEHOLDER_TABBED_CORE
+
+- id: variation-card-sidebar
+  template: ../../components/_partials/components-detail-example.ejs
+  template-params:
+    dir: layouts/panels-cards/
+  contents:
+  - title: Card with sidebar
+    description: Use `ui.layout_sidebar()` inside a card to create a card with a sidebar layout.
+  - title: Preview
+    file: app-card-sidebar-preview.py
+    height: 350
+  - title: Express
+    file: app-card-sidebar-express.py
+    shinylive: https://shinylive.io/py/editor/#code=PLACEHOLDER_SIDEBAR_EXPRESS
+  - title: Core
+    file: app-card-sidebar-core.py
+    shinylive: https://shinylive.io/py/editor/#code=PLACEHOLDER_SIDEBAR_CORE
 ---
 
 ```{python}
@@ -174,6 +208,20 @@ Follow these steps to create an app with content separated into cards:
   2. Add `ui.card()` calls inside `ui.layout_column_wrap()`. You can use `ui.card_header()` and `ui.card_footer()` to create card headers and footers.
 
   3. Control the appearance and functionality of each card by passing additional arguments to `ui.card()`. For example, set `full_screen=True` to allow users to expand the card to fullscreen.
+
+### Tabbed card {#tabbed-card}
+
+You can create tabbed content within a card by using `ui.navset_tab()` inside `ui.card()`. This is useful for organizing related information into separate tabs while keeping everything within a single card container.
+
+:::{#variation-tabbed-card}
+:::
+
+### Card with sidebar {#card-sidebar}
+
+Use `ui.layout_sidebar()` inside a card to create a card with a sidebar layout. This pattern is useful for cards that need input controls or filters alongside their main content.
+
+:::{#variation-card-sidebar}
+:::
 
 ## Floating panel
 
