@@ -91,3 +91,13 @@ main a.nav-link:hover {
   visibility: hidden;
   height: 200px;
 }
+
+/* Improve spacing for app previews - addresses comments about padding and whitespace */
+.app-preview {
+  margin-bottom: 1rem;
+}
+
+/* Ensure variation previews use full width */
+.variations .app-preview {
+  width: 100%;
+}
