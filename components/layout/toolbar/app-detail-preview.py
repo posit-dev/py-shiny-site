@@ -4,18 +4,8 @@ from shiny import App, render, ui
 app_ui = ui.page_fluid(
     ui.card(
         ui.card_header(
+            "Document Editor",
             ui.toolbar(
-                ui.toolbar_input_button(
-                    id="new",
-                    label="New",
-                    icon=icon_svg("file"),
-                ),
-                ui.toolbar_input_button(
-                    id="save",
-                    label="Save",
-                    icon=icon_svg("floppy-disk"),
-                ),
-                ui.toolbar_spacer(),
                 ui.toolbar_input_select(
                     id="view",
                     label="View",
@@ -24,11 +14,11 @@ app_ui = ui.page_fluid(
                 ),
                 ui.toolbar_divider(),
                 ui.toolbar_input_button(
-                    id="settings",
-                    label="Settings",
-                    icon=icon_svg("gear"),
+                    id="save",
+                    label="Save",
+                    icon=icon_svg("floppy-disk"),
                 ),
-                width="100%",
+                align="right",
             ),
         ),
         ui.card_body(
@@ -44,9 +34,7 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
     @render.text
     def toolbar_info():
-        return f"""New: {input.new()} clicks
-Save: {input.save()} clicks
-Settings: {input.settings()} clicks
+        return f"""Save: {input.save()} clicks
 View: {input.view()}"""
 
 

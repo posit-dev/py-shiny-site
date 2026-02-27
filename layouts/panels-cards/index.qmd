@@ -42,7 +42,7 @@ listing:
   contents:
   - title: Preview
     file: app-hello-card-preview.py
-    height: 200
+    height: 150
   - title: Express
     file: app-hello-card-express.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IygO6cK7eZyzEoDACYAKAJSJlyS9t36DAfXZwoBuAyOKwAQWSPnrj0TEADZQonYAvB4ARgDmALQG+gDWHiYWVgpYMMkGpKoQ7mAAysxwyFT8suqayFDIwEHcSQC6RuwUFOisiAD0PTEa7HJRusxpYGkQhKgUuOgIKGAVFGAAvs1AA
@@ -57,7 +57,7 @@ listing:
   contents:
   - title: Preview
     file: app-implicit-card-body-preview.py
-    height: 200
+    height: 150
   - title: Express
     file: app-implicit-card-body-express.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IygO6cK7eZyzEoDACYAKAJSJlyS9t36DAfXZwoBuAyOKwAQWSPnrj0TEADZQonYAvB4ARgDmALQG+gDWHiYWVgpYMMkGpKoQ7mAAysxwyFT8suqayFDIwEHcSQC6RuwUFOisiAD0PTEa7HJRuswmWKnKhKgUuOgIKGAVFGAAvs1AA
@@ -87,7 +87,7 @@ listing:
   contents:
   - title: Preview
     file: app-filling-outputs-preview.py
-    height: 300
+    height: 275
   - title: Express
     file: app-filling-outputs-express.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWTCIAEzgMiAV04AdCBKkzkMKBXQAbUhWOcARjlwmzyKGJMUtWgO6cK7ZOqzEoDAoAFOxwnADm7BQAvBpgAEwArAAM6PxxRHSqxsYA+qzEwtTRACoMqnAAlIhayHU+nH4BCrmhUEoMQXEAgsh0nDnc4ch2LmCVrhD1yAAC8h04pi5T9Up0I0tB1bXT9f3hRFD8yNEbFFisqpajrFs7uw78i2ZBwACMRPFEAMwAukTvIgAFiIAE5fhMVg9hBRVAwpvstIRUBRbAgUGAqPwKGAAL6-IA
@@ -102,7 +102,7 @@ listing:
   contents:
   - title: Preview
     file: app-two-cards-preview.py
-    height: 320
+    height: 350
   - title: Express
     file: app-two-cards-express.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IygO6cK7eZywAbKLlJyKAfTK65MCCdUMMACnUATTQF4AjAHoATEXZxOAHN2CldFMABmAAYo9H5wgEpEZWRU5HVNbSxiKAYnezo5XV0TVmJhalcAFQY5OCSUtKaFbNynE38oJzgGe3CAYTbkd0TGptSW9D6wQbzh5AAjUidcUYhxtJbudGNS3U5u3vDWfcPwonCAZVOe8+QooncH5ABWBOUx9I0tFpy8gqKJTKFQg1Vq9WS6w2WT+7U6h2msycyG8a2hWSmAyG3kWy1WYHeUI2WwgO1MVH4FGmFIod3CAEEnMiaXSwGtCKgKLh0AgUGAaWAAL4AXSAA
@@ -115,34 +115,30 @@ listing:
   template-params:
     dir: layouts/panels-cards/
   contents:
-  - title: Tabbed card
-    description: Use `ui.navset_tab()` inside a card to create tabbed content.
   - title: Preview
     file: app-tabbed-card-preview.py
-    height: 300
+    height: 400
   - title: Express
     file: app-tabbed-card-express.py
-    shinylive: https://shinylive.io/py/editor/#code=PLACEHOLDER_TABBED_EXPRESS
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IygO6cK7eZyzEoDACYAKOnIA2ZgPqtiw6gF4AKgzlwi7OJwDm7CvcVgAMwADMHo-AEAlIjKyHHauvoGlh5QBnAMRgEACkwAVnDEsgAiUBwARqRJUbHx6poJ0ABurHAUlhRQ5UbRtfF1GloKWM2W6FAQcGZZYADyTRlNnHCqUTEQ-ZvxAY5cYkKkBUXI7GXIgcgwnGYiFOQiyBMGyACMAEzInawA1qxYAX0tvFhugZgBhOQMYSUNidChyVgoWYbCgMKDEb41DZA+pDHSjcaTaY7OCwNaAoEJTpeP7mLLYylbYbUv5mTgzACCbOIcGQRgAMqSDJEogQKYy4syoDSsGyZgAhUjlPnFOALMykdAZEVgSJihkS4E6Fmy9kBMH6UhmFUibyTBg6vXirYig39XGNKBNMYTKYzRwSKbcODkt1AkEzADKnRkKAAUhM5PpcMg3sE3gA2LGGhKggIAUUEhSozzIkhuFE45HjckmqfTWd1ykIqAouC1tDAVH4FDAAF8ALpAA
   - title: Core
     file: app-tabbed-card-core.py
-    shinylive: https://shinylive.io/py/editor/#code=PLACEHOLDER_TABBED_CORE
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEArpwA6EORnQB9acgC8yaTigBzOEroAbaQBMAFHORXNnLMSgNzl6y633HS9nCgm4DC2AACkwAVnDEIgAiUBwARqQOJjJgAJQEzi5WWtAAbqxwFEoUULEWEJkVNli5SuhQEHCGZZUtyMkA8jl+OZxwAO7J6eWtFVroAQAqXKzI6KHhIuwxyADMyDCchnCsFOTbyPUmyACMAEzIxawA1qxYyWkZI9ZjAQDCkgwM1CI7UBSSrBQ7XKFAYUGIV3uQyeyAewxG2SgOVq9UazRh1mSE28MEGjxhWmKOlukia+IxWVsRNuhk4AVEtOIcGQZgAMt4TCkoeSKYTdDS6ckAEKkWIsyJwLqGUjoPxc1LQimZPnErC0t4OUiGcXbTg6BoMeVwpWwxUjY1PRHIuoNMnwjFY-iNbhwPH2gm2cbJADKxWEKAAUvVJA5eKcAAynABs3Pdls9AQAogAPWUROBHMgCLYUTjkQOSBrICPR2Mwi0VCuZOikwxKVjEL7UNQTBiSOBmzJePXsChqZIrcPh9DJt0uLkQCdyOS+Ohsbp+MzcdCSChEUirldr+esVh5yeIR51XfT+TQTDqMSYMyKFScIj5BhdQ1yQioCi4WW0MBUZMUMAAL4ALpAA
 
 - id: variation-card-sidebar
   template: ../../components/_partials/components-detail-example.ejs
   template-params:
     dir: layouts/panels-cards/
   contents:
-  - title: Card with sidebar
-    description: Use `ui.layout_sidebar()` inside a card to create a card with a sidebar layout.
   - title: Preview
     file: app-card-sidebar-preview.py
-    height: 350
+    height: 425
   - title: Express
     file: app-card-sidebar-express.py
-    shinylive: https://shinylive.io/py/editor/#code=PLACEHOLDER_SIDEBAR_EXPRESS
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5dKCAEygGdk+7LgB0IAM2akYyXgAs6EXFjgAPdMzi9+DJq2QL0AVwpEN3OMyKG6o0QGJkAYQ1QqAmTCgAbL8jFfSAHcLZB4KPjgKUX8gi34AXiEsABFXKAAxZlg4AAoQUWRC5GEwGODmEpRgEoAlUl44EqISgBVDLzp0JuKwVLpeXG6SgHlmYnkRQh6AGTovQamSgGVDcQDyobAANTpSL0jNgAVSTAWAXQICopLedDhiOk1K5GqwOt4oTbaOjk2AITgPn6m1G4zoPGIcCgjUWYFmHUMME2AAlAXROBRZIZeJsdntPrDDhgoAA3CwlC5XQolMgBCq0V41OCTZpgACagPWmwA6vIqEdDMx0PsjgoANabDk+IICoUi2FMyaUiBFHp3cJeAD6+wgAHNMc9gABWLAAJiIAGYsAAOIimrAARiIADYsBaiAAWLBGojWx12m2W73KgC+AEpbBBAnRMchrFhiFBmFwcmJ2lreMQNNR4i1mIY4ERZHA6LrZBR4iULUaAAzoFQlMOIKlxugJpNcTXFqBcCw5ErpdYhVLhZAAUTUdPJYAjKqK0dj8a8UFwpGMmt44LgACMkzkmy3VQvZK2sJve7vmPvm3PVXfTwZ1w19sQKP3b-fPzS9ixNWI5lQ9KXB+n53gOAEhNuuDILSLBNIeoFFK8ACCPibIqkqcjKsK8jGMKsocgrCvhPSHOKFLAYhRSzlRhTxo+FAbh0vZXiUkiBDiCpBPwFCkDIsjYUQTrILayBGjRtH0RARiMVAr67BAmrbsYvEQP2YAaBImiyOhcBaXIjYIYUx6nomyZKaQXC4Neka0cgAACZgsVgYRQH+WTwEZd69mIfhDswmrhNu+w2SBtEOHmpa6iEmkaHIyCBMWKrKRQqn6PwxAdMQYrMl5oEMVgsXafutl2UUDjpBBzDIFBME-hUYVUXQvkFbBAX-l4gH7sg8SJCUqFeJUeW0VwvmJGUcTDfegINDeZWfqNPV+bEzC8MAE2ra8bUUj1iStfVf5VfuZylfNDizDAMbIOxOKNYhGgUIKKqjVg3YpgVN37rOUxgBQuB3LQv2qBQYAhmcQA
   - title: Core
     file: app-card-sidebar-core.py
-    shinylive: https://shinylive.io/py/editor/#code=PLACEHOLDER_SIDEBAR_CORE
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5dKCAEygGdk+7LgB0IAM2akYyXgAs6EXMgZNWyAIKYizalzjMiAVzqjRAYmQBhHVCoCZMKABsnyMU9IB3fch4U+cBSi7l76-AC8QlgAIrZQAGLMsHAAFCCiyJnIwmAh3sw5KMA5AEqkvHA5RDkAKoZOdOhV2WCxdLy4zTkA8szE8iKELQAydE6dQzkAyobiHvldYABqdKROgYsACqSYEwC6BBlZObzocMR0cLyFyMVgZbxQi3UNHIsAQnAu7Yu9-XQ8YhwKCVSZgUYNQwwRYACS+dE4FFkhmuYJWayeYM2GCgADd9DkDkdMjkyB4CrQ7iU4INqmAAJpfeaLADq8ioW0MzHQ6y2CgA1otGS4vJzubywdTBkSIFkWmd-E4APrrCAAcyRN2AAFYsAAmIgAZiwAA4iHqsABGIgANiwhqIABYsNqiCarebTUaXTKAL4ASlM0EwSuMyEixhwUDVcCV7mMXBSxOQkeIUGYieTctT6a4StkwL0zCTYHi8x8sX8yAAogAPHksAlgf2HWVyrKRpxQXCkQwUJW8AFwABG6aTbfb7cjg70o+LWcnU7oWAU6D7A6+5wo48Xu-bpLWLDjYyoFNbe4vLXiJ58w6UZJYVQXl6yd3ULkWUqFTNFYLZdA5LEuR5UE6U2AVCXPF8shbZ890jVd114BoixLSRPFROkygw5AKFIGRZF-IhrWQM1kG1WCJ2ghCIDXfsoGIChVggJVhz7PCIDQuAJCuWRP24nQ5BySiXxEy8cwzVjSC4XAd2gzJI17Cg6KVPwoDjJJ4BLPJ9CVfxhwlMSLyM9sTLlMR6mVXhiB0ahwhqZhDDgKDJwLOg1VkChwhyQ1tQABnQWsnyowMIFCoM9DEGR9HxYtEIoIglLoogKl4QdyH9RBkwAAR0bh9CwNSNOSZNIrcctmD0qADNSTK4IsBz3JjZhkB0Hi5GQTwC1lNiKA45R+GIBpiH5Gk4PirA2sE2QUnCqi5Qsa8nFPZA72QB8CnmrI6CiiaNuPZb9Fm8NIhyd8nEKOC5S4KLIh05hri2zIvgqLKnvbG7w3K0IHuAe7eDuDbCRO5RaL7LB9rEG9i39PYg13CxRhgADWq8R7dx0CguVlG6sALKBEwm9DeFmubRAwdAvs0dAUgp0M6BSmL9FCoYwAoXAzloNm4FrCgwF9PYgA
 ---
 
 ```{python}
@@ -211,7 +207,7 @@ Follow these steps to create an app with content separated into cards:
 
 ### Tabbed card {#tabbed-card}
 
-You can create tabbed content within a card by using `ui.navset_tab()` inside `ui.card()`. This is useful for organizing related information into separate tabs while keeping everything within a single card container.
+Use `ui.navset_tab()` inside a card to create tabbed content.
 
 :::{#variation-tabbed-card}
 :::

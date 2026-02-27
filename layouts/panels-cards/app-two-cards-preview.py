@@ -7,7 +7,6 @@ app_ui = ui.page_fluid(
             ui.card_body(
                 ui.input_text("name", "Name", "John Doe"),
                 ui.input_slider("age", "Age", 18, 100, 30),
-                ui.input_select("role", "Role", choices=["Admin", "User", "Guest"]),
             ),
             ui.card_footer(
                 ui.input_action_button("save", "Save Changes", class_="btn-primary")

@@ -1,17 +1,41 @@
-from shiny.express import ui
+from shiny.express import input, render, ui
+import pandas as pd
 
-with ui.layout_column_wrap(width=1/3, height="200px"):
+with ui.layout_column_wrap():
     with ui.card(full_screen=True):
-        ui.card_header("Sales")
-        ui.h3("$45,231")
-        ui.p("Up 12% from last month", class_="text-success")
+        with ui.card_header():
+            "Sales Data"
+            with ui.toolbar():
+                ui.toolbar_input_select(
+                    id="region_filter",
+                    label="Region",
+                    choices=["All", "North", "South", "East", "West"],
+                    selected="All"
+                )
+
+        @render.data_frame
+        def sales_table():
+            data = pd.DataFrame({
+                "Product": ["Widget A", "Widget B", "Widget C", "Widget D", "Widget E"],
+                "Region": ["North", "South", "East", "West", "North"],
+                "Sales": [15_200, 12_800, 9_500, 11_300, 8_700],
+                "Growth": ["+12%", "+8%", "+5%", "+10%", "+3%"]
+            })
+
+            if input.region_filter() != "All":
+                data = data[data["Region"] == input.region_filter()]
+
+            return data
 
     with ui.card(full_screen=True):
-        ui.card_header("Customers")
-        ui.h3("2,345")
-        ui.p("Up 8% from last month", class_="text-success")
+        ui.card_header("Key Insights")
+        ui.markdown("""
+        **Performance Summary**
 
-    with ui.card(full_screen=True):
-        ui.card_header("Conversion Rate")
-        ui.h3("3.2%")
-        ui.p("Down 2% from last month", class_="text-danger")
+        - Sales increased by 96% over 6 months
+        - April showed a temporary dip
+        - Strong recovery in May and June
+        - Current trajectory suggests continued growth
+
+        *Data updated: June 2024*
+        """)

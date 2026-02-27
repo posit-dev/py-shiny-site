@@ -22,6 +22,12 @@ with ui.card():
     with ui.card_footer():
         with ui.toolbar():
             ui.toolbar_input_button(
+                id="download",
+                label="Download Data",
+                icon=icon_svg("download"),
+            )
+            ui.toolbar_spacer()
+            ui.toolbar_input_button(
                 id="export",
                 label="Export",
                 icon=icon_svg("file-export"),
@@ -29,11 +35,6 @@ with ui.card():
             ui.toolbar_input_button(
                 id="share",
                 label="Share",
+                show_label=True,
                 icon=icon_svg("share-nodes"),
-            )
-            ui.toolbar_spacer()
-            ui.toolbar_input_button(
-                id="save",
-                label="Save",
-                icon=icon_svg("floppy-disk"),
             )

@@ -14,8 +14,8 @@ app_ui = ui.page_fixed(
                     ui.toolbar_input_select(
                         "priority",
                         label="Priority",
-                        choices={"low": "Low", "medium": "Medium", "high": "High"},
-                        selected="medium",
+                        choices=["Low", "Medium", "High"],
+                        selected="Medium",
                         icon=icon_svg("flag"),
                     ),
                     ui.toolbar_divider(),
@@ -30,7 +30,15 @@ app_ui = ui.page_fixed(
         ),
         full_screen=True,
         height="250px",
-    )
+    ),
+    ui.card(
+        ui.card_header("Sent Messages"),
+        ui.card_body(
+            ui.p("No messages sent yet.", style="color: #888;"),
+        ),
+        full_screen=True,
+        height="250px",
+    ),
 )
 
 
