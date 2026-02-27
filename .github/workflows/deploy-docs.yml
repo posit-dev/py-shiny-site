@@ -49,7 +49,7 @@ jobs:
             any::reticulate
 
       # =====================================================
-      # Install Python dependencies
+      # Install Python dependencies to enable pulling shinylive artifact
       # =====================================================
       - name: Install Python dependencies
         run: |
