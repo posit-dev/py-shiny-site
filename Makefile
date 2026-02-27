@@ -154,6 +154,8 @@ distclean: clean clean-extensions clean-venv
 SHINYLIVE_ARTIFACT_DIR ?= _shinylive-pr-build
 
 ## Download and install shinylive artifact from py-shiny CI/CD (requires gh and jq)
+## This is essential the first time you want to use the dev shinylive build, but is not
+## necessary after, as shinylive will use the lastest cached artifact
 .PHONY: use-shinylive-artifact
 use-shinylive-artifact: $(PYBIN) deps
 	@command -v gh jq > /dev/null || (echo "❌ Install: brew install gh jq && gh auth login" && exit 1)
@@ -178,11 +180,15 @@ use-shinylive-artifact: $(PYBIN) deps
 	fi
 
 ## Build documentation with py-shiny shinylive artifact
+## Convenience command to chain your first use of dev shinylive with the build step
+## Creates a complete site build
 .PHONY: all-with-artifact
 all-with-artifact: use-shinylive-artifact quartodoc components site
 	@echo "✓ Documentation built with py-shiny shinylive artifact"
 
 ## Serve documentation with py-shiny shinylive artifact
+## Convenience command to chain your first use of dev shinylive with the serve step
+## Builds and starts the live preview server
 .PHONY: serve-with-artifact
 serve-with-artifact: use-shinylive-artifact quartodoc components
 	. $(PYBIN)/activate && ${QUARTO_PATH} preview
