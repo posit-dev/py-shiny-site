@@ -1,7 +1,5 @@
 from shiny.express import ui
 
-ui.popover( # <<
-    ui.input_action_button("btn", "Click me"),
-    "This is a popover with helpful information!",
-    title="Popover Title",
-)
+with ui.popover(title="Popover Title"): # <<
+    ui.input_action_button("btn", "Click me")
+    "This is a popover with helpful information!"

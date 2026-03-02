@@ -3,7 +3,7 @@ from shiny import ui, App
 app_ui = ui.page_fluid(
     ui.h4("Popover Examples"),
     ui.popover(
-        ui.input_action_button("btn1", "Hover or click me"),
+        ui.input_action_button("btn1", "Click me"),
         ui.div(
             ui.strong("Popover Title"),
             ui.p("This popover contains rich content including formatted text and multiple paragraphs."),
@@ -13,9 +13,10 @@ app_ui = ui.page_fluid(
     ),
     ui.br(), ui.br(),
     ui.popover(
-        ui.span("Hover over this text", class_="text-primary"),
+        ui.span("Hover over this text", class_="text-primary", style="cursor: help;"),
         "Quick info appears on hover",
         placement="top",
+        options={"trigger": "hover focus"},
     ),
 )
 

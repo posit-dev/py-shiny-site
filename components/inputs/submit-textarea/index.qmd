@@ -44,14 +44,8 @@ listing:
       '
     apps:
     - title: Preview
-      file: app-variation-enter-key-core.py
+      file: app-variation-enter-key.py
       height: 250
-    - title: Express
-      file: app-variation-enter-key-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhXER0AVwpFhEACZwGRBZwA6EfTpwAKXWAAKw0cgCilTcmMB3ThXaklyAMIUGAGwB6Lxg1AEpkClI2BQAjGFdEM1DDTixuRQoAfVZY+KyqfgooYShTCGQK5DMARx1iAGtM+FEoAHM4MwJ9SqqwAEU6+uRm1ja4RMJuypy410z6uFwAXjNqKgZOqYr0PyhiOHc-DQYViysxO3WIqJm8ogBlLjoKAGpLhzppZAg4J2Q-bgdSYQZIGCAAAVUxywBQo+g0dGQHgoGWMoUS5UqnERNUGTREo3aZjkcgyGJ6PWEFAUDHKdDM91yrioahQIHSSiwtU4DXxLXaaIAvmYtsgqTTymYAHJREZjZC4OBwsD6QioCi4dAIFBgWFgQUAXSAA
-    - title: Core
-      file: app-variation-enter-key-core.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAV05EG1ACZwGRAIKYAOhFUZ0AfXHIAvGM44oAczia6AG3HSAFKuQODOO2AAKU1q2QBRSnOQ2AO6cFOykoiIAwhQMFgD0kTDSAJTIFKRsogBGMCGIymDJBPaO4ljc6BGarNm5FJpUAB4UUFJQdhCOXcgFAI7ixADWmvCeJnAFxZ3dDgUAigODyKOs4-mEJTM1OSGag3C4ugXUVAyTm93oFlDEcGEWsgxHbh5evqdpGdt1RADKXHQKABqd7+OhCZAQOCBZAWbgTDbTBxFC5lcIUSr1Jr1ABuciyUAo-Bc6MxBRREGSqlUsjobDkeIYNgqESIpNZ9M8nHIyXySOQAAEpBBHlhsRdach2RQbLyLl1OHS+osRnAxqYCnxOiyKHyZjMpBRRAxOnQCr9aiEqNIUCAdVh+pwhqr1XBZQBfAryxyG42dAoAOQyK3GyFwcAoXrU0EwemQSnQNg02gk9IYjKpEEIqAouHQCBQYGxYHdAF0gA
 ---
 
 :::{#example}

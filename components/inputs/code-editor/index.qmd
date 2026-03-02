@@ -46,14 +46,8 @@ listing:
       '
     apps:
     - title: Preview
-      file: app-variation-languages-core.py
+      file: app-variation-languages.py
       height: 450
-    - title: Express
-      file: app-variation-languages-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhXER0AVwpFhEACZwGRBZwA6EfTqzsALAApdYACKc6dTdVkAFJgHMGsGN1fIAMlAhXBShXEUsASn1DTixuRQoAfTINBLg1TgppCwhkXORLPAp2ciTSDUsCfTz8sCdcIvIKqrzLDTpkdjgAGy7SM3DEXWbcoW4KMwByAAlu3qI6hogAQgnIwmHkLoCgkLgAXgL64oN1nLzOzld2CgOwAEYAJgAGdH4miEiDCCM4pVKUtIZLIbSwAKygADcoKxiAxOOhEsk4O9qpYAFKQqAAZVh8IoKJaYDoCggxAonHIHVmfXCyBAQzOZAgrFIXTgWF6rkmMx6pCIGKhOLhCJW4QA3AyAL4E3JbQLBUK3cFQmHC-GnaoXK43SyPF5vU6faKxeR-JGpdKZBjZVFgVgARy6-2RGsJWIAir4ZTUsQBRXy+gDCABVkAAqZAAMQASgB5ACyyAUrE0rAZAHUpr7o77kFAyZwIXBkHtkBQGAo4BLXbLtgr9pYHV1vVrrrc7k99e9PoRUBRcOgECgwFR+BQwJKALpAA
-    - title: Core
-      file: app-variation-languages-core.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAV05EAgpgA6EORnQB9ccgC8YzjigBzOEroAbcQBMAFHORXNWdgBYLYACKc6dOA2oiACkx0NYGG4dZAAZKAgdUV04VhkwAEoCS2txLG50UQolMhN9OBNOCiELCGty5Hi8CnZyHNI8+OSyiqt471wa8iaU1vi8umR2OENDUjMExBle5HQGbgozAHIACRGxog6uiABCJYSeltbDCKiYtSrO2vlCGfLhzh12CguwAEYAJgAGdAAPQ-KSRmaQyWXqeSUBSKJTu1niACsoAA3KCsYjzdDZXJwAGtSpgABSyKgAGV0ZxMbi+mA6KIIMQKJxyEN1uMEsgQNMWmQIKxSIY4FgxjplmtRqQiESUWSMRQ9gkANxcgC+VIqJ0i0T0r0RKLRsrV9zgj2er0+P3+tyOyCB1pBEEyWIa+UKxQYpTx+NYAEdDOCcVbPfESQBFUKGuFgEkAUVC0YAwgAVZAAKmQADEAEoAeQAsmJWB44nIAOoraOZ6PIKAMzhIuDqZAUBiiOBKwN4jVnbXxH2GCNWB5PF7xN5fC1q20HeQQAZsDz192gihEUhZR1EQusVhMiCTGboVFxGeKRvSdBmRQqCTzhiL6eEVAUXDoBAoMBUX4UMDKgC6QA
   - title: Read-only display
     description: 'Set `read_only=True` to display code that cannot be edited. This
       is useful for showing example code or documentation.
@@ -61,14 +55,8 @@ listing:
       '
     apps:
     - title: Preview
-      file: app-variation-read-only-core.py
+      file: app-variation-read-only.py
       height: 300
-    - title: Express
-      file: app-variation-read-only-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IyhVnYAWABSKwAJThQAJgFpyAG1zIAwqSNxkAEU6t05qLl0BKZas5ZudDkKAH0yexC4I04KaR0IZETkXWFjC1wwuzhdAmUk5LAAUX5YNwdbe2QtA2MzCEsfQjyk3QBiZAAVLjFwh2IoCAhSWQAjByiYqMVlezpkfvNiOXcqENY5GC0oIhGvRGmEpOEKOQYEqGQAamQRg4PhdfNZAF55qEXlqFX1zYBGAAYiAAmf4+ZRCbgULR0ADkBkeFBQIAeywoAF8YY1codEu4IABzORQfFwZ66PAUdjkHLNRLsOCcfHsChksC-AAc-3Q-BpOOQqSMIXSzw6DDkcGxPgghFQFFw6AQKDAVH4FDAaIAukA
-    - title: Core
-      file: app-variation-read-only-core.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAV05EAgpgA6EORnQB9ccgC8YzjigBzOEroAbcQBMAFHORXNWdgBYLYAEpwoJgLTlDvAMKkTcMgAIpys6IZQuDJgAJQEltbiWNzoohRKZAFKcCacFEIWENbFyNEMriZeuBn+cNHxRSVW0QCiAB6w4YF+AchmLm6eEN4x9QlN0QDEyAAqXKzImYHEUBAQpCIARoE5eTkycgF0i1CGxKIRVEqsojBmUESbMYgHjVblFKIMRVDIANTITavV7lG6GEQaFZnC5QK43O4ARgADEQAExI0ZydAMbgUMx0ADkLjBFBQIFBFwoAF8CaNCOMShEIDpRLo4GpongKOxyGM3iV2HBODp2BQOWAEQAOJHoNp8prvCpKKpqGYMURwBrFOJyUbyCBHNhwBgAN2NZhSaSIpDSqQoRFYcFYrE45GeDPQUGdcgUmHUyGk6HumBUEiNpuNesIqAouHQCBQYCobQoYCpAF0gA
 ---
 
 :::{#example}
