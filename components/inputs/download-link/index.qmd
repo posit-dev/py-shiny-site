@@ -1,0 +1,70 @@
+---
+title: Download Link
+sidebar: components
+appPreview:
+  file: components/inputs/download-link/app-preview.py
+  static: true
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/download-link/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAEyiooEt5kf1SDCmw5wAOhEbNkAZwAWXCLixwAHugZwZMvjAFDkmiKzgMJEgAJGTDLK1IB3CABtSUVgAo6XZ9VhwAXjoxMHYKKABaEDC4LApSdlwPAEoAXyxiGQA3EOTkAGJkAB4iiRM6NkcXN1YAfTCoFMQJZFbkXC44Z1ZkEOh4AiyoZwBXcXMwFraOrp6QgEFnLmI4AgBGAAYNsQmp1pnu3rAAIVIAIwIAJi2diBCJQlQKXHQEFDAqVQowVIBdIA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAEyiooEt5kf1SDCmw5wAOhEbNkAZwAWXCLj4wBQ5AFcuRBtVZwGRAIKYJEjOgD6W5AF5NXHFADmcS3QA2W1gAoJyAIcsVlIAdwgPUihWSwAjDQoKcj8wEPDI6Mt2CigxQmQ8gBEwiKjWZABhAGUANTyASiIAYmQAHlaJerMIfTpZAwA3Ax9FdASiUgSxiiIZOBkZLnJ6xH9AgAFdHoNgkozfOi4Palg4Wzo87KgAWhBsuCwk9lwfeoBfLGIZAYa1gN62HsylkOFBXqsIIEochcFw4B5ynloPACAMoF5xGYwH9obD4YiwEYPFxiHACABGAAMlLEWJxULxCIKYAAQqRYgQAEzU2kQPLdCx2ZAmdA+CzWbT9BhDBhdCD5MAUXDoBAoRVwAAeFDAbwAukA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.download_link
+    href: https://shiny.posit.co/py/api/ui.download_link.html
+    signature: ui.download_link(id, label, *, icon=None, width=None, **kwargs)
+  - title: ui.download_button
+    href: https://shiny.posit.co/py/api/ui.download_button.html
+    signature: ui.download_button(id, label, *, icon=None, width=None, **kwargs)
+  - title: '@render.download'
+    href: https://shiny.posit.co/py/api/render.download.html
+    signature: '@render.download(filename=None)'
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A download link triggers a file download when clicked. Use `ui.download_link()` for a link style, or `ui.download_button()` for a button style.
+
+**Express Mode Limitation**: Download links are **not supported in Express mode**. Express mode's `@render.download` decorator only auto-generates download buttons, never links. If you need a download link (rather than a button), use **Core mode** as shown in the Core tab above.
+
+To add a download link to your app:
+
+  1. Add `ui.download_link()` or `ui.download_button()` to the UI with a unique `id` and descriptive `label`.
+
+  2. In the server function, create a function with the same name as the link's `id` and decorate it with `@render.download()`.
+
+  3. The download function should `yield` the content to download, line by line or chunk by chunk. This allows downloading large files without loading everything into memory at once.
+
+  4. Specify the download filename using the `filename` parameter of `@render.download()`. This can be a string or a function that returns a string (useful for dynamic filenames with dates or user inputs).
+
+**Dynamic Filenames**: Use a lambda or function for the `filename` parameter to create dynamic filenames:
+
+```python
+@render.download(filename=lambda: f"data-{date.today()}.csv")
+```
+
+**Content Types**: The download handler can yield any content - CSV data, JSON, text files, images, or binary data. For binary files, yield bytes instead of strings.
+
+**Streaming**: The `yield` approach allows streaming large files efficiently without loading the entire file into memory.
+
+**Button vs Link**: Use `ui.download_link()` when you want the download control to appear as inline text (like a hyperlink), which is less visually prominent. Use `ui.download_button()` when you want a more prominent call-to-action with button styling.
+
+See Also: [Output UI](../../outputs/ui/index.qmd) can be used to dynamically generate download links based on user inputs or reactive values.

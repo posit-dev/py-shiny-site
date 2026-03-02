@@ -141,6 +141,7 @@ website:
             - components/inputs/dark-mode/index.qmd
             - components/inputs/date-range-selector/index.qmd
             - components/inputs/date-selector/index.qmd
+            - components/inputs/download-link/index.qmd
             - components/inputs/file/index.qmd
             - components/inputs/numeric-input/index.qmd
             - components/inputs/password-field/index.qmd
