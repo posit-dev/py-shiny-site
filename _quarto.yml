@@ -323,7 +323,6 @@ format:
     include-before-body: include-before-body.html
     include-in-header:
       - "include-in-header.html"
-      - "_plausible.html"
       - text: |
           <script src="https://cdn.jsdelivr.net/gh/posit-dev/supported-by-posit/js/badge.min.js"
             data-light-bg="#0073b5"
