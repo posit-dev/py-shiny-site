@@ -1,16 +1,11 @@
-from shiny import ui, render, App
+from shiny import ui, App
 
 app_ui = ui.page_fluid(
-    ui.input_text("name", "Name:", "Alice"),
-    ui.input_slider("age", "Age:", 1, 100, 25),
-    ui.input_bookmark_button(label="Bookmark"),
-    ui.output_text_verbatim("url"),
+    ui.input_bookmark_button(),
     {"class": "vh-100 d-flex justify-content-center align-items-center px-4"},
 )
 
 def server(input, output, session):
-    @render.text
-    def url():
-        return f"Bookmarkable URL will update when you bookmark"
+    pass
 
-app = App(app_ui, server)
+app = App(app_ui, server, enable_bookmarking="url")
