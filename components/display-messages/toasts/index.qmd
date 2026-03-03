@@ -50,6 +50,10 @@ listing:
     - title: Preview
       file: app-variation-positions.py
       height: 250
+    - title: Express
+      file: app-variation-positions-express.py
+    - title: Core
+      file: app-variation-positions.py
   - title: Toast types
     description: 'Toasts support different types for color-coding messages: `"primary"`,
       `"secondary"`, `"success"`, `"info"`, `"warning"`, `"danger"` (or `"error"`),
@@ -60,6 +64,10 @@ listing:
     - title: Preview
       file: app-variation-types.py
       height: 220
+    - title: Express
+      file: app-variation-types-express.py
+    - title: Core
+      file: app-variation-types.py
 ---
 
 :::{#example}

@@ -46,6 +46,10 @@ listing:
     - title: Preview
       file: app-variation-enter-key.py
       height: 250
+    - title: Express
+      file: app-variation-enter-key-express.py
+    - title: Core
+      file: app-variation-enter-key.py
 ---
 
 :::{#example}
