@@ -3,7 +3,6 @@ title: Bookmark Button
 sidebar: components
 appPreview:
   file: components/inputs/bookmark-button/app-preview.py
-  static: true
 listing:
 - id: example
   template: ../../_partials/components-detail-example.ejs
