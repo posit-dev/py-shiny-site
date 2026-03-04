@@ -23,13 +23,13 @@ listing:
   contents:
   - title: ui.download_button
     href: https://shiny.posit.co/py/api/ui.download_button.html
-    signature: ui.download_button(id, label, icon=None, **kwargs)
+    signature: ui.download_button(id, label, *, icon=None, width=None, **kwargs)
   - title: ui.download_link
     href: https://shiny.posit.co/py/api/ui.download_link.html
-    signature: ui.download_link(id, label, icon=None, **kwargs)
+    signature: ui.download_link(id, label, *, icon=None, width=None, **kwargs)
   - title: '@render.download'
     href: https://shiny.posit.co/py/api/render.download.html
-    signature: '@render.download(filename=None)'
+    signature: '@render.download(fn=None, *, filename=None, media_type=None, encoding="utf-8", label="Download")'
 ---
 
 :::{#example}
@@ -44,13 +44,15 @@ A download button triggers a file download when clicked. Use `ui.download_button
 
 To add a download button to your app:
 
-  1. Add `ui.download_button()` or `ui.download_link()` to the UI with a unique `id` and descriptive `label`.
+1. Add `ui.download_button()` or `ui.download_link()` to the UI with a unique `id` and descriptive `label`. (In Express mode, the button is auto-generated from the function name.)
 
-  2. In the server function, create a function with the same name as the button's `id` and decorate it with `@render.download()`.
+2. Create a function with the same name as the button's `id` and decorate it with `@render.download()`.
 
-  3. The download function should `yield` the content to download, line by line or chunk by chunk. This allows downloading large files without loading everything into memory at once.
+3. The download function can either:
+   - Return a string filepath (for existing files on disk)
+   - `yield` content line by line or chunk by chunk (for generated content or temp files)
 
-  4. Specify the download filename using the `filename` parameter of `@render.download()`. This can be a string or a function that returns a string (useful for dynamic filenames with dates or user inputs).
+4. Specify the download filename using the `filename` parameter of `@render.download()`. This can be a string or a function that returns a string (useful for dynamic filenames).
 
 **Dynamic Filenames**: Use a lambda or function for the `filename` parameter to create dynamic filenames:
 

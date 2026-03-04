@@ -79,15 +79,15 @@ A code editor input provides an interactive code editing experience with syntax 
 
 To add a code editor to your app:
 
-  1. Add `ui.input_code_editor()` to the UI of your app to create a code editor. Specify the `id` and `label` parameters. The `id` will be used to access the editor's value.
+1. Add `ui.input_code_editor()` to the UI of your app to create a code editor. Specify the `id` and `label` parameters. The `id` will be used to access the editor's value.
 
-  2. Set the initial code with the `value` parameter. This can be a string or a list of strings (one per line).
+2. Set the initial code with the `value` parameter. This can be a string or a list of strings (one per line).
 
-  3. Specify the programming `language` for syntax highlighting. The editor supports many languages including `"python"`, `"javascript"`, `"r"`, `"sql"`, `"html"`, `"css"`, `"json"`, `"markdown"`, and more.
+3. Specify the programming `language` for syntax highlighting. The editor supports many languages including `"python"`, `"javascript"`, `"r"`, `"sql"`, `"html"`, `"css"`, `"json"`, `"markdown"`, and more.
 
 The value of a code editor is accessible as a reactive value within the `server()` function. To access the value:
 
-  1. Use `input.<code_editor_id>()` (e.g., `input.code()`) to access the current code as a string.
+1. Use `input.<code_editor_id>()` (e.g., `input.code()`) to access the current code as a string.
 
 **Value Updates**: Unlike text inputs that update on every keystroke, the code editor only sends its value to the server when:
   - The user presses `Ctrl/Cmd + Enter`

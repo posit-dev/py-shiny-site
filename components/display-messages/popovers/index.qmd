@@ -41,11 +41,11 @@ A popover displays rich content in a small overlay when a user clicks or hovers 
 
 To add a popover to your app:
 
-  1. Wrap a trigger element (like a button or text) with `ui.popover()`.
+1. Wrap a trigger element (like a button or text) with `ui.popover()`.
 
-  2. Pass the content to display as additional arguments. This can be text, formatted HTML, or any UI elements.
+2. Pass the content to display as additional arguments. This can be text, formatted HTML, or any UI elements.
 
-  3. Optionally specify a `title` to show a header, and `placement` to control where the popover appears relative to the trigger.
+3. Optionally specify a `title` to show a header, and `placement` to control where the popover appears relative to the trigger.
 
 **Trigger Element**: The first argument is the element that triggers the popover. This can be:
   - A button (`ui.input_action_button()`)

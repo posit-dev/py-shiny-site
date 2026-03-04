@@ -23,7 +23,7 @@ listing:
   contents:
   - title: ui.toast
     href: https://shiny.posit.co/py/api/ui.toast.html
-    signature: ui.toast(body, header=None, icon=None, *, id=None, type=None, duration=5000,
+    signature: ui.toast(*args, header=None, icon=None, id=None, type=None, duration_s=5,
       position='top-right', closable=True, **kwargs)
   - title: ui.toast_header
     href: https://shiny.posit.co/py/api/ui.toast_header.html
@@ -81,11 +81,11 @@ Toasts are temporary notification messages that appear on screen to provide feed
 
 To show a toast notification:
 
-  1. Call `ui.show_toast()` within a reactive effect or event handler, typically triggered by a button click or other user action.
+1. Call `ui.show_toast()` within a reactive effect or event handler, typically triggered by a button click or other user action.
 
-  2. For simple messages, pass a string directly: `ui.show_toast("Operation complete!")`.
+2. For simple messages, pass a string directly: `ui.show_toast("Operation complete!")`.
 
-  3. For more control, create a toast object with `ui.toast()` and pass it to `ui.show_toast()`. This allows you to specify the type, position, duration, header, and icon.
+3. For more control, create a toast object with `ui.toast()` and pass it to `ui.show_toast()`. This allows you to specify the type, position, duration, header, and icon.
 
 **Toast Types**: Use the `type` parameter to color-code your messages:
   - `"success"` - Green, for successful operations

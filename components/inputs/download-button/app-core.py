@@ -6,7 +6,7 @@ app_ui = ui.page_fluid(
 )
 
 def server(input, output, session):
-    @render.download(filename=f"data-{date.today()}.csv")
+    @render.download(filename=lambda: f"data-{date.today()}.csv")
     def download_data():
         yield "name,value\n"
         yield "Alice,100\n"

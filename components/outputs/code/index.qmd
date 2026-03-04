@@ -23,7 +23,7 @@ listing:
   contents:
   - title: '@render.code'
     href: https://shiny.posit.co/py/api/render.code.html
-    signature: '@render.code'
+    signature: '@render.code(_fn=None, *, placeholder=True)'
   - title: ui.output_code
     href: https://shiny.posit.co/py/api/ui.output_code.html
     signature: ui.output_code(id, placeholder=False, fill=False, **kwargs)
@@ -41,11 +41,11 @@ A code output displays formatted code in a monospace font within a bordered cont
 
 To add code output to your app:
 
-  1. Add `ui.output_code()` to the UI, providing a unique `id`.
+1. Add `ui.output_code()` to the UI, providing a unique `id`.
 
-  2. In the server function, define a function with the same name as the output `id` and decorate it with `@render.code`.
+2. In the server function, define a function with the same name as the output `id` and decorate it with `@render.code`.
 
-  3. Return a string containing the code to display. Use `\n` for line breaks or return multi-line strings with triple quotes.
+3. Return a string containing the code to display. Use `\n` for line breaks or return multi-line strings with triple quotes.
 
 The output appears in a monospace font within a bordered, slightly shaded container that clearly identifies it as code.
 

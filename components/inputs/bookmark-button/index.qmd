@@ -23,8 +23,9 @@ listing:
   contents:
   - title: ui.input_bookmark_button
     href: https://shiny.posit.co/py/api/ui.input_bookmark_button.html
-    signature: ui.input_bookmark_button(id='bookmark_button', label='Bookmark', icon=None,
-      title='Bookmark the current application state', **kwargs)
+    signature: ui.input_bookmark_button(label='Bookmark...', *, icon=MISSING, width=None,
+      disabled=False, id=BOOKMARK_ID, title="Bookmark this application's state and
+      get a URL for sharing.", **kwargs)
 ---
 
 :::{#example}
@@ -35,39 +36,18 @@ listing:
 
 ## Details
 
-A bookmark button captures the current state of your app's inputs and saves it to the URL. Users can share this URL or save it to return to the exact same app state later.
+A bookmark button captures the current state of your app's inputs. Depending on your configuration, the state can be saved to the URL (for sharing via links) or to the server (for persistent storage). Users can then return to the exact same app state later.
 
 **Note**: Bookmarking requires enabling it when creating your app. This is an advanced feature that requires additional configuration.
 
 To add a bookmark button to your app:
 
-  1. Add `ui.input_bookmark_button()` to the UI. You can customize the button's `label` and `icon`.
+1. Add `ui.input_bookmark_button()` to the UI. You can customize the button's `label`, `icon`, `width`, `title` (tooltip), and whether it's `disabled`.
 
-  2. When clicked, the button captures all input values and encodes them in the URL query parameters.
+2. When clicked, the button captures all input values and saves them either to the URL query parameters (URL bookmarking) or to files on the server (server-side bookmarking).
 
-  3. When someone visits the bookmarked URL, the app automatically restores all inputs to their saved values.
+3. When someone visits the bookmarked URL or restores a saved state, the app automatically restores all inputs to their saved values.
 
-**Enabling Bookmarking**: To use bookmark buttons, you must enable bookmarking when creating your app. The exact method depends on how you're running your app, but typically involves passing an `enableBookmarking` parameter.
+**Enabling Bookmarking**: To use bookmark buttons, you must first enable bookmarking in your app. This requires setting a bookmark store, adding callbacks to handle the bookmarked state, and triggering bookmarking when inputs change.
 
-**What Gets Bookmarked**: By default, all input values are bookmarked. This includes:
-  - Text inputs
-  - Numeric inputs
-  - Sliders
-  - Select/dropdown choices
-  - Checkbox and radio button selections
-  - Any other input component
-
-**Use Cases**:
-  - **Sharing Analysis**: Users can share specific parameter combinations
-  - **Saving Progress**: Save complex configurations for later
-  - **Documentation**: Create links to specific app states in documentation
-  - **Testing**: Easily test specific input combinations
-
-**URL Persistence**: The bookmark is stored in the URL query string, making it:
-  - Easy to share via copy/paste
-  - Compatible with browser bookmarks
-  - Preservable in documentation or emails
-
-**Advanced**: For more control over what gets bookmarked, you can use `@reactive.effect` with `onRestore` functions to customize the bookmark/restore behavior.
-
-See Also: For more details on bookmarking, see the [Bookmarking](https://shiny.posit.co/py/docs/workflow.html#bookmarking) section in the Shiny documentation.
+See the [Bookmarking](https://shiny.posit.co/py/docs/bookmarking.html) guide for complete setup instructions.

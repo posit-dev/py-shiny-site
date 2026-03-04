@@ -28,8 +28,8 @@ listing:
       **kwargs)
   - title: ui.update_submit_textarea
     href: https://shiny.posit.co/py/api/ui.update_submit_textarea.html
-    signature: ui.update_submit_textarea(id, *, label=None, value=None, placeholder=None,
-      session=None)
+    signature: ui.update_submit_textarea(id, *, value=None, placeholder=None, label=None,
+      submit=False, focus=False, session=None)
 - id: variations
   template: ../../_partials/components-variations.ejs
   template-params:
@@ -66,17 +66,17 @@ This is ideal for chat interfaces, comment forms, or any scenario where users co
 
 To add a submit textarea to your app:
 
-  1. Add `ui.input_submit_textarea()` to the UI of your app to create the input. Specify the `id` and `label` parameters. The `id` will be used to access the submitted value.
+1. Add `ui.input_submit_textarea()` to the UI of your app to create the input. Specify the `id` and `label` parameters. The `id` will be used to access the submitted value.
 
-  2. Optionally set a `placeholder` to provide hint text, and configure the initial number of `rows` (the textarea will auto-expand as users type).
+2. Optionally set a `placeholder` to provide hint text, and configure the initial number of `rows` (the textarea will auto-expand as users type).
 
-  3. By default, users submit with **Ctrl+Enter** (or Cmd+Enter on Mac). To allow submission with just Enter, set `submit_key="enter"`.
+3. By default, users submit with **Ctrl+Enter** (or Cmd+Enter on Mac). To allow submission with just Enter, set `submit_key="enter"`.
 
 **Important:** The server doesn't receive a value until the user explicitly submits. To check if a value has been submitted:
 
-  1. Use `if "input_id" in input` to check if the input has been submitted before reading its value.
+1. Use `if "input_id" in input` to check if the input has been submitted before reading its value.
 
-  2. Use `input.<textarea_id>()` (e.g., `input.message()`) to access the submitted text as a string.
+2. Use `input.<textarea_id>()` (e.g., `input.message()`) to access the submitted text as a string.
 
 **Keyboard Shortcuts**:
   - **Ctrl+Enter** (or Cmd+Enter): Submit (default behavior)
