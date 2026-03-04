@@ -1,0 +1,113 @@
+---
+title: Toasts
+sidebar: components
+appPreview:
+  file: components/display-messages/toasts/app-preview.py
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/display-messages/toasts/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhXER0AVwpEFnADoQNqrN0UUA+lGIVO5fQCMlFcgAo1YDqQDu9ovYDK7Z8mtRWFewBKDQ0AAW04Ojo4YzCIgDdqChtdJSxHJ2CIABNI5H0bQMQNZFLkbQz9X387MAAJOAAbRtIAQmQAFS4xTjEoH1I-WXhRKABzOCwg5ABiZAAeeY1CVApcdAQUMCp+CjAAXwBdIA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAV05EGcKMQqcAbnCIBBTAB0IGjOgD645AF4xnHFADmcHXQA24gCYAKDchfGs3dKIo6Zc8joAjLwpyJzAOUgB3NUJkGIBldijkEKhWChiASgINTI0NOzg6NjgGRQYHDy8iUi9PCiJWOFZWTnJMxGdXAAEpXwU4LCK6OFkul17pWQGhxUpKiHqsCMi8iFdkQuKdBw7xjbcVnVT0sIAJOGtrUgBCZAAVLlY+Z6gU0jSReBbzQazkADEyAAPMD8tBMIZkKp0A5tHoJCUyqU1rEwBRcOgECh0XAAB4UMAAXwAukA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.toast
+    href: https://shiny.posit.co/py/api/ui.toast.html
+    signature: ui.toast(*args, header=None, icon=None, id=None, type=None, duration_s=5,
+      position='top-right', closable=True, **kwargs)
+  - title: ui.toast_header
+    href: https://shiny.posit.co/py/api/ui.toast_header.html
+    signature: ui.toast_header(title, *args, icon=None, status=None, **kwargs)
+  - title: ui.show_toast
+    href: https://shiny.posit.co/py/api/ui.show_toast.html
+    signature: ui.show_toast(toast, *, session=None)
+  - title: ui.hide_toast
+    href: https://shiny.posit.co/py/api/ui.hide_toast.html
+    signature: ui.hide_toast(id, *, session=None)
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/display-messages/toasts/
+  contents:
+  - title: Toast positions
+    description: 'Toasts can appear in 9 different screen positions: `"top-left"`,
+      `"top-center"`, `"top-right"`, `"middle-left"`, `"middle-center"`, `"middle-right"`,
+      `"bottom-left"`, `"bottom-center"`, and `"bottom-right"`. The default is `"top-right"`.
+
+      '
+    apps:
+    - title: Preview
+      file: app-variation-positions.py
+      height: 250
+    - title: Express
+      file: app-variation-positions-express.py
+    - title: Core
+      file: app-variation-positions.py
+  - title: Toast types
+    description: 'Toasts support different types for color-coding messages: `"primary"`,
+      `"secondary"`, `"success"`, `"info"`, `"warning"`, `"danger"` (or `"error"`),
+      `"light"`, and `"dark"`. Use these to indicate the nature of the message.
+
+      '
+    apps:
+    - title: Preview
+      file: app-variation-types.py
+      height: 220
+    - title: Express
+      file: app-variation-types-express.py
+    - title: Core
+      file: app-variation-types.py
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+Toasts are temporary notification messages that appear on screen to provide feedback about operations. They automatically dismiss after a few seconds and can be positioned anywhere on the screen.
+
+To show a toast notification:
+
+1. Call `ui.show_toast()` within a reactive effect or event handler, typically triggered by a button click or other user action.
+
+2. For simple messages, pass a string directly: `ui.show_toast("Operation complete!")`.
+
+3. For more control, create a toast object with `ui.toast()` and pass it to `ui.show_toast()`. This allows you to specify the type, position, duration, header, and icon.
+
+**Toast Types**: Use the `type` parameter to color-code your messages:
+  - `"success"` - Green, for successful operations
+  - `"info"` - Blue, for informational messages
+  - `"warning"` - Yellow, for warnings
+  - `"danger"` or `"error"` - Red, for errors
+  - `"primary"`, `"secondary"`, `"light"`, `"dark"` - Other styling options
+
+**Positioning**: Toasts can appear in 9 positions using the `position` parameter:
+  - Top: `"top-left"`, `"top-center"`, `"top-right"` (default)
+  - Middle: `"middle-left"`, `"middle-center"`, `"middle-right"`
+  - Bottom: `"bottom-left"`, `"bottom-center"`, `"bottom-right"`
+
+**Auto-hide**: By default, toasts disappear after 5 seconds (`duration_s=5` seconds). Set `duration_s=None` to keep the toast visible until the user manually closes it.
+
+**Progress Bar**: Toasts include an animated progress bar that shows the remaining time before auto-hide.
+
+**Programmatic Control**: Use `ui.hide_toast(id)` to manually dismiss a toast. When creating a toast, specify an `id` parameter to reference it later.
+
+**Toasts vs Notifications**: Toasts are a more modern alternative to `ui.notification_show()` with more positioning options, types, and visual polish. For new applications, toasts are recommended.
+
+## Variations
+
+:::{#variations}
+:::
