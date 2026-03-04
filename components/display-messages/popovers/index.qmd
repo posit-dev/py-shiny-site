@@ -26,7 +26,7 @@ listing:
     signature: ui.popover(trigger, *args, title=None, id=None, placement='auto', options=None, **kwargs)
   - title: ui.update_popover
     href: https://shiny.posit.co/py/api/ui.update_popover.html
-    signature: ui.update_popover(id, *args, title=None, show=None, session=None, **kwargs)
+    signature: ui.update_popover(id, *args, title=None, show=None, session=None)
 ---
 
 :::{#example}

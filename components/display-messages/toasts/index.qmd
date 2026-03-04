@@ -27,7 +27,7 @@ listing:
       position='top-right', closable=True, **kwargs)
   - title: ui.toast_header
     href: https://shiny.posit.co/py/api/ui.toast_header.html
-    signature: ui.toast_header(title, content=None, icon=None, status=None, **kwargs)
+    signature: ui.toast_header(title, *args, icon=None, status=None, **kwargs)
   - title: ui.show_toast
     href: https://shiny.posit.co/py/api/ui.show_toast.html
     signature: ui.show_toast(toast, *, session=None)
@@ -99,7 +99,7 @@ To show a toast notification:
   - Middle: `"middle-left"`, `"middle-center"`, `"middle-right"`
   - Bottom: `"bottom-left"`, `"bottom-center"`, `"bottom-right"`
 
-**Auto-hide**: By default, toasts disappear after 5 seconds (`duration=5000` milliseconds). Set `duration=None` to keep the toast visible until the user manually closes it.
+**Auto-hide**: By default, toasts disappear after 5 seconds (`duration_s=5` seconds). Set `duration_s=None` to keep the toast visible until the user manually closes it.
 
 **Progress Bar**: Toasts include an animated progress bar that shows the remaining time before auto-hide.
 
