@@ -26,7 +26,7 @@ listing:
     signature: '@render.code(_fn=None, *, placeholder=True)'
   - title: ui.output_code
     href: https://shiny.posit.co/py/api/ui.output_code.html
-    signature: ui.output_code(id, placeholder=False, fill=False, **kwargs)
+    signature: ui.output_code(id, placeholder=True)
 ---
 
 :::{#example}
