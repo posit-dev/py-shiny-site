@@ -185,8 +185,8 @@ use-dev-shinylive: $(PYBIN) deps
 
 
 ## Clean shinylive artifact download
-.PHONY: remove-dev-shinylive
-remove-dev-shinylive:
+.PHONY: clean-dev-shinylive
+clean-dev-shinylive:
 	rm -rf $(SHINYLIVE_ARTIFACT_DIR)
 
 
