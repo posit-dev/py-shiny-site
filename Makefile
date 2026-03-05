@@ -183,19 +183,6 @@ use-dev-shinylive: $(PYBIN) deps
 		exit 1; \
 	fi
 
-## Build documentation with py-shiny shinylive artifact
-## Convenience command to chain your first use of dev shinylive with the build step
-## Creates a complete site build
-.PHONY: all-with-dev-shinylive
-all-with-dev-shinylive: use-dev-shinylive quartodoc components site
-	@echo "✓ Documentation built with py-shiny shinylive artifact"
-
-## Serve documentation with py-shiny shinylive artifact
-## Convenience command to chain your first use of dev shinylive with the serve step
-## Builds and starts the live preview server
-.PHONY: serve-with-dev-shinylive
-serve-with-dev-shinylive: use-dev-shinylive quartodoc components
-	. $(PYBIN)/activate && ${QUARTO_PATH} preview
 
 ## Clean shinylive artifact download
 .PHONY: remove-dev-shinylive
