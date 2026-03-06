@@ -146,9 +146,9 @@ clean-extensions:
 clean-venv:
 	rm -rf $(VENV)
 
-## Remove all build files (Quarto website, quarto extensions, venv, shinylive)
+## Remove all build files (Quarto website, quarto extensions, venv)
 .PHONY: distclean
-distclean: clean clean-extensions clean-venv clean-shinylive
+distclean: clean clean-extensions clean-venv
 
 SHINYLIVE_ARTIFACT_DIR ?= _shinylive-pr-build
 SHINYLIVE_BRANCH ?= main
