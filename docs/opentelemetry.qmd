@@ -1,0 +1,1470 @@
+---
+title: OpenTelemetry
+---
+
+## What is OpenTelemetry?
+
+OpenTelemetry is an industry-standard framework for distributed tracing and observability. It allows you to track requests as they flow through your application, collect performance metrics, and diagnose issues in production environments.
+
+For Shiny applications, OpenTelemetry provides visibility into:
+
+- **Session lifecycle**: When users connect and disconnect
+- **Reactive execution**: Which outputs, calcs, and effects are running
+- **Performance bottlenecks**: Where your app spends time
+- **Error tracking**: What went wrong and where
+- **External dependencies**: Database queries, API calls, AI model requests
+
+## Why use OpenTelemetry with Shiny?
+
+Development tools like debuggers and print statements work well locally, but they don't help when your app is deployed and serving real users. OpenTelemetry bridges this gap by providing production observability without impacting your users.
+
+Common scenarios where OpenTelemetry helps:
+
+- **Multi-user performance**: One user's slow query is affecting others, but you don't know which user or query
+- **Intermittent errors**: Users report occasional errors that you can't reproduce locally
+- **Production debugging**: You need to understand what's happening in production without adding debug code
+- **AI application monitoring**: Track latency, token usage, and costs for LLM API calls
+- **Cross-service tracing**: Follow a request from your Shiny app through databases, APIs, and microservices
+
+## Quick Start
+
+### Installation
+
+OpenTelemetry support is built into Shiny, but you need to install the OpenTelemetry SDK to enable it:
+
+```bash
+# Option 1: Install with Shiny's optional dependencies
+pip install "shiny[otel]"
+
+# Option 2: Install the SDK manually
+pip install opentelemetry-sdk opentelemetry-exporter-otlp
+```
+
+### Basic Configuration
+
+OpenTelemetry requires three things to work:
+
+1. **A TracerProvider** - Manages trace collection
+2. **An Exporter** - Sends traces to an observability backend
+3. **Collection level** - Controls how much detail to capture
+
+Here's a minimal setup:
+
+```python
+from opentelemetry import trace
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+
+# Configure OpenTelemetry before importing Shiny
+trace.set_tracer_provider(TracerProvider())
+exporter = OTLPSpanExporter(endpoint="http://localhost:4317")
+trace.get_tracer_provider().add_span_processor(BatchSpanProcessor(exporter))
+
+# Now import and use Shiny
+from shiny import App, ui, render
+import os
+
+# Set collection level
+os.environ["SHINY_OTEL_COLLECT"] = "session"
+
+app_ui = ui.page_fluid(
+    ui.input_slider("n", "N", 1, 100, 50),
+    ui.output_text("result")
+)
+
+def server(input, output, session):
+    @render.text
+    def result():
+        return f"You selected: {input.n()}"
+
+app = App(app_ui, server)
+```
+
+### Verification
+
+To check the current collection level:
+
+```python
+from shiny import otel
+
+level = otel.get_level()
+print(f"Current collection level: {level.name}")  # e.g., "ALL", "SESSION", "NONE"
+```
+
+### Using Environment Variables
+
+For production deployments, configure OpenTelemetry using environment variables:
+
+```bash
+# Standard OpenTelemetry configuration
+export OTEL_EXPORTER_OTLP_ENDPOINT="https://your-collector:4318"
+export OTEL_SERVICE_NAME="my-shiny-app"
+
+# Shiny-specific configuration
+export SHINY_OTEL_COLLECT="session"
+```
+
+Then your app code can be simpler:
+
+```python
+from opentelemetry import trace
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+
+# Configure from environment variables
+trace.set_tracer_provider(TracerProvider())
+trace.get_tracer_provider().add_span_processor(
+    BatchSpanProcessor(OTLPSpanExporter())
+)
+
+from shiny import App, ui, render
+
+# ... rest of your app
+```
+
+::: {.callout-tip}
+## Quick Setup with Logfire
+
+For the fastest setup experience with zero OpenTelemetry configuration, see the [Logfire Quick Setup](#quick-setup-with-logfire) section below. Logfire handles all the TracerProvider and exporter setup automatically.
+:::
+
+## Quick Setup with Logfire {#quick-setup-with-logfire}
+
+::: {.callout-note collapse="true"}
+## Getting Started with Pydantic Logfire
+
+[Pydantic Logfire](https://logfire.pydantic.dev/) is a managed observability platform that works seamlessly with py-shiny's OpenTelemetry integration. It provides automatic setup, a modern web UI, and requires minimal configuration.
+
+### Why Logfire?
+
+- Zero-config OpenTelemetry setup (handles exporter configuration automatically)
+- Free tier available for development and small projects
+- Purpose-built for Python with excellent SDK integration
+- Beautiful trace visualization out of the box
+- SQL-based querying for advanced analysis
+
+### Installation
+
+Installing Logfire includes the OpenTelemetry SDK automatically:
+
+```bash
+pip install logfire
+```
+
+### Configuration
+
+Create a free account at [logfire.pydantic.dev](https://logfire.pydantic.dev/) and get your write token. Then configure Logfire before importing Shiny:
+
+```python
+import logfire
+
+# Configure Logfire (follow prompts for first-time setup)
+logfire.configure()
+
+# Now import and use Shiny - tracing happens automatically
+from shiny import App, ui, render
+import os
+
+# Set collection level
+os.environ["SHINY_OTEL_COLLECT"] = "reactivity"
+
+app_ui = ui.page_fluid(
+    ui.input_slider("n", "N", 1, 100, 50),
+    ui.output_text("result")
+)
+
+def server(input, output, session):
+    @render.text
+    def result():
+        return f"You selected: {input.n()}"
+
+app = App(app_ui, server)
+```
+
+### First Run Setup
+
+The first time you run `logfire.configure()`, you'll be prompted to:
+
+1. Authenticate with your Logfire account
+2. Create or select a project
+3. Store credentials locally
+
+Subsequent runs will use the saved configuration automatically.
+
+### Viewing Traces
+
+After running your app:
+
+1. Open your Logfire dashboard at [logfire.pydantic.dev](https://logfire.pydantic.dev/)
+2. Navigate to your project
+3. Click on "Traces" to see your Shiny sessions
+
+You'll see:
+- Session spans (user connections)
+- Reactive update cycles
+- Individual reactive executions
+- Any custom spans you've added
+
+### Example: Monitoring an AI Chatbot
+
+```python
+import logfire
+import os
+from shiny import App, ui, reactive, render
+from openai import AsyncOpenAI
+
+# Configure Logfire first
+logfire.configure()
+
+# Enable detailed tracing for AI interactions
+os.environ["SHINY_OTEL_COLLECT"] = "reactivity"
+
+# Logfire can also auto-instrument OpenAI calls
+logfire.instrument_openai()
+
+app_ui = ui.page_fluid(
+    ui.input_text("prompt", "Ask a question:"),
+    ui.input_action_button("send", "Send"),
+    ui.output_text("response")
+)
+
+def server(input, output, session):
+    client = AsyncOpenAI()
+
+    @render.text
+    @reactive.event(input.send)
+    async def response():
+        # Both the reactive execution AND the OpenAI call are traced
+        result = await client.chat.completions.create(
+            model="gpt-4",
+            messages=[{"role": "user", "content": input.prompt()}]
+        )
+        return result.choices[0].message.content
+
+app = App(app_ui, server)
+```
+
+In Logfire, you'll see:
+- The Shiny session span
+- The reactive execution span for `response()`
+- The OpenAI API call span nested inside (showing latency, token usage, etc.)
+
+### Querying Traces with SQL
+
+Logfire provides a SQL interface for analyzing traces:
+
+```sql
+-- Find slowest reactive executions in the last hour
+SELECT
+    span_name,
+    duration_ms,
+    attributes->>'session.id' as session_id
+FROM traces
+WHERE span_name LIKE 'reactive:%'
+AND start_time > NOW() - INTERVAL '1 hour'
+ORDER BY duration_ms DESC
+LIMIT 10;
+```
+
+### Environment Variables
+
+Logfire configuration can be controlled via environment variables for production:
+
+```bash
+# Use write token directly (for CI/CD, containers)
+export LOGFIRE_TOKEN="your_write_token"
+
+# Set project name
+export LOGFIRE_PROJECT="my-shiny-app"
+
+# Standard Shiny OTel configuration still works
+export SHINY_OTEL_COLLECT="session"
+```
+
+### Production Deployment
+
+For containerized deployments (Docker, Kubernetes):
+
+```dockerfile
+FROM python:3.12
+WORKDIR /app
+
+# Install dependencies
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+# Copy app code
+COPY app.py .
+
+# Set environment variables
+ENV LOGFIRE_TOKEN=${LOGFIRE_TOKEN}
+ENV LOGFIRE_PROJECT="my-shiny-app"
+ENV SHINY_OTEL_COLLECT="reactivity"
+
+CMD ["shiny", "run", "app.py", "--host", "0.0.0.0", "--port", "8080"]
+```
+
+Pass the token as a build argument or secret:
+```bash
+docker run -e LOGFIRE_TOKEN="your_token" my-shiny-app
+```
+
+### Additional Instrumentation
+
+Logfire can automatically instrument other libraries your Shiny app uses:
+
+```python
+import logfire
+
+logfire.configure()
+
+# Auto-instrument popular libraries
+logfire.instrument_openai()       # OpenAI API calls
+logfire.instrument_anthropic()     # Anthropic Claude API
+logfire.instrument_httpx()         # HTTP client requests
+logfire.instrument_sqlalchemy()    # Database queries
+logfire.instrument_redis()         # Redis operations
+```
+
+These will appear as nested spans within your Shiny traces, giving you end-to-end visibility.
+
+### Troubleshooting
+
+**Traces not appearing:**
+- Verify `logfire.configure()` is called **before** importing Shiny
+- Check your Logfire dashboard credentials
+- Ensure you're looking at the correct project
+
+**Too much data:**
+- Reduce collection level: `SHINY_OTEL_COLLECT=session`
+- Use sampling in Logfire project settings
+
+**Authentication errors in CI/CD:**
+- Use `LOGFIRE_TOKEN` environment variable instead of interactive auth
+- Create a dedicated write token for your deployment environment
+
+:::
+
+## Collection Levels
+
+Shiny's OpenTelemetry integration offers five collection levels that control the granularity of tracing. This allows you to balance observability needs with performance and data volume.
+
+| Level | What Gets Traced | Typical Use Case |
+|-------|------------------|------------------|
+| `none` | Nothing | Disable tracing entirely or for sensitive operations |
+| `session` | Session start/end, connection lifecycle | Basic user activity monitoring in production |
+| `reactive_update` | Session + reactive flush cycles, update boundaries | Understanding reactive performance patterns |
+| `reactivity` | Session + reactive updates + individual executions (calcs, effects, outputs) | Deep reactive debugging and optimization |
+| `all` | Everything including value updates and detailed logs | Comprehensive debugging (high data volume) |
+
+### Choosing a Collection Level
+
+**For production monitoring**, start with `session` or `reactive_update`:
+- These levels provide useful insights without overwhelming your observability backend
+- They help you understand user behavior and identify slow update cycles
+- Data volume is manageable even with many users
+
+**For development and debugging**, use `reactivity` or `all`:
+- See exactly which reactive components are executing and when
+- Track data flow through your reactive graph
+- Identify unnecessary re-executions
+
+**For sensitive operations**, use `none`:
+- Temporarily disable tracing for code that handles credentials or PII
+- Useful with the `otel.suppress` decorator or context manager
+
+### Examples by Level
+
+#### `session` Level
+
+Captures session lifecycle events:
+
+```python
+import os
+os.environ["SHINY_OTEL_COLLECT"] = "session"
+```
+
+Traces will show:
+- When users connect to your app
+- When users disconnect
+- Session duration
+
+#### `reactive_update` Level
+
+Captures session + reactive flush cycles:
+
+```python
+os.environ["SHINY_OTEL_COLLECT"] = "reactive_update"
+```
+
+Traces will show:
+- Session lifecycle (from `session` level)
+- When reactive updates are triggered (e.g., user clicks a button)
+- How long it takes to process all reactive changes
+- Which updates are happening in parallel
+
+This is particularly useful for understanding:
+- Why your app feels slow after certain user actions
+- Whether you have unnecessary reactive dependencies
+
+#### `reactivity` Level
+
+Captures session + reactive updates + individual executions:
+
+```python
+os.environ["SHINY_OTEL_COLLECT"] = "reactivity"
+```
+
+Traces will show:
+- Everything from `reactive_update`
+- Individual `@reactive.calc` executions
+- Individual `@reactive.effect` executions
+- Individual output render functions
+- Extended task operations
+
+This level gives you deep visibility into your reactive graph and is recommended when:
+- Debugging reactive behavior
+- Optimizing performance
+- Understanding data flow
+
+#### `all` Level
+
+Captures everything including value updates:
+
+```python
+os.environ["SHINY_OTEL_COLLECT"] = "all"
+```
+
+This is the most verbose level and includes:
+- Everything from `reactivity`
+- Value changes in reactive objects
+- Detailed internal operations
+
+::: {.callout-warning}
+The `all` level can generate significant data volume. Use it only for short debugging sessions or in development environments.
+:::
+
+### Performance Impact
+
+Shiny's OpenTelemetry integration is designed to have minimal performance impact:
+
+- **Lazy initialization**: Tracing components are only created when needed
+- **No-op behavior**: When the OpenTelemetry SDK isn't configured, tracing calls are extremely fast no-ops
+- **Async-safe**: Context propagation works correctly with async code and ExtendedTask
+
+However, higher collection levels do create more spans, which:
+- Uses more memory
+- Sends more data to your observability backend
+- May have small CPU overhead for span creation
+
+In practice, even the `reactivity` level has negligible impact for most applications.
+
+## Configuration Methods
+
+Shiny provides two ways to control telemetry: environment variables for global defaults, and programmatic control for fine-grained suppression.
+
+### 1. Environment Variable (Global Default)
+
+Set the `SHINY_OTEL_COLLECT` environment variable to establish a default for all Shiny applications:
+
+```bash
+export SHINY_OTEL_COLLECT=reactivity
+```
+
+This is the recommended approach for production deployments, as it keeps configuration separate from code.
+
+**Supported values:**
+- `none` - Disable tracing
+- `session` - Session lifecycle only
+- `reactive_update` - Session + reactive updates
+- `reactivity` - Session + updates + individual executions
+- `all` - Everything (default, currently equivalent to `reactivity`)
+
+### 2. Programmatic Control with `otel.suppress` and `otel.collect`
+
+Use `otel.suppress` to disable Shiny's internal telemetry for specific reactive objects, and `otel.collect` to re-enable it when the default has been lowered.
+
+::: {.callout-important}
+**Important**: The suppression setting is captured at **initialization time** — when the reactive object is created — not when it executes. This means you must apply decorators correctly and define reactive objects inside context manager blocks.
+:::
+
+#### As a Decorator
+
+Apply `@otel.suppress` or `@otel.collect` **before** (closer to the function than) the reactive decorator:
+
+```python
+from shiny import reactive, render, otel
+
+# Correct order - otel.suppress is applied first, then @reactive.calc reads it
+@reactive.calc
+@otel.suppress
+def sensitive_calc():
+    """This calc runs without Shiny telemetry on every execution."""
+    api_key = input.api_key()
+    return validate_api_key(api_key)
+
+# Force telemetry even when SHINY_OTEL_COLLECT=none
+@render.text
+@otel.collect
+def always_traced_output():
+    return "This output is always traced"
+```
+
+::: {.callout-warning}
+Applying the decorator in the wrong order will raise a `TypeError`:
+
+```python
+# WRONG - will raise TypeError
+@otel.suppress  # Cannot wrap a reactive object
+@reactive.calc
+def my_calc():
+    pass
+```
+:::
+
+#### As a Context Manager
+
+Use `otel.suppress()` or `otel.collect()` (with parentheses) as context managers during **reactive object creation**:
+
+```python
+from shiny import reactive, otel
+
+# All reactive objects created inside this block have telemetry suppressed
+with otel.suppress():
+    private_counter = reactive.value(0)
+
+    @reactive.calc
+    def private_calc():
+        return private_counter() * 2
+
+# Reactive objects outside use the default level
+@reactive.calc
+def normal_calc():
+    return load_public_data()
+```
+
+**Nested blocks** work as expected:
+
+```python
+with otel.suppress():
+    @reactive.calc
+    def private_calc():  # suppressed
+        return load_private_data()
+
+    with otel.collect():
+        @reactive.calc
+        def public_calc():  # re-enabled despite outer suppress
+            return load_public_data()
+```
+
+::: {.callout-note}
+**Runtime context managers don't affect reactive telemetry**: Using `with otel.suppress():` inside a reactive function body has no effect on Shiny's telemetry for that reactive object, because the setting was already captured at initialization.
+
+```python
+@reactive.calc
+def my_calc():
+    # THIS DOES NOT suppress telemetry for my_calc or load_secrets
+    with otel.suppress():
+        sensitive_data = load_secrets()
+    return sensitive_data
+```
+:::
+
+### Checking Current Level
+
+```python
+from shiny import otel
+
+# Get the current level
+level = otel.get_level()
+print(f"Current level: {level.name}")  # e.g., "ALL", "SESSION", "NONE"
+
+# Demonstrate context manager effect
+print(otel.get_level().name)  # "ALL" (default)
+
+with otel.suppress():
+    print(otel.get_level().name)  # "NONE"
+
+print(otel.get_level().name)  # "ALL" (restored)
+```
+
+## Complete Example: Data Dashboard
+
+Here's a realistic example showing OpenTelemetry in action with a data dashboard that makes external API calls.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+
+# Note: In a real app, configure OpenTelemetry before this import
+# from opentelemetry import trace
+# from opentelemetry.sdk.trace import TracerProvider
+# trace.set_tracer_provider(TracerProvider())
+
+from shiny import App, ui, render, reactive
+import pandas as pd
+import asyncio
+import os
+
+# Set collection level to see reactive execution
+os.environ["SHINY_OTEL_COLLECT"] = "reactivity"
+
+app_ui = ui.page_fluid(
+    ui.h2("Sales Dashboard"),
+    ui.layout_sidebar(
+        ui.sidebar(
+            ui.input_select(
+                "region",
+                "Select Region:",
+                choices=["North", "South", "East", "West"]
+            ),
+            ui.input_date_range(
+                "date_range",
+                "Date Range:",
+                start="2024-01-01",
+                end="2024-12-31"
+            ),
+            ui.input_action_button("refresh", "Refresh Data"),
+        ),
+        ui.output_text("status"),
+        ui.output_table("sales_table"),
+        ui.output_text("summary"),
+    )
+)
+
+def server(input, output, session):
+    # Simulate fetching data from an external API
+    @reactive.calc
+    @reactive.event(input.refresh)
+    async def fetch_sales_data():
+        # In a real app, this would be an actual API call
+        # The OpenTelemetry trace would show:
+        # - The reactive calc execution
+        # - The API call duration (if instrumented)
+        await asyncio.sleep(1)  # Simulate API latency
+
+        # Generate sample data
+        data = {
+            "Date": pd.date_range(input.date_range()[0], input.date_range()[1], freq="D"),
+            "Region": input.region(),
+            "Sales": [1000 + i * 10 for i in range(len(pd.date_range(input.date_range()[0], input.date_range()[1], freq="D")))]
+        }
+        return pd.DataFrame(data)
+
+    @render.text
+    async def status():
+        # This output will show in traces as a reactive execution
+        data = await fetch_sales_data()
+        return f"Loaded {len(data)} records for {input.region()}"
+
+    @render.table
+    async def sales_table():
+        # This output execution will also appear in traces
+        data = await fetch_sales_data()
+        return data.head(10)
+
+    @render.text
+    async def summary():
+        # Multiple outputs depending on same reactive calc
+        # Traces will show this doesn't re-fetch data
+        data = await fetch_sales_data()
+        total = data["Sales"].sum()
+        avg = data["Sales"].mean()
+        return f"Total Sales: ${total:,.0f} | Average: ${avg:,.0f}"
+
+app = App(app_ui, server)
+```
+
+### What You'll See in Traces
+
+With `SHINY_OTEL_COLLECT="reactivity"`, the trace for clicking "Refresh Data" will show:
+
+1. **Session span** (outermost)
+   - Span name: `shiny.session`
+   - Duration: The entire user session
+   - Attributes: Session ID, app name
+
+2. **Reactive update span**
+   - Span name: `shiny.reactive_update`
+   - Duration: Time to process all reactive changes
+   - Nested inside session span
+
+3. **Reactive calc execution** (`fetch_sales_data`)
+   - Span name: `reactive:fetch_sales_data`
+   - Duration: ~1 second (the API call simulation)
+   - Shows when data is fetched
+   - Nested inside reactive update span
+
+4. **Output render spans**
+   - Span name: `output:status`, `output:sales_table`, `output:summary`
+   - Duration: Time to render each output
+   - Shows that `sales_table` and `summary` don't wait for data (calc is cached)
+   - Nested inside reactive update span, after calc completes
+
+### Performance Insights
+
+Looking at these traces, you might notice:
+
+- **Parallel execution**: Outputs render in parallel after the calc completes
+- **Caching**: The calc only runs once even though three outputs depend on it
+- **Bottlenecks**: If `fetch_sales_data` is slow, you'll see it clearly
+- **User impact**: Total time from button click to UI update
+
+This visibility helps you:
+- Identify slow API calls that need optimization
+- Verify that caching is working correctly
+- Understand which user actions are expensive
+
+## Advanced Usage
+
+### Custom Spans for Business Logic
+
+While Shiny automatically traces session and reactive execution, you may want to add custom spans for specific business logic or operations. Use the standard OpenTelemetry API to create your own spans:
+
+```python
+from opentelemetry import trace
+from shiny import reactive, render
+
+tracer = trace.get_tracer(__name__)
+
+def server(input, output, session):
+    @reactive.calc
+    def complex_analysis():
+        with tracer.start_as_current_span("data_preprocessing"):
+            # This operation will appear as a nested span
+            df = load_and_clean_data()
+
+        with tracer.start_as_current_span("model_training"):
+            # Another distinct span
+            model = train_model(df)
+
+        with tracer.start_as_current_span("prediction"):
+            # Track prediction time separately
+            results = model.predict(input.parameters())
+
+        return results
+```
+
+Custom spans appear nested within Shiny's automatic spans, giving you fine-grained visibility into your application logic.
+
+### Adding Span Attributes
+
+Enrich your traces with custom attributes to make debugging easier:
+
+```python
+from opentelemetry import trace
+
+tracer = trace.get_tracer(__name__)
+
+@reactive.calc
+def fetch_user_data():
+    with tracer.start_as_current_span("fetch_user") as span:
+        user_id = get_current_user_id()
+        span.set_attribute("user.id", user_id)
+        span.set_attribute("user.plan", get_user_plan(user_id))
+
+        data = database.query(user_id)
+
+        span.set_attribute("query.rows_returned", len(data))
+        return data
+```
+
+These attributes can be queried in your observability backend to filter and analyze traces.
+
+### Tracing Extended Tasks
+
+Shiny's [ExtendedTask](nonblocking.qmd) for non-blocking operations automatically propagates trace context. This means background tasks appear as part of the same trace:
+
+```python
+from opentelemetry import trace
+from shiny import reactive, render, ui
+
+tracer = trace.get_tracer(__name__)
+
+def server(input, output, session):
+    @ui.bind_task_button(button_id="run")
+    @reactive.extended_task
+    async def background_task(params):
+        # This runs in the background but stays in the same trace
+        with tracer.start_as_current_span("background_computation"):
+            result = await expensive_computation(params)
+            return result
+
+    @render.text
+    async def result():
+        # The trace will show:
+        # 1. User clicked button
+        # 2. Task was queued
+        # 3. Background computation span
+        # 4. Result rendered
+        return await background_task(input.params())
+```
+
+The trace will show the complete user journey, including the time waiting for the background task and the task execution itself.
+
+### Integrating with Third-Party Instrumentation
+
+Many Python libraries have OpenTelemetry instrumentation available. These integrate seamlessly with Shiny's tracing:
+
+```python
+# At the top of your app, before other imports
+from opentelemetry.instrumentation.requests import RequestsInstrumentor
+from opentelemetry.instrumentation.sqlalchemy import SQLAlchemyInstrumentor
+from opentelemetry.instrumentation.redis import RedisInstrumentor
+
+# Instrument libraries
+RequestsInstrumentor().instrument()
+SQLAlchemyInstrumentor().instrument()
+RedisInstrumentor().instrument()
+
+# Now your Shiny app
+from shiny import App, ui, render
+import requests
+from sqlalchemy import create_engine
+
+def server(input, output, session):
+    @render.text
+    def data():
+        # Both operations automatically traced!
+        api_data = requests.get("https://api.example.com/data")
+        db_result = engine.execute("SELECT * FROM users")
+        return f"Fetched {len(api_data.json())} API records"
+```
+
+The resulting traces will show Shiny spans with nested HTTP and database spans, giving you end-to-end visibility.
+
+### Sampling for High-Traffic Applications
+
+For high-traffic production applications, you may want to sample traces rather than recording every single request:
+
+```python
+from opentelemetry import trace
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.sampling import TraceIdRatioBased
+
+# Sample 10% of traces
+sampler = TraceIdRatioBased(0.1)
+trace.set_tracer_provider(TracerProvider(sampler=sampler))
+
+# Continue with normal Shiny setup
+```
+
+This reduces data volume and costs while still providing statistically representative insights.
+
+### Context Propagation in Async Code
+
+Shiny automatically handles trace context propagation in async code, including across `await` boundaries:
+
+```python
+@reactive.calc
+async def multi_step_async():
+    # All spans properly nested even with async operations
+    data = await fetch_data()  # Span 1
+    processed = await process(data)  # Span 2
+    result = await save(processed)  # Span 3
+    return result
+```
+
+You don't need to manually manage context—Shiny handles this automatically using OpenTelemetry's context management and Python's `contextvars`.
+
+## Security and Privacy
+
+OpenTelemetry traces can contain sensitive information. Shiny includes built-in protections and provides tools to handle sensitive data appropriately.
+
+### Automatic Error Sanitization
+
+When exceptions occur, Shiny automatically sanitizes error messages before recording them in spans. Sensitive patterns are filtered out:
+
+- API keys (`api_key=`, `apikey=`)
+- Passwords (`password=`, `passwd=`)
+- Tokens (`token=`, `bearer=`)
+- Other common credential patterns
+
+Example of what gets sanitized:
+
+```python
+# If this error occurs:
+raise ValueError("Authentication failed with api_key=sk_abc123xyz")
+
+# The trace will show:
+"Authentication failed with api_key=[REDACTED]"
+```
+
+This happens automatically—you don't need to configure anything.
+
+### Disabling Tracing for Sensitive Operations
+
+Use `@otel.suppress` to disable Shiny's internal telemetry for reactive objects that handle sensitive data:
+
+```python
+from shiny import render, otel
+
+def server(input, output, session):
+    @render.text
+    @otel.suppress
+    def process_payment():
+        # No Shiny telemetry for this output
+        credit_card = input.credit_card()
+        payment_result = payment_gateway.charge(
+            card=credit_card,
+            amount=input.amount()
+        )
+        return "Payment processed successfully"
+```
+
+Or use the context manager when defining multiple sensitive reactive objects:
+
+```python
+from shiny import reactive, otel
+
+with otel.suppress():
+    @reactive.calc
+    def load_credentials():
+        return decrypt_api_keys()
+
+    @reactive.calc
+    def process_secrets():
+        return validate_tokens()
+```
+
+This is recommended for:
+- Payment processing
+- Authentication and credential handling
+- Processing personally identifiable information (PII)
+- Any operations subject to compliance requirements (PCI, HIPAA, GDPR)
+
+::: {.callout-note}
+`otel.suppress` only disables **Shiny's internal telemetry**. Your own custom OpenTelemetry spans are unaffected.
+:::
+
+### Controlling Attribute Recording
+
+When adding custom spans, be careful not to include sensitive data as attributes:
+
+```python
+from opentelemetry import trace
+
+tracer = trace.get_tracer(__name__)
+
+@reactive.calc
+def sensitive_calculation():
+    with tracer.start_as_current_span("calculation") as span:
+        # Don't add sensitive data as attributes
+        user_data = load_user_data()
+        result = process(user_data)
+
+        # Only record safe, aggregated attributes
+        span.set_attribute("calculation.record_count", len(user_data))
+        span.set_attribute("calculation.success", True)
+        # DON'T do: span.set_attribute("user.email", user_data["email"])
+
+        return result
+```
+
+### Data Retention and Export Controls
+
+Configure your OpenTelemetry exporter to respect data retention requirements:
+
+```python
+from opentelemetry import trace
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+
+# Configure exporter with security headers
+exporter = OTLPSpanExporter(
+    endpoint="https://your-collector:4317",
+    headers={
+        "authorization": f"Bearer {os.environ['OTEL_TOKEN']}",
+    }
+)
+
+trace.set_tracer_provider(TracerProvider())
+trace.get_tracer_provider().add_span_processor(
+    BatchSpanProcessor(exporter)
+)
+```
+
+Additionally, configure retention policies in your observability backend (Logfire, Jaeger, etc.) to automatically delete old traces.
+
+### Environment-Specific Configuration
+
+Use different collection levels and configurations for different environments:
+
+```python
+import os
+from shiny.otel import otel_collect
+
+# Determine environment
+env = os.environ.get("APP_ENV", "development")
+
+if env == "production":
+    # Production: session-level only, minimal data
+    collection_level = "session"
+elif env == "staging":
+    # Staging: detailed tracing for testing
+    collection_level = "reactivity"
+else:
+    # Development: full tracing
+    collection_level = "all"
+
+os.environ["SHINY_OTEL_COLLECT"] = collection_level
+
+@otel_collect(collection_level)
+def server(input, output, session):
+    pass
+```
+
+### Compliance Considerations
+
+When using OpenTelemetry in regulated environments:
+
+1. **Review your observability provider's compliance certifications** (SOC 2, HIPAA, GDPR)
+2. **Use `otel_collect("none")` for any PHI/PII processing**
+3. **Configure data retention** to match your requirements
+4. **Encrypt trace data in transit** (use HTTPS/TLS for exporters)
+5. **Audit trace data access** in your observability backend
+6. **Document what data is traced** in your compliance documentation
+
+::: {.callout-important}
+## GDPR and User Consent
+
+If your application is subject to GDPR or similar privacy regulations:
+
+- Session IDs and timestamps (recorded at `session` level) may constitute personal data
+- Consider using a consent mechanism to enable/disable tracing per-user
+- Ensure your privacy policy mentions observability data collection
+- Provide a way for users to request deletion of their trace data
+:::
+
+## Analyzing Traces
+
+Once your application is instrumented and traces are flowing to your observability backend, you can start analyzing them to understand performance and behavior.
+
+### Common Analysis Patterns
+
+#### Finding Slow Sessions
+
+Identify user sessions that took a long time:
+
+```
+# Query depends on your observability backend
+# This example uses generic span query syntax
+
+span.name = "shiny.session"
+duration > 30s
+ORDER BY duration DESC
+```
+
+This helps identify:
+- Users with slow network connections
+- Sessions that triggered expensive operations
+- Performance degradation over time
+
+#### Identifying Slow Reactive Components
+
+Find which reactive calcs or outputs are bottlenecks:
+
+```
+span.name LIKE "reactive:%"
+OR span.name LIKE "output:%"
+duration > 1s
+ORDER BY duration DESC
+LIMIT 20
+```
+
+This reveals:
+- Which outputs need optimization
+- Whether calcs are running unnecessarily
+- Where to add caching or memoization
+
+#### Tracking Error Rates
+
+Monitor how often errors occur in your application:
+
+```
+span.status_code = "ERROR"
+GROUP BY span.name
+COUNT(*)
+```
+
+Patterns to look for:
+- Specific outputs that frequently error
+- Errors correlated with particular inputs
+- External service failures (API calls, databases)
+
+#### Analyzing User Behavior
+
+Understand what users are actually doing:
+
+```
+span.name = "shiny.reactive_update"
+GROUP BY session.id
+COUNT(*)
+```
+
+This shows:
+- How many interactions each user has
+- Which sessions are most active
+- Peak usage times
+
+### Visualizing Traces
+
+Most observability backends provide visualization tools:
+
+**Waterfall View**: Shows spans hierarchically with timing
+```
+shiny.session [============================] 5.2s
+  └─ shiny.reactive_update [========] 1.8s
+      ├─ reactive:fetch_data [=====] 1.2s
+      ├─ output:table [==] 0.4s
+      └─ output:plot [==] 0.2s
+```
+
+This view helps you:
+- See what runs in parallel vs serial
+- Identify the critical path
+- Spot unnecessary waiting
+
+**Flame Graph**: Shows where time is spent across many traces
+- Wide bars = time spent in that operation
+- Stacked bars = nested operations
+- Useful for identifying system-wide patterns
+
+### Querying with Jaeger
+
+If using Jaeger as your backend:
+
+1. **Service view**: Select "shiny" service
+2. **Operation view**: Filter by operation (e.g., "shiny.session")
+3. **Tags**: Add filters like `session.id=abc123`
+4. **Lookback**: Adjust time window
+
+Example Jaeger query:
+```
+service="my-shiny-app"
+operation="output:expensive_plot"
+duration > 2s
+```
+
+### Querying with Logfire
+
+If using Logfire, you can use SQL (see [Logfire setup section](#quick-setup-with-logfire) for examples):
+
+```sql
+-- Find reactive components that run most frequently
+SELECT
+    span_name,
+    COUNT(*) as execution_count,
+    AVG(duration_ms) as avg_duration_ms
+FROM traces
+WHERE span_name LIKE 'reactive:%'
+AND start_time > NOW() - INTERVAL '1 day'
+GROUP BY span_name
+ORDER BY execution_count DESC;
+```
+
+```sql
+-- Identify sessions with errors
+SELECT
+    attributes->>'session.id' as session_id,
+    COUNT(*) as error_count,
+    MAX(start_time) as last_error
+FROM traces
+WHERE status_code = 'ERROR'
+GROUP BY session_id
+ORDER BY error_count DESC;
+```
+
+### Setting Up Alerts
+
+Configure alerts to notify you of issues:
+
+**High error rate:**
+```
+WHEN error_count > 10 per minute
+WHERE span.name LIKE "output:%"
+THEN notify #alerts channel
+```
+
+**Slow performance:**
+```
+WHEN p95(duration) > 5s
+WHERE span.name = "shiny.reactive_update"
+FOR 5 minutes
+THEN notify on-call engineer
+```
+
+**High traffic:**
+```
+WHEN new_sessions > 100 per minute
+WHERE span.name = "shiny.session"
+THEN notify #scaling channel
+```
+
+### Building Dashboards
+
+Create dashboards to monitor your Shiny applications:
+
+**Key Metrics to Track:**
+- Active sessions count
+- Average session duration
+- Reactive update frequency
+- Error rate by output
+- P50, P95, P99 latency
+- External API call duration
+
+**Example Dashboard Panels:**
+
+1. **Session Activity** (time series)
+   - New sessions per minute
+   - Active concurrent sessions
+
+2. **Performance** (gauges/charts)
+   - Median reactive update time
+   - 95th percentile output render time
+
+3. **Errors** (table)
+   - Recent errors with session ID
+   - Error count by span name
+
+4. **Top Slow Operations** (bar chart)
+   - Slowest reactive calcs (by P95)
+   - Slowest outputs (by P95)
+
+## Troubleshooting
+
+### Traces Not Appearing
+
+**Problem**: No traces are showing up in your observability backend.
+
+**Solutions**:
+
+1. **Verify OpenTelemetry SDK is installed:**
+   ```bash
+   pip list | grep opentelemetry
+   ```
+   You should see `opentelemetry-sdk` and related packages.
+
+2. **Check that TracerProvider is configured:**
+   ```python
+   from opentelemetry import trace
+
+   provider = trace.get_tracer_provider()
+   print(type(provider))
+   # Should NOT be: <class 'opentelemetry.trace.ProxyTracerProvider'>
+   # Should be: <class 'opentelemetry.sdk.trace.TracerProvider'>
+   ```
+
+3. **Verify tracing is enabled in Shiny:**
+   ```python
+   from shiny.otel import is_otel_tracing_enabled
+
+   print(f"Tracing enabled: {is_otel_tracing_enabled()}")
+   ```
+
+4. **Check exporter configuration:**
+   - Verify the endpoint URL is correct
+   - Test connectivity: `curl https://your-collector:4318/v1/traces`
+   - Check authentication headers/tokens
+
+5. **Ensure Shiny imports come AFTER OpenTelemetry setup:**
+   ```python
+   # CORRECT order:
+   from opentelemetry import trace
+   from opentelemetry.sdk.trace import TracerProvider
+   trace.set_tracer_provider(TracerProvider())
+   # ... configure exporter ...
+   from shiny import App  # Import Shiny AFTER
+
+   # INCORRECT order:
+   from shiny import App  # Don't import before OTel setup
+   from opentelemetry import trace
+   ```
+
+### Collection Level Not Being Respected
+
+**Problem**: You set `SHINY_OTEL_COLLECT` but the wrong level is being used.
+
+**Solutions**:
+
+1. **Check environment variable is set:**
+   ```python
+   import os
+   print(f"SHINY_OTEL_COLLECT = {os.environ.get('SHINY_OTEL_COLLECT')}")
+   ```
+
+2. **Check if `@otel.suppress` is overriding it:**
+   ```python
+   # This decorator overrides the environment variable:
+   @reactive.calc
+   @otel.suppress
+   def my_calc():
+       pass  # Always suppressed regardless of env var
+   ```
+
+3. **Check for typos in level names:**
+   ```python
+   # Valid values:
+   # "none", "session", "reactive_update", "reactivity", "all"
+
+   # These will NOT work:
+   # "reactive", "full", "debug", etc.
+   ```
+
+### Too Much Data / High Costs
+
+**Problem**: Observability backend is receiving too much data or costs are too high.
+
+**Solutions**:
+
+1. **Reduce collection level:**
+   ```python
+   # From:
+   os.environ["SHINY_OTEL_COLLECT"] = "all"
+   # To:
+   os.environ["SHINY_OTEL_COLLECT"] = "session"
+   ```
+
+2. **Implement sampling:**
+   ```python
+   from opentelemetry.sdk.trace.sampling import ParentBasedTraceIdRatio
+
+   # Only trace 10% of requests
+   sampler = ParentBasedTraceIdRatio(0.1)
+   provider = TracerProvider(sampler=sampler)
+   ```
+
+3. **Use `@otel.suppress` for high-frequency operations:**
+   ```python
+   from shiny import reactive, otel
+
+   @reactive.calc
+   @otel.suppress
+   def high_frequency_calc():
+       # This calc won't generate Shiny telemetry
+       pass
+   ```
+
+4. **Configure retention policies** in your observability backend to delete old traces automatically.
+
+### Missing Spans in Async Code
+
+**Problem**: Some spans don't appear for async operations.
+
+**Solution**:
+
+Ensure you're using `await` properly and not creating orphaned tasks:
+
+```python
+# CORRECT - span will be created:
+@reactive.calc
+async def my_calc():
+    result = await async_operation()
+    return result
+
+# INCORRECT - span may be missing:
+@reactive.calc
+async def my_calc():
+    # Don't create orphaned asyncio.create_task() without await
+    task = asyncio.create_task(async_operation())
+    # ... if you don't await this properly, tracing context is lost
+```
+
+For `ExtendedTask`, context is automatically propagated—no special handling needed.
+
+### Performance Degradation
+
+**Problem**: App is slower with tracing enabled.
+
+**Investigation**:
+
+1. **Check collection level:**
+   - `all` level has the most overhead
+   - Try reducing to `reactivity` or `reactive_update`
+
+2. **Verify exporter is non-blocking:**
+   - Use `BatchSpanProcessor` (asynchronous) not `SimpleSpanProcessor` (synchronous)
+   ```python
+   from opentelemetry.sdk.trace.export import BatchSpanProcessor
+
+   # CORRECT - batches spans and exports asynchronously:
+   processor = BatchSpanProcessor(exporter)
+
+   # AVOID - blocks on every span:
+   # processor = SimpleSpanProcessor(exporter)
+   ```
+
+3. **Check network latency to collector:**
+   - If exporter endpoint is slow, spans queue up
+   - Consider running a local collector that forwards to remote backend
+
+### Sensitive Data in Traces
+
+**Problem**: Traces contain sensitive information despite sanitization.
+
+**Solutions**:
+
+1. **Use `@otel.suppress` for sensitive reactive objects:**
+   ```python
+   from shiny import reactive, otel
+
+   @reactive.calc
+   @otel.suppress
+   def process_sensitive_data():
+       return load_and_process_secrets()
+   ```
+
+2. **Add custom sanitization to span attributes:**
+   ```python
+   from opentelemetry import trace
+   import hashlib
+
+   tracer = trace.get_tracer(__name__)
+
+   with tracer.start_as_current_span("operation") as span:
+       # DON'T include raw sensitive data:
+       # span.set_attribute("user.email", email)
+
+       # DO use hashed or anonymized values:
+       span.set_attribute("user.id_hash", hashlib.sha256(user_id.encode()).hexdigest()[:8])
+   ```
+
+3. **Configure your observability backend** to apply additional filtering or masking rules.
+
+### Debugging OpenTelemetry Issues
+
+Enable OpenTelemetry's debug logging to see what's happening:
+
+```python
+import logging
+
+# Enable OTel debug logging
+logging.basicConfig(level=logging.DEBUG)
+logging.getLogger("opentelemetry").setLevel(logging.DEBUG)
+
+# Now run your app - you'll see detailed OTel logs
+```
+
+This shows:
+- When spans are created
+- When spans are exported
+- Any exporter errors
+- Configuration issues
+
+## API Reference
+
+For detailed API documentation, see:
+
+- `shiny.otel.suppress` - Disable Shiny's internal telemetry (decorator or context manager)
+- `shiny.otel.collect` - Enable Shiny's internal telemetry (decorator or context manager)
+- `shiny.otel.get_level()` - Get the current collection level
+
+## Learn More
+
+- [OpenTelemetry Python Documentation](https://opentelemetry.io/docs/languages/python/)
+- [Pydantic Logfire Documentation](https://logfire.pydantic.dev/)
+- [Shiny Non-blocking Operations](nonblocking.qmd) - Learn about `ExtendedTask`
+- [Shiny Testing](end-to-end-testing.qmd) - How to handle tracing in tests
