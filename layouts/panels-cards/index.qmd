@@ -115,8 +115,6 @@ listing:
   template-params:
     dir: layouts/panels-cards/
   contents:
-  - title: Tabbed card
-    description: Use `ui.navset_tab()` inside a card to create tabbed content.
   - title: Preview
     file: app-tabbed-card-preview.py
     height: 300
@@ -132,8 +130,6 @@ listing:
   template-params:
     dir: layouts/panels-cards/
   contents:
-  - title: Card with sidebar
-    description: Use `ui.layout_sidebar()` inside a card to create a card with a sidebar layout.
   - title: Preview
     file: app-card-sidebar-preview.py
     height: 350
