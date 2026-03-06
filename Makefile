@@ -131,45 +131,6 @@ components-static: $(PYBIN) deps
 components-shinylive-links: $(PYBIN) deps
 	. $(PYBIN)/activate && python components/update-shinylive-links.py
 
-
-SHINYLIVE_DIR ?= shinylive
-
-## Clone shinylive repository (for building from source)
-.PHONY: clone-shinylive
-clone-shinylive:
-	@if [ ! -d "$(SHINYLIVE_DIR)" ]; then \
-		echo "🔵 Cloning shinylive repository..."; \
-		git clone https://github.com/posit-dev/shinylive.git $(SHINYLIVE_DIR); \
-	else \
-		echo "✓ shinylive directory already exists"; \
-	fi
-
-## Build shinylive from source for previewing unreleased features
-.PHONY: build-shinylive
-build-shinylive: $(PYBIN) clone-shinylive
-	@echo "🔵 Building shinylive from source..."
-	cd $(SHINYLIVE_DIR) && make submodules
-	cd $(SHINYLIVE_DIR) && npm install
-	cd $(SHINYLIVE_DIR) && make all
-	cd $(SHINYLIVE_DIR) && make dist
-	@echo "🔵 Installing locally-built shinylive..."
-	. $(PYBIN)/activate && pip uninstall -y shinylive 2>/dev/null || true
-	. $(PYBIN)/activate && pip install $(SHINYLIVE_DIR)
-	@echo "✓ shinylive built and installed from source"
-
-## Update shinylive source and rebuild
-.PHONY: update-shinylive
-update-shinylive: clone-shinylive
-	@echo "🔵 Updating shinylive repository..."
-	cd $(SHINYLIVE_DIR) && git pull
-	$(MAKE) build-shinylive
-
-## Clean shinylive build artifacts
-.PHONY: clean-shinylive
-clean-shinylive:
-	rm -rf $(SHINYLIVE_DIR)
-
-
 ## Remove Quarto website build files
 .PHONY: clean
 clean:
