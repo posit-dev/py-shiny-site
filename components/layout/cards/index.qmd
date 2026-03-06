@@ -1,0 +1,135 @@
+---
+title: Card
+sidebar: components
+appPreview:
+  file: components/layout/cards/app-preview.py
+  static: true
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/layout/cards/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 350
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWTCIAEzgMiAV04AdCBKkzkMKBXQAbUhWOcARjlwmzyKGJMUtWgO6cK7ZOqzEoDAoAFHSqxsYA+qzEwtQAvAAqDKpwROxwnADm7BRxGmAAzACsAAzo-PkAlCjIAMTIADwNWsitPpx+AQoR6VBKDEGt9U0tbWP5AMpQxiLISdQK+UR1jc0QY2PExo6sEXlglpkAtAoBANZLQ6ujrZVXIxA3yAAC8v04prIrD2NKdMh2ChBar3NYbNr1ADi1GUhjgbFgJnhrGms1OFCgTzGMHIXjEcWQwAA5AApKAQIlEIkAMTglkpyCJAFkAgyiQBBIRslm4Nkk1QUghY8Ei0lhNns1SZNkTODoNkAeWIFDZADlSAA3NkAETgxCJAF1ha0UTN8YSACxFIhFABMRAtAA4iAA2ACMNudyBdAHYiD6Pd6AJz+i3+r2O+3IR2Oo2PdYiuhZIhQfjIAnOLCsVSWQGsEJZVicABecDiQT9yAKWCKlUqxoc-A+ZiCOMo7FYRFNIiIBgYZ2UcSJpAZFggcA8Ci8cSjfYHDCLpbi1uQZFMDCHrCocGMlmMKSJ9YT4NTWCT4QiljgFDccGoQQY5MycCCMwgrdxHbrXdRnYcxnQdgoDiEosAKIg12kTdt13fc4EPBtT1Ya8IgoTwZiCfImU-YxcGQKYzTmN5LjoXFFzLN0SiIdA+jiR0jxFRssxQ-htivYxMLAbD2xIsiSzLejEKbZCKAiXA2J3TiCNmIIABIAGl60IZBSMoci6IYkVT0yBhOGCJIUhTACgJAsDNJPJs0OIM4Ihox8YHzCTjHUn1zI2TN+Css58yYDE0PIOIrTcsZMzQ7JRO2XBSFUIEaIUGcsBKYK2mEChVAYdYk0yUEtGUsAKFsBAUHygQKDAABfA0gA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhH6DhyGFAroANqQp7OAIxy59h5FFbJ9FVaozoA+kuQBeZEpxQA5nAudHpK0gAUqshR3pxYxFAM4VEAxMgAPGmR0dk+8Yku7HBQsgxhKemZENnV0cpgAMpQenC2ACpSENJ1RMipGVk12cR6NqwuHnUmfgC00gkA1t3l-VWDAJQ9fZWDMVikCroHLpYUEWAndRvL24N0Cnp6LqzEUtQe7QpwmxUD1YWcfnYFAmYAAzABWAAM6AAHktej9VlE1tdVGtHBBVLI6Gw5AA3ORhbjoA5EfaHChEVgtVicchrRC-AACHRKOAMIgRK2y2LsHLCDNRSOqqQA4tQ5Do4GxYPppawmi1kHMKFBftkYOQKOxbF5gAByABSUAg+qI+oAYnATGbkPqALIJW368QMZ2O3DOw0KU0EdU7apG+7O0QKPzO+pwdDOgDyxAozoAcqQ8c6ACJwYj6gC6-qiCuauuQwAALOCiOCAExEEsADiIADYAIwV+vIBsAdiIHZb7YAnN2S9227Xq8ha7Xc5jhdk6ACiFAYZ4+RQsKwFCYTqwwnO-LSAF5wDxhLvIUFYcFrdEz6KL9mGMKayg6qmK1hEbQMeZyDz60i24wIDgAB3ThpG1Dwx0-b8GAPI9y2QMgDAYX9WCoOA9BMEI4H1a8djvOcHhcEw4AoYC4GoMIGBNAIwmaCBHy1HUr1fQsFz0dB2CgDxISwUEiCQoRUPQzDsNwvNrBhNdSJcChOCMOAzntJi9F4RpC2QdoZCWOgtTgjwm0hIh0GKDxazwwY72pCgXBhEYSL0JSmJ0vTOEPMyLJqKyZNweyMLOdSlTCAASABpdFCGQXTKH08yJLvPwGDAsIPi+awOK4ni+M86o7zk4h5mOBJYG3Py9H0jscuyewsBhfL5m3JhVTk8gPDLKrohquTARskZcHJMITOkSCsEhDqoikCgFAYKpdyFDFnGXcR0DCZw3E4Kl8Tka9IrACgLAQFA9rgOqwAAX2zIA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.card
+    href: https://shiny.posit.co/py/api/ui.card.html
+    signature: ui.card(*args, full_screen=False, height=None, max_height=None, min_height=None,
+      fill=True, class_=None, **kwargs)
+  - title: ui.card_header
+    href: https://shiny.posit.co/py/api/ui.card_header.html
+    signature: ui.card_header(*args, container=..., **kwargs)
+  - title: ui.card_body
+    href: https://shiny.posit.co/py/api/ui.card_body.html
+    signature: ui.card_body(*args, fillable=True, min_height=None, max_height=None,
+      max_height_full_screen=None, height=None, padding=None, gap=None, fill=True,
+      class_=None, **kwargs)
+  - title: ui.card_footer
+    href: https://shiny.posit.co/py/api/ui.card_footer.html
+    signature: ui.card_footer(*args, **kwargs)
+- id: variation-toolbar-header-footer
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/layout/cards/
+  contents:
+  - apps:
+    - title: Preview
+      file: app-variation-toolbar-header-footer-preview.py
+      height: 250
+    - title: Express
+      file: app-variation-toolbar-header-footer-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4scAB7oGcbr36DhfCOgCuFIhfbz5Ad3YUVyW1mJQGAEwAUASkR5ZBDkJxc3dg8vbzEVOChvOAZfYgAbKEMxAF5ZMAAjaQBaby8Aa2QqbQoihzUqPMDg0Ja8gBEoCihkAEFoNNxudl4AJTgTCjzmlpDw13cKUlI0-K9fKDT2aQhcsAYtlUmwJogZs8isReXVhjF1SwoxfKtFiF9p87P2b139RgMVHkCB9Pi0Mvk4GldmN-qogSDQSFOORssiIBIZO80AwmA5uEUmF0GsdgadEch-AizgslisvHdzFYni9yO8yeTQt9dtw4BQKOppNx4eyOchwZDdgBlXn8iCC4WizlcVHiKTSLHSBIMRqkjmUiAfdzoLF9DaDYbIUh0ZAARQALMoNgZkKUusoVKQ8chugAmADMAFIzMR9Jk4GZkPpJNQLOGyAIvHBvJVSLa-VhGoaosa8gBhCzcRbwBje4gAR1sQ355GQZELvCSIYSPOT+VwyAAjABWANEOrsNLh-RUSjsGsMTrO4xMaOt9sADgDGeO9hFcwunh8YjoSyoKROn3XNOuawP5OPdNu9yZzz5rKpoK5eW8nogaVIiQVirFUAhUPar7vokyAdF0X6KmiKrkBi6rPoBH7eDqD4tPqHIXjcEjoFAxDJAEyGhOh9LXo8t6vGy358D8eQ6BM4GiuK-5gAAoroQhHLq36QWiMFYnQA5wEUNFsUhIqfKh55RFcl4Mg8zJ3m8+FfFRYCqImdEcgxUoqGphCKTMqiemImkACoMLGHEQcq3Fqliqn6EUECkEkQoknp+qEKgFC4OgCAoGAVQUGAAC+AC6QA
+    - title: Core
+      file: app-variation-toolbar-header-footer-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIgFd28+RnRjjyALzJjOKNLhi6AG2MATABTzkfu+xYxFAM3r7+EfbBoWIqcFAecAw+EBFp-rJgACJQFFDIutCuuNzsvABKcILCmQTh6ZGBFKSkrgBGISkN3QFYza0dDGLq6IYUYm1jzRBdPXPsHtaZDHCMcKq19XMNrlBtcK5LYJVrG4Rb22mc5NbXEBIyPmgMTADu3AC0THlUmQCUdVSl38AIu23s-XaIWGEFG40mFGms2BV0WmW4cER6mk3E2QJREV2+0OmQAypiKNjced8QS-HdbuIpNInk4Qv9AXTQbTLlBXOxpBAjgwBSoKHjLtzLsRdtxuGIjm1pB8PCEANbIKgADwoH1eal+YDBfilDSiIQ8E1IHlwyJ69nQT0KfJKZWQpDoyAAigAWZR89bIVV5ZQqUjvZD5ABMAGYAKR8CDEFZQDGJ5ArSTUQxwZBkAQhOAeTWkb0xrAc41pB1PADChm4zXgDEjxAAjsZSpTyHnSI3eIlk-EMcW2poAIwAVjjRH17FcuZWVEo7B7DFygf46CYWdHmgAHHGK2BTelT9XAtFLXQWlRklXGn0WlD7zzwU1n4MYXCJlNyHa6QWI4PHDCBXFIBIJTpfwiQOI4slA8CEmQHI8ig6DRBuO4HhZTIQNeMCII8Ss3zmc9LghT9oW4dAoGIJIvHI98nwGaERjGX9EX-B9tiAzI4C1apxRpDC-FgkkwAAUUEnR0OghlsOZJ46HnOAPgEoSSK5TkCUo1ihnY+E-xmHj5jRMBVELOS6XEo5SRUKyRNE1RwzEWyABUGBzHSMIUplHnRByVg+CBrXWLSCSYs8fLSP4tjiiAEtMCBEk9DEGCzZJDKIUgxjhIgMTlVdEsQLZaLlZKzEwGwCkwLxzEsdgCqSTKEsIVAKFwdAEBQMBtQoMAAF8AF0gA
+- id: variation-multiple-cards
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/layout/cards/
+  contents:
+  - apps:
+    - title: Preview
+      file: app-variation-multiple-cards-preview.py
+      height: 500
+    - title: Express
+      file: app-variation-multiple-cards-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5dKCAEygGdk+7LgB0IAM2akYyXgAs6EXFjgAPdMzi9+DJq2QL0AVwpEN3OMyKG6o0QHc6FWcmtYANlFyljAfTJvDGAgfO2YMAAoASkRRZDjkBycXOixiKGYucLFDNzcfXmINagBeABVmQzho2PjaxOdXNIyfWTgoLgsomIha3vjhMABlKDdNZAARKAooAZq+uscGlIpSUjcAI3Suufm+1xW1zeYfA19eOFHiCnCd3d26LmKBjQBzOnIfMTo3KmYBgludz6HnWFyeYAASnA3uR-oCgbViLJSHRiJpisABgBBXL-ZADAByLCceIGg28JMI+LAAFE+BRSWAAOqaBlgAC6AJ6CN250uVEe2NxYHhd0itm5fQAAmYOswsDxpp8wvBRR0xDIRpofNN1qNtpK7oqoMhikIsJNpgAxFVwcIgUW7AYABUkXEMVwGKExzIeLzgbCxjKZfoDyAAQsHQ2wAMJRrj+tjjeOJ5A0gacx3zAZQmEQL3IH1E1iyRnk4ylqkDOm8NlEAYs2uM4uUzOGnlkrW8AvAACMAFYfAAmAAMI6IvaHPgAHGOiABOHz9ufIXu9nwAZhX058AHYx22ebUBgBxSR2SnegYAaknAFJGdfpw+q2Br-2X-W372R5-qdeNxfdksziABfcV83beY6A1U4KCwV53mCL4fk6SJkAAQjNIU3C9EDemNU1kGNYASJzaEkIzU0zTghCKI+FDfiiYDIJ5DQKEMZgemNCUFiSRp0kybJcnyQo4BKcpKmqKC4gE5pWnaToBgAaTgXBkAASQgXg6BeWQKG7MAIN2VwYHSABrLhSDsCAbhFezRQAKkc50LDEFgzIgNFkEGQIzOYXBnN4+YAFofK7fQvI0Pg4C4ZB1nU+cADY72QUgADcLGQJLkBgcgnG7GTkDCrF1G+GRkTsWKBGQKhGBYdJ1K4Oh0FFMLBgoSQIBeZANDITKAsi5AAFlPAEbhkAAKUMCA4Da5AY04sw2E6qAACs4CuFh1N4QwXn9Wt+DISgFEqOKXnPElWPmRzLRNQx0EVWKUGm2bkFHIcABZHNFWZ7IgqkwAoXB0AQFAgdUCgwFA9kgA
+    - title: Core
+      file: app-variation-multiple-cards-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5dKCAEygGdk+7LgB0IAM2akYyXgAs6EXMgZNWyAIKYizalzjMiAVzqjRGdAH1jyALzJjOKAHM4FsQBtjXABSjk-+zosdyhcUkMKCzJPGAgLAHdmDF8IALTArGIoZh8-dPyHLJyLWTgoPWYU-OqA4TAAZSh3OH4AESgKKDqCPJqCoIpSUncAI2yqvsmHQeGx5gsFdAiLXjhm4goJye3lLhs6nSc6cjc6dypmbt6dvpCRtf2wACU4I-Ir1JvJ4llSOmIWjZgHV1O53N1kHUAHIsCiyCF1erhOEIsAAUT4FFRAHUWliwABdHqfL41VbrKh7EFgurXUnIACUdO2TJJfQZxJ2hWyXAsI1IXFwWxuDmRS0iPE6biS8F8YF4TRaFk6I2adVZOw5zPyYkMYJWxB01BsABVmIY4NrGZzqtycsKanbeaVyvo5QBpOBKACSEF4dCcsgovHVNqmQSKvP5god2wcMGyAGsuKR4hA5bSwFaagAqHMABX0YhYCYgAOQ9UMMATzFwedMbJ2AFoK4r+ApDWVVlxkCMlABOABsAFJkKQAG76ZCD5AwchwkON7YtzTMM4yX7xOA9qDIKiMFjZJRcOjobPVFv1CiSCBOZA6MiT2vKVIAWVCAm4yAAUoYIJal0mFsAGFDGYHRKD3JIACs4A2FglF4QwnBcXhg2QMhKAUC0eycSR4hRCBz3yHN2k6ex0ElbcUF-f9kAAJgABnogAWHNiPSTN1Q4rVAPSXV9V4TtjTNC0rQ1AJWVZBs9DEGR9CfbxFgiIgxRU+TeH9cgGUQa4AAEIIqLBJSgaVYAAtJZJkNtlSgVU4G8HSrRM2whCwMioAAMRlByQA4up80kLhDA2OoUGBMBsToLgXDYdQcWi2LkAAIQSmK4DYYC0qS1psoy5A0TqIl-OeV5jiI2gIphVh4UISEGmRWqiDqDE0JxPFUWqlFCTDPpETbMLkGAABGABWCwmMYohhvoiwAA5GKm5B+wsUbFum4aLAAZnW5A5osAB2Rbir4tI6gAcXw7rwrqABqGbh1RW65seuq7tG17mrAe7GM++rbq216CStABfaS+LoOTlIoLBDnK05zjdBlkAAQjsalwSQDiXLsEzgDxuoXjeCqCVsOxodhsqTjEM4Lkc4GiL4nQKDA1ITIbMxMFczR0G8cwrDoIhVmYJ9WTqsAKFwdAEBQCW4AADwoMAQYJIA
+- id: variation-filling-plot
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/layout/cards/
+  contents:
+  - apps:
+    - title: Preview
+      file: app-variation-filling-plot-preview.py
+      height: 500
+    - title: Express
+      file: app-variation-filling-plot-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTkWEQAJnAYAdCBKkzkMKBXQAbUhWOcARjlwmzyKGJMUtO6bIhzJuB2IjotLQB3Tgp2eU4sYigGFQAKdjhOAHN2CgBeDTAAFgAGXPR+LKI6OWNjAH1WYmFqdIAVBjk4AEpELWROiKiYlQrEqDUGOKyAZShjEWRG6hUslsCILuQAAWUhnFMXJa61OmQ7Cji2juWugGJkAHFqdUM4NlgTB5VDKFOz-XIwsXTkYAA5AApKAQAFEAEAMTglnByABAFkYnCAQBBIQopG4FFAuRggC6HzOrAmUz+wGyAFYiJSAExEbIADiIADYAIw05nIFkAdkJECJyzoKSIUH4yD+ziwrDklkOrDiwuSrE4AC84Ok4lyWS0FjtPmLNmY4jBvuxWEQSZMLfoYgBrdTpAGkOEWCBwEIqMLpem2hgOhgq9XpLlkUwMJ2sKhwYyWYzNAF6z6dQ2sOAUCoUUKTEZgBFm4w+cbW6breaCrqp9MVfjGKCWGO5-OUdjl-VnKsZ3B1hvGXPFqZxAAkAGkFmAk8nDckGJx4o1mqLjOh2FB0rksABmSefYQUOQMJZKrSEVAUWwIFBgKj8ChgAC++KAA
+    - title: Core
+      file: app-variation-filling-plot-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhH6DhyGFAroANqQp7OAIxy59h5FFbJ9FVeqEiICgbxvII6VaozoAfSVkAF5kJRwoAHM4ALo9JWkAClVkNPDOLGIoBmTU9IKI7NyA9jgoWQYUsABlKD04WwAVKQhpZTAASgJ8grSI0gVdIYDLCmqxju7evrLOKPYKEI6AFgAGNfQADw6eiD70ugU9PQDWYilqEJaFOBnO1QeIXza4OjY5ADc5JO50IaIg2GFCIrEarE45E6iBmAAFWpUcAYHPt0rJ3mMktCZgUAMTIADi1DkOjgbFg+jJ0h0UBx6Rg5Ao7FsYWAAHIAFJQCBsohsgBicBMvOQbIAsjkRWzxAwpRLcFKOQoeQBdOlpVj1RqhZDAFYAViI+oATEQVgAOIgANgAjEbLcgrQB2NXPVEHOjzIhQLY6+xYVgKExjVhJT1RCEALzgISSDqtnSeBzSPqRhiSDMozNBWtYRG0DAA1nIQmzSCLjBA4AB3TjSJkhU1aHLFhhRmMOsgGBil1hUOB6EwJOBspPJ1NgigBCicIxwapixnsPS8OoNZoIqbq6xbANwKdbPRQEwDhdLrfuvoT-cBXBHk96apr7VJAAkAGkHl1t6mogw60kNxwN6ejoOwUAhGsWAAMxjgcUgUAoDD7OGLx+JgOriOgST+EEnCgl8chPIQqAUBYCAoGAVBbBQYAAL4qkAA
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A card is a rectangular container with borders and padding that groups related UI elements together.
+
+To add a card to your app:
+
+1. Add `ui.card()` to your UI.
+2. Place UI elements inside the card as direct children, or use `ui.card_header()`, `ui.card_body()`, and `ui.card_footer()` to organize content into distinct sections.
+
+If you don't use `ui.card_body()`, any direct children of `ui.card()` that aren't card items (like `ui.card_header()` or `ui.card_footer()`) are automatically wrapped in an implicit `ui.card_body()`.
+
+### Card customization
+
+Cards and card items accept Bootstrap utility classes for customization. Use the `class_` parameter to apply classes for [colors](https://getbootstrap.com/docs/5.2/utilities/background/), [text](https://getbootstrap.com/docs/5.2/utilities/text/), [borders](https://getbootstrap.com/docs/5.2/utilities/borders), and more.
+
+### Card size
+
+By default, a card grows to accommodate its contents. Set the `height` or `max_height` parameter to control the card's size. If your card contains large amounts of text, tables, or other content, setting a `height` or `max_height` enables scrolling. When laying out [multiple cards](#variations), let the layout function determine the card heights rather than setting fixed heights.
+
+Use `full_screen=True` to add an icon that expands the card to fill the browser window. Pair `max_height` with `full_screen=True` to provide an expansion icon. When users click the icon, the card fills the browser window. The `max_height` constraint only applies to the normal view, not the full-screen view.
+
+### Filling layouts
+
+Cards support filling layouts where outputs automatically resize to fit the available space. When a fill item like `ui.output_plot()` appears as a direct child of a `ui.card_body()`, it resizes to match the card's height. For example, setting `height="250px"` on a card reduces the plot's height from its default 400px to approximately 200px. When expanded to full-screen, the plot grows to match the card's new size.
+
+:::{#variation-filling-plot}
+:::
+
+### Multiple cards
+
+Use `ui.layout_column_wrap()` to arrange multiple cards in a grid. Cards in the same row automatically share the same height. See the variations below for examples of multiple-card layouts.
+
+:::{#variation-multiple-cards}
+:::
+
+### Toolbars in cards
+
+Add toolbars to card headers and footers to provide interactive controls. Use `ui.toolbar()` within a `ui.card_header()` or `ui.card_footer()` to create a compact row of buttons or inputs. Toolbars are particularly useful for actions like refreshing data, downloading reports, or accessing settings.
+
+By default, toolbars align to the right. Set `align="left"` to position controls on the left side instead. Use `ui.toolbar_spacer()` and `ui.toolbar_divider()` to manipulate toolbar visual spacing.
+
+:::{#variation-toolbar-header-footer}
+:::
