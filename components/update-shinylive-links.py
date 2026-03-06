@@ -49,7 +49,7 @@ def check_for_shinylive_url_problems(index_qmds):
                             lg.warning(
                                 f"Multiple files in app: {qmd} - Example - {app['title']}"
                             )
-            elif item["id"] == "variations":
+            elif item["id"] == "variations" or item["id"].startswith("variation-"):
                 for variation in item["contents"]:
                     for app in variation["apps"]:
                         if "shinylive" in app:
@@ -80,9 +80,7 @@ def rewrite_shinylive_links(qmd):
         return False
 
     for item in meta["listing"]:
-        if item["id"] not in ["example", "variations"]:
-            continue
-
+        # Handle "example" items
         if item["id"] == "example":
             for app in item["contents"]:
                 if app["title"] == "Preview":
@@ -96,7 +94,23 @@ def rewrite_shinylive_links(qmd):
 
                 app["shinylive"] = create_shinylive_link(app, meta)
 
+        # Handle nested "variations" structure
         elif item["id"] == "variations":
+            for variation in item["contents"]:
+                for app in variation["apps"]:
+                    if app["title"] == "Preview":
+                        continue
+
+                    if "shinylive" not in app:
+                        lg.warning(
+                            f"Missing shinylive link: {qmd} - Variation - {variation['title']} - {app['title']}"
+                        )
+                        continue
+
+                    app["shinylive"] = create_shinylive_link(app, meta)
+
+        # Handle individual variation items (pattern: id starts with "variation-")
+        elif item["id"].startswith("variation-"):
             for variation in item["contents"]:
                 for app in variation["apps"]:
                     if app["title"] == "Preview":

@@ -1,4 +1,5 @@
-from shiny import App, ui
+import pandas as pd
+from shiny import App, render, ui
 
 app_ui = ui.page_fluid(
     ui.layout_column_wrap(
@@ -19,7 +20,19 @@ app_ui = ui.page_fluid(
 
 
 def server(input, output, session):
-    pass
+    @render.data_frame
+    def sales_table():
+        data = pd.DataFrame({
+            "Product": ["Widget A", "Widget B", "Widget C", "Widget D", "Widget E"],
+            "Region": ["North", "South", "East", "West", "North"],
+            "Sales": [15_200, 12_800, 9_500, 11_300, 8_700],
+            "Growth": ["+12%", "+8%", "+5%", "+10%", "+3%"]
+        })
+
+        if input.region_filter() != "All":
+            data = data[data["Region"] == input.region_filter()]
+
+        return data
 
 
 app = App(app_ui, server)

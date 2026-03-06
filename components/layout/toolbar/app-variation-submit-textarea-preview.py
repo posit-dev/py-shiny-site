@@ -1,5 +1,5 @@
 from faicons import icon_svg
-from shiny import App, ui
+from shiny import App, reactive, render, ui
 
 app_ui = ui.page_fixed(
     ui.card(
@@ -14,8 +14,8 @@ app_ui = ui.page_fixed(
                     ui.toolbar_input_select(
                         "priority",
                         label="Priority",
-                        choices={"low": "Low", "medium": "Medium", "high": "High"},
-                        selected="medium",
+                        choices=["Low", "Medium", "High"],
+                        selected="Medium",
                         icon=icon_svg("flag"),
                     ),
                     ui.toolbar_divider(),
@@ -30,12 +30,47 @@ app_ui = ui.page_fixed(
         ),
         full_screen=True,
         height="250px",
-    )
+    ),
+    ui.card(
+        ui.card_header("Sent Messages"),
+        ui.card_body(
+            ui.output_ui("messages_output"),
+        ),
+        full_screen=True,
+        height="250px",
+    ),
 )
 
 
 def server(input, output, session):
-    pass
+    messages = reactive.value([])
+
+    @render.ui
+    def messages_output():
+        msg_list = messages.get()
+        if not msg_list:
+            return ui.p("No messages sent yet.", style="color: #888;")
+
+        return ui.div(
+            *[
+                ui.p(
+                    f"[{msg['priority']}] {msg['text']}",
+                    style="margin: 4px 0;",
+                )
+                for msg in reversed(msg_list)
+            ]
+        )
+
+    @reactive.effect
+    @reactive.event(input.message)
+    def _():
+        message_text = input.message()
+        if message_text and message_text.strip():
+            current_messages = list(messages.get())
+            current_messages.append(
+                {"text": message_text, "priority": input.priority()}
+            )
+            messages.set(current_messages)
 
 
 app = App(app_ui, server)

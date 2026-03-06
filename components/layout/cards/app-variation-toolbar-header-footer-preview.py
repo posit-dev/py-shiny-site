@@ -27,6 +27,12 @@ app_ui = ui.page_fluid(
         ui.card_footer(
             ui.toolbar(
                 ui.toolbar_input_button(
+                    id="download",
+                    label="Download Data",
+                    icon=icon_svg("download"),
+                ),
+                ui.toolbar_spacer(),
+                ui.toolbar_input_button(
                     id="export",
                     label="Export",
                     icon=icon_svg("file-export"),
@@ -34,13 +40,8 @@ app_ui = ui.page_fluid(
                 ui.toolbar_input_button(
                     id="share",
                     label="Share",
+                    show_label=True,
                     icon=icon_svg("share-nodes"),
-                ),
-                ui.toolbar_spacer(),
-                ui.toolbar_input_button(
-                    id="save",
-                    label="Save",
-                    icon=icon_svg("floppy-disk"),
                 ),
             ),
         )
