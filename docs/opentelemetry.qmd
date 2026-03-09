@@ -1,36 +1,60 @@
 ---
-title: OpenTelemetry
+title: OpenTelemetry with Shiny
 ---
+
+## Introduction
+
+Understanding how your Shiny application behaves in production is critical for maintaining performance and reliability. While local development gives you some insight, production environments introduce complexities like concurrent users, varied network conditions, and unexpected usage patterns.
+
+<a href="https://opentelemetry.io/" data-original-href="https://opentelemetry.io/" target="_blank" rel="noopener noreferrer">OpenTelemetry</a> provides a standardized way to collect observability data from your Shiny applications, helping you answer questions like:
+
+- Why is my app slow for certain users?
+- Which reactive expressions are taking the most time?
+- How long does it take for outputs to render?
+- What sequence of events occurs when a user interacts with my app?
+
+Starting with Shiny v1.6.0, OpenTelemetry support is built directly into the framework, making it easier than ever to gain visibility into your applications at scale.
+
+::: {.callout-tip}
+## Quick Navigation
+
+Already familiar with OpenTelemetry?
+
+[Skip to Quick Start](#quick-start)
+:::
+
 
 ## What is OpenTelemetry?
 
-OpenTelemetry is an industry-standard framework for distributed tracing and observability. It allows you to track requests as they flow through your application, collect performance metrics, and diagnose issues in production environments.
+[**OpenTelemetry**](https://opentelemetry.io/) (aka OTel) describes itself as "high-quality, ubiquitous, and portable telemetry to enable effective observability". It is an open-source observability framework that provides a vendor-neutral way to collect telemetry data from applications. OTel standardizes three types of observability data:
 
-For Shiny applications, OpenTelemetry provides visibility into:
+* **Traces**: Show the path of a request through your application. In Shiny, a trace reveals how a user's input change triggers a cascade of reactive calculations, ultimately updating outputs. Traces help you understand the sequence and timing of operations.
 
-- **Session lifecycle**: When users connect and disconnect
-- **Reactive execution**: Which outputs, calcs, and effects are running
-- **Performance bottlenecks**: Where your app spends time
-- **Error tracking**: What went wrong and where
-- **External dependencies**: Database queries, API calls, AI model requests
+* **Logs**: Detailed event records that capture what happened at specific moments, including errors, warnings, and informational messages.
 
-## Why use OpenTelemetry with Shiny?
+* **Metrics**: Numerical measurements collected over time, such as request counts, response times, or resource utilization.
 
-Development tools like debuggers and print statements work well locally, but they don't help when your app is deployed and serving real users. OpenTelemetry bridges this gap by providing production observability without impacting your users.
+These data types were standardized under the OpenTelemetry project, [which is supported by a large community and many companies](https://opentelemetry.io/community/marketing-guidelines/#i-opentelemetry-is-a-joint-effort). The goal is to provide a consistent way to collect and export observability data, making it easier to monitor and troubleshoot applications.
 
-Common scenarios where OpenTelemetry helps:
+### The OpenTelemetry ecosystem
 
-- **Multi-user performance**: One user's slow query is affecting others, but you don't know which user or query
-- **Intermittent errors**: Users report occasional errors that you can't reproduce locally
-- **Production debugging**: You need to understand what's happening in production without adding debug code
-- **AI application monitoring**: Track latency, token usage, and costs for LLM API calls
-- **Cross-service tracing**: Follow a request from your Shiny app through databases, APIs, and microservices
+OpenTelemetry is vendor-neutral, meaning you can send your telemetry data to various local backends like [Jaeger](https://www.jaegertracing.io/), [Zipkin](https://zipkin.io/), [Prometheus](https://prometheus.io/), or cloud-based services like [Grafana Cloud](https://grafana.com/products/cloud/), [Logfire](https://pydantic.dev/logfire), and [Langfuse](https://langfuse.com/). This flexibility means [you're not locked into any particular monitoring solution](https://opentelemetry.io/community/marketing-guidelines/#iii-promote-awareness-of-otel-interoperability-and-modularization).
+
+We've been using [Logfire](https://pydantic.dev/logfire) internally at Posit to help develop OTel integration in many packages and other applications. Throughout this article, you'll see examples of OTel traces visualized in Logfire.
+
+The image below shows an example trace in Logfire (left) from a Shiny app (right) that uses Generative AI to provide weather forecasts. The trace captures the entire user session, including reactive updates, model calls, and a tool invocation. We will explore this example in more detail later in the article.
+
+TODO: Add image
 
 ## Quick Start
 
-### Installation
+### Shiny Otel Installation
 
 OpenTelemetry support is built into Shiny, but you need to install the OpenTelemetry SDK to enable it:
+
+::: {.panel-tabset}
+
+## pip
 
 ```bash
 # Option 1: Install with Shiny's optional dependencies
@@ -39,6 +63,18 @@ pip install "shiny[otel]"
 # Option 2: Install the SDK manually
 pip install opentelemetry-sdk opentelemetry-exporter-otlp
 ```
+
+## uv
+
+```bash
+# Option 1: Install with Shiny's optional dependencies
+uv add "shiny[otel]"
+
+# Option 2: Install the SDK manually
+uv add opentelemetry-sdk opentelemetry-exporter-otlp
+```
+
+:::
 
 ### Basic Configuration
 
@@ -50,126 +86,74 @@ OpenTelemetry requires three things to work:
 
 Here's a minimal setup:
 
+#### Set Up Tracer
+
 ```python
+# 1. Install OpenTelemetry SDK (optional [otel] extras group)
+# pip install "shiny[otel]"
+
+# 2. Configure before importing shiny (or after - late init supported)
 from opentelemetry import trace
 from opentelemetry.sdk.trace import TracerProvider
-from opentelemetry.sdk.trace.export import BatchSpanProcessor
-from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+from opentelemetry.sdk.trace.export import ConsoleSpanExporter, SimpleSpanProcessor
 
-# Configure OpenTelemetry before importing Shiny
-trace.set_tracer_provider(TracerProvider())
-exporter = OTLPSpanExporter(endpoint="http://localhost:4317")
-trace.get_tracer_provider().add_span_processor(BatchSpanProcessor(exporter))
+provider = TracerProvider()
+provider.add_span_processor(SimpleSpanProcessor(ConsoleSpanExporter()))
+trace.set_tracer_provider(provider)
 
-# Now import and use Shiny
-from shiny import App, ui, render
-import os
-
-# Set collection level
-os.environ["SHINY_OTEL_COLLECT"] = "session"
-
-app_ui = ui.page_fluid(
-    ui.input_slider("n", "N", 1, 100, 50),
-    ui.output_text("result")
-)
-
-def server(input, output, session):
-    @render.text
-    def result():
-        return f"You selected: {input.n()}"
-
-app = App(app_ui, server)
+# 3. Import and use Shiny normally
+from shiny import App, ui
 ```
 
-### Verification
-
-To check the current collection level:
-
-```python
-from shiny import otel
-
-level = otel.get_level()
-print(f"Current collection level: {level.name}")  # e.g., "ALL", "SESSION", "NONE"
-```
-
-### Using Environment Variables
-
-For production deployments, configure OpenTelemetry using environment variables:
-
+#### Set Collection Level
 ```bash
-# Standard OpenTelemetry configuration
-export OTEL_EXPORTER_OTLP_ENDPOINT="https://your-collector:4318"
-export OTEL_SERVICE_NAME="my-shiny-app"
-
-# Shiny-specific configuration
-export SHINY_OTEL_COLLECT="session"
+# Environment variable (app-wide default)
+export SHINY_OTEL_COLLECT=session
 ```
 
-Then your app code can be simpler:
-
-```python
-from opentelemetry import trace
-from opentelemetry.sdk.trace import TracerProvider
-from opentelemetry.sdk.trace.export import BatchSpanProcessor
-from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
-
-# Configure from environment variables
-trace.set_tracer_provider(TracerProvider())
-trace.get_tracer_provider().add_span_processor(
-    BatchSpanProcessor(OTLPSpanExporter())
-)
-
-from shiny import App, ui, render
-
-# ... rest of your app
-```
-
-::: {.callout-tip}
-## Quick Setup with Logfire
-
-For the fastest setup experience with zero OpenTelemetry configuration, see the [Logfire Quick Setup](#quick-setup-with-logfire) section below. Logfire handles all the TracerProvider and exporter setup automatically.
-:::
-
-## Quick Setup with Logfire {#quick-setup-with-logfire}
 
 ::: {.callout-note collapse="true"}
-## Getting Started with Pydantic Logfire
+## Optional: Quick Setup with Logfire
 
-[Pydantic Logfire](https://logfire.pydantic.dev/) is a managed observability platform that works seamlessly with py-shiny's OpenTelemetry integration. It provides automatic setup, a modern web UI, and requires minimal configuration.
+[Pydantic Logfire](https://logfire.pydantic.dev/) provides zero-configuration OpenTelemetry setup with a managed observability platform.
 
-### Why Logfire?
+### Installation and Setup
 
-- Zero-config OpenTelemetry setup (handles exporter configuration automatically)
-- Free tier available for development and small projects
-- Purpose-built for Python with excellent SDK integration
-- Beautiful trace visualization out of the box
-- SQL-based querying for advanced analysis
+You will need to set up a Logfire account and project. On your first run of logfire, it will ask you to authenticate and choose which project your metrics will be associated with.
 
-### Installation
+::: {.panel-tabset}
 
-Installing Logfire includes the OpenTelemetry SDK automatically:
+## pip
 
 ```bash
 pip install logfire
+logfire auth
 ```
 
-### Configuration
+## uv
 
-Create a free account at [logfire.pydantic.dev](https://logfire.pydantic.dev/) and get your write token. Then configure Logfire before importing Shiny:
+```bash
+uv add logfire
+uv run logfire auth
+```
+
+:::
+
+::: {.callout-tip collapse="true"}
+## Test your Logfire setup with a simple app
 
 ```python
 import logfire
-
-# Configure Logfire (follow prompts for first-time setup)
-logfire.configure()
-
-# Now import and use Shiny - tracing happens automatically
-from shiny import App, ui, render
 import os
 
-# Set collection level
+# Configure Logfire (prompts for auth on first run)
+logfire.configure()
+
+# Import Shiny and set collection level
+from shiny import App, ui, render
 os.environ["SHINY_OTEL_COLLECT"] = "reactivity"
 
+# Use Shiny normally - tracing happens automatically
 app_ui = ui.page_fluid(
     ui.input_slider("n", "N", 1, 100, 50),
     ui.output_text("result")
@@ -182,172 +166,43 @@ def server(input, output, session):
 
 app = App(app_ui, server)
 ```
+:::
 
-### First Run Setup
-
-The first time you run `logfire.configure()`, you'll be prompted to:
-
-1. Authenticate with your Logfire account
-2. Create or select a project
-3. Store credentials locally
-
-Subsequent runs will use the saved configuration automatically.
-
-### Viewing Traces
-
-After running your app:
-
-1. Open your Logfire dashboard at [logfire.pydantic.dev](https://logfire.pydantic.dev/)
-2. Navigate to your project
-3. Click on "Traces" to see your Shiny sessions
-
-You'll see:
-- Session spans (user connections)
-- Reactive update cycles
-- Individual reactive executions
-- Any custom spans you've added
-
-### Example: Monitoring an AI Chatbot
-
-```python
-import logfire
-import os
-from shiny import App, ui, reactive, render
-from openai import AsyncOpenAI
-
-# Configure Logfire first
-logfire.configure()
-
-# Enable detailed tracing for AI interactions
-os.environ["SHINY_OTEL_COLLECT"] = "reactivity"
-
-# Logfire can also auto-instrument OpenAI calls
-logfire.instrument_openai()
-
-app_ui = ui.page_fluid(
-    ui.input_text("prompt", "Ask a question:"),
-    ui.input_action_button("send", "Send"),
-    ui.output_text("response")
-)
-
-def server(input, output, session):
-    client = AsyncOpenAI()
-
-    @render.text
-    @reactive.event(input.send)
-    async def response():
-        # Both the reactive execution AND the OpenAI call are traced
-        result = await client.chat.completions.create(
-            model="gpt-4",
-            messages=[{"role": "user", "content": input.prompt()}]
-        )
-        return result.choices[0].message.content
-
-app = App(app_ui, server)
-```
-
-In Logfire, you'll see:
-- The Shiny session span
-- The reactive execution span for `response()`
-- The OpenAI API call span nested inside (showing latency, token usage, etc.)
-
-### Querying Traces with SQL
-
-Logfire provides a SQL interface for analyzing traces:
-
-```sql
--- Find slowest reactive executions in the last hour
-SELECT
-    span_name,
-    duration_ms,
-    attributes->>'session.id' as session_id
-FROM traces
-WHERE span_name LIKE 'reactive:%'
-AND start_time > NOW() - INTERVAL '1 hour'
-ORDER BY duration_ms DESC
-LIMIT 10;
-```
-
-### Environment Variables
-
-Logfire configuration can be controlled via environment variables for production:
-
-```bash
-# Use write token directly (for CI/CD, containers)
-export LOGFIRE_TOKEN="your_write_token"
-
-# Set project name
-export LOGFIRE_PROJECT="my-shiny-app"
-
-# Standard Shiny OTel configuration still works
-export SHINY_OTEL_COLLECT="session"
-```
-
-### Production Deployment
-
-For containerized deployments (Docker, Kubernetes):
-
-```dockerfile
-FROM python:3.12
-WORKDIR /app
-
-# Install dependencies
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-
-# Copy app code
-COPY app.py .
-
-# Set environment variables
-ENV LOGFIRE_TOKEN=${LOGFIRE_TOKEN}
-ENV LOGFIRE_PROJECT="my-shiny-app"
-ENV SHINY_OTEL_COLLECT="reactivity"
-
-CMD ["shiny", "run", "app.py", "--host", "0.0.0.0", "--port", "8080"]
-```
-
-Pass the token as a build argument or secret:
-```bash
-docker run -e LOGFIRE_TOKEN="your_token" my-shiny-app
-```
-
-### Additional Instrumentation
-
-Logfire can automatically instrument other libraries your Shiny app uses:
-
-```python
-import logfire
-
-logfire.configure()
-
-# Auto-instrument popular libraries
-logfire.instrument_openai()       # OpenAI API calls
-logfire.instrument_anthropic()     # Anthropic Claude API
-logfire.instrument_httpx()         # HTTP client requests
-logfire.instrument_sqlalchemy()    # Database queries
-logfire.instrument_redis()         # Redis operations
-```
-
-These will appear as nested spans within your Shiny traces, giving you end-to-end visibility.
-
-### Troubleshooting
-
-**Traces not appearing:**
-- Verify `logfire.configure()` is called **before** importing Shiny
-- Check your Logfire dashboard credentials
-- Ensure you're looking at the correct project
-
-**Too much data:**
-- Reduce collection level: `SHINY_OTEL_COLLECT=session`
-- Use sampling in Logfire project settings
-
-**Authentication errors in CI/CD:**
-- Use `LOGFIRE_TOKEN` environment variable instead of interactive auth
-- Create a dedicated write token for your deployment environment
+View traces at [logfire.pydantic.dev](https://logfire.pydantic.dev/) - you'll see session spans, reactive updates, and individual reactive executions with SQL-queryable data.
 
 :::
 
-## Collection Levels
+### Additional Features
+
+**Auto-instrument other libraries:**
+```python
+logfire.instrument_openai()      # Trace OpenAI API calls
+logfire.instrument_anthropic()   # Trace Anthropic API calls
+logfire.instrument_httpx()       # Trace HTTP requests
+logfire.instrument_sqlalchemy()  # Trace database queries
+```
+
+**Production deployment with environment variables:**
+```bash
+export LOGFIRE_TOKEN="your_write_token"
+export LOGFIRE_PROJECT="my-shiny-app"
+export SHINY_OTEL_COLLECT="session"
+```
+
+See the [Logfire documentation](https://logfire.pydantic.dev/) for more details on querying, alerts, and dashboards.
+
+:::
+
+
+::: {.callout-tip}
+## Verifying OTel setup
+
+TODO: Does this exist for python? Verify
+You'll know your setup is enabled if [`otel::is_tracing_enabled()`](https://otel.r-lib.org/reference/is_tracing_enabled.html) returns `TRUE`.
+:::
+
+
+## More about Collection Levels
 
 Shiny's OpenTelemetry integration offers five collection levels that control the granularity of tracing. This allows you to balance observability needs with performance and data volume.
 
