@@ -1,0 +1,152 @@
+## Advanced Usage
+
+### Custom Spans for Business Logic
+
+While Shiny automatically traces session and reactive execution, you may want to add custom spans for specific business logic or operations. Use the standard OpenTelemetry API to create your own spans:
+
+```python
+from opentelemetry import trace
+from shiny import reactive, render
+
+tracer = trace.get_tracer(__name__)
+
+def server(input, output, session):
+    @reactive.calc
+    def complex_analysis():
+        with tracer.start_as_current_span("data_preprocessing"):
+            # This operation will appear as a nested span
+            df = load_and_clean_data()
+
+        with tracer.start_as_current_span("model_training"):
+            # Another distinct span
+            model = train_model(df)
+
+        with tracer.start_as_current_span("prediction"):
+            # Track prediction time separately
+            results = model.predict(input.parameters())
+
+        return results
+```
+
+Custom spans appear nested within Shiny's automatic spans, giving you fine-grained visibility into your application logic.
+
+### Adding Span Attributes
+
+Enrich your traces with custom attributes to make debugging easier:
+
+```python
+from opentelemetry import trace
+
+tracer = trace.get_tracer(__name__)
+
+@reactive.calc
+def fetch_user_data():
+    with tracer.start_as_current_span("fetch_user") as span:
+        user_id = get_current_user_id()
+        span.set_attribute("user.id", user_id)
+        span.set_attribute("user.plan", get_user_plan(user_id))
+
+        data = database.query(user_id)
+
+        span.set_attribute("query.rows_returned", len(data))
+        return data
+```
+
+These attributes can be queried in your observability backend to filter and analyze traces.
+
+### Tracing Extended Tasks
+
+Shiny's [ExtendedTask](nonblocking.qmd) for non-blocking operations automatically propagates trace context. This means background tasks appear as part of the same trace:
+
+```python
+from opentelemetry import trace
+from shiny import reactive, render, ui
+
+tracer = trace.get_tracer(__name__)
+
+def server(input, output, session):
+    @ui.bind_task_button(button_id="run")
+    @reactive.extended_task
+    async def background_task(params):
+        # This runs in the background but stays in the same trace
+        with tracer.start_as_current_span("background_computation"):
+            result = await expensive_computation(params)
+            return result
+
+    @render.text
+    async def result():
+        # The trace will show:
+        # 1. User clicked button
+        # 2. Task was queued
+        # 3. Background computation span
+        # 4. Result rendered
+        return await background_task(input.params())
+```
+
+The trace will show the complete user journey, including the time waiting for the background task and the task execution itself.
+
+### Integrating with Third-Party Instrumentation
+
+Many Python libraries have OpenTelemetry instrumentation available. These integrate seamlessly with Shiny's tracing:
+
+```python
+# At the top of your app, before other imports
+from opentelemetry.instrumentation.requests import RequestsInstrumentor
+from opentelemetry.instrumentation.sqlalchemy import SQLAlchemyInstrumentor
+from opentelemetry.instrumentation.redis import RedisInstrumentor
+
+# Instrument libraries
+RequestsInstrumentor().instrument()
+SQLAlchemyInstrumentor().instrument()
+RedisInstrumentor().instrument()
+
+# Now your Shiny app
+from shiny import App, ui, render
+import requests
+from sqlalchemy import create_engine
+
+def server(input, output, session):
+    @render.text
+    def data():
+        # Both operations automatically traced!
+        api_data = requests.get("https://api.example.com/data")
+        db_result = engine.execute("SELECT * FROM users")
+        return f"Fetched {len(api_data.json())} API records"
+```
+
+The resulting traces will show Shiny spans with nested HTTP and database spans, giving you end-to-end visibility.
+
+### Sampling for High-Traffic Applications
+
+For high-traffic production applications, you may want to sample traces rather than recording every single request:
+
+```python
+from opentelemetry import trace
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.sampling import TraceIdRatioBased
+
+# Sample 10% of traces
+sampler = TraceIdRatioBased(0.1)
+trace.set_tracer_provider(TracerProvider(sampler=sampler))
+
+# Continue with normal Shiny setup
+```
+
+This reduces data volume and costs while still providing statistically representative insights.
+
+### Context Propagation in Async Code
+
+Shiny automatically handles trace context propagation in async code, including across `await` boundaries:
+
+```python
+@reactive.calc
+async def multi_step_async():
+    # All spans properly nested even with async operations
+    data = await fetch_data()  # Span 1
+    processed = await process(data)  # Span 2
+    result = await save(processed)  # Span 3
+    return result
+```
+
+You don't need to manually manage context—Shiny handles this automatically using OpenTelemetry's context management and Python's `contextvars`.
+

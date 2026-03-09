@@ -1,0 +1,14 @@
+## API Reference
+
+For detailed API documentation, see:
+
+- `shiny.otel.suppress` - Disable Shiny's internal telemetry (decorator or context manager)
+- `shiny.otel.collect` - Enable Shiny's internal telemetry (decorator or context manager)
+- `shiny.otel.get_level()` - Get the current collection level
+
+## Learn More
+
+- [OpenTelemetry Python Documentation](https://opentelemetry.io/docs/languages/python/)
+- [Pydantic Logfire Documentation](https://logfire.pydantic.dev/)
+- [Shiny Non-blocking Operations](nonblocking.qmd) - Learn about `ExtendedTask`
+- [Shiny Testing](end-to-end-testing.qmd) - How to handle tracing in tests

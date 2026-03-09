@@ -1,0 +1,195 @@
+## Analyzing Traces
+
+Once your application is instrumented and traces are flowing to your observability backend, you can start analyzing them to understand performance and behavior.
+
+### Common Analysis Patterns
+
+#### Finding Slow Sessions
+
+Identify user sessions that took a long time:
+
+```
+# Query depends on your observability backend
+# This example uses generic span query syntax
+
+span.name = "shiny.session"
+duration > 30s
+ORDER BY duration DESC
+```
+
+This helps identify:
+- Users with slow network connections
+- Sessions that triggered expensive operations
+- Performance degradation over time
+
+#### Identifying Slow Reactive Components
+
+Find which reactive calcs or outputs are bottlenecks:
+
+```
+span.name LIKE "reactive:%"
+OR span.name LIKE "output:%"
+duration > 1s
+ORDER BY duration DESC
+LIMIT 20
+```
+
+This reveals:
+- Which outputs need optimization
+- Whether calcs are running unnecessarily
+- Where to add caching or memoization
+
+#### Tracking Error Rates
+
+Monitor how often errors occur in your application:
+
+```
+span.status_code = "ERROR"
+GROUP BY span.name
+COUNT(*)
+```
+
+Patterns to look for:
+- Specific outputs that frequently error
+- Errors correlated with particular inputs
+- External service failures (API calls, databases)
+
+#### Analyzing User Behavior
+
+Understand what users are actually doing:
+
+```
+span.name = "shiny.reactive_update"
+GROUP BY session.id
+COUNT(*)
+```
+
+This shows:
+- How many interactions each user has
+- Which sessions are most active
+- Peak usage times
+
+### Visualizing Traces
+
+Most observability backends provide visualization tools:
+
+**Waterfall View**: Shows spans hierarchically with timing
+```
+shiny.session [============================] 5.2s
+  └─ shiny.reactive_update [========] 1.8s
+      ├─ reactive:fetch_data [=====] 1.2s
+      ├─ output:table [==] 0.4s
+      └─ output:plot [==] 0.2s
+```
+
+This view helps you:
+- See what runs in parallel vs serial
+- Identify the critical path
+- Spot unnecessary waiting
+
+**Flame Graph**: Shows where time is spent across many traces
+- Wide bars = time spent in that operation
+- Stacked bars = nested operations
+- Useful for identifying system-wide patterns
+
+### Querying with Jaeger
+
+If using Jaeger as your backend:
+
+1. **Service view**: Select "shiny" service
+2. **Operation view**: Filter by operation (e.g., "shiny.session")
+3. **Tags**: Add filters like `session.id=abc123`
+4. **Lookback**: Adjust time window
+
+Example Jaeger query:
+```
+service="my-shiny-app"
+operation="output:expensive_plot"
+duration > 2s
+```
+
+### Querying with Logfire
+
+If using Logfire, you can use SQL (see [Logfire setup section](#quick-setup-with-logfire) for examples):
+
+```sql
+-- Find reactive components that run most frequently
+SELECT
+    span_name,
+    COUNT(*) as execution_count,
+    AVG(duration_ms) as avg_duration_ms
+FROM traces
+WHERE span_name LIKE 'reactive:%'
+AND start_time > NOW() - INTERVAL '1 day'
+GROUP BY span_name
+ORDER BY execution_count DESC;
+```
+
+```sql
+-- Identify sessions with errors
+SELECT
+    attributes->>'session.id' as session_id,
+    COUNT(*) as error_count,
+    MAX(start_time) as last_error
+FROM traces
+WHERE status_code = 'ERROR'
+GROUP BY session_id
+ORDER BY error_count DESC;
+```
+
+### Setting Up Alerts
+
+Configure alerts to notify you of issues:
+
+**High error rate:**
+```
+WHEN error_count > 10 per minute
+WHERE span.name LIKE "output:%"
+THEN notify #alerts channel
+```
+
+**Slow performance:**
+```
+WHEN p95(duration) > 5s
+WHERE span.name = "shiny.reactive_update"
+FOR 5 minutes
+THEN notify on-call engineer
+```
+
+**High traffic:**
+```
+WHEN new_sessions > 100 per minute
+WHERE span.name = "shiny.session"
+THEN notify #scaling channel
+```
+
+### Building Dashboards
+
+Create dashboards to monitor your Shiny applications:
+
+**Key Metrics to Track:**
+- Active sessions count
+- Average session duration
+- Reactive update frequency
+- Error rate by output
+- P50, P95, P99 latency
+- External API call duration
+
+**Example Dashboard Panels:**
+
+1. **Session Activity** (time series)
+   - New sessions per minute
+   - Active concurrent sessions
+
+2. **Performance** (gauges/charts)
+   - Median reactive update time
+   - 95th percentile output render time
+
+3. **Errors** (table)
+   - Recent errors with session ID
+   - Error count by span name
+
+4. **Top Slow Operations** (bar chart)
+   - Slowest reactive calcs (by P95)
+   - Slowest outputs (by P95)
+

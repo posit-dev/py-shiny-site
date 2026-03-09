@@ -1,0 +1,127 @@
+## Complete Example: Data Dashboard
+
+Here's a realistic example showing OpenTelemetry in action with a data dashboard that makes external API calls.
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+
+# Note: In a real app, configure OpenTelemetry before this import
+# from opentelemetry import trace
+# from opentelemetry.sdk.trace import TracerProvider
+# trace.set_tracer_provider(TracerProvider())
+
+from shiny import App, ui, render, reactive
+import pandas as pd
+import asyncio
+import os
+
+# Set collection level to see reactive execution
+os.environ["SHINY_OTEL_COLLECT"] = "reactivity"
+
+app_ui = ui.page_fluid(
+    ui.h2("Sales Dashboard"),
+    ui.layout_sidebar(
+        ui.sidebar(
+            ui.input_select(
+                "region",
+                "Select Region:",
+                choices=["North", "South", "East", "West"]
+            ),
+            ui.input_date_range(
+                "date_range",
+                "Date Range:",
+                start="2024-01-01",
+                end="2024-12-31"
+            ),
+            ui.input_action_button("refresh", "Refresh Data"),
+        ),
+        ui.output_text("status"),
+        ui.output_table("sales_table"),
+        ui.output_text("summary"),
+    )
+)
+
+def server(input, output, session):
+    # Simulate fetching data from an external API
+    @reactive.calc
+    @reactive.event(input.refresh)
+    async def fetch_sales_data():
+        # In a real app, this would be an actual API call
+        # The OpenTelemetry trace would show:
+        # - The reactive calc execution
+        # - The API call duration (if instrumented)
+        await asyncio.sleep(1)  # Simulate API latency
+
+        # Generate sample data
+        data = {
+            "Date": pd.date_range(input.date_range()[0], input.date_range()[1], freq="D"),
+            "Region": input.region(),
+            "Sales": [1000 + i * 10 for i in range(len(pd.date_range(input.date_range()[0], input.date_range()[1], freq="D")))]
+        }
+        return pd.DataFrame(data)
+
+    @render.text
+    async def status():
+        # This output will show in traces as a reactive execution
+        data = await fetch_sales_data()
+        return f"Loaded {len(data)} records for {input.region()}"
+
+    @render.table
+    async def sales_table():
+        # This output execution will also appear in traces
+        data = await fetch_sales_data()
+        return data.head(10)
+
+    @render.text
+    async def summary():
+        # Multiple outputs depending on same reactive calc
+        # Traces will show this doesn't re-fetch data
+        data = await fetch_sales_data()
+        total = data["Sales"].sum()
+        avg = data["Sales"].mean()
+        return f"Total Sales: ${total:,.0f} | Average: ${avg:,.0f}"
+
+app = App(app_ui, server)
+```
+
+### What You'll See in Traces
+
+With `SHINY_OTEL_COLLECT="reactivity"`, the trace for clicking "Refresh Data" will show:
+
+1. **Session span** (outermost)
+   - Span name: `shiny.session`
+   - Duration: The entire user session
+   - Attributes: Session ID, app name
+
+2. **Reactive update span**
+   - Span name: `shiny.reactive_update`
+   - Duration: Time to process all reactive changes
+   - Nested inside session span
+
+3. **Reactive calc execution** (`fetch_sales_data`)
+   - Span name: `reactive:fetch_sales_data`
+   - Duration: ~1 second (the API call simulation)
+   - Shows when data is fetched
+   - Nested inside reactive update span
+
+4. **Output render spans**
+   - Span name: `output:status`, `output:sales_table`, `output:summary`
+   - Duration: Time to render each output
+   - Shows that `sales_table` and `summary` don't wait for data (calc is cached)
+   - Nested inside reactive update span, after calc completes
+
+### Performance Insights
+
+Looking at these traces, you might notice:
+
+- **Parallel execution**: Outputs render in parallel after the calc completes
+- **Caching**: The calc only runs once even though three outputs depend on it
+- **Bottlenecks**: If `fetch_sales_data` is slow, you'll see it clearly
+- **User impact**: Total time from button click to UI update
+
+This visibility helps you:
+- Identify slow API calls that need optimization
+- Verify that caching is working correctly
+- Understand which user actions are expensive
+

@@ -1,0 +1,129 @@
+## Configuration Methods
+
+Shiny provides two ways to control telemetry: environment variables for global defaults, and programmatic control for fine-grained suppression.
+
+### 1. Environment Variable (Global Default)
+
+Set the `SHINY_OTEL_COLLECT` environment variable to establish a default for all Shiny applications:
+
+```bash
+export SHINY_OTEL_COLLECT=reactivity
+```
+
+This is the recommended approach for production deployments, as it keeps configuration separate from code.
+
+**Supported values:**
+- `none` - Disable tracing
+- `session` - Session lifecycle only
+- `reactive_update` - Session + reactive updates
+- `reactivity` - Session + updates + individual executions
+- `all` - Everything (default, currently equivalent to `reactivity`)
+
+### 2. Programmatic Control with `otel.suppress` and `otel.collect`
+
+Use `otel.suppress` to disable Shiny's internal telemetry for specific reactive objects, and `otel.collect` to re-enable it when the default has been lowered.
+
+::: {.callout-important}
+**Important**: The suppression setting is captured at **initialization time** — when the reactive object is created — not when it executes. This means you must apply decorators correctly and define reactive objects inside context manager blocks.
+:::
+
+#### As a Decorator
+
+Apply `@otel.suppress` or `@otel.collect` **before** (closer to the function than) the reactive decorator:
+
+```python
+from shiny import reactive, render, otel
+
+# Correct order - otel.suppress is applied first, then @reactive.calc reads it
+@reactive.calc
+@otel.suppress
+def sensitive_calc():
+    """This calc runs without Shiny telemetry on every execution."""
+    api_key = input.api_key()
+    return validate_api_key(api_key)
+
+# Force telemetry even when SHINY_OTEL_COLLECT=none
+@render.text
+@otel.collect
+def always_traced_output():
+    return "This output is always traced"
+```
+
+::: {.callout-warning}
+Applying the decorator in the wrong order will raise a `TypeError`:
+
+```python
+# WRONG - will raise TypeError
+@otel.suppress  # Cannot wrap a reactive object
+@reactive.calc
+def my_calc():
+    pass
+```
+:::
+
+#### As a Context Manager
+
+Use `otel.suppress()` or `otel.collect()` (with parentheses) as context managers during **reactive object creation**:
+
+```python
+from shiny import reactive, otel
+
+# All reactive objects created inside this block have telemetry suppressed
+with otel.suppress():
+    private_counter = reactive.value(0)
+
+    @reactive.calc
+    def private_calc():
+        return private_counter() * 2
+
+# Reactive objects outside use the default level
+@reactive.calc
+def normal_calc():
+    return load_public_data()
+```
+
+**Nested blocks** work as expected:
+
+```python
+with otel.suppress():
+    @reactive.calc
+    def private_calc():  # suppressed
+        return load_private_data()
+
+    with otel.collect():
+        @reactive.calc
+        def public_calc():  # re-enabled despite outer suppress
+            return load_public_data()
+```
+
+::: {.callout-note}
+**Runtime context managers don't affect reactive telemetry**: Using `with otel.suppress():` inside a reactive function body has no effect on Shiny's telemetry for that reactive object, because the setting was already captured at initialization.
+
+```python
+@reactive.calc
+def my_calc():
+    # THIS DOES NOT suppress telemetry for my_calc or load_secrets
+    with otel.suppress():
+        sensitive_data = load_secrets()
+    return sensitive_data
+```
+:::
+
+### Checking Current Level
+
+```python
+from shiny import otel
+
+# Get the current level
+level = otel.get_level()
+print(f"Current level: {level.name}")  # e.g., "ALL", "SESSION", "NONE"
+
+# Demonstrate context manager effect
+print(otel.get_level().name)  # "ALL" (default)
+
+with otel.suppress():
+    print(otel.get_level().name)  # "NONE"
+
+print(otel.get_level().name)  # "ALL" (restored)
+```
+

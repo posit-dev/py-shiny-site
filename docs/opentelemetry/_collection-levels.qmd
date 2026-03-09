@@ -1,0 +1,114 @@
+## More about Collection Levels
+
+Shiny's OpenTelemetry integration offers five collection levels that control the granularity of tracing. This allows you to balance observability needs with performance and data volume.
+
+| Level | What Gets Traced | Typical Use Case |
+|-------|------------------|------------------|
+| `none` | Nothing | Disable tracing entirely or for sensitive operations |
+| `session` | Session start/end, connection lifecycle | Basic user activity monitoring in production |
+| `reactive_update` | Session + reactive flush cycles, update boundaries | Understanding reactive performance patterns |
+| `reactivity` | Session + reactive updates + individual executions (calcs, effects, outputs) | Deep reactive debugging and optimization |
+| `all` | Everything including value updates and detailed logs | Comprehensive debugging (high data volume) |
+
+### Choosing a Collection Level
+
+**For production monitoring**, start with `session` or `reactive_update`:
+- These levels provide useful insights without overwhelming your observability backend
+- They help you understand user behavior and identify slow update cycles
+- Data volume is manageable even with many users
+
+**For development and debugging**, use `reactivity` or `all`:
+- See exactly which reactive components are executing and when
+- Track data flow through your reactive graph
+- Identify unnecessary re-executions
+
+**For sensitive operations**, use `none`:
+- Temporarily disable tracing for code that handles credentials or PII
+- Useful with the `otel.suppress` decorator or context manager
+
+### Examples by Level
+
+#### `session` Level
+
+Captures session lifecycle events:
+
+```python
+import os
+os.environ["SHINY_OTEL_COLLECT"] = "session"
+```
+
+Traces will show:
+- When users connect to your app
+- When users disconnect
+- Session duration
+
+#### `reactive_update` Level
+
+Captures session + reactive flush cycles:
+
+```python
+os.environ["SHINY_OTEL_COLLECT"] = "reactive_update"
+```
+
+Traces will show:
+- Session lifecycle (from `session` level)
+- When reactive updates are triggered (e.g., user clicks a button)
+- How long it takes to process all reactive changes
+- Which updates are happening in parallel
+
+This is particularly useful for understanding:
+- Why your app feels slow after certain user actions
+- Whether you have unnecessary reactive dependencies
+
+#### `reactivity` Level
+
+Captures session + reactive updates + individual executions:
+
+```python
+os.environ["SHINY_OTEL_COLLECT"] = "reactivity"
+```
+
+Traces will show:
+- Everything from `reactive_update`
+- Individual `@reactive.calc` executions
+- Individual `@reactive.effect` executions
+- Individual output render functions
+- Extended task operations
+
+This level gives you deep visibility into your reactive graph and is recommended when:
+- Debugging reactive behavior
+- Optimizing performance
+- Understanding data flow
+
+#### `all` Level
+
+Captures everything including value updates:
+
+```python
+os.environ["SHINY_OTEL_COLLECT"] = "all"
+```
+
+This is the most verbose level and includes:
+- Everything from `reactivity`
+- Value changes in reactive objects
+- Detailed internal operations
+
+::: {.callout-warning}
+The `all` level can generate significant data volume. Use it only for short debugging sessions or in development environments.
+:::
+
+### Performance Impact
+
+Shiny's OpenTelemetry integration is designed to have minimal performance impact:
+
+- **Lazy initialization**: Tracing components are only created when needed
+- **No-op behavior**: When the OpenTelemetry SDK isn't configured, tracing calls are extremely fast no-ops
+- **Async-safe**: Context propagation works correctly with async code and ExtendedTask
+
+However, higher collection levels do create more spans, which:
+- Uses more memory
+- Sends more data to your observability backend
+- May have small CPU overhead for span creation
+
+In practice, even the `reactivity` level has negligible impact for most applications.
+
