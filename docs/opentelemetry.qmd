@@ -170,23 +170,7 @@ app = App(app_ui, server)
 
 View traces at [logfire.pydantic.dev](https://logfire.pydantic.dev/) - you'll see session spans, reactive updates, and individual reactive executions with SQL-queryable data.
 
-:::
 
-### Additional Features
-
-**Auto-instrument other libraries:**
-```python
-logfire.instrument_openai()      # Trace OpenAI API calls
-logfire.instrument_anthropic()   # Trace Anthropic API calls
-logfire.instrument_httpx()       # Trace HTTP requests
-logfire.instrument_sqlalchemy()  # Trace database queries
-```
-
-**Production deployment with environment variables:**
-```bash
-export LOGFIRE_TOKEN="your_write_token"
-export LOGFIRE_PROJECT="my-shiny-app"
-export SHINY_OTEL_COLLECT="session"
 ```
 
 See the [Logfire documentation](https://logfire.pydantic.dev/) for more details on querying, alerts, and dashboards.
