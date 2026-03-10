@@ -6,11 +6,13 @@ title: OpenTelemetry with Shiny
 
 {{< include opentelemetry/_quick-start.qmd >}}
 
-{{< include opentelemetry/_collection-levels.qmd >}}
+{{< include opentelemetry/_otel-in-action.qmd >}}
+
+{{< include opentelemetry/_collection.qmd >}}
+
+{{< include opentelemetry/_what-is-traced.qmd >}}
 
 {{< include opentelemetry/_configuration-methods.qmd >}}
-
-{{< include opentelemetry/_example-dashboard.qmd >}}
 
 {{< include opentelemetry/_advanced-usage.qmd >}}
 

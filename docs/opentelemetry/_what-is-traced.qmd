@@ -1,0 +1,48 @@
+## Types of Traces & Spans
+
+Shiny's OpenTelemetry integration automatically creates spans for key operations within your application.
+
+TODO: STOPPED HERE
+### Session lifecycle
+
+Shiny traces the session lifecycle when the collect level is `"session"` or higher.
+
+Every Shiny session generates a span marking when each session starts and ends: `session_start` and `session_end`.  The `session_start` span will capture the execution of your app's `server` function, including any initial `reactive_update` spans (if enabled) that run when the session begins.
+
+##### Spans
+
+- `session_start`: When starting a new session and running the `server` function
+- `session_end`: When ending the session
+
+### Reactive updates
+
+Shiny traces reactive updates when the collect level is `"reactive_update"` or higher.
+
+When an input changes or an output needs to be re-rendered, Shiny creates a `reactive_update` span that encompasses the entire cascade of reactive calculations triggered by that change.
+
+The `reactive_update` span starts when Shiny starts an output render or `observe()` calculation. The `reactive_update` span ends when all reactive expressions have resolved (including promise objects). Without async, this is equivalent to the time the main R process is busy (something to be minimized). When using async, it only measures when Shiny is aware of calculations needing to be finished (async) and when they are being computed. When trying to minimize user wait time, reduce the duration of spans outside `ExtendedTask` or `{mirai}` operations.
+
+##### Spans
+
+- `reactive_update`: The entire cascade of reactive calculations triggered by an input change or a new output to be rendered
+
+### Reactive expressions
+
+Shiny traces the execution of every reactive calculation when the collect level is `"reactivity"` or higher.
+
+All `"reactivity"` spans have an optional module id prefix `<mod_id>:` if the reactive object is defined within a module. This prefix will automatically appear. Having the module id within the span name helps disambiguate reactives with the same name across different modules.
+
+The span names for `reactive`, `observe`, and `output` expressions may inclue quantifiers such as `cache` (for cached reactives) or `event` (for event-driven reactives).
+
+A completely enhanced `reactive()` span name would be similar to `reactive cache event myModuleId:myReactive`. It could be defined within the module with the ID, `myModuleId`, and be cached and event-driven via `myReactive <- reactive({...}) |> bindCache(...) |> bindEvent(...)`.
+
+##### Spans
+
+- `reactive [cache ][event ][<mod_id>:]<name>`: `reactive()` calculations. Calculate a new value only when their upstream values change.
+- `output [cache ][event ][<mod_id>:]<name>`: All render functions (`renderText()`, `renderPlot()`, etc.) that produce output for the UI.
+- `observe [cache ][event ][<mod_id>:]<name>`: `observe()` executions. Perform side effects in response to reactive changes.
+- `debounce [<mod_id>:]<name>`: Debounced value being updated
+- `throttle [<mod_id>:]<name>`: Throttled value being updated
+- `reactivePoll [<mod_id>:]<name>`: `reactivePoll()` value computation
+- `reactiveFileReader [<mod_id>:]<name>`: `reactiveFileReader()` value computation given file changes
+- `ExtendedTasks [<mod_id>:]<name>`: Long-running background computations initiated via `ExtendedTask()`.

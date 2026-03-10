@@ -117,7 +117,10 @@ def server(input, output, session):
     chat_client.register_tool(get_weather_forecast)
 
     # Create a chat instance
-    chat = ui.Chat(id="chat")
+    # Suppress telemetry for chat initialization and reactive value updates
+    # that happen before the user submits their message
+    with otel.suppress():
+        chat = ui.Chat(id="chat")
 
     @chat.on_user_submit
     async def handle_user_input(user_input: str):
@@ -125,10 +128,13 @@ def server(input, output, session):
         Handle user message submission.
         Errors are automatically displayed as notifications by Shiny.
         """
-        # Send message to Claude and stream response
-        # AnthropicInstrumentor automatically traces this call for Otel
-        response = await chat_client.stream_async(user_input)
-        await chat.append_message_stream(response)
+        # Re-enable telemetry for the actual chat processing
+        # This will trace the Claude API call and any reactive updates during processing
+        with otel.collect():
+            # Send message to Claude and stream response
+            # AnthropicInstrumentor automatically traces this call for Otel
+            response = await chat_client.stream_async(user_input)
+            await chat.append_message_stream(response)
 
 
 app = App(app_ui, server)

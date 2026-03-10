@@ -1,0 +1,73 @@
+
+### OpenTelemetry in action
+
+Below is an example app with an `{chatlas}` tool to fetch realtime weather forecasts for a given latitude and longitude. This simple (yet non-trivial) app helps us showcase what sort of information `{shiny}` and `{chatlas}` can surface via OTel.
+
+::: {.callout-note}
+We could also use Otel tooling on database calls if we have them, or really anything. Services like `logfire` have some direct integration with database calls we can hook into for this.
+:::
+
+
+::: {.callout-note}
+
+## OTel + GenAI
+
+Gaining timing insights into applications that leverage [Generative AI](https://aws.amazon.com/what-is/generative-ai/) (GenAI) is critical to improving user experience. Without OpenTelemetry, if a user stated an app was slow, we would not be able to accurately determine if the slowness was due to the AI model request time, AI model streaming time, tool execution time, or even followup reactive calculations in Shiny.
+
+:::
+
+::: {.panel-tabset}
+
+## Core
+
+```{.python include="apps/opentelemetry/weather_app/app-demo-all-core.py"}
+```
+
+## Express
+
+```{.python include="apps/opentelemetry/weather_app/app-demo-all-express.py"}
+```
+
+:::
+
+You'll notice that the `app.py` has no OpenTelemetry specific code. Only the system environment variables are needed to enable OTel support in Shiny and other packages that support OTel.
+
+::: {.callout-tip}
+
+## Automatic span naming
+
+Shiny automatically generates descriptive span names for all reactive computations based on their function names and type. You don't need to manually instrument your code—just write your reactive functions as usual.
+
+**Span naming format:** `<type> <modifiers> <namespace>:<name>`
+
+For example:
+
+```python
+@reactive.effect
+@reactive.event(input.click)
+def filtered_data():
+    ...
+    # Span name: "reactive.effect event filtered_data"
+```
+
+In the example apps above, the `@chat.on_user_submit` decorated function `handle_user_input` will appear in traces as `"reactive.effect event handle_user_input"`.
+
+TODO: Is there something on custom naming/attributes we want to put here?
+
+TODO: Example of app (screenshot)
+
+When you run the app and interact with it, OpenTelemetry traces are automatically recorded and sent to your configured backend (Logfire in this case). Here's an example trace from Logfire showing a user session interacting with the chat app and the weather tool:
+
+TODO: Example trace of app (screenshot)
+
+The traces above recorded a single user session where the user asked for the weather in Atlanta, GA and then closed the app. The trace shows:
+
+- The Shiny session lifecycle, including `session_start` and `session_end`
+- Many `Set reactive.value` spans for handling user input.
+- Reactive updates triggered by changes in the `session`'s input
+- An `ExtendedTask` span for the computation of the AI agent response
+- 2x `anthropic.chat` spans representing calls to the AI agent model
+- A single `get_weather_forecast` tool call being executed
+
+Notice how the spans are nested, showing the relationship between user actions, required reactive calculations, and external API calls. This level of detail helps you understand exactly how your app is performing in production and where any bottlenecks or issues may arise.
+
