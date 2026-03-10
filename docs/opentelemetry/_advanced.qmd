@@ -113,5 +113,7 @@ The trace will show the complete user journey, including the time waiting for th
 
 Many Python libraries have OpenTelemetry instrumentation available. These integrate seamlessly with Shiny's tracing:
 
-
+```python
+ {{< inclued apps/opentelemetry/test-app-db.py >}}
+```
 The resulting traces will show Shiny spans with nested HTTP and database spans, giving you end-to-end visibility.
