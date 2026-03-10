@@ -32,10 +32,10 @@ The `reactive_update` span starts when Shiny starts an output render or `observe
 
 Without async, the time elapsed in the `reactive_update` span is equivalent to the time the Python thread is busy (as every session of the Shiny app is single threaded).
 
-TODO: What does *aware* mean here?
+QUESTION: What does *aware* mean here?
 When using async, the time elapsed only measures when Shiny is aware of calculations needing to be finished (async) and when they are being computed.
 
-TODO: Why? Because Extended task is async and so stacks better?
+QUESTION: Why? Because Extended task is async and so stacks better?
 When trying to minimize user wait time, reduce the duration of spans outside `ExtendedTask` or other async operations.
 
 ##### Spans
@@ -48,17 +48,76 @@ Shiny traces the execution of every reactive calculation when the collect level 
 
 All `"reactivity"` spans have an optional module id prefix `<mod_id>:` if the reactive object is defined within a module. This prefix will automatically appear. Having the module id within the span name helps disambiguate reactives with the same name across different modules.
 
-The span names for `reactive`, `observe`, and `output` expressions may inclue quantifiers such as `cache` (for cached reactives) or `event` (for event-driven reactives).
+The span names for `reactive.calc`, `reactive.effect`, and output render functions may include quantifiers such as `event` (for event-driven reactives).
 
-A completely enhanced `reactive()` span name would be similar to `reactive cache event myModuleId:myReactive`. It could be defined within the module with the ID, `myModuleId`, and be cached and event-driven via `myReactive <- reactive({...}) |> bindCache(...) |> bindEvent(...)`.
+For example, an event-driven `reactive.effect()` within a module would have a span name like `reactive.effect event myModuleId:my_effect`, defined as:
+
+```python
+@reactive.effect
+@reactive.event(input.trigger)
+def my_effect():
+    ...
+```
 
 ##### Spans
 
-- `reactive [cache ][event ][<mod_id>:]<name>`: `reactive()` calculations. Calculate a new value only when their upstream values change.
-- `output [cache ][event ][<mod_id>:]<name>`: All render functions (`renderText()`, `renderPlot()`, etc.) that produce output for the UI.
-- `observe [cache ][event ][<mod_id>:]<name>`: `observe()` executions. Perform side effects in response to reactive changes.
-- `debounce [<mod_id>:]<name>`: Debounced value being updated
-- `throttle [<mod_id>:]<name>`: Throttled value being updated
-- `reactivePoll [<mod_id>:]<name>`: `reactivePoll()` value computation
-- `reactiveFileReader [<mod_id>:]<name>`: `reactiveFileReader()` value computation given file changes
-- `ExtendedTasks [<mod_id>:]<name>`: Long-running background computations initiated via `ExtendedTask()`.
+QUESTION: Combo of me and Claude were not finding debounce & throttle in pyshiny. Is this accurate?
+
+- `reactive.calc [event ][<mod_id>:]<name>`: Reactive calculations created with `@reactive.calc`. Calculate a new value only when their upstream values change.
+- `reactive.effect [event ][<mod_id>:]<name>`: Side effects created with `@reactive.effect`. Perform actions in response to reactive changes.
+- `output [event ][<mod_id>:]<name>`: Output rendering created with `@render.*` decorators (e.g., `@render.text`, `@render.plot`).
+- `reactive.poll [<mod_id>:]<name>`: Reactive polling created with `reactive.poll()`. Periodically checks for changes.
+- `reactive.file_reader [<mod_id>:]<name>`: File monitoring created with `reactive.file_reader()`. Re-reads files when they change.
+- `extended_task [<mod_id>:]<name>`: Long-running background computations created with `@ui.task` or `ui.ExtendedTask`.
+
+
+#### Labels
+
+Each OTel span has its label derived from the **function name**. It is **highly recommended to use descriptive function names** for your reactive expressions and effects to make traces easier to interpret.
+
+In Python, span labels are automatically extracted from the function's `__name__` attribute. Functions without meaningful names (lambdas, functions named `_`, etc.) will be labeled as `<anonymous>`:
+
+```python
+# ❌ - span label: `"reactive.calc <anonymous>"`
+x = reactive.calc(lambda: ...)
+
+# ❌ - span label: `"reactive.effect <anonymous>"`
+@reactive.effect
+def _():  # Single underscore = anonymous
+    ...
+```
+
+For better trace readability, **use descriptive function names**:
+
+```python
+# ✅ - span label: `"reactive.calc chat_last_message"`
+@reactive.calc
+def chat_last_message():
+    return chat.messages()[-1]
+
+# ✅ - span label: `"reactive.effect update_user_input"`
+@reactive.effect
+@reactive.event(input.submit)
+def update_user_input():
+    # Process user input...
+    pass
+
+# ✅ - span label: `"extended_task weather_forecast_task"`
+@ui.task
+async def weather_forecast_task():
+    return await fetch_weather(lat, lon)
+```
+
+### Logged events
+
+In addition to OTel spans, Shiny logs important events:
+
+- Fatal errors: `Fatal error` (`fatal` level)
+- Unhandled errors: `Unhandled error` (`error` level)
+- `reactive.value()` values being set: `Set reactive.value [<mod_id>:]<name>` (`info` level)
+- Extended task invocations being queued: `extended_task queued [<mod_id>:]<name>` (`debug` level)
+
+The reactive value and extended task logs require that the Shiny OTel collect level be set to `"reactivity"` or higher.
+
+All spans and log entries include the session ID, making it easy to filter and analyze data for specific user sessions.
+

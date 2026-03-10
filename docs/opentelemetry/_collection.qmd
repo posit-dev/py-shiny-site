@@ -63,7 +63,7 @@ def server(input, output, session):
             return private_calc()
 ```
 
-TODO: ? Example with previous app? Doesn't seem to be a great spot to do that.
+QUESTION: ? Example with previous app? Doesn't seem to be a great spot to do that.
 
 
 ### Interpreting Traces

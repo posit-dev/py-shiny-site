@@ -11,3 +11,8 @@ title: OpenTelemetry with Shiny
 {{< include opentelemetry/_collection.qmd >}}
 
 {{< include opentelemetry/_what-is-traced.qmd >}}
+
+{{< include opentelemetry/_production-considerations.qmd >}}
+
+{{< include opentelemetry/_advanced.qmd >}}
+

@@ -2,54 +2,78 @@
 
 ### Custom Spans for Business Logic
 
-While Shiny automatically traces session and reactive execution, you may want to add custom spans for specific business logic or operations. Use the standard OpenTelemetry API to create your own spans:
+While Shiny automatically traces session and reactive execution, you may want to add custom spans for specific business logic or operations. These will use appear as children of Shiny's automatic spans in your trace view.
+
+You can use the standard OpenTelemetry API to create your own custom spans like so:
 
 ```python
-from opentelemetry import trace
-from shiny import reactive, render
+import time
 
-tracer = trace.get_tracer(__name__)
+import logfire
+from opentelemetry import trace
+from shiny import App, reactive, render, ui
 
 def server(input, output, session):
+    # Get tracer inside server function after Logfire is configured
+    tracer = trace.get_tracer(__name__)
+
     @reactive.calc
+    @reactive.event(input.run)
     def complex_analysis():
-        with tracer.start_as_current_span("data_preprocessing"):
-            # This operation will appear as a nested span
-            df = load_and_clean_data()
+        iterations = input.iterations()
 
-        with tracer.start_as_current_span("model_training"):
-            # Another distinct span
-            model = train_model(df)
+        with tracer.start_as_current_span("process_my_data"):
+            # Simulate data preprocessing
+            time.sleep(1)
 
-        with tracer.start_as_current_span("prediction"):
-            # Track prediction time separately
-            results = model.predict(input.parameters())
+        with tracer.start_as_current_span("train_my_model"):
+            # Simulate data preprocessing
+            time.sleep(2)
 
-        return results
+        with tracer.start_as_current_span("test_my_model"):
+            # Simulate data preprocessing
+            time.sleep(1)
+
+        return f"Completed {iterations} iterations in 3 seconds"
+
 ```
-
-Custom spans appear nested within Shiny's automatic spans, giving you fine-grained visibility into your application logic.
+#TODO: Add image of this
 
 ### Adding Span Attributes
 
 Enrich your traces with custom attributes to make debugging easier:
 
 ```python
+import time
 from opentelemetry import trace
+from shiny import reactive
 
-tracer = trace.get_tracer(__name__)
+def server(input, output, session):
+    # Get tracer inside server function after Logfire is configured
+    tracer = trace.get_tracer(__name__)
 
-@reactive.calc
-def fetch_user_data():
-    with tracer.start_as_current_span("fetch_user") as span:
-        user_id = get_current_user_id()
-        span.set_attribute("user.id", user_id)
-        span.set_attribute("user.plan", get_user_plan(user_id))
+    @reactive.calc
+    @reactive.event(input.run)
+    def complex_analysis():
+        iterations = input.iterations()
 
-        data = database.query(user_id)
+        with tracer.start_as_current_span("process_my_data") as span:
+            span.set_attribute("iterations", iterations)
+            span.set_attribute("step", "preprocessing")
+            time.sleep(1)
 
-        span.set_attribute("query.rows_returned", len(data))
-        return data
+        with tracer.start_as_current_span("train_my_model") as span:
+            span.set_attribute("iterations", iterations)
+            span.set_attribute("step", "training")
+            time.sleep(2)
+
+        with tracer.start_as_current_span("test_my_model") as span:
+            span.set_attribute("iterations", iterations)
+            span.set_attribute("step", "testing")
+            span.set_attribute("model.accuracy", 0.95)
+            time.sleep(1)
+
+        return f"Completed {iterations} iterations in 3 seconds"
 ```
 
 These attributes can be queried in your observability backend to filter and analyze traces.

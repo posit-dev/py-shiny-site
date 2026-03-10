@@ -1,5 +1,5 @@
 
-### OpenTelemetry in action
+### OpenTelemetry in Action
 
 Below is an example app with an `{chatlas}` tool to fetch realtime weather forecasts for a given latitude and longitude. This simple (yet non-trivial) app helps us showcase what sort of information `{shiny}` and `{chatlas}` can surface via OTel.
 
@@ -51,7 +51,7 @@ In the example apps above, the `@chat.on_user_submit` decorated function `handle
 
 :::
 
-TODO: Is there something on custom naming/attributes we want to put here?
+QUESTION: Is there something on custom naming/attributes we want to put here?
 
 TODO: Example of app (screenshot)
 
