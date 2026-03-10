@@ -77,37 +77,7 @@ def server(input, output, session):
 ```
 
 These attributes can be queried in your observability backend to filter and analyze traces.
-
-### Tracing Extended Tasks
-
-Shiny's [ExtendedTask](nonblocking.qmd) for non-blocking operations automatically propagates trace context. This means background tasks appear as part of the same trace:
-
-```python
-from opentelemetry import trace
-from shiny import reactive, render, ui
-
-tracer = trace.get_tracer(__name__)
-
-def server(input, output, session):
-    @ui.bind_task_button(button_id="run")
-    @reactive.extended_task
-    async def background_task(params):
-        # This runs in the background but stays in the same trace
-        with tracer.start_as_current_span("background_computation"):
-            result = await expensive_computation(params)
-            return result
-
-    @render.text
-    async def result():
-        # The trace will show:
-        # 1. User clicked button
-        # 2. Task was queued
-        # 3. Background computation span
-        # 4. Result rendered
-        return await background_task(input.params())
-```
-
-The trace will show the complete user journey, including the time waiting for the background task and the task execution itself.
+ TODO: Add something on suppressing clutter
 
 ### Integrating with Third-Party Instrumentation
 
