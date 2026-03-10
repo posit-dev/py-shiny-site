@@ -1,20 +1,10 @@
 """
-Weather Chat App with OpenTelemetry
-
-This example demonstrates a chat-based weather app using:
-- Shiny's built-in ui.Chat() component
-- chatlas for Claude AI chat client (via AWS Bedrock)
-- OpenTelemetry for tracing
-- Logfire for observability
-
 Setup:
 1. pip install shiny chatlas logfire requests boto3 opentelemetry-instrumentation-anthropic
-2. Configure AWS Bedrock access:
-   - Set AWS_PROFILE=claude (or your AWS profile with Bedrock access)
-   - Ensure your AWS credentials have Bedrock permissions
+2. Configure your AI provider of choice (here we use AWS Bedrock)
 3. Set environment variables:
    export SHINY_OTEL_COLLECT=reactivity
-   export AWS_PROFILE=claude
+   export AWS_PROFILE=claude (For AWS Bedrock, you may have an API key instead)
 4. Optional: Configure Logfire for observability:
    - Run: logfire configure
    - View traces at https://logfire.pydantic.dev/
@@ -49,13 +39,6 @@ from shiny import App, otel, ui
 def get_weather_forecast(lat: float, lon: float) -> str:
     """
     Get the weather forecast for a location using the National Weather Service API.
-
-    Args:
-        lat: Latitude (US locations only)
-        lon: Longitude (US locations only)
-
-    Returns:
-        Weather forecast as a formatted string
     """
     points_url = f"https://api.weather.gov/points/{lat},{lon}"
     headers = {"User-Agent": "ShinyWeatherApp"}
@@ -94,8 +77,6 @@ def get_weather_forecast(lat: float, lon: float) -> str:
         error_msg = f"Error parsing weather data: {str(e)}"
         return error_msg
 
-
-# UI using Shiny's built-in Chat component
 app_ui = ui.page_fillable(
     ui.chat_ui(
         id="chat",

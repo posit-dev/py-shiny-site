@@ -2,16 +2,24 @@
 
 Shiny's OpenTelemetry integration automatically creates spans for key operations within your application.
 
-TODO: STOPPED HERE
 ### Session lifecycle
 
 Shiny traces the session lifecycle when the collect level is `"session"` or higher.
+
+::: {.callout-note collapse="true"}
+## Reminder: What is a session in Shiny?
+
+A `session` starts when a user opens your Shiny app in their browser. Each session keeps its own state (input values, reactive values, outputs, etc.). A session ends when the user navigates away, closes the window, or the connection is lost.
+
+If you have multiple users at once, they will each have their own `session`. This is where our logged `session_id`s can be helpful to distinguish the events of an individual session, even if multiple sessions are happening concurrently.
+
+:::
 
 Every Shiny session generates a span marking when each session starts and ends: `session_start` and `session_end`.  The `session_start` span will capture the execution of your app's `server` function, including any initial `reactive_update` spans (if enabled) that run when the session begins.
 
 ##### Spans
 
-- `session_start`: When starting a new session and running the `server` function
+- `session_start`: When starting a new session
 - `session_end`: When ending the session
 
 ### Reactive updates
@@ -20,7 +28,15 @@ Shiny traces reactive updates when the collect level is `"reactive_update"` or h
 
 When an input changes or an output needs to be re-rendered, Shiny creates a `reactive_update` span that encompasses the entire cascade of reactive calculations triggered by that change.
 
-The `reactive_update` span starts when Shiny starts an output render or `observe()` calculation. The `reactive_update` span ends when all reactive expressions have resolved (including promise objects). Without async, this is equivalent to the time the main R process is busy (something to be minimized). When using async, it only measures when Shiny is aware of calculations needing to be finished (async) and when they are being computed. When trying to minimize user wait time, reduce the duration of spans outside `ExtendedTask` or `{mirai}` operations.
+The `reactive_update` span starts when Shiny starts an output render or `observe()` calculation. The `reactive_update` span ends when all reactive expressions have resolved.
+
+Without async, the time elapsed in the `reactive_update` span is equivalent to the time the Python thread is busy (as every session of the Shiny app is single threaded).
+
+TODO: What does *aware* mean here?
+When using async, the time elapsed only measures when Shiny is aware of calculations needing to be finished (async) and when they are being computed.
+
+TODO: Why? Because Extended task is async and so stacks better?
+When trying to minimize user wait time, reduce the duration of spans outside `ExtendedTask` or other async operations.
 
 ##### Spans
 

@@ -11,15 +11,3 @@ title: OpenTelemetry with Shiny
 {{< include opentelemetry/_collection.qmd >}}
 
 {{< include opentelemetry/_what-is-traced.qmd >}}
-
-{{< include opentelemetry/_configuration-methods.qmd >}}
-
-{{< include opentelemetry/_advanced-usage.qmd >}}
-
-{{< include opentelemetry/_security-privacy.qmd >}}
-
-{{< include opentelemetry/_analyzing-traces.qmd >}}
-
-{{< include opentelemetry/_troubleshooting.qmd >}}
-
-{{< include opentelemetry/_reference.qmd >}}

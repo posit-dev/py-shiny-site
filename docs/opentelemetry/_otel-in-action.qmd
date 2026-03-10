@@ -4,11 +4,6 @@
 Below is an example app with an `{chatlas}` tool to fetch realtime weather forecasts for a given latitude and longitude. This simple (yet non-trivial) app helps us showcase what sort of information `{shiny}` and `{chatlas}` can surface via OTel.
 
 ::: {.callout-note}
-We could also use Otel tooling on database calls if we have them, or really anything. Services like `logfire` have some direct integration with database calls we can hook into for this.
-:::
-
-
-::: {.callout-note}
 
 ## OTel + GenAI
 
@@ -20,17 +15,19 @@ Gaining timing insights into applications that leverage [Generative AI](https://
 
 ## Core
 
-```{.python include="apps/opentelemetry/weather_app/app-demo-all-core.py"}
+```python
+{{< include apps/opentelemetry/weather_app/app-demo-all-core.py >}}
 ```
 
 ## Express
 
-```{.python include="apps/opentelemetry/weather_app/app-demo-all-express.py"}
+```python
+ {{< inclued apps/opentelemetry/weather_app/app-demo-all-express.py >}}
 ```
 
 :::
 
-You'll notice that the `app.py` has no OpenTelemetry specific code. Only the system environment variables are needed to enable OTel support in Shiny and other packages that support OTel.
+You'll notice that the `app.py` has no OpenTelemetry specific code within the app itself. We only need to set system environment variables and (optionally) add our AI provider's instrumentor package.
 
 ::: {.callout-tip}
 
@@ -52,6 +49,8 @@ def filtered_data():
 
 In the example apps above, the `@chat.on_user_submit` decorated function `handle_user_input` will appear in traces as `"reactive.effect event handle_user_input"`.
 
+:::
+
 TODO: Is there something on custom naming/attributes we want to put here?
 
 TODO: Example of app (screenshot)
@@ -71,3 +70,8 @@ The traces above recorded a single user session where the user asked for the wea
 
 Notice how the spans are nested, showing the relationship between user actions, required reactive calculations, and external API calls. This level of detail helps you understand exactly how your app is performing in production and where any bottlenecks or issues may arise.
 
+::: {.callout-note}
+
+## Instrument All the Things!
+You can instrument out your database calls and external API calls too! Services like `logfire` have methods designed to hook directly into your database of choice and provide meaningful information on slow or inefficient queries and operations.
+:::
