@@ -139,38 +139,3 @@ def server(input, output, session):
 ```
 
 The resulting traces will show Shiny spans with nested HTTP and database spans, giving you end-to-end visibility.
-
-### Sampling for High-Traffic Applications
-
-For high-traffic production applications, you may want to sample traces rather than recording every single request:
-
-```python
-from opentelemetry import trace
-from opentelemetry.sdk.trace import TracerProvider
-from opentelemetry.sdk.trace.sampling import TraceIdRatioBased
-
-# Sample 10% of traces
-sampler = TraceIdRatioBased(0.1)
-trace.set_tracer_provider(TracerProvider(sampler=sampler))
-
-# Continue with normal Shiny setup
-```
-
-This reduces data volume and costs while still providing statistically representative insights.
-
-### Context Propagation in Async Code
-
-Shiny automatically handles trace context propagation in async code, including across `await` boundaries:
-
-```python
-@reactive.calc
-async def multi_step_async():
-    # All spans properly nested even with async operations
-    data = await fetch_data()  # Span 1
-    processed = await process(data)  # Span 2
-    result = await save(processed)  # Span 3
-    return result
-```
-
-You don't need to manually manage context—Shiny handles this automatically using OpenTelemetry's context management and Python's `contextvars`.
-
