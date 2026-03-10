@@ -113,29 +113,5 @@ The trace will show the complete user journey, including the time waiting for th
 
 Many Python libraries have OpenTelemetry instrumentation available. These integrate seamlessly with Shiny's tracing:
 
-```python
-# At the top of your app, before other imports
-from opentelemetry.instrumentation.requests import RequestsInstrumentor
-from opentelemetry.instrumentation.sqlalchemy import SQLAlchemyInstrumentor
-from opentelemetry.instrumentation.redis import RedisInstrumentor
-
-# Instrument libraries
-RequestsInstrumentor().instrument()
-SQLAlchemyInstrumentor().instrument()
-RedisInstrumentor().instrument()
-
-# Now your Shiny app
-from shiny import App, ui, render
-import requests
-from sqlalchemy import create_engine
-
-def server(input, output, session):
-    @render.text
-    def data():
-        # Both operations automatically traced!
-        api_data = requests.get("https://api.example.com/data")
-        db_result = engine.execute("SELECT * FROM users")
-        return f"Fetched {len(api_data.json())} API records"
-```
 
 The resulting traces will show Shiny spans with nested HTTP and database spans, giving you end-to-end visibility.

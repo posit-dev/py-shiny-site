@@ -1,14 +1,15 @@
 """
-Fully instrumented Shiny app with DuckDB database calls.
+Fully instrumented Shiny app with SQLite3 database calls.
 
 This example demonstrates:
 1. Shiny's built-in OpenTelemetry tracing for reactive execution
 2. Logfire for easy OpenTelemetry setup and visualization
-3. Custom spans for database queries
-4. Span attributes for better observability
+3. Logfire's automatic SQLite3 instrumentation
+4. Custom spans for business logic
+5. Span attributes for better observability
 
 Requirements:
-    pip install shiny logfire duckdb pandas
+    pip install shiny logfire pandas
 """
 
 import os
@@ -22,31 +23,37 @@ import logfire
 # Configure Logfire (it will auto-configure on first use if needed)
 logfire.configure()
 
+# Instrument SQLite3 with Logfire's automatic instrumentation
+logfire.instrument_sqlite3()
+
 # Set Shiny's OpenTelemetry collection level
 # Options: 'none', 'session', 'reactive_update', 'reactivity', 'all'
 os.environ["SHINY_OTEL_COLLECT"] = "reactivity"
 
+import sqlite3
+
+from opentelemetry import trace
+
 # Import Shiny after OpenTelemetry is configured
 from shiny import App, reactive, render, ui
-from opentelemetry import trace
-import duckdb
 
 # Get tracer for custom spans
 tracer = trace.get_tracer(__name__)
 
 
 def init_database():
-    """Initialize DuckDB database with sample products"""
+    """Initialize SQLite3 database with sample products"""
     with tracer.start_as_current_span("init_database") as span:
-        conn = duckdb.connect(":memory:")
+        conn = sqlite3.connect(":memory:")
+        cursor = conn.cursor()
 
         # Create products table
-        conn.execute("""
+        cursor.execute("""
             CREATE TABLE products (
                 id INTEGER PRIMARY KEY,
-                name VARCHAR(100) NOT NULL,
-                category VARCHAR(50) NOT NULL,
-                price DECIMAL(10, 2) NOT NULL,
+                name TEXT NOT NULL,
+                category TEXT NOT NULL,
+                price REAL NOT NULL,
                 stock INTEGER NOT NULL
             )
         """)
@@ -63,12 +70,13 @@ def init_database():
             (8, "Bookshelf", "Furniture", 149.99, 12),
         ]
 
-        conn.executemany(
+        cursor.executemany(
             "INSERT INTO products VALUES (?, ?, ?, ?, ?)", products
         )
+        conn.commit()
 
         span.set_attribute("products.count", len(products))
-        span.set_attribute("db.system", "duckdb")
+        span.set_attribute("db.system", "sqlite3")
         span.set_attribute("db.type", "in-memory")
 
         return conn
@@ -85,7 +93,7 @@ app_ui = ui.page_fluid(
         """
         This app demonstrates full OpenTelemetry instrumentation including:
         - Shiny session and reactive execution tracing
-        - DuckDB database query tracing with custom spans
+        - SQLite3 automatic instrumentation via Logfire
         - Custom business logic spans with attributes
         - Logfire integration for visualization
         """
@@ -135,7 +143,7 @@ def server(input, output, session):
 
     @reactive.calc
     def filtered_products():
-        """Query DuckDB database with filters - traced with custom spans"""
+        """Query SQLite3 database with filters - automatically traced by Logfire"""
         # Trigger on refresh button
         increment_refresh()
 
@@ -146,7 +154,7 @@ def server(input, output, session):
             span.set_attribute("filter.min_price", input.min_price())
             span.set_attribute("filter.max_price", input.max_price())
             span.set_attribute("filter.slow_query", input.slow_query())
-            span.set_attribute("db.system", "duckdb")
+            span.set_attribute("db.system", "sqlite3")
 
             # Simulate slow query if requested
             if input.slow_query():
@@ -169,17 +177,10 @@ def server(input, output, session):
 
             query += " ORDER BY name"
 
-            # Execute query with custom span
-            with tracer.start_as_current_span("db.query") as db_span:
-                db_span.set_attribute("db.system", "duckdb")
-                db_span.set_attribute("db.statement", query)
-                db_span.set_attribute("db.operation", "SELECT")
-
-                # Use Logfire's instrument to also capture the query
-                with logfire.span("duckdb_query", query=query, params=params):
-                    result = db_conn.execute(query, params).fetchall()
-
-                db_span.set_attribute("db.rows_returned", len(result))
+            # Execute query - automatically traced by Logfire's SQLite3 instrumentation
+            cursor = db_conn.cursor()
+            cursor.execute(query, params)
+            result = cursor.fetchall()
 
             span.set_attribute("results.count", len(result))
 
@@ -287,7 +288,8 @@ Status: Active
 Refreshes: {count}
 Last Update: {timestamp}
 Tracing: Enabled (Logfire)
-DB System: DuckDB (in-memory)
+DB System: SQLite3 (in-memory)
+DB Instrumentation: Automatic (Logfire)
 Collection Level: {os.environ.get('SHINY_OTEL_COLLECT', 'default')}
             """.strip()
 
@@ -297,17 +299,17 @@ app = App(app_ui, server)
 
 if __name__ == "__main__":
     print("\n" + "=" * 60)
-    print("Fully Instrumented Shiny App with DuckDB")
+    print("Fully Instrumented Shiny App with SQLite3")
     print("=" * 60)
     print("\nOpenTelemetry Configuration:")
     print(f"  Collection Level: {os.environ.get('SHINY_OTEL_COLLECT', 'default')}")
-    print(f"  DuckDB: Custom span instrumentation")
-    print(f"  Logfire: Configured")
+    print("  SQLite3: Automatic instrumentation (Logfire)")
+    print("  Logfire: Configured")
     print("\nView traces at: https://logfire.pydantic.dev/")
     print("\nWhat's traced:")
     print("  ✓ Session lifecycle")
     print("  ✓ Reactive calculations and renders")
-    print("  ✓ Database queries (DuckDB with custom spans)")
+    print("  ✓ Database queries (SQLite3 automatic instrumentation)")
     print("  ✓ Custom business logic spans")
     print("  ✓ Span attributes for filtering/analysis")
     print("=" * 60 + "\n")
