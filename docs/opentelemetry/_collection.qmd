@@ -42,7 +42,7 @@ The collection level must be set when **creating** the reactive objects (like `@
 For example:
 
 ```python
-from shiny import otel
+from shiny import otel, reactive
 
 # Suppress telemetry for a specific reactive calc
 @reactive.calc
@@ -51,19 +51,19 @@ def sensitive_data():
     return load_credentials()
 
 # Or suppress telemetry for a group of reactive objects
-def server(input, output, session):
-    with otel.suppress():
-        # All reactive objects created in this block have telemetry disabled
-        @reactive.calc
-        def private_calc():
-            return process_sensitive_data()
+with otel.suppress():
+    # All reactive objects created in this block have telemetry disabled
+    @reactive.calc
+    def private_calc():
+        return process_sensitive_data()
 
-        @render.text
-        def private_output():
-            return private_calc()
+    @render.text
+    def private_output():
+        return private_calc()
 ```
 
-QUESTION: ? Example with previous app? Doesn't seem to be a great spot to do that.
+TODO: Implemented the suppress, check to see what is suppressed and if need to add any spans or not, transfer to Express example
+TODO: Then add that here
 
 
 ### Interpreting Traces

@@ -51,8 +51,6 @@ In the example apps above, the `@chat.on_user_submit` decorated function `handle
 
 :::
 
-QUESTION: Is there something on custom naming/attributes we want to put here?
-
 TODO: Example of app (screenshot)
 
 When you run the app and interact with it, OpenTelemetry traces are automatically recorded and sent to your configured backend (Logfire in this case). Here's an example trace from Logfire showing a user session interacting with the chat app and the weather tool:

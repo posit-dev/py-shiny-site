@@ -28,15 +28,17 @@ Shiny traces reactive updates when the collect level is `"reactive_update"` or h
 
 When an input changes or an output needs to be re-rendered, Shiny creates a `reactive_update` span that encompasses the entire cascade of reactive calculations triggered by that change.
 
-The `reactive_update` span starts when Shiny starts an output render or `observe()` calculation. The `reactive_update` span ends when all reactive expressions have resolved.
+The `reactive_update` span starts when Shiny starts an output render or `@reactive.effect` calculation. The `reactive_update` span ends when all reactive expressions have resolved.
 
-Without async, the time elapsed in the `reactive_update` span is equivalent to the time the Python thread is busy (as every session of the Shiny app is single threaded).
+The time elapsed in the `reactive_update` span is equivalent to the time the Python thread is busy (as every session of the Shiny app is single threaded).
 
-QUESTION: What does *aware* mean here?
-When using async, the time elapsed only measures when Shiny is aware of calculations needing to be finished (async) and when they are being computed.
+Within a `reactive_update` span new input values will not be processed. If a user changes a value, the server will not process these new changes until after the current reactive update completes.
 
-QUESTION: Why? Because Extended task is async and so stacks better?
-When trying to minimize user wait time, reduce the duration of spans outside `ExtendedTask` or other async operations.
+TODO: make this sound better lol
+ExtendedTask is more true async, you are separating something from the reactive graph (that doesn't need it) so it can free up the graph to continue to work, but then when the task is done it will report back.
+
+Need user values to invoke, but don't need ongoing updates while the calculation is running, it's a nontrivial thing so freeing up the graph lets your app still do other things.
+
 
 ##### Spans
 
@@ -60,8 +62,6 @@ def my_effect():
 ```
 
 ##### Spans
-
-QUESTION: Combo of me and Claude were not finding debounce & throttle in pyshiny. Is this accurate?
 
 - `reactive.calc [event ][<mod_id>:]<name>`: Reactive calculations created with `@reactive.calc`. Calculate a new value only when their upstream values change.
 - `reactive.effect [event ][<mod_id>:]<name>`: Side effects created with `@reactive.effect`. Perform actions in response to reactive changes.

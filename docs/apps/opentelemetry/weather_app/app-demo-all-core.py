@@ -97,8 +97,10 @@ def server(input, output, session):
     # Register the weather tool we defined above
     chat_client.register_tool(get_weather_forecast)
 
+    #TODO: Before after compare this
     # Create a chat instance
-    chat = ui.Chat(id="chat")
+    with otel.suppress():
+        chat = ui.Chat(id="chat")
 
     @chat.on_user_submit
     async def handle_user_input(user_input: str):
@@ -106,6 +108,7 @@ def server(input, output, session):
         Handle user message submission.
         Errors are automatically displayed as notifications by Shiny.
         """
+        #TODO: may need a span here?
         # Send message to Claude and stream response
         # AnthropicInstrumentor automatically traces this call for Otel
         response = await chat_client.stream_async(user_input)
