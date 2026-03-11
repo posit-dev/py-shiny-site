@@ -17,3 +17,8 @@ title: OpenTelemetry with Shiny
 {{< include opentelemetry/_advanced.qmd >}}
 
 {{< include opentelemetry/_attributes.qmd >}}
+
+{{< include opentelemetry/_analyzing-traces.qmd >}}
+
+{{< include opentelemetry/_resources.qmd >}}
+

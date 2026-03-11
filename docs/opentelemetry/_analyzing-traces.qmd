@@ -1,195 +1,71 @@
-## Analyzing Traces
+## Analyzing traces
 
-Once your application is instrumented and traces are flowing to your observability backend, you can start analyzing them to understand performance and behavior.
+While viewing traces in your observability platform's UI is helpful for real-time debugging, you may want to download and analyze trace data programmatically for deeper analysis, reporting, or custom visualizations. The [Logfire API](https://logfire.pydantic.dev/docs/how-to-guides/query-api/) provides a SQL-like query interface for retrieving traces and spans.
 
-### Common Analysis Patterns
+### Querying traces
 
-#### Finding Slow Sessions
+In the example below, we use Logfire's API [Logfire API](https://logfire.pydantic.dev/docs/how-to-guides/query-api/) to filter and retrieve traces for analysis.
 
-Identify user sessions that took a long time:
+```python
+conn = logfire.db_api.connect(read_token=read_token)
 
-```
-# Query depends on your observability backend
-# This example uses generic span query syntax
+# Get all spans from a specific session
+session_id = "bde80eac18e14ff4206f6503d9e3a0c7b3c5f05d7dede122c0012bde986d2b87"
+query = f"SELECT * FROM RECORDS WHERE attributes->>'session.id' = '{session_id}'"
 
-span.name = "shiny.session"
-duration > 30s
-ORDER BY duration DESC
-```
-
-This helps identify:
-- Users with slow network connections
-- Sessions that triggered expensive operations
-- Performance degradation over time
-
-#### Identifying Slow Reactive Components
-
-Find which reactive calcs or outputs are bottlenecks:
-
-```
-span.name LIKE "reactive:%"
-OR span.name LIKE "output:%"
-duration > 1s
-ORDER BY duration DESC
-LIMIT 20
+print(f"Spans for session {session_id}:")
+df = pd.read_sql(query, conn)
+print(df)
+conn.close()
 ```
 
-This reveals:
-- Which outputs need optimization
-- Whether calcs are running unnecessarily
-- Where to add caching or memoization
+::: {.callout-tip}
+## Authentication
 
-#### Tracking Error Rates
+The `LOGFIRE_API_READ_TOKEN` environment variable should contain a your Logfire read token. A Logfire API read token is different from a write token used for exporting traces.
 
-Monitor how often errors occur in your application:
+You can generate read tokens in your Logfire project settings.
+:::
 
-```
-span.status_code = "ERROR"
-GROUP BY span.name
-COUNT(*)
-```
 
-Patterns to look for:
-- Specific outputs that frequently error
-- Errors correlated with particular inputs
-- External service failures (API calls, databases)
+With this approach, you can programmatically retrieve and analyze trace data for your Shiny applications. You can extend this example to:
 
-#### Analyzing User Behavior
+- Filter spans by session ID, span name, or any other attribute
+- Calculate custom metrics like total session duration or slowest operations
+- Create custom visualizations or reports
+- Export data for further analysis in other tools
 
-Understand what users are actually doing:
 
-```
-span.name = "shiny.reactive_update"
-GROUP BY session.id
-COUNT(*)
-```
+### Common queries
 
-This shows:
-- How many interactions each user has
-- Which sessions are most active
-- Peak usage times
+The Logfire website only allows you to filter existing records (`SELECT * from RECORDS WHERE ...`).
 
-### Visualizing Traces
+Here are some useful queries for analyzing your Shiny app's traces that leverage the full power of their SQL submitted through the API:
 
-Most observability backends provide visualization tools:
+::: {.callout-note}
+## SQL dialect
 
-**Waterfall View**: Shows spans hierarchically with timing
-```
-shiny.session [============================] 5.2s
-  └─ shiny.reactive_update [========] 1.8s
-      ├─ reactive:fetch_data [=====] 1.2s
-      ├─ output:table [==] 0.4s
-      └─ output:plot [==] 0.2s
+The Logfire API uses PostgreSQL syntax for queries. You can use standard SQL operations including `WHERE`, `JOIN`, `GROUP BY`, `ORDER BY`, and aggregate functions. The `attributes` column is a JSONB type, allowing you to query nested attributes using the `->>` operator.
+:::
+
+
+```python
+{{< include apps/opentelemetry/test-download-traces.py >}}
 ```
 
-This view helps you:
-- See what runs in parallel vs serial
-- Identify the critical path
-- Spot unnecessary waiting
+This final query to get the average duration of Shiny reactive spans will yield something like:
 
-**Flame Graph**: Shows where time is spent across many traces
-- Wide bars = time spent in that operation
-- Stacked bars = nested operations
-- Useful for identifying system-wide patterns
-
-### Querying with Jaeger
-
-If using Jaeger as your backend:
-
-1. **Service view**: Select "shiny" service
-2. **Operation view**: Filter by operation (e.g., "shiny.session")
-3. **Tags**: Add filters like `session.id=abc123`
-4. **Lookback**: Adjust time window
-
-Example Jaeger query:
 ```
-service="my-shiny-app"
-operation="output:expensive_plot"
-duration > 2s
+                              reactive_name  avg_duration_sec
+0                             session.start          3.220117
+1                           reactive_update          2.470269
+2                          output n_squared          2.004367
+3       reactive.calc expensive_calculation          1.717563
+4                             output result          0.252075
+5      reactive.calc event complex_analysis          0.251454
+6  reactive.effect event track_calculations          0.002223
+7        reactive.effect track_calculations          0.001588
+8                               session.end          0.001336
+9                 output calculation_result          0.000657
 ```
-
-### Querying with Logfire
-
-If using Logfire, you can use SQL (see [Logfire setup section](#quick-setup-with-logfire) for examples):
-
-```sql
--- Find reactive components that run most frequently
-SELECT
-    span_name,
-    COUNT(*) as execution_count,
-    AVG(duration_ms) as avg_duration_ms
-FROM traces
-WHERE span_name LIKE 'reactive:%'
-AND start_time > NOW() - INTERVAL '1 day'
-GROUP BY span_name
-ORDER BY execution_count DESC;
-```
-
-```sql
--- Identify sessions with errors
-SELECT
-    attributes->>'session.id' as session_id,
-    COUNT(*) as error_count,
-    MAX(start_time) as last_error
-FROM traces
-WHERE status_code = 'ERROR'
-GROUP BY session_id
-ORDER BY error_count DESC;
-```
-
-### Setting Up Alerts
-
-Configure alerts to notify you of issues:
-
-**High error rate:**
-```
-WHEN error_count > 10 per minute
-WHERE span.name LIKE "output:%"
-THEN notify #alerts channel
-```
-
-**Slow performance:**
-```
-WHEN p95(duration) > 5s
-WHERE span.name = "shiny.reactive_update"
-FOR 5 minutes
-THEN notify on-call engineer
-```
-
-**High traffic:**
-```
-WHEN new_sessions > 100 per minute
-WHERE span.name = "shiny.session"
-THEN notify #scaling channel
-```
-
-### Building Dashboards
-
-Create dashboards to monitor your Shiny applications:
-
-**Key Metrics to Track:**
-- Active sessions count
-- Average session duration
-- Reactive update frequency
-- Error rate by output
-- P50, P95, P99 latency
-- External API call duration
-
-**Example Dashboard Panels:**
-
-1. **Session Activity** (time series)
-   - New sessions per minute
-   - Active concurrent sessions
-
-2. **Performance** (gauges/charts)
-   - Median reactive update time
-   - 95th percentile output render time
-
-3. **Errors** (table)
-   - Recent errors with session ID
-   - Error count by span name
-
-4. **Top Slow Operations** (bar chart)
-   - Slowest reactive calcs (by P95)
-   - Slowest outputs (by P95)
 
