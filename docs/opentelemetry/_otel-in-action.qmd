@@ -22,16 +22,28 @@ Gaining timing insights into applications that leverage [Generative AI](https://
 ## Express
 
 ```python
- {{< inclued apps/opentelemetry/weather_app/app-demo-all-express.py >}}
+ {{< include apps/opentelemetry/weather_app/app-demo-all-express.py >}}
 ```
 
 :::
 
-You'll notice that the `app.py` has no OpenTelemetry specific code within the app itself. We only need to set system environment variables and (optionally) add our AI provider's instrumentor package.
+You'll notice that the `app.py` has no OpenTelemetry specific code within the app itself. We only need to set system environment variables and (optionally) add our AI provider's instrumentation package.
 
-::: {.callout-tip}
+::: {.callout-note}
 
-## Automatic span naming
+## What is a span?
+
+In OpenTelemetry, a **span** represents a unit of work or operation within your application. Each span captures:
+
+- The operation's name and start/end time
+- Attributes (metadata) about the operation
+- The relationship to parent spans (forming a trace hierarchy)
+
+Multiple spans form a **trace**, which shows the complete path of a request through your application. In Shiny, spans automatically track reactive computations, session lifecycle events, and user interactions, helping you understand the sequence and timing of operations.
+
+:::
+
+### Automatic span naming
 
 Shiny automatically generates descriptive span names for all reactive computations based on their function names and type. You don't need to manually instrument your code—just write your reactive functions as usual.
 
@@ -48,8 +60,6 @@ def filtered_data():
 ```
 
 In the example apps above, the `@chat.on_user_submit` decorated function `handle_user_input` will appear in traces as `"reactive.effect event handle_user_input"`.
-
-:::
 
 TODO: Example of app (screenshot)
 
@@ -71,5 +81,7 @@ Notice how the spans are nested, showing the relationship between user actions, 
 ::: {.callout-note}
 
 ## Instrument All the Things!
-You can instrument out your database calls and external API calls too! Services like `logfire` have methods designed to hook directly into your database of choice and provide meaningful information on slow or inefficient queries and operations.
+You can instrument your database calls and external API calls too! Services like `logfire` have methods designed to hook directly into your database of choice and provide meaningful information on slow or inefficient queries and operations.
+
+See our [DuckDB instrumentation example](#database-example-duckdb) in the Advanced Usage section for a complete working example.
 :::

@@ -105,7 +105,7 @@ def server(input, output, session):
 This example uses `otel.suppress()`, custom spans, and custom attributes.
 
 ```python
-{{< include apps/opentelemetry/test-app-suppress.py >}}
+{{< include apps/opentelemetry/test-app-suppression.py >}}
 ```
 
 TODO: Logfire image
@@ -132,7 +132,7 @@ TODO: Logfire picture
 ## AI Example: Anthropic
 
 ```python
-{{< include apps/opentelemetry/app-demo-all-core.py >}}
+{{< include apps/opentelemetry/weather_app/app-demo-all-core.py >}}
 ```
 TODO: Logfire image
 :::

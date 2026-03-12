@@ -26,7 +26,7 @@ Using an existing span:
 Using a custom span:
 
 ```python
-{{< include apps/opentelemetry/test-app-custom-span.py >}}
+{{< include apps/opentelemetry/test-app-custom-spans.py >}}
 ```
 
 These attributes can be queried in your observability backend to filter and analyze traces.

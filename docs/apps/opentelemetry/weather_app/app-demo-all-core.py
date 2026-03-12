@@ -1,15 +1,14 @@
-"""
-Setup:
-1. pip install shiny chatlas logfire requests boto3 opentelemetry-instrumentation-anthropic
-2. Configure your AI provider of choice (here we use AWS Bedrock)
-3. Set environment variables:
-   export SHINY_OTEL_COLLECT=reactivity
-   export AWS_PROFILE=claude (For AWS Bedrock, you may have an API key instead)
-4. Optional: Configure Logfire for observability:
-   - Run: logfire configure
-   - View traces at https://logfire.pydantic.dev/
-5. Run: shiny run app-demo-all-core.py
-"""
+# Setup:
+# 1. pip install shiny chatlas logfire requests boto3 opentelemetry-instrumentation-anthropic
+# 2. Configure your AI provider of choice (here we use AWS Bedrock but you can replace
+#    with the provider and auth setup of your choice)
+# 3. Set environment variables:
+#    export SHINY_OTEL_COLLECT=reactivity
+#    export AWS_PROFILE=claude (For AWS Bedrock, you may have an API key instead)
+# 4. Optional: Configure Logfire for observability:
+#    - Run: logfire configure
+#    - View traces at https://logfire.pydantic.dev/
+# 5. Run: shiny run app-demo-all-core.py
 
 import os
 
@@ -33,7 +32,7 @@ logfire.configure()
 # Instrument chatlas/Anthropic for automatic tracing
 AnthropicInstrumentor().instrument()
 
-from shiny import App, otel, ui
+from shiny import App, ui
 
 
 def get_weather_forecast(lat: float, lon: float) -> str:
@@ -59,8 +58,7 @@ def get_weather_forecast(lat: float, lon: float) -> str:
         # Format the first 3 forecast periods
         periods = forecast_data["properties"]["periods"][:3]
         forecast_text = [
-            f"{period['name']}: {period['detailedForecast']}"
-            for period in periods
+            f"{period['name']}: {period['detailedForecast']}" for period in periods
         ]
 
         result = "\n\n".join(forecast_text)
@@ -77,12 +75,11 @@ def get_weather_forecast(lat: float, lon: float) -> str:
         error_msg = f"Error parsing weather data: {str(e)}"
         return error_msg
 
+
 app_ui = ui.page_fillable(
     ui.chat_ui(
         id="chat",
-        messages=[
-            "Ask me about the weather! Try: What is the weather in Atlanta, GA?"
-        ],
+        messages=["Ask me about the weather! Try: What is the weather in Atlanta, GA?"],
     ),
     fillable_mobile=True,
 )
@@ -91,16 +88,13 @@ app_ui = ui.page_fillable(
 def server(input, output, session):
     # Initialize Claude client
     chat_client = ChatBedrockAnthropic(
-        system_prompt="Be terse.",
-        model="us.anthropic.claude-sonnet-4-5-20250929-v1:0"
+        system_prompt="Be terse.", model="us.anthropic.claude-sonnet-4-5-20250929-v1:0"
     )
     # Register the weather tool we defined above
     chat_client.register_tool(get_weather_forecast)
 
-    #TODO: Before after compare this
     # Create a chat instance
-    with otel.suppress():
-        chat = ui.Chat(id="chat")
+    chat = ui.Chat(id="chat")
 
     @chat.on_user_submit
     async def handle_user_input(user_input: str):
@@ -108,7 +102,6 @@ def server(input, output, session):
         Handle user message submission.
         Errors are automatically displayed as notifications by Shiny.
         """
-        #TODO: may need a span here?
         # Send message to Claude and stream response
         # AnthropicInstrumentor automatically traces this call for Otel
         response = await chat_client.stream_async(user_input)
