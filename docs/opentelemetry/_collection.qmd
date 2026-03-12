@@ -81,7 +81,7 @@ reactive_update
 
 This example implicitly shows a relationship between `input <value_name>` changing, and `<output_name>` being re-rendered as a result of that change.
 
-It explicity shows the chain of reactive expressions that were needed to be computed to produce the new value for `<output_name>`, including any nested reactives.
+It explicitly shows the chain of reactive expressions that were needed to be computed to produce the new value for `<output_name>`, including any nested reactives.
 
 
 ### Understanding reactive dependencies

@@ -14,7 +14,6 @@ TODO: Logfire image
 
 You can enhance existing spans with custom attributes or add custom attributes to your own [custom spans](#custom-spans).
 
-
 TODO: Logfire image
 
 Using an existing span:

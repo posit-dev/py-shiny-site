@@ -9,11 +9,9 @@ We'll cover different strategies for adding and subtracting information below.
 You might find that some of Shiny's automatic tracing, while useful for debugging, can lead to clutter.
 To avoid tracing the intermediate reactive expressions (such as `reactive.calc expensive_calculation`), you can use `with otel.suppress()` to disable Shiny OTel spans/logs within that block.
 
-For example,
+For example, this app (without anything suppressed)
 
 ```python
-    # Do not trace _Shiny_ reactive expressions within this block
-    # All other otel spans/logs will still be recorded
     @reactive.calc
     def expensive_calculation():
         # Start a custom span for this calculation
@@ -30,7 +28,6 @@ becomes
     # Do not trace _Shiny_ reactive expressions within this block
     # All other otel spans/logs will still be recorded
     with otel.suppress():
-
         @reactive.calc
         def expensive_calculation():
             # Start a custom span for this calculation
@@ -97,7 +94,6 @@ def server(input, output, session):
         return f"Completed {iterations} iterations in 3 seconds"
 
 ```
-#TODO: Add image of this
 
 ::: {.callout-tip collapse="true"}
 ## Full Example Code
@@ -138,4 +134,4 @@ TODO: Logfire image
 :::
 
 
-The resulting traces will show Shiny spans with nested HTTP and database spans, giving you end-to-end visibility.
+The resulting traces will show Shiny spans with nested AI library usage and/or database spans, giving you end-to-end visibility.
