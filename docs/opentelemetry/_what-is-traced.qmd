@@ -32,12 +32,12 @@ The `reactive_update` span starts when Shiny starts an output render or `@reacti
 
 The time elapsed in the `reactive_update` span is equivalent to the time the Python thread is busy (as every session of the Shiny app is single threaded).
 
-Within a `reactive_update` span new input values will not be processed. If a user changes a value, the server will not process these new changes until after the current reactive update completes.
+Within a `reactive_update` span, new input values will not be processed. That is, if a user changes a value, the server will not process these new changes until after the current reactive update completes.
 
-TODO: make this sound better lol
-ExtendedTask is more true async, you are separating something from the reactive graph (that doesn't need it) so it can free up the graph to continue to work, but then when the task is done it will report back.
+For the best performance available, use `ExtendedTask` for long-running computations. Extended tasks run asynchronously outside the reactive graph, allowing your app to remain responsive to user interactions while the task executes. Once the task completes, it reports its result back to the reactive system.
 
-Need user values to invoke, but don't need ongoing updates while the calculation is running, it's a nontrivial thing so freeing up the graph lets your app still do other things.
+For example, you might have the user input certain variables, then kick off an extended task that performs a model training, testing, and prediction process. The user will be able to continue looking around your app, and your output (ex. graphs, charts) will update when the extended task (model training & testing) completes.
+Learn more about [nonblocking behavior and extended tasks](/docs/nonblocking.qmd).
 
 
 ##### Spans

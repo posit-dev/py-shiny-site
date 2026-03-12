@@ -42,8 +42,6 @@ The collection level must be set when **creating** the reactive objects (like `@
 For example:
 
 ```python
-from shiny import otel, reactive
-
 # Suppress telemetry for a specific reactive calc
 @reactive.calc
 @otel.suppress
@@ -61,9 +59,6 @@ with otel.suppress():
     def private_output():
         return private_calc()
 ```
-
-TODO: Implemented the suppress, check to see what is suppressed and if need to add any spans or not, transfer to Express example
-TODO: Then add that here
 
 
 ### Interpreting Traces
