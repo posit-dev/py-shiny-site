@@ -1,0 +1,43 @@
+## Introduction
+
+Understanding how your Shiny application behaves in production is critical for maintaining performance and reliability. While local development gives you some insight, production environments introduce complexities like concurrent users, varied network conditions, and unexpected usage patterns.
+
+<a href="https://opentelemetry.io/" data-original-href="https://opentelemetry.io/" target="_blank" rel="noopener noreferrer">OpenTelemetry</a> provides a standardized way to collect observability data from your Shiny applications, helping you answer questions like:
+
+- Why is my app slow for certain users?
+- Which reactive expressions are taking the most time?
+- How long does it take for outputs to render?
+- What sequence of events occurs when a user interacts with my app?
+
+Starting with Shiny v1.6.0, OpenTelemetry support is built directly into the framework, making it easier than ever to gain visibility into your applications at scale.
+
+::: {.callout-tip}
+## Quick Navigation
+
+Already familiar with OpenTelemetry?
+
+[Skip to Quick Start](#quick-start)
+:::
+
+
+## What is OpenTelemetry?
+
+[**OpenTelemetry**](https://opentelemetry.io/) (aka OTel) describes itself as "high-quality, ubiquitous, and portable telemetry to enable effective observability". It is an open-source observability framework that provides a vendor-neutral way to collect telemetry data from applications. OTel standardizes three types of observability data:
+
+* **Traces**: Show the path of a request through your application. In Shiny, a trace reveals how a user's input change triggers a cascade of reactive calculations, ultimately updating outputs. Traces help you understand the sequence and timing of operations.
+
+* **Logs**: Detailed event records that capture what happened at specific moments, including errors, warnings, and informational messages.
+
+* **Metrics**: Numerical measurements collected over time, such as request counts, response times, or resource utilization.
+
+These data types were standardized under the OpenTelemetry project, [which is supported by a large community and many companies](https://opentelemetry.io/community/marketing-guidelines/#i-opentelemetry-is-a-joint-effort). The goal is to provide a consistent way to collect and export observability data, making it easier to monitor and troubleshoot applications.
+
+### The OpenTelemetry ecosystem
+
+OpenTelemetry is vendor-neutral, meaning you can send your telemetry data to various local backends like [Jaeger](https://www.jaegertracing.io/), [Zipkin](https://zipkin.io/), [Prometheus](https://prometheus.io/), or cloud-based services like [Grafana Cloud](https://grafana.com/products/cloud/), [Logfire](https://pydantic.dev/logfire), and [Langfuse](https://langfuse.com/). This flexibility means [you're not locked into any particular monitoring solution](https://opentelemetry.io/community/marketing-guidelines/#iii-promote-awareness-of-otel-interoperability-and-modularization).
+
+We've been using [Logfire](https://pydantic.dev/logfire) internally at Posit to help develop OTel integration in many packages and other applications. Throughout this article, you'll see examples of OTel traces visualized in Logfire.
+
+The image below shows an example trace in Logfire (left) from a Shiny app (right) that uses Generative AI to provide weather forecasts. The trace captures the entire user session, including reactive updates, model calls, and a tool invocation. We will explore this example in more detail later in the article.
+
+TODO: Add image

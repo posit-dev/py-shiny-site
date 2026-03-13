@@ -1,0 +1,24 @@
+---
+title: OpenTelemetry with Shiny
+---
+
+{{< include opentelemetry/_introduction.qmd >}}
+
+{{< include opentelemetry/_quick-start.qmd >}}
+
+{{< include opentelemetry/_otel-in-action.qmd >}}
+
+{{< include opentelemetry/_collection.qmd >}}
+
+{{< include opentelemetry/_what-is-traced.qmd >}}
+
+{{< include opentelemetry/_production-considerations.qmd >}}
+
+{{< include opentelemetry/_advanced.qmd >}}
+
+{{< include opentelemetry/_attributes.qmd >}}
+
+{{< include opentelemetry/_analyzing-traces.qmd >}}
+
+{{< include opentelemetry/_resources.qmd >}}
+

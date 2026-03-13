@@ -1,0 +1,49 @@
+## Attributes
+
+### Existing attributes
+
+Shiny automatically adds a `session.id` attribute to every span or log recorded. This `session.id` is a unique identifier for the Shiny session (equivalent to `session.id` in Python), allowing you to filter and analyze all telemetry data for a specific user session.
+
+In addition to the `session.id`, Shiny automatically adds [code](https://opentelemetry.io/docs/specs/semconv/registry/attributes/code/) attributes to reactive expression spans (reactive calcs, effects, extended tasks, and outputs).
+
+With the combination of `code.filepath`, `code.lineno`, and `code.column.number` attributes, OpenTelemetry viewers can provide you a file path to copy into your IDE to take you directly to your code's origin.
+
+TODO: Logfire image
+
+### Adding Custom Attributes
+
+You can enhance existing spans with custom attributes or add custom attributes to your own [custom spans](#custom-spans).
+
+TODO: Logfire image
+
+Using an existing span:
+
+```python
+@reactive.calc
+@reactive.event(input.run)
+def complex_analysis():
+    iterations = input.iterations()
+    span = trace.get_current_span()
+    span.set_attribute("iterations", iterations)
+
+    # Simulate waiting for a function
+    time.sleep(1)
+
+    return f"Completed {iterations} iterations in 3 seconds"
+```
+
+Using a custom span:
+
+```python
+@reactive.calc
+@reactive.event(input.run)
+def complex_analysis():
+    iterations = input.iterations()
+
+    with tracer.start_as_current_span("process_my_data") as span:
+        span.set_attribute("iterations", iterations)
+        span.set_attribute("step", "preprocessing")
+        time.sleep(1)
+```
+
+These attributes can be queried in your observability backend to filter and analyze traces.

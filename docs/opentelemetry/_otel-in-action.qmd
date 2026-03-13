@@ -1,0 +1,77 @@
+
+### OpenTelemetry in Action
+
+Below is an example app with an `{chatlas}` tool to fetch realtime weather forecasts for a given latitude and longitude. This simple (yet non-trivial) app helps us showcase what sort of information `{shiny}` and `{chatlas}` can surface via OTel.
+
+::: {.callout-note}
+
+## OTel + GenAI
+
+Gaining timing insights into applications that leverage [Generative AI](https://aws.amazon.com/what-is/generative-ai/) (GenAI) is critical to improving user experience. Without OpenTelemetry, if a user stated an app was slow, we would not be able to accurately determine if the slowness was due to the AI model request time, AI model streaming time, tool execution time, or even followup reactive calculations in Shiny.
+
+:::
+
+```python
+{{< include apps/opentelemetry/weather_app/app-demo-all.py >}}
+```
+
+TODO: Screenshot of demo app
+
+You'll notice that the `app.py` has no OpenTelemetry specific code within the app itself. We only need to set system environment variables and (optionally) add our AI provider's instrumentation package.
+
+::: {.callout-note}
+
+## What is a span?
+
+In OpenTelemetry, a **span** represents a unit of work or operation within your application. Each span captures:
+
+- The operation's name and start/end time
+- Attributes (metadata) about the operation
+- The relationship to parent spans (forming a trace hierarchy)
+
+Multiple spans form a **trace**, which shows the complete path of a request through your application. In Shiny, spans automatically track reactive computations, session lifecycle events, and user interactions, helping you understand the sequence and timing of operations.
+
+:::
+
+### Span Naming Example
+
+Shiny automatically generates descriptive span names for all reactive computations based on their function names and type. You don't need to manually instrument your code—just write your reactive functions as usual.
+
+**Span naming format:** `<type> [<modifiers> ][<namespace>:]<name>`
+
+For example:
+
+```python
+@reactive.effect
+@reactive.event(input.click)
+def filtered_data():
+    ...
+    # Span name: "reactive.effect event filtered_data"
+```
+
+In the example apps above, the `@chat.on_user_submit` decorated function `handle_user_input` will appear in traces as `"reactive.effect event handle_user_input"`.
+
+TODO: Example of app (screenshot)
+
+When you run the app and interact with it, OpenTelemetry traces are automatically recorded and sent to your configured backend (Logfire in this case). Here's an example trace from Logfire showing a user session interacting with the chat app and the weather tool:
+
+TODO: Example trace of app (screenshot)
+
+The traces above recorded a single user session where the user asked for the weather in Atlanta, GA and then closed the app. The trace shows:
+
+- The Shiny session lifecycle, including `session_start` and `session_end`
+- Many `Set reactive.value` spans for handling user input.
+- Reactive updates triggered by changes in the `session`'s input
+- An `ExtendedTask` span for the computation of the AI agent response
+- 2x `anthropic.chat` spans representing calls to the AI agent model
+- A single `get_weather_forecast` tool call being executed
+
+Notice how the spans are nested, showing the relationship between user actions, required reactive calculations, and external API calls. This level of detail helps you understand exactly how your app is performing in production and where any bottlenecks or issues may arise.
+
+::: {.callout-note}
+
+## Instrument All the Things!
+You can instrument your database calls and external API calls too! Services like `logfire` have methods designed to hook directly into your database of choice and provide meaningful information on slow or inefficient queries and operations.
+
+See our [DuckDB instrumentation example](#database-example-duckdb) in the Advanced Usage section for a complete working example.
+:::

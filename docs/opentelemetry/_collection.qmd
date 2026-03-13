@@ -1,0 +1,96 @@
+## What can Shiny record?
+
+Shiny automatically creates OpenTelemetry spans for:
+
+- **Session lifecycle**: When sessions start and end, including HTTP request details
+- **Reactive updates**: The entire cascade of reactive calculations triggered by an input change or a new output to be rendered
+- **Reactive expressions**: Individual calculations such as `@reactive.calc`, `@reactive.effect`, `@render.*`, and other reactive constructs
+
+Additionally, Shiny adds logs for events such as:
+
+- Fatal or unhandled errors (with optional error message sanitization)
+- When a `reactive.value()` is set
+
+Every span and log entry provided by Shiny includes the session ID (`session.id`) attribute, making it easy to filter and analyze data for specific user sessions.
+
+
+### Collection Levels
+
+Automatic tracing is perfect to get started, but you may want more control over what gets traced. Shiny gives you that flexibility through the `SHINY_OTEL_COLLECT` environment variable. You can set this to control the level of tracing detail with the following values:
+
+- `"none"` - No Shiny OpenTelemetry tracing
+- `"session"` - Track session start and end
+- `"reactive_update"` - Track reactive updates (includes `"session"` tracing)
+- `"reactivity"` - Trace all reactive expressions (includes `"reactive_update"` tracing)
+- `"all"` [Default] - Everything (currently equivalent to "reactivity")
+
+With `"all"` being the default level of tracing, you may want to reduce the amount of Shiny spans/logs collected for large applications or production environments. Reducing the amount of Shiny spans/logs collected can help decrease the volume of telemetry data being sent to your backend, reducing costs.
+
+For example, we can set the `SHINY_OTEL_COLLECT` environment variable to `"session"` to only trace session start and session end events.
+
+### Custom Spans & Logs
+
+If you are going to add your own spans or logs using OpenTelemetry, you may want to reduce the amount of Shiny spans collected to `"reactive_update"`. This will create a span for every _reactive update_ in addition to the session start/end spans. This level of tracing provides a high-level overview of user interactions without the noise of every individual reactive expression. Your custom spans/logs can then fill in the gaps for specific operations you care about.
+
+
+### Suppressing Spans & Security
+
+You may want to remove spans/logs for specific parts of your app. For example, you may want to avoid logging certain sensitive data or avoid tracing certain reactive expressions or outputs that are not critical to your analysis. You can achieve this using the `otel.suppress()` decorator or context manager.
+
+The collection level must be set when **creating** the reactive objects (like `@reactive.calc`, `@reactive.effect`, `@render.*`, etc.) to control tracing for those objects.
+
+For example:
+
+```python
+# Suppress telemetry for a specific reactive calc
+@reactive.calc
+@otel.suppress
+def sensitive_data():
+    return load_credentials()
+
+# Or suppress telemetry for a group of reactive objects
+with otel.suppress():
+    # All reactive objects created in this block have telemetry disabled
+    @reactive.calc
+    def private_calc():
+        return process_sensitive_data()
+
+    @render.text
+    def private_output():
+        return private_calc()
+```
+
+
+### Interpreting Traces
+
+When looking at the trace for timing, you can see how long a model request took in the `anthropic.chat` spans.
+
+TODO: Picture of an example span
+
+The gap between this span's length and its parent's length is how long the results took to stream back to the user or make a decision. For the overall user experience, the total time taken from input to output is represented by the `extended_task_stream_task` span, roughly 6.5 seconds in this case. Only around 3.2 seconds were spent in the tool call (something _we as app authors_ could possibly optimize). The remaining 3 seconds was spent in the model response generation and streaming.
+
+More generally, as users interact with your app, Shiny generates traces that generally look like this:
+
+```
+(log) Set reactive.value input.<value_name>
+reactive_update
+└── output <output_name>
+    └── reactive <reactive_name>
+        └── reactive <inner_reactive_name>
+```
+
+This example implicitly shows a relationship between `input <value_name>` changing, and `<output_name>` being re-rendered as a result of that change.
+
+It explicitly shows the chain of reactive expressions that were needed to be computed to produce the new value for `<output_name>`, including any nested reactives.
+
+
+### Understanding reactive dependencies
+
+Traces reveal the dependency chain in your reactive graph. When an input changes, you can see:
+
+1. Which reactive expressions were invalidated
+2. The order in which they re-executed
+3. How long each computation took
+4. Which outputs were ultimately updated
+
+This visibility is invaluable for identifying performance bottlenecks and understanding unexpected reactive behavior.
