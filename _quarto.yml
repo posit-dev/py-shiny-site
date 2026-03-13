@@ -152,6 +152,7 @@ website:
             - components/inputs/slider/index.qmd
             - components/inputs/slider-range/index.qmd
             - components/inputs/switch/index.qmd
+            - components/inputs/task-button/index.qmd
             - components/inputs/text-area/index.qmd
             - components/inputs/text-box/index.qmd
         - section: "![](/images/bar-chart-line-fill.svg){.sidebar-icon .sidebar-subtitle}__Outputs__"
