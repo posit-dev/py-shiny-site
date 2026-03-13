@@ -19,14 +19,31 @@ TODO: Logfire image
 Using an existing span:
 
 ```python
-{{< include apps/opentelemetry/test-app-attr-span.py >}}
+@reactive.calc
+@reactive.event(input.run)
+def complex_analysis():
+    iterations = input.iterations()
+    span = trace.get_current_span()
+    span.set_attribute("iterations", iterations)
+
+    # Simulate waiting for a function
+    time.sleep(1)
+
+    return f"Completed {iterations} iterations in 3 seconds"
 ```
 
 Using a custom span:
 
 ```python
-{{< include apps/opentelemetry/test-app-custom-attr.py >}}
+@reactive.calc
+@reactive.event(input.run)
+def complex_analysis():
+    iterations = input.iterations()
+
+    with tracer.start_as_current_span("process_my_data") as span:
+        span.set_attribute("iterations", iterations)
+        span.set_attribute("step", "preprocessing")
+        time.sleep(1)
 ```
 
 These attributes can be queried in your observability backend to filter and analyze traces.
-
