@@ -1,0 +1,126 @@
+---
+title: "Output components"
+---
+
+{{< include includes/ui-component-intro.qmd >}}
+
+
+### Outputs
+
+Shiny provides a handful of output components, all of which:
+
+1. Require a (named) function decorated by a `@render.*` decorator.
+2. Require the return value of the function to be a valid value (e.g. a string for `@render.text`, a plot for `@render.plot`, etc).
+
+Here's a basic example of using a text output (reacting to changes in a text input):
+
+::: {.panel-tabset .shiny-mode-tabset group="shiny-app-mode"}
+
+### Express
+
+```{.python}
+from shiny.express import input, render, ui
+
+ui.input_text("text", label="Enter some text")
+
+@render.text
+def text_out():
+    return f"Input text: {input.text()}"
+```
+
+### Core
+
+```{.python}
+from shiny import App, render, ui
+
+app_ui = ui.page_fluid(
+    ui.input_text("text", label="Enter some text"),
+    ui.output_text("text_out")
+)
+
+def server(input):
+    @render.text
+    def text_out():
+        return f"Input text: {input.text()}"
+
+app = App(app_ui, server)
+```
+
+In a Shiny core app, output components typically start with a `ui.output_*()` object directly in the UI definition.
+Like inputs, outputs require an `id` argument, which must match the name of the function that returns the output's value in the server.
+
+:::
+
+::: {.callout-tip}
+#### Output gallery
+
+See [this section of the component gallery](/components/#outputs) for an overview of available outputs.
+:::
+
+::: {.callout-tip}
+#### Jupyter Widgets as outputs
+
+In the next article, [Jupyter Widgets](jupyter-widgets.qmd), you'll learn how to use Jupyter Widgets as outputs.
+:::
+
+::: {.callout-tip}
+#### Output as an input control
+
+Some outputs provide access their client-side state as input values. For example:
+
+* [`@render.plot`](https://shiny.posit.co/py/components/outputs/plot-matplotlib.html) provides access to hover, click, and drag events.
+* [`@render.data_frame`](https://shiny.posit.co/py/components/outputs/data-grid.html) provides access to selected rows and more.
+* `{shinywidgets}`'s [`@render_widget()`](jupyter-widgets.qmd) provides access to the ipywidget traits.
+:::
+
+### Layouts
+
+Layout components help with arrangement and styling of their child components.
+A handful of layout components start with `ui.layout_*()`, but many other layout components are available as well (e.g. `ui.card()`, `ui.accordion()`, `ui.navset_*()` functions, etc).
+
+For a quick example, here's how to arrange two sliders in a row:
+
+::: {.column-body-outset-right .panel-tabset .shiny-mode-tabset group="shiny-app-mode"}
+
+### Express
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 100
+from shiny.express import ui
+
+with ui.layout_column_wrap(gap="2rem"):
+    ui.input_slider("slider1", "Slider 1", min=0, max=100, value=50)
+    ui.input_slider("slider2", "Slider 2", min=0, max=100, value=50)
+```
+
+### Core
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 100
+
+from shiny import App, ui
+
+app_ui = ui.page_fluid(
+    ui.layout_column_wrap(
+        ui.input_slider("slider1", "Slider 1", min=0, max=100, value=50),
+        ui.input_slider("slider2", "Slider 2", min=0, max=100, value=50),
+        gap="2rem"
+    )
+)
+
+app = App(app_ui, None)
+```
+
+:::
+
+::: {.callout-tip}
+#### Layout gallery
+
+See the [layout gallery](/layouts) for an overview of available layout mechanisms.
+:::
