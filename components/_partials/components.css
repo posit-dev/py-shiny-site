@@ -92,7 +92,7 @@ main a.nav-link:hover {
   height: 200px;
 }
 
-/* Improve spacing for app previews - addresses comments about padding and whitespace */
+/* Improve spacing for app previews */
 .app-preview {
   margin-bottom: 1rem;
 }

@@ -131,45 +131,6 @@ components-static: $(PYBIN) deps
 components-shinylive-links: $(PYBIN) deps
 	. $(PYBIN)/activate && python components/update-shinylive-links.py
 
-
-SHINYLIVE_DIR ?= shinylive
-
-## Clone shinylive repository (for building from source)
-.PHONY: clone-shinylive
-clone-shinylive:
-	@if [ ! -d "$(SHINYLIVE_DIR)" ]; then \
-		echo "🔵 Cloning shinylive repository..."; \
-		git clone https://github.com/posit-dev/shinylive.git $(SHINYLIVE_DIR); \
-	else \
-		echo "✓ shinylive directory already exists"; \
-	fi
-
-## Build shinylive from source for previewing unreleased features
-.PHONY: build-shinylive
-build-shinylive: $(PYBIN) clone-shinylive
-	@echo "🔵 Building shinylive from source..."
-	cd $(SHINYLIVE_DIR) && make submodules
-	cd $(SHINYLIVE_DIR) && npm install
-	cd $(SHINYLIVE_DIR) && make all
-	cd $(SHINYLIVE_DIR) && make dist
-	@echo "🔵 Installing locally-built shinylive..."
-	. $(PYBIN)/activate && pip uninstall -y shinylive 2>/dev/null || true
-	. $(PYBIN)/activate && pip install $(SHINYLIVE_DIR)
-	@echo "✓ shinylive built and installed from source"
-
-## Update shinylive source and rebuild
-.PHONY: update-shinylive
-update-shinylive: clone-shinylive
-	@echo "🔵 Updating shinylive repository..."
-	cd $(SHINYLIVE_DIR) && git pull
-	$(MAKE) build-shinylive
-
-## Clean shinylive build artifacts
-.PHONY: clean-shinylive
-clean-shinylive:
-	rm -rf $(SHINYLIVE_DIR)
-
-
 ## Remove Quarto website build files
 .PHONY: clean
 clean:
@@ -185,51 +146,47 @@ clean-extensions:
 clean-venv:
 	rm -rf $(VENV)
 
-## Remove all build files (Quarto website, quarto extensions, venv, shinylive)
+## Remove all build files (Quarto website, quarto extensions, venv)
 .PHONY: distclean
-distclean: clean clean-extensions clean-venv clean-shinylive
+distclean: clean clean-extensions clean-venv
 
 SHINYLIVE_ARTIFACT_DIR ?= _shinylive-pr-build
+SHINYLIVE_BRANCH ?= main
 
 ## Download and install shinylive artifact from py-shiny CI/CD (requires gh and jq)
-.PHONY: use-shinylive-artifact
-use-shinylive-artifact: $(PYBIN) deps
+## This is essential the first time you want to use the dev shinylive build, but is not
+## necessary after, as shinylive will use the lastest cached artifact
+## By default searches main branch. Supply SHINYLIVE_BRANCH to test a specific branch.
+## Usage: make use-dev-shinylive [SHINYLIVE_BRANCH=feature-branch]
+.PHONY: use-dev-shinylive
+use-dev-shinylive: $(PYBIN) deps
 	@command -v gh jq > /dev/null || (echo "❌ Install: brew install gh jq && gh auth login" && exit 1)
 	@gh auth status > /dev/null 2>&1 || (echo "❌ Authenticate: gh auth login" && exit 1)
-	@rm -rf $(SHINYLIVE_ARTIFACT_DIR)
-	@. $(PYBIN)/activate && python -c "import appdirs, shutil; shutil.rmtree(appdirs.user_cache_dir('shinylive'), ignore_errors=True)"
-	@echo "🔵 Finding shinylive-build artifact in py-shiny workflows..."
-	@FOUND=false; \
-	for RUN_ID in $$(gh run list --repo posit-dev/py-shiny --workflow build-docs.yaml --limit 20 --json databaseId --jq '.[].databaseId'); do \
+	@echo "🔵 Finding shinylive-build artifact in py-shiny workflows on branch: $(SHINYLIVE_BRANCH)..."; \
+	RUN_IDS=$$(gh run list --repo posit-dev/py-shiny --workflow build-docs.yaml --branch $(SHINYLIVE_BRANCH) --limit 20 --json databaseId --jq '.[].databaseId'); \
+	FOUND=false; \
+	for RUN_ID in $$RUN_IDS; do \
 		if gh api repos/posit-dev/py-shiny/actions/runs/$$RUN_ID/artifacts --jq '.artifacts[].name' 2>/dev/null | grep -q '^shinylive-build$$'; then \
 			echo "🔹 Found artifact in run $$RUN_ID"; \
+			rm -rf $(SHINYLIVE_ARTIFACT_DIR) && \
+			. $(PYBIN)/activate && python -c "import appdirs, shutil; shutil.rmtree(appdirs.user_cache_dir('shinylive'), ignore_errors=True)" && \
 			gh run download --repo posit-dev/py-shiny --name shinylive-build --dir $(SHINYLIVE_ARTIFACT_DIR) $$RUN_ID && \
 			. $(PYBIN)/activate && shinylive assets install-from-local "$(SHINYLIVE_ARTIFACT_DIR)" && \
-			echo "✓ Shinylive artifact installed" && \
+			echo "✓ Shinylive artifact installed from branch $(SHINYLIVE_BRANCH)" && \
 			FOUND=true && \
 			break; \
 		fi; \
 	done; \
 	if [ "$$FOUND" != "true" ]; then \
-		echo "❌ No shinylive-build artifact found in recent py-shiny builds"; \
+		echo "❌ No shinylive-build artifact found in recent py-shiny builds on branch $(SHINYLIVE_BRANCH)"; \
 		exit 1; \
 	fi
 
-## Build documentation with py-shiny shinylive artifact
-.PHONY: all-with-artifact
-all-with-artifact: use-shinylive-artifact quartodoc components site
-	@echo "✓ Documentation built with py-shiny shinylive artifact"
-
-## Serve documentation with py-shiny shinylive artifact
-.PHONY: serve-with-artifact
-serve-with-artifact: use-shinylive-artifact quartodoc components
-	. $(PYBIN)/activate && ${QUARTO_PATH} preview
 
 ## Clean shinylive artifact download
-.PHONY: clean-shinylive-artifact
-clean-shinylive-artifact:
+.PHONY: clean-dev-shinylive
+clean-dev-shinylive:
 	rm -rf $(SHINYLIVE_ARTIFACT_DIR)
-
 
 
 
