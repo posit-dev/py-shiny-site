@@ -154,11 +154,11 @@ distclean: clean clean-extensions clean-venv
 SHINYLIVE_ARTIFACT_DIR ?= _shinylive-pr-build
 SHINYLIVE_BRANCH ?= main
 
-## Download and install shinylive artifact from py-shiny CI/CD (requires gh and jq)
 ## This is essential the first time you want to use the dev shinylive build, but is not
 ## necessary after, as shinylive will use the lastest cached artifact
 ## By default searches main branch. Supply SHINYLIVE_BRANCH to test a specific branch.
 ## Usage: make use-dev-shinylive [SHINYLIVE_BRANCH=feature-branch]
+## Download and install dev shinylive artifact from py-shiny CI/CD (requires gh and jq)
 .PHONY: use-dev-shinylive
 use-dev-shinylive: $(PYBIN) deps
 	@command -v gh jq > /dev/null || (echo "❌ Install: brew install gh jq && gh auth login" && exit 1)
