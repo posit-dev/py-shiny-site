@@ -1,0 +1,268 @@
+---
+title: "Interactive LLM Framework Explorer"
+description: Explore different Python LLM frameworks and their capabilities through interactive Shiny templates
+---
+
+Explore various Python frameworks for building LLM-powered applications. Select a framework below, then choose from basic chat, structured output, or tool calling capabilities.
+
+::: {.panel-tabset .panel-pills}
+
+## LangChain
+
+::: {.panel-tabset}
+
+### Basic
+
+**A Chat app leveraging LangChain framework**
+
+This app allows users to interact with a language model using the LangChain framework.
+
+[{{< fa eye >}} View App](https://posit-ai-langchain-basic.share.connect.posit.cloud/){.btn .btn-primary .btn-sm}
+[{{< fa brands github >}} View Source](https://github.com/posit-dev/py-shiny-templates/tree/main/gen-ai/interactive-chat-explorer/langchain-basic){.btn .btn-outline-secondary .btn-sm}
+
+```bash
+shiny create --template langchain-basic --mode express --github posit-dev/py-shiny-templates/gen-ai/interactive-chat-explorer
+```
+
+**Packages:**
+
+- `langchain-core`
+- `langchain-openai`
+- `langchain`
+- `dotenv`
+
+### Structured Output
+
+**LangChain Chat with Structured Output**
+
+Shows how to constrain model responses to a structured schema using LangChain (e.g., pydantic or JSON mode).
+
+[{{< fa eye >}} View App](https://posit-ai-langchain-structured-output.share.connect.posit.cloud/){.btn .btn-primary .btn-sm}
+[{{< fa brands github >}} View Source](https://github.com/posit-dev/py-shiny-templates/tree/main/gen-ai/interactive-chat-explorer/langchain-structured-output){.btn .btn-outline-secondary .btn-sm}
+
+```bash
+shiny create --template langchain-structured-output --mode express --github posit-dev/py-shiny-templates/gen-ai/interactive-chat-explorer
+```
+
+**Packages:**
+
+- `langchain-core`
+- `langchain-openai`
+- `langchain`
+- `pydantic`
+- `dotenv`
+
+### Tool Calling
+
+**LangChain Chat with Tool Calling**
+
+Demonstrates using LangChain to enable the model to select and invoke tools/functions during a chat session.
+
+[{{< fa eye >}} View App](https://posit-ai-langchain-tool-calling.share.connect.posit.cloud/){.btn .btn-primary .btn-sm}
+[{{< fa brands github >}} View Source](https://github.com/posit-dev/py-shiny-templates/tree/main/gen-ai/interactive-chat-explorer/langchain-tool-calling){.btn .btn-outline-secondary .btn-sm}
+
+```bash
+shiny create --template langchain-tool-calling --mode express --github posit-dev/py-shiny-templates/gen-ai/interactive-chat-explorer
+```
+
+**Packages:**
+
+- `langchain-core`
+- `langchain-openai`
+- `langchain`
+- `dotenv`
+
+:::
+
+## LlamaIndex
+
+::: {.panel-tabset}
+
+### Basic
+
+**Basic Chat with LlamaIndex**
+
+Minimal LlamaIndex-powered chat demonstrating a direct LLM conversation loop.
+
+[{{< fa eye >}} View App](https://posit-ai-llama-index-basic.share.connect.posit.cloud/){.btn .btn-primary .btn-sm}
+[{{< fa brands github >}} View Source](https://github.com/posit-dev/py-shiny-templates/tree/main/gen-ai/interactive-chat-explorer/llama-index-basic){.btn .btn-outline-secondary .btn-sm}
+
+```bash
+shiny create --template llama-index-basic --mode express --github posit-dev/py-shiny-templates/gen-ai/interactive-chat-explorer
+```
+
+**Packages:**
+
+- `llama-index`
+- `llama-index-llms-openai`
+- `pydantic`
+- `dotenv`
+
+### Structured Output
+
+**Structured Output with LlamaIndex**
+
+Chat example producing structured (JSON / schema) responses using LlamaIndex tools.
+
+[{{< fa eye >}} View App](https://posit-ai-llama-index-structured-output.share.connect.posit.cloud/){.btn .btn-primary .btn-sm}
+[{{< fa brands github >}} View Source](https://github.com/posit-dev/py-shiny-templates/tree/main/gen-ai/interactive-chat-explorer/llama-index-structured-output){.btn .btn-outline-secondary .btn-sm}
+
+```bash
+shiny create --template llama-index-structured-output --mode express --github posit-dev/py-shiny-templates/gen-ai/interactive-chat-explorer
+```
+
+**Packages:**
+
+- `llama-index`
+- `llama-index-llms-openai`
+- `pydantic`
+- `dotenv`
+
+### Tool Calling
+
+**Tool Calling with LlamaIndex**
+
+Demonstrates model-invoked tool (function) calls orchestrated by LlamaIndex.
+
+[{{< fa eye >}} View App](https://posit-ai-llama-index-tool-calling.share.connect.posit.cloud/){.btn .btn-primary .btn-sm}
+[{{< fa brands github >}} View Source](https://github.com/posit-dev/py-shiny-templates/tree/main/gen-ai/interactive-chat-explorer/llama-index-tool-calling){.btn .btn-outline-secondary .btn-sm}
+
+```bash
+shiny create --template llama-index-tool-calling --mode express --github posit-dev/py-shiny-templates/gen-ai/interactive-chat-explorer
+```
+
+**Packages:**
+
+- `llama-index`
+- `llama-index-llms-openai`
+- `pytz`
+- `dotenv`
+
+:::
+
+## LLM Package
+
+::: {.panel-tabset}
+
+### Basic
+
+**Basic Chat using llm package**
+
+Simple chat illustrating a direct conversation loop with llm package abstractions.
+
+[{{< fa eye >}} View App](https://posit-ai-llm-package-basic.share.connect.posit.cloud/){.btn .btn-primary .btn-sm}
+[{{< fa brands github >}} View Source](https://github.com/posit-dev/py-shiny-templates/tree/main/gen-ai/interactive-chat-explorer/llm-package-basic){.btn .btn-outline-secondary .btn-sm}
+
+```bash
+shiny create --template llm-package-basic --mode express --github posit-dev/py-shiny-templates/gen-ai/interactive-chat-explorer
+```
+
+**Packages:**
+
+- `llm`
+- `openai`
+- `dotenv`
+
+### Structured Output
+
+**Structured Output with llm package**
+
+Shows enforcing structured schema in responses using llm package utilities.
+
+[{{< fa eye >}} View App](https://posit-ai-llm-package-structured-output.share.connect.posit.cloud/){.btn .btn-primary .btn-sm}
+[{{< fa brands github >}} View Source](https://github.com/posit-dev/py-shiny-templates/tree/main/gen-ai/interactive-chat-explorer/llm-package-structured-output){.btn .btn-outline-secondary .btn-sm}
+
+```bash
+shiny create --template llm-package-structured-output --mode express --github posit-dev/py-shiny-templates/gen-ai/interactive-chat-explorer
+```
+
+**Packages:**
+
+- `llm`
+- `openai`
+- `pydantic`
+- `dotenv`
+
+### Tool Calling
+
+**Tool Calling with llm package**
+
+Demonstrates dispatching tool/function calls via llm package orchestration.
+
+[{{< fa eye >}} View App](https://posit-ai-llm-package-tool-calling.share.connect.posit.cloud/){.btn .btn-primary .btn-sm}
+[{{< fa brands github >}} View Source](https://github.com/posit-dev/py-shiny-templates/tree/main/gen-ai/interactive-chat-explorer/llm-package-tool-calling){.btn .btn-outline-secondary .btn-sm}
+
+```bash
+shiny create --template llm-package-tool-calling --mode express --github posit-dev/py-shiny-templates/gen-ai/interactive-chat-explorer
+```
+
+**Packages:**
+
+- `llm`
+- `openai`
+- `dotenv`
+
+:::
+
+## Pydantic AI
+
+::: {.panel-tabset}
+
+### Basic
+
+**Basic Chat with Pydantic-AI**
+
+Simple chat using Pydantic models for validated inputs/outputs.
+
+[{{< fa eye >}} View App](https://posit-ai-pydantic-ai-basic.share.connect.posit.cloud/){.btn .btn-primary .btn-sm}
+[{{< fa brands github >}} View Source](https://github.com/posit-dev/py-shiny-templates/tree/main/gen-ai/interactive-chat-explorer/pydantic-ai-basic){.btn .btn-outline-secondary .btn-sm}
+
+```bash
+shiny create --template pydantic-ai-basic --mode express --github posit-dev/py-shiny-templates/gen-ai/interactive-chat-explorer
+```
+
+**Packages:**
+
+- `pydantic-ai`
+- `dotenv`
+
+### Structured Output
+
+**Structured Output with Pydantic-AI**
+
+Uses Pydantic models to shape and validate structured responses from the model.
+
+[{{< fa eye >}} View App](https://posit-ai-pydantic-ai-structured-output.share.connect.posit.cloud/){.btn .btn-primary .btn-sm}
+[{{< fa brands github >}} View Source](https://github.com/posit-dev/py-shiny-templates/tree/main/gen-ai/interactive-chat-explorer/pydantic-ai-structured-output){.btn .btn-outline-secondary .btn-sm}
+
+```bash
+shiny create --template pydantic-ai-structured-output --mode express --github posit-dev/py-shiny-templates/gen-ai/interactive-chat-explorer
+```
+
+**Packages:**
+
+- `pydantic-ai`
+- `pydantic`
+- `dotenv`
+
+### Tool Calling
+
+**Tool Calling with Pydantic-AI**
+
+Demonstrates invoking and validating tool calls with Pydantic-AI patterns.
+
+[{{< fa eye >}} View App](https://posit-ai-pydantic-ai-tool-calling.share.connect.posit.cloud/){.btn .btn-primary .btn-sm}
+[{{< fa brands github >}} View Source](https://github.com/posit-dev/py-shiny-templates/tree/main/gen-ai/interactive-chat-explorer/pydantic-ai-tool-calling){.btn .btn-outline-secondary .btn-sm}
+
+```bash
+shiny create --template pydantic-ai-tool-calling --mode express --github posit-dev/py-shiny-templates/gen-ai/interactive-chat-explorer
+```
+
+**Packages:**
+
+- `pydantic-ai`
+- `dotenv`
+
+:::
+
+:::
