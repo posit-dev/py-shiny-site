@@ -156,6 +156,7 @@ website:
             - components/inputs/text-box/index.qmd
         - section: "![](/images/bar-chart-line-fill.svg){.sidebar-icon .sidebar-subtitle}__Outputs__"
           contents:
+            - components/outputs/code/index.qmd
             - components/outputs/data-grid/index.qmd
             - components/outputs/data-table/index.qmd
             - components/outputs/image/index.qmd
