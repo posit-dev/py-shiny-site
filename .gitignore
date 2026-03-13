@@ -20,5 +20,6 @@ __pycache__/
 
 components/static/
 .claude/
+shinylive/
 
 **/*.quarto_ipynb
