@@ -1,0 +1,87 @@
+---
+title: Task Button
+sidebar: components
+appPreview:
+  file: components/inputs/task-button/app-preview.py
+  static: true
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/task-button/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 250
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5KAZ1wmLtIB0IAM2akYyDgAs6EXFjgAPdMzgcOyBk1YaI6AK4UiKiABM4zInrqDBVrDP0UA+hU4BrJwCMDFcgAp+MGVSYlUOQKJAgGVXbWDQtRkAc0CASmQAYmQAHmybCAABYzNmLCoFCkECuzgAN2oKPwcDHFEEjlTBTm5iZDMhZBUOPQAbRtTEQWRp9gB3KDo2bp4+LA4RuDh0PwAmTogZwbgKPWYDwIAFNrDk5DJGDaoAQkDBQlQKXHQEFDByijAAF8ALpAA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5KAZ1wmLtIB0IAM2akYyDgAs6EXMgZNWyAK50izagBM4zIgEFMgwRnQB9VcgC8KujigBzOKaEAbVZoAUg5D5tYZ6MoUphScANamAEZBFOReYOiixHAcHPyEyOkAyqFKiaTJqTL26QCURADEyAA81d6+qlikQYHBVAAewQBuOpFQFAzxGhzKLhRlBIKlRhDaQhI6PcweAUFEzRStRBwpHHwQpYj1PgACGrM6WB3jEL7IJ41wPZQrEK04SbvTt76c3MTIObIYajCgeQ7HO7sADuUDobD+PD4WA4LjgcHQHgATN8ob4NBRlMxbukAAqfIoQezIMiMNFUACE6RmJisyAMmJM5jUC2YS2+GTAFFw6AQKCFcE6YAAvgBdIA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.input_task_button
+    href: https://shiny.posit.co/py/api/ui.input_task_button.html
+    signature: ui.input_task_button(id, label, *args, icon=None, label_busy='Processing...',
+      icon_busy=MISSING, width=None, type='primary', auto_reset=True, **kwargs)
+  - title: ui.update_task_button
+    href: https://shiny.posit.co/py/api/ui.update_task_button.html
+    signature: ui.update_task_button(id, *, state=None, session=None)
+  - title: ui.bind_task_button
+    href: https://shiny.posit.co/py/api/ui.bind_task_button.html
+    signature: ui.bind_task_button(task=None, *, button_id)
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A task button is a special action button designed for long-running operations. It automatically shows a busy indicator (spinner) and disables itself while processing, then re-enables when complete. The button's value is initially zero and increments by one each time it is pressed.
+
+To add a task button to your app:
+
+1. Add `ui.input_task_button()` to the UI with a unique `id` and descriptive `label`.
+
+2. In the server function, create an async function decorated with `@reactive.event(input.<button_id>)` that performs the long-running operation.
+
+3. The button automatically shows a spinner and disables while the async function runs. When the function completes, the button re-enables automatically.
+
+For more advanced usage with non-blocking computations and task cancellation, see the **Extended Tasks** section below.
+
+**Automatic State Management**: Unlike regular action buttons, task buttons:
+  - Automatically disable while processing
+  - Show a spinner and "Processing..." text by default
+  - Re-enable when the async operation completes
+  - Reset to the original label
+
+**Custom Busy State**: Customize the busy appearance with:
+  - `label_busy` - Text shown while processing (default: "Processing...")
+  - `icon_busy` - Icon shown while processing
+
+**Extended Tasks**: For more complex scenarios, use [`@reactive.extended_task`](../../../api/core/reactive.extended_task.html) with `@ui.bind_task_button()` decorator. This pattern allows you to:
+  - Run non-blocking computations that don't block other reactive updates
+  - Cancel running tasks programmatically
+  - Return results that can be accessed via `.result()`
+
+Example pattern:
+```python
+@ui.bind_task_button(button_id="btn")
+@reactive.extended_task
+async def slow_compute(a, b):
+    await asyncio.sleep(3)
+    return a + b
+```
+
+For a detailed explanation of why async/await alone doesn't prevent blocking and how extended tasks achieve true non-blocking behavior, see [Non-blocking operations](../../../docs/nonblocking.qmd).
+
+**Auto Reset**: By default (`auto_reset=True`), the button resets to its original state after the server finishes processing the click. Set `auto_reset=False` to maintain the busy state until explicitly updated with `ui.update_task_button()`.
+
+**Manual State Control**: You can prevent automatic reset by calling `ui.update_task_button(id, state="busy")` during processing. This opts out of the automatic reset for that specific click, and you must then call `ui.update_task_button(id, state="ready")` to re-enable the button.
+
+See Also: [Action Button](../action-button/index.qmd) provides a simpler button for non-async operations.
