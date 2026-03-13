@@ -4,59 +4,6 @@ After adding OTel to your application, you may find that there are some areas of
 
 We'll cover different strategies for adding and subtracting information below.
 
-### Suppressing Clutter
-
-You might find that some of Shiny's automatic tracing, while useful for debugging, can lead to clutter.
-To avoid tracing the intermediate reactive expressions (such as `reactive.calc expensive_calculation`), you can use `with otel.suppress()` to disable Shiny OTel spans/logs within that block.
-
-For example, this app (without anything suppressed)
-
-```python
-    @reactive.calc
-    def expensive_calculation():
-        # Start a custom span for this calculation
-        with tracer.start_as_current_span("my custom span"):
-            # Simulate an expensive operation
-            time.sleep(2)
-
-            return input.n() ** 2
-```
-
-becomes
-
-```python
-    # Do not trace _Shiny_ reactive expressions within this block
-    # All other otel spans/logs will still be recorded
-    with otel.suppress():
-        @reactive.calc
-        def expensive_calculation():
-            # Start a custom span for this calculation
-            with tracer.start_as_current_span("my custom span"):
-                # Simulate an expensive operation
-                time.sleep(2)
-
-                return input.n() ** 2
-```
-
-or
-
-```python
-        @otel.suppress
-        @reactive.calc
-        def expensive_calculation():
-            # Start a custom span for this calculation
-            with tracer.start_as_current_span("my custom span"):
-                # Simulate an expensive operation
-                time.sleep(2)
-
-                return input.n() ** 2
-```
-
-Now your custom span will appear in the trace without the intermediate Shiny reactive spans cluttering the view.
-
-Example:
-TODO: Side-by-side comparison logfire image.
-
 ### Custom Spans
 
 While Shiny automatically traces session and reactive execution, you may want to add custom spans for specific business logic or operations. These will use appear as children of Shiny's automatic spans in your trace view.
@@ -107,31 +54,89 @@ This example uses `otel.suppress()`, custom spans, and custom attributes.
 TODO: Logfire image
 :::
 
+### Suppressing Clutter
+
+You might find that some of Shiny's automatic tracing, while useful for debugging, can lead to clutter.
+To avoid tracing the intermediate reactive expressions (such as `reactive.calc expensive_calculation`), you can use `with otel.suppress()` to disable Shiny OTel spans/logs within that block.
+
+For example, this app (without anything suppressed)
+
+```python
+    @reactive.calc
+    def expensive_calculation():
+        # Start a custom span for this calculation
+        with tracer.start_as_current_span("my custom span"):
+            # Simulate an expensive operation
+            time.sleep(2)
+
+            return input.n() ** 2
+```
+
+becomes
+
+```python
+    # Do not trace _Shiny_ reactive expressions within this block
+    # All other otel spans/logs will still be recorded
+    with otel.suppress():
+        @reactive.calc
+        def expensive_calculation():
+            # Start a custom span for this calculation
+            with tracer.start_as_current_span("my custom span"):
+                # Simulate an expensive operation
+                time.sleep(2)
+
+                return input.n() ** 2
+```
+
+or
+
+```python
+        @reactive.calc
+        @otel.suppress
+        def expensive_calculation():
+            # Start a custom span for this calculation
+            with tracer.start_as_current_span("my custom span"):
+                # Simulate an expensive operation
+                time.sleep(2)
+
+                return input.n() ** 2
+```
+
+Now your custom span will appear in the trace without the intermediate Shiny reactive spans cluttering the view.
+
+Example:
+TODO: Side-by-side comparison logfire image.
+
 ### Integrating with Third-Party Instrumentation
 
-Many Python libraries have OpenTelemetry instrumentation available. These integrate seamlessly with Shiny's tracing.
+Many Python libraries have OpenTelemetry instrumentation available. These integrate seamlessly with Shiny's tracing, giving you end-to-end visibility.
 
+#### Database Example: DuckDB
+
+Using Logfire's DuckDB instrumentation, you can automatically trace all database queries with detailed span attributes including the query text, affected rows, and execution time.
 
 ::: {.callout-tip collapse="true"}
-
-## Database Example: DuckDB
+## Full Example Code
 
 ```python
  {{< include apps/opentelemetry/test-app-db.py >}}
 ```
 
-TODO: Logfire picture
 :::
+
+TODO: Logfire picture
+
+#### AI Example: Anthropic
+
+Using `opentelemetry-instrumentation-anthropic`, you get automatic traces for all AI model calls, including token usage, model name, and response streaming details.
 
 ::: {.callout-tip collapse="true"}
-
-## AI Example: Anthropic
+## Full Example Code
 
 ```python
-{{< include apps/opentelemetry/weather_app/app-demo-all-core.py >}}
+{{< include apps/opentelemetry/weather_app/app-demo-all.py >}}
 ```
-TODO: Logfire image
+
 :::
 
-
-The resulting traces will show Shiny spans with nested AI library usage and/or database spans, giving you end-to-end visibility.
+TODO: Logfire image

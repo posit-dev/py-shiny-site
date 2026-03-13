@@ -1,5 +1,5 @@
 # Setup:
-# 1. pip install shiny chatlas logfire requests boto3 opentelemetry-instrumentation-anthropic
+# 1. Run: pip install shiny chatlas logfire requests boto3 opentelemetry-instrumentation-anthropic
 # 2. Configure your AI provider of choice (here we use AWS Bedrock but you can replace
 #    with the provider and auth setup of your choice)
 # 3. Set environment variables:

@@ -54,7 +54,7 @@ with otel.suppress():
     sensitive_data = reactive.value(fetch_secrets())
 ```
 
-This is more secure than sanitization alone, as it prevents any telemetry collection for the wrapped code.
+This is more secure than sanitization alone, as it prevents any Shiny telemetry collection for the wrapped code. Note, custom spans / non-Shiny spans will never be suppressed, only Shiny's telemetry.
 
 ### Set appropriate collection levels
 

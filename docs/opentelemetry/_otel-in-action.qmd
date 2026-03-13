@@ -11,21 +11,11 @@ Gaining timing insights into applications that leverage [Generative AI](https://
 
 :::
 
-::: {.panel-tabset}
-
-## Core
-
 ```python
-{{< include apps/opentelemetry/weather_app/app-demo-all-core.py >}}
+{{< include apps/opentelemetry/weather_app/app-demo-all.py >}}
 ```
 
-## Express
-
-```python
- {{< include apps/opentelemetry/weather_app/app-demo-all-express.py >}}
-```
-
-:::
+TODO: Screenshot of demo app
 
 You'll notice that the `app.py` has no OpenTelemetry specific code within the app itself. We only need to set system environment variables and (optionally) add our AI provider's instrumentation package.
 
@@ -43,11 +33,11 @@ Multiple spans form a **trace**, which shows the complete path of a request thro
 
 :::
 
-### Automatic span naming
+### Span Naming Example
 
 Shiny automatically generates descriptive span names for all reactive computations based on their function names and type. You don't need to manually instrument your code—just write your reactive functions as usual.
 
-**Span naming format:** `<type> <modifiers> <namespace>:<name>`
+**Span naming format:** `<type> [<modifiers> ][<namespace>:]<name>`
 
 For example:
 

@@ -1,77 +1,8 @@
 ## Quick Start
 
-### Shiny Otel Installation
-
-OpenTelemetry support is built into Shiny, but you need to install the OpenTelemetry SDK to enable it:
-
-::: {.panel-tabset}
-
-## pip
-
-```bash
-# Option 1: Install with Shiny's optional dependencies
-pip install "shiny[otel]"
-
-# Option 2: Install the SDK manually
-pip install opentelemetry-sdk opentelemetry-exporter-otlp
-```
-
-## uv
-
-```bash
-# Option 1: Install with Shiny's optional dependencies
-uv add "shiny[otel]"
-
-# Option 2: Install the SDK manually
-uv add opentelemetry-sdk opentelemetry-exporter-otlp
-```
-
-:::
-
 ### Basic Configuration
 
-OpenTelemetry requires three things to work:
-
-1. **A TracerProvider** - Manages trace collection
-2. **An Exporter** - Sends traces to an observability backend
-3. **Collection level** - Controls how much detail to capture
-
-Here's a minimal setup:
-
-#### Set Up Tracer
-
-```python
-# 1. Install OpenTelemetry SDK (optional [otel] extras group)
-# pip install "shiny[otel]"
-
-# 2. Configure before importing shiny (or after - late init supported)
-from opentelemetry import trace
-from opentelemetry.sdk.trace import TracerProvider
-from opentelemetry.sdk.trace.export import ConsoleSpanExporter, SimpleSpanProcessor
-
-provider = TracerProvider()
-provider.add_span_processor(SimpleSpanProcessor(ConsoleSpanExporter()))
-trace.set_tracer_provider(provider)
-
-# 3. Import and use Shiny normally
-from shiny import App, ui
-```
-
-#### Set Collection Level
-```bash
-# Environment variable (app-wide default)
-export SHINY_OTEL_COLLECT=session
-```
-
-
-::: {.callout-note collapse="true"}
-## Optional: Quick Setup with Logfire
-
-[Pydantic Logfire](https://logfire.pydantic.dev/) provides zero-configuration OpenTelemetry setup with a managed observability platform.
-
-### Installation and Setup
-
-You will need to set up a Logfire account and project. On your first run of logfire, it will ask you to authenticate and choose which project your metrics will be associated with.
+[Pydantic Logfire](https://logfire.pydantic.dev/) provides zero-configuration OpenTelemetry setup with a managed observability platform. You will need to set up a Logfire account and project. On your first run of logfire, it will ask you to authenticate and choose which project your metrics will be associated with.
 
 ::: {.panel-tabset}
 
@@ -125,19 +56,56 @@ View traces at [logfire.pydantic.dev](https://logfire.pydantic.dev/) - you'll se
 
 See the [Logfire documentation](https://logfire.pydantic.dev/) for more details on querying, alerts, and dashboards.
 
-:::
+::: {.callout-tip collapse="true"}
+## Debugging with the console exporter
 
+For local debugging without an observability backend, you can configure OpenTelemetry to print spans to the console.
 
-::: {.callout-tip}
-## Verifying OTel setup
+You will need to install the OpenTelemetry SDK to be able to print to the console.
 
-To verify your OpenTelemetry setup is working, use `is_otel_tracing_enabled()`:
+::: {.panel-tabset}
 
-```python
-from shiny.otel._core import is_otel_tracing_enabled
+## pip
 
-print(f"Tracing enabled: {is_otel_tracing_enabled()}")
-# Should print: Tracing enabled: True
+```bash
+# Option 1: Install with Shiny's optional dependencies
+pip install "shiny[otel]"
+
+# Option 2: Install the SDK manually
+pip install opentelemetry-sdk opentelemetry-exporter-otlp
+```
+
+## uv
+
+```bash
+# Option 1: Install with Shiny's optional dependencies
+uv add "shiny[otel]"
+
+# Option 2: Install the SDK manually
+uv add opentelemetry-sdk opentelemetry-exporter-otlp
 ```
 
 :::
+
+
+```python
+# Configure before importing shiny (or after - late init supported)
+from opentelemetry import trace
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import ConsoleSpanExporter, SimpleSpanProcessor
+
+provider = TracerProvider()
+provider.add_span_processor(SimpleSpanProcessor(ConsoleSpanExporter()))
+trace.set_tracer_provider(provider)
+
+# Import and use Shiny normally
+from shiny import App, ui
+```
+
+:::
+
+#### Set Collection Level
+```bash
+# Environment variable (app-wide default)
+export SHINY_OTEL_COLLECT=session
+```
