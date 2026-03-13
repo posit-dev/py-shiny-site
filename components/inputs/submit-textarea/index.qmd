@@ -1,0 +1,95 @@
+---
+title: Submit Textarea
+sidebar: components
+appPreview:
+  file: components/inputs/submit-textarea/app-preview.py
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/submit-textarea/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 250
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhXER0AVwpFhEACZwGRBZwA6EfTqzdFFAPqsFAIxidzVfhSjCoACl1h4oqAHM4Hog8AUUpNZFxSBQZkL1ZfOEQPAEpkAGJkAB4M-X0AAVUNBiwHCn0NOhiROL8zSIpTVyTEiGRW8QqPWPiPOTlTZrbB5GEKKJa6DwBNSLZrWwoqNRQQEyUsLr9GgF8PfUGRseQPADlSSu8-WZs7RfC4UrB9QlQKXHQEFDASsC2AXSA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAV05EG1ACZwGRAIKYAOhFUZ0AfXHIAvGM44oAczia6AG3HSAFKuQODWbulEVNrUQCMYnd1QAPCigpKDsweFZWEzhlQmQ4gFFKOWRcUlEGZEjo00Q4gEoiAGJkAB4y+0dxLAyKV384IM0ANzkvKAp+cJyYzTqGwoJVAtVVWTo2OTaGGxc3IgGFqajOcgL8iEdkAAEpCFkGLECKKocJ7LgovqWKGw2z7b5JuN7TOL4t+YpNp7-kKQUTJbOhxACaGTY3l8FCo0hQIG+WDecHuAF84o9toDgQkwAA5UiXa6mKE+PxwtJwU5gMbQTB6ZBKdA2DTaCRTBgzUYQeJgCi4dAIFD8poUMBogC6QA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.input_submit_textarea
+    href: https://shiny.posit.co/py/api/ui.input_submit_textarea.html
+    signature: ui.input_submit_textarea(id, label=None, *, placeholder=None, value='',
+      width='min(680px, 100%)', rows=1, button=None, toolbar=None, submit_key='enter+modifier',
+      **kwargs)
+  - title: ui.update_submit_textarea
+    href: https://shiny.posit.co/py/api/ui.update_submit_textarea.html
+    signature: ui.update_submit_textarea(id, *, value=None, placeholder=None, label=None,
+      submit=False, focus=False, session=None)
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/inputs/submit-textarea/
+  contents:
+  - title: Submit on Enter key
+    description: 'By default, users must press Ctrl+Enter (or Cmd+Enter on Mac) to
+      submit. This helps prevent accidental submissions. Set `submit_key="enter"`
+      to allow submission with just the Enter key. Users can still insert newlines
+      using Shift+Enter or Alt+Enter.
+
+      '
+    apps:
+    - title: Preview
+      file: app-variation-enter-key.py
+      height: 250
+    - title: Express
+      file: app-variation-enter-key-express.py
+    - title: Core
+      file: app-variation-enter-key.py
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A submit textarea provides a multi-line text input with explicit submission via a button or keyboard shortcut. Unlike a regular text area that sends values on every keystroke, this component only updates the server when the user explicitly submits their input.
+
+This is ideal for chat interfaces, comment forms, or any scenario where users compose and review their text before submitting.
+
+To add a submit textarea to your app:
+
+1. Add `ui.input_submit_textarea()` to the UI of your app to create the input. Specify the `id` and `label` parameters. The `id` will be used to access the submitted value.
+
+2. Optionally set a `placeholder` to provide hint text, and configure the initial number of `rows` (the textarea will auto-expand as users type).
+
+3. By default, users submit with **Ctrl+Enter** (or Cmd+Enter on Mac). To allow submission with just Enter, set `submit_key="enter"`.
+
+**Important:** The server doesn't receive a value until the user explicitly submits. To check if a value has been submitted:
+
+1. Use `if "input_id" in input` to check if the input has been submitted before reading its value.
+
+2. Use `input.<textarea_id>()` (e.g., `input.message()`) to access the submitted text as a string.
+
+**Keyboard Shortcuts**:
+  - **Ctrl+Enter** (or Cmd+Enter): Submit (default behavior)
+  - **Enter** (if `submit_key="enter"`): Submit
+  - **Shift+Enter** or **Alt+Enter**: Insert newline
+
+**Auto-expanding**: The textarea automatically grows vertically as users type, starting from the `rows` parameter (default is 1).
+
+**Submit Button**: The textarea includes a submit button by default. This is automatically created as a `ui.input_task_button()`, which provides a busy indicator while the server processes the submission.
+
+See Also: [Text Area](../text-area/index.qmd) provides a similar multi-line text input that updates on every keystroke.
+
+## Variations
+
+:::{#variations}
+:::
