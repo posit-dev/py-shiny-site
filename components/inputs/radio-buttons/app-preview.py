@@ -8,7 +8,7 @@ app_ui = ui.page_fluid(
     ).add_class("mb-0"),
     ui.output_ui("value"),
     {
-        "class": "vh-100 d-flex flex-column justify-content-center align-items-center px-4"
+        "class": "d-flex flex-column justify-content-center align-items-center px-4"
     },
 )
 
