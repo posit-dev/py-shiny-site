@@ -1,5 +1,5 @@
 from faicons import icon_svg
-from shiny import App, ui
+from shiny import App, render, ui
 
 app_ui = ui.page_fixed(
     ui.card(
@@ -7,13 +7,13 @@ app_ui = ui.page_fixed(
             "Header",
             ui.toolbar(
                 ui.toolbar_input_button(
-                    id="refresh",
+                    id="action1",
                     label="Refresh",
                     icon=icon_svg("arrows-rotate"),
                 ),
                 ui.toolbar_divider(),
                 ui.toolbar_input_select(
-                    id="filter",
+                    id="options",
                     label="Filter",
                     choices=["ABC", "CDE", "EFG"],
                 ),
@@ -21,7 +21,7 @@ app_ui = ui.page_fixed(
             ),
         ),
         ui.card_body(
-            ui.div("Card body", class_="small"),
+            ui.output_text("toolbar_status"),
         ),
     ),
     {"class": "vh-100 d-flex justify-content-center align-items-center px-4"},
@@ -29,7 +29,9 @@ app_ui = ui.page_fixed(
 
 
 def server(input, output, session):
-    pass
+    @render.text
+    def toolbar_status():
+        return f"Button clicks: {input.action1()}, Selected: {input.options()}"
 
 
 app = App(app_ui, server)
