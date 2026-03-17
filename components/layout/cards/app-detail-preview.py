@@ -1,7 +1,5 @@
-## file: app.py
 from shiny import App, render, ui
 import matplotlib.pyplot as plt
-import numpy as np
 
 app_ui = ui.page_fluid(
     ui.card(

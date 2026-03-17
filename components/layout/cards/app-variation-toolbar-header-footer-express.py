@@ -1,5 +1,5 @@
 from faicons import icon_svg
-from shiny.express import input, ui
+from shiny.express import ui
 
 with ui.card():
     with ui.card_header(class_="bg-dark text-white"):

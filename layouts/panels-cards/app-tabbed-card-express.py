@@ -2,7 +2,7 @@ from shiny.express import ui
 
 with ui.card(full_screen=True, height="300px"):
     ui.card_header("Project Dashboard")
-    with ui.navset_tab():
+    with ui.navset_card_underline():
         with ui.nav_panel("Overview"):
             "This project has 3 milestones and 12 tasks."
             ui.p("Current status: On track")

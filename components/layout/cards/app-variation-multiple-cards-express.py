@@ -1,7 +1,7 @@
 import pandas as pd
 from shiny.express import input, render, ui
 
-with ui.layout_column_wrap():
+with ui.layout_columns():
     with ui.card(full_screen=True):
         with ui.card_header():
             "Sales Data"

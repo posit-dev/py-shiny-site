@@ -3,7 +3,7 @@ from shiny import App, ui
 app_ui = ui.page_fluid(
     ui.card(
         ui.card_header("Project Dashboard"),
-        ui.navset_tab(
+        ui.navset_card_underline(
             ui.nav_panel(
                 "Overview",
                 ui.p("This project has 3 milestones and 12 tasks."),

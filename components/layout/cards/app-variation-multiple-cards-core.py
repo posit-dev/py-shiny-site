@@ -2,7 +2,7 @@ import pandas as pd
 from shiny import App, render, ui
 
 app_ui = ui.page_fluid(
-    ui.layout_column_wrap(
+    ui.layout_columns(
         ui.card(
             ui.card_header(
                 "Sales Data",

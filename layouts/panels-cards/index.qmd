@@ -207,7 +207,7 @@ Follow these steps to create an app with content separated into cards:
 
 ### Tabbed card {#tabbed-card}
 
-Use `ui.navset_tab()` inside a card to create tabbed content.
+Use `ui.navset_card_underline()` inside a card to create tabbed content.
 
 :::{#variation-tabbed-card}
 :::

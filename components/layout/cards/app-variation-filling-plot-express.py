@@ -1,6 +1,5 @@
 from shiny.express import ui, render
 import matplotlib.pyplot as plt
-import numpy as np
 
 with ui.card(height="400px", full_screen=True):
     ui.card_header("Sales Trend")
