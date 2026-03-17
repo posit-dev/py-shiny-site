@@ -1,6 +1,6 @@
 from shiny.express import input, render, ui
 
-with ui.layout_column_wrap(width=1/2, height="300px"):
+with ui.layout_columns(col_widths=[6, 6], height="300px"):
     with ui.card(full_screen=True):
         ui.card_header("User Settings")
         with ui.card_body():

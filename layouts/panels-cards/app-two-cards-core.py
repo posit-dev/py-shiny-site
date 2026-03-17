@@ -1,7 +1,7 @@
 from shiny import App, render, ui
 
 app_ui = ui.page_fluid(
-    ui.layout_column_wrap(
+    ui.layout_columns(
         ui.card(
             ui.card_header("User Settings"),
             ui.card_body(
@@ -25,7 +25,7 @@ app_ui = ui.page_fluid(
             ),
             full_screen=True,
         ),
-        width=1/2,
+        col_widths=[6, 6],
         height="300px",
     )
 )
