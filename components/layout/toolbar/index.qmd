@@ -74,6 +74,24 @@ listing:
     - title: Core
       file: app-variation-input-label-core.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIg2oATOAyIBXdvPkZ0Yq8gC8yKzijS4YuuwAecYwAKeWRQ13YsYigGIJCw+LcomLEVOChTBmCwABU4XxEAUWN2CiFkAHcSlWQAMSEYKAoKdWlkbNJSABsAI2jZMABKAjj40MTo4zFu0mNcYIhRxfCsYsl5pY3l9XQLCjEqfLFotPXNs-6uKkp+4YWzzc6obrhOpzdSrt7Mkfuz946etExNtdlNdqUIKdftDkP1pp1jDcfjCzo9nq9+gAhLqIwjIlEbTjkJxEiASGRZeG4ob4gmhGl3Omjf6fIEgvbdcHkKFMpb9EpQTqcJGM3mLNEvJz9ACSFEFwrxorF8VJJPEUmkWQFQuI-QZyrC+oNyw+gIYwIgOw5XMhtOVFxmcBFxtGEoxYAAwo7nS6wqrSeTNQ7THrbi6jQb5dIIFKwAx2NIVBQfUyI3T0I9iHAVDizLHsrh0HBkLhSBYGMhLtQRKkjFh6ym6UxytwnAAOMMotO-NxlihW-Z5ChZOj1RrNCDSCRyigWbihu0bYiPbjcMSx4wAWjonTyrF3vk3ZE6FhgCyjEE3JTgMG4R+rZkbv24FFwu9jDUPlWMFBUKAAbAADIB6C+AA3MgDQMNI6goIByBQLspBgU+SzdoanaLHQFidJ0EjEEY1BONkDAWHAmHIAM8hURANgQKYdDKGYkhmIE7JEH2VpENwcCruw5ADIgPwAAJGPRZhYAcyaigxrBjk0LTTo0c6BIJdpGLODALHQWI4igIDslgVKqQAvsgAA+yCyvKxD6YZ2qcKZFnIF6ph2ZauyRI6pn9HRtiYM4yD6OggR2A47DccxZg0YQqCvkWtBgFJYAmQAukAA
+- id: variation-info-tooltip
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/layout/toolbar/
+  contents:
+  - title: Info tooltip on input label
+    description: Use `toolbar_input_button()` with a `tooltip` string to add an informational
+      icon next to an input label. The button requires no server handler.
+    apps:
+    - title: Preview
+      file: app-variation-info-tooltip-preview.py
+      height: 300
+    - title: Express
+      file: app-variation-info-tooltip-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4scAB7oGcbr36DhyAK7t58gO7sKK8+yzEoDACYAKAJSJ5yf47Orm5iKnBQbnAMHrJgACJQFFDIAMpwFBTq0tyxXn4BFljq6GYUEgA27JHR+QEBsfb6qqTlbrEEtXXI5VAARnDlALyFFKQtva4xEF0zyLEA8qWVUciNBiotbYSds4Gj465ixaVivaWjEFO7uw0qTRutRwqk7TvX-j39Q7EAgr2kpVWal43HSmQgcm203eXU45EGcIgEhkMTAxHYDGI5TgAFp1HQXmAvB1oTCAvtypl0IMFr1QQxJIl2OReDAhHAgVBpvZ2KyubhlEkIG5gshIpJ2EyWawmCx7Bz4FzkK4ORR9Ik4G5lbwARRlgxuFhXqTrsS3jMoJVpBAaWBsXQKMbdmaTXUYOpBgBGEm7GBQbSDACsPtmjPKZjggwATCGZtwqNSAAxYYOdLyEVAUXDoBAoMBUbQUMAAXwAukA
+    - title: Core
+      file: app-variation-info-tooltip-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIgFd28+RnRjjyALzJjOKNLhi6AG2MATABTzkfu+xYxFAM3r7+EfbBoWIqcFAecAw+YAAiUBRQyADKcBQU6tLcsmAAlAThEX5RIR5iAEakHrg+EFXtAVjq6IYUEq7sicmVHe0lFCoMcKqkrh4lFW2jHa5Q9XCu1vYUpLP1Ia3LR8glAPK9A0nIE1Mzcwsjx1Xbu677DGLdvQ29OxCHT2O40m0xUszq6jopAeS0By1W602JV0jV61zUvG4eQKEDkhEecKqnHI1mJEAkMhSxHYDGIrjgAFpIdCyotCcsdrMCuhrGd6liGJIMuxyLwYEI4OioG0JuwxdLNNxMhAPLVkIlJOxhaLWEwWBNJfBpcgQpKKFMMnAPCbeKQLuwktwsDD2RFygS4VABtIILywPS6BQXYT3bDATB1NYAIxswkwKAAD2sAFZY3Che44NYAExpwFKuA8gAMWFTHqqpXLobd8krEFMKrgdGUSUkSS8XwoRDtFB6XZb3G4IogpUQI3QUEHDbMmBsyH06C85ks7CIArbDFKhFQFFw6AQKDAVATFDAAF8ALpAA
 - id: variation-submit-textarea
   template: ../../_partials/components-variations.ejs
   template-params:
@@ -130,12 +148,15 @@ Toolbars can contain:
 
 ### Toolbar in input components
 
-You can use a toolbar as the label for input components like `input_text_area()` or `input_numeric()`. This allows you to add formatting or action buttons directly in the input label, creating a more integrated interface.
+You can use toolbars in the label of input components to provide additional information or action buttons integrated directly in the component.
 
-You can also add a `toolbar` parameter to `input_submit_textarea()` to include toolbar inputs in the textarea's submit area.
+:::{#variation-info-tooltip}
+:::
+
 
 :::{#variation-input-label}
 :::
+
 
 :::{#variation-submit-textarea}
 :::
