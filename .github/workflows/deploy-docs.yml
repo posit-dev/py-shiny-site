@@ -47,7 +47,62 @@ jobs:
             any::knitr
             any::rmarkdown
             any::reticulate
+      # =====================================================
+      # Install Python dependencies
+      # =====================================================
+      - name: Install Python dependencies
+        run: |
+          make deps
 
+      # =====================================================
+      # Try to use py-shiny shinylive artifact
+      # =====================================================
+      - name: Try shinylive artifact from main branch
+        id: artifact_main
+        continue-on-error: true
+        uses: dawidd6/action-download-artifact@v6
+        with:
+          repo: posit-dev/py-shiny
+          workflow: build-docs.yaml
+          workflow_conclusion: success
+          branch: main
+          name: shinylive-build
+          path: _shinylive-pr-build/
+          if_no_artifact_found: fail
+          check_artifacts: true
+          allow_forks: false
+
+      - name: Try shinylive artifact from any branch
+        id: artifact_any
+        if: steps.artifact_main.outcome == 'failure'
+        continue-on-error: true
+        uses: dawidd6/action-download-artifact@v6
+        with:
+          repo: posit-dev/py-shiny
+          workflow: build-docs.yaml
+          workflow_conclusion: success
+          name: shinylive-build
+          path: _shinylive-pr-build/
+          if_no_artifact_found: fail
+          check_artifacts: true
+          allow_forks: false
+
+      - name: Install py-shiny shinylive artifact assets
+        if: steps.artifact_main.outcome == 'success' || steps.artifact_any.outcome == 'success'
+        run: |
+          if [ "${{ steps.artifact_main.outcome }}" == "success" ]; then
+            echo "🔵 Installing shinylive artifact from main branch..."
+          else
+            echo "🔵 Installing shinylive artifact from feature branch..."
+          fi
+          . .venv/bin/activate && shinylive assets install-from-local "${GITHUB_WORKSPACE}/_shinylive-pr-build"
+          echo "✓ Shinylive artifact assets installed successfully"
+
+      - name: Log using standard shinylive
+        if: steps.artifact_main.outcome != 'success' && steps.artifact_any.outcome != 'success'
+        run: |
+          echo "ℹ️  No py-shiny shinylive artifact found, using standard PyPI shinylive assets"
+          . .venv/bin/activate && echo "   (shinylive version: $(shinylive --version))"
       # =====================================================
       # Build
       # =====================================================
