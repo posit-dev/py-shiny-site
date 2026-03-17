@@ -40,7 +40,7 @@ listing:
   contents:
     apps:
     - title: Preview
-      file: app-variation-updating-core.py
+      file: app-variation-updating-preview.py
       height: 300
     - title: Express
       file: app-variation-updating-express.py

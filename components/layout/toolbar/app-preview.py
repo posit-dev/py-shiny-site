@@ -1,5 +1,5 @@
 from faicons import icon_svg
-from shiny import App, render, ui
+from shiny import App, ui
 
 app_ui = ui.page_fixed(
     ui.card(
@@ -20,18 +20,14 @@ app_ui = ui.page_fixed(
                 align="right",
             ),
         ),
-        ui.card_body(
-            ui.output_text("toolbar_status"),
-        ),
+        ui.card_body(),
     ),
     {"class": "vh-100 d-flex justify-content-center align-items-center px-4"},
 )
 
 
 def server(input, output, session):
-    @render.text
-    def toolbar_status():
-        return f"Button clicks: {input.action1()}, Selected: {input.options()}"
+   pass
 
 
 app = App(app_ui, server)
