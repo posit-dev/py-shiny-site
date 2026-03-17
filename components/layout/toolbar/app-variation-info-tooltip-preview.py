@@ -21,9 +21,26 @@ app_ui = ui.page_fluid(
                 max=5,
                 value=2,
                 step=0.5,
-            )
+            ),
+            ui.input_numeric(
+                "sample_size",
+                label=ui.toolbar(
+                    ui.toolbar_input_button(
+                        "sample_info",
+                        label="About this setting",
+                        icon=icon_svg("circle-info"),
+                        tooltip="Number of observations to draw from the dataset for each analysis run.",
+                    ),
+                    "Sample size",
+                    align="left",
+                ),
+                value=100,
+                min=10,
+                max=1000,
+                step=10,
+            ),
         ),
-        height="200px",
+        height="300px",
     )
 )
 
