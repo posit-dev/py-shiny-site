@@ -109,3 +109,28 @@ from shiny import App, ui
 # Environment variable (app-wide default)
 export SHINY_OTEL_COLLECT=session
 ```
+
+::: {.callout-tip collapse="true"}
+## Extract setup logic into a configuration module
+
+To keep your app efficient, it's helpful to move OpenTelemetry setup into a dedicated module. This keeps your app files clean and ensures configuration (environment variables, Logfire, AI instrumentation) is applied consistently before Shiny imports.
+
+```python
+
+{{< include apps/opentelemetry/configure.py >}}
+
+```
+
+Then in each app file, call it before importing Shiny:
+
+```python
+from configure import configure
+
+configure()
+
+from shiny.express import ui, render
+# ...
+```
+
+:::
+

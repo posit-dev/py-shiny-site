@@ -225,35 +225,31 @@ with ui.card():
 with ui.card():
     ui.card_header("Analytics")
 
-    @render.ui
-    def analytics():
-        stats = calculate_analytics()
+    with ui.layout_columns():
+        with ui.value_box(showcase=ui.tags.i(class_="fa-solid fa-boxes-stacked")):
+            "Total Products"
 
-        if stats["total_products"] == 0:
-            return ui.p("No products to analyze")
+            @render.text
+            def total_products():
+                return str(calculate_analytics()["total_products"])
 
-        from shiny import ui as core_ui
-        return core_ui.TagList(
-            core_ui.layout_columns(
-                core_ui.value_box(
-                    "Total Products",
-                    stats["total_products"],
-                    showcase=core_ui.tags.i(class_="fa-solid fa-boxes-stacked"),
-                ),
-                core_ui.value_box(
-                    "Inventory Value",
-                    f"${stats['total_value']:,.2f}",
-                    showcase=core_ui.tags.i(class_="fa-solid fa-dollar-sign"),
-                ),
-                core_ui.value_box(
-                    "Average Price",
-                    f"${stats['avg_price']:.2f}",
-                    showcase=core_ui.tags.i(class_="fa-solid fa-chart-line"),
-                ),
-                core_ui.value_box(
-                    "Total Stock",
-                    stats["total_stock"],
-                    showcase=core_ui.tags.i(class_="fa-solid fa-warehouse"),
-                ),
-            )
-        )
+        with ui.value_box(showcase=ui.tags.i(class_="fa-solid fa-dollar-sign")):
+            "Inventory Value"
+
+            @render.text
+            def total_value():
+                return f"${calculate_analytics()['total_value']:,.2f}"
+
+        with ui.value_box(showcase=ui.tags.i(class_="fa-solid fa-chart-line")):
+            "Average Price"
+
+            @render.text
+            def avg_price():
+                return f"${calculate_analytics()['avg_price']:.2f}"
+
+        with ui.value_box(showcase=ui.tags.i(class_="fa-solid fa-warehouse")):
+            "Total Stock"
+
+            @render.text
+            def total_stock():
+                return str(calculate_analytics()["total_stock"])
