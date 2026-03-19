@@ -12,7 +12,7 @@ listing:
   contents:
   - title: Preview
     file: app-detail-preview.py
-    height: 400
+    height: 200
   - title: Express
     file: app-express.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4scAB7oGcbr36DhfCOgCuFIvogATOAyIX28+QHd2FFchdZiUAx2ABR0FgA24RLE+tQAvAAqDBZwAJSI8shZyJ7evuz+gXZiKnBQDgzB6ZnZtbJgACKkxBbwlMgAgsQU7OTc9TW1Wbk+fhSkpOEARoHBUOHs0hBx9QyLKhT11RBDu-lY45MzDGLqlhRiU1bjEMGDe7vsditg4VBTcFHk4bj1BPcPWpvD7hF4AGXen2QAHkID8-gC9qlEbsxhNpoFTuYrJdruQ7jtAY9nvVOOQxFB7GJgZ8EYSiUDIaD6gBJLjIADUyAhILpDKGZOWgokMjuYDspHccNI5S2-3p-OUKkl1KZiWScHl-ORCoeaKOmLOOKuFBuBMV2SeL2F31+hBRgJpzLAbPIMLhdq1FtE5Diwqk0jFdHCpEwuAAtHZ2NwANZyh21HX3AACtgqBx0mwVDjoyBNNwkFCgFAs3CqGV12X0JYYOzo9QAQnieMhiAtiDG4HZkOHuUyUCAjRQsE6xLaqgBfIiuiADodYG0eydEBukbxz7HD4WU4pOycDCCEVAUXDoBAoMBUbQUMATgC6QA
