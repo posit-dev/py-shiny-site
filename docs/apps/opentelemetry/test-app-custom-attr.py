@@ -16,7 +16,6 @@ tracer = trace.get_tracer(__name__)
 
 ui.page_opts(title="OpenTelemetry Test App", fillable=True)
 
-ui.h2("OpenTelemetry Test App")
 ui.input_numeric("iterations", "Number of iterations:", value=3, min=1, max=10)
 ui.input_action_button("run", "Run Calculation", class_="btn-primary")
 

@@ -14,8 +14,6 @@ With the combination of `code.filepath`, `code.lineno`, and `code.column.number`
 
 You can enhance existing spans with custom attributes or add custom attributes to your own [custom spans](#custom-spans).
 
-![Custom attribute on an automatic span](opentelemetry/images/custom-attr-auto-span.png)
-
 Using an existing span:
 
 ```python
@@ -32,7 +30,7 @@ def complex_analysis():
     return f"Completed {iterations} iterations in 3 seconds"
 ```
 
-![Custom spans and custom attributes](opentelemetry/images/custom-spans-custom-attrs.png)
+![Custom attribute on an automatic span](opentelemetry/images/custom-attr-auto-span.png)
 
 
 Using a custom span:
@@ -48,5 +46,6 @@ def complex_analysis():
         span.set_attribute("step", "preprocessing")
         time.sleep(1)
 ```
+![Custom spans and custom attributes](opentelemetry/images/custom-spans-custom-attrs.png)
 
 These attributes can be queried in your observability backend to filter and analyze traces.

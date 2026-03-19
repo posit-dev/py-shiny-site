@@ -65,7 +65,7 @@ with otel.suppress():
 
 When looking at the trace for timing, you can see how long a model request took in the `anthropic.chat` spans.
 
-TODO: Picture of an example span
+![Example of a chat request to Anthropic](opentelemetry/images/anthropic_span.png)
 
 The gap between this span's length and its parent's length is how long the results took to stream back to the user or make a decision. For the overall user experience, the total time taken from input to output is represented by the `extended_task_stream_task` span, roughly 6.5 seconds in this case. Only around 3.2 seconds were spent in the tool call (something _we as app authors_ could possibly optimize). The remaining 3 seconds was spent in the model response generation and streaming.
 
@@ -80,6 +80,9 @@ reactive_update
 ```
 
 This example implicitly shows a relationship between `input <value_name>` changing, and `<output_name>` being re-rendered as a result of that change.
+
+![Example of a trace with additional nesting](opentelemetry/images/example_span.png)
+
 
 It explicitly shows the chain of reactive expressions that were needed to be computed to produce the new value for `<output_name>`, including any nested reactives.
 

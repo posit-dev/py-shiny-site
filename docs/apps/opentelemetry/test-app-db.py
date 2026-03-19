@@ -69,7 +69,6 @@ refresh_count = reactive.value(0)
 
 ui.page_opts(title="Product Inventory - Fully Instrumented Demo")
 
-ui.panel_title("Product Inventory - Fully Instrumented Demo")
 ui.markdown(
     """
     This app demonstrates full OpenTelemetry instrumentation including:
@@ -199,8 +198,9 @@ Refreshes: {count}
 Last Update: {timestamp}
 Tracing: Enabled (Logfire)
 DB System: DuckDB (in-memory)
-Collection Level: {os.environ.get('SHINY_OTEL_COLLECT', 'default')}
+Collection Level: {os.environ.get("SHINY_OTEL_COLLECT", "default")}
                 """.strip()
+
 
 with ui.card():
     ui.card_header("Product Results")
@@ -212,15 +212,20 @@ with ui.card():
         products = filtered_products()
 
         if not products:
-            return pd.DataFrame({"Message": ["No products found matching your criteria"]})
+            return pd.DataFrame(
+                {"Message": ["No products found matching your criteria"]}
+            )
 
-        return pd.DataFrame({
-            "ID": [p[0] for p in products],
-            "Name": [p[1] for p in products],
-            "Category": [p[2] for p in products],
-            "Price": [f"${p[3]:.2f}" for p in products],
-            "Stock": [p[4] for p in products],
-        })
+        return pd.DataFrame(
+            {
+                "ID": [p[0] for p in products],
+                "Name": [p[1] for p in products],
+                "Category": [p[2] for p in products],
+                "Price": [f"${p[3]:.2f}" for p in products],
+                "Stock": [p[4] for p in products],
+            }
+        )
+
 
 with ui.card():
     ui.card_header("Analytics")

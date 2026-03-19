@@ -50,8 +50,8 @@ This example uses `otel.suppress()`, custom spans, and custom attributes.
 ```python
 {{< include apps/opentelemetry/test-app-suppression.py >}}
 ```
+![Custom spans with suppression of automatic Shiny spans](opentelemetry/images/suppressed-traces.png)
 
-TODO: Logfire image
 :::
 
 ### Suppressing Clutter
@@ -105,7 +105,18 @@ or
 Now your custom span will appear in the trace without the intermediate Shiny reactive spans cluttering the view.
 
 Example:
-TODO: Side-by-side comparison logfire image.
+
+:::: {layout-ncol=2}
+
+::: {}
+![Without suppression: Shiny reactive spans appear alongside your custom span](opentelemetry/images/unsuppressed-traces.png)
+:::
+
+::: {}
+![With suppression: Only your custom span appears](opentelemetry/images/suppressed-traces.png)
+:::
+
+::::
 
 ### Integrating with Third-Party Instrumentation
 
@@ -115,7 +126,9 @@ Many Python libraries have OpenTelemetry instrumentation available. These integr
 
 Using Logfire's DuckDB instrumentation, you can automatically trace all database queries with detailed span attributes including the query text, affected rows, and execution time.
 
-TODO: IMAGE
+![A product inventory analytics dashboard made with DuckDB](opentelemetry/images/duckdb_app.png)
+
+![Logfire traces for the above DuckDB application](opentelemetry/images/duckdb_trace.png)
 
 ::: {.callout-tip collapse="true"}
 ## Full Example Code
@@ -131,7 +144,9 @@ TODO: IMAGE
 
 Using `opentelemetry-instrumentation-anthropic`, you get automatic traces for all AI model calls, including token usage, model name, and response streaming details.
 
-TODO: Image
+![The weather forecast Shiny app powered by a Generative AI model](opentelemetry/images/weather_app_ui.png)
+
+![Trace in Logfire showing a full user session with reactive updates, model calls, and a tool invocation](opentelemetry/images/weather_app_logfire.png)
 
 ::: {.callout-tip collapse="true"}
 ## Full Example Code

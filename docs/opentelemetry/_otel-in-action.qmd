@@ -3,19 +3,15 @@
 
 Below is an example app with an `{chatlas}` tool to fetch realtime weather forecasts for a given latitude and longitude. This simple (yet non-trivial) app helps us showcase what sort of information `{shiny}` and `{chatlas}` can surface via OTel.
 
+
+{{< video opentelemetry/images/weather_app_recording.mp4 >}}
+
+
 ::: {.callout-note}
 
 ## OTel + GenAI
 
 Gaining timing insights into applications that leverage [Generative AI](https://aws.amazon.com/what-is/generative-ai/) (GenAI) is critical to improving user experience. Without OpenTelemetry, if a user stated an app was slow, we would not be able to accurately determine if the slowness was due to the AI model request time, AI model streaming time, tool execution time, or even followup reactive calculations in Shiny.
-
-::: {#fig-weather-app}
-<video controls width="100%">
-  <source src="opentelemetry/images/weather_app_recording.mov" type="video/mp4">
-</video>
-
-Example of user interacting with weather app
-:::
 
 :::
 
