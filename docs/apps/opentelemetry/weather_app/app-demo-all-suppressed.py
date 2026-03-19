@@ -12,7 +12,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 from configure import configure
 
-configure()
+configure(ai_tracing=True)
 
 import requests
 from chatlas import ChatBedrockAnthropic
@@ -63,7 +63,9 @@ ui.page_opts(fillable=True, fillable_mobile=True)
 
 with otel.suppress():
     chat = ui.Chat(id="chat")
-    chat.ui(messages=["Ask me about the weather! Try: What is the weather in Atlanta, GA?"])
+    chat.ui(
+        messages=["Ask me about the weather! Try: What is the weather in Atlanta, GA?"]
+    )
 
 
 @chat.on_user_submit

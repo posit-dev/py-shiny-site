@@ -38,6 +38,8 @@ OpenTelemetry is vendor-neutral, meaning you can send your telemetry data to var
 
 We've been using [Logfire](https://pydantic.dev/logfire) internally at Posit to help develop OTel integration in many packages and other applications. Throughout this article, you'll see examples of OTel traces visualized in Logfire.
 
-The image below shows an example trace in Logfire (left) from a Shiny app (right) that uses Generative AI to provide weather forecasts. The trace captures the entire user session, including reactive updates, model calls, and a tool invocation. We will explore this example in more detail later in the article.
+The images below show a Shiny app (left) that uses Generative AI to provide weather forecasts, and an example trace in Logfire (right). The trace captures the entire user session, including reactive updates, model calls, and a tool invocation. We will explore this example in more detail later in the article.
 
-TODO: Add image
+![The weather forecast Shiny app powered by a Generative AI model](opentelemetry/images/weather_app_ui.png)
+
+![Trace in Logfire showing a full user session with reactive updates, model calls, and a tool invocation](opentelemetry/images/weather_app_logfire.png)

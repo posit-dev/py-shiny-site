@@ -13,7 +13,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 from configure import configure
 
-configure()
+configure(ai_tracing=True)
 
 import requests
 from chatlas import ChatBedrockAnthropic

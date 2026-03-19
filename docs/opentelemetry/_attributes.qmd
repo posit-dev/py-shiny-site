@@ -8,13 +8,13 @@ In addition to the `session.id`, Shiny automatically adds [code](https://opentel
 
 With the combination of `code.filepath`, `code.lineno`, and `code.column.number` attributes, OpenTelemetry viewers can provide you a file path to copy into your IDE to take you directly to your code's origin.
 
-TODO: Logfire image
+![Code attributes showing details of a handled error](opentelemetry/images/weather_app_code_path.png)
 
 ### Adding Custom Attributes
 
 You can enhance existing spans with custom attributes or add custom attributes to your own [custom spans](#custom-spans).
 
-TODO: Logfire image
+![Custom attribute on an automatic span](opentelemetry/images/custom-attr-auto-span.png)
 
 Using an existing span:
 
@@ -31,6 +31,9 @@ def complex_analysis():
 
     return f"Completed {iterations} iterations in 3 seconds"
 ```
+
+![Custom spans and custom attributes](opentelemetry/images/custom-spans-custom-attrs.png)
+
 
 Using a custom span:
 

@@ -9,13 +9,19 @@ Below is an example app with an `{chatlas}` tool to fetch realtime weather forec
 
 Gaining timing insights into applications that leverage [Generative AI](https://aws.amazon.com/what-is/generative-ai/) (GenAI) is critical to improving user experience. Without OpenTelemetry, if a user stated an app was slow, we would not be able to accurately determine if the slowness was due to the AI model request time, AI model streaming time, tool execution time, or even followup reactive calculations in Shiny.
 
+::: {#fig-weather-app}
+<video controls width="100%">
+  <source src="opentelemetry/images/weather_app_recording.mov" type="video/mp4">
+</video>
+
+Example of user interacting with weather app
+:::
+
 :::
 
 ```python
 {{< include apps/opentelemetry/weather_app/app-demo-all.py >}}
 ```
-
-TODO: Screenshot of demo app
 
 You'll notice that the `app.py` has no OpenTelemetry specific code within the app itself. We only need to set system environment variables and (optionally) add our AI provider's instrumentation package.
 
@@ -51,11 +57,11 @@ def filtered_data():
 
 In the example apps above, the `@chat.on_user_submit` decorated function `handle_user_input` will appear in traces as `"reactive.effect event handle_user_input"`.
 
-TODO: Example of app (screenshot)
+![Example of function trace](opentelemetry/images/reactive_event_handle_user_input.png)
 
 When you run the app and interact with it, OpenTelemetry traces are automatically recorded and sent to your configured backend (Logfire in this case). Here's an example trace from Logfire showing a user session interacting with the chat app and the weather tool:
 
-TODO: Example trace of app (screenshot)
+![Traces from user session](opentelemetry/images/weather_app_logfire.png)
 
 The traces above recorded a single user session where the user asked for the weather in Atlanta, GA and then closed the app. The trace shows:
 

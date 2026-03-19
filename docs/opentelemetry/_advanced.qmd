@@ -115,6 +115,8 @@ Many Python libraries have OpenTelemetry instrumentation available. These integr
 
 Using Logfire's DuckDB instrumentation, you can automatically trace all database queries with detailed span attributes including the query text, affected rows, and execution time.
 
+TODO: IMAGE
+
 ::: {.callout-tip collapse="true"}
 ## Full Example Code
 
@@ -124,11 +126,12 @@ Using Logfire's DuckDB instrumentation, you can automatically trace all database
 
 :::
 
-TODO: Logfire picture
 
 #### AI Example: Anthropic
 
 Using `opentelemetry-instrumentation-anthropic`, you get automatic traces for all AI model calls, including token usage, model name, and response streaming details.
+
+TODO: Image
 
 ::: {.callout-tip collapse="true"}
 ## Full Example Code
@@ -138,5 +141,3 @@ Using `opentelemetry-instrumentation-anthropic`, you get automatic traces for al
 ```
 
 :::
-
-TODO: Logfire image
