@@ -82,6 +82,34 @@ listing:
     - title: Core
       file: app-variation-filling-plot-core.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhH6DhyGFAroANqQp7OAIxy59h5FFbJ9FVaozoA+kuQBeZEpxQA5nAudHpK0gAUqshR3pxYxFAM4ZHRKT7xiS7scFCyDBFgAMpQenC2ACpSENLKYACUBMkpUT6kCrptLpYU+V019Y1NWZx+7BQeNQAsAAxT6AAeNQ0QTdF0Cnp6LqzEUtQeFQpwA7WqJxCOVXB0bHIAbnJh3OhtRK3tFESspayc5LWIAwAApVcjgDA5ltFZNcumF-gMUgBiZAAcWoch0cDYsH0WOkOigCOiMHIFHYti8wAA5AApKAQKlEKkAMTgJkZyCpAFkEhyqeIGHyebg+TSFAyALpEqKsYqlTzIYATACsRGVACYiBMABxEABsAEY1brkHqAOxS86QlZ0YZEKBzBX2LCsBQmLqsMK2vw-ABecA8YRNetqZxWUQdYMMYRJlHJnzlrCI2gYAGs5B4qaQOcYIHAAO6caRkjyarQJdMMP0Bk1kAwMTOsKhwPQmEJwKlh8ORr4UFwUThGOD5Lmk9h6XhFErlEF9aXWOYuuB9uZ6KAmFsjsdz61NHvLly4NcbvT5KfysIAEgA0ic6vPI34GEWwgc4Pa9Oh2FAPFMsABmLsVikCgFAYZZvQuJxMAVcR0DCZw3E4T47jkM5CFQCgLAQFAwCoOYKDAABfCUgA
+- id: variation-tabbed-card
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/layout/cards/
+  contents:
+  - title: Preview
+    file: app-tabbed-card-preview.py
+    height: 400
+  - title: Express
+    file: app-tabbed-card-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IyhTigBzOAH1S6CqwAUdOQBtT21sWHUAvABUGcuEXZxOG9hVuKwAZgAGAPR+XwBKZWUAd04KdnlOLGgAN1Y4Cm1iKAYAE205CBy4BlNuOEMKWNM4HzAABSYAKzhiWQARKA4AI1JsnPDEZWRhhKSoZMt0KGJiwwiIEeQYuNGU7SmIOFNDXwB5ZOLkzjgogaHFkd97LjEhUmbW5HZO5D9kGE5q1gpyEWQoQrIACMACZkBROgBrVhYXznC6jLoMObwi6+ADCcgYwkobAhFDkrBQuwWFAY00hcIWI2W8TUaw2Wx2YHscFgZ2pCLUEI0MLMO05CJG3M0MNKzIAgqUZshDAAZNk5CJgMIEVFC0Y8sWcZkAIVIXVlbTgB1MemKytV6qFIt5WHFGOypFMRpEHk2DEtasFi3mi1pq3G6wBTKuEi2ZQ5Gt8AGUITIUAApAFybK4ZAggIggBsVI1aiRKJ9lzAAFFBC0qDlkGRJNVKuQkwU4Bms7mwMpCKgKLh0AgUGAqPwKGAAL4AXSAA
+  - title: Core
+    file: app-tabbed-card-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEArpwA6EORnQB9acgC8yaTigBzOEroAbaQBMAFHORXNnLNABurOBSXEoDEyogm4DQ9zgLCGsQmzsoeyVWdChiXzMASgJLUKstByUYiDhDINTUmTAAeXtfe044AHdC5OD8kMKAFS5WZHQmACs4YhF2KFaAZmQYTkM4VgpyceQob2QARgAmZAp+gGtWLBqU+rTbACMGRNrd60KAYUkGBmoRCagKSVYUIuCKBli17brUpJ3Q9IRTKzHJ5U7IJpwWDfcFhVY6TaSXL-WFaeGbfwWMCifxxZBmAAyUJMCUKfx+sLhugxnCxACFSPt8QAROClQykdC+UlgcmU6xo6lYTEXdykQws8acHTZBg8vnghW-E75QGRLKglH5Jr8HIBGHgwoAZVWwhQAClZpJ3LxFgAGRYANgNpy0h2OWoKYAAogAPLk9OAmZBkARjCiccgWyTZZD2p0u0JK0IRihjNSFAAKnW6ImZ-XY+1I7hMieTdCRhiixBu1DUjQYkjgKqs7Dg0vYFAzYAGdrt6F931J8hHPjobDK8W46EkFCIpFnM7nE9YrEjEASiH+MVXcj30Ew6jEmDMihUnCITgYpTlckIqAouC5tDAVF9FDAAF8ALpAA
+- id: variation-card-sidebar
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/layout/cards/
+  contents:
+  - title: Preview
+    file: app-card-sidebar-preview.py
+    height: 425
+  - title: Express
+    file: app-card-sidebar-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5dKCAEygGdk+7LgB0IAM2akYyXgAs6EXFjgAPdMzi9+DJq2QL0AVwpEN3OMyKG6oiVJnzF+xizYaoxCnQBucUaIBiZABhdyoBGRgoABto5DFo0gB3C2QeCj44CltElOZ+AF4hLAARKAyAMWZYOAAKEFFkJuRhMATki1aUYFaAJVJeP0IWsAAVQ2i6dFaiVrK6XlwZkYB5ZmJ5EWHWgBk6aKXtsABlQ3FczqOANTpSaKzl1oAFUkxDgF0CRubW3nQ4Yh0TRdZA9MD9XhQR5jCZTKFHABCcFiC2haw2dB4xDgUCGszAe0mhhg0IAEsi6JwKLJDLxoTc7vD8U8MFBfMxWp9vk1WmREhzaGDenAtviAJrI3LQgDq8io0KehmY6HuCoUAGtoRLYskFUqVXiRsKtlyIM0Rv8MtEAPr3CAAc2pIOAAFYsAAmIgAZiwAA4iO6sABGIgANiwXqIABYsC6iL7gwG-d7Y6aAL4ASn8ECSdGpyGsWGIUGYXFqYgmNt4xA01AKo2YhjgRFkcDo9tkFAKrS9LoADOgVK0M4huQW6EWS1xra2oFwLLVWhULsxkGUMsgAKJqfmXLNm5q5-OF6JQXCkYzW3iYuAAIxLtRHY-NR9k46w1-n9+Yj9HB-NAHvgYl6DPcniLv+gFQbydwsNaYj7FQApfJBUEAUuiGpLeuDIHyLAzM+aHNGCACCsTQsaWqSrqRyynmhrPPqqpHE8GqcihRHNPunFNIWwEUFekzzj+rSSEkdJHP04nIBQpAODRRAhsg-rIC63E8XxEBGAJHheOQ1q3sYskQIuYAaIM2SSZoDxgOpgGvu+xalgZpBcLgv7ZjxyAAAJmMJWDpFA8HVPAhGAfOYjxCu1oZLe9weahPFBBUmGrthuGwRyiWcXQkX8UWmXwalj7IAURStGR0RdGFXlpJFRTtHkdLZURyKDH+tVQVw9VRR0+TAI1Fi8GCeECu8pVFPlo1FdESGPu8nmdcgQR7DAebIGJzVLRtWRKma3VYLOZb5Ztj77jVvk4p4PhwMoYhiAC2QtZduk3coviULUJ3WRQdkARFyDWglXmFoY6DpHAV7Io9pnTQhs2XEQoGPSK3ZgJVw41eaoPg+UkO8EJC6ickElEN4MRNgUamiMMYAULg-y0HTqgUGAabvEAA
+  - title: Core
+    file: app-card-sidebar-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5dKCAEygGdk+7LgB0IAM2akYyXgAs6EXMgZNWyAIKYizOFGIU6ANzjbqXOMyIBXOqNEBiZAGEdUKgJkwoAG2-Ix3qQA7hbIPBR8cBSiAcEW-AC8QlgAIm5QAGLMsHAAFCCiyEXIwmCxIcylKMClAEqkvHClRKUAKlbedOjNJWBpdLy4PaUA8szE8iKEvQAydN5D06UAylbigRXDYABqdKTeUVsACqSYiwC6BIXFpbzocMR0cLxVyDVg9bxQW+2dHFsAITgvgGWzGEzoPGIuiaSzAc06VhgWwAEsC6JwKLIrC84bt9t84UcMFBjJUwJdrkVSmRAuTqnU4FMWmAAJrAjZbADq8ioxyszHQB2OCgA1lt2b5gvzBcK4bUmaVKRBir17hFvAB9A4QADmWNewAArFgAExEADMWAAHERTVgAIxEABsWAtRAALFgjURrY67TbLd7lQBfACUdmgmE1NmQSRsOCgurgmoCNi4uSpyATxCgzAzWdVObzXE1sl05mYmbAGQ2oTSEWQAFEAB5ClgWUphq4q1XFBPeKC4UhWCia3iQuAAIzzmd7fb7CYn5hnVcLC8XdCwCnQo-HwIeFDnG5PfZp+xYqfmVHJPdP996GWvoSnSlpLGa64fxXe6l8WwVZleklTk4R5Og+SJAUhVhFkjjFJU72-Ypuy-U8Ex3PdeE6Stq0kIJcRZeoCOQChSBkWRpWmJ1kFtZAjVQ+dkIwiBdzHPQDHITUp1HMiIDw55DnlQTojARjv3Eh9i3zbjSC4XBj2QooExHCg2M1cIoFTbJ4GrcoLE1CIpzlST71MvtzNVMQOi1XhiB0agElaZgrBMNDyzoXVZAoBJSgtI0AAZ0BbT8mIjCBwsjcwxBkCwyVyTCKCIVS2KIRpeAncgw0QLMAAEdG4CwsE07ScizaL-DrZhDKgYy8mytDHCfbwb2QV9kHfSomNVOgYsSrBOqvFqLFyMM4ySUo-28Ko0NVLgYqSfTmBebrimBRoctWhd5rjSq4mW4Alt4d5OqVcblFY0cBovaqxGfKsw3OSMT0cOYYAg5B8JWk8dAoAUVXmrByygDN+q+0bIqY-LdH0Iw4CwOAxDEQ88tcWHjAR4xKASy6KCwHRGgocK5sR5BNVGzaTwTKx0HCFNGgOfRq0Gu7htvWLGaoLhfLAKauzQ6nabcemcJG0ovp6QwfFchIGMjUQMHQXbNHQXJFZjOg0riixwumMAKFwe5aH1uAWwoMAQ3OIA
 ---
 
 :::{#example}
@@ -116,6 +144,20 @@ Use `full_screen=True` to add an icon that expands the card to fill the browser 
 Cards support filling layouts where outputs automatically resize to fit the available space. When a fill item like `ui.output_plot()` appears as a direct child of a `ui.card_body()`, it resizes to match the card's height. For example, setting `height="250px"` on a card reduces the plot's height from its default 400px to approximately 200px. When expanded to full-screen, the plot grows to match the card's new size.
 
 :::{#variation-filling-plot}
+:::
+
+### Tabbed card {#tabbed-card}
+
+Use `ui.navset_card_underline()` inside a card to create tabbed content.
+
+:::{#variation-tabbed-card}
+:::
+
+### Card with sidebar {#card-sidebar}
+
+Use `ui.layout_sidebar()` inside a card to create a card with a sidebar layout. This pattern is useful for cards that need input controls or filters alongside their main content.
+
+:::{#variation-card-sidebar}
 :::
 
 ### Multiple cards

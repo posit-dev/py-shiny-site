@@ -2,10 +2,12 @@ from shiny import App, ui
 
 app_ui = ui.page_fluid(
     ui.navset_card_underline(
+        ui.nav_spacer(),
         ui.nav_panel(
             "Overview",
-            ui.p("This project has 3 milestones and 12 tasks."),
-            ui.p("Current status: On track"),
+            "This project has 3 milestones and 12 tasks.",
+            ui.br(),
+            "Current status: On track",
         ),
         ui.nav_panel(
             "Team",
@@ -17,8 +19,9 @@ app_ui = ui.page_fluid(
         ),
         ui.nav_panel(
             "Timeline",
-            ui.p("Start: January 2026"),
-            ui.p("Expected completion: June 2026"),
+            "Start: January 2026",
+            ui.br(),
+            "Expected completion: June 2026",
         ),
         title="Project Dashboard",
     ),
