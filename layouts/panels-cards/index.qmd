@@ -110,7 +110,7 @@ listing:
   contents:
   - title: Preview
     file: app-tabbed-card-preview.py
-    height: 400
+    height: 250
   - title: Express
     file: app-tabbed-card-express.py
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IygO6cK7eZyzEoDACYAKOnIA2ZgPqtiw6gF4AKgzlwi7OJwDm7CvcVgAMwADMHo-AEAlIjKyHHauvoGlh5QBnAMRgEACkwAVnDEsgAiUBwARqRJUbHx6poJ0ABurHAUlnqGlnIQ6Qxm3HBG0bXxdRpaCljNluhQEHBmWWAA8k0ZTZxwqlExEGMH8QGOXGJCpAVFyOxlyIHIMJxmIhTkIsjzBsgAjABMyBQygBrVhYAKjQ7xKboZYAYTkDGElDYgIoclYKBW+woDCgxCBNX2kPqkx0MzmCyWxzgsF2EMhCUBXlB5iyRIZhymTNBA2WAEEBsQ4MgjAAZGkGSJRAj0jlxLlQZlYXkBABCpHKIuKcHWZlI6AyUrAkRl7LlUJ03OVnDh+lIZi1Im8CwYRpNssOUrNYxJjSgTVm80Wy0cEkWgzp3sh0OWAGVATIUAApeZyfS4ZC-YK-ABshPNCRhAQAooJClQvmRJM8KJxyMmesKs7nCYRUBRcAbaGAqPwKGAAL4AXSAA
