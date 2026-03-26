@@ -83,7 +83,8 @@ def test_preserves_links():
 def test_collapses_excessive_blank_lines():
     content = "Line 1\n\n\n\n\nLine 2"
     result = clean_qmd_content(content)
-    assert "Line 1\n\n\nLine 2" not in result or result.count("\n\n\n") == 0
+    assert result.count("\n\n\n") == 0
+    assert "Line 1\n\nLine 2" in result
 
 
 def test_removes_shinylive_metadata_comments():
