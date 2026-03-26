@@ -152,3 +152,208 @@ def file_path_to_url(file_path: str, base_url: str) -> str:
     elif path.endswith(".qmd"):
         path = path[:-4] + ".html"
     return f"{base_url}{path}"
+
+
+# ---------------------------------------------------------------------------
+# Site structure data classes
+# ---------------------------------------------------------------------------
+
+SIDEBAR_DISPLAY_NAMES = {
+    "get-started": "Get Started",
+    "components": "Components",
+    "layouts": "Layouts",
+    "concepts": "Concepts",
+}
+
+SKIP_SIDEBAR_IDS = {"deploy"}
+
+
+@dataclass
+class Page:
+    """A single documentation page."""
+
+    title: str
+    file_path: str
+    content: str  # raw .qmd content
+
+
+@dataclass
+class Subsection:
+    """A subsection within a section (e.g., "Inputs" within "Components")."""
+
+    name: str
+    pages: list[Page]
+
+
+@dataclass
+class Section:
+    """A top-level section (e.g., "Get Started", "Components")."""
+
+    name: str
+    pages: list[Page]  # pages not under any subsection
+    subsections: list[Subsection]
+
+
+# ---------------------------------------------------------------------------
+# Page loader
+# ---------------------------------------------------------------------------
+
+
+def _load_page(root: Path, file_path: str) -> "Page | None":
+    """Read a .qmd file and extract its title and content."""
+    clean_path = file_path.lstrip("/")
+    # Convert .html refs to .qmd for reading
+    if clean_path.endswith(".html"):
+        clean_path = clean_path[:-5] + ".qmd"
+    full_path = root / clean_path
+    if not full_path.exists():
+        return None
+    content = full_path.read_text()
+    title = extract_title(content)
+    if not title:
+        # Fallback to filename stem
+        title = full_path.stem.replace("-", " ").title()
+    return Page(title=title, file_path=clean_path, content=content)
+
+
+# ---------------------------------------------------------------------------
+# Template and API section builders
+# ---------------------------------------------------------------------------
+
+
+def _build_templates_section(root: Path) -> "Section | None":
+    """Discover template pages by scanning templates/*/index.qmd."""
+    templates_dir = root / "templates"
+    if not templates_dir.exists():
+        return None
+    pages: list[Page] = []
+    for qmd_path in sorted(templates_dir.glob("*/index.qmd")):
+        rel_path = str(qmd_path.relative_to(root))
+        page = _load_page(root, rel_path)
+        if page:
+            pages.append(page)
+    if not pages:
+        return None
+    return Section(name="Templates", pages=pages, subsections=[])
+
+
+def _build_api_sections(root: Path) -> list[Section]:
+    """Build API Reference section from generated sidebar files.
+
+    Returns an empty list if quartodoc hasn't been run yet.
+    """
+    try:
+        import yaml  # type: ignore
+    except ImportError:
+        return []
+
+    api_subsections: list[Subsection] = []
+    for api_name, display_name in [
+        ("express", "Shiny Express"),
+        ("core", "Shiny Core"),
+        ("testing", "Testing"),
+    ]:
+        sidebar_path = root / "api" / api_name / "_sidebar.yml"
+        if not sidebar_path.exists():
+            # API index page only (sidebar not generated yet)
+            index_page = _load_page(root, f"api/{api_name}/index.qmd")
+            if index_page:
+                api_subsections.append(Subsection(name=display_name, pages=[index_page]))
+            continue
+        with open(sidebar_path) as f:
+            sidebar_config = yaml.safe_load(f)
+        if not sidebar_config:
+            continue
+        contents = (
+            sidebar_config
+            if isinstance(sidebar_config, list)
+            else sidebar_config.get("contents", [])
+        )
+        entries = list(walk_sidebar(contents))
+        pages_list: list[Page] = []
+        for entry in entries:
+            page = _load_page(root, entry.file_path)
+            if page:
+                pages_list.append(page)
+        if pages_list:
+            api_subsections.append(Subsection(name=display_name, pages=pages_list))
+
+    if not api_subsections:
+        return []
+    return [Section(name="API Reference", pages=[], subsections=api_subsections)]
+
+
+# ---------------------------------------------------------------------------
+# Main site structure builder
+# ---------------------------------------------------------------------------
+
+
+def build_site_structure(root: Path) -> list[Section]:
+    """Parse _quarto.yml and .qmd files to build ordered site structure."""
+    try:
+        import yaml  # type: ignore
+    except ImportError:
+        raise ImportError(
+            "PyYAML is required for build_site_structure. Install with: pip install pyyaml"
+        )
+
+    quarto_path = root / "_quarto.yml"
+    with open(quarto_path) as f:
+        config = yaml.safe_load(f)
+
+    sections: list[Section] = []
+
+    sidebars = config.get("website", {}).get("sidebar", [])
+    if not isinstance(sidebars, list):
+        sidebars = [sidebars]
+
+    for sidebar in sidebars:
+        if not isinstance(sidebar, dict):
+            continue
+        sidebar_id = sidebar.get("id", "")
+        if sidebar_id in SKIP_SIDEBAR_IDS:
+            continue
+        contents = sidebar.get("contents", [])
+        if not contents:
+            continue
+
+        section_name = SIDEBAR_DISPLAY_NAMES.get(
+            sidebar_id, sidebar_id.replace("-", " ").title()
+        )
+        entries = list(walk_sidebar(contents))
+
+        # Group entries: top-level pages vs. subsection pages
+        top_pages: list[Page] = []
+        subsection_map: dict[str, list[Page]] = {}
+        seen_subsections: list[str] = []
+
+        for entry in entries:
+            page = _load_page(root, entry.file_path)
+            if page is None:
+                continue
+            if entry.section:
+                if entry.section not in seen_subsections:
+                    seen_subsections.append(entry.section)
+                subsection_map.setdefault(entry.section, []).append(page)
+            else:
+                top_pages.append(page)
+
+        subsections = [
+            Subsection(name=name, pages=subsection_map[name])
+            for name in seen_subsections
+            if name in subsection_map
+        ]
+
+        sections.append(
+            Section(name=section_name, pages=top_pages, subsections=subsections)
+        )
+
+    # API Reference (from quartodoc-generated sidebars)
+    sections.extend(_build_api_sections(root))
+
+    # Templates (discovered by directory scan)
+    templates_section = _build_templates_section(root)
+    if templates_section:
+        sections.append(templates_section)
+
+    return sections

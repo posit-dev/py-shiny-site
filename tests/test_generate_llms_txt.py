@@ -5,7 +5,11 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
 
 from generate_llms_txt import (
+    Page,
+    Section,
     SidebarEntry,
+    Subsection,
+    build_site_structure,
     clean_qmd_content,
     clean_section_name,
     extract_title,
@@ -195,3 +199,106 @@ def test_url_strips_leading_slash():
 
 def test_url_html_passthrough():
     assert file_path_to_url("layouts/navbars/index.html", BASE_URL) == "https://shiny.posit.co/py/layouts/navbars/"
+
+
+# --- Tests for build_site_structure ---
+
+
+def test_build_site_structure_returns_sections(tmp_path):
+    """Test with a minimal _quarto.yml and .qmd files."""
+    quarto_yml = tmp_path / "_quarto.yml"
+    quarto_yml.write_text(
+        """
+website:
+  sidebar:
+    - id: get-started
+      contents:
+        - get-started/index.qmd
+        - get-started/install.qmd
+    - id: concepts
+      contents:
+        - section: "Essentials"
+          contents:
+            - docs/overview.qmd
+"""
+    )
+    (tmp_path / "get-started").mkdir()
+    (tmp_path / "get-started" / "index.qmd").write_text(
+        "---\ntitle: Get Started\n---\nWelcome."
+    )
+    (tmp_path / "get-started" / "install.qmd").write_text(
+        "---\ntitle: Install\n---\nInstall instructions."
+    )
+    (tmp_path / "docs").mkdir()
+    (tmp_path / "docs" / "overview.qmd").write_text(
+        "---\ntitle: Overview\n---\nOverview content."
+    )
+
+    sections = build_site_structure(tmp_path)
+    assert len(sections) >= 2
+
+    # First section is "Get Started" (from sidebar id)
+    gs = sections[0]
+    assert gs.name == "Get Started"
+    assert len(gs.pages) == 2
+    assert gs.pages[0].title == "Get Started"
+    assert gs.pages[1].title == "Install"
+
+    # Second section is "Concepts" (from sidebar id)
+    concepts = sections[1]
+    assert concepts.name == "Concepts"
+    assert concepts.subsections[0].name == "Essentials"
+    assert concepts.subsections[0].pages[0].title == "Overview"
+
+
+def test_build_site_structure_discovers_templates(tmp_path):
+    """Templates are found by directory scan, not sidebar."""
+    quarto_yml = tmp_path / "_quarto.yml"
+    quarto_yml.write_text("website:\n  sidebar: []\n")
+    (tmp_path / "templates" / "basic-app").mkdir(parents=True)
+    (tmp_path / "templates" / "basic-app" / "index.qmd").write_text(
+        "---\ntitle: Basic App\n---\nA basic app."
+    )
+    (tmp_path / "templates" / "dashboard").mkdir(parents=True)
+    (tmp_path / "templates" / "dashboard" / "index.qmd").write_text(
+        "---\ntitle: Dashboard\n---\nA dashboard."
+    )
+
+    sections = build_site_structure(tmp_path)
+    templates = [s for s in sections if s.name == "Templates"]
+    assert len(templates) == 1
+    assert len(templates[0].pages) == 2
+    # Alphabetical order
+    assert templates[0].pages[0].title == "Basic App"
+    assert templates[0].pages[1].title == "Dashboard"
+
+
+def test_build_site_structure_skips_anchor_links(tmp_path):
+    """Sidebar entries with # in href should be skipped."""
+    quarto_yml = tmp_path / "_quarto.yml"
+    quarto_yml.write_text(
+        """
+website:
+  sidebar:
+    - id: layouts
+      contents:
+        - text: "LAYOUTS"
+          href: "layouts/index.qmd"
+        - section: "Navbars"
+          contents:
+            - text: "Navbar at Top"
+              href: "/layouts/navbars/index.html#navbar-at-top"
+"""
+    )
+    (tmp_path / "layouts").mkdir()
+    (tmp_path / "layouts" / "index.qmd").write_text(
+        "---\ntitle: Layouts\n---\nLayout docs."
+    )
+    sections = build_site_structure(tmp_path)
+    layouts = [s for s in sections if s.name == "Layouts"]
+    assert len(layouts) == 1
+    # Only the top-level page, not the anchor link
+    total_pages = len(layouts[0].pages)
+    for sub in layouts[0].subsections:
+        total_pages += len(sub.pages)
+    assert total_pages == 1
