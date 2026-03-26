@@ -52,12 +52,17 @@ Example:
 
 ### Shiny Express
 - [Shiny Express API](https://shiny.posit.co/py/api/express/)
+- [ui.input_slider](https://shiny.posit.co/py/api/express/ui.input_slider.html)
+...
 
 ### Shiny Core
 - [Shiny Core API](https://shiny.posit.co/py/api/core/)
+- [ui.input_slider](https://shiny.posit.co/py/api/core/ui.input_slider.html)
+...
 
 ### Testing
 - [Testing API](https://shiny.posit.co/py/api/testing/)
+...
 
 ## Templates
 - [Dashboard Tips](https://shiny.posit.co/py/templates/dashboard-tips/)
@@ -115,20 +120,53 @@ Example:
 **Inputs:**
 - `_quarto.yml` — site structure, section ordering, page list
 - `.qmd` files referenced in the config
+- `templates/*/index.qmd` — discovered by directory scanning (not in `_quarto.yml` sidebars)
 - Hardcoded site description (the blockquote summary)
 - Base URL constant: `https://shiny.posit.co/py/`
 
 **Processing:**
 
 1. Parse `_quarto.yml` to extract navbar and sidebar structures
-2. Walk the structure to build an ordered list of sections and pages
-3. For each page, read the `.qmd` file:
+2. Walk the sidebar structures to build an ordered list of sections and pages (see Parsing Rules below)
+3. Scan `templates/*/index.qmd` for template pages (special case — not in sidebars)
+4. For each page, read the `.qmd` file:
    - Extract `title` (or `pagetitle`) from YAML frontmatter
    - For `llms-full.txt`: clean the content (see cleaning rules below)
-4. Write `llms.txt` to repo root
-5. Write `llms-full.txt` to repo root
+5. Write `llms.txt` to repo root
+6. Write `llms-full.txt` to repo root
 
 **Determinism requirement:** Output is a pure function of the input files. No timestamps, no randomness. If only `page1.qmd` changes, only page1's section in the output changes. Summary portions (H1, blockquote) are regenerated each time from the hardcoded constant.
+
+### `_quarto.yml` Parsing Rules
+
+The sidebar `contents` arrays use four entry formats. A recursive walker handles all of them:
+
+| Entry format | Example | Handling |
+|---|---|---|
+| Plain string | `"components/inputs/checkbox/index.qmd"` | Treat as `.qmd` file path |
+| Object with `section` + `contents` | `{section: "...", contents: [...]}` | Extract cleaned section name, recurse into contents |
+| Object with `href` | `{text: "...", href: "..."}` | Use href as path. **Skip entries where href contains `#`** (anchor links within a page) |
+| Object with `file` | `{text: "...", file: "..."}` | Use file as path |
+
+**Anchor link handling:** Layout sidebar entries link to anchors within pages (e.g., `/layouts/navbars/index.html#navbar-at-top`). These are skipped. Only the top-level layout pages are included (discovered from entries without `#` or from the `.qmd` files in `layouts/*/`).
+
+**Section name cleaning:** Sidebar section names contain Quarto markup that must be stripped:
+- `"![](/images/sliders.svg){.sidebar-icon .sidebar-subtitle}__Inputs__"` → `"Inputs"`
+- `"<span class='emoji-icon'>🤖</span> __Generative AI__"` → `"Generative AI"`
+
+Cleaning steps:
+1. Remove `![...](...)` image syntax (with optional `{...}` attributes)
+2. Remove `<span>...</span>` and other HTML tags
+3. Extract text from `__text__` bold markers
+4. Strip leading/trailing whitespace
+
+**Templates discovery:** Templates are not listed in any `_quarto.yml` sidebar. After walking the sidebars, the script scans `templates/*/index.qmd` (sorted alphabetically) and adds them as a "Templates" section.
+
+### API Docs Parsing
+
+After `quartodoc` runs, the generated API `.qmd` files exist under `api/express/`, `api/core/`, and `api/testing/`. The API sidebar files (`api/express/_sidebar.yml`, `api/core/_sidebar.yml`) are also generated.
+
+The script reads these generated sidebar files to discover all individual API function/class pages. Each API subsection (Express, Core, Testing) becomes an H3 under the "API Reference" H2. All individual function pages are listed in `llms.txt` and their full content is included in `llms-full.txt`.
 
 ### QMD Cleaning Rules (for llms-full.txt)
 
@@ -210,5 +248,7 @@ Add a step to `.github/workflows/deploy-docs.yml` after the build step:
 
 The API docs (`api/express/`, `api/core/`, `api/testing/`) are generated from the py-shiny submodule via `make quartodoc`. They don't exist in a fresh checkout.
 
-- `llms.txt`: API links are always included (they're known, fixed URLs)
-- `llms-full.txt`: API content is included because `llms-txt` depends on `quartodoc` in the Makefile, ensuring the files are always present when the script runs
+- The `llms-txt` Makefile target depends on `quartodoc`, ensuring API files are always present when the script runs
+- The script reads generated sidebar files (`api/express/_sidebar.yml`, etc.) to discover all individual API function/class pages
+- `llms.txt`: lists every individual API function page as a link, grouped under Express/Core/Testing H3 subsections
+- `llms-full.txt`: includes full cleaned content of every API function page
