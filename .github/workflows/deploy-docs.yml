@@ -55,6 +55,16 @@ jobs:
         run: |
           make all QUARTO_PATH=quarto
 
+      - name: Verify llms.txt is up to date
+        run: |
+          make llms-txt QUARTO_PATH=quarto
+          if ! git diff --exit-code llms.txt llms-full.txt; then
+            echo ""
+            echo "ERROR: llms.txt or llms-full.txt is out of date."
+            echo "Run 'make llms-txt' locally and commit the updated files."
+            exit 1
+          fi
+
       # =====================================================
       # Deploy docs to Netlify
       # =====================================================

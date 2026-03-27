@@ -20,7 +20,7 @@ $(PYBIN): $(VENV)
 
 ## Build assets and render site
 .PHONY: all
-all: quartodoc components site
+all: quartodoc components llms-txt site
 
 ## Build website
 .PHONY: site
@@ -130,6 +130,12 @@ components-static: $(PYBIN) deps
 .PHONY: components-shinylive-links
 components-shinylive-links: $(PYBIN) deps
 	. $(PYBIN)/activate && python components/update-shinylive-links.py
+
+
+## Generate llms.txt and llms-full.txt
+.PHONY: llms-txt
+llms-txt: $(PYBIN) quartodoc
+	. $(PYBIN)/activate && python scripts/generate_llms_txt.py
 
 
 ## Remove Quarto website build files
