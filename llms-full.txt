@@ -1565,7 +1565,6 @@ def bad_fixed():
 
 The error displayed in the app is only the final part of the stack trace, but the full trace can be read in the console where you used `shiny run`.
 
-::: callout-note
 ## Sanitized error messages
 
 When Shiny apps are deployed, error messages are sanitized to the eliminate the possibility of leaking sensitive information.
@@ -1661,7 +1660,6 @@ This lets you see the value of different variables, and how they change when you
 
 ![Adding a print statement to a `render.txt` output. The terminal output on the bottom shows the different values printed as the slider was moved.](assets/debug-print.png)
 
-::: callout-warning
 If your Shiny application is running with [Shinylive (Python in the browser)](shinylive.qmd), and there is not a visible Python console, then error messages will show up in your browser's JavaScript console.
 
 ## Get Help
@@ -2598,8 +2596,6 @@ combined in novel ways to create seriously sophisticated and performant apps.
 To demonstrate how Shiny minimally re-renders, consider the following app which contains two different plots, each of which depends on a different input.
 When the first input changes, Shiny knows to only re-render the first plot, and vice versa.
 
-::: column-body-outset-right
-
 ```python
 import plotly.express as px
 from shiny.express import input, render, ui
@@ -2632,8 +2628,6 @@ pandas
 Shiny also knows when outputs are visible or not, and so, will only call `render` functions when needed.
 For example, in the app below, the `table` function doesn't get called until the "Table" page is selected.
 
-::: column-body-outset-right
-
 ```python
 import plotly.express as px
 from shiny.express import input, render, ui
@@ -2663,7 +2657,6 @@ plotly
 pandas
 ```
 
-::: callout-note
 #### Learn more
 
 For a more in-depth look at reactivity, check out the [reactivity article](reactive-foundations.qmd).
@@ -2709,7 +2702,6 @@ Here, we'll use the following dashboard as motivation to learn about some import
 
 ![A Shiny dashboard with visuals for exploring restaurant tips (see [here](#all-together-now) for the code).](assets/tipping-dashboard.png){class="img-shadow"}
 
-::: callout-tip
 ## More UI design inspiration
 
 See the [gallery](/gallery), [layouts](/layouts), and [components](/components) for more UI design inspiration.
@@ -2759,7 +2751,6 @@ with ui.sidebar():
 "Main content (output)"
 ```
 
-::: callout-tip
 #### Multi-page apps
 
 To create a sidebar layout with multiple pages, just put each page's content in a top-level `ui.nav_panel()`, as shown [here](overview.qmd#layouts).
@@ -2805,16 +2796,12 @@ with ui.value_box(showcase=icon("person")):
         return f"{1000:,}"
 ```
 
-::: callout-note
-
 Under the hood, value boxes are built on cards, so you can leverage similar options like `full_screen`.
 
 ### Multi-column layout {#multi-column-layout}
 
 Create a multi-column layout based on a 12-column grid system by using `ui.layout_columns()`.
 By default, an intelligent equal-width layout is created, but each column width can be specified (in units of 1/12) using `col_widths`:
-
-::: column-body-outset-right
 
 ```python
 from shiny.express import ui
@@ -2828,7 +2815,6 @@ with ui.layout_columns(col_widths=[6, 6, 12]):
         "Card 3"
 ```
 
-::: callout-tip
 #### Responsive layout
 
 By default, `col_widths` doesn't apply on smaller width (i.e., mobile) screens (in that case, columns go full-width).
@@ -2838,8 +2824,6 @@ However, `col_widths` also accepts a dictionary of column widths for different s
 
 Set `ui.page_opts(fillable=True)` to encourage content to fill the screen.
 Many of Shiny's layouts and components automatically fill the screen when this option is set, which is often desirable for dashboards, but may not be what you want for things like value boxes or cards with a textual description. You can override the filling behavior on a per-component basis by setting `fill=False` or by specifying a `height`:
-
-::: column-body-outset-right
 
 ```python
 from shiny.express import ui
@@ -2859,7 +2843,6 @@ with ui.card():
     "Card that fills remaining space..."
 ```
 
-::: callout-tip
 #### Resizable viewer
 
 Did you know the app viewer above is resizable? Try resizing it to see how the layout responds (the card fills the remaining space).
@@ -3058,7 +3041,6 @@ Before jumping into tools and techniques for building Generative AI apps, it's h
 In this article, we'll highlight a few apps that leverage Gen AI in useful ways, from streaming chatbots to more bespoke interfaces.
 Make sure to also check out the [templates](../templates/) for more examples of Shiny + AI.
 
-::: callout-important
 ## Responsible use
 
 Generative AI is a powerful tool.
@@ -3105,7 +3087,6 @@ A straightforward use of querychat is shown below, where the user can ask a natu
 
 ![Screenshot of the "querychat" app, which leverages LLMs to generate SQL queries that match a user's natural language query.](/images/genai-querychat.png){class="rounded shadow lightbox mt-3"}
 
-::: callout-note
 The app above is available as a [template](../templates/querychat/index.qmd):
 
 ```bash
@@ -3121,7 +3102,6 @@ It defaults to the `tips` dataset, but without much effort, you can adapt it to 
 
 ![Screenshot of the "sidebot" app, which leverages LLMs to translate natural language to SQL, and tools to reactively update the dashboard.](/images/genai-sidebot.png){class="rounded shadow lightbox mt-3"}
 
-::: callout-note
 The app above is available as a [template](../templates/sidebot/index.qmd):
 
 ```bash
@@ -3144,7 +3124,6 @@ Based on the scenario the user chooses, the app then guides the user through a s
 
 ![Screenshot of the "Choose your own Data Science Adventure" app.](/images/genai-data-science-adventure.png){class="rounded shadow lightbox mt-3"}
 
-::: callout-note
 The app above is available as a [template](../templates/data-sci-adventure/index.qmd):
 
 ```bash
@@ -3163,7 +3142,6 @@ In addition to brainstorming through recipe ideas, it also leverages [structured
 
 ![A recipe extracted from the "What's for Dinner?" app.](/images/genai-dinner-recipe2.png){class="rounded shadow lightbox mt-3"}
 
-::: callout-note
 The app above is available as a [template](../templates/dinner-recipe/index.qmd):
 
 ```bash
@@ -3197,7 +3175,6 @@ works out {input.daysPerWeek()} days per week, and have access to:
 From this prompt, the LLM responds with a workout plan, which is streamed into the app via `MarkdownStream()` component.
 Go ahead and visit the [live app](https://github.com/posit-dev/py-shiny-templates/tree/main/gen-ai/workout-plan) to see it in action, or grab the source code to run it locally:
 
-::: callout-note
 The app above is available as a [template](../templates/workout-plan/index.qmd):
 
 ```bash
@@ -3219,7 +3196,6 @@ This allows the user to make follow-up requests or ask questions about the image
 
 ![Screenshot of the image description app with the offcanvas chat made visible.](/images/genai-image-describer-chat.png){class="rounded shadow lightbox mt-3"}
 
-::: callout-note
 The app above is available as a [template](../templates/):
 
 ```bash
@@ -3797,7 +3773,6 @@ To create one, add a `suggestion` CSS class to relevant portion(s) of the messag
 You can also add a `submit` class to make the suggestion submit the input automatically.
 Try clicking on the suggestions (or accessing via keyboard) below to see how they work.
 
-::: mobile-layout
 ```python
 
 from shiny.express import ui
@@ -3899,7 +3874,6 @@ def card_suggestions():
         )
 ```
 
-::: callout-tip
 ### Keyboard shortcuts
 
 Any suggestion can be auto-submitted by holding `Ctrl/Cmd` when clicking on it.
@@ -3914,7 +3888,6 @@ For example, the app below collects some user input through a set of inputs in t
 
 ![Screenshot of an app using input controls to populate a user prompt](/images/genai-update-input.png){class="rounded shadow lightbox mt-3"}
 
-::: callout-note
 The app above is available as a [template](../templates/):
 
 ```bash
@@ -3931,7 +3904,6 @@ For example, in the "What's for Dinner?" app, when the user requests to extract 
 
 ![Screenshot of a download button included in a chat message](/images/genai-interactive-messages.png){class="rounded shadow lightbox mt-3"}
 
-::: callout-note
 The app above is available as a [template](../templates/):
 
 ```bash
@@ -3941,7 +3913,6 @@ shiny create --template dinner-recipe \
 
 For a more basic example, here's a startup message with an input field:
 
-::: mobile-layout
 ```python
 from shiny.express import ui
 
@@ -3953,7 +3924,6 @@ chat = ui.Chat(id="chat")
 chat.ui(messages=[welcome])
 ```
 
-::: callout-tip
 ### Interactive tool displays
 
 Probably the most interesting way in which interactive messages can be used is from a custom [tool call](genai-tools.qmd) display.
@@ -3976,7 +3946,6 @@ To grab the latest message stream, read the `.latest_message_stream` property on
 This property always points to the most recent message stream, making it easy to work with it in a reactive context.
 Here's an example of reactively reading the status and result of the latest message stream:
 
-::: mobile-layout
 ```python
 
 ## file: app.py
@@ -4013,7 +3982,6 @@ See the example below for an approach to this:
 
 ### Stream cancellation
 
-::: mobile-layout
 ```python
 
 ## file: app.py
@@ -4066,7 +4034,6 @@ An alternative way to append a streaming messages is through the `.message_strea
 
 The example below demonstrates both of these use cases. Note how the inner stream is used to show progress, and the outer stream is used to provide context:
 
-::: mobile-layout
 ```python
 import asyncio
 
@@ -4138,7 +4105,6 @@ With `chatlas`, your primary interactive debugging tool is to set `echo="all"` i
 For lower-level debugging, you can also enable logging and/or access the full chat history via the `chat_client.get_turns()` method.
 For more, see `chatlas`' [troubleshooting guide](https://posit-dev.github.io/chatlas/#troubleshooting).
 
-::: callout-tip
 ### Monitoring in production
 
 Since `chatlas` builds on top of official Python SDKs like `openai` and `anthropic`, [monitoring](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/monitor-openai) solutions that integrate with their [logging](https://github.com/openai/openai-python?tab=readme-ov-file#logging) mechanism can be used to monitor and debug your chatbot in production.
@@ -4149,7 +4115,6 @@ The `chat.messages()` method returns a tuple of all the messages appended after 
 Use this if you want to obtain a record of messages as they appear in the UI.
 This makes implementing something like download feature easy:
 
-::: mobile-layout
 ```python
 import json
 from shiny.express import render, ui
@@ -4169,7 +4134,6 @@ async def _(user_input: str):
     await chat.append_message(f"You said: {user_input}")
 ```
 
-::: callout-warning
 ### Front-end vs back-end
 
 Beware that `chat.messages()` only returns only the content sent to the UI, not necessarily the full message content sent/returned by the LLM.
@@ -4461,7 +4425,6 @@ This is useful to know if you want to:
 2. Transform the stream as it's being generated (e.g., highlight keywords).
 3. Manually create a generator (to say, show progress on a [non-blocking task](https://shiny.posit.co/py/docs/nonblocking.html)).
 
-::: mobile-layout
 ```python
 import asyncio
 
@@ -4503,7 +4466,6 @@ This allows you to collect user input, display rich interactive output (e.g., [J
 
 For a basic example, here's a startup message with an input field:
 
-::: mobile-layout
 ```python
 from shiny.express import ui
 
@@ -4515,7 +4477,6 @@ chat = ui.Chat(id="chat")
 chat.ui(messages=[welcome])
 ```
 
-::: callout-tip
 ### Interactive tool displays
 
 Probably the most interesting way in which interactive messages can be used is from a custom [tool call](genai-tools.qmd) display.
@@ -4594,12 +4555,10 @@ app = App(app_ui, server)
 
 ![Screenshot of a stream within a card layout.](/images/genai-stream-card-layout){class="rounded shadow lightbox"}
 
-::: callout-tip
 ### Multi-card layout
 
 If you want multiple cards in an app, it's useful to know about Shiny's [grid layout options](../layouts/arrange/index.qmd#).
 
-::: callout-tip
 ### Auto-scroll
 
 A nice result of placing a stream in a card is that when it overflows the card (either because it has a specified height or because it's in a fillable page), the card will automatically scroll to show the new content.
@@ -4621,7 +4580,6 @@ To grab the latest message stream, read the `.latest_stream` property on the `st
 This property always points to the most recent stream, making it easy to work with it in a reactive context.
 Here's an example of reactively reading the status and result of the latest stream:
 
-::: mobile-layout
 ```python
 # | standalone: true
 # | components: [editor, viewer]
@@ -4667,7 +4625,6 @@ See the example below for an approach to this:
 
 ### Stream cancellation
 
-::: mobile-layout
 ```python
 # | standalone: true
 # | components: [editor, viewer]
@@ -4756,7 +4713,6 @@ async def do_joke():
     await stream.stream(response)
 ```
 
-::: callout-tip
 ### Customized error handling
 
 If you'd like to customize how `MarkdownStream()` handles errors, you can do so by setting the `on_error` parameter in the constructor. See [the documentation](https://shiny.posit.co/py/api/ui.MarkdownStream.html).
@@ -4768,7 +4724,6 @@ With `chatlas`, your primary interactive debugging tool is to set `echo="all"` i
 For lower-level debugging, you can also enable logging and/or access the full chat history via the `chat_client.get_turns()` method.
 For more, see `chatlas`' [troubleshooting guide](https://posit-dev.github.io/chatlas/#troubleshooting).
 
-::: callout-tip
 ### Monitoring in production
 
 Since `chatlas` builds on top of official Python SDKs like `openai` and `anthropic`, [monitoring](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/monitor-openai) solutions that integrate with their [logging](https://github.com/openai/openai-python?tab=readme-ov-file#logging) mechanism can be used to monitor and debug your chatbot in production.
@@ -4807,7 +4762,6 @@ It covers:
 * Combine tools with [reactivity](#reactivity), enabling the LLM to "use" the app.
 * [Customize](#custom-display) the display of tool calls.
 
-::: callout-tip
 ### Beyond chatbots
 
 Although this article focuses on using tool calling in a chatbot, the same ideas also apply to [streaming markdown](genai-stream.qmd)
@@ -4852,13 +4806,11 @@ chat_client.chat("What's the current temperature in Duluth, MN?")
 
 > The current temperature in Duluth, Minnesota is 0.9°C (which is approximately 33.6°F). There are also strong winds at 32.7 km/h (about 20.3 mph).
 
-::: callout-tip
 ### Verify the tool call
 
 In `.chat()`, you can set `echo="all"` to see all the tool call information in your console.
 In the [Tool displays](#tool-displays), we'll see how to display this information in the Shiny UI.
 
-::: callout-note
 ### Learn more
 
 See the [chatlas docs](https://posit-dev.github.io/chatlas/tool-calling.html) to learn more about tool calling fundamentals.
@@ -4978,7 +4930,6 @@ async def _(user_input: str):
 
 ![Screenshot of a tool call that updated the slider from 50 to 80.](/images/genai-tool-call-slider-ui.png){class="rounded shadow lightbox"}
 
-::: callout-tip
 ### Where might this be useful?
 
 The basic example above illustrates the idea using minimal code, but the app itself is not particularly useful.
@@ -5031,7 +4982,6 @@ async def update_dashboard(
         await reactive.flush()
 ```
 
-::: callout-note
 ### Reactive locking
 
 Since this tool runs within a [non-blocking message stream](genai-tools.qmd#non-blocking-streams) (i.e., `.append_message_stream()`), in order to prevent race conditions, it must lock the reactivity graph when updating reactive value(s).
@@ -5177,12 +5127,10 @@ chat_client.extract_data(
 {'name': 'Susan', 'age': 13}
 ```
 
-::: callout-note
 ### More examples
 
 For more examples and details on how `.extract_data()` works, see the [chatlas documentation](https://posit-dev.github.io/chatlas/structured-data.html).
 
-::: callout-tip
 ### Multi-modal input
 
 `chatlas` also supports input other than text, such as images ([`content_image_file()`](https://posit-dev.github.io/chatlas/reference/content_image_file.html)) and PDF ([`content_pdf_file()`](https://posit-dev.github.io/chatlas/reference/content_pdf_file.html)).
@@ -5580,7 +5528,6 @@ Shiny provides roughly three types of UI components:
 2. **Outputs**: Components that display the results (e.g. plots, tables, etc).
 3. **Layouts**: Components that arrange other components (e.g. columns, tabs, etc). Page layouts are a special type of layout that are used to start a new UI.
 
-::: callout-note
 ### Component galleries
 
 The [component](/components) and [layout](/layouts) galleries provide a great visual overview of available components.
@@ -5907,7 +5854,6 @@ Many notable Python packages build on ipywidgets to provide highly interactive w
 
 In this article, we'll learn how to leverage ipywidgets in Shiny, including how to [render](#get-started) them, [efficiently update](#efficient-updates) them, and [respond to user input](#user-input).
 
-::: callout-note
 ### Not all Jupyter Widgets are ipywidgets
 
 Although the term "Jupyter Widgets" is often used to refer to ipywidgets, it's important to note that not all Jupyter Widgets are ipywidgets. For example, packages like [folium](https://python-visualization.github.io/folium/latest/) and [ipyvizzu](https://ipyvizzu.vizzuhq.com/latest/) aren't compatible with ipywidgets, but do provide a [`_repr_html_` method](https://ipython.readthedocs.io/en/stable/config/integrating.html#rich-display) for getting the HTML representation. It may be possible to display these widgets using Shiny's [`@render.ui`](../api/render.ui.html) decorator.
@@ -6076,7 +6022,6 @@ This object is available as a property, named `widget`, on the render function.
 From this widget object, you can then access its attributes and methods.
 As we'll see later, [special widget attributes](https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20Basics.html#widget-properties) known as _traits_, can be used to [efficiently update](#efficient-updates) and [respond to user input](#user-input).
 
-::: callout-tip
 ## Discovering traits
 
 If you're not sure what traits are available, you can use the `widget.traits()` method to list them.
@@ -6103,7 +6048,6 @@ pandas
 plotly
 ```
 
-::: callout-tip
 ## Typing & class coercion
 
 The "main" API for notable packages like `altair`, `bokeh`, `plotly`, and `pydeck` don't subclass `ipywidgets.Widget` (so that they can be used outside of a notebook).
@@ -6157,7 +6101,6 @@ def _():
 ipyleaflet
 ```
 
-::: callout-note
 ## Re-render vs efficient update
 
 If the app above had used `@render_widget` instead of `@reactive.effect` to perform the update, then the map would be re-rendered from stratch every time `input.center` changes, which causes the map to flicker (instead of a smooth transition to the new location).
@@ -6209,7 +6152,6 @@ def center():
 ipyleaflet
 ```
 
-::: callout-warning
 ## Observable traits
 
 Under the hood, `reactive_read()` uses [ipywidgets' `observe()` method](https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20Events.html#traitlet-events) to observe changes to the relevant trait. So, any observable trait can be used with `reactive_read()`.
@@ -6284,7 +6226,6 @@ def nClicks():
 ipyleaflet
 ```
 
-::: callout-tip
 #### Widgets can contain other widgets
 
 In the example above, we created a `CircleMarker` object, then added it to a `Map` object. Both of these objects subclass `ipywidgets.Widget`, so they both have traits that can be updated and read reactively.
@@ -6347,7 +6288,6 @@ pandas
 plotly
 ```
 
-::: callout-tip
 #### Layout gallery
 
 For more layout inspiration, check out the [Layout Gallery](/layouts).
@@ -6462,17 +6402,13 @@ def result():
     return x
 ```
 
-::: callout-warning
 ## Render UI vs display
 
 Shiny Express code that works via side-effects needs to be used with `@render.express`, not `@render.ui`. See [this section](express-in-depth.qmd#reactive-displays) to learn more.
 
-::: callout-tip
-
 Anything that's statically renderable can also be rendered dynamically (e.g.,
 `ui.markdown()`, `ui.HTML()`, `ui.div()`, inputs, outputs, etc).
 
-::: callout-warning
 ## Dynamic UI vs. updating inputs vs. conditional UI
 
 Dynamic UI is a more general mechanism than the updating inputs and conditional UI patterns, and can be used to update any UI component(s) (not just inputs).
@@ -6597,12 +6533,10 @@ def my_ui(x):
     )
 ```
 
-::: callout-note
 ### Resolving dependencies
 
 If multiple `HTMLDependency()` objects with the same `name` are included in the UI, then only the latest version is loaded.
 
-::: callout-note
 ### Custom bindings
 
 Learn more about HTMLDependencies in the [custom component guide](custom-component-one-off.qmd).
@@ -6746,7 +6680,6 @@ with ui.card():
     "Card body"
 ```
 
-::: callout-tip
 ### Bootstrap CSS variables
 
 To learn more about Bootstrap's CSS variables, check out the [Bootstrap docs](https://getbootstrap.com/docs/5.3/customize/css-variables/).
@@ -6877,12 +6810,10 @@ def acme_theme():
     )
 ```
 
-::: callout-tip
 ### Custom components
 
 If you're interested in creating [custom Shiny bindings](custom-component-one-off.qmd), you'll learn more about using this mechanism to attach CSS/JS to your custom component.
 
-::: callout-tip
 ### Minified assets
 
 If your CSS/JS assets are large, you may want to [minify](https://www.minifier.org/) them to improve app performance.
@@ -6950,8 +6881,6 @@ def out2():
   return f"Render text: {x2()}"
 ```
 
-::: callout-note
-
 Reactive calculations can read any reactive dependency (e.g., `input`, `reactive.value`, and `@reactive.calc`) as well as be read by any reactive function (i.e., `@render.*`, `@reactive.effect`, and `@reactive.calc`). This makes, itself, both a reactive dependency and a reactive function.
 
 ## Side effects {#effects}
@@ -6973,13 +6902,11 @@ def _():
     ui.insert_ui(ui.p(input.x()), selector="#x", where="afterEnd")
 ```
 
-::: callout-note
 ### Event-based side effects
 
 Often times, you'll want to perform a side effect in response to a specific event (e.g., a button click).
 In the [next article](reactive-patterns.qmd), we'll cover how to do this with `@reactive.event`.
 
-::: callout-warning
 A better way to implement the example above, which allows us to keep a history of all values, is covered in [Reactive values with `reactive.value`](#value-dependencies).
 
 ## Reactive values {#values}
@@ -7013,12 +6940,10 @@ def out():
     return [ui.p(x) for x in vals()]
 ```
 
-::: callout-note
 ### Maintaining state
 
 Reactive values are often used to maintain state in an app. Here we're using it to keep track of the history of a slider, but they can be used for many other things as well (what pages/tabs have been visited, what points have been clicked on a plot, etc.).
 
-::: callout-warning
 Be careful when using mutable objects (e.g., lists, dicts, etc.) as reactive values.
 If you modify the object in-place, Shiny won't know that it's changed and won't invalidate any reactive functions that depend on it.
 See the article on [handling mutability](reactive-mutable.qmd) for more.
@@ -7178,7 +7103,6 @@ def time():
         return f"Current time {f.read()}"
 ```
 
-::: callout-tip
 #### More compelling example
 
 See [here](https://github.com/posit-dev/py-shiny-templates/blob/main/monitor-file/app-core.py) for a more compelling example of monitoring a file for changes.
@@ -7224,7 +7148,6 @@ def time():
         return f"Current time {f.read()}"
 ```
 
-::: callout-tip
 #### Monitoring a database / folder
 
 See [here](https://github.com/posit-dev/py-shiny-templates/blob/main/monitor-database/app-core.py) for an example of monitoring a database for changes.
@@ -7541,7 +7464,6 @@ dat = pl.read_database_uri(
 
 See [Polars](https://docs.pola.rs/user-guide/io/database/) and [SQLAlchemy's](https://docs.sqlalchemy.org/en/20/core/engines.html) docs for more info, like connecting to other database types.
 
-::: callout-tip
 ### Multiple tables
 
 `pl.read_database_uri()` opens a connection to the database, runs the provided query, and then closes the connection. If you need to read multiple tables, consider using a database-centric library like [Ibis](https://ibis-project.org/) to manage the connection and queries more effectively.
@@ -7616,7 +7538,6 @@ def df():
     return dat.head(100).collect()
 ```
 
-::: callout-tip
 ### Cloud-based files
 
 Polars also supports lazy reading from [cloud storage](https://docs.pola.rs/user-guide/io/cloud-storage/). This is very helpful for limiting how much information is downloaded to memory, especially if you only need a small portion of a much larger dataset for your application (e.g., You have data from 1900-present but you only need 2000-present.)
@@ -7665,7 +7586,6 @@ def df():
     return dat.head(100).execute()
 ```
 
-::: callout-tip
 ### Using SQL directly
 
 If you prefer to write SQL more directly, use SQLAlchemy to connect to your database and execute SQL queries. This approach provides more flexibility but requires more manual handling of SQL queries.
@@ -7768,7 +7688,6 @@ In general, you might check a "last updated" timestamp column:
 {{}}
 ```
 
-::: callout-note
 ### Polling to export to file
 
 Since Polars is so good at (lazily) reading data from files, it's tempting to export from a database to a file. In this case, you could set up a `reactive.poll()` to save the database table as a file whenever it changes, and `reactive.file_reader()` to re-read the file when the file changes.
@@ -7792,7 +7711,6 @@ In this case, instead of using the local file system to persist data, it's often
 
 To help us illustrate how to persist data in a Shiny app (using various backends), let's build on a simple user form example. In this app, users can submit their name, whether they like checkboxes, and their favorite number. The app will then display all the information that has been submitted so far.
 
-::: callout-warning
 ### Pause here
 
 Before proceeding, make sure you read and understand the `app.py` logic below. This portion will stay fixed -- we'll only be changing only the `setup.py` file to implement different persistent storage backends.
@@ -7834,7 +7752,6 @@ Google Sheets is a great lightweight option for persistent storage. It has a fam
 There's also a nice library, [`gspread`](https://docs.gspread.org/en/latest/index.html), that makes it easy to read and write data to Google Sheets.
 We'll use it here to demonstrate how to persist data in a Shiny app.
 
-::: callout-note
 ### Authentication
 
 In order to use Google Sheets as a data store, you'll need to set up authentication with Google. Try following the authentication instructions in the [`gspread` documentation](https://docs.gspread.org/en/latest/oauth2.html). Your organization may or may not support creating your own service account, so you may have to contact your IT department if you can't create one on your own.
@@ -7856,7 +7773,6 @@ Efficiently updating data in cloud storage can be tricky, since these services a
 {{}}
 ```
 
-::: callout-tip
 ### Pins
 
 [Pins](https://rstudio.github.io/pins-python/) offers another option for working with cloud storage. It provides a higher-level interface for storing and retrieving data, along with built-in support for versioning and metadata. Pins offers some nice cloud storage integrations you may not find elsewhere, like [Posit Connect](https://pins.rstudio.com/reference/board_connect.html) and [Databricks](https://pins.rstudio.com/reference/board_databricks.html).
@@ -7865,7 +7781,6 @@ Efficiently updating data in cloud storage can be tricky, since these services a
 
 Compared to cloud storage, databases offer a much more robust option for persistent storage. They can handle large datasets, more complex queries, and offer concurrency guarantees. There are many different types of databases, but for this example, we'll use Postgres, a popular open-source relational database. That said, Polars (and other libraries) [support many different databases](https://docs.pola.rs/user-guide/io/database/), so you can adapt this example to your preferred database system.
 
-::: callout-tip
 ### Authentication
 
 When connecting to a database, it's important to keep your credentials secure. Don't hard-code your username and password in your application code. Instead, consider using environment variables or a secrets manager to store your credentials securely.
@@ -7931,7 +7846,6 @@ When working with databases, it's important to be aware of SQL injection attacks
 
 Apps that need to persist data often need to restrict access to the app (and/or underlying data). For example, your app might need users to authenticate in order to be accessed, or you might want to allow some users to view data but not submit new data. If your app requires user authentication and/or fine-grained access control, consider using a hosting provider that supports these features out-of-the-box, like Posit [Connect](https://solutions.posit.co/secure-access) or [Connect Cloud](https://docs.posit.co/connect-cloud/user/share). These platforms provide built-in authentication and access control features that make it easy to manage user access.
 
-::: callout-note
 ### Want to roll your own?
 
 Since Shiny is built on FastAPI and Starlette, you can also implement your own authentication and access control mechanisms using standard Python libraries like [FastAPI Users](https://fastapi-users.github.io/fastapi-users/) or [Authlib](https://docs.authlib.org/en/latest/). However, this approach requires significant work and maintenance on your part, so it's generally recommended to use a hosting provider that supports these features if possible.
@@ -8621,7 +8535,6 @@ person("Socrates", "470-399 BC")
 person("Immanuel Kant", "1724-1804")
 ```
 
-::: callout-note
 ### Shiny Core perspective
 Shiny Core doesn't need an `@expressify` decorator because it does not rely on interactive mode and never calls `sys.displayhook` anyway.
 Instead, UI functions are just normal functions that happen to return UI objects.
@@ -8678,7 +8591,6 @@ x
 
 In this case, it's just a single card, but there's no limit to how much or how little UI you can nest under `ui.hold()`.
 
-::: callout-note
 ### Shiny Core perspective
 In Shiny Core, UI objects are just normal objects, so you can assign them to variables no differently than you would an integer or a list.
 
@@ -8730,7 +8642,6 @@ def person():
 
 It's almost anticlimactically simple to use, considering how much explaining we had to do to get here.
 
-::: callout-note
 ### Shiny Core perspective
 In Shiny Core, you should use `@render.ui` and skip `@expressify` or `ui.hold()`---they're not needed. Instead, your render function would return a UI object directly.
 
@@ -8792,7 +8703,6 @@ col1,col2
 3,4
 ```
 
-::: callout-note
 ### Shiny Core perspective
 In Shiny Core, code outside of the `server` function scope runs once per startup (not per user session).
 See the code below for the equivalent Shiny Core app.
@@ -8817,7 +8727,6 @@ def server(input, output, session):
 app = App(app_ui, server)
 ```
 
-::: callout-tip
 ### Shared reactive objects
 
 It's also possible to share reactive objects across sessions.
@@ -8847,7 +8756,6 @@ ui.tags.script(
 )
 ```
 
-::: callout-note
 ### Shiny Core sessions
 
 In Shiny Core, the session object is available through `server` function, and can be used anywhere in the server function scope.
@@ -8876,7 +8784,6 @@ x = [f"Even: {i} " for i in range(5) if i % 2 == 0]
 x
 ```
 
-::: callout-note
 ### Shiny Core avoids side-effects
 
 In a sense, Shiny Core _forces_ you to avoid using imperative code to define your UI, since you're expected to define your UI as a single, tree-like, object.
@@ -8991,12 +8898,10 @@ with ui.layout_columns():
         return f"Slider value: {input.val()}"
 ```
 
-::: callout-tip
 ### Terminal UI
 
 Terminal UI components (e.g. `ui.input_slider()`); that is, components that usually don't take other UI components as children, are not context managers in Express.
 
-::: callout-tip
 ### HTML tags
 
 In Express, [HTML tags](ui-html.qmd) can be used as both context managers and/or pure functions. For example, `ui.div(ui.h1("Hello world!"))` is also equivalent to `with ui.div(): ui.h1("Hello world!")`.
@@ -9043,11 +8948,9 @@ Writing modules in Shiny is the best strategy for organizing a large Shiny code 
 With modules, you can break your application into small pieces that can be reasoned about separately and composed to build larger applications.
 This article explains the basics of why we need modules and how to use them, and the next article explains how to communicate between modules.
 
-::: callout-note
 Note that while Shiny modules are analogous to [Python modules](https://docs.python.org/3/tutorial/modules.html), they are not the same.
 Python modules are a generic way to organize objects in a namespace, while Shiny modules are used to encapsulate reactive components in a namespace.
 
-::: callout-note
 Modules are supported in [Shiny Express](express-vs-core.qmd) apps as of version 0.10.0.
 
 ## Functions in Shiny
@@ -9270,7 +9173,6 @@ There are two sides to modules: creating them, and using them. Each side can be 
 
 To create a module with Shiny Express, use the `@module` decorator on a function that takes `input`, `output`, and `session` as parameters. It can also accept additional parameters. In the example below, it takes one extra parameter, named `placeholder`.
 
-::: callout-note
 The signature of this function, with `input`, `output`, and `session` is the same as a the server function in a Shiny Core app.
 
 To use the module, just call the decorated function with a first parameter which is the ID,
@@ -9499,7 +9401,6 @@ def counter_module(input, output, session, label="Increment counter", starting_v
 
 ```
 
-::: callout-note
 Note that in the example above we used the relative import `from .counter import ...` instead of the absolute import `from counter import ...`.
 This is necessary when running multiple Shinylive applications on one web page as we do here, so that different apps do not cause conflicts when importing their own `counter` modules.
 In normal Shiny Express applications, you can use either a relative or absolute import.
@@ -9586,7 +9487,6 @@ def counter_server(input, output, session, starting_value = 0):
 
 ```
 
-::: callout-note
 Note that in the example above we used the relative import `from .counter import ...` instead of the absolute import `from counter import ...`.
 This is necessary when running multiple Shinylive applications on one web page as we do here, so that different apps do not cause conflicts when importing their own `counter` modules.
 In normal Shiny Core applications, you must use the absolute import (relative imports will generally not work with Shiny Core applications).
@@ -9772,7 +9672,6 @@ The modules we've seen so far are useful for cleaning up your code base, but we 
 For example, what if we wanted a global button which reset all of the counters in an application?
 To accomplish this, we can pass reactive objects and use them inside the module just as you would use them in an app.
 
-::: callout-important
 It is important to distinguish between calls to reactive objects like `input.n()` and the reactive object itself, `input.n`.
 While `input.n` is reactive object, calling `input.n()` returns the current value that object.
 
@@ -12953,7 +12852,6 @@ All of the main components of Shiny like reactivity, rendering functions, and mo
 There are, however, a few differences that you need to keep in mind in order to build effective Shiny applications in Python.
 If you're reading this, we expect that you are an existing R Shiny user with some Python knowledge.
 
-::: callout-tip
 ### Shiny Express
 
 Shiny [express](express-vs-core.qmd) is a new, more expressive, way to build PyShiny apps. It is not available in R, so the comparisons drawn below are only relevant to core (i.e., non-express) apps.
@@ -12988,7 +12886,6 @@ conda install -c conda-forge shiny
 3.  Call `shiny create .` to create an example shiny app in your directory
 4.  Call `shiny run --reload` to run the app and reload when the source code changes
 
-::: callout-tip
 ### Takeaways
 
 -   Always use a virtual environment with Python projects
@@ -13010,7 +12907,6 @@ Shiny for Python uses decorators instead of top level rendering functions.
 Decorators are just python functions which take other functions and are invoked by putting `@` above the function definition.
 While R doesn't have an exact analog to decorators they are similar to [function operators](https://adv-r.hadley.nz/function-operators.html) you like `purrr::safely`.
 
-::: callout-tip
 ### Takeaways
 
 -   Use rendering decorators like `@render.plot`, `@render.text`, or `@render.ui` instead of `renderPlot()`, `renderText`, or `renderUI`
@@ -13058,7 +12954,6 @@ app = App(app_ui, server)
 Both R an Python use a special object type to connect server computations to UI components, but the interface is quite different.
 In R, we connect outputs to UI elements by assigning into the `output` object but since Python renderings are produced with decorators, we instead use the function name to connect the rendered object to its UI component.
 
-::: callout-tip
 ### Takeaways
 
 -   In Python, we don't define outputs by assigning to `output$x`
@@ -13108,7 +13003,6 @@ On the Python side we make use of [submodules](https://docs.python.org/3/tutoria
 Note that "submodules" in this case refers to the generic module which is not the same as [shiny modules](modules.qmd).
 For example, instead of `sliderInput()`, you would call `ui.input_slider()`, where the `ui.` refers to a submodule of the main `shiny` module.
 
-::: callout-tip
 #### Takeways
 
 -   Python submodules make autocomplete easier
@@ -13207,7 +13101,6 @@ def server(input, output, session):
 app = App(app_ui, server)
 ```
 
-::: callout-tip
 ### Takeaways
 
 -   Access input values by calling the object like a function
@@ -13826,7 +13719,6 @@ shiny create --template basic-chat --mode core --github posit-dev/py-shiny-templ
 A basic chatbot powered by an Large Language Model (LLM) from Anthropic.
 To learn more, see the article on [Gen AI chatbots](/docs/genai-inspiration.qmd).
 
-::: callout-note
 ### Other model providers
 
 This particular template uses [`chatlas.ChatAnthropic()`](https://posit-dev.github.io/chatlas/reference/ChatAnthropic.html) to do response generation via Anthropic. With `chatlas`, it's easy to switch to [other providers](https://posit-dev.github.io/chatlas/reference/).
@@ -13860,7 +13752,6 @@ A basic example of collecting user input, using it to fill a LLM prompt template
 
 To learn more, see the article on [Gen AI streaming](/docs/genai-stream.qmd).
 
-::: callout-note
 ### Other model providers
 
 This particular template uses [`chatlas.ChatAnthropic()`](https://posit-dev.github.io/chatlas/reference/ChatAnthropic.html) to do response generation via Anthropic. With `chatlas`, it's easy to switch to [other providers](https://posit-dev.github.io/chatlas/reference/).

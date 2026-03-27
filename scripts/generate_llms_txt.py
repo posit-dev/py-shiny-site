@@ -42,8 +42,8 @@ def clean_qmd_content(content: str) -> str:
                 in_raw_html_block = False
             continue
 
-        # Skip Quarto div fences: ::: {.class}, ::::, ::::{.class}, bare :::
-        if re.match(r"^:{3,}\s*(\{.*\})?\s*$", stripped):
+        # Skip Quarto div fences: :::{.class}, ::: callout-note, ::::, bare :::
+        if re.match(r"^:{3,}", stripped):
             continue
 
         # Convert Quarto/shinylive code block syntax to standard markdown
