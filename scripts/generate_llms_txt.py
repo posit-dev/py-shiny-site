@@ -5,6 +5,14 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterator
 
+BASE_URL = "https://shiny.posit.co/py/"
+
+SITE_DESCRIPTION = (
+    "Shiny for Python is a framework for building reactive web applications "
+    "and dashboards in pure Python. It features a reactive execution engine, "
+    "built-in UI components, and support for generative AI integration."
+)
+
 
 def clean_qmd_content(content: str) -> str:
     """Strip Quarto-specific markup from .qmd content, keeping prose and code."""
@@ -206,7 +214,7 @@ def _load_page(root: Path, file_path: str) -> "Page | None":
     if clean_path.endswith(".html"):
         clean_path = clean_path[:-5] + ".qmd"
     full_path = root / clean_path
-    if not full_path.exists():
+    if not full_path.exists() or not full_path.is_file():
         return None
     content = full_path.read_text()
     title = extract_title(content)
@@ -357,3 +365,78 @@ def build_site_structure(root: Path) -> list[Section]:
         sections.append(templates_section)
 
     return sections
+
+
+# ---------------------------------------------------------------------------
+# Output writers
+# ---------------------------------------------------------------------------
+
+
+def _write_header() -> str:
+    """Return the standard header for llms.txt and llms-full.txt."""
+    return f"# Shiny for Python\n\n> {SITE_DESCRIPTION}\n"
+
+
+def generate_llms_txt(sections: list[Section]) -> str:
+    """Generate llms.txt with links only (no page content)."""
+    parts: list[str] = [_write_header()]
+
+    for section in sections:
+        parts.append(f"\n## {section.name}\n")
+        for page in section.pages:
+            url = file_path_to_url(page.file_path, BASE_URL)
+            parts.append(f"- [{page.title}]({url})")
+        for subsection in section.subsections:
+            parts.append(f"\n### {subsection.name}\n")
+            for page in subsection.pages:
+                url = file_path_to_url(page.file_path, BASE_URL)
+                parts.append(f"- [{page.title}]({url})")
+
+    return "\n".join(parts) + "\n"
+
+
+def generate_llms_full_txt(sections: list[Section]) -> str:
+    """Generate llms-full.txt with full cleaned page content."""
+    parts: list[str] = [_write_header()]
+
+    for section in sections:
+        parts.append(f"\n## {section.name}\n")
+        for page in section.pages:
+            parts.append(f"### {page.title}\n")
+            parts.append(clean_qmd_content(page.content))
+            parts.append("---")
+        for subsection in section.subsections:
+            parts.append(f"\n### {subsection.name}\n")
+            for page in subsection.pages:
+                parts.append(f"#### {page.title}\n")
+                parts.append(clean_qmd_content(page.content))
+                parts.append("---")
+
+    return "\n".join(parts) + "\n"
+
+
+# ---------------------------------------------------------------------------
+# Entry point
+# ---------------------------------------------------------------------------
+
+
+def main() -> None:
+    root = Path(__file__).resolve().parent.parent
+    print("Building site structure from _quarto.yml...")
+    sections = build_site_structure(root)
+    total_pages = sum(len(s.pages) + sum(len(sub.pages) for sub in s.subsections) for s in sections)
+    print(f"Found {len(sections)} sections with {total_pages} pages.")
+
+    print("Generating llms.txt...")
+    llms_txt = generate_llms_txt(sections)
+    (root / "llms.txt").write_text(llms_txt)
+
+    print("Generating llms-full.txt...")
+    llms_full_txt = generate_llms_full_txt(sections)
+    (root / "llms-full.txt").write_text(llms_full_txt)
+
+    print(f"Done. llms.txt: {len(llms_txt):,} bytes, llms-full.txt: {len(llms_full_txt):,} bytes")
+
+
+if __name__ == "__main__":
+    main()
