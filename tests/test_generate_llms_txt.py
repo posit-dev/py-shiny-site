@@ -14,6 +14,8 @@ from generate_llms_txt import (
     clean_section_name,
     extract_title,
     file_path_to_url,
+    generate_llms_full_txt,
+    generate_llms_txt,
     walk_sidebar,
 )
 
@@ -302,3 +304,68 @@ website:
     for sub in layouts[0].subsections:
         total_pages += len(sub.pages)
     assert total_pages == 1
+
+
+# --- Tests for generate_llms_txt and generate_llms_full_txt ---
+
+
+def _make_test_sections():
+    return [
+        Section(
+            name="Get Started",
+            pages=[Page(title="Install", file_path="get-started/install.qmd", content="---\ntitle: Install\n---\n\nInstall Shiny with pip.")],
+            subsections=[],
+        ),
+        Section(
+            name="Components",
+            pages=[],
+            subsections=[
+                Subsection(name="Inputs", pages=[
+                    Page(title="Checkbox", file_path="components/inputs/checkbox/index.qmd", content="---\ntitle: Checkbox\n---\n\nA checkbox input."),
+                ]),
+            ],
+        ),
+    ]
+
+
+def test_generate_llms_txt_format():
+    sections = _make_test_sections()
+    output = generate_llms_txt(sections)
+    assert output.startswith("# Shiny for Python\n")
+    assert "> " in output
+    assert "## Get Started" in output
+    assert "- [Install](https://shiny.posit.co/py/get-started/install.html)" in output
+    assert "## Components" in output
+    assert "### Inputs" in output
+    assert "- [Checkbox](https://shiny.posit.co/py/components/inputs/checkbox/)" in output
+
+
+def test_generate_llms_txt_no_content():
+    sections = _make_test_sections()
+    output = generate_llms_txt(sections)
+    assert "Install Shiny with pip" not in output
+    assert "A checkbox input" not in output
+
+
+def test_generate_llms_full_txt_format():
+    sections = _make_test_sections()
+    output = generate_llms_full_txt(sections)
+    assert output.startswith("# Shiny for Python\n")
+    assert "## Get Started" in output
+    assert "### Install" in output
+    assert "Install Shiny with pip." in output
+    assert "---" in output
+    assert "## Components" in output
+    assert "### Inputs" in output
+    assert "#### Checkbox" in output
+    assert "A checkbox input." in output
+
+
+def test_generate_llms_full_txt_cleans_content():
+    sections = [Section(name="Test", pages=[
+        Page(title="Page", file_path="test/page.qmd", content="---\ntitle: Page\n---\n\n:::{.grid}\nClean text.\n:::\n"),
+    ], subsections=[])]
+    output = generate_llms_full_txt(sections)
+    assert "title: Page" not in output
+    assert ":::" not in output
+    assert "Clean text." in output
