@@ -1,5 +1,5 @@
 ---
-title: OpenTelemetry with Shiny
+title: OpenTelemetry
 ---
 
 {{< include opentelemetry/_introduction.qmd >}}

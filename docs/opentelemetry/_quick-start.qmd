@@ -78,7 +78,6 @@ uv run logfire auth
 
 
 
-
 ::: {.callout-tip collapse="true"}
 ## Test your Logfire setup with a simple app
 
@@ -115,34 +114,25 @@ See the [Logfire documentation](https://logfire.pydantic.dev/) for more details 
 
 :::
 
-#### Set Collection Level
-
-Your collection level
-```bash
-# Environment variable (app-wide default)
-export SHINY_OTEL_COLLECT=session
-```
 
 #### Extract setup logic into a configuration module
 
 To keep your app efficient, it's helpful to move OpenTelemetry setup into a dedicated module. This keeps your app files clean and ensures configuration (environment variables, Logfire, AI instrumentation) is applied consistently before Shiny imports.
 
-You'll notice our `otel_configure` module includes setting `SHINY_OTEL_COLLECT`. This variable controls how much detail is captured and defaults to `"all"`.
+You'll notice our `otel_config` module includes setting `SHINY_OTEL_COLLECT`. This variable controls how much detail is captured and defaults to `"all"`.
 
 You may want to reduce or refine your own collection level. Se the portion on [collection levels](#what-can-shiny-record) for more information.
 
 ```python
 
-{{< include apps/opentelemetry/configure.py >}}
+{{< include apps/opentelemetry/otel_config.py >}}
 
 ```
 
-Then in each app file, call it before importing Shiny:
+Then in the main `app.py` file, import it before importing Shiny:
 
 ```python
-from configure import configure
-
-configure()
+import otel_config  # runs configuration as a side effect
 
 from shiny.express import ui, render
 # ...
