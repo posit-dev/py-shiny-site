@@ -156,6 +156,8 @@ website:
             - components/inputs/switch/index.qmd
             - components/inputs/text-area/index.qmd
             - components/inputs/text-box/index.qmd
+            - components/inputs/toolbar-button/index.qmd
+            - components/inputs/toolbar-select/index.qmd
         - section: "![](/images/bar-chart-line-fill.svg){.sidebar-icon .sidebar-subtitle}__Outputs__"
           contents:
             - components/outputs/data-grid/index.qmd
@@ -176,6 +178,10 @@ website:
             - components/display-messages/notifications/index.qmd
             - components/display-messages/progress-bar/index.qmd
             - components/display-messages/tooltips/index.qmd
+        - section: "![](/images/cards-blue.svg){.sidebar-icon .sidebar-subtitle}__Layout__"
+          contents:
+            - components/layout/cards/index.qmd
+            - components/layout/toolbar/index.qmd
 
     - id: layouts
       collapse-level: 2
@@ -212,12 +218,14 @@ website:
               href: "/layouts/tabs/index.html#card-with-a-pill-tabset"
             - text: "Vertically Collapsing Accordions"
               href: "/layouts/tabs/index.html#vertically-collapsing-accordion-panels"
-        - section: "![](/images/cards-blue.svg){.sidebar-icon .sidebar-subtitle}__Panels & Cards__"
+        - section: "![](/images/cards-blue.svg){.sidebar-icon .sidebar-subtitle}__Cards & Panels__"
           contents:
+            - text: "Cards"
+              href: "/layouts/panels-cards/index.html#cards"
+            - text: "Multiple Cards"
+              href: "/layouts/panels-cards/index.html#multiple-cards"
             - text: "Floating Panel"
               href: "/layouts/panels-cards/index.html#floating-panel"
-            - text: "Content Divided by Cards"
-              href: "/layouts/panels-cards/index.html#content-divided-by-cards"
         - section: "![](/images/arrange-blue.svg){.sidebar-icon .sidebar-subtitle}__Arrange Elements__"
           contents:
             - text: "Grid Layouts"

@@ -1,14 +1,23 @@
-from shiny.express import ui
+from shiny.express import input, render, ui
 
-ui.page_opts(fillable=True)
+with ui.layout_columns(col_widths=[6, 6], height="300px"):
+    with ui.card(full_screen=True):
+        ui.card_header("User Settings")
+        with ui.card_body():
+            ui.input_text("name", "Name", "John Doe")
+            ui.input_slider("age", "Age", 18, 100, 30)
+        with ui.card_footer():
+            ui.input_action_button("save", "Save Changes", class_="btn-primary")
 
-with ui.layout_columns():  # <<
-    with ui.card():  # <<
-        ui.card_header("Card 1 header")
-        ui.p("Card 1 body")
-        ui.input_slider("slider", "Slider", 0, 10, 5)
+    with ui.card(full_screen=True):
+        ui.card_header("Activity Summary")
+        with ui.card_body():
+            @render.text
+            def summary():
+                return f"Hello, {input.name()}!"
 
-    with ui.card():  # <<
-        ui.card_header("Card 2 header")
-        ui.p("Card 2 body")
-        ui.input_text("text", "Add text", "")
+            ui.tags.ul(
+                ui.tags.li("Last login: 2 hours ago"),
+                ui.tags.li("Messages: 12 unread"),
+                ui.tags.li("Tasks: 5 pending"),
+            )

@@ -49,14 +49,26 @@ def check_for_shinylive_url_problems(index_qmds):
                             lg.warning(
                                 f"Multiple files in app: {qmd} - Example - {app['title']}"
                             )
-            elif item["id"] == "variations":
+            elif item["id"] == "variations" or item["id"].startswith("variation-"):
                 for variation in item["contents"]:
-                    for app in variation["apps"]:
+                    # Handle both nested structure (with "apps" key) and flat structure (without "apps" key)
+                    if "apps" in variation:
+                        # Nested structure: variation has "apps" key
+                        apps = variation["apps"]
+                    elif "title" in variation and "file" in variation:
+                        # Flat structure: variation itself is an app
+                        apps = [variation]
+                    else:
+                        # Unknown structure, skip
+                        continue
+
+                    for app in apps:
                         if "shinylive" in app:
                             bundle = shinylive.decode_shinylive_url(app["shinylive"])
                             if len(bundle) > 1 and "resources" not in app:
+                                variation_title = variation.get("title", "Unknown")
                                 lg.warning(
-                                    f"Multiple files in app: {qmd} - Variation - {variation['title']} - {app['title']}"
+                                    f"Multiple files in app: {qmd} - Variation - {variation_title} - {app['title']}"
                                 )
 
 
@@ -80,9 +92,7 @@ def rewrite_shinylive_links(qmd):
         return False
 
     for item in meta["listing"]:
-        if item["id"] not in ["example", "variations"]:
-            continue
-
+        # Handle "example" items
         if item["id"] == "example":
             for app in item["contents"]:
                 if app["title"] == "Preview":
@@ -96,6 +106,7 @@ def rewrite_shinylive_links(qmd):
 
                 app["shinylive"] = create_shinylive_link(app, meta)
 
+        # Handle nested "variations" structure
         elif item["id"] == "variations":
             for variation in item["contents"]:
                 for app in variation["apps"]:
@@ -105,6 +116,34 @@ def rewrite_shinylive_links(qmd):
                     if "shinylive" not in app:
                         lg.warning(
                             f"Missing shinylive link: {qmd} - Variation - {variation['title']} - {app['title']}"
+                        )
+                        continue
+
+                    app["shinylive"] = create_shinylive_link(app, meta)
+
+        # Handle individual variation items (pattern: id starts with "variation-")
+        elif item["id"].startswith("variation-"):
+            for variation in item["contents"]:
+                # Handle both nested structure (with "apps" key) and flat structure (without "apps" key)
+                if "apps" in variation:
+                    # Nested structure: variation has "apps" key
+                    apps = variation["apps"]
+                    variation_title = variation.get("title", "Unknown")
+                elif "title" in variation and "file" in variation:
+                    # Flat structure: variation itself is an app
+                    apps = [variation]
+                    variation_title = "Flat"
+                else:
+                    # Unknown structure, skip
+                    continue
+
+                for app in apps:
+                    if app["title"] == "Preview":
+                        continue
+
+                    if "shinylive" not in app:
+                        lg.warning(
+                            f"Missing shinylive link: {qmd} - Variation - {variation_title} - {app['title']}"
                         )
                         continue
 
@@ -123,6 +162,6 @@ def rewrite_shinylive_links_all(index_qmds):
 
 
 if __name__ == "__main__":
-    dirs = ["inputs", "outputs", "display-messages"]
+    dirs = ["inputs", "outputs", "display-messages", "layout"]
     index_qmds = find_index_qmds([os.path.join("components", d) for d in dirs])
     rewrite_shinylive_links_all(index_qmds)

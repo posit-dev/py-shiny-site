@@ -54,7 +54,7 @@ listing:
       height: 350
     - title: Express
       file: app-variation-select-rows-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthuLHAAe6BnBFiJUmeIjp+FItYiK4DIkJ061DVFkAF45BRVAoVEACgBKfwghLEMAJhitMAAFDi5kLL5o7TAEiESAAQ8vBiwheJ0vOmQmAHcReMQdZG7m0jbQ1kLNZUU6LGI4dnZlEUm4YgpBcnjgTNbigF1ugGJkAB49rp7Z9nmqRQHMokysACtSYRiRCgYYwTjkOmlxJwNpc5i6ziH0ETXWyEms2QmQAcuQ4Jkjt1rBR+AwIJ9MgAlPpiE5nOCKFAgfELQkAX0RZWplWo1SwiigFCgykYsARnjgTSiw1GHSRzTgqPRgs5NQAIkyoABxBiCRQxHmiIikxbkZQwUheEJrXGZD7IXYHHSEVAUXA8WhgKjmChgckbIA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthuLHAAe6BnBFiJUmeIjp+FItYiK4DIkJ061DVFkAF45BRVAoVEACgBKfwghLEMAJhitMAAFDi5kLL5o7TAEiESAAQ8vBiw-Tzg6ZCYAdxF4xB1kLqbSVtDWQs1lRTosYjh2dmURCbhiCkFyeOBMluKAXS6AYmQAHl3O7pn2OapFfsyiTKwAK1JhGJEKBhjBOOQ6aXEnA2kzmLWcXegkaa2QExmyEyADlyHBMocutYKPwGBAPpkAEq9MTHU5wRQoEB4+YEgC+CLKVMq1GqWEUUAoUGUjFg8PqjSiQxG7URTTgKLR-PqNQAIoyoABxBiCRQxLmiIgkhbkZQwUheEKrHGZd7IHb7HSEVAUXA8WhgKjmChgMnrIA
       height: 350
     - title: Core
       file: app-variation-select-rows-core.py
