@@ -180,27 +180,24 @@ def test_walk_nested_sections():
 
 # --- Tests for file_path_to_url ---
 
-BASE_URL = "https://shiny.posit.co/py/"
-
-
 def test_url_qmd_to_html():
-    assert file_path_to_url("docs/overview.qmd", BASE_URL) == "https://shiny.posit.co/py/docs/overview.html"
+    assert file_path_to_url("docs/overview.qmd") == "https://shiny.posit.co/py/docs/overview.html"
 
 
 def test_url_index_qmd_to_trailing_slash():
-    assert file_path_to_url("get-started/index.qmd", BASE_URL) == "https://shiny.posit.co/py/get-started/"
+    assert file_path_to_url("get-started/index.qmd") == "https://shiny.posit.co/py/get-started/"
 
 
 def test_url_component_dir_index():
-    assert file_path_to_url("components/inputs/checkbox/index.qmd", BASE_URL) == "https://shiny.posit.co/py/components/inputs/checkbox/"
+    assert file_path_to_url("components/inputs/checkbox/index.qmd") == "https://shiny.posit.co/py/components/inputs/checkbox/"
 
 
 def test_url_strips_leading_slash():
-    assert file_path_to_url("/layouts/index.qmd", BASE_URL) == "https://shiny.posit.co/py/layouts/"
+    assert file_path_to_url("/layouts/index.qmd") == "https://shiny.posit.co/py/layouts/"
 
 
 def test_url_html_passthrough():
-    assert file_path_to_url("layouts/navbars/index.html", BASE_URL) == "https://shiny.posit.co/py/layouts/navbars/"
+    assert file_path_to_url("layouts/navbars/index.html") == "https://shiny.posit.co/py/layouts/navbars/"
 
 
 # --- Tests for build_site_structure ---

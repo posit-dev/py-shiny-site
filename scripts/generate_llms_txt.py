@@ -159,7 +159,6 @@ def walk_sidebar(
             elif "href" in entry:
                 href = entry["href"]
                 if "#" in href:
-                    # Resolve fragment href to its parent page
                     page_path = href.split("#")[0].lstrip("/")
                     if page_path and page_path not in _seen:
                         _seen.add(page_path)
@@ -175,18 +174,18 @@ def walk_sidebar(
                     yield SidebarEntry(section=parent_section, file_path=f)
 
 
-def file_path_to_url(file_path: str, base_url: str) -> str:
-    """Convert a file path to a URL using the given base URL."""
+def file_path_to_url(file_path: str) -> str:
+    """Convert a file path to a URL."""
     path = file_path.lstrip("/")
     name = Path(path).name
     if name in ("index.qmd", "index.html"):
         parent = str(Path(path).parent)
         if parent == ".":
-            return base_url
-        return f"{base_url}{parent}/"
+            return BASE_URL
+        return f"{BASE_URL}{parent}/"
     elif path.endswith(".qmd"):
         path = path[:-4] + ".html"
-    return f"{base_url}{path}"
+    return f"{BASE_URL}{path}"
 
 
 # ---------------------------------------------------------------------------
@@ -201,6 +200,12 @@ SIDEBAR_DISPLAY_NAMES = {
 }
 
 SKIP_SIDEBAR_IDS = {"deploy"}
+
+API_SUBSECTIONS = [
+    ("express", "Shiny Express"),
+    ("core", "Shiny Core"),
+    ("testing", "Testing"),
+]
 
 
 @dataclass
@@ -237,20 +242,15 @@ class Section:
 def _load_page(root: Path, file_path: str) -> "Page | None":
     """Read a .qmd file and extract its title and content."""
     clean_path = file_path.lstrip("/")
-    # Resolve trailing-slash directory refs to index.qmd
     if clean_path.endswith("/"):
         clean_path = clean_path + "index.qmd"
-    # Convert .html refs to .qmd for reading
     elif clean_path.endswith(".html"):
         clean_path = clean_path[:-5] + ".qmd"
     full_path = root / clean_path
     if not full_path.exists() or not full_path.is_file():
         return None
     content = full_path.read_text()
-    title = extract_title(content)
-    if not title:
-        # Fallback to filename stem
-        title = full_path.stem.replace("-", " ").title()
+    title = extract_title(content) or full_path.stem.replace("-", " ").title()
     return Page(title=title, file_path=clean_path, content=content)
 
 
@@ -286,11 +286,7 @@ def _build_api_sections(root: Path) -> list[Section]:
         return []
 
     api_subsections: list[Subsection] = []
-    for api_name, display_name in [
-        ("express", "Shiny Express"),
-        ("core", "Shiny Core"),
-        ("testing", "Testing"),
-    ]:
+    for api_name, display_name in API_SUBSECTIONS:
         sidebar_path = root / "api" / api_name / "_sidebar.yml"
         if not sidebar_path.exists():
             # API index page only (sidebar not generated yet)
@@ -308,13 +304,9 @@ def _build_api_sections(root: Path) -> list[Section]:
             else sidebar_config.get("contents", [])
         )
         entries = list(walk_sidebar(contents))
-        pages_list: list[Page] = []
-        for entry in entries:
-            page = _load_page(root, entry.file_path)
-            if page:
-                pages_list.append(page)
-        if pages_list:
-            api_subsections.append(Subsection(name=display_name, pages=pages_list))
+        pages = [p for e in entries if (p := _load_page(root, e.file_path))]
+        if pages:
+            api_subsections.append(Subsection(name=display_name, pages=pages))
 
     if not api_subsections:
         return []
@@ -360,26 +352,21 @@ def build_site_structure(root: Path) -> list[Section]:
         )
         entries = list(walk_sidebar(contents))
 
-        # Group entries: top-level pages vs. subsection pages
         top_pages: list[Page] = []
         subsection_map: dict[str, list[Page]] = {}
-        seen_subsections: list[str] = []
 
         for entry in entries:
             page = _load_page(root, entry.file_path)
             if page is None:
                 continue
             if entry.section:
-                if entry.section not in seen_subsections:
-                    seen_subsections.append(entry.section)
                 subsection_map.setdefault(entry.section, []).append(page)
             else:
                 top_pages.append(page)
 
         subsections = [
-            Subsection(name=name, pages=subsection_map[name])
-            for name in seen_subsections
-            if name in subsection_map
+            Subsection(name=name, pages=pages)
+            for name, pages in subsection_map.items()
         ]
 
         sections.append(
@@ -402,32 +389,28 @@ def build_site_structure(root: Path) -> list[Section]:
 # ---------------------------------------------------------------------------
 
 
-def _write_header() -> str:
-    """Return the standard header for llms.txt and llms-full.txt."""
-    return f"# Shiny for Python\n\n> {SITE_DESCRIPTION}\n"
+HEADER = f"# Shiny for Python\n\n> {SITE_DESCRIPTION}\n"
 
 
 def generate_llms_txt(sections: list[Section]) -> str:
     """Generate llms.txt with links only (no page content)."""
-    parts: list[str] = [_write_header()]
+    parts: list[str] = [HEADER]
 
     for section in sections:
         parts.append(f"\n## {section.name}\n")
         for page in section.pages:
-            url = file_path_to_url(page.file_path, BASE_URL)
-            parts.append(f"- [{page.title}]({url})")
+            parts.append(f"- [{page.title}]({file_path_to_url(page.file_path)})")
         for subsection in section.subsections:
             parts.append(f"\n### {subsection.name}\n")
             for page in subsection.pages:
-                url = file_path_to_url(page.file_path, BASE_URL)
-                parts.append(f"- [{page.title}]({url})")
+                parts.append(f"- [{page.title}]({file_path_to_url(page.file_path)})")
 
     return "\n".join(parts) + "\n"
 
 
 def generate_llms_full_txt(sections: list[Section]) -> str:
     """Generate llms-full.txt with full cleaned page content."""
-    parts: list[str] = [_write_header()]
+    parts: list[str] = [HEADER]
 
     for section in sections:
         parts.append(f"\n## {section.name}\n")
