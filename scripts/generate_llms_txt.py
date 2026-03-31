@@ -131,21 +131,48 @@ class SidebarEntry:
     file_path: str
 
 
-def walk_sidebar(contents: list, parent_section: "str | None" = None) -> Iterator[SidebarEntry]:
-    """Recursively walk sidebar contents, yielding SidebarEntry for each page."""
+def walk_sidebar(
+    contents: list,
+    parent_section: "str | None" = None,
+    _seen: "set[str] | None" = None,
+) -> Iterator[SidebarEntry]:
+    """Recursively walk sidebar contents, yielding SidebarEntry for each page.
+
+    Fragment-only hrefs (e.g. /layouts/navbars/index.html#section) are resolved
+    to their parent page so anchor-grouped content is still included.
+    """
+    if _seen is None:
+        _seen = set()
     for entry in contents:
         if isinstance(entry, str):
-            yield SidebarEntry(section=parent_section, file_path=entry)
+            if entry not in _seen:
+                _seen.add(entry)
+                yield SidebarEntry(section=parent_section, file_path=entry)
         elif isinstance(entry, dict):
             if "section" in entry:
                 section_name = clean_section_name(entry["section"])
-                yield from walk_sidebar(entry.get("contents", []), parent_section=section_name)
+                yield from walk_sidebar(
+                    entry.get("contents", []),
+                    parent_section=section_name,
+                    _seen=_seen,
+                )
             elif "href" in entry:
                 href = entry["href"]
-                if "#" not in href:
-                    yield SidebarEntry(section=parent_section, file_path=href)
+                if "#" in href:
+                    # Resolve fragment href to its parent page
+                    page_path = href.split("#")[0].lstrip("/")
+                    if page_path and page_path not in _seen:
+                        _seen.add(page_path)
+                        yield SidebarEntry(section=parent_section, file_path=page_path)
+                else:
+                    if href not in _seen:
+                        _seen.add(href)
+                        yield SidebarEntry(section=parent_section, file_path=href)
             elif "file" in entry:
-                yield SidebarEntry(section=parent_section, file_path=entry["file"])
+                f = entry["file"]
+                if f not in _seen:
+                    _seen.add(f)
+                    yield SidebarEntry(section=parent_section, file_path=f)
 
 
 def file_path_to_url(file_path: str, base_url: str) -> str:

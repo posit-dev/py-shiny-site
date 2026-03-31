@@ -55,6 +55,26 @@
 
 - [Shiny Layouts](https://shiny.posit.co/py/layouts/)
 
+### Navbars
+
+- [Navbars](https://shiny.posit.co/py/layouts/navbars/)
+
+### Sidebars
+
+- [Sidebars](https://shiny.posit.co/py/layouts/sidebars/)
+
+### Tabs
+
+- [Tabs](https://shiny.posit.co/py/layouts/tabs/)
+
+### Panels & Cards
+
+- [Panels and cards](https://shiny.posit.co/py/layouts/panels-cards/)
+
+### Arrange Elements
+
+- [Arrange Elements](https://shiny.posit.co/py/layouts/arrange/)
+
 ## Get Started
 
 - [Welcome](https://shiny.posit.co/py/get-started/)

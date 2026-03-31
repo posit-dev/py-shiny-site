@@ -1010,6 +1010,520 @@ Control for page size
 
 ---
 
+### Navbars
+
+#### Navbars
+
+```python
+import sys
+sys.path.append("../..")
+
+from docs.helpers import express_core_preview, shinylive_app_preview
+```
+
+A navbar adds a navigation bar to your app, allowing users to easily navigate your app.
+
+## Navbar at top
+
+```python
+
+shinylive_app_preview("app-navbar-top.py", viewer_height=150, div_attrs=".p-0")
+express_core_preview("app-navbar-top-express.py", "app-navbar-top.py")
+```
+
+Follow these steps to add a navbar to the top of your app:
+
+  1. Define a navbar page layout with `ui.page_navbar()`.
+
+  2. Pass nav items (e.g., [`ui.nav_panel()`](https://shiny.posit.co/py/api/core/ui.nav_panel.html) and [`ui.nav_menu()`](https://shiny.posit.co/py/api/core/ui.nav_menu.html)) to `ui.page_navbar()` to control the items displayed in the navbar.
+
+  3. Set the `title` argument of `ui.page_navbar()` to set the browser window title.
+
+  4. _Optional:_ Pass a string to the `id` argument of `ui.page_navbar()`. This will create an input value that holds the title of the currently selected nav item. For example, `id = "tab"` would create a reactive value accessible as `input.tab()`.
+
+## Navbar at bottom
+
+```python
+
+shinylive_app_preview("app-navbar-bottom.py", viewer_height=150, div_attrs=".p-0")
+express_core_preview("app-navbar-bottom-express.py", "app-navbar-bottom.py")
+```
+
+Follow these steps to add a navbar to the bottom of your app:
+
+  1. Define a navbar page layout with `ui.page_navbar()`.
+
+  2. Pass nav items (e.g., [`ui.nav_panel()`](https://shiny.posit.co/py/api/core/ui.nav_panel.html) and [`ui.nav_menu()`](https://shiny.posit.co/py/api/core/ui.nav_menu.html)) to `ui.page_navbar()` to control the items displayed in the navbar.
+
+  3. Set the `position` parameter of `ui.page_navbar()` to `"fixed-bottom"` to pin the navbar to the bottom of the app. By default, `position` is `"static-top"`, which causes the navbar to display at the top with normal scrolling behavior. You can also pin the navbar to the top (`position="fixed-top"`).
+
+  4. Set the `title` argument of `ui.page_navbar()` to set the browser window title.
+
+  5. _Optional:_ Pass a string to the `id` argument of `ui.page_navbar()`. This will create an input value that holds the title of the currently selected nav item. For example, `id = "tab"` would create a reactive value accessible as `input.tab()`.
+
+---
+
+### Sidebars
+
+#### Sidebars
+
+```python
+import sys
+sys.path.append("../..")
+
+from docs.helpers import express_core_preview, shinylive_app_preview
+```
+
+A sidebar layout creates a sidebar, typically used for inputs, and a large main area, typically used for outputs.
+
+## Sidebar on the left
+
+```python
+
+shinylive_app_preview("app-sidebar-left-core.py", viewer_height=125, div_attrs=".p-0")
+express_core_preview("app-sidebar-left-express.py", "app-sidebar-left-core.py")
+```
+
+Follow these steps to add a left-side sidebar to your app:
+
+  1. Add `ui.layout_sidebar()` inside any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.layout_sidebar()` creates a sidebar layout.
+
+  2. Pass `ui.sidebar()`as the first argument of `ui.layout_sidebar()` to create the sidebar. By default, the `position` parameter of `ui.sidebar()` is "left" and the sidebar will appear on the left.
+
+  3. Supply additional components (output components, cards, text, etc.) to `ui.layout_sidebar()` to define the contents of the main content area.
+
+## Sidebar on the right
+
+```python
+
+shinylive_app_preview("app-sidebar-right-core.py", viewer_height=125, div_attrs=".p-0")
+express_core_preview("app-sidebar-right-express.py", "app-sidebar-right-core.py")
+```
+
+Follow these steps to add a right-side sidebar to your app:
+
+  1. Add `ui.layout_sidebar()` inside any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.layout_sidebar()` creates a sidebar layout.
+
+  2. Pass `ui.sidebar()`as the first argument of `ui.layout_sidebar()` to create the sidebar.
+
+  3. Pass `position="right"` to `ui.sidebar()`. The `position` argument controls where the sidebar appears relative to the main content.
+
+  3. Supply components (e.g., inputs) to `ui.sidebar()` to define the sidebar's contents. Supply additional components (e.g., output components, cards, etc.) to `ui.layout_sidebar()` to define the contents of the main content area.
+
+## Sidebar within a card
+
+```python
+
+shinylive_app_preview("app-sidebar-card-core.py", viewer_height=175, div_attrs=".p-0")
+express_core_preview("app-sidebar-card-express.py", "app-sidebar-card-core.py")
+```
+
+Follow these steps to add a sidebar within a card to your app:
+
+  1. Add `ui.card()` to the UI of your app to create a card.
+  2. Pass `ui.layout_sidebar()` to `ui.card()` to define a sidebar layout within the card.
+  3. Add `ui.sidebar()` and additional elements to `ui.layout_sidebar()` to define the sidebar and main content as usual.
+  4. Add inputs or other components as desired to `ui.sidebar()` to define the sidebar's contents.
+
+## Collapsed sidebar
+
+```python
+
+shinylive_app_preview("app-sidebar-collapsed-core.py", viewer_height=125, div_attrs=".p-0")
+express_core_preview("app-sidebar-collapsed-express.py", "app-sidebar-collapsed-core.py")
+```
+
+`ui.sidebar()` has an `open` parameter that defines whether the sidebar appears open or closed when the app launches. To create a sidebar that is initially closed, set the `open` parameter to `"closed"`.
+
+The other options for `open` are:
+
+  * `"desktop"`: The default. The sidebar starts open on a desktop screen and closed on mobile.
+  * `"open"`: The sidebar starts open and can be closed.
+  * `"always"`: The sidebar is always open and cannot be closed.
+
+---
+
+### Tabs
+
+#### Tabs
+
+```python
+import sys
+sys.path.append("../..")
+
+from docs.helpers import express_core_preview, shinylive_app_preview
+```
+
+Tabs and navigation allow you to create apps that have multiple pages.
+
+## Tabset with pill navigation
+
+```python
+
+shinylive_app_preview("app-tabset-pills-core.py", viewer_height=190)
+express_core_preview("app-tabset-pills-express.py", "app-tabset-pills-core.py")
+```
+
+Follow these steps to create an app with a tabset with pill navigation layout:
+
+  1. Add `ui.navset_pill()` inside any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.navset_pill()` creates a pillset.
+
+  2. Pass nav items (e.g., [`ui.nav_panel()`](https://shiny.posit.co/py/api/core/ui.nav_panel.html) and [`ui.nav_menu()`](https://shiny.posit.co/py/api/core/ui.nav_menu.html)) to `ui.navset_pill()` to set the items displayed in the navset.
+
+  3. Pass arguments to the nav items to control each item's title, appearance, and associated content. For example, set the `title` argument of `ui.nav_panel()` to control the displayed title of the nav item. Pass UI elements as additional arguments to `ui.nav_panel()`. These elements will be displayed when the tab is active.
+
+  4. _Optional:_ Pass a string to the `id` argument of `ui.navset_pill()`. This will create an input value that holds the title of the currently selected nav item. For example, `id = "tab"` would create a reactive value accessible as `input.tab()`.
+
+## Tabset with pill list navigation
+
+```python
+
+shinylive_app_preview("app-tabset-pill-list-core.py", viewer_height=320)
+express_core_preview("app-tabset-pill-list-express.py", "app-tabset-pill-list-core.py")
+```
+
+Follow these steps to create an app with a pill list navigation layout. A pill list is a vertical pillset navigation.
+
+  1. Add `ui.navset_pill_list()` inside any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.navset_pill_list()` creates a pill list.
+
+  2. Pass nav items (e.g., [`ui.nav_panel()`](https://shiny.posit.co/py/api/core/ui.nav_panel.html) and [`ui.nav_menu()`](https://shiny.posit.co/py/api/core/ui.nav_menu.html)) to `ui.navset_pill_list()` to set the items displayed in the pillset.
+
+  3. Pass arguments to the nav items to control each item's title, appearance, and associated content. For example, set the `title` argument of `ui.nav_panel()` to control the displayed title of the nav item. Pass UI elements as additional arguments to `ui.nav_panel()`. These elements will be displayed when the tab is active.
+
+  4. _Optional:_ Pass a string to the `id` argument of `ui.navset_pill_list()`. This will create an input value that holds the title of the currently selected nav item. For example, `id = "tab"` would create a reactive value accessible as `input.tab()`.
+
+## Tabset with tab navigation
+
+```python
+
+shinylive_app_preview("app-tabset-tab-core.py", viewer_height=200)
+express_core_preview("app-tabset-tab-express.py", "app-tabset-tab-core.py")
+```
+
+Follow these steps to create an app with a tab navigation layout:
+
+  1. Add `ui.navset_tab()` inside any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.navset_tab()` creates a tabset.
+
+  2. Pass nav items (e.g., [`ui.nav_panel()`](https://shiny.posit.co/py/api/core/ui.nav_panel.html) and [`ui.nav_menu()`](https://shiny.posit.co/py/api/core/ui.nav_menu.html)) to `ui.navset_tab()` to set the items displayed in the tabset.
+
+  3. Pass arguments to the nav items to control each item's title, appearance, and associated content. For example, set the `title` argument of `ui.nav_panel()` to control the displayed title of the nav item. Pass UI elements as additional arguments to `ui.nav_panel()`. These elements will be displayed when the tab is active.
+
+  4. _Optional:_ Pass a string to the `id` argument of `ui.navset_tab()`. This will create an input value that holds the title of the currently selected nav item. For example, `id = "tab"` would create a reactive value accessible as `input.tab()`.
+
+## Card with a tabbed tabset
+
+```python
+
+shinylive_app_preview("app-tabset-tab-card-core.py", viewer_height=250, div_attrs=".p-0")
+express_core_preview("app-tabset-tab-card-express.py", "app-tabset-tab-card-core.py")
+```
+
+Follow these steps to add a card with a tabbed tabset to your app:
+
+  1. Add `ui.navset_card_tab()` inside any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.navset_card_tab()` creates a tabset inside a card.
+
+  2. Pass nav items (e.g., [`ui.nav_panel()`](https://shiny.posit.co/py/api/core/ui.nav_panel.html) and [`ui.nav_menu()`](https://shiny.posit.co/py/api/core/ui.nav_menu.html)) to `ui.navset_card_tab()` to set the items displayed in the tabset inside the card.
+
+  3. Pass arguments to the nav items to control each item's title, appearance, and associated content. For example, set the `title` argument of `ui.nav_panel()` to control the displayed title of the nav item. Pass UI elements as additional arguments to `ui.nav_panel()`. These elements will be displayed when the tab is active.
+
+  4. _Optional:_ Pass a string to the `id` argument of `ui.navset_card_tab()`. This will create an input value that holds the title of the currently selected nav item. For example, `id = "tab"` would create a reactive value accessible as `input.tab()`.
+
+## Card with a pill tabset
+
+```python
+
+shinylive_app_preview("app-tabset-pill-card-core.py", viewer_height=250, div_attrs=".p-0")
+express_core_preview("app-tabset-pill-card-express.py", "app-tabset-pill-card-core.py")
+```
+
+Follow these steps to add a card with a pill tabset to your app:
+
+  1. Add `ui.navset_card_pill()` inside any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.navset_card_pill()` creates a pillset inside a card.
+
+  2. Pass nav items (e.g., [`ui.nav_panel()`](https://shiny.posit.co/py/api/core/ui.nav_panel.html) and [`ui.nav_menu()`](https://shiny.posit.co/py/api/core/ui.nav_menu.html)) to `ui.navset_card_pill()` to set the items displayed in the pillset inside the card.
+
+  3. Pass arguments to the nav items to control each item's title, appearance, and associated content. For example, set the `title` argument of `ui.nav_panel()` to control the displayed title of the nav item. Pass UI elements as additional arguments to `ui.nav_panel()`. These elements will be displayed when the tab is active.
+
+  4. _Optional:_ Pass a string to the `id` argument of `ui.navset_card_pill()`. This will create an input value that holds the title of the currently selected nav item. For example, `id = "tab"` would create a reactive value accessible as `input.tab()`.
+
+## Vertically collapsing accordion panels
+
+```python
+
+shinylive_app_preview("app-accordion-core.py", viewer_height=350)
+express_core_preview("app-accordion-express.py", "app-accordion-core.py")
+```
+
+Follow these steps to add vertically collapsing accordion panels to your app:
+
+  1. Add `ui.accordion()` inside any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.accordion()` creates a vertically collapsing accordion.
+
+  2. Pass accordion panel items to `ui.accordion()` using calls to `ui.accordion_panel()`. Each call to `ui.accordion_panel()` creates one accordion panel.
+
+  3. Pass arguments to the accordion panels to control each panel's title, appearance, and associated content. The `*args` argument of `ui.accordion_panel()` controls the contents of the accordion panel.
+
+  4. _Optional:_ Pass a string to the `id` argument of `ui.accordian()`. This will create an input value that represents the currently active accordion panels. For example, `id = "panel"` would create a reactive value accessible as `input.panel()`.
+
+---
+
+### Panels & Cards
+
+#### Panels and cards
+
+```python
+import sys
+sys.path.append("../..")
+
+from docs.helpers import express_core_preview, shinylive_app_preview
+```
+
+Use panels and cards to define areas of related content.
+
+## Floating panel
+
+```python
+
+shinylive_app_preview("app-panel-absolute-core.py", viewer_height=320, div_attrs=".p-0")
+express_core_preview("app-panel-absolute-express.py", "app-panel-absolute-core.py")
+```
+
+Follow these steps to create an app that has a panel floating over a main image.
+
+First, to create the floating panel:
+
+  1. Pass `ui.panel_absolute()` as the second argument of your Shiny UI page method, after `ui.img()`. Pass elements that you want to appear inside the panel to `ui.panel_absolute()`.
+
+  2. Position the panel using the `top`, `bottom`, `left`, and/or `right` parameters. Set the size of the panel using the `height` and/or `width` parameters.
+
+  3. If you want the panel to be draggable, set the `draggable` parameter to `True`.
+
+In the example above, we used CSS to add [a scaling background image](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_backgrounds_and_borders/Resizing_background_images) to the page.
+You can also use `ui.img()` to create this effect:
+
+  1. Pass `ui.img()` to any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.img()` creates an image.
+
+  2. Pass the path or URL of your desired image to `ui.img()`'s `src` parameter. Set additional parameters to control the appearance of the image (e.g., `width` and `height`).
+
+See also: [`ui.panel_fixed()`](https://shiny.posit.co/py/api/ui.panel_fixed.html). `ui.panel_fixed()` is equivalent to calling `ui.panel_absolute()` with `fixed=True` (i.e., the panel does not scroll with the rest of the page).
+
+## Content divided by cards
+
+```python
+
+shinylive_app_preview("app-two-cards-core.py", viewer_height=320, div_attrs=".p-0")
+express_core_preview("app-two-cards-express.py", "app-two-cards-core.py")
+```
+
+Cards are general purpose containers used to group related UI elements together with a border and optional padding.
+
+Follow these steps to create an app with content separated into cards:
+
+  1. Add `ui.card()` inside any Shiny UI page method (e.g., `ui.page_fluid()`) to create a card. Add additional cards by adding additional calls to `ui.card()`.
+
+  2. Define the contents of each card. Inside `ui.card()`, pass elements that you would like to appear inside the card (e.g., inputs, text). You can also use `ui.card_header()` and `ui.card_footer()` to create a card header and footer.
+
+  3. Control the appearance and functionality of each card by passing additional  arguments to `ui.card()`. For example, you can set `full_screen` to `True` to allow the user to expand the card to fullscreen, or control the height of the card with the `height` parameter.
+
+---
+
+### Arrange Elements
+
+#### Arrange Elements
+
+```python
+import sys
+sys.path.append("../..")
+
+from docs.helpers import express_core_preview, shinylive_app_preview
+```
+
+Shiny provides two core functions for arranging elements into rows and columns:
+
+-   `ui.layout_columns()` uses [Bootstrap's 12-column CSS Grid](https://getbootstrap.com/docs/5.3/layout/grid/) to create responsive and highly customizable layouts;
+
+-   `ui.layout_column_wrap()` arranges elements into a grid with equally-sized cells.
+
+You can use these functions directly to create your own layout.
+Grid layouts can be used within a page, panel, or card and can even be nested within each other.
+
+## Grid Layouts
+
+Both `ui.layout_columns()` and `ui.layout_column_wrap()` follow the same general pattern: pass each function a series of elements to have them arranged into a grid layout.
+
+```python
+
+shinylive_app_preview("app-layout-columns-core.py", viewer_height=175, div_attrs='.p-0 .resize-inline')
+express_core_preview("app-layout-columns-express.py", "app-layout-columns-core.py")
+```
+
+```python
+
+shinylive_app_preview("app-layout-column-wrap-core.py", viewer_height=175, div_attrs='.p-0 .resize-inline')
+express_core_preview("app-layout-column-wrap-express.py", "app-layout-column-wrap-core.py")
+```
+
+Notice two things about the above apps:
+
+1.  Both approaches create one or more rows, filling the rows with columns to hold its children.
+
+2.  Use the handle in the bottom right corner of the apps above to view each layout at different screen sizes (this works best on desktop screens).
+    How do the layouts shift as the screen gets smaller or larger?
+
+### How to choose between `layout_columns()` and `layout_column_wrap()`
+
+For simple layouts, it can be hard to tell `ui.layout_columns()` and `ui.layout_column_wrap()` apart.
+Here's a short set of questions to ask yourself to help you decide which function to use:
+
+1.  Are all of the items in your arrangement the same, such as a set of cards or plots?
+    And do you want them all to have the same width and height?
+
+    **If yes**: `ui.layout_column_wrap()` is best for a regularly-sized grid for a homogenous collection of elements.
+
+2.  Do you want to customize the layout's column widths, or to have different layouts at different screen sizes (mobile vs desktop vs ultrawide)?
+
+    **If yes:** `ui.layout_columns()` give you the tools to create highly customized, resposive column layouts.
+
+3.  For all other uses, pick the function you like the most.
+    I happen to like `ui.layout_columns()` but you might prefer `ui.layout_column_wrap()`.
+
+### Responsive, configurable column layouts
+
+In the example above, we saw that, without your intervention, `ui.layout_columns()` will arrange the elements given to it into evenly sized columns.
+In the default case, `ui.layout_columns()` makes a choice about the column widths that make the most sense based on the number of items provided.
+
+For example, when given three items, `ui.layout_columns()` places each item in a column with 4 width units.
+You can use the `col_widths` argument to choose a different allocation of column width units.
+Keep in mind that [Bootstrap's CSS Grid uses 12 units per row](https://getbootstrap.com/docs/5.3/layout/grid/).
+In the example below, we use `col_widths=(2, 4, 6)` to create a row with a small, medium, and large card.
+
+```python
+
+shinylive_app_preview("app-layout-columns-col-widths-core.py", viewer_height=240, div_attrs=".p-0 .resize-inline")
+express_core_preview("app-layout-columns-col-widths-express.py", "app-layout-columns-col-widths-core.py")
+```
+
+#### Advanced layouts
+
+There's a lot more that `layout_columns()` can do with `col_widths` to make highly customized layouts.
+
+-   Choose different layouts with a dictionary of column widths at specific breakpoints, e.g. `col_widths={"sm": 4, "md": (2, 4, 6)}`.
+
+-   Insert empty space between items with a negative column width, e.g. `col_widths=c(4, -4, 4)` creates two columns 4 units wide with an empty space of 4 units between them.
+
+Learn more in the API reference: [Express](https://shiny.posit.co/py/api/express/express.ui.layout_columns.html) \| [Core](https://shiny.posit.co/py/api/core/ui.layout_columns.html)
+
+### Uniform grid layouts
+
+`ui.layout_column_wrap()` arranges elements into a uniform grid, so its `width` argument applies a single value to all elements in the grid.
+
+When `width` is a fractional each item is given an equal portion of the row's width.
+For example, `width=1 / 2` gives each item half of the row width.
+
+```python
+
+shinylive_app_preview("app-layout-column-wrap-half-core.py", viewer_height=240, div_attrs=".p-0 .resize-inline")
+express_core_preview("app-layout-column-wrap-half-express.py", "app-layout-column-wrap-half-core.py")
+```
+
+When `width` is a CSS unit, like `"300px"`, `ui.layout_column_wrap()` ensures that every item is *at least as wide* as `width`.
+The items in the grid expand to fill horizontal space or contract when the layout container is smaller than `width`.
+
+Try resizing the app preview below to see how the layout shifts at different container widths.
+
+```python
+
+shinylive_app_preview("app-layout-column-wrap-dynamic-core.py", viewer_height=240, div_attrs='.p-0 .resize-inline style="--max-width:1300px"')
+express_core_preview("app-layout-column-wrap-dynamic-express.py", "app-layout-column-wrap-dynamic-core.py")
+```
+
+## Column nesting
+
+Both `ui.layout_columns()` and `ui.layout_column_wrap()` can be nested, even within each other.
+
+Consider this page layout:
+
+```python
+
+shinylive_app_preview("app-column-nest-core.py", viewer_height=200, div_attrs=".p-0")
+express_core_preview("app-column-nest-express.py", "app-column-nest-core.py")
+```
+
+## Controlling for page width and height
+
+There are multiple types of Shiny grids: fluid, fixed, and fillable.
+The fluid grid system is recommended for most applications and is the default for Shiny functions like `ui.page_navbar()` and `ui.page_sidebar()`.
+So far, all the examples on this page have used the fluid grid system.
+
+Each grid system uses a flexibly sub-dividable 12-column grid for layout.
+They differ in how they interact with the viewer's browser window:
+
+-   The fluid system always occupies the full width of the web page and re-sizes its components dynamically as the size of the page changes.
+
+-   The fixed system occupies a fixed width of 940 pixels by default and may assume other widths when Bootstrap's responsive layout kicks in (e.g., when on a tablet).
+
+-   The fillable system always occupies the full width *and height* of the web page and re-sizes its components dynamically as the size of the page changes.
+
+!["Differences between the three systems"](/images/page-control.png){.pt-4}
+
+### Fluid Grid System
+
+```python
+
+shinylive_app_preview("app-page-fluid-core.py", viewer_height=500, div_attrs=".p-0")
+express_core_preview("app-page-fluid-express.py", "app-page-fluid-core.py")
+```
+
+To make a fluid grid that adapts to the width of the user's viewing window, build your app UI with [ui.page_fluid](https://shiny.posit.co/py/api/ui.page_fluid.html).
+
+### Fixed Grid System
+
+```python
+
+shinylive_app_preview("app-page-fixed-core.py", viewer_height=500, div_attrs=".p-0")
+express_core_preview("app-page-fixed-express.py", "app-page-fixed-core.py")
+```
+
+To make a fixed grid that maintains a constant maximum width, build your app UI with [ui.page_fluid](https://shiny.posit.co/py/api/ui.page_fluid.html).
+
+The fixed grid system maintains a fixed page width of 940 pixels by default.
+If Bootstrap responsive features are enabled (they are by default in Shiny) then the grid will also adapt to be 724px or 1170px wide depending on your viewport (e.g., when on a tablet).
+The fixed system does this by using Bootstrap `.container`s, whereas the fluid system uses Bootstrap `.container-fluid`s.
+Learn more about the difference [here](https://getbootstrap.com/docs/5.3/layout/containers/#how-they-work).
+
+The main benefit of a fixed grid is that it provides stronger guarantees about how users will see the various elements of your UI laid out (because it's not being dynamically laid out according to the width of the browser).
+The main drawback is that a fixed grid is more complex to work with.
+In general, we recommend using a fluid grid unless you absolutely require the lower level layout control afforded by a fixed grid.
+
+### Fillable Grid System
+
+```python
+
+shinylive_app_preview("app-fillable-core.py", viewer_height=425, div_attrs=".p-0")
+express_core_preview("app-fillable-express.py", "app-fillable-core.py")
+```
+
+To make a fixed grid that maintains a constant maximum width, build your app UI with [ui.page_fillable](https://shiny.posit.co/py/api/ui.page_fillable.html).
+
+`ui.page_fluid()` and `ui.page_fixed()` create web pages that are laid out from the top down, leaving whitespace at the bottom if the page content's height is smaller than the browser window, and scrolling if the content is larger than the window.
+
+`ui.page_fillable()` is designed to latch the document body's size to the size of the window.
+This makes it possible to fill it with content that also scales to the size of the window.
+
+For example, `ui.page_fluid(ui.output_plot("plot", height="100%"))` will not work as expected.
+The plot element's effective height will be 0 because the plot's containing elements (`` and ``) have automatic height.
+They determine their own height based on the height of their contained elements.
+However, `ui.page_fillable(ui.output_plot("plot", height="100%"))` will work as expected because `ui.page_fillable()` fixes the `` height at 100% of the window height.
+
+Note that `ui.page_fillable(ui.output_plot("plot"))` may not cause the plot to fill the page.
+Like most Shiny output widgets, `ui.output_plot()`'s default height is a fixed number of pixels.
+You must explicitly set `height="100%"` if you want a plot (or htmlwidget, say) to fill its container.
+
+One must be careful what layouts/panels/elements come between the `ui.page_fillable()` and the plots/widgets.
+Any container that has an automatic height will cause children with `height="100%"` to misbehave.
+Stick to functions that are designed for fill layouts, such as the ones in the Shiny package.
+
+---
+
 ## Get Started
 
 ### Welcome
