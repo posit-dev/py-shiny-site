@@ -1,0 +1,168 @@
+---
+title: Toolbar
+sidebar: components
+appPreview:
+  file: components/layout/toolbar/app-preview.py
+  static: true
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/layout/toolbar/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4scAB7oGcbr36DhfCOgCuFIvogATOAyIX28+QHd2FFchdZiUAx2ABR0FgA24RLE+tQAvAAqDBZwAJSI8shZyJ7evuz+gXZiKnBQDgzB6ZnZtbJgABJlFfU1tVm5Pn4UpKThAEaBwVDh7NIQcfUMYyoU9dUQ7Uv5WD19gwxi6pYUYv1WPRDBbctL7HaTaMQU7OQAjPUEJ6e14VD9cOGXAEpwjAYqR7PF5ZTjkOJgiASGTHNAMJjubgAWiYFCgVHmT0WIOQqWBS26vQGgTEdnYknOjiq+PahPWJO2Vgknzg12O2Jx2XOl1I6Bu5G4QI5nOQbw+X3qADF2OEqAwhSLssQVKROAY4sB6gBBABCAGFHsh6nqACIAUUN9TNkoA4vUALpYzl4iAnAACtgqqx0c2FDjoyDWxM23DRFAs3CqGWFtX04YYizo9R1B3IyGIo2IAGtuCgQIyKFgoNdbhA7lUAL5EADKLOucDseYLWF5-J4ldaEEIqAouHQCBQYCo2goYAr9qAA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIg2oATOAyIBXdvPkZ0Yq8gC8yKzijS4YuuwAecYwAKeWRQ13YsYigGIJCw+LcomLEVOChTBmCIeJyw2TAACTSM-II43ISIilJSABsAI2isipbwrGq6xoYxdXQLCjF6-uqIZtbx9mMnfKhiCnZyAEZS8vGK2qh6uFrpsAAlOEY4VRXstZbOcidLiAkZYLQGJgB3bgBaJgooKnyASjKzudQv9Vuc3B0GtExMZ2JJJmZAiDAUDwTVId1ev0JNs4HMxkCcpNdqR0PNyNxTgTchstjt8gAxdi1KgMSlU+LEFSkTjHJzAfK6ABCAGFSsh8sKACIAUTF+Wl9IA4vkALoA9lI9lQWrsaQQXYMXUqChs8aairm3KJaLGQakYy4fGtNykfp9AZUXwUB4QroSL4UCwUsCWnKh+J0Cy1WoSYhGahOAAqDAscHVYV+8kzEBsEFMdGUZkkCMxFCIroo7qI3GO3AWEF+iFWAAEjHmzO04F7VvnkL6odwA0HEU3kfEjIGGNk6PlBcNyMhiDriABrbgoEClrCzMkQRaIgC+RAAyji5gEN1uSbvuIf8rnbJhnMh9OhAnYHOxq0WzNnCKgKFwdAEBQMBPQoMADxVIA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.toolbar
+    href: https://shiny.posit.co/py/api/ui.toolbar.html
+    signature: ui.toolbar(*args, align="right", gap=None, width=None)
+  - title: ui.toolbar_input_button
+    href: https://shiny.posit.co/py/api/ui.toolbar_input_button.html
+    signature: ui.toolbar_input_button(id, label, *, icon=None, show_label=MISSING,
+      tooltip=MISSING, disabled=False, border=False, **kwargs)
+  - title: ui.toolbar_input_select
+    href: https://shiny.posit.co/py/api/ui.toolbar_input_select.html
+    signature: ui.toolbar_input_select(id, label, choices, *, selected=None, icon=None,
+      show_label=False, tooltip=MISSING, **kwargs)
+  - title: ui.toolbar_divider
+    href: https://shiny.posit.co/py/api/ui.toolbar_divider.html
+    signature: ui.toolbar_divider(width=None, gap=None)
+  - title: ui.toolbar_spacer
+    href: https://shiny.posit.co/py/api/ui.toolbar_spacer.html
+    signature: ui.toolbar_spacer()
+- id: variation-with-spacer
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/layout/toolbar/
+  contents:
+  - title: Toolbar with spacer
+    description: Use `toolbar_spacer()` to push elements to opposite ends of the toolbar.
+    apps:
+    - title: Preview
+      file: app-variation-with-spacer-preview.py
+      height: 250
+    - title: Express
+      file: app-variation-with-spacer-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4scAB7oGcbr36DhyAK7t58gO7sKK8+yzEoDACYAKOmYA2PicT61AC8ACoMZnAAlIjyyPHItvaOzq5uYipwUG5wDB4xcQlFSQ4WWBSkpD4ARq4eUD7s0hDBsmA+cHQUbUS2bvatYACMAAwjAKRtBRBFswllFVW1DGLq6GYUYtUbFRAehXOHfG6DHV09B0ezPlDVcD6DADKd3YSXVwmc5MFfEBIy+zQDCY1gAtGdXlECO9DlEYXMFpUaq5VhB1ptthRdvsZh9ZuwTm0GE0VK9obi8QkbncHm0AEoksnwq6-H7iKTSQGuEGg4nSUlTcmUuEUq6IpYotYbLY7cg4ylFAmDfSMAwqC6iynU+6DOmdfSqDUKz5cNnkf6ctrc0jWbi80gUKBUQXMooiyni5ErbjoKDEXL5V3zJyLL2o9EyrFyoNzJVtHQmJmavHa2lgACiuiESeN8VZvwtgLcNogPlI2Rdybm7rxnuW4elmOxMfxhLA3CgkjgRtzqcGAGVO923lWWaaCxzAXQy5hcKC3OxuABrSvCqyisroQGhJHLZS+-0MZDrVQGZBN8i8CrIUiYUjcOxwZDUNzcLBTeSEVAUXDoBAoMAqG0CgwAAXwAXSAA
+    - title: Core
+      file: app-variation-with-spacer-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIgFd28+RnRjjyALzJjOKNLhi67AB5wAJgAp5yf3bsWMRQDD5+AZH2IWFiKnBQnnAMvhCR6QH2FKSkADYARqGpGSWZQdl5hQxi6uiGFGL59dkQxaXt-uye1rJguXB0FL0EER2luVD5cLk9YAAyA0OEo2MZnOTW6xASMr5oDEwA7gC0-YO9AJQjaasBVyurWTkFoTUQdQ1NFC1tt+ldswY7GkKiW1z+GQmUxmvQASsDQcMHhCtptxFJpHtQkdjkCQUt7jc-oSIYEsBUXtVavVGs1yL9SXxur0GANWaokUTGVDprNYWy4BzllzSaitjtMb1saRDtxcaQKFAqJdwRCSRCnpVXtx0FBiMlvOq-prKW8PrTvvTkX8Ab04G5BMJOYyAjyYWAAKIOnTOl2iDbijF7TwyiC5UiJFXW9pG24mqpmmlfH7R1a2sDcKCSOC+l1u2YAZSzOeFfv9EDR5Alezo4cwuGOnnY3AA1lGRWNY6soLlgRXemcwamSocuhQVLMAIwABmnAFJczHVRku2VgqFPI1SJ5cAzSvZ0HsACrPKrKXX6hjIOqqQXIZPkXjZZCkTCkbjsKjIaiebhYdulKu-h0IYuS5BIxCstQ1hHgwhhwMuyAXPIyEQKYEBJHQyjJNmKTUhQRCkPUHxENwgofuQFyICsurcNw6FmJgNjIPoh7mJY7CkThySoYQqAULg6AICgYBUG4FBgAAvgAukAA
+- id: variation-input-label
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/layout/toolbar/
+  contents:
+  - title: Toolbar in input label
+    description: Use toolbar as the label for `input_text_area()` or `input_numeric()`
+      to add formatting or action buttons directly in the input label.
+    apps:
+    - title: Preview
+      file: app-variation-input-label-preview.py
+      height: 350
+    - title: Express
+      file: app-variation-input-label-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4scAB7oGcbr36DhfCOgCuFIvogATOAyIX28+QHd2FFchdZiUAx2ABR0FgA24RLE+tQAvAAqDBZwAJSI8shZvuz+gXZiKnBQDgzBsmAJOiIAonZeQsie3sgAYkIwUBQU6tLICaSk4QBGgRWpbhDZTV4+fvWSwcThUIZicRV2ALR04Tqse9pbZOEWMFNQ4ezSEFtecDDcx9RUDBVE3BS4extgnUeeOzeFAANgADGD0NoANzIToMaTqFBg5BQKykaHjDJTabZPzqSwUMRUbREwLFco43G4ipcKiUd6Zam4lbDODhOJ+CiDEaBSnMgU5LDcoajBhiAlWMTDKzciD8wWKirDIZ2RlUxXM1ns34AIVV6s1gs45DiJogEhk5TAKvCarAqQITKNWUdzpdXJ5Yol5ilMu65AVLppYC8l04huDLKgbI5FQAkhRw8RI1HsuazeIpNJrWGrimHU6NUa3cXNZ7RYEfYTpbLA+607TSA5U2nkNq42AAMLNuCttMZ82WnNNluFhua0tp8M3X4Ma4qCj95lTzXoFbEOAqVWOX4JXDoODIXCkCwMZB0l7IIr6LB35fUpjubhxAAcRYFEwgE6yAAFbKUwrVD+yAOHQrAdF0PQQNIEhJhQFjcME6QgdM+gIQwUx0BU+p2igICShQWC2iEqQAL7IAAPsgibJvhhFYHmnDIRR1E9g49G+kRZAOCxFTyIQqBfIetBgCSFBgGRAC6QA
+    - title: Core
+      file: app-variation-input-label-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIg2oATOAyIBXdvPkZ0Yq8gC8yKzijS4YuuwAecYwAKeWRQ13YsYigGIJCw+LcomLEVOChTBmCwABU4XxEAUWN2CiFkAHcSlWQAMSEYKAoKdWlkbNJSABsAI2jZMABKAjj40MTo4zFu0mNcYIhRxfCsYsl5pY3l9XQLCjEqfLFotPXNs-6uKkp+4YWzzc6obrhOpzdSrt7Mkfuz946etExNtdlNdqUIKdftDkP1pp1jDcfjCzo9nq9+gAhLqIwjIlEbTjkJxEiASGRZeG4ob4gmhGl3Omjf6fIEgvbdcHkKFMpb9EpQTqcJGM3mLNEvJz9ACSFEFwrxorF8VJJPEUmkWQFQuI-QZyrC+oNyw+gIYwIgOw5XMhtOVFxmcBFxtGEoxYAAwo7nS6wqrSeTNQ7THrbi6jQb5dIIFKwAx2NIVBQfUyI3T0I9iHAVDizLHsrh0HBkLhSBYGMhLtQRKkjFh6ym6UxytwnAAOMMotO-NxlihW-Z5ChZOj1RrNCDSCRyigWbihu0bYiPbjcMSx4wAWjonTyrF3vk3ZE6FhgCyjEE3JTgMG4R+rZkbv24FFwu9jDUPlWMFBUKAAbAADIB6C+AA3MgDQMNI6goIByBQLspBgU+SzdoanaLHQFidJ0EjEEY1BONkDAWHAmHIAM8hURANgQKYdDKGYkhmIE7JEH2VpENwcCruw5ADIgPwAAJGPRZhYAcyaigxrBjk0LTTo0c6BIJdpGLODALHQWI4igIDslgVKqQAvsgAA+yCyvKxD6YZ2qcKZFnIF6ph2ZauyRI6pn9HRtiYM4yD6OggR2A47DccxZg0YQqCvkWtBgFJYAmQAukAA
+- id: variation-info-tooltip
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/layout/toolbar/
+  contents:
+  - title: Info tooltip on input label
+    description: Use `toolbar_input_button()` with a `tooltip` string to add an informational
+      icon next to an input label. The button requires no server handler.
+    apps:
+    - title: Preview
+      file: app-variation-info-tooltip-preview.py
+      height: 350
+    - title: Express
+      file: app-variation-info-tooltip-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4scAB7oGcbr36DhyAK7t58gO7sKK8+yzEoDACYAKAJSJ5yf47Orm5iKnBQbnAMHrJgACJQFFDIAMpwFBTq0tyxXn4BFljq6GYUEgA27JHR+QEBsfb6qqTlbrEEtXXI5VAARnDlALyFFKQtva4xEF0zgaPjrmLFpWK9paMQU7PbyA0qTSotIep0pO2dOwE9-UOxAIK9pKXI9uy83OmZEHKEF5ei5EGnHIEhkMTAxHYDGI5TgAFoTmcwF4OtN-nV5uVMuhBrEUkkIG5gshIpJ2Il2OReIoWPY4Mh4FBpv1TvpkMlJFBymZ6W9WD1pNI4G52bwmcgnhRKlEsOc0ZcUX8ZrEAPKlaUMF77AyHVpy9Fc9jSCC4sCwugUfWzRXyrowdSDACMqO2MCg2kGAFYXbNOdy4IMAEw+mbcKg4gAMWG9nTytsKyzKEDM8AYnC2s1i3Fg6FhEnYAC84FaZtcBsMnJiJjVbdsRmNytWlhASmU1hlyBn0f4szm84iS92y7cwA9JVq+R8MllB+jgSb56DpODIdDYQiFEibd2ApjsaaAHIp-qa0h0CW9D4MTmZKkvUgkhhQaysJi0sIkxJQKesITIcLEA4TJcrg3B8gwZgQLKvy1taIY7Hifb0mBRazrMhrGqa5qWjB2zbr6XI8k6EYRvBdT2iajqkUqDLusRJFkQEYZwDiVHwV4hCoBQuDoAgKBgFQ2gUGAAC+AC6QA
+    - title: Core
+      file: app-variation-info-tooltip-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIgFd28+RnRjjyALzJjOKNLhi6AG2MATABTzkfu+xYxFAM3r7+EfbBoWIqcFAecAw+YAAiUBRQyADKcBQU6tLcsmAAlAThEX5RIR5iAEakHrg+EFXtAVjq6IYUEq7sicmVHe0lFCoMcKqkrh4lFW2jHa5Q9XCu1vYUpLP1Ia3LR507eyFi3b0NvTsQh8cP45PTKrN16nSkCyMPo6vrmxKukavWQE3YvG4eQKEDkhB+v3anHI1mREAkMhSxHYDGIrjgAFoPl8yotEUdTq4CuhrCVspkIB5ashEpJ2Bl2OReIoWBM4Mh4FA2utPlNkFlJFB3PyIaxVtInB5xbwhchSL0BkksN8luT-OUEYiSgB5DXsJJg54zOY6vURKXsaQQWlgfF0Ci28kG3W-GDqawARjJ5JgUAAHtYAKzBxGS6XWABMMd+3CoNIADFho4aqt6HvZLn0IIZ4AxOPcjWBuLB0PiJOwAF5wT2I-4bLaBSn7YY+vXbXaubsXCA9Pr1G7kCt2iIlasCOvElvT-xtwFgYHqkTgyHQwpL5eiFFojHSLE4vGExeknN6ynUl0AORL6wYaroavqUIYkoKXLBpBZBgoAAd1YJheTiFkMigKERFFZB4mIFRxWgVxcG4WUGEMCBtXhXsvWTPU6RrfFlEbZs8IPB0nRdN0PUogibw6ONDDgQN03TQjjj9Z0A04pj2lDCM+I4rijlTOAaT4sTcxkvN9XkUpTAgeREnfL9JCSLxCyITdRyIKFuAw8hSkQEZ0Bg4oVOs8wbGQfR0C8cxLHYAykk0hhSkIVAKFwdAEBQMAqDDCgwAAXwAXSAA
+- id: variation-submit-textarea
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/layout/toolbar/
+  contents:
+  - title: Toolbar in submit textarea
+    description: Add a `toolbar` parameter to `input_submit_textarea()` to include
+      toolbar inputs in the `textarea`'s submit area.
+    apps:
+    - title: Preview
+      file: app-variation-submit-textarea-preview.py
+      height: 600
+    - title: Express
+      file: app-variation-submit-textarea-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSIZwoxCu0lx5ilqvW4scAB7o93Xv0HC+EdAFcKRPRAAmcAxEnuzy8qE4UNJwYqToFNwAFHTsADZpUABGaXAAvABiUGnccACU4RDwTtFwvHnIegZGJliSxZ5wScAAuhUQ8gDu7BQqyJHEUAz+KZ4ZEsR61HkAKgydRCpw7NIqFHmyYABMAKwADOi2h2WI8sj34+xYk9NiW1CBDEmHALJ13LVkABhZiCUoMa53B7DUaPZ5TfxiLKkfy4JI3KEPB6RdReCgSTxZGAjMRUWwUKb6b4QLG0h6HaoAmKHAiYukPTJZOBpA5gP41ZmENns5DoTLEOAqUhpT68kHaUrIXCkTwMZCM2pYLUs4XspiDbh5AAsrJpIoeFFI0qyUzykUt1qm1PN7PtVrSNoYYlx3gk3LghmdLvNhwc7CEI1wOrNwfZnO5vIACgxwymKFGhTHY7TiFLOHU8sBDgAZUiDFnIX5wfzsTwwCuHAASOxUhx6puz7NKuUM1d5fxrdejnbpnHIeTHEAkMm+YDomTkYDKHZHy91Lrdjq9Nck7E+6JXnc3Hqm3o8vqy3ktECDI-paAoFNzw7vHOyCcOAEFHwZW5nXw8k4TuIUjSLO6AYEExBpOw6DXIe2ZrlmsbFDsEC8imuwUC+LpISK-RDCMYwTAiszzNwixwMsawbMgWwtvshynBcVxLrcWYka87z7ocADK1AiPyTJ1JCAxZjCxFPC8iLIqi6LsSKAACfifFgoTrsggR0Oq-y1NwcTeHi8kaViMDcNIYgwdwIgNBqMTcFgMQUOiJmAdpECkCIZkWVZFAKSOegUKqNKROgs4AHKkDpAp1MoAlKnAFBYBW1m4LkvJkGkQgoAAxAAHAVADcomufcgXBXCO63tmABURbISOoXVQB9x0IcoDecAADkYYRumXU9AAvj0yAgJ1XVkhQA2DThLX3Kl6UMlM0jqCgRqXMgZzFf+LX9HNdBCOq5nuI0cAmAwpQzN5lnsNZe0jj0pXIARYnKfohjGHANh0HQAbYRAb3NJ9NgmJQSQ+kldnlPIWnIGIxlZlDpJ2DZ7h4lgUMuVm7DaUjk3IFAATRcJyPklg1kpmFGINfcxCqn4+JQ-UyC+UkTOOYl6L3XSdMMAzYjsxg6DUDMT0gIck2HCgeMo0QoYpn1GYoBDOAK2maJlDNNPPRp7OlM5vP80z-SEKg6bC7QYCTWAw1AA
+    - title: Core
+      file: app-variation-submit-textarea-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIgzhRiFdpLiHqAEzgMiAV3bz5GdGKfIAvMic4o0nBidOwAHnDWABTyyLG+7FjEUAxRMXHpfkkpYirGtgzRYACycNzcAXDIAMLMgtx2smAAlARp6bGZydZiAEak1rjREO0j8Vjq6A4UEg49MOzTVKEUycZDoxvIjfBlFY2tw5sjADZQPXDHXo0lu4H7bUdx6KfEcCqkx-lXYDXa9ci4UgOBjIHblQJYSH3Q6POJMADu3C8ABYDrD0hRSB8eskvH5Mdjkut0SN8VjjjiGGIJlMJBc4KZiSSNo10Ax2EIFrhoczNqdzpdGgAFdmcijcwgPXnpYjvTilLzARoAGVI8P2W2KEXYDhgGsaAAl2NIVI0ALpo6UjerHBlUazfErWHV6yUwq1xTjkLxeiASGSFOinOTNS1WlpS5lkwlU52Sdj5SIR9286MU5LUiCTaY9KaYiBMj2xRpQCgrWU8otxfkXb66MsmU1uquerg+8RSaSFdAYOzEY7sdCNZNFkceqAD6QQb7sk0USsksdHJftFfpOgOY7HCTEIzULwAFQYDkskdiuWNKgo3wATABWAAM6FCC+QK86KULGQSWW6uSgiaNAAytQIg3OCpTDmG7Qft0fQDF+ox+ECFDZh47CFGCFTcGIKHZlBZ5vtB66btu3C7nA+5HiexFxBec63o+z6vsmTQuBA8i2HQyh2BYBQ0hQRB4VMRD1GUHIQE0iAPFhgS8D4RgmGYFhYJIE4npEwBmmxHHugAAkYED5FgTgPFxoKlBBOHCRQSbSSmcQwNw0hiAO3AiD4smlFggS2TpGzsNxECkCITkuW5FD2bCRgUMCwx+OghQAHKkBZtylDxlAAnAFBYBq7m4La3xkMcQgoAAxAAHNVADcw7sRsMVxWMcaISMABUSoOUcCVteidCNKAYXAAA5GyHLsuKI1mgAvmayAgMNI1LBQ00za+vIFUV2zJNI6goMiz7IA+dXNsy-nMnQQigs5fDDEYfH1FEYWuew7kXUcZqETpDwGcYpjmHAWBwHQdB2r9ikAypcAWJQkQCVgXkfcg5liHZhFeWIK3eHd2aI5ZFRJoRgVpRBWNwMsyBQEZpMVOTyxYO57KJVJhEysChnTF58nIBFkTcz5OVJsjGzEBzoFiALbg2H1GwgI0K2NCgmMrUQrKipNEooAj41ioMTTrd1q5s45BNyYzQtiwwnOS2bpQ-bpbg4-oiVuOhom8XYOmEKg4roAgKBgCtYBzUAA
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A toolbar is a container for buttons, select inputs, and other UI elements in a compact form suitable for card headers, footers, and constrained spaces.
+
+To make a toolbar:
+
+  1. Create a toolbar with `ui.toolbar()`, typically within [`ui.card_header()`](../cards/index.qmd) or [`ui.card_footer()`](../cards/index.qmd), or within an input component as seen in the examples below.
+
+  2. Add toolbar elements inside, such as [`ui.toolbar_input_button()`](../../inputs/toolbar-button/index.qmd) and [`ui.toolbar_input_select()`](../../inputs/toolbar-select/index.qmd). Use [`ui.toolbar_divider()`](https://shiny.posit.co/py/api/ui.toolbar_divider.html) to add visual separators and [`ui.toolbar_spacer()`](https://shiny.posit.co/py/api/ui.toolbar_spacer.html) to create flexible space that pushes subsequent elements to the opposite end.
+
+### Toolbar alignment and width
+
+By default, toolbars align to the right side of the container. Set `align="left"` to position the toolbar at the start of a card header or footer instead.
+
+Set `width="100%"` on the toolbar to make it expand to fill available space. This is required for `ui.toolbar_spacer()` to push elements effectively and is automatically set when the toolbar is a direct child of a label element.
+
+### Toolbar elements
+
+Toolbars can contain:
+
+- **Buttons**: Use [`ui.toolbar_input_button()`](../../inputs/toolbar-button/index.qmd) for action buttons. When an icon is provided, the label is hidden by default but available to screen readers and tooltips.
+- **Selects**: Use [`ui.toolbar_input_select()`](../../inputs/toolbar-select/index.qmd) for dropdown selections. Labels are visually hidden by default but available to screen readers.
+- **Dividers**: Use [`ui.toolbar_divider()`](https://shiny.posit.co/py/api/ui.toolbar_divider.html) to add visual separator lines between groups of elements.
+- **Spacers**: Use [`ui.toolbar_spacer()`](https://shiny.posit.co/py/api/ui.toolbar_spacer.html) to create flexible space that pushes subsequent elements to the opposite end of the toolbar.
+
+:::{#variation-with-spacer}
+:::
+
+### Toolbar in input components
+
+You can use toolbars in the label of input components to provide additional information or action buttons integrated directly in the component.
+
+:::{#variation-info-tooltip}
+:::
+
+
+:::{#variation-input-label}
+:::
+
+
+:::{#variation-submit-textarea}
+:::
+
+### Accessibility
+
+All toolbar inputs support full keyboard navigation and screen reader accessibility. Always provide meaningful labels for toolbar buttons and selects, even when using icon-only displays.
+
+See Also: [Toolbar Button](../../inputs/toolbar-button/index.qmd) | [Toolbar Select](../../inputs/toolbar-select/index.qmd) | [Card](../cards/index.qmd)

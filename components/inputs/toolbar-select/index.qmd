@@ -1,0 +1,108 @@
+---
+title: Toolbar Select
+sidebar: components
+appPreview:
+  file: components/inputs/toolbar-select/app-preview.py
+  static: true
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/toolbar-select/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4scAB7oGcbr36DhfCOgCuFIvogATOAyIX28+QHd2FFchdZiUAx2ABR0FgA24RLE+tQAvAAqDBZwAJSI8shZyJ7evuz+gXZiKnBQDgzB6ZnZtbJgACJQFFDIAGrscO71NbVZuT5+FKSk4QBGgcFQ4ezSEHH1DLMqFPXVEH2b+VjDoxMMYuqWFBJw4XDEFMG9W5vsdgtgkp3uYjCkDvUEN7e14VBjM6PDpdZAAWQ+cC+P1+WWIKlInAMcWA9QSAPOX2Q9QAwipAqtCNiwGCMPUALrfDawvqcchxOkQCQya5gOC4KFgVJUml9VSkV7-QHhRLJOA8mmpGGbIYjcaBQ7mKync6Xa7U3lZe6POjscJUBjQjWaoVA+oAMT1BqNmuy8MRxGRqLAAEFIlj6i7LuxJJyiJ6GPCfXA7BSJbbGQzxFJpKzdfrHGtw78pRAbgABWwVHY6VbGhx0ZRnC5UYrPLpVDLG2r6CgWBgbOj1EHucGQlAgI5WLDl17vBxVAC+REtCYYHa7FCw8YNQ56ECJYAouHQCBQS9zYEH5KAA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIg2oATOAyIBXdvPkZ0Yq8gC8yKzijS4YuuwAecYwAKeWRQ13YsYigGIJCw+LcomLEVOChTBmCIeJyw2TAAESgKKGQANXY4AHd8gjjchIiKUlIAGwAjaKyGnvCsZrbOhjF1dAsKCThWuGIKbt6F9mMnfMlKqrEYUlNa+oWG1qh2qZWwCurkAFltuF3s-Z7iFVJOOG4nYHyAFSPp2uR8gBhFTRCj-fKXDD5AC6dXuD1ynHITiREAkMmCYDguFuYAAlHCEQ1VKQNodjq0nF8GBY4ISicgCXsHm4Bh1oiMIGMJtwpjM5syGUtTj5WlQGHcGTlySd8gAxdhisySqVhJ4vYhvD75XStVrgsC6WbsSS4og6hhPE0BGH01WiZGo9HSTGi8X5JnwhGeqVQVrsaQQU4MAMqMGEQW5H0NaO5RLRYxidrbXDzBZuUjjbliKi+AVgXnTWYBMRraoeu05WM5OgWPUSYhGahUml0vZ4+QdiA2CCmOjKMymzKjcZETMUblEXncbjsch4xB7AACRl7Zn6cDzez7A6LVETZaqgQXkeQRgoFgY2To+XOVSuNxQIBHFCwh82N2PAF8iAqlQwnxfLA3TMb98h7WxMGcZB9HQQI7Acdgp0HMwu0IVAKFwdAEBQMBcwoMAv2hIA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.toolbar_input_select
+    href: https://shiny.posit.co/py/api/ui.toolbar_input_select.html
+    signature: ui.toolbar_input_select(id, label, choices, *, selected=None, icon=None,
+      show_label=False, tooltip=MISSING, **kwargs)
+  - title: ui.update_toolbar_input_select
+    href: https://shiny.posit.co/py/api/ui.update_toolbar_input_select.html
+    signature: ui.update_toolbar_input_select(id, *, label=None, show_label=None,
+      choices=None, selected=None, icon=None, session=None)
+  - title: ui.toolbar
+    href: https://shiny.posit.co/py/api/ui.toolbar.html
+    signature: ui.toolbar(*args, align="right", gap=None, width=None)
+- id: variations-updating
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/inputs/toolbar-select/
+  contents:
+    apps:
+    - title: Preview
+      file: app-variation-updating-preview.py
+      height: 400
+    - title: Express
+      file: app-variation-updating-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSIZwoxCu0lx5ilqvW4scAB7o93Xv0HC+EdAFcKRPRAAmcAxEnuzy8gDu7BQqyKFYxFAM-gAUdJ4ANhkSxHrUALwAKgyecACUiPLI1chRMXHsCUn+Yir6gQwpFVU1vbJgACJQFFDIQ6oARqTN-T291XWx8RSkpBkTSSlQGezSEPn9DLsqFP3dEPOXDVgraxsMYupeFBJwGXCGKXNXl+z+B2BJOw4BExDBSIF+gRvj9ehkoBM3gCAGrAiLIACyENMhBhsOqxBUpE4cG4+WA-UKCPeUOQ-QAwiokqdCHSwBiMP0ALrQi74+accj5QUQCQyL5gOC4HFlXn85BlcJ86rxJ7eMQGIzkMQTbwrCASqD+FqkdBaiC0-oAQWNyAA5ABxI7+O3IADyZvY5DO31VHnVmq9ot1FH1EsJUAg0jgr3ehiDlrAAGU3h8RIzmT7ldc1S9A9qQ2H+itpNJ3mJ4YiMonCqRS+9kEmieiADIIt5Z74AAT8HRudlO2cCdGUqcMcBaQJBXUq2d6egongYFzoDKXfgoGU0U6iUZQIFzWB3YOxXQAvrMLVee-p4yYbHQ6Gn5DfA-e4CZKClD0aTZ7yIqARwCOYgzt8ADEyA2v4yCjBAILIISxLEHAyArGhbSjnGg69PEnjoP4wwxrc6xJI8-ovNwY4UF8c41P0x7gpCuJ0QSRIkmSFJgFSEw0qyDJMsIiYcugiZOn83JylclZIv0qIIVigTICkACqBFEf4iosb0gFKq+d5wA+T6GC+ehvoZH7UDRh4RlGMZUdhQaAcOyCgecvSQRmdkYahDlphOyCSNspS+o0+GEVQYgkfc5HPLGaa0T8DFoiezFSZcfnjv8AmZtpNS6deZkGUZz4QPpRjvp+1kUTcdZljGMkZM5wGuWB2aQbW9a+c2FbthkaGkMg-jsNw6DwpoUz1CKsEBMgjXfMQ65WWIxA7MQADWyD5O4zy1V1vVVl0oVYOFRFRaspEPLm8WfHi1TJSCqU4ul8yqKQoKNfki0MBuK1rZtACkyAAExbdtACML2AayYAULg6AICgsMDmAZ5ckAA
+    - title: Core
+      file: app-variation-updating-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIgzhRiFdpLiHqAEzgMiAV3bz5GdGKfIAvMic4o0nBidOwAHnDWABTyyLG+7FjEUAxRMXHpfkkpYirGtgzREOnFcbJgACJQFFDIlaoARqTJ1mUEaSUZCRSkpAA29cmFHcPxWN19Awxi6ugOFBJwvXCmQyNr7NZeZZLscADuYjCktq3tax29UPWLW2AAart7yACyx3CnRefDxCqknHDcLzAMoAFSuS1ayDKAGEVMkKJCys8MGUALptT5fEqccheHEQCQyaJgOC4d5gACUGKxcSpZy+UF67GkEFuDGZKgRhHpHTpmOKfOGmWaYka1lwqzWfhmczEJjM5FFc26EGJUGs1jEpHQCogiLAug1yAA5ABxdnWY3IADyOvY5DKgvO0ogs3m8vtBPqyvIxJ+UAggQWS1Mnv1AGVFssRLD4Y7qc6EjL3aHFd6KCrid1pNIlmJLtdevqQaQc0tkOHfk8ADJXRbxnklPykOZusRUUIUYncKOmCJiHb7Bv89JOkp0By9XoSYhGaheEEMByWM4U+RrvWb2x0ZR2CwFZNEFsUN1EHvcbieimIM4AASMHosWDgdDo0bvD9DT7gFkokWTWDqpq2q6hu6TbsgYiRNejbIAAxMghrWMgNQQPsyA-H8xBwMg3S4bku4hgiI5xH4DjoNYVRBOM-TJNMrqyj2RGSiM2yPIcbwfF8mH-ICwJgGC9QQoQUJgLGwj6si6D6uaGxogmawFjcZQPOhry2MgkQAKoUVR1hrtyJGxBuH7GF+cDPq+778veZlmN+v5dgB-qBkETHRleZwQVBMFGfByCxq5+E4e5fbIZIjLLrBZG6VQ7Y9LRUzJsG0YscMbH7BxJyGV8oVUJsMJwhJOW8i4NmfvZFkvm+pimY+VWOf+DEUGMpa5kESm9GBcTedBN5+QhJZliFVb5nWvS4aQyDWOw3DoJcmiNBQKiiOQKEQMhnWwcQDgMEYlBiMQTLEAA1t4fDNa1w1jYW0HRQk5GUXFNGTPRbZ5WlHQZQcRzZQpIyqKQBydV4O17dQ8xHZwZ0AKTIAATN4PgAIz-aOZXpLZG12GMcCdl5L6EdG-aDnsfWwUYFC7UUdAwrt+0UL0mik+o0goCAAGk1lcDQQAvmUZWuJg536OgkRuB47BnnudgbiJYAULg6AICgCt4xQYC86iQA
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A toolbar select is a compact select input designed for use in toolbars within card headers, footers, and other constrained spaces.
+
+To add a toolbar select to your app:
+
+1. Add [`ui.toolbar()`](https://shiny.posit.co/py/api/ui.toolbar.html) to create a toolbar container, typically within [`ui.card_header()`](https://shiny.posit.co/py/api/ui.card_header.html) or another compact location.
+2. Inside the toolbar, add [`ui.toolbar_input_select()`](https://shiny.posit.co/py/api/ui.toolbar_input_select.html) with an `id`, `label`, and `choices`.
+3. Optionally set `selected` to specify which choice is initially selected (defaults to the first choice if not specified).
+4. Optionally add an `icon` parameter. When an icon is provided without `show_label=True`, only the icon is visible and a tooltip with the label text appears on hover.
+
+The value of a toolbar select is accessible as a reactive value. To access the value:
+
+1. Use `input.<select_id>()` (e.g., `input.view_mode()`) to access the currently selected value.
+
+### Select appearance
+
+Toolbar selects are designed to be minimal and space-efficient. By default:
+
+- The label is visually hidden but available to screen readers
+- Use `show_label=True` to make the label visible
+- An optional icon can be displayed alongside the select dropdown
+- A tooltip with the label text appears on hover when the label is hidden
+
+### Choices
+
+The `choices` parameter accepts:
+
+- A list of strings: `["Option 1", "Option 2", "Option 3"]`
+- A dictionary mapping values to labels: `{"val1": "Option 1", "val2": "Option 2"}`
+- A nested dictionary for grouped choices (optgroups): `{"Group 1": {"val1": "Option 1"}, "Group 2": {"val2": "Option 2"}}`
+
+Use `selected` to set the initially selected value. If not specified, the first choice is selected by default.
+
+### Updating selects
+
+Use [`ui.update_toolbar_input_select()`](https://shiny.posit.co/py/api/ui.update_toolbar_input_select.html) to change the select's appearance and options:
+
+- Update the `label`, `icon`, `choices`, `selected` value, or `show_label` state
+- You cannot add/remove a `tooltip` after creation
+- Use [`ui.update_tooltip()`](https://shiny.posit.co/py/api/ui.update_tooltip.html) to update tooltip text
+
+:::{#variations-updating}
+:::
+
+### Accessibility
+
+Always provide a meaningful `label` even when using `show_label=False`. The label is used for screen readers and tooltips, ensuring your app is accessible to all users.
+
+See Also: [Toolbar](../../layout/toolbar/index.qmd) | [Select](../select-single/index.qmd)
