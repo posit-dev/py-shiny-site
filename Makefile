@@ -131,7 +131,6 @@ components-static: $(PYBIN) deps
 components-shinylive-links: $(PYBIN) deps
 	. $(PYBIN)/activate && python components/update-shinylive-links.py
 
-
 ## Remove Quarto website build files
 .PHONY: clean
 clean:
