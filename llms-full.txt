@@ -5,6 +5,26 @@
 
 ## Components
 
+### Shiny Components
+
+Shiny Components
+
+Inputs, outputs and display messages to make your data interactive on every device.
+Add these components to [Shiny Layouts](/layouts/index.qmd) to give your app a navbar, sidebar, cards and more.
+
+  Inputs 
+
+Inputs allow users to interact with the webpage by clicking a button, entering text, selecting an option, and more.
+
+  Outputs 
+
+Outputs create a spot on the webpage to display results from the server, such as text, tables, plots, and more.
+
+  Display Messages 
+
+Provide feedback to your user with notifications, progress bars, and confirmation modals.
+
+---
 
 ### Inputs
 

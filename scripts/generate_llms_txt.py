@@ -237,8 +237,11 @@ class Section:
 def _load_page(root: Path, file_path: str) -> "Page | None":
     """Read a .qmd file and extract its title and content."""
     clean_path = file_path.lstrip("/")
+    # Resolve trailing-slash directory refs to index.qmd
+    if clean_path.endswith("/"):
+        clean_path = clean_path + "index.qmd"
     # Convert .html refs to .qmd for reading
-    if clean_path.endswith(".html"):
+    elif clean_path.endswith(".html"):
         clean_path = clean_path[:-5] + ".qmd"
     full_path = root / clean_path
     if not full_path.exists() or not full_path.is_file():

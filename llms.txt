@@ -5,6 +5,7 @@
 
 ## Components
 
+- [Shiny Components](https://shiny.posit.co/py/components/)
 
 ### Inputs
 
