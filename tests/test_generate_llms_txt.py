@@ -168,9 +168,9 @@ def test_walk_file_entry():
     assert entries == [SidebarEntry(None, "index.qmd")]
 
 
-def test_walk_skips_anchor_links():
+def test_walk_resolves_fragment_hrefs():
     entries = list(walk_sidebar([{"text": "X", "href": "/page.html#section"}]))
-    assert entries == []
+    assert entries == [SidebarEntry(None, "page.html")]
 
 
 def test_walk_nested_sections():
@@ -275,8 +275,8 @@ def test_build_site_structure_discovers_templates(tmp_path):
     assert templates[0].pages[1].title == "Dashboard"
 
 
-def test_build_site_structure_skips_anchor_links(tmp_path):
-    """Sidebar entries with # in href should be skipped."""
+def test_build_site_structure_resolves_fragment_hrefs(tmp_path):
+    """Sidebar entries with # in href should resolve to the parent page (deduplicated)."""
     quarto_yml = tmp_path / "_quarto.yml"
     quarto_yml.write_text(
         """
@@ -290,20 +290,26 @@ website:
           contents:
             - text: "Navbar at Top"
               href: "/layouts/navbars/index.html#navbar-at-top"
+            - text: "Navbar at Bottom"
+              href: "/layouts/navbars/index.html#navbar-at-bottom"
 """
     )
     (tmp_path / "layouts").mkdir()
     (tmp_path / "layouts" / "index.qmd").write_text(
         "---\ntitle: Layouts\n---\nLayout docs."
     )
+    (tmp_path / "layouts" / "navbars").mkdir()
+    (tmp_path / "layouts" / "navbars" / "index.qmd").write_text(
+        "---\ntitle: Navbars\n---\nNavbar docs."
+    )
     sections = build_site_structure(tmp_path)
     layouts = [s for s in sections if s.name == "Layouts"]
     assert len(layouts) == 1
-    # Only the top-level page, not the anchor link
+    # The layouts index page plus the navbars page (deduplicated from two fragment hrefs)
     total_pages = len(layouts[0].pages)
     for sub in layouts[0].subsections:
         total_pages += len(sub.pages)
-    assert total_pages == 1
+    assert total_pages == 2
 
 
 # --- Tests for generate_llms_txt and generate_llms_full_txt ---
