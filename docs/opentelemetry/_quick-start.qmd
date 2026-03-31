@@ -85,7 +85,7 @@ uv run logfire auth
 import logfire
 import os
 
-# Connect your app to the logfire backend so it can receive traces.
+# Connect your app to the logfire backend so it can receive traces
 logfire.configure()
 
 # Import Shiny and set collection level
