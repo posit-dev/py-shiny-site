@@ -11,10 +11,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
-from configure import configure
-
-configure(ai_tracing=True)
-
+import otel_config  # noqa: F401
 import requests
 from chatlas import ChatBedrockAnthropic
 from shiny.express import ui

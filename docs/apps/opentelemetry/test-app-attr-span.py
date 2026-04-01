@@ -2,12 +2,9 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
-from configure import configure
-
-configure()
-
 import time
 
+import otel_config  # noqa: F401
 from opentelemetry import trace
 from shiny import reactive
 from shiny.express import input, render, ui
