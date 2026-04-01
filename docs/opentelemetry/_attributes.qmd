@@ -30,7 +30,7 @@ def complex_analysis():
     return f"Completed {iterations} iterations in 3 seconds"
 ```
 
-![Custom attribute on an automatic span](opentelemetry/images/custom-attr-auto-span.png)
+![Custom attribute on an automatic span](opentelemetry/images/custom_attr_auto_span.png)
 
 
 Using a custom span:
@@ -46,6 +46,6 @@ def complex_analysis():
         span.set_attribute("step", "preprocessing")
         time.sleep(1)
 ```
-![Custom spans and custom attributes](opentelemetry/images/custom-spans-custom-attrs.png)
+![Custom spans and custom attributes](opentelemetry/images/custom_spans_custom_attrs.png)
 
 These attributes can be queried in your observability backend to filter and analyze traces.

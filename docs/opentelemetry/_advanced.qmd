@@ -50,7 +50,7 @@ This example uses `otel.suppress()`, custom spans, and custom attributes.
 ```python
 {{< include apps/opentelemetry/test-app-suppression.py >}}
 ```
-![Custom spans with suppression of automatic Shiny spans](opentelemetry/images/suppressed-traces.png)
+![Custom spans with suppression of automatic Shiny spans](opentelemetry/images/suppressed_traces.png)
 
 :::
 
@@ -109,11 +109,11 @@ Example:
 :::: {layout-ncol=2}
 
 ::: {}
-![Without suppression: Shiny reactive spans appear alongside your custom span](opentelemetry/images/unsuppressed-traces.png)
+![Without suppression: Shiny reactive spans appear alongside your custom span](opentelemetry/images/unsuppressed_traces.png)
 :::
 
 ::: {}
-![With suppression: Only your custom span appears](opentelemetry/images/suppressed-traces.png)
+![With suppression: Only your custom span appears](opentelemetry/images/suppressed_traces.png)
 :::
 
 ::::

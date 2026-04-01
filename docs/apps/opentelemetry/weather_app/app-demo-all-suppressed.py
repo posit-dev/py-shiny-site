@@ -13,8 +13,11 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 import otel_config  # noqa: F401
 import requests
 from chatlas import ChatBedrockAnthropic
+from opentelemetry.instrumentation.anthropic import AnthropicInstrumentor
 from shiny import otel
 from shiny.express import ui
+
+AnthropicInstrumentor().instrument()
 
 
 def get_weather_forecast(lat: float, lon: float) -> str:
