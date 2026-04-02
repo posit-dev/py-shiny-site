@@ -1113,6 +1113,17 @@ async def _():
 ```
 
 
+## Monitoring AI Applications
+
+When deploying AI chatbots to production, [OpenTelemetry tracing](opentelemetry.qmd) provides valuable insights:
+
+- Track latency and token usage for LLM API calls
+- Monitor error rates and identify failing prompts
+- Understand user interaction patterns
+- Debug issues without accessing production logs
+
+Many observability platforms like [Logfire](opentelemetry.qmd#quick-setup-with-logfire) can automatically instrument AI libraries (OpenAI, Anthropic, etc.) to show API calls nested within your Shiny traces.
+
 ## Next steps
 
 The [next article](genai-stream.qmd) covers a more generic way to stream generative AI: the `ui.MarkdownStream()` component.
