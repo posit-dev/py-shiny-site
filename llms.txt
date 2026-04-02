@@ -29,6 +29,8 @@
 - [Switch](https://shiny.posit.co/py/components/inputs/switch/)
 - [Text Area](https://shiny.posit.co/py/components/inputs/text-area/)
 - [Text Box](https://shiny.posit.co/py/components/inputs/text-box/)
+- [Toolbar Button](https://shiny.posit.co/py/components/inputs/toolbar-button/)
+- [Toolbar Select](https://shiny.posit.co/py/components/inputs/toolbar-select/)
 
 ### Outputs
 
@@ -52,6 +54,11 @@
 - [Progress Bar](https://shiny.posit.co/py/components/display-messages/progress-bar/)
 - [Tooltips](https://shiny.posit.co/py/components/display-messages/tooltips/)
 
+### Layout
+
+- [Card](https://shiny.posit.co/py/components/layout/cards/)
+- [Toolbar](https://shiny.posit.co/py/components/layout/toolbar/)
+
 ## Layouts
 
 - [Shiny Layouts](https://shiny.posit.co/py/layouts/)
@@ -68,9 +75,9 @@
 
 - [Tabs](https://shiny.posit.co/py/layouts/tabs/)
 
-### Panels & Cards
+### Cards & Panels
 
-- [Panels and cards](https://shiny.posit.co/py/layouts/panels-cards/)
+- [Cards and panels](https://shiny.posit.co/py/layouts/panels-cards/)
 
 ### Arrange Elements
 
@@ -164,21 +171,6 @@
 
 - [Non-blocking operations](https://shiny.posit.co/py/docs/nonblocking.html)
 - [Routing](https://shiny.posit.co/py/docs/routing.html)
-
-## API Reference
-
-
-### Shiny Express
-
-- [Index](https://shiny.posit.co/py/api/express/)
-
-### Shiny Core
-
-- [Index](https://shiny.posit.co/py/api/core/)
-
-### Testing
-
-- [Index](https://shiny.posit.co/py/api/testing/)
 
 ## Templates
 

@@ -24,6 +24,10 @@ Outputs create a spot on the webpage to display results from the server, such as
 
 Provide feedback to your user with notifications, progress bars, and confirmation modals.
 
+  Layout 
+
+Organize and structure your app's content with cards and other layout components.
+
 ---
 
 ### Inputs
@@ -458,6 +462,100 @@ The value of an input component is accessible as a reactive value within the `se
   1. Use `input.()` (e.g., `input.text()`) to access the value of the text box. The server value of a text box is a string containing the current text input.
 
 See also: [Text Area](../text-area/index.qmd)
+
+---
+#### Toolbar Button
+
+## Details
+
+A toolbar button is a compact button designed for use in toolbars within card headers, footers, and other constrained spaces.
+
+To add a toolbar button to your app:
+
+1. Add [`ui.toolbar()`](https://shiny.posit.co/py/api/ui.toolbar.html) to create a toolbar container, typically within [`ui.card_header()`](https://shiny.posit.co/py/api/ui.card_header.html) or another compact location.
+2. Inside the toolbar, add [`ui.toolbar_input_button()`](https://shiny.posit.co/py/api/ui.toolbar_input_button.html) with an `id` and `label`.
+3. Optionally add an `icon` parameter. When an icon is provided without `show_label=True`, only the icon is visible and a tooltip with the label text appears on hover.
+
+The value of a toolbar button is accessible as a reactive value. To access the value:
+
+1. Use `input.()` (e.g., `input.save()`) to access the click count. The value is an integer representing the number of times the button has been clicked.
+
+### Button appearance
+
+Toolbar buttons are designed to be minimal and space-efficient. By default:
+
+- When no icon is provided, the label text is shown
+- When an icon is provided, only the icon is shown with a tooltip containing the label text
+- Use `show_label=True` with an icon to show both the icon and label text
+- Set `border=True` to add a border around the button
+- Set `disabled=True` to make the button non-clickable
+- Set `tooltip="my custom text here"` to set tooltip text to a something other than the `label` text
+- Set `tooltip=False` to remove the tooltip entirely
+
+### Updating buttons
+
+Use [`ui.update_toolbar_input_button()`](https://shiny.posit.co/py/api/ui.update_toolbar_input_button.html) to change the button's appearance from the server:
+
+- Update the `label`, `icon`, `show_label`, or `disabled` state
+- You cannot add/remove a `border` or `tooltip` after creation
+- Use [`ui.update_tooltip()`](https://shiny.posit.co/py/api/ui.update_tooltip.html) to update tooltip text
+
+### Accessibility
+
+Always provide a meaningful `label` even when using icon-only buttons. The label is used for screen readers and tooltips, ensuring your app is accessible to all users.
+
+See Also: [Toolbar](../../layout/toolbar/index.qmd) | [Action Button](../action-button/index.qmd)
+
+---
+#### Toolbar Select
+
+## Details
+
+A toolbar select is a compact select input designed for use in toolbars within card headers, footers, and other constrained spaces.
+
+To add a toolbar select to your app:
+
+1. Add [`ui.toolbar()`](https://shiny.posit.co/py/api/ui.toolbar.html) to create a toolbar container, typically within [`ui.card_header()`](https://shiny.posit.co/py/api/ui.card_header.html) or another compact location.
+2. Inside the toolbar, add [`ui.toolbar_input_select()`](https://shiny.posit.co/py/api/ui.toolbar_input_select.html) with an `id`, `label`, and `choices`.
+3. Optionally set `selected` to specify which choice is initially selected (defaults to the first choice if not specified).
+4. Optionally add an `icon` parameter. When an icon is provided without `show_label=True`, only the icon is visible and a tooltip with the label text appears on hover.
+
+The value of a toolbar select is accessible as a reactive value. To access the value:
+
+1. Use `input.()` (e.g., `input.view_mode()`) to access the currently selected value.
+
+### Select appearance
+
+Toolbar selects are designed to be minimal and space-efficient. By default:
+
+- The label is visually hidden but available to screen readers
+- Use `show_label=True` to make the label visible
+- An optional icon can be displayed alongside the select dropdown
+- A tooltip with the label text appears on hover when the label is hidden
+
+### Choices
+
+The `choices` parameter accepts:
+
+- A list of strings: `["Option 1", "Option 2", "Option 3"]`
+- A dictionary mapping values to labels: `{"val1": "Option 1", "val2": "Option 2"}`
+- A nested dictionary for grouped choices (optgroups): `{"Group 1": {"val1": "Option 1"}, "Group 2": {"val2": "Option 2"}}`
+
+Use `selected` to set the initially selected value. If not specified, the first choice is selected by default.
+
+### Updating selects
+
+Use [`ui.update_toolbar_input_select()`](https://shiny.posit.co/py/api/ui.update_toolbar_input_select.html) to change the select's appearance and options:
+
+- Update the `label`, `icon`, `choices`, `selected` value, or `show_label` state
+- You cannot add/remove a `tooltip` after creation
+- Use [`ui.update_tooltip()`](https://shiny.posit.co/py/api/ui.update_tooltip.html) to update tooltip text
+
+### Accessibility
+
+Always provide a meaningful `label` even when using `show_label=False`. The label is used for screen readers and tooltips, ensuring your app is accessible to all users.
+
+See Also: [Toolbar](../../layout/toolbar/index.qmd) | [Select](../select-single/index.qmd)
 
 ---
 
@@ -953,6 +1051,93 @@ See Also: [Modal messages](../modal/index.qmd) and [notications](../notification
 
 ---
 
+### Layout
+
+#### Card
+
+## Details
+
+A card is a rectangular container with borders and padding that groups related UI elements together.
+
+To add a card to your app:
+
+1. Add `ui.card()` to your UI.
+2. Place UI elements inside the card as direct children, or use `ui.card_header()`, `ui.card_body()`, and `ui.card_footer()` to organize content into distinct sections.
+
+If you don't use `ui.card_body()`, any direct children of `ui.card()` that aren't card items (like `ui.card_header()` or `ui.card_footer()`) are automatically wrapped in an implicit `ui.card_body()`.
+
+### Card customization
+
+Cards and card items accept Bootstrap utility classes for customization. Use the `class_` parameter to apply classes for [colors](https://getbootstrap.com/docs/5.2/utilities/background/), [text](https://getbootstrap.com/docs/5.2/utilities/text/), [borders](https://getbootstrap.com/docs/5.2/utilities/borders), and more.
+
+### Card size
+
+By default, a card grows to accommodate its contents. Set the `height` or `max_height` parameter to control the card's size. If your card contains large amounts of text, tables, or other content, setting a `height` or `max_height` enables scrolling. When laying out [multiple cards](#variations), let the layout function determine the card heights rather than setting fixed heights.
+
+Use `full_screen=True` to add an icon that expands the card to fill the browser window. Pair `max_height` with `full_screen=True` to provide an expansion icon. When users click the icon, the card fills the browser window. The `max_height` constraint only applies to the normal view, not the full-screen view.
+
+### Filling layouts
+
+Cards support filling layouts where outputs automatically resize to fit the available space. When a fill item like `ui.output_plot()` appears as a direct child of a `ui.card_body()`, it resizes to match the card's height. For example, setting `height="250px"` on a card reduces the plot's height from its default 400px to approximately 200px. When expanded to full-screen, the plot grows to match the card's new size.
+
+### Tabbed card {#tabbed-card}
+
+Use `ui.navset_card_underline()` inside a card to create tabbed content.
+
+### Card with sidebar {#card-sidebar}
+
+Use `ui.layout_sidebar()` inside a card to create a card with a sidebar layout. This pattern is useful for cards that need input controls or filters alongside their main content.
+
+### Multiple cards
+
+Use `ui.layout_columns()` to arrange multiple cards in a multi-column layout. Cards in the same row automatically share the same height. See the variations below for examples of multiple-card layouts.
+
+### Toolbars in cards
+
+Add toolbars to card headers and footers to provide interactive controls. Use `ui.toolbar()` within a `ui.card_header()` or `ui.card_footer()` to create a compact row of buttons or inputs. Toolbars are particularly useful for actions like refreshing data, downloading reports, or accessing settings.
+
+By default, toolbars align to the right. Set `align="left"` to position controls on the left side instead. Use `ui.toolbar_spacer()` and `ui.toolbar_divider()` to manipulate toolbar visual spacing.
+
+---
+#### Toolbar
+
+## Details
+
+A toolbar is a container for buttons, select inputs, and other UI elements in a compact form suitable for card headers, footers, and constrained spaces.
+
+To make a toolbar:
+
+  1. Create a toolbar with `ui.toolbar()`, typically within [`ui.card_header()`](../cards/index.qmd) or [`ui.card_footer()`](../cards/index.qmd), or within an input component as seen in the examples below.
+
+  2. Add toolbar elements inside, such as [`ui.toolbar_input_button()`](../../inputs/toolbar-button/index.qmd) and [`ui.toolbar_input_select()`](../../inputs/toolbar-select/index.qmd). Use [`ui.toolbar_divider()`](https://shiny.posit.co/py/api/ui.toolbar_divider.html) to add visual separators and [`ui.toolbar_spacer()`](https://shiny.posit.co/py/api/ui.toolbar_spacer.html) to create flexible space that pushes subsequent elements to the opposite end.
+
+### Toolbar alignment and width
+
+By default, toolbars align to the right side of the container. Set `align="left"` to position the toolbar at the start of a card header or footer instead.
+
+Set `width="100%"` on the toolbar to make it expand to fill available space. This is required for `ui.toolbar_spacer()` to push elements effectively and is automatically set when the toolbar is a direct child of a label element.
+
+### Toolbar elements
+
+Toolbars can contain:
+
+- **Buttons**: Use [`ui.toolbar_input_button()`](../../inputs/toolbar-button/index.qmd) for action buttons. When an icon is provided, the label is hidden by default but available to screen readers and tooltips.
+- **Selects**: Use [`ui.toolbar_input_select()`](../../inputs/toolbar-select/index.qmd) for dropdown selections. Labels are visually hidden by default but available to screen readers.
+- **Dividers**: Use [`ui.toolbar_divider()`](https://shiny.posit.co/py/api/ui.toolbar_divider.html) to add visual separator lines between groups of elements.
+- **Spacers**: Use [`ui.toolbar_spacer()`](https://shiny.posit.co/py/api/ui.toolbar_spacer.html) to create flexible space that pushes subsequent elements to the opposite end of the toolbar.
+
+### Toolbar in input components
+
+You can use toolbars in the label of input components to provide additional information or action buttons integrated directly in the component.
+
+### Accessibility
+
+All toolbar inputs support full keyboard navigation and screen reader accessibility. Always provide meaningful labels for toolbar buttons and selects, even when using icon-only displays.
+
+See Also: [Toolbar Button](../../inputs/toolbar-button/index.qmd) | [Toolbar Select](../../inputs/toolbar-select/index.qmd) | [Card](../cards/index.qmd)
+
+---
+
 ## Layouts
 
 ### Shiny Layouts
@@ -1006,15 +1191,15 @@ Card with a pill tabset
 
 Collapsing accordion panels
 
-    Panels & Cards
+    Cards & Panels
 
-Use panels and cards to define areas of related content.
+Use cards and panels to define areas of related content.
 
-Learn Panels & Cards 
-
-Floating panel
+Learn Cards & Panels 
 
 Content in cards
+
+Floating panel
 
     Arrange Elements
 
@@ -1286,9 +1471,9 @@ Follow these steps to add vertically collapsing accordion panels to your app:
 
 ---
 
-### Panels & Cards
+### Cards & Panels
 
-#### Panels and cards
+#### Cards and panels
 
 ```python
 import sys
@@ -1297,7 +1482,51 @@ sys.path.append("../..")
 from docs.helpers import express_core_preview, shinylive_app_preview
 ```
 
-Use panels and cards to define areas of related content.
+Use cards and panels to define areas of related content.
+
+## Cards
+
+Cards are a common organizing unit for modern user interfaces (UI). At their core, they're just rectangular containers with borders and padding. However, when utilized properly to group related information, they help users better digest, engage, and navigate through content.
+
+### Hello `card()`
+
+A `ui.card()` is designed to handle any number of "known" card items (e.g., `ui.card_header()`, `ui.card_body()`, etc) as unnamed arguments (i.e., children). As we'll see shortly, `ui.card()` also has some useful named arguments (e.g., `full_screen`, `height`, etc).
+
+At their core, `ui.card()` and card items are just an HTML `div()` with a special Bootstrap class, so you can use Bootstrap's utility classes to customize things like [colors](https://getbootstrap.com/docs/5.2/utilities/background/), [text](https://getbootstrap.com/docs/5.2/utilities/text/), [borders](https://getbootstrap.com/docs/5.2/utilities/borders), etc.
+
+### Implicit `card_body()`
+
+If you find yourself using `ui.card_body()` without changing any of its defaults, consider dropping it altogether since any direct children of `ui.card()` that aren't "known" `ui.card()` items are wrapped together into an implicit `ui.card_body()` call.
+
+### Restricting growth
+
+By default, a `ui.card()`'s size grows to accommodate the size of its contents. Thus, if a `ui.card_body()` contains a large amount of text, tables, etc., you may want to specify a `height` or `max_height`. That said, when laying out [multiple cards](#multiple-cards), it's likely best not to specify height on the `ui.card()`, and instead, let the layout determine the height.
+
+Although scrolling is convenient for reducing the amount of space required to park lots of content, it can also be a nuisance to the user. To help reduce the need for scrolling, consider pairing scrolling with `full_screen=True` (which adds an icon to expand the card's size to the browser window). Notice how, when the card is expanded to full-screen, `max_height`/`height` won't affect the full-screen size of the card.
+
+### Filling outputs
+
+A `ui.card()`'s default behavior is optimized for facilitating filling layouts. More specifically, if a **fill item** (e.g., `ui.output_plot()`), appears as a *direct child* of a `ui.card_body()`, it resizes to fit the `ui.card()`'s specified height. This means, by specifying `height="250px"` we've effectively shrunk the plot's height from its default of 400 down to about 200 pixels. And, when expanded to `full_screen`, the plot grows to match the `ui.card()`'s new size.
+
+### Multiple cards {#multiple-cards}
+
+`ui.layout_columns()` is especially nice for laying out multiple cards since each card in a particular row will have the same height (by default).
+
+Follow these steps to create an app with content separated into cards:
+
+  1. Use `ui.layout_columns()` to arrange multiple cards in a grid. Set `col_widths` to control column widths using Bootstrap's 12-column grid (e.g., `col_widths=[6, 6]` for two equal-width cards per row).
+
+  2. Add `ui.card()` calls inside `ui.layout_columns()`. You can use `ui.card_header()` and `ui.card_footer()` to create card headers and footers.
+
+  3. Control the appearance and functionality of each card by passing additional arguments to `ui.card()`. For example, set `full_screen=True` to allow users to expand the card to fullscreen.
+
+### Tabbed card {#tabbed-card}
+
+Use `ui.navset_card_underline()` inside a card to create tabbed content.
+
+### Card with sidebar {#card-sidebar}
+
+Use `ui.layout_sidebar()` inside a card to create a card with a sidebar layout. This pattern is useful for cards that need input controls or filters alongside their main content.
 
 ## Floating panel
 
@@ -1325,24 +1554,6 @@ You can also use `ui.img()` to create this effect:
   2. Pass the path or URL of your desired image to `ui.img()`'s `src` parameter. Set additional parameters to control the appearance of the image (e.g., `width` and `height`).
 
 See also: [`ui.panel_fixed()`](https://shiny.posit.co/py/api/ui.panel_fixed.html). `ui.panel_fixed()` is equivalent to calling `ui.panel_absolute()` with `fixed=True` (i.e., the panel does not scroll with the rest of the page).
-
-## Content divided by cards
-
-```python
-
-shinylive_app_preview("app-two-cards-core.py", viewer_height=320, div_attrs=".p-0")
-express_core_preview("app-two-cards-express.py", "app-two-cards-core.py")
-```
-
-Cards are general purpose containers used to group related UI elements together with a border and optional padding.
-
-Follow these steps to create an app with content separated into cards:
-
-  1. Add `ui.card()` inside any Shiny UI page method (e.g., `ui.page_fluid()`) to create a card. Add additional cards by adding additional calls to `ui.card()`.
-
-  2. Define the contents of each card. Inside `ui.card()`, pass elements that you would like to appear inside the card (e.g., inputs, text). You can also use `ui.card_header()` and `ui.card_footer()` to create a card header and footer.
-
-  3. Control the appearance and functionality of each card by passing additional  arguments to `ui.card()`. For example, you can set `full_screen` to `True` to allow the user to expand the card to fullscreen, or control the height of the card with the `height` parameter.
 
 ---
 
@@ -14162,55 +14373,6 @@ app = Starlette(routes=routes)
 ```
 
 This application can be run using tools like `uvicorn`, as discussed in [deployment](/get-started/deploy-on-prem.qmd).
-
----
-
-## API Reference
-
-
-### Shiny Express
-
-#### Index
-
-# Shiny Express API
-
-This page outlines Shiny _Express_'s API reference.
-
-[Compared to Shiny Core](/docs/express-vs-core.qmd), Shiny Express is a simpler way to learn and create basic apps, but it is less flexible and powerful.
-
-For an introduction to Shiny, see the [tutorial](/docs/overview.qmd).
-
-{{}}
-
----
-
-### Shiny Core
-
-#### Index
-
-# Shiny Core API
-
-This page outlines Shiny _Core_'s API reference.
-
-[Compared to Shiny Express](/docs/express-vs-core.qmd), Shiny Core is more structured and verbose, but also more flexible and powerful.
-
-Newcomers may want to start with [Shiny Express](../express/index.qmd) Shiny Core API.
-
-{{}}
-
----
-
-### Testing
-
-#### Index
-
-# Shiny Testing API
-
-This page outlines Shiny's _Testing_ API reference.
-
-For an introduction to Shiny testing, see the [unit testing](/docs/unit-testing.qmd) and [end to end testing](/docs/end-to-end-testing.qmd) tutorials.
-
-{{}}
 
 ---
 
