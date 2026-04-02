@@ -67,7 +67,7 @@ When looking at the trace for timing, you can see how long a model request took 
 
 ![Example of a chat request to Anthropic](opentelemetry/images/anthropic_span.png)
 
-The gap between this span's length and its parent's length is how long the results took to stream back to the user or make a decision. For the overall user experience, the total time taken from input to output is represented by the `extended_task_stream_task` span, roughly 6.5 seconds in this case. Only around 3.2 seconds were spent in the tool call (something _we as app authors_ could possibly optimize). The remaining 3 seconds was spent in the model response generation and streaming.
+The gap between this span's length and its parent's length is how long the results took to stream back to the user or make a decision. For the overall user experience, the total time taken from input to output is represented by the `extended_task_stream_task` span, roughly 5.5 seconds in this case. Only around 2 seconds were spent in the tool call (something _we as app authors_ could possibly optimize). The remaining ~3 seconds was spent in the model response generation and streaming.
 
 More generally, as users interact with your app, Shiny generates traces that generally look like this:
 
