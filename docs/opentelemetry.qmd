@@ -1,5 +1,6 @@
 ---
 title: OpenTelemetry
+lightbox: true
 ---
 
 {{< include opentelemetry/_introduction.qmd >}}
