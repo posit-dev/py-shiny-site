@@ -171,6 +171,7 @@
 
 - [Non-blocking operations](https://shiny.posit.co/py/docs/nonblocking.html)
 - [Routing](https://shiny.posit.co/py/docs/routing.html)
+- [OpenTelemetry](https://shiny.posit.co/py/docs/opentelemetry.html)
 
 ## Templates
 
