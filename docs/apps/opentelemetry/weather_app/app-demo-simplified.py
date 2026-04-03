@@ -37,7 +37,6 @@ def get_weather_forecast(lat: float, lon: float) -> str:
     )
 
 
-# Initialize Claude client
 chat_client = ChatBedrockAnthropic(
     system_prompt="Be terse.", model="us.anthropic.claude-sonnet-4-5-20250929-v1:0"
 )
