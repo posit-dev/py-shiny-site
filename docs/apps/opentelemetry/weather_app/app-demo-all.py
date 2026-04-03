@@ -5,12 +5,8 @@
 # 3. Optional: Configure Logfire for observability:
 #    - Run: logfire configure
 #    - View traces at https://logfire.pydantic.dev/
-# 4. Run: shiny run app-demo-all.py
+# 4. Run: shiny run app.py
 
-import os
-import sys
-
-sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 import otel_config  # noqa: F401
 import requests
 from chatlas import ChatBedrockAnthropic
