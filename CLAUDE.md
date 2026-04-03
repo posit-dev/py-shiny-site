@@ -112,7 +112,7 @@ The build follows this sequence:
 
 ### Key Technologies
 
-- **Quarto 1.7.23** - Static site generator and documentation platform
+- **Quarto 1.9.36** - Static site generator and documentation platform
 - **uv** - Fast Python package installer
 - **Quartodoc** - API documentation generation from docstrings
 - **Griffe** - Python code inspection
@@ -220,7 +220,7 @@ The custom renderer automatically extracts examples from `py-shiny/shiny/example
 
 ## Dependencies and Version Management
 
-- **Quarto version:** Managed via qvm (Quarto Version Manager), pinned to 1.7.23
+- **Quarto version:** Managed via qvm (Quarto Version Manager), pinned to 1.9.36
 - **Python version:** 3.12 for development, 3.12 for CI
 - **Shinylive version:** Pinned to 0.8.5 in requirements.txt
 - **Package manager:** uv for fast Python package installation
@@ -232,7 +232,7 @@ The custom renderer automatically extracts examples from `py-shiny/shiny/example
 1. Try cleaning: `make clean` or `make distclean`
 2. Update submodules: `make submodules`
 3. Reinstall dependencies: `make deps`
-4. Check Quarto version: `quarto --version` (should be 1.7.23)
+4. Check Quarto version: `quarto --version` (should be 1.9.36)
 
 **If components aren't rendering:**
 
