@@ -116,6 +116,10 @@ quartodoc: $(PYBIN) deps install-quarto
 	cp py-shiny/docs/api/express/index.qmd ./api/express/_api_index.qmd
 	cp py-shiny/docs/api/core/index.qmd ./api/core/_api_index.qmd
 	cp py-shiny/docs/api/testing/index.qmd ./api/testing/_api_index.qmd
+	# Workaround: Pandoc 3.8 (Quarto 1.9) renders empty definition list terms as a
+	# bare `:`. Convert `<empty-term>\n\n:   description` to a plain paragraph.
+	# See docs/bare-colon-returns-issue.md for full context.
+	. $(PYBIN)/activate && python3 scripts/fix-bare-colon-returns.py ./api
 
 
 ## Build component static previews and update shinylive links
