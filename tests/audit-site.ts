@@ -2,7 +2,7 @@
  * Audits the built Quarto site for errors by crawling every page
  * listed in llms.txt using Playwright screenshots + Claude vision.
  *
- * Requires ANTHROPIC_API_KEY in environment.
+ * Uses AWS Bedrock for Claude vision (no ANTHROPIC_API_KEY needed).
  *
  * Usage:
  *   # Serve the site first (e.g. on port 1414)
@@ -15,7 +15,7 @@
  *   cd tests && npm run audit -- --url http://localhost:1414 --filter docs/
  */
 
-import Anthropic from "@anthropic-ai/sdk";
+import { BedrockRuntimeClient, InvokeModelCommand } from "@aws-sdk/client-bedrock-runtime";
 import { chromium, type Browser, type ConsoleMessage, type Request } from "playwright";
 
 // ---------------------------------------------------------------------------
@@ -37,8 +37,7 @@ function isNoise(url: string): boolean {
   return NOISE_PATTERNS.some((p) => url.includes(p));
 }
 
-const hasApiKey = !!process.env.ANTHROPIC_API_KEY;
-const anthropic = hasApiKey ? new Anthropic() : null;
+const bedrock = new BedrockRuntimeClient({ region: process.env.AWS_REGION ?? "us-east-1" });
 
 interface PageResult {
   path: string;
@@ -77,10 +76,8 @@ async function getPages(baseUrl: string): Promise<string[]> {
 }
 
 async function analyzeScreenshot(screenshot: Buffer): Promise<string> {
-  if (!anthropic) return "OK (visual analysis skipped — no ANTHROPIC_API_KEY)";
-
-  const response = await anthropic.messages.create({
-    model: "claude-sonnet-4-6-20250514",
+  const payload = {
+    anthropic_version: "bedrock-2023-05-31",
     max_tokens: 300,
     messages: [
       {
@@ -107,10 +104,18 @@ If there are issues, list each one in a single line with its location on the pag
         ],
       },
     ],
+  };
+
+  const command = new InvokeModelCommand({
+    modelId: "us.anthropic.claude-sonnet-4-6",
+    contentType: "application/json",
+    accept: "application/json",
+    body: JSON.stringify(payload),
   });
 
-  const block = response.content[0];
-  return block.type === "text" ? block.text.trim() : "OK";
+  const response = await bedrock.send(command);
+  const result = JSON.parse(new TextDecoder().decode(response.body));
+  return (result.content[0]?.text ?? "OK").trim();
 }
 
 async function auditPage(browser: Browser, baseUrl: string, path: string): Promise<PageResult> {
