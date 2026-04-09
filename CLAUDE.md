@@ -225,6 +225,15 @@ The custom renderer automatically extracts examples from `py-shiny/shiny/example
 - **Shinylive version:** Pinned to 0.8.5 in requirements.txt
 - **Package manager:** uv for fast Python package installation
 
+## Site Quality Checks
+
+Two tools in `tests/` use Playwright + Claude vision via AWS Bedrock and are meant to be run locally.
+
+- **`make audit-site`** — full-page visual audit of a single build. Run infrequently as a site health check independent of any specific change (e.g. post-deploy, after dependency updates).
+- **`make compare-versions`** — viewport comparison between two builds. Run before merging major version upgrades or large-scale changes to catch regressions.
+
+Both accept `FILTER=docs/` to limit scope. `compare-versions` defaults to production vs `localhost:1414`. Each writes a timestamped markdown report to `tests/`.
+
 ## Troubleshooting
 
 **If the build fails:**
