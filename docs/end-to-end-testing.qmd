@@ -215,6 +215,17 @@ You've taken your first steps into the world of Shiny app testing! Here are some
 - [Shiny testing API documentation](https://shiny.posit.co/py/api/testing/) - This is your go-to guide for all the available testing methods in Shiny.
 - [Playwright documentation](https://playwright.dev/python/) - Learn more about Playwright's powerful features.
 - [pytest documentation](https://docs.pytest.org/en/stable/)
+- [OpenTelemetry](opentelemetry.qmd) - Monitor your app's performance in production with distributed tracing
 
+::: {.callout-note}
+## Disabling Tracing in Tests
+
+If your app uses [OpenTelemetry tracing](opentelemetry.qmd), you may want to disable it during tests to avoid generating unnecessary trace data. Set the environment variable before running tests:
+
+```bash
+export SHINY_OTEL_COLLECT=none
+pytest
+```
+:::
 
 Happy testing! You're now well-equipped to build more robust and reliable Shiny apps.

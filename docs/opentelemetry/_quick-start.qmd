@@ -1,0 +1,140 @@
+## Quick Start
+
+### Basic Configuration
+
+You can use OTel with or without an observability backend (e.g. Logfire, Jaeger, Langfuse, etc.)
+
+For local debugging or use without an observability backend, you can configure OpenTelemetry to print spans to the console. You will need to install the OpenTelemetry SDK for this.
+
+To simplify things, we'll use Logfire as our example observability backend for configuration and screenshots throughout the rest of this tutorial.
+
+::: {.panel-tabset}
+
+## Console-only
+
+You can use `pip` or `uv` to add the OTel SDK using `shiny`'s optional dependencies or install it independently.
+
+::: {.panel-tabset}
+
+## pip
+
+```bash
+# Option 1: Install with Shiny's optional dependencies
+pip install "shiny[otel]"
+
+# Option 2: Install the SDK manually
+pip install opentelemetry-sdk opentelemetry-exporter-otlp
+```
+
+## uv
+
+```bash
+# Option 1: Install with Shiny's optional dependencies
+uv add "shiny[otel]"
+
+# Option 2: Install the SDK manually
+uv add opentelemetry-sdk opentelemetry-exporter-otlp
+```
+
+:::
+
+To add it to your app:
+
+```python
+from opentelemetry import trace
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import ConsoleSpanExporter, SimpleSpanProcessor
+
+provider = TracerProvider()
+provider.add_span_processor(SimpleSpanProcessor(ConsoleSpanExporter()))
+trace.set_tracer_provider(provider)
+
+# Import and use Shiny normally
+from shiny import App, ui
+```
+
+
+## Logfire (Observability Backend Service)
+
+[Pydantic Logfire](https://logfire.pydantic.dev/) provides zero-configuration OpenTelemetry setup with a managed observability platform. You will need to set up a Logfire account and project. On your first run of logfire, it will ask you to authenticate and choose which project your metrics will be associated with.
+
+::: {.panel-tabset}
+
+## pip
+
+```bash
+pip install logfire
+logfire auth
+```
+
+## uv
+
+```bash
+uv add logfire
+uv run logfire auth
+```
+
+:::
+
+
+
+::: {.callout-tip collapse="true"}
+## Test your Logfire setup with a simple app
+
+```python
+import logfire
+import os
+
+# Connect your app to the logfire backend so it can receive traces
+logfire.configure()
+
+# Import Shiny and set collection level
+from shiny import App, ui, render
+os.environ["SHINY_OTEL_COLLECT"] = "reactivity"
+
+# Use Shiny normally - tracing happens automatically
+app_ui = ui.page_fluid(
+    ui.input_slider("n", "N", 1, 100, 50),
+    ui.output_text("result")
+)
+
+def server(input, output, session):
+    @render.text
+    def result():
+        return f"You selected: {input.n()}"
+
+app = App(app_ui, server)
+```
+
+:::
+
+View traces at [logfire.pydantic.dev](https://logfire.pydantic.dev/) - you'll see session spans, reactive updates, and individual reactive executions with SQL-queryable data.
+
+See the [Logfire documentation](https://logfire.pydantic.dev/) for more details on querying, alerts, and dashboards.
+
+:::
+
+
+#### Extract setup logic into a configuration module
+
+To keep your app efficient, it's helpful to move OpenTelemetry setup into a dedicated module. This keeps your app files clean and ensures configuration (environment variables, Logfire, AI instrumentation) is applied consistently before Shiny imports.
+
+You'll notice our `otel_config` module includes setting `SHINY_OTEL_COLLECT`. This variable controls how much detail is captured and defaults to `"all"`.
+
+You may want to reduce or refine your own collection level. Se the portion on [collection levels](#what-can-shiny-record) for more information.
+
+```{.python filename="otel_config.py"}
+
+{{< include apps/opentelemetry/otel_config.py >}}
+
+```
+
+Then in the main `app.py` file, import it before importing Shiny:
+
+```python
+import otel_config  # runs configuration as a side effect
+
+from shiny.express import ui, render
+# ...
+```
+
