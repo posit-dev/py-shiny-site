@@ -614,8 +614,8 @@ async function main() {
     const allDiffs = [...structuralDiffs];
     if (visualChange === "SHINYLIVE_NOT_LOADED") {
       allDiffs.push("Shinylive not verified: did not load in time to be verified");
-    } else if (visualChange?.startsWith("NAV_CHANGE:") && structuralDiffs.length === 0) {
-      // Nav-only change with no structural diffs — collect separately, don't add to page diffs
+    } else if (visualChange?.startsWith("NAV_CHANGE:")) {
+      // Always collect nav changes separately, even if structural diffs also exist
       navChanges.push({ path, description: visualChange.replace(/^NAV_CHANGE:\s*/, "").trim() });
     } else if (visualChange) {
       allDiffs.push(`Visual change: ${visualChange}`);
@@ -656,10 +656,11 @@ async function main() {
 
   console.log(`\n\nClustering visual changes...`);
   const clusterResult = await clusterVisualChanges(visualChanges);
+  const { commonPatterns } = extractCommonPatterns(diffs);
 
   console.log(`\n\nGenerating executive summary...`);
-  const executiveSummary = await generateExecutiveSummary(regressions, [], clusterResult);
-  writeReport(summaryPath, oldUrl, newUrl, pages, errorCount, diffs, navChanges, [], snapshots.length, snapshots.length, executiveSummary, clusterResult);
+  const executiveSummary = await generateExecutiveSummary(regressions, commonPatterns, clusterResult);
+  writeReport(summaryPath, oldUrl, newUrl, pages, errorCount, diffs, navChanges, commonPatterns, snapshots.length, snapshots.length, executiveSummary, clusterResult);
 
   console.log(`\n=== COMPARISON REPORT ===`);
   console.log(`Total pages:          ${pages.length}`);

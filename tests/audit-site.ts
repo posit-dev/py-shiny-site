@@ -116,18 +116,9 @@ async function auditPage(browser: Browser, baseUrl: string, path: string): Promi
       return { path, consoleErrors, networkErrors, observations: `HTTP ${httpStatus ?? "no response"}`, status: "needs-investigation" };
     }
 
-    const raw = await screenshot({ fullPage: true });
+    const raw = await screenshot();
 
-    let observations: string;
-    try {
-      observations = await analyzeScreenshot(raw);
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : String(err);
-      if (msg.includes("image dimensions exceed") || msg.includes("8000 pixels")) {
-        return { path, consoleErrors, networkErrors, observations: "Likely false alarm: full-page screenshot too large for analysis", status: "likely-false-alarm" };
-      }
-      throw err;
-    }
+    const observations = await analyzeScreenshot(raw);
 
     if (observations.startsWith("LIKELY_FALSE_ALARM:")) {
       return { path, consoleErrors, networkErrors, observations: observations.replace(/^LIKELY_FALSE_ALARM:\s*/, ""), status: "likely-false-alarm" };
