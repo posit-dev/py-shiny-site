@@ -196,18 +196,19 @@ clean-dev-shinylive:
 AUDIT_URL ?= http://localhost:1414
 COMPARE_OLD_URL ?= https://shiny.posit.co/py
 COMPARE_NEW_URL ?= http://localhost:1414
+AWS_PROFILE ?= claude
 
 ## Full-page visual audit of the site using Claude vision (run infrequently as a health check)
 .PHONY: audit-site
 audit-site:
 	cd tests && npm install --silent
-	cd tests && npm run audit -- --url $(AUDIT_URL) $(if $(FILTER),--filter $(FILTER),)
+	cd tests && AWS_PROFILE=$(AWS_PROFILE) npm run audit -- --url $(AUDIT_URL) $(if $(FILTER),--filter $(FILTER),) $(if $(EXCLUDE),--exclude $(EXCLUDE),)
 
 ## Compare two builds for regressions using Claude vision (run before merging major changes)
 .PHONY: compare-versions
 compare-versions:
 	cd tests && npm install --silent
-	cd tests && npm run compare -- --old $(COMPARE_OLD_URL) --new $(COMPARE_NEW_URL) $(if $(FILTER),--filter $(FILTER),)
+	cd tests && AWS_PROFILE=$(AWS_PROFILE) npm run compare -- --old $(COMPARE_OLD_URL) --new $(COMPARE_NEW_URL) $(if $(FILTER),--filter $(FILTER),) $(if $(EXCLUDE),--exclude $(EXCLUDE),)
 
 
 

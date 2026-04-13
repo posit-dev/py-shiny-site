@@ -24,6 +24,11 @@ const NOISE_PATTERNS = [
   "shinyapps.io",
 ];
 
+// Error text patterns to suppress regardless of URL
+const NOISE_ERROR_PATTERNS = [
+  "ERR_BLOCKED_BY_RESPONSE",
+];
+
 export function isNoise(url: string): boolean {
   return NOISE_PATTERNS.some((p) => url.includes(p));
 }
@@ -155,14 +160,17 @@ export async function capturePage(
     page.on("console", (msg: ConsoleMessage) => {
       if (msg.type() === "error") {
         const text = msg.text();
-        if (!text.startsWith("preload error:")) consoleErrors.push(text);
+        if (!text.startsWith("preload error:") && !NOISE_ERROR_PATTERNS.some((p) => text.includes(p)))
+          consoleErrors.push(text);
       }
     });
 
     page.on("requestfailed", (req: Request) => {
       try {
         const reqUrl = req.url();
-        if (!isNoise(reqUrl)) networkErrors.push(`${req.failure()?.errorText}: ${reqUrl}`);
+        const errorText = req.failure()?.errorText ?? "";
+        if (!isNoise(reqUrl) && !NOISE_ERROR_PATTERNS.some((p) => errorText.includes(p)))
+          networkErrors.push(`${errorText}: ${reqUrl}`);
       } catch {
         // Request objects can be in an invalid state when a context is closing;
         // swallow to prevent Playwright's internal ".method" access from crashing the page
@@ -181,6 +189,14 @@ export async function capturePage(
       // expected on pages with persistent WebSocket / Shinylive connections
     }
 
+    // Dismiss cookie consent banner if present so it doesn't obscure screenshots
+    try {
+      await page.getByRole("button", { name: /accept|allow all|i agree/i }).click({ timeout: 2_000 });
+      await page.waitForTimeout(300);
+    } catch {
+      // No consent banner found, continue
+    }
+
     const httpStatus = response?.status() ?? null;
 
     return {
@@ -188,7 +204,18 @@ export async function capturePage(
       consoleErrors,
       networkErrors,
       close: () => context!.close(),
-      screenshot: (options) => page.screenshot({ fullPage: options?.fullPage ?? false }),
+      screenshot: async (options) => {
+        // Wait for Quarto dev-server "Render / Cancel" bar to disappear before every screenshot
+        try {
+          const cancelBtn = page.getByRole("button", { name: /^cancel$/i });
+          if (await cancelBtn.isVisible({ timeout: 1_000 })) {
+            await cancelBtn.waitFor({ state: "hidden", timeout: 15_000 });
+          }
+        } catch {
+          // No render bar present, or it didn't hide in time — proceed anyway
+        }
+        return page.screenshot({ fullPage: options?.fullPage ?? false });
+      },
     };
   } catch (err) {
     await context?.close();
