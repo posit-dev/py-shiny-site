@@ -1,15 +1,3 @@
-# Setup:
-# 1. pip install shiny chatlas logfire requests boto3 opentelemetry-instrumentation-anthropic
-# 2. Configure your AI provider of choice (here we use AWS Bedrock)
-# 3. Optional: Configure Logfire for observability:
-#    - Run: logfire configure
-#    - View traces at https://logfire.pydantic.dev/
-# 4. Run: shiny run app-demo-all-suppressed.py
-
-import os
-import sys
-
-sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 import otel_config  # noqa: F401
 import requests
 from chatlas import ChatBedrockAnthropic
