@@ -227,12 +227,33 @@ The custom renderer automatically extracts examples from `py-shiny/shiny/example
 
 ## Site Quality Checks
 
-Two tools in `tests/` use Playwright + Claude vision via AWS Bedrock and are meant to be run locally.
+**`make compare-versions`** — viewport comparison between production and a local build using Playwright + Claude vision via AWS Bedrock. Run it before merging any change that could affect rendered output site-wide: Quarto version upgrades, Shinylive version upgrades, `_quarto.yml` structural changes, `_renderer.py` changes, or other dependency upgrades. Writes a timestamped markdown report to `tests/`; start with the executive summary.
 
-- **`make audit-site`** — full-page visual audit of a single build. Run infrequently as a site health check independent of any specific change (e.g. post-deploy, after dependency updates).
-- **`make compare-versions`** — viewport comparison between two builds. Run before merging major version upgrades or large-scale changes to catch regressions.
+### How to run
 
-Both accept `FILTER=docs/` to limit scope. `compare-versions` defaults to production vs `localhost:1414`. Each writes a timestamped markdown report to `tests/`.
+```bash
+# Serve the local build first
+make serve   # serves on localhost:1414 by default
+
+# In another terminal
+make compare-versions
+```
+
+Narrow scope with `FILTER` or `EXCLUDE`:
+
+```bash
+make compare-versions FILTER=docs/
+make compare-versions FILTER=api/core/
+make compare-versions EXCLUDE=api/
+```
+
+Override the URLs if needed:
+
+```bash
+make compare-versions COMPARE_OLD_URL=https://shiny.posit.co/py COMPARE_NEW_URL=http://localhost:1414
+```
+
+The report is written to `tests/compare-versions-<timestamp>.md`. The executive summary at the top groups findings by priority — start there.
 
 ## Troubleshooting
 
