@@ -112,7 +112,7 @@ The build follows this sequence:
 
 ### Key Technologies
 
-- **Quarto 1.7.23** - Static site generator and documentation platform
+- **Quarto 1.9.36** - Static site generator and documentation platform
 - **uv** - Fast Python package installer
 - **Quartodoc** - API documentation generation from docstrings
 - **Griffe** - Python code inspection
@@ -220,10 +220,40 @@ The custom renderer automatically extracts examples from `py-shiny/shiny/example
 
 ## Dependencies and Version Management
 
-- **Quarto version:** Managed via qvm (Quarto Version Manager), pinned to 1.7.23
+- **Quarto version:** Managed via qvm (Quarto Version Manager), pinned to 1.9.36
 - **Python version:** 3.12 for development, 3.12 for CI
 - **Shinylive version:** Pinned to 0.8.5 in requirements.txt
 - **Package manager:** uv for fast Python package installation
+
+## Site Quality Checks
+
+**`make compare-versions`** — viewport comparison between production and a local build using Playwright + Claude vision via AWS Bedrock. Run it before merging any change that could affect rendered output site-wide: Quarto version upgrades, Shinylive version upgrades, `_quarto.yml` structural changes, `_renderer.py` changes, or other dependency upgrades. Writes a timestamped markdown report to `tests/`; start with the executive summary.
+
+### How to run
+
+```bash
+# Serve the local build first
+make serve   # serves on localhost:1414 by default
+
+# In another terminal
+make compare-versions
+```
+
+Narrow scope with `FILTER` or `EXCLUDE`:
+
+```bash
+make compare-versions FILTER=docs/
+make compare-versions FILTER=api/core/
+make compare-versions EXCLUDE=api/
+```
+
+Override the URLs if needed:
+
+```bash
+make compare-versions COMPARE_OLD_URL=https://shiny.posit.co/py COMPARE_NEW_URL=http://localhost:1414
+```
+
+The report is written to `tests/compare-versions-<timestamp>.md`. The executive summary at the top groups findings by priority — start there.
 
 ## Troubleshooting
 
@@ -232,7 +262,7 @@ The custom renderer automatically extracts examples from `py-shiny/shiny/example
 1. Try cleaning: `make clean` or `make distclean`
 2. Update submodules: `make submodules`
 3. Reinstall dependencies: `make deps`
-4. Check Quarto version: `quarto --version` (should be 1.7.23)
+4. Check Quarto version: `quarto --version` (should be 1.9.36)
 
 **If components aren't rendering:**
 
