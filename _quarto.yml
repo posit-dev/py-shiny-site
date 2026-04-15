@@ -159,6 +159,7 @@ website:
             - components/inputs/slider/index.qmd
             - components/inputs/slider-range/index.qmd
             - components/inputs/switch/index.qmd
+            - components/inputs/task-button/index.qmd
             - components/inputs/text-area/index.qmd
             - components/inputs/text-box/index.qmd
             - components/inputs/toolbar-button/index.qmd
