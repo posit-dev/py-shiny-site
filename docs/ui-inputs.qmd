@@ -1,0 +1,63 @@
+---
+title: "Input components"
+---
+
+{{< include includes/ui-component-intro.qmd >}}
+
+### Inputs
+
+Shiny provides a wide variety of input components, all of which:
+
+1. Start with `ui.input_*()`.
+2. Require an `id` argument, a `label`, and sometimes other (mostly optional) arguments.
+3. Allow their value to be read reactively using `input[id]()`.
+4. Have a corresponding `ui.update_*()` function for efficiently updating the input control ([see here](ui-dynamic.qmd#updating-inputs) for more details and examples).
+
+Here's a basic example of a text input (and printing its value to the console):
+
+::: {.panel-tabset .shiny-mode-tabset group="shiny-app-mode"}
+
+### Express
+
+```{.python}
+from shiny import reactive
+from shiny.express import input, ui
+
+ui.input_text("text", label="Enter some text")
+
+@reactive.effect
+def _():
+    print(input.text())
+```
+
+### Core
+
+```{.python}
+from shiny import App, reactive, ui
+
+app_ui = ui.page_fluid(
+    ui.input_text("text", label="Enter some text")
+)
+
+def server(input):
+    @reactive.effect
+    def _():
+        print(input.text())
+
+app = App(app_ui, server)
+```
+
+:::
+
+::: {.callout-tip}
+#### Input gallery
+
+See [this section of the component gallery](/components/#inputs) for an overview of available inputs.
+:::
+
+::: {.callout-tip}
+#### Layout as an input control
+
+Some layout components, like `ui.accordion()` or `ui.navset_tab()`, take an optional `id` argument.
+If provided, the `id` can be used to read the selected tab/accordion panel reactively in the server using `input[id]()`.
+:::
