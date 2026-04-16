@@ -20,7 +20,7 @@ $(PYBIN): $(VENV)
 
 ## Build assets and render site
 .PHONY: all
-all: quartodoc components llms-txt site
+all: quartodoc components llms-full-txt site
 
 ## Build website
 .PHONY: site
@@ -132,9 +132,9 @@ components-shinylive-links: $(PYBIN) deps
 	. $(PYBIN)/activate && python components/update-shinylive-links.py
 
 
-## Generate llms.txt and llms-full.txt
-.PHONY: llms-txt
-llms-txt: $(PYBIN) quartodoc
+## Generate llms-full.txt
+.PHONY: llms-full-txt
+llms-full-txt: $(PYBIN) quartodoc
 	. $(PYBIN)/activate && python scripts/generate_llms_txt.py
 
 
