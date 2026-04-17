@@ -20,7 +20,7 @@ $(PYBIN): $(VENV)
 
 ## Build assets and render site
 .PHONY: all
-all: quartodoc components llms-full-txt site
+all: quartodoc components site
 
 ## Build website
 .PHONY: site
