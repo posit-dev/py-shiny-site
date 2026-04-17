@@ -9,13 +9,17 @@ from generate_llms_txt import (
     Section,
     SidebarEntry,
     Subsection,
+    _first_paragraph_with_see_also,
+    _is_input_component_page,
+    _is_listing_page,
+    _resolve_links,
+    _strip_html_outside_code,
     build_site_structure,
     clean_qmd_content,
     clean_section_name,
     extract_title,
     file_path_to_url,
     generate_llms_full_txt,
-    generate_llms_txt,
     walk_sidebar,
 )
 
@@ -72,6 +76,57 @@ def test_converts_shinylive_code_blocks():
     result = clean_qmd_content(content)
     assert "```python" in result
     assert "shinylive" not in result
+
+
+def test_converts_shinylive_code_blocks_with_space():
+    content = "``` {shinylive-python}\nprint('hi')\n```"
+    result = clean_qmd_content(content)
+    assert "```python" in result
+    assert "{shinylive-python}" not in result
+
+
+def test_strips_html_comments_multiline():
+    content = "Before.\n\n<!--\nThis is commented out.\n-->\n\nAfter."
+    result = clean_qmd_content(content)
+    assert "Before." in result
+    assert "commented out" not in result
+    assert "After." in result
+
+
+def test_strips_html_comments_inline():
+    content = "Hello <!-- inline comment --> world."
+    result = clean_qmd_content(content)
+    assert "Hello" in result
+    assert "world" in result
+    assert "inline comment" not in result
+
+
+def test_drops_hidden_code_blocks():
+    content = "Before.\n\n```{python}\n#| echo: false\nimport sys\n```\n\nAfter."
+    result = clean_qmd_content(content)
+    assert "import sys" not in result
+    assert "Before." in result
+    assert "After." in result
+
+
+def test_drops_include_false_code_blocks():
+    content = "```python\n#| include: false\nsetup_code()\n```\n\nProse."
+    result = clean_qmd_content(content)
+    assert "setup_code" not in result
+    assert "Prose." in result
+
+
+def test_keeps_visible_code_blocks():
+    content = "```python\nmy_app_code()\n```"
+    result = clean_qmd_content(content)
+    assert "my_app_code()" in result
+
+
+def test_strips_show_code_label():
+    content = "See below.\n\nShow code\n\n```python\nx = 1\n```"
+    result = clean_qmd_content(content)
+    assert "Show code" not in result
+    assert "x = 1" in result
 
 
 def test_preserves_plain_code_blocks():
@@ -331,25 +386,6 @@ def _make_test_sections():
     ]
 
 
-def test_generate_llms_txt_format():
-    sections = _make_test_sections()
-    output = generate_llms_txt(sections)
-    assert output.startswith("# Shiny for Python\n")
-    assert "> " in output
-    assert "## Get Started" in output
-    assert "- [Install](https://shiny.posit.co/py/get-started/install.html)" in output
-    assert "## Components" in output
-    assert "### Inputs" in output
-    assert "- [Checkbox](https://shiny.posit.co/py/components/inputs/checkbox/)" in output
-
-
-def test_generate_llms_txt_no_content():
-    sections = _make_test_sections()
-    output = generate_llms_txt(sections)
-    assert "Install Shiny with pip" not in output
-    assert "A checkbox input" not in output
-
-
 def test_generate_llms_full_txt_format():
     sections = _make_test_sections()
     output = generate_llms_full_txt(sections)
@@ -372,3 +408,206 @@ def test_generate_llms_full_txt_cleans_content():
     assert "title: Page" not in output
     assert ":::" not in output
     assert "Clean text." in output
+
+
+# ---------------------------------------------------------------------------
+# Fix 1: HTML stripping preserves backtick spans
+# ---------------------------------------------------------------------------
+
+def test_strip_html_preserves_inline_code():
+    line = "Use `input.<checkbox_id>()` to get the value."
+    result = _strip_html_outside_code(line)
+    assert "`input.<checkbox_id>()`" in result
+
+
+def test_strip_html_removes_tags_outside_code():
+    line = "See <strong>this</strong> and `keep.<tag>()`."
+    result = _strip_html_outside_code(line)
+    assert "<strong>" not in result
+    assert "this" in result
+    assert "`keep.<tag>()`" in result
+
+
+def test_strip_html_preserves_prose_placeholders():
+    line = "where <name> is the function and <checkbox_id> is the id."
+    result = _strip_html_outside_code(line)
+    assert "<name>" in result
+    assert "<checkbox_id>" in result
+
+
+def test_strip_html_removes_closing_tags():
+    line = "Hello </div> world."
+    result = _strip_html_outside_code(line)
+    assert "</div>" not in result
+    assert "Hello" in result and "world" in result
+
+
+def test_strip_html_removes_tags_with_attributes():
+    line = 'See <span class="foo">text</span>.'
+    result = _strip_html_outside_code(line)
+    assert "<span" not in result
+    assert "text" in result
+
+
+def test_clean_qmd_preserves_input_id_placeholders():
+    content = "Use `input.<my_id>()` to access the value."
+    result = clean_qmd_content(content)
+    assert "`input.<my_id>()`" in result
+
+
+# ---------------------------------------------------------------------------
+# Fix 2: Relative links resolved to absolute URLs
+# ---------------------------------------------------------------------------
+
+def test_resolve_links_relative_qmd():
+    content = "See [Action Link](../action-link/index.qmd) for more."
+    result = _resolve_links(content, "components/inputs/action-button/index.qmd")
+    assert "../action-link/index.qmd" not in result
+    assert "https://shiny.posit.co/py/components/inputs/action-link/" in result
+
+
+def test_resolve_links_absolute_path():
+    content = "See [API docs](/api/core/ui.navset_hidden.qmd)."
+    result = _resolve_links(content, "docs/some-page.qmd")
+    assert "/api/core/ui.navset_hidden.qmd" not in result
+    assert "https://shiny.posit.co/py/api/core/ui.navset_hidden.html" in result
+
+
+def test_resolve_links_external_unchanged():
+    content = "See [Shiny](https://shiny.posit.co/py/) for details."
+    result = _resolve_links(content, "docs/page.qmd")
+    assert result == content
+
+
+def test_clean_qmd_resolves_links():
+    content = "---\ntitle: T\n---\nSee [Checkbox](../checkbox/index.qmd)."
+    result = clean_qmd_content(content, "components/inputs/action-button/index.qmd")
+    assert "../checkbox/index.qmd" not in result
+    assert "https://shiny.posit.co/py/components/inputs/checkbox/" in result
+
+
+# ---------------------------------------------------------------------------
+# Fix 3: Template headings stripped
+# ---------------------------------------------------------------------------
+
+def test_strips_details_heading():
+    content = "## Details\n\nSome content here."
+    result = clean_qmd_content(content)
+    assert "## Details" not in result
+    assert "Some content here." in result
+
+
+def test_strips_variations_heading():
+    content = "## Variations\n\nVariant description."
+    result = clean_qmd_content(content)
+    assert "## Variations" not in result
+    assert "Variant description." in result
+
+
+def test_preserves_other_headings():
+    content = "## Installation\n\n## Details\n\nContent."
+    result = clean_qmd_content(content)
+    assert "## Installation" in result
+    assert "## Details" not in result
+
+
+# ---------------------------------------------------------------------------
+# Fix 4: Listing pages use description only
+# ---------------------------------------------------------------------------
+
+def test_is_listing_page_true_with_listing():
+    content = "---\ntitle: Components\npagedescription: Inputs and more.\nlisting:\n  - id: input\n---\n\nBody."
+    assert _is_listing_page(content) is True
+
+
+def test_is_listing_page_true_without_listing():
+    # Hub pages like layouts/index.qmd have pagedescription but no listing:
+    content = "---\ntitle: Shiny Layouts\npagedescription: Layout frameworks.\nsidebar: false\n---\n\nBody."
+    assert _is_listing_page(content) is True
+
+
+def test_is_listing_page_false_no_pagedescription():
+    content = "---\ntitle: Action Button\n---\n\nBody."
+    assert _is_listing_page(content) is False
+
+
+def test_is_listing_page_false_listing_without_pagedescription():
+    # Component detail pages have listing: for example widgets but no pagedescription
+    content = "---\ntitle: Action Button\nlisting:\n- id: example\n---\n\nBody."
+    assert _is_listing_page(content) is False
+
+
+# ---------------------------------------------------------------------------
+# Fix 5: Input component pages truncated to first paragraph
+# ---------------------------------------------------------------------------
+
+def test_is_input_component_page_true():
+    assert _is_input_component_page("components/inputs/checkbox/index.qmd") is True
+    assert _is_input_component_page("components/inputs/slider/index.qmd") is True
+
+
+def test_is_input_component_page_false_for_outputs():
+    assert _is_input_component_page("components/outputs/plot-matplotlib/index.qmd") is False
+
+
+def test_is_input_component_page_false_for_display_messages():
+    assert _is_input_component_page("components/display-messages/notifications/index.qmd") is False
+
+
+def test_first_paragraph_returns_only_first():
+    text = "First paragraph.\n\nSecond paragraph.\n\nThird paragraph."
+    assert _first_paragraph_with_see_also(text) == "First paragraph.\n"
+
+
+def test_first_paragraph_skips_leading_blank_lines():
+    text = "\n\nFirst paragraph.\n\nSecond paragraph."
+    assert _first_paragraph_with_see_also(text) == "First paragraph.\n"
+
+
+def test_first_paragraph_preserves_see_also():
+    text = "A checkbox input.\n\nFollow these steps.\n\nSee also: [Checkbox Group](https://example.com/)"
+    result = _first_paragraph_with_see_also(text)
+    assert "A checkbox input." in result
+    assert "Follow these steps" not in result
+    assert "See also: [Checkbox Group](https://example.com/)" in result
+
+
+def test_first_paragraph_no_see_also():
+    text = "A widget.\n\nFollow these steps.\n\n  1. Add it."
+    result = _first_paragraph_with_see_also(text)
+    assert result == "A widget.\n"
+
+
+def test_generate_llms_full_txt_truncates_input_pages():
+    sections = [Section(
+        name="Components",
+        pages=[],
+        subsections=[Subsection(name="Inputs", pages=[
+            Page(
+                title="Slider",
+                file_path="components/inputs/slider/index.qmd",
+                content="---\ntitle: Slider\n---\n\nA slider widget.\n\nFollow these steps:\n\n  1. Add the slider.\n\nSee also: [Slider Range](https://shiny.posit.co/py/components/inputs/slider-range/)\n",
+            ),
+        ])],
+    )]
+    output = generate_llms_full_txt(sections)
+    assert "A slider widget." in output
+    assert "Follow these steps" not in output
+    assert "See also: [Slider Range]" in output
+
+
+def test_generate_llms_full_txt_keeps_full_output_pages():
+    sections = [Section(
+        name="Components",
+        pages=[],
+        subsections=[Subsection(name="Outputs", pages=[
+            Page(
+                title="Plot",
+                file_path="components/outputs/plot-matplotlib/index.qmd",
+                content="---\ntitle: Plot\n---\n\nA plot output.\n\nFollow three steps to display a plot.\n",
+            ),
+        ])],
+    )]
+    output = generate_llms_full_txt(sections)
+    assert "A plot output." in output
+    assert "Follow three steps to display a plot." in output

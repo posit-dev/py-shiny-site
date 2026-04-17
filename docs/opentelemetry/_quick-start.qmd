@@ -123,7 +123,7 @@ You'll notice our `otel_config` module includes setting `SHINY_OTEL_COLLECT`. Th
 
 You may want to reduce or refine your own collection level. Se the portion on [collection levels](#what-can-shiny-record) for more information.
 
-```python
+```{.python filename="otel_config.py"}
 
 {{< include apps/opentelemetry/otel_config.py >}}
 

@@ -23,3 +23,6 @@ components/static/
 shinylive/
 
 **/*.quarto_ipynb
+
+/tests/node_modules/
+/tests/dist/

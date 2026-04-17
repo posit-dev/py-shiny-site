@@ -5,7 +5,7 @@ PYBIN ?= $(VENV)/bin
 PYTHON_VERSION ?= 3.12
 PIP3 ?= pip3
 
-QUARTO_VERSION ?= 1.7.23
+QUARTO_VERSION ?= 1.9.36
 QUARTO_PATH ?= ~/.local/share/qvm/versions/v${QUARTO_VERSION}/bin/quarto
 
 # Any targets that depend on $(VENV) or $(PYBIN) will cause the venv to be
@@ -20,7 +20,7 @@ $(PYBIN): $(VENV)
 
 ## Build assets and render site
 .PHONY: all
-all: quartodoc components llms-txt site
+all: quartodoc components llms-full-txt site
 
 ## Build website
 .PHONY: site
@@ -132,9 +132,9 @@ components-shinylive-links: $(PYBIN) deps
 	. $(PYBIN)/activate && python components/update-shinylive-links.py
 
 
-## Generate llms.txt and llms-full.txt
-.PHONY: llms-txt
-llms-txt: $(PYBIN) quartodoc
+## Generate llms-full.txt
+.PHONY: llms-full-txt
+llms-full-txt: $(PYBIN) quartodoc
 	. $(PYBIN)/activate && python scripts/generate_llms_txt.py
 
 
@@ -194,6 +194,21 @@ use-dev-shinylive: $(PYBIN) deps
 .PHONY: clean-dev-shinylive
 clean-dev-shinylive:
 	rm -rf $(SHINYLIVE_ARTIFACT_DIR)
+
+
+# ---------------------------------------------------------------------------
+# Site quality checks (require Node.js + AWS credentials for Bedrock)
+# ---------------------------------------------------------------------------
+
+COMPARE_OLD_URL ?= https://shiny.posit.co/py
+COMPARE_NEW_URL ?= http://localhost:1414
+AWS_PROFILE ?= claude
+
+## Compare two builds for regressions using Claude vision (run before merging major changes)
+.PHONY: compare-versions
+compare-versions:
+	cd tests && npm install --silent
+	cd tests && AWS_PROFILE=$(AWS_PROFILE) npm run compare -- --old $(COMPARE_OLD_URL) --new $(COMPARE_NEW_URL) $(if $(FILTER),--filter $(FILTER),) $(if $(EXCLUDE),--exclude $(EXCLUDE),)
 
 
 
