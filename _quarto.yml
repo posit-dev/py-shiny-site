@@ -23,6 +23,7 @@ project:
   resources:
     - /pypi/**
     - /robots.txt
+    - /llms-full.txt
     - /_redirects
     - objects.json
     - "*.png"

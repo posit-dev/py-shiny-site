@@ -131,6 +131,13 @@ components-static: $(PYBIN) deps
 components-shinylive-links: $(PYBIN) deps
 	. $(PYBIN)/activate && python components/update-shinylive-links.py
 
+
+## Generate llms-full.txt
+.PHONY: llms-full-txt
+llms-full-txt: $(PYBIN) quartodoc
+	. $(PYBIN)/activate && python scripts/generate_llms_txt.py
+
+
 ## Remove Quarto website build files
 .PHONY: clean
 clean:
