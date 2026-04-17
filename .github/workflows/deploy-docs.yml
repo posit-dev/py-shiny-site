@@ -51,10 +51,6 @@ jobs:
       # =====================================================
       # Build
       # =====================================================
-      - name: Build site
-        run: |
-          make all QUARTO_PATH=quarto
-
       - name: Verify llms-full.txt is up to date
         run: |
           make llms-full-txt QUARTO_PATH=quarto
@@ -64,6 +60,10 @@ jobs:
             echo "Run 'make llms-full-txt' locally and commit the updated file."
             exit 1
           fi
+
+      - name: Build site
+        run: |
+          make all QUARTO_PATH=quarto
 
       # =====================================================
       # Deploy docs to Netlify
