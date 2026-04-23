@@ -6,6 +6,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterator
 
+import yaml
+
 BASE_URL = "https://shiny.posit.co/py/"
 
 SITE_DESCRIPTION = (
@@ -76,29 +78,41 @@ _TEMPLATE_HEADINGS = re.compile(
     r"^#{1,3} (Details|Variations|Relevant Functions)$"
 )
 
+_FRONTMATTER_RE = re.compile(r"^---[ \t]*\n(.*?)\n---[ \t]*\n", re.DOTALL)
+
+
+def _parse_frontmatter(content: str) -> "tuple[dict, str]":
+    """Parse YAML frontmatter, returning (data, body).
+
+    Returns ({}, content) if no frontmatter block is found or YAML is invalid.
+    Handles multi-line values, quoted strings, and other edge cases correctly
+    because it delegates to PyYAML rather than using ad-hoc regex.
+    """
+    m = _FRONTMATTER_RE.match(content)
+    if not m:
+        return {}, content
+    try:
+        data = yaml.safe_load(m.group(1)) or {}
+    except yaml.YAMLError:
+        data = {}
+    if not isinstance(data, dict):
+        data = {}
+    return data, content[m.end():]
+
 
 def clean_qmd_content(content: str, file_path: str = "") -> str:
     """Strip Quarto-specific markup from .qmd content, keeping prose and code."""
+    _, content = _parse_frontmatter(content)
     lines = content.split("\n")
     result_lines: list[str] = []
-    in_frontmatter = False
     in_raw_html_block = False
     in_html_comment = False
     in_code_block = False
     code_block_buf: list[str] = []
     code_block_hidden = False
-    frontmatter_count = 0
 
     for line in lines:
         stripped = line.strip()
-
-        # Handle YAML frontmatter (first --- ... --- block)
-        if stripped == "---" and frontmatter_count < 2:
-            frontmatter_count += 1
-            in_frontmatter = not in_frontmatter
-            continue
-        if in_frontmatter:
-            continue
 
         # Handle raw HTML blocks: ```{=html} ... ```
         if stripped.startswith("```{=html}"):
@@ -202,35 +216,12 @@ def extract_title(content: str) -> "str | None":
     """Extract title from .qmd YAML frontmatter.
 
     Returns pagetitle if present (takes precedence), else title, else None.
-    Uses regex parsing since PyYAML may not be available.
     """
-    # Find the frontmatter block
-    match = re.match(r"^---\s*\n(.*?)\n---\s*\n", content, re.DOTALL)
-    if not match:
-        return None
-    frontmatter = match.group(1)
-
-    # Try PyYAML first if available
-    try:
-        import yaml  # type: ignore
-
-        data = yaml.safe_load(frontmatter)
-        if isinstance(data, dict):
-            if "pagetitle" in data:
-                return str(data["pagetitle"])
-            if "title" in data:
-                return str(data["title"])
-        return None
-    except ImportError:
-        pass
-
-    # Regex-based fallback
-    pagetitle_match = re.search(r'^pagetitle:\s*["\']?(.+?)["\']?\s*$', frontmatter, re.MULTILINE)
-    if pagetitle_match:
-        return pagetitle_match.group(1).strip().strip("'\"")
-    title_match = re.search(r'^title:\s*["\']?(.+?)["\']?\s*$', frontmatter, re.MULTILINE)
-    if title_match:
-        return title_match.group(1).strip().strip("'\"")
+    data, _ = _parse_frontmatter(content)
+    if "pagetitle" in data:
+        return str(data["pagetitle"])
+    if "title" in data:
+        return str(data["title"])
     return None
 
 
@@ -352,29 +343,10 @@ class Section:
 
 def _page_description(content: str) -> "str | None":
     """Extract pagedescription or description from YAML frontmatter."""
-    try:
-        import yaml  # type: ignore
-        match = re.match(r"^---\s*\n(.*?)\n---\s*\n", content, re.DOTALL)
-        if not match:
-            return None
-        data = yaml.safe_load(match.group(1))
-        if isinstance(data, dict):
-            for key in ("pagedescription", "description"):
-                if key in data:
-                    return str(data[key]).strip()
-        return None
-    except ImportError:
-        pass
-    match = re.match(r"^---\s*\n(.*?)\n---\s*\n", content, re.DOTALL)
-    if not match:
-        return None
-    frontmatter = match.group(1)
+    data, _ = _parse_frontmatter(content)
     for key in ("pagedescription", "description"):
-        m = re.search(rf"^{key}:\s*(.+)$", frontmatter, re.MULTILINE)
-        if m:
-            val = m.group(1).strip().strip("'\"")
-            if val != ">":  # skip YAML block scalar indicator
-                return val
+        if key in data:
+            return str(data[key]).strip()
     return None
 
 
@@ -385,10 +357,8 @@ def _is_listing_page(content: str) -> bool:
     Component detail pages also use listing: for example widgets but never
     have pagedescription:, so pagedescription: alone is the reliable signal.
     """
-    match = re.match(r"^---\s*\n(.*?)\n---\s*\n", content, re.DOTALL)
-    if not match:
-        return False
-    return bool(re.search(r"^pagedescription:", match.group(1), re.MULTILINE))
+    data, _ = _parse_frontmatter(content)
+    return "pagedescription" in data
 
 
 def _load_page(root: Path, file_path: str) -> "Page | None":
@@ -436,11 +406,6 @@ def _build_api_sections(root: Path) -> list[Section]:
 
     Returns an empty list if quartodoc hasn't been run yet.
     """
-    try:
-        import yaml  # type: ignore
-    except ImportError:
-        return []
-
     api_subsections: list[Subsection] = []
     for api_name, display_name in API_SUBSECTIONS:
         sidebar_path = root / "api" / api_name / "_sidebar.yml"
@@ -476,13 +441,6 @@ def _build_api_sections(root: Path) -> list[Section]:
 
 def build_site_structure(root: Path) -> list[Section]:
     """Parse _quarto.yml and .qmd files to build ordered site structure."""
-    try:
-        import yaml  # type: ignore
-    except ImportError:
-        raise ImportError(
-            "PyYAML is required for build_site_structure. Install with: pip install pyyaml"
-        )
-
     quarto_path = root / "_quarto.yml"
     with open(quarto_path) as f:
         config = yaml.safe_load(f)

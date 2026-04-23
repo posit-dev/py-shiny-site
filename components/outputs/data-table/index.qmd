@@ -262,7 +262,7 @@ To make a reactive Data Table, follow three steps:
 
 A Data Table can also collect input from the user. To allow this, set `render.DataTable(selection_mode="row")` or `render.DataTable(selection_mode="rows")` to allow the user to select one or more rows of the Data Table.
 
-The indices of the selected rows will be accessible within the server function as a reactive variable returned by `<name>.cell_selection()["rows"]`, where <name> is the name of the function decorated with `@render.data_frame`.
+The indices of the selected rows will be accessible within the server function as a reactive variable returned by `<name>.cell_selection()["rows"]`, where `<name>` is the name of the function decorated with `@render.data_frame`.
 
 The value returned will be an empty tuple if no rows are selected, or a tuple of integers representing the indices of the selected rows. To filter a pandas data frame down to the selected rows, use `df.iloc[list(<name>.cell_selection()["rows"])]`.
 
