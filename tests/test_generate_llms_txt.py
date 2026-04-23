@@ -12,6 +12,7 @@ from generate_llms_txt import (
     _first_paragraph_with_see_also,
     _is_input_component_page,
     _is_listing_page,
+    _parse_frontmatter,
     _resolve_links,
     _strip_html_outside_code,
     build_site_structure,
@@ -611,3 +612,168 @@ def test_generate_llms_full_txt_keeps_full_output_pages():
     output = generate_llms_full_txt(sections)
     assert "A plot output." in output
     assert "Follow three steps to display a plot." in output
+
+
+# ---------------------------------------------------------------------------
+# _parse_frontmatter — direct unit tests
+# ---------------------------------------------------------------------------
+
+def test_parse_frontmatter_basic():
+    data, body = _parse_frontmatter("---\ntitle: Hello\n---\nBody.")
+    assert data == {"title": "Hello"}
+    assert body == "Body."
+
+
+def test_parse_frontmatter_no_frontmatter():
+    content = "Just prose, no frontmatter."
+    data, body = _parse_frontmatter(content)
+    assert data == {}
+    assert body == content
+
+
+def test_parse_frontmatter_returns_body_only():
+    data, body = _parse_frontmatter("---\ntitle: T\nformat: html\n---\n\nActual content.")
+    assert "title" not in body
+    assert "format" not in body
+    assert "Actual content." in body
+
+
+def test_parse_frontmatter_multiline_value():
+    content = "---\ndescription: |\n  Line one.\n  Line two.\n---\nBody."
+    data, body = _parse_frontmatter(content)
+    assert "Line one." in data["description"]
+    assert "Line two." in data["description"]
+    assert body == "Body."
+
+
+def test_parse_frontmatter_quoted_value_with_colon():
+    data, _ = _parse_frontmatter('---\ntitle: "Hello: World"\n---\nBody.')
+    assert data["title"] == "Hello: World"
+
+
+def test_parse_frontmatter_invalid_yaml_returns_empty():
+    # Invalid YAML should not raise — returns ({}, body) with frontmatter stripped
+    data, body = _parse_frontmatter("---\nkey: [unclosed\n---\nBody.")
+    assert data == {}
+    assert body == "Body."
+
+
+def test_parse_frontmatter_non_dict_yaml_returns_empty():
+    # YAML scalar at top level (e.g., just a number) should coerce to {}
+    data, body = _parse_frontmatter("---\n42\n---\nBody.")
+    assert data == {}
+    assert body == "Body."
+
+
+def test_parse_frontmatter_missing_trailing_newline():
+    # File that ends exactly at the closing --- with no trailing newline
+    content = "---\ntitle: T\n---"
+    data, body = _parse_frontmatter(content)
+    assert data == {"title": "T"}
+    assert body == ""
+    # Frontmatter must NOT leak into body
+    assert "title" not in body
+    assert "---" not in body
+
+
+def test_parse_frontmatter_pagetitle_preferred():
+    data, _ = _parse_frontmatter('---\npagetitle: "Page Title"\ntitle: Regular\n---\nBody.')
+    assert data["pagetitle"] == "Page Title"
+    assert data["title"] == "Regular"
+
+
+# ---------------------------------------------------------------------------
+# clean_qmd_content — state machine edge cases
+# ---------------------------------------------------------------------------
+
+def test_cell_options_other_than_echo_include_are_dropped():
+    # All #| lines should be stripped from visible code blocks, not just echo/include
+    content = "```python\n#| label: fig-example\n#| fig-cap: A figure\nmy_code()\n```"
+    result = clean_qmd_content(content)
+    assert "#|" not in result
+    assert "my_code()" in result
+
+
+def test_unclosed_code_block_does_not_emit_content():
+    # An unclosed code block should not emit buffered lines as prose.
+    # Document current behavior: content is swallowed (not ideal, but at least not corrupt).
+    content = "Before.\n\n```python\nswallowed_code()\n"
+    result = clean_qmd_content(content)
+    assert "Before." in result
+    assert "swallowed_code" not in result
+
+
+def test_combined_frontmatter_hidden_block_and_div():
+    # Integration: multiple features active in one document
+    content = (
+        "---\ntitle: T\n---\n\n"
+        "Intro.\n\n"
+        ":::{.grid}\nGrid content.\n:::\n\n"
+        "```python\n#| echo: false\nhidden_setup()\n```\n\n"
+        "Outro."
+    )
+    result = clean_qmd_content(content)
+    assert "title: T" not in result
+    assert "Intro." in result
+    assert "Grid content." in result
+    assert ":::" not in result
+    assert "hidden_setup" not in result
+    assert "Outro." in result
+
+
+def test_relevant_functions_heading_stripped():
+    content = "## Relevant Functions\n\nSome content."
+    result = clean_qmd_content(content)
+    assert "## Relevant Functions" not in result
+    assert "Some content." in result
+
+
+def test_template_heading_at_level_three_stripped():
+    content = "### Details\n\nContent under h3."
+    result = clean_qmd_content(content)
+    assert "### Details" not in result
+    assert "Content under h3." in result
+
+
+# ---------------------------------------------------------------------------
+# _resolve_links — missing edge cases
+# ---------------------------------------------------------------------------
+
+def test_resolve_links_fragment_only_unchanged():
+    # A fragment-only href should be returned unchanged
+    content = "See [this section](#overview) for details."
+    result = _resolve_links(content, "docs/page.qmd")
+    assert "[this section](#overview)" in result
+
+
+def test_resolve_links_mailto_unchanged():
+    content = "Email [us](mailto:support@example.com)."
+    result = _resolve_links(content, "docs/page.qmd")
+    assert "mailto:support@example.com" in result
+
+
+def test_resolve_links_fragment_on_relative_path_drops_fragment():
+    # The fragment is intentionally dropped when resolving relative paths.
+    content = "See [Foo](../checkbox/index.qmd#section)."
+    result = _resolve_links(content, "components/inputs/button/index.qmd")
+    assert "#section" not in result
+    assert "https://shiny.posit.co/py/components/inputs/checkbox/" in result
+
+
+# ---------------------------------------------------------------------------
+# _strip_html_outside_code — missing edge cases
+# ---------------------------------------------------------------------------
+
+def test_strip_html_multiple_code_spans_on_one_line():
+    line = "Use `<a>` for links and `<b>` for bold, but remove <span>this</span>."
+    result = _strip_html_outside_code(line)
+    assert "`<a>`" in result
+    assert "`<b>`" in result
+    assert "<span>" not in result
+    assert "this" in result
+
+
+def test_strip_html_line_already_blank_unaffected():
+    # A line that was blank before HTML stripping should not be treated as "pure HTML"
+    assert _strip_html_outside_code("") == ""
+    assert _strip_html_outside_code("   ") == "   "

@@ -78,7 +78,7 @@ _TEMPLATE_HEADINGS = re.compile(
     r"^#{1,3} (Details|Variations|Relevant Functions)$"
 )
 
-_FRONTMATTER_RE = re.compile(r"^---[ \t]*\n(.*?)\n---[ \t]*\n", re.DOTALL)
+_FRONTMATTER_RE = re.compile(r"^---[ \t]*\n(.*?)\n---[ \t]*\n?", re.DOTALL)
 
 
 def _parse_frontmatter(content: str) -> "tuple[dict, str]":
@@ -128,7 +128,7 @@ def clean_qmd_content(content: str, file_path: str = "") -> str:
             if "-->" in line:
                 in_html_comment = False
             continue
-        if "<!--" in stripped:
+        if "<!--" in line:
             if "-->" not in line[line.index("<!--"):]:
                 in_html_comment = True
                 continue
