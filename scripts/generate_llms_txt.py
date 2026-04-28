@@ -1,6 +1,5 @@
-"""Generate llms-full.txt from site source files."""
+"""Generate llms-full.txt from Quarto-rendered .llms.md files."""
 
-import os
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -16,213 +15,82 @@ SITE_DESCRIPTION = (
     "built-in UI components, and support for generative AI integration."
 )
 
-
-_HTML_ELEMENTS = frozenset(
-    "a abbr address area article aside audio b base bdi bdo blockquote body br "
-    "button canvas caption cite code col colgroup data datalist dd del details "
-    "dfn dialog div dl dt em embed fieldset figcaption figure footer form h1 h2 "
-    "h3 h4 h5 h6 head header hr html i iframe img input ins kbd label legend li "
-    "link main map mark menu meta meter nav noscript object ol optgroup option "
-    "output p picture pre progress q rp rt ruby s samp script section select "
-    "small source span strong style sub summary sup table tbody td template "
-    "textarea tfoot th thead time tr track u ul var video wbr "
-    "svg path circle rect line polyline polygon ellipse g defs use text tspan "
-    "dotlottie slot".split()
-)
+# Section headings whose content (until the next heading) should be dropped.
+_SKIP_SECTIONS = re.compile(r"^## (Relevant Functions|Variation Showcase)$")
 
 
-def _strip_html_tag(m: re.Match) -> str:
-    """Return empty string for real HTML tags; preserve angle-bracket placeholders."""
-    inner = m.group(1).strip()
-    # Closing tag: </foo>
-    if inner.startswith("/"):
-        return ""
-    # Tag with attributes or self-closing slash
-    if " " in inner or "=" in inner or inner.endswith("/"):
-        return ""
-    # Simple bare tag — only strip if it's a known HTML element
-    tag_name = inner.lower()
-    return "" if tag_name in _HTML_ELEMENTS else m.group(0)
+def post_process_llms_md(content: str) -> str:
+    """Clean a Quarto-rendered .llms.md body for LLM consumption.
 
-
-def _strip_html_outside_code(line: str) -> str:
-    """Strip HTML tags from a line, preserving backtick spans and placeholders."""
-    parts = re.split(r"(`[^`]*`)", line)
-    return "".join(
-        part if i % 2 == 1 else re.sub(r"<([^>]+)>", _strip_html_tag, part)
-        for i, part in enumerate(parts)
-    )
-
-
-def _resolve_links(content: str, file_path: str) -> str:
-    """Rewrite relative/qmd links in content to absolute URLs."""
-    page_dir = Path(file_path).parent
-
-    def replace(m: re.Match) -> str:
-        text, href = m.group(1), m.group(2)
-        if href.startswith(("http://", "https://", "#", "mailto:")):
-            return m.group(0)
-        bare = href.split("#")[0]
-        if not bare:
-            return m.group(0)
-        if bare.startswith("/"):
-            resolved = bare.lstrip("/")
-        else:
-            resolved = os.path.normpath(str(page_dir / bare))
-        return f"[{text}]({file_path_to_url(resolved)})"
-
-    return re.sub(r"\[([^\]]+)\]\(([^)]+)\)", replace, content)
-
-
-_TEMPLATE_HEADINGS = re.compile(
-    r"^#{1,3} (Details|Variations|Relevant Functions)$"
-)
-
-_FRONTMATTER_RE = re.compile(r"^---[ \t]*\n(.*?)\n---[ \t]*\n?", re.DOTALL)
-
-
-def _parse_frontmatter(content: str) -> "tuple[dict, str]":
-    """Parse YAML frontmatter, returning (data, body).
-
-    Returns ({}, content) if no frontmatter block is found or YAML is invalid.
-    Handles multi-line values, quoted strings, and other edge cases correctly
-    because it delegates to PyYAML rather than using ad-hoc regex.
+    Strips directive lines, normalizes code fence tags, drops unwanted sections,
+    removes bare external links and image references, and collapses excess blank lines.
     """
-    m = _FRONTMATTER_RE.match(content)
-    if not m:
-        return {}, content
-    try:
-        data = yaml.safe_load(m.group(1)) or {}
-    except yaml.YAMLError:
-        data = {}
-    if not isinstance(data, dict):
-        data = {}
-    return data, content[m.end():]
-
-
-def clean_qmd_content(content: str, file_path: str = "") -> str:
-    """Strip Quarto-specific markup from .qmd content, keeping prose and code."""
-    _, content = _parse_frontmatter(content)
     lines = content.split("\n")
-    result_lines: list[str] = []
-    in_raw_html_block = False
-    in_html_comment = False
+    result: list[str] = []
     in_code_block = False
-    code_block_buf: list[str] = []
-    code_block_hidden = False
+    skip_section = False
 
     for line in lines:
         stripped = line.strip()
 
-        # Handle raw HTML blocks: ```{=html} ... ```
-        if stripped.startswith("```{=html}"):
-            in_raw_html_block = True
-            continue
-        if in_raw_html_block:
-            if stripped == "```":
-                in_raw_html_block = False
+        # Strip Quarto directive lines anywhere they appear (code blocks,
+        # blockquoted code blocks, Jupyter ##| syntax).
+        if re.match(r"^(>\s*)*##?\|", stripped):
             continue
 
-        # Handle multi-line HTML comments: <!-- ... -->
-        if in_html_comment:
-            if "-->" in line:
-                in_html_comment = False
-            continue
-        if "<!--" in line:
-            if "-->" not in line[line.index("<!--"):]:
-                in_html_comment = True
-                continue
-            line = re.sub(r"<!--.*?-->", "", line).rstrip()
-            stripped = line.strip()
-            if not stripped:
-                continue
-
-        # Handle code blocks: buffer content, drop if hidden (echo/include: false)
-        if in_code_block:
-            if stripped == "```":
-                in_code_block = False
-                if not code_block_hidden:
-                    result_lines.extend(code_block_buf)
-                    result_lines.append(line)
-                code_block_buf = []
-                code_block_hidden = False
-            else:
-                if re.match(r"^#\|\s*(echo|include):\s*false", stripped):
-                    code_block_hidden = True
-                elif not re.match(r"^#\|", stripped):
-                    code_block_buf.append(line)
-            continue
-
-        # Skip Quarto div fences: :::{.class}, ::: callout-note, ::::, bare :::
-        if re.match(r"^:{3,}", stripped):
-            continue
-
-        # Strip component template headings (authoring artifacts, not content)
-        if _TEMPLATE_HEADINGS.match(stripped):
-            continue
-
-        # Code block opener — convert Quarto/shinylive syntax, start buffering
         if stripped.startswith("```"):
-            in_code_block = True
-            code_block_hidden = False
-            code_block_buf = []
-            m = re.match(r"^```\s*\{(shinylive-)?(\w+)\}", stripped)
-            if m:
-                code_block_buf.append(f"```{m.group(2)}")
-            else:
-                code_block_buf.append(line)
+            in_code_block = not in_code_block
+            if in_code_block:
+                line = re.sub(r"^(```)\s*(shinylive-\w+|numberSource)\b", r"\1python", line)
+            result.append(line)
             continue
 
-        # Remove inline HTML tags (but not inside backtick spans)
-        line = _strip_html_outside_code(line)
-
-        # Skip lines that became empty after HTML removal (were pure HTML),
-        # and skip "Show code" / "Hide code" fold labels (may be wrapped in HTML)
-        stripped_after = line.strip()
-        if stripped_after in ("Show code", "Hide code"):
-            continue
-        if not stripped_after and stripped:
+        if in_code_block:
+            result.append(line)
             continue
 
-        result_lines.append(line)
+        # Entering or leaving a skipped section
+        if re.match(r"^#{1,2} ", stripped):
+            skip_section = bool(_SKIP_SECTIONS.match(stripped))
+        if skip_section:
+            continue
 
-    # Collapse 3+ consecutive blank lines to 2
-    text = "\n".join(result_lines)
+        # Strip bare external-link lines (navigation links, Shinylive showcases)
+        # and bare image references — these are standalone lines with no prose.
+        if re.match(r"^\[.*\]\(https?://", stripped):
+            continue
+        if re.match(r"^!\[.*\]\(", stripped):
+            continue
+
+        result.append(line)
+
+    text = "\n".join(result)
     text = re.sub(r"\n{3,}", "\n\n", text)
-    text = text.strip() + "\n"
-
-    if file_path:
-        text = _resolve_links(text, file_path)
-
-    return text
+    return text.strip() + "\n"
 
 
 def clean_section_name(raw: str) -> str:
-    """Strip Quarto markup from sidebar section names."""
-    # Remove ![...](...)  with optional {...} attributes
+    """Strip Quarto markup (images, HTML, bold wrappers) from a sidebar section name."""
     result = re.sub(r"!\[.*?\]\(.*?\)(\{.*?\})?", "", raw)
-    # Remove entire <span>...</span> blocks (including content)
     result = re.sub(r"<span[^>]*>.*?</span>", "", result, flags=re.DOTALL)
-    # Remove remaining HTML tags (open/close)
     result = re.sub(r"<[^>]+>", "", result)
-    # Extract text from __text__ bold markers
     result = re.sub(r"__(.+?)__", r"\1", result)
-    # Remove {.class} attributes
     result = re.sub(r"\{[^}]*\}", "", result)
     return result.strip()
 
 
-def extract_title(content: str) -> "str | None":
-    """Extract title from .qmd YAML frontmatter.
-
-    Returns pagetitle if present (takes precedence), else title, else None.
-    """
-    data, _ = _parse_frontmatter(content)
-    if "pagetitle" in data:
-        return str(data["pagetitle"])
-    if "title" in data:
-        return str(data["title"])
-    return None
+def file_path_to_url(file_path: str) -> str:
+    """Convert a sidebar file path to its canonical public URL under BASE_URL."""
+    path = file_path.lstrip("/")
+    name = Path(path).name
+    if name in ("index.qmd", "index.html"):
+        parent = str(Path(path).parent)
+        if parent == ".":
+            return BASE_URL
+        return f"{BASE_URL}{parent}/"
+    elif path.endswith(".qmd"):
+        path = path[:-4] + ".html"
+    return f"{BASE_URL}{path}"
 
 
 @dataclass
@@ -238,11 +106,7 @@ def walk_sidebar(
     parent_section: "str | None" = None,
     _seen: "set[str] | None" = None,
 ) -> Iterator[SidebarEntry]:
-    """Recursively walk sidebar contents, yielding SidebarEntry for each page.
-
-    Fragment-only hrefs (e.g. /layouts/navbars/index.html#section) are resolved
-    to their parent page so anchor-grouped content is still included.
-    """
+    """Recursively yield a SidebarEntry for each unique page in a sidebar contents list."""
     if _seen is None:
         _seen = set()
     for entry in contents:
@@ -258,40 +122,77 @@ def walk_sidebar(
                     parent_section=section_name,
                     _seen=_seen,
                 )
-            elif "href" in entry:
-                href = entry["href"]
-                if "#" in href:
-                    page_path = href.split("#")[0].lstrip("/")
-                    if page_path and page_path not in _seen:
-                        _seen.add(page_path)
-                        yield SidebarEntry(section=parent_section, file_path=page_path)
-                else:
-                    if href not in _seen:
-                        _seen.add(href)
-                        yield SidebarEntry(section=parent_section, file_path=href)
-            elif "file" in entry:
-                f = entry["file"]
-                if f not in _seen:
-                    _seen.add(f)
-                    yield SidebarEntry(section=parent_section, file_path=f)
+            elif "href" in entry or "file" in entry:
+                path = entry.get("href") or entry.get("file", "")
+                if "#" in path:
+                    path = path.split("#")[0].lstrip("/")
+                if path and path not in _seen:
+                    _seen.add(path)
+                    yield SidebarEntry(section=parent_section, file_path=path)
 
 
-def file_path_to_url(file_path: str) -> str:
-    """Convert a file path to a URL."""
-    path = file_path.lstrip("/")
-    name = Path(path).name
-    if name in ("index.qmd", "index.html"):
-        parent = str(Path(path).parent)
-        if parent == ".":
-            return BASE_URL
-        return f"{BASE_URL}{parent}/"
-    elif path.endswith(".qmd"):
-        path = path[:-4] + ".html"
-    return f"{BASE_URL}{path}"
+@dataclass
+class Page:
+    """A single documentation page."""
+
+    title: str
+    file_path: str
+    content: str  # post-processed body (no leading # Title)
+
+
+@dataclass
+class Subsection:
+    """A subsection within a section."""
+
+    name: str
+    pages: list[Page]
+
+
+@dataclass
+class Section:
+    """A top-level section."""
+
+    name: str
+    pages: list[Page]
+    subsections: list[Subsection]
+
+
+def _load_page(build_dir: Path, file_path: str) -> "Page | None":
+    """Read a .llms.md file and return a Page, or None if the file doesn't exist."""
+    clean = file_path.lstrip("/")
+    if clean.endswith("/"):
+        clean += "index"
+    elif clean.endswith(".html"):
+        clean = clean[:-5]
+    elif clean.endswith(".qmd"):
+        clean = clean[:-4]
+    llms_path = build_dir / (clean + ".llms.md")
+    if not llms_path.exists():
+        return None
+    raw = llms_path.read_text()
+
+    # Extract title from the first "# " heading that appears before any code fence.
+    stem = llms_path.name.replace(".llms.md", "")
+    title = stem.replace("-", " ").title()
+    lines = raw.splitlines(keepends=True)
+    body = raw
+    for i, line in enumerate(lines):
+        if line.startswith("```"):
+            break  # don't look past code blocks
+        if line.startswith("# "):
+            title = line[2:].rstrip("\n").strip()
+            body = "".join(lines[i + 1:])
+            break
+
+    return Page(
+        title=title,
+        file_path=file_path,
+        content=post_process_llms_md(body),
+    )
 
 
 # ---------------------------------------------------------------------------
-# Site structure data classes
+# Site structure constants
 # ---------------------------------------------------------------------------
 
 SIDEBAR_DISPLAY_NAMES = {
@@ -303,6 +204,8 @@ SIDEBAR_DISPLAY_NAMES = {
 
 SKIP_SIDEBAR_IDS = {"deploy"}
 
+_SECTION_ORDER = ["Get Started", "Concepts", "Components", "Layouts", "API Reference", "Templates"]
+
 API_SUBSECTIONS = [
     ("express", "Shiny Express"),
     ("core", "Shiny Core"),
@@ -310,90 +213,15 @@ API_SUBSECTIONS = [
 ]
 
 
-@dataclass
-class Page:
-    """A single documentation page."""
-
-    title: str
-    file_path: str
-    content: str  # raw .qmd content
-
-
-@dataclass
-class Subsection:
-    """A subsection within a section (e.g., "Inputs" within "Components")."""
-
-    name: str
-    pages: list[Page]
-
-
-@dataclass
-class Section:
-    """A top-level section (e.g., "Get Started", "Components")."""
-
-    name: str
-    pages: list[Page]  # pages not under any subsection
-    subsections: list[Subsection]
-
-
-# ---------------------------------------------------------------------------
-# Page loader
-# ---------------------------------------------------------------------------
-
-
-def _page_description(content: str) -> "str | None":
-    """Extract pagedescription or description from YAML frontmatter."""
-    data, _ = _parse_frontmatter(content)
-    for key in ("pagedescription", "description"):
-        if key in data:
-            return str(data[key]).strip()
-    return None
-
-
-def _is_listing_page(content: str) -> bool:
-    """Return True if the page is a navigation hub page.
-
-    Hub pages use pagedescription: in their frontmatter; content pages don't.
-    Component detail pages also use listing: for example widgets but never
-    have pagedescription:, so pagedescription: alone is the reliable signal.
-    """
-    data, _ = _parse_frontmatter(content)
-    return "pagedescription" in data
-
-
-def _load_page(root: Path, file_path: str) -> "Page | None":
-    """Read a .qmd file and extract its title and content."""
-    clean_path = file_path.lstrip("/")
-    if clean_path.endswith("/"):
-        clean_path = clean_path + "index.qmd"
-    elif clean_path.endswith(".html"):
-        clean_path = clean_path[:-5] + ".qmd"
-    full_path = root / clean_path
-    if not full_path.exists() or not full_path.is_file():
-        return None
-    content = full_path.read_text()
-    title = extract_title(content) or full_path.stem.replace("-", " ").title()
-    if _is_listing_page(content):
-        desc = _page_description(content) or ""
-        synthetic = f"{desc}\n" if desc else ""
-        return Page(title=title, file_path=clean_path, content=synthetic)
-    return Page(title=title, file_path=clean_path, content=content)
-
-
-# ---------------------------------------------------------------------------
-# Template and API section builders
-# ---------------------------------------------------------------------------
-
-
-def _build_templates_section(root: Path) -> "Section | None":
-    """Discover template pages by scanning templates/*/index.qmd."""
-    templates_dir = root / "templates"
+def _build_templates_section(build_dir: Path) -> "Section | None":
+    """Discover template pages by globbing _build/templates/*/index.llms.md."""
+    templates_dir = build_dir / "templates"
     if not templates_dir.exists():
         return None
     pages: list[Page] = []
-    for qmd_path in sorted(templates_dir.glob("*/index.qmd")):
-        rel_path = str(qmd_path.relative_to(root))
-        page = _load_page(root, rel_path)
+    for llms_path in sorted(templates_dir.glob("*/index.llms.md")):
+        source_rel = str(llms_path.relative_to(build_dir)).replace(".llms.md", ".qmd")
+        page = _load_page(build_dir, source_rel)
         if page:
             pages.append(page)
     if not pages:
@@ -401,17 +229,13 @@ def _build_templates_section(root: Path) -> "Section | None":
     return Section(name="Templates", pages=pages, subsections=[])
 
 
-def _build_api_sections(root: Path) -> list[Section]:
-    """Build API Reference section from generated sidebar files.
-
-    Returns an empty list if quartodoc hasn't been run yet.
-    """
+def _build_api_sections(root: Path, build_dir: Path) -> list[Section]:
+    """Build the API Reference section from each subsection's _sidebar.yml."""
     api_subsections: list[Subsection] = []
     for api_name, display_name in API_SUBSECTIONS:
         sidebar_path = root / "api" / api_name / "_sidebar.yml"
         if not sidebar_path.exists():
-            # API index page only (sidebar not generated yet)
-            index_page = _load_page(root, f"api/{api_name}/index.qmd")
+            index_page = _load_page(build_dir, f"api/{api_name}/index.qmd")
             if index_page:
                 api_subsections.append(Subsection(name=display_name, pages=[index_page]))
             continue
@@ -419,13 +243,19 @@ def _build_api_sections(root: Path) -> list[Section]:
             sidebar_config = yaml.safe_load(f)
         if not sidebar_config:
             continue
-        contents = (
-            sidebar_config
-            if isinstance(sidebar_config, list)
-            else sidebar_config.get("contents", [])
-        )
-        entries = list(walk_sidebar(contents))
-        pages = [p for e in entries if (p := _load_page(root, e.file_path))]
+        if isinstance(sidebar_config, list):
+            contents = sidebar_config
+        elif "website" in sidebar_config:
+            # _quarto.yml-style: website.sidebar[0].contents
+            sidebars = sidebar_config["website"].get("sidebar", [])
+            if isinstance(sidebars, list) and sidebars:
+                contents = sidebars[0].get("contents", [])
+            else:
+                contents = sidebars.get("contents", []) if isinstance(sidebars, dict) else []
+        else:
+            contents = sidebar_config.get("contents", [])
+        index_path = f"api/{api_name}/index.qmd"
+        pages = [p for e in walk_sidebar(contents) if e.file_path != index_path and (p := _load_page(build_dir, e.file_path))]
         if pages:
             api_subsections.append(Subsection(name=display_name, pages=pages))
 
@@ -434,13 +264,9 @@ def _build_api_sections(root: Path) -> list[Section]:
     return [Section(name="API Reference", pages=[], subsections=api_subsections)]
 
 
-# ---------------------------------------------------------------------------
-# Main site structure builder
-# ---------------------------------------------------------------------------
-
-
 def build_site_structure(root: Path) -> list[Section]:
-    """Parse _quarto.yml and .qmd files to build ordered site structure."""
+    """Parse _quarto.yml and .llms.md files to build an ordered list of Sections."""
+    build_dir = root / "_build"
     quarto_path = root / "_quarto.yml"
     with open(quarto_path) as f:
         config = yaml.safe_load(f)
@@ -470,7 +296,7 @@ def build_site_structure(root: Path) -> list[Section]:
         subsection_map: dict[str, list[Page]] = {}
 
         for entry in entries:
-            page = _load_page(root, entry.file_path)
+            page = _load_page(build_dir, entry.file_path)
             if page is None:
                 continue
             if entry.section:
@@ -482,94 +308,72 @@ def build_site_structure(root: Path) -> list[Section]:
             Subsection(name=name, pages=pages)
             for name, pages in subsection_map.items()
         ]
-
         sections.append(
             Section(name=section_name, pages=top_pages, subsections=subsections)
         )
 
-    # API Reference (from quartodoc-generated sidebars)
-    sections.extend(_build_api_sections(root))
+    sections.extend(_build_api_sections(root, build_dir))
 
-    # Templates (discovered by directory scan)
-    templates_section = _build_templates_section(root)
+    templates_section = _build_templates_section(build_dir)
     if templates_section:
         sections.append(templates_section)
+
+    sections.sort(
+        key=lambda s: _SECTION_ORDER.index(s.name) if s.name in _SECTION_ORDER else len(_SECTION_ORDER)
+    )
 
     return sections
 
 
 # ---------------------------------------------------------------------------
-# Output writers
+# Output
 # ---------------------------------------------------------------------------
-
 
 HEADER = f"# Shiny for Python\n\n> {SITE_DESCRIPTION}\n"
 
 
-def _is_input_component_page(file_path: str) -> bool:
-    """Return True for component detail pages under components/inputs/."""
-    parts = Path(file_path).parts
-    return len(parts) == 4 and parts[0] == "components" and parts[1] == "inputs"
-
-
-def _first_paragraph_with_see_also(text: str) -> str:
-    """Return the first non-empty paragraph plus any 'See also' lines."""
-    first = ""
-    for para in re.split(r"\n\n+", text.strip()):
-        if para.strip():
-            first = para.strip()
-            break
-
-    see_also = [
-        line.strip()
-        for line in text.splitlines()
-        if re.match(r"^See [Aa]lso", line.strip())
-    ]
-
-    parts = [first] + see_also
-    return "\n\n".join(parts) + "\n"
-
-
 def generate_llms_full_txt(sections: list[Section]) -> str:
-    """Generate llms-full.txt with full cleaned page content."""
+    """Render sections into the llms-full.txt string with headings, source URLs, and separators."""
     parts: list[str] = [HEADER]
 
     for section in sections:
         parts.append(f"\n## {section.name}\n")
         for page in section.pages:
             parts.append(f"### {page.title}\n")
-            parts.append(clean_qmd_content(page.content, page.file_path))
+            parts.append(f"Source: {file_path_to_url(page.file_path)}\n")
+            parts.append(page.content)
             parts.append("---")
         for subsection in section.subsections:
             parts.append(f"\n### {subsection.name}\n")
             for page in subsection.pages:
                 parts.append(f"#### {page.title}\n")
-                cleaned = clean_qmd_content(page.content, page.file_path)
-                if _is_input_component_page(page.file_path):
-                    cleaned = _first_paragraph_with_see_also(cleaned)
-                parts.append(cleaned)
+                parts.append(f"Source: {file_path_to_url(page.file_path)}\n")
+                parts.append(page.content)
                 parts.append("---")
 
     return "\n".join(parts) + "\n"
 
 
-# ---------------------------------------------------------------------------
-# Entry point
-# ---------------------------------------------------------------------------
-
-
 def main() -> None:
     root = Path(__file__).resolve().parent.parent
+    build_dir = root / "_build"
+    if not build_dir.exists():
+        print("Error: _build/ directory not found. Run 'make site' first.")
+        raise SystemExit(1)
+
     print("Building site structure from _quarto.yml...")
     sections = build_site_structure(root)
-    total_pages = sum(len(s.pages) + sum(len(sub.pages) for sub in s.subsections) for s in sections)
+    total_pages = sum(
+        len(s.pages) + sum(len(sub.pages) for sub in s.subsections)
+        for s in sections
+    )
     print(f"Found {len(sections)} sections with {total_pages} pages.")
 
     print("Generating llms-full.txt...")
     llms_full_txt = generate_llms_full_txt(sections)
-    (root / "llms-full.txt").write_text(llms_full_txt)
-
-    print(f"Done. llms-full.txt: {len(llms_full_txt):,} bytes")
+    output_path = build_dir / "llms-full.txt"
+    output_path.write_text(llms_full_txt)
+    print(f"Done. {output_path}: {len(llms_full_txt):,} bytes")
 
 
 if __name__ == "__main__":
