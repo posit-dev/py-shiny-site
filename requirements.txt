@@ -1,7 +1,7 @@
 jupyter
 jupyter_client < 8.0.0
 tabulate
-shinylive==0.8.5
+shinylive==0.8.7
 # Pinned to <2.0.0 due to compatibility issues with quartodoc
 # See: https://github.com/posit-dev/py-shiny/commit/c2e4b204
 griffe>=1.3.2,<2.0.0
