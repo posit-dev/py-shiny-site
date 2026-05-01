@@ -141,7 +141,7 @@ In the next article, [Jupyter Widgets](jupyter-widgets.qmd), you'll learn how to
 ::: {.callout-tip}
 #### Output as an input control
 
-Some outputs provide access their client-side state as input values. For example:
+Some outputs provide access to their client-side state as input values. For example:
 
 * [`@render.plot`](https://shiny.posit.co/py/components/outputs/plot-matplotlib.html) provides access to hover, click, and drag events.
 * [`@render.data_frame`](https://shiny.posit.co/py/components/outputs/data-grid.html) provides access to selected rows and more.
