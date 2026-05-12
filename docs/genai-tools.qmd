@@ -299,72 +299,118 @@ Since the general pattern of having a tool to update a reactive data frame via S
 Customizing how tool results are displayed can be useful for a variety of reasons.
 For example, you may want to style results differently, or implement something more sophisticated, such as displaying a map or a table.
 
-To customize the result display, you can:
+### Tool annotations
 
-1. Subclass the [`chatlas.ContentToolResult` class](https://posit-dev.github.io/chatlas/reference/types.ContentToolResult.html).
-2. Override the `tagify()` method. This can return any valid `ui.Chat()` message content (i.e., a markdown string or Shiny UI).
-3. Return an instance of this subclass from your tool function.
-
-The basic example below would just style the tool result differently than the default:
+The simplest customization is to provide a display title for your tool via the `annotations` parameter of `.register_tool()`.
+This title appears in the tool call and result cards instead of the raw function name.
 
 ```python
+chat_client.register_tool(
+    get_current_weather,
+    annotations={"title": "Weather Forecast"},
+)
+```
+
+### ToolResultDisplay
+
+For per-invocation customizations, have your tool function return a [`chatlas.ContentToolResult`](https://posit-dev.github.io/chatlas/reference/types.ContentToolResult.html) with a `ToolResultDisplay` in `extra`:
+
+```python
+import faicons
+import requests
 from chatlas import ContentToolResult
+from shinychat.types import ToolResultDisplay
 
-class WeatherToolResult(ContentToolResult):
-    def tagify(self):
-        if self.error:
-            return super().tagify()
-        else:
-            args = self.arguments
-            params = ", ".join(f"{k}={v}" for k, v in args.items())
-            temp = self.value["temperature_2m"]
-            return (
-                f"✅ Tool call of `{self.name}({params})` "
-                "gave temperature of: {temp} °C\n\n"
-            )
-
-def get_current_weather(latitude: float, longitude: float):
+def get_current_weather(latitude: float, longitude: float, location_name: str):
     """Get the current temperature given a latitude and longitude."""
 
     lat_lng = f"latitude={latitude}&longitude={longitude}"
-    url = f"https://api.open-meteo.com/v1/forecast?{lat_lng}&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m"
+    url = f"https://api.open-meteo.com/v1/forecast?{lat_lng}&current=temperature_2m,wind_speed_10m"
     response = requests.get(url)
     json = response.json()
-    return WeatherToolResult(value=json["current"])
+
+    temp = json["current"]["temperature_2m"]
+    icon = "sun" if temp > 21 else ("snowflake" if temp < 7 else "cloud-sun")
+
+    return ContentToolResult(
+        value=json["current"],
+        extra={
+            "display": ToolResultDisplay(
+                title=f"Weather for {location_name}",
+                icon=faicons.icon_svg(icon),
+            )
+        },
+    )
 ```
 
-Keep in mind that [Shiny UI can be included in messages](genai-chatbots.qmd#interactive-messages), so you could do something like diplay a [Jupyter Widget](jupyter-widgets.qmd).
+`ToolResultDisplay` supports several fields for customization:
+
+| Parameter | Description |
+|:--|:--|
+| `title` | Title shown in the result card header. |
+| `icon` | Icon shown alongside the title (any Shiny UI). |
+| `html` | Custom HTML content to display instead of the raw result. |
+| `markdown` | Custom Markdown string to display instead of the raw result. |
+| `text` | Custom plain text to display instead of the raw result. |
+| `open` | Whether the result details are expanded by default (default `False`). |
+| `full_screen` | Whether to show a fullscreen toggle button (default `False`). |
+| `show_request` | Whether to show the tool request details (default `True`). |
+| `footer` | Optional HTML content for the card footer. |
+
+Keep in mind that [Shiny UI can be included in messages](genai-chatbots.qmd#interactive-messages), so you can pass any Shiny component to `html` — including [Jupyter Widgets](jupyter-widgets.qmd) like an interactive map:
 
 
 <details>
 <summary> Show code </summary>
 
 ```python
+import uuid
+
 import ipywidgets
-from shinywidgets import register_widget, output_widget
-from ipyleaflet import Map, CircleMarker
+import requests
+from chatlas import ContentToolResult
+from ipyleaflet import CircleMarker, Map
+from shinychat.types import ToolResultDisplay
+from shinywidgets import output_widget, register_widget
 
-class WeatherToolResult(ContentToolResult):
-    def tagify(self):
-        if self.error:
-            return super().tagify()
 
-        args = self.arguments
-        loc = (args["latitude"], args["longitude"])
-        info = (
-            f"<h6>Current weather</h6>"
-            f"Temperature: {self.value['temperature_2m']}°C<br>"
-            f"Wind: {self.value['wind_speed_10m']} m/s<br>"
-            f"Time: {self.value['time']}"
-        )
+def get_current_weather(latitude: float, longitude: float, location_name: str):
+    """Get the current temperature given a latitude and longitude."""
 
-        m = Map(center=loc, zoom=10)
-        m.add_layer(
-            CircleMarker(location=loc, popup=ipywidgets.HTML(info))
-        )
+    lat_lng = f"latitude={latitude}&longitude={longitude}"
+    url = f"https://api.open-meteo.com/v1/forecast?{lat_lng}&current=temperature_2m,wind_speed_10m"
+    response = requests.get(url)
+    json = response.json()
+    current = json["current"]
 
-        register_widget(self.id, m)
-        return output_widget(self.id)
+    loc = (latitude, longitude)
+    info = (
+        f"<h6>Current weather</h6>"
+        f"Temperature: {current['temperature_2m']}°C<br>"
+        f"Wind: {current['wind_speed_10m']} m/s<br>"
+        f"Time: {current['time']}"
+    )
+
+    m = Map(center=loc, zoom=10)
+    m.add_layer(
+        CircleMarker(location=loc, popup=ipywidgets.HTML(info))
+    )
+
+    widget_id = f"weather_{uuid.uuid4().hex}"
+    register_widget(widget_id, m)
+
+    return ContentToolResult(
+        value=current,
+        extra={
+            "display": ToolResultDisplay(
+                html=output_widget(widget_id),
+                title=f"Weather for {location_name}",
+                show_request=False,
+                open=True,
+                full_screen=True,
+            )
+        },
+    )
 ```
 
 </details>
@@ -373,23 +419,45 @@ class WeatherToolResult(ContentToolResult):
 ![Screenshot of a tool result rendered as an interactive map](/images/genai-tool-call-custom-ui.png){class="rounded shadow lightbox"}
 
 
+### Fully custom rendering
 
+For complete control over the rendered output, subclass `ContentToolResult` and register a custom handler using `@message_content_chunk.register`.
+This lets you return any Shiny UI as the message content, completely replacing the default tool result card.
 
-<!---
-TODO: discuss streaming progress
+```python
+import faicons
+import requests
+from chatlas import ContentToolResult
+from shinychat import message_content_chunk
+from shinychat.types import ChatMessage
+from shiny.ui import value_box
 
-async def get_current_temperature(latitude: float, longitude: float):
-    "Get the current weather given a latitude and longitude."
-    with chat.message_stream() as stream:
-        stream.append("Querying the weather service...")
-        temp = get_current_weather(latitude, longitude)
-        stream.replace()
-        stream.append(f"<details><summary>Tool result</summary> The temperature is {temp} at {latitude}, {longitude}.</details>")
+class WeatherResult(ContentToolResult):
+    location_name: str
 
-    return temp
---->
+@message_content_chunk.register
+def _(message: WeatherResult):
+    temp = message.value["temperature_2m"]
+    wind = message.value["wind_speed_10m"]
+    content = value_box(
+        message.location_name,
+        f"{temp}°C",
+        f"Wind: {wind} m/s",
+        showcase=faicons.icon_svg("sun"),
+        full_screen=True,
+    )
+    return ChatMessage(content=content)
 
+def get_current_weather(latitude: float, longitude: float, location_name: str):
+    """Get the current temperature given a latitude and longitude."""
 
-<!---
-TODO: discuss prompting the user for input (when we have the API for it)
---->
+    lat_lng = f"latitude={latitude}&longitude={longitude}"
+    url = f"https://api.open-meteo.com/v1/forecast?{lat_lng}&current=temperature_2m,wind_speed_10m"
+    response = requests.get(url)
+    json = response.json()
+
+    return WeatherResult(
+        value=json["current"],
+        location_name=location_name,
+    )
+```
