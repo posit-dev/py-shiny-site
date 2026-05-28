@@ -24,10 +24,10 @@ listing:
     dir: components/outputs/map-ipyleaflet/
   contents:
   - title: shinywidgets.output_widget
-    href: https://github.com/posit-dev/py-shinywidgets/blob/main/shinywidgets/_output_widget.py
+    href: https://github.com/posit-dev/py-shinywidgets/blob/main/shinywidgets/_output_widget.py#L16
     signature: shinywidgets.output_widget(id, *, width, height, fill, fillable)
   - title: '@shinywidgets.render_widget()'
-    href: https://github.com/posit-dev/py-shinywidgets/blob/main/shinywidgets/_render_widget.py
+    href: https://github.com/posit-dev/py-shinywidgets/blob/main/shinywidgets/_render_widget.py#L29
     signature: shinywidgets.render_widget(fn)
 - id: variations
   template: ../../_partials/components-variations.ejs
