@@ -63,9 +63,9 @@ listing:
 
 `ipyleaflet` provides interactive maps via [ipywidgets](https://ipywidgets.readthedocs.io/en/stable/). To insert one, write a function that returns a `Map(...)` and decorate it with `@shinywidgets.render_widget`.
 
-**Shiny Express:** the decorated function renders in place — its position in the script determines where the map appears.
+**Shiny Express:** The decorated function renders in place — its position in the script determines where the map appears.
 
-**Shiny Core:** add `shinywidgets.output_widget("id")` to your UI as a placeholder, then define the decorated function inside `server()` using the same name as `id`.
+**Shiny Core:** Add `shinywidgets.output_widget("id")` to your UI as a placeholder, then define the decorated function inside `server()` using the same name as `id`.
 
 Visit the [Jupyter Widgets](/docs/jupyter-widgets.html) docs to learn more.
 
