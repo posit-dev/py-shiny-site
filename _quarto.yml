@@ -158,6 +158,7 @@ website:
             - components/inputs/selectize-multiple/index.qmd
             - components/inputs/slider/index.qmd
             - components/inputs/slider-range/index.qmd
+            - components/inputs/submit-textarea/index.qmd
             - components/inputs/switch/index.qmd
             - components/inputs/text-area/index.qmd
             - components/inputs/text-box/index.qmd
