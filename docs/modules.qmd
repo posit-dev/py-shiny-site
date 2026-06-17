@@ -419,6 +419,27 @@ app = App(app_ui, server)
 
 :::
 
+## Working with custom HTML and ids
+
+When working with modules, it's important to understand that standard Shiny UI functions like `ui.input_text()` and `ui.output_text()` automatically handle id namespacing within modules. However, if you're creating custom HTML elements with explicit `id` attributes, you need to manually resolve the id to ensure it's properly namespaced.
+
+::: callout-important
+## Manual id Resolution for Custom HTML
+
+When creating custom HTML elements with `id` attributes inside modules, you must use `resolve_id()` to ensure the id is properly namespaced:
+
+```{.python}
+from shiny import module, ui
+from shiny.module import resolve_id
+
+@module.ui
+def modui():
+    return ui.div(id=resolve_id("divid"))
+```
+
+Without `resolve_id()`, the custom HTML elements would not be properly namespaced, potentially causing id conflicts when the module is used multiple times.
+:::
+
 Since modules allow you to tie UI and Server code together in the same namespace, you can include arbitrarily complex interactions within your module.
 Anything that you can do in a Shiny app can also be done inside of a module, and modules can themselves call other modules.
 This allows you to break your app up into building blocks of various sizes, compose those blocks to build different applications, and share them with others.
