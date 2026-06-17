@@ -11,5 +11,6 @@ format:
     include-after-body: ../components/_partials/componentsjs.html
 filters:
   - shinylive
+  - fontawesome
 
 repo-actions: false

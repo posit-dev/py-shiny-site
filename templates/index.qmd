@@ -46,6 +46,8 @@ listing:
         path: querychat
       - title: Side bot
         path: sidebot
+      - title: Interactive LLM Framework Explorer
+        path: interactive-llm-framework-explorer
   - id: _dashboards
     template: _partials/template-listing.ejs
     contents:
