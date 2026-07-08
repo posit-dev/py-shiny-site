@@ -161,6 +161,8 @@ See the [Logfire documentation](https://logfire.pydantic.dev/) for more details 
 
 To keep your app efficient, it's helpful to move OpenTelemetry setup into a dedicated module. This keeps your app files clean and ensures configuration (environment variables, Logfire, AI instrumentation) is applied consistently before Shiny imports.
 
+This pattern applies to in-code configuration (the *Console-only* and *Logfire* tabs above). Remember that OpenTelemetry should be configured in exactly one place: if you launch your app with `opentelemetry-instrument`, skip the configuration module — a tracer provider can only be installed once per process, and later in-code setup is ignored with a warning.
+
 You'll notice our `otel_config` module includes setting `SHINY_OTEL_COLLECT`. This variable controls how much detail is captured and defaults to `"all"`.
 
 You may want to reduce or refine your own collection level. Se the portion on [collection levels](#what-can-shiny-record) for more information.
