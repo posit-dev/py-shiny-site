@@ -4,15 +4,57 @@
 
 You can use OTel with or without an observability backend (e.g. Logfire, Jaeger, Langfuse, etc.)
 
-For local debugging or use without an observability backend, you can configure OpenTelemetry to print spans to the console. You will need to install the OpenTelemetry SDK for this.
+For local debugging or use without an observability backend, you can configure OpenTelemetry to print spans to the console. Installing `shiny[otel]` provides the OpenTelemetry SDK, the OTLP exporters, and the `opentelemetry-instrument` auto-instrumentation wrapper.
 
 To simplify things, we'll use Logfire as our example observability backend for configuration and screenshots throughout the rest of this tutorial.
 
 ::: {.panel-tabset}
 
+## Auto-instrumentation (zero-code)
+
+The standard OpenTelemetry way to instrument a Python app is the [`opentelemetry-instrument`](https://opentelemetry.io/docs/zero-code/python/) wrapper, which configures the SDK before your app starts — no code changes needed. It ships with `shiny[otel]`.
+
+::: {.panel-tabset}
+
+## pip
+
+```bash
+pip install "shiny[otel]"
+```
+
+## uv
+
+```bash
+uv add "shiny[otel]"
+```
+
+:::
+
+Run your app under the wrapper:
+
+```bash
+# Print spans to the console (local debugging)
+opentelemetry-instrument --traces_exporter console shiny run app.py
+
+# Or export over OTLP (the default) to a local collector or backend
+OTEL_SERVICE_NAME=my-shiny-app opentelemetry-instrument shiny run app.py
+```
+
+Everything is configurable through standard [OpenTelemetry environment variables](https://opentelemetry.io/docs/languages/sdk-configuration/) or CLI flags. A few tips:
+
+- Set `OTEL_SERVICE_NAME`; otherwise traces report `service.name: unknown_service`.
+- Auto-instrumentation also instruments other libraries your app uses (HTTP clients, databases, etc.), so their spans appear alongside Shiny's.
+- `shiny run --reload` works; the reloaded process inherits the instrumentation.
+
+::: {.callout-warning}
+## Don't mix with in-code SDK setup
+
+When running under `opentelemetry-instrument`, do not also call `trace.set_tracer_provider()` in your app (as shown in the *Console-only* tab). The wrapper installs the tracer provider before your app code runs, so the manual call logs `Overriding of current TracerProvider is not allowed` and is ignored. Pick one approach.
+:::
+
 ## Console-only
 
-You can use `pip` or `uv` to add the OTel SDK using `shiny`'s optional dependencies or install it independently.
+If you prefer configuring OpenTelemetry in code (when running the app directly with `shiny run app.py`, without `opentelemetry-instrument`), you can use `pip` or `uv` to add the OTel SDK using `shiny`'s optional dependencies or install it independently.
 
 ::: {.panel-tabset}
 
