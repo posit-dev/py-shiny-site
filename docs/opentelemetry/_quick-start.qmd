@@ -34,10 +34,12 @@ Everything is configurable through standard [OpenTelemetry environment variables
 - Auto-instrumentation also instruments other libraries your app uses (HTTP clients, databases, etc.), so their spans appear alongside Shiny's.
 - `shiny run --reload` works; the reloaded process inherits the instrumentation.
 
-::: {.callout-warning}
-## Don't configure OpenTelemetry inside the app
+::: {.callout-tip}
+## Prefer zero-code over code-based setup
 
-Configuring providers in app code (`trace.set_tracer_provider(...)`) is discouraged: it couples your app to one observability setup and conflicts with external instrumentation. Providers can only be installed once per process, so under `opentelemetry-instrument` an in-code call logs `Overriding of current TracerProvider is not allowed` and is silently ignored. Configure OpenTelemetry in exactly one place — the launch command (preferred) or, when using an SDK like Logfire that manages OpenTelemetry itself, that SDK's own setup.
+OpenTelemetry supports both [zero-code and code-based instrumentation](https://opentelemetry.io/docs/concepts/instrumentation/). Prefer zero-code when you can: keeping configuration in the launch command lets each environment behave differently — a hosted deployment can export OTLP to its collector while your local run prints to the console — without changing the app.
+
+Whichever you choose, configure OpenTelemetry in one place. A tracer provider can only be installed once per process, so a code-based call like `trace.set_tracer_provider(...)` running under `opentelemetry-instrument` logs `Overriding of current TracerProvider is not allowed` and is ignored.
 :::
 
 ## Logfire (Observability Backend Service)
