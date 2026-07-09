@@ -109,7 +109,6 @@ quarto-extensions: _extensions/quarto-ext/shinylive _extensions/shafayetShafee/l
 
 # Install build dependencies
 deps: $(PYBIN)
-	rm -rf .quarto/shinylive-cache
 	uv pip install -r requirements.txt
 	. $(PYBIN)/activate && cd py-shiny && make ci-install-docs
 
