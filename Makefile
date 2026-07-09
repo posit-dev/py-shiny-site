@@ -25,11 +25,16 @@ all: quartodoc components site
 ## Build website
 .PHONY: site
 site: $(PYBIN) install-quarto
+	# Ensure shinylive web assets exist (~/.cache/shinylive). The quarto filter's
+	# calls that would normally download them may be served from .quarto/shinylive-cache.
+	. $(PYBIN)/activate && shinylive extension base-htmldeps --sw-dir . > /dev/null
 	. $(PYBIN)/activate && ${QUARTO_PATH} render
 
 ## Build website and serve
 .PHONY: serve
 serve: $(PYBIN) install-quarto
+	# Ensure shinylive web assets exist (see `site` target).
+	. $(PYBIN)/activate && shinylive extension base-htmldeps --sw-dir . > /dev/null
 	. $(PYBIN)/activate && ${QUARTO_PATH} preview
 
 
