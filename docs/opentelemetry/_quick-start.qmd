@@ -14,30 +14,18 @@ To simplify things, we'll use Logfire as our example observability backend for c
 
 For local debugging without an observability backend, print spans to the console. First install `shiny[otel]`:
 
-::: {.panel-tabset}
-
-## pip
-
-```bash
-pip install "shiny[otel]"
-```
-
-## uv
-
 ```bash
 uv add "shiny[otel]"
 ```
-
-:::
 
 Then run your app under the wrapper — no app-code changes needed:
 
 ```bash
 # Print spans to the console (local debugging)
-opentelemetry-instrument --traces_exporter console shiny run app.py
+uv run opentelemetry-instrument --traces_exporter console shiny run app.py
 
 # Or export over OTLP (the default) to a local collector or backend
-OTEL_SERVICE_NAME=my-shiny-app opentelemetry-instrument shiny run app.py
+OTEL_SERVICE_NAME=my-shiny-app uv run opentelemetry-instrument shiny run app.py
 ```
 
 Everything is configurable through standard [OpenTelemetry environment variables](https://opentelemetry.io/docs/languages/sdk-configuration/) or CLI flags. A few tips:
@@ -56,23 +44,10 @@ Configuring providers in app code (`trace.set_tracer_provider(...)`) is discoura
 
 [Pydantic Logfire](https://logfire.pydantic.dev/) provides zero-configuration OpenTelemetry setup with a managed observability platform. You will need to set up a Logfire account and project. On your first run of logfire, it will ask you to authenticate and choose which project your metrics will be associated with.
 
-::: {.panel-tabset}
-
-## pip
-
-```bash
-pip install logfire
-logfire auth
-```
-
-## uv
-
 ```bash
 uv add logfire
 uv run logfire auth
 ```
-
-:::
 
 
 
