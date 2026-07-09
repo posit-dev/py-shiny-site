@@ -100,7 +100,19 @@ Whichever you choose, configure OpenTelemetry in one place. A tracer provider ca
 
 ## Logfire (Observability Backend Service)
 
-[Pydantic Logfire](https://logfire.pydantic.dev/) provides zero-configuration OpenTelemetry setup with a managed observability platform. You will need to set up a Logfire account and project. On your first run of logfire, it will ask you to authenticate and choose which project your metrics will be associated with.
+[Pydantic Logfire](https://logfire.pydantic.dev/) provides zero-configuration OpenTelemetry setup with a managed observability platform. You will need to set up a Logfire account and project.
+
+**Zero-code** — Logfire is a standard OTLP backend, so `opentelemetry-instrument` can export to it with only environment variables and a [write token](https://logfire.pydantic.dev/docs/how-to-guides/create-write-tokens/):
+
+```bash
+export OTEL_SERVICE_NAME=my-shiny-app
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf  # Logfire speaks OTLP over HTTP, not gRPC
+export OTEL_EXPORTER_OTLP_ENDPOINT="https://logfire-us.pydantic.dev"  # or logfire-eu
+export OTEL_EXPORTER_OTLP_HEADERS="Authorization=$LOGFIRE_TOKEN"
+uv run opentelemetry-instrument shiny run app.py
+```
+
+**Code-based** — alternatively, use the `logfire` SDK, which manages OpenTelemetry itself. On your first run of logfire, it will ask you to authenticate and choose which project your metrics will be associated with.
 
 ```bash
 uv add logfire
