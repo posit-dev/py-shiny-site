@@ -48,6 +48,61 @@ Everything is configurable through standard [OpenTelemetry environment variables
 - Auto-instrumentation also instruments other libraries your app uses (HTTP clients, databases, etc.), so their spans appear alongside Shiny's.
 - `shiny run --reload` works; the reloaded process inherits the instrumentation.
 
+### Logfire (Observability Backend Service)
+
+[Pydantic Logfire](https://logfire.pydantic.dev/) provides zero-configuration OpenTelemetry setup with a managed observability platform. You will need to set up a Logfire account and project.
+
+Logfire is a standard OTLP backend, so `opentelemetry-instrument` can export to it with only environment variables and a [write token](https://logfire.pydantic.dev/docs/how-to-guides/create-write-tokens/):
+
+```bash
+export OTEL_SERVICE_NAME=my-shiny-app
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf  # Logfire speaks OTLP over HTTP, not gRPC
+export OTEL_EXPORTER_OTLP_ENDPOINT="https://logfire-us.pydantic.dev"  # or logfire-eu
+export OTEL_EXPORTER_OTLP_HEADERS="Authorization=$LOGFIRE_TOKEN"
+uv run opentelemetry-instrument shiny run app.py
+```
+
+Alternatively, the `logfire` SDK manages OpenTelemetry itself (a code-based setup). On your first run of logfire, it will ask you to authenticate and choose which project your metrics will be associated with.
+
+```bash
+uv add logfire
+uv run logfire auth
+```
+
+::: {.callout-tip collapse="true"}
+## Test your Logfire setup with a simple app
+
+```python
+import logfire
+import os
+
+# Connect your app to the logfire backend so it can receive traces
+logfire.configure()
+
+# Import Shiny and set collection level
+from shiny import App, ui, render
+os.environ["SHINY_OTEL_COLLECT"] = "reactivity"
+
+# Use Shiny normally - tracing happens automatically
+app_ui = ui.page_fluid(
+    ui.input_slider("n", "N", 1, 100, 50),
+    ui.output_text("result")
+)
+
+def server(input, output, session):
+    @render.text
+    def result():
+        return f"You selected: {input.n()}"
+
+app = App(app_ui, server)
+```
+
+:::
+
+View traces at [logfire.pydantic.dev](https://logfire.pydantic.dev/) - you'll see session spans, reactive updates, and individual reactive executions with SQL-queryable data.
+
+See the [Logfire documentation](https://logfire.pydantic.dev/) for more details on querying, alerts, and dashboards.
+
 ## Code-based
 
 If you can't control the launch command (or prefer explicit configuration), configure the SDK in your app code instead.
@@ -98,63 +153,6 @@ OpenTelemetry supports both [zero-code and code-based instrumentation](https://o
 Whichever you choose, configure OpenTelemetry in one place. A tracer provider can only be installed once per process, so a code-based call like `trace.set_tracer_provider(...)` running under `opentelemetry-instrument` logs `Overriding of current TracerProvider is not allowed` and is ignored.
 :::
 
-## Logfire (Observability Backend Service)
-
-[Pydantic Logfire](https://logfire.pydantic.dev/) provides zero-configuration OpenTelemetry setup with a managed observability platform. You will need to set up a Logfire account and project.
-
-**Zero-code** — Logfire is a standard OTLP backend, so `opentelemetry-instrument` can export to it with only environment variables and a [write token](https://logfire.pydantic.dev/docs/how-to-guides/create-write-tokens/):
-
-```bash
-export OTEL_SERVICE_NAME=my-shiny-app
-export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf  # Logfire speaks OTLP over HTTP, not gRPC
-export OTEL_EXPORTER_OTLP_ENDPOINT="https://logfire-us.pydantic.dev"  # or logfire-eu
-export OTEL_EXPORTER_OTLP_HEADERS="Authorization=$LOGFIRE_TOKEN"
-uv run opentelemetry-instrument shiny run app.py
-```
-
-**Code-based** — alternatively, use the `logfire` SDK, which manages OpenTelemetry itself. On your first run of logfire, it will ask you to authenticate and choose which project your metrics will be associated with.
-
-```bash
-uv add logfire
-uv run logfire auth
-```
-
-
-
-::: {.callout-tip collapse="true"}
-## Test your Logfire setup with a simple app
-
-```python
-import logfire
-import os
-
-# Connect your app to the logfire backend so it can receive traces
-logfire.configure()
-
-# Import Shiny and set collection level
-from shiny import App, ui, render
-os.environ["SHINY_OTEL_COLLECT"] = "reactivity"
-
-# Use Shiny normally - tracing happens automatically
-app_ui = ui.page_fluid(
-    ui.input_slider("n", "N", 1, 100, 50),
-    ui.output_text("result")
-)
-
-def server(input, output, session):
-    @render.text
-    def result():
-        return f"You selected: {input.n()}"
-
-app = App(app_ui, server)
-```
-
-:::
-
-View traces at [logfire.pydantic.dev](https://logfire.pydantic.dev/) - you'll see session spans, reactive updates, and individual reactive executions with SQL-queryable data.
-
-See the [Logfire documentation](https://logfire.pydantic.dev/) for more details on querying, alerts, and dashboards.
-
 :::
 
 
@@ -162,7 +160,7 @@ See the [Logfire documentation](https://logfire.pydantic.dev/) for more details 
 
 To keep your app efficient, it's helpful to move OpenTelemetry setup into a dedicated module. This keeps your app files clean and ensures configuration (environment variables, Logfire, AI instrumentation) is applied consistently before Shiny imports.
 
-This pattern applies to in-code configuration only (the *Code-based* and *Logfire* tabs above). Remember that OpenTelemetry should be configured in exactly one place: if you launch your app with `opentelemetry-instrument`, skip the configuration module — a tracer provider can only be installed once per process, and later in-code setup is ignored with a warning.
+This pattern applies to in-code configuration only (the *Code-based* tab and the `logfire` SDK setup above). Remember that OpenTelemetry should be configured in exactly one place: if you launch your app with `opentelemetry-instrument`, skip the configuration module — a tracer provider can only be installed once per process, and later in-code setup is ignored with a warning.
 
 You'll notice our `otel_config` module includes setting `SHINY_OTEL_COLLECT`. This variable controls how much detail is captured and defaults to `"all"`.
 
