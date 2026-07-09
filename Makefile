@@ -90,6 +90,13 @@ submodules-pull:
 
 _extensions/quarto-ext/shinylive: install-quarto
 	${QUARTO_PATH} add --no-prompt quarto-ext/shinylive
+	@echo "🔹 Re-applying shinylive render-cache patch"
+	@git apply scripts/patches/shinylive-cache.patch || \
+		(echo "❌ scripts/patches/shinylive-cache.patch no longer applies." ; \
+		 echo "   Upstream quarto-ext/shinylive changed. Re-port the cache patch" ; \
+		 echo "   (see .context/specs/2026-07-09-shinylive-render-cache-design.md)" ; \
+		 echo "   or delete the patch if upstream now ships its own caching." ; \
+		 exit 1)
 _extensions/shafayetShafee/line-highlight: install-quarto
 	${QUARTO_PATH} add --no-prompt shafayetShafee/line-highlight
 _extensions/machow/quartodoc: install-quarto
@@ -102,6 +109,7 @@ quarto-extensions: _extensions/quarto-ext/shinylive _extensions/shafayetShafee/l
 
 # Install build dependencies
 deps: $(PYBIN)
+	rm -rf .quarto/shinylive-cache
 	uv pip install -r requirements.txt
 	. $(PYBIN)/activate && cd py-shiny && make ci-install-docs
 
@@ -135,6 +143,7 @@ components-shinylive-links: $(PYBIN) deps
 .PHONY: clean
 clean:
 	rm -rf _build
+	rm -rf .quarto/shinylive-cache
 	rm -rf components/static
 	cd py-shiny/docs && make clean
 
