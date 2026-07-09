@@ -239,6 +239,15 @@ def test_doubled(page: Page, local_app: ShinyAppProc) -> None:
     app_values.expect_export("doubled", 60)
 ```
 
+Notice that the slider's value is the *integer* `20` here, while the controller example earlier asserted the *string* `"55"`. That's because the two read from different places:
+
+*   **Controllers read the browser DOM** — what the user sees. Values are strings formatted for display: a slider reads `"50"` (or `"1,000"` with a thousands separator), an output reads its rendered text.
+*   **`AppTestValues` reads the server's snapshot** — the Python values your server function currently holds: `input.n()` as the int `50`, an output as its render function's return value, and exports that have no DOM presence at all.
+
+They can also differ in *time*: the DOM updates instantly when the user interacts, but the server only sees the change after the websocket round-trip (and any debounce/throttle). The auto-retrying `expect_*` methods absorb that gap for you.
+
+As a rule of thumb: use controllers to test user-visible behavior, and reach for `AppTestValues` when you want to assert on server state.
+
 Beyond the per-key methods, you can assert on a whole block at once:
 
 *   `expect_inputs()`, `expect_outputs()`, `expect_exports()` take a dict of expected values. By default (`match="subset"`), only the keys you pass are checked; with `match="exact"`, the block must contain *exactly* those keys (and values).
