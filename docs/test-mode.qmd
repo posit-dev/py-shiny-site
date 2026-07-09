@@ -108,6 +108,23 @@ Beyond the per-key methods, you can assert on a whole block at once:
     assert snapshot["export"]["doubled"] == 60
 ```
 
+#### Expecting with a function
+
+The expected value doesn't have to be a literal. Pass a *function* instead, and the expectation calls it with the snapshot value, retrying until it returns something truthy. This works in the per-key methods and inside the dicts of the whole-block methods alike:
+
+```python
+    def is_integer(value):
+        return isinstance(value, int)
+
+    app_values.expect_export("doubled", is_integer)
+    app_values.expect_inputs({"n": is_integer, "name": "xyz"})
+```
+
+Two tips:
+
+*   **Prefer a named function over a lambda.** The failure message reports the function's name, e.g. `input['name'] == 'abc', which does not satisfy is_integer` — a lambda leaves you guessing which check failed.
+*   **Raise for richer messages.** If returning `True`/`False` isn't descriptive enough, the function can raise `AssertionError` with its own message; the expectation retries that just like a falsy return. (Any other exception is treated as a bug in the function and propagates immediately.)
+
 ### Scrubbing values from the snapshot
 
 Some values make snapshots noisy or leaky: timestamps change on every run, and secrets shouldn't show up in test artifacts. *Snapshot preprocessing* lets you rewrite a value on its way into the snapshot — the live app value is untouched.
