@@ -26,7 +26,7 @@ Here's the good news: the pytest app-launch fixtures (`local_app`, `create_app_f
 
 ### Exporting internal reactive values
 
-By default, the snapshot only contains inputs and outputs. To surface an *internal* value — say, a `reactive.calc` that never gets rendered directly — call `export_test_values()` in your server code, passing named zero-argument callables:
+By default, the snapshot only contains inputs and outputs. To surface an *internal* value — say, a `reactive.calc` that never gets rendered directly — call `export_test_values()` in your server code. Each keyword argument names a value to export, and each value is a function that takes no arguments — a `reactive.calc` is a natural fit:
 
 ```{shinylive-python}
 #| standalone: true
