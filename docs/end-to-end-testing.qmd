@@ -212,6 +212,7 @@ shiny add test --app app.py --provider openai --model gpt-5-mini
 
 You've taken your first steps into the world of Shiny app testing! Here are some resources to help you learn more:
 
+- [Test mode](test-mode.qmd) - Assert on server-side state (inputs, outputs, and internal reactive values) in your end-to-end tests.
 - [Shiny testing API documentation](https://shiny.posit.co/py/api/testing/) - This is your go-to guide for all the available testing methods in Shiny.
 - [Playwright documentation](https://playwright.dev/python/) - Learn more about Playwright's powerful features.
 - [pytest documentation](https://docs.pytest.org/en/stable/)
