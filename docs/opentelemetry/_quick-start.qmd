@@ -145,22 +145,11 @@ def result():
 uv run shiny run app.py
 ```
 
-::: {.callout-tip}
-## Prefer zero-code over code-based setup
-
-OpenTelemetry supports both [zero-code and code-based instrumentation](https://opentelemetry.io/docs/concepts/instrumentation/). Prefer zero-code when you can: keeping configuration in the launch command lets each environment behave differently — a hosted deployment can export OTLP to its collector while your local run prints to the console — without changing the app.
-
-Whichever you choose, configure OpenTelemetry in one place. A tracer provider can only be installed once per process, so a code-based call like `trace.set_tracer_provider(...)` running under `opentelemetry-instrument` logs `Overriding of current TracerProvider is not allowed` and is ignored.
-:::
-
-:::
-
-
-#### Extract setup logic into a configuration module
+### Extract setup logic into a configuration module
 
 To keep your app efficient, it's helpful to move OpenTelemetry setup into a dedicated module. This keeps your app files clean and ensures configuration (environment variables, Logfire, AI instrumentation) is applied consistently before Shiny imports.
 
-This pattern applies to in-code configuration only (the *Code-based* tab and the `logfire` SDK setup above). Remember that OpenTelemetry should be configured in exactly one place: if you launch your app with `opentelemetry-instrument`, skip the configuration module — a tracer provider can only be installed once per process, and later in-code setup is ignored with a warning.
+Remember that OpenTelemetry should be configured in exactly one place: if you launch your app with `opentelemetry-instrument`, skip the configuration module — a tracer provider can only be installed once per process, and later in-code setup is ignored with a warning.
 
 You'll notice our `otel_config` module includes setting `SHINY_OTEL_COLLECT`. This variable controls how much detail is captured and defaults to `"all"`.
 
@@ -180,4 +169,14 @@ import otel_config  # runs configuration as a side effect
 from shiny.express import ui, render
 # ...
 ```
+
+::: {.callout-tip}
+## Prefer zero-code over code-based setup
+
+OpenTelemetry supports both [zero-code and code-based instrumentation](https://opentelemetry.io/docs/concepts/instrumentation/). Prefer zero-code when you can: keeping configuration in the launch command lets each environment behave differently — a hosted deployment can export OTLP to its collector while your local run prints to the console — without changing the app.
+
+Whichever you choose, configure OpenTelemetry in one place. A tracer provider can only be installed once per process, so a code-based call like `trace.set_tracer_provider(...)` running under `opentelemetry-instrument` logs `Overriding of current TracerProvider is not allowed` and is ignored.
+:::
+
+:::
 
