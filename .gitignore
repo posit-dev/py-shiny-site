@@ -26,3 +26,6 @@ shinylive/
 
 /tests/node_modules/
 /tests/dist/
+
+# Agent planning documents (specs/plans) - not committed
+/docs/superpowers/
