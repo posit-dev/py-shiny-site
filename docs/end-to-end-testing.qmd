@@ -172,12 +172,6 @@ When test mode is enabled, a running Shiny session serves a JSON *snapshot* of i
 *   **`output`** — the current value of every output
 *   **`export`** — internal values you explicitly export from your server code
 
-::: {.callout-note}
-## Version requirement
-
-Test mode requires a version of Shiny newer than 1.6.3. If it isn't in a release yet, install the development version with `pip install git+https://github.com/posit-dev/py-shiny.git`.
-:::
-
 #### Enabling test mode
 
 There are two ways to enable test mode:
@@ -191,7 +185,11 @@ Here's the good news: the pytest app-launch fixtures (`local_app`, `create_app_f
 
 By default, the snapshot only contains inputs and outputs. To surface an *internal* value — say, a `reactive.calc` that never gets rendered directly — call `export_test_values()` in your server code, passing named zero-argument callables:
 
-```python
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 200
 from shiny import reactive
 from shiny.express import input, render, ui
 from shiny.testmode import export_test_values
@@ -265,7 +263,11 @@ Some values make snapshots noisy or leaky: timestamps change on every run, and s
 *   **Inputs:** call `shiny.testmode.snapshot_preprocess_input(id, fn)` (or the equivalent method `input.set_snapshot_preprocess(id, fn)`) in your server code.
 *   **Outputs:** call `.snapshot_preprocess(fn)` on the `@render.*` object itself.
 
-```python
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: vertical
+#| viewerHeight: 200
 from datetime import datetime
 
 from shiny import render
