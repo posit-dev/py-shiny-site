@@ -130,13 +130,8 @@ provider.add_span_processor(SimpleSpanProcessor(ConsoleSpanExporter()))
 trace.set_tracer_provider(provider)
 
 # Then write your app as usual
-from shiny.express import input, render, ui
-
-ui.input_slider("n", "N", 1, 100, 50)
-
-@render.text
-def result():
-    return f"You selected: {input.n()}"
+from shiny.express import ui, render
+# ...
 ```
 
 **Run** the app directly — no wrapper:
