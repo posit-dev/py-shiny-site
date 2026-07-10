@@ -3,7 +3,7 @@ import os
 
 from pathlib import Path
 
-build_dir = Path("_build")
+build_dir = Path(os.getenv("QUARTO_PROJECT_OUTPUT_DIR", "_build"))
 
 # Continue past this part only if building entire site.
 if not os.getenv("QUARTO_PROJECT_RENDER_ALL"):
@@ -11,7 +11,7 @@ if not os.getenv("QUARTO_PROJECT_RENDER_ALL"):
 
 # This file is here so that GitHub Pages will serve dirs that start with an
 # underscore. It is needed for docs/api/_static/.
-open("_build/.nojekyll", "a").close()
+open(build_dir / ".nojekyll", "a").close()
 
 # Copy API reference
 # shutil.copytree("py-shiny/docs/build/html", build_dir / "api")

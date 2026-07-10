@@ -40,6 +40,13 @@ site: $(PYBIN) install-quarto shinylive-assets
 serve: $(PYBIN) install-quarto shinylive-assets
 	. $(PYBIN)/activate && ${QUARTO_PATH} preview
 
+SHARDS ?= 6
+
+## Render the site in SHARDS local parallel jobs and merge into _build (faster than `site` on multi-core machines)
+.PHONY: site-parallel
+site-parallel: $(PYBIN) install-quarto
+	QUARTO_PATH="$(QUARTO_PATH)" SHARDS="$(SHARDS)" scripts/local-parallel-render.sh
+
 
 ## Install uv if not already installed
 .PHONY: install-uv
