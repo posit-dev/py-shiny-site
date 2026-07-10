@@ -6,6 +6,7 @@
 /pypi/
 /_build/
 /_freeze/
+/.quartodoc-stamp
 .DS_Store
 
 /.luarc.json

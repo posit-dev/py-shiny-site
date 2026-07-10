@@ -125,16 +125,25 @@ deps: $(PYBIN)
 	. $(PYBIN)/activate && cd py-shiny && make ci-install-docs
 
 
-## Build qmd files for Shiny API docs
+QUARTODOC_STAMP ?= .quartodoc-stamp
+
+## Build qmd files for Shiny API docs (skips the body when inputs are unchanged)
 quartodoc: $(PYBIN) deps install-quarto
-	. $(PYBIN)/activate && cd py-shiny/docs && make quartodoc
-	# Copy all generated files except index.qmd
-	rsync -av --exclude="index.qmd" py-shiny/docs/api/ ./api
-	cp -R py-shiny/docs/_inv py-shiny/docs/objects.json ./
-	# Copy over index.qmd, but rename it to _api_index.qmd
-	cp py-shiny/docs/api/express/index.qmd ./api/express/_api_index.qmd
-	cp py-shiny/docs/api/core/index.qmd ./api/core/_api_index.qmd
-	cp py-shiny/docs/api/testing/index.qmd ./api/testing/_api_index.qmd
+	@key="$$(scripts/quartodoc-stamp.sh)"; \
+	if [ -f $(QUARTODOC_STAMP) ] && [ "$$(cat $(QUARTODOC_STAMP))" = "$$key" ]; then \
+		echo "quartodoc up to date"; \
+	else \
+		set -e; \
+		. $(PYBIN)/activate && cd py-shiny/docs && make quartodoc; \
+		cd $(CURDIR); \
+		echo "🔹 Copying generated api/ files (checksum mode: identical files keep their mtimes)"; \
+		rsync -ac --exclude="index.qmd" py-shiny/docs/api/ ./api; \
+		cp -R py-shiny/docs/_inv py-shiny/docs/objects.json ./; \
+		cp py-shiny/docs/api/express/index.qmd ./api/express/_api_index.qmd; \
+		cp py-shiny/docs/api/core/index.qmd ./api/core/_api_index.qmd; \
+		cp py-shiny/docs/api/testing/index.qmd ./api/testing/_api_index.qmd; \
+		echo "$$key" > $(QUARTODOC_STAMP); \
+	fi
 
 
 ## Build component static previews and update shinylive links
