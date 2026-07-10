@@ -33,6 +33,9 @@ project:
   post-render:
     - scripts/post-render.py
 
+execute:
+  freeze: auto
+
 metadata-files:
   - api/express/_sidebar.yml
   - api/core/_sidebar.yml

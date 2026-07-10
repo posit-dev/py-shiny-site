@@ -5,6 +5,7 @@
 /pypi-tmp/
 /pypi/
 /_build/
+/_freeze/
 .DS_Store
 
 /.luarc.json
