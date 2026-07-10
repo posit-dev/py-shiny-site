@@ -145,6 +145,14 @@ Update extensions with:
 make clean-extensions quarto-extensions
 ```
 
+**Note:** the shinylive extension carries a local performance patch
+(`scripts/patches/shinylive-cache.patch`) that memoizes its subprocess calls to
+`.quarto/shinylive-cache/`. `make quarto-extensions` re-applies it after
+re-downloading the extension and fails loudly if upstream drift breaks it — see
+the patch file's header for how to re-port or retire it. If you edit the cache
+block in `_extensions/quarto-ext/shinylive/shinylive.lua`, regenerate the patch
+file so the two stay in sync (`git apply --reverse --check` must pass).
+
 ### Git Submodule Pattern
 
 This repository uses `py-shiny/` as a git submodule. This allows:

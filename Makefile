@@ -22,19 +22,22 @@ $(PYBIN): $(VENV)
 .PHONY: all
 all: quartodoc components site
 
+# Ensure shinylive web assets exist in the shinylive user cache dir.
+# Downloading them is a side effect of `base-htmldeps` that the render cache
+# in _extensions/quarto-ext/shinylive/shinylive.lua may skip; run it once,
+# uncached, before rendering. No-op (~0.1 s) when assets are already present.
+.PHONY: shinylive-assets
+shinylive-assets: $(PYBIN)
+	. $(PYBIN)/activate && shinylive extension base-htmldeps --sw-dir . > /dev/null
+
 ## Build website
 .PHONY: site
-site: $(PYBIN) install-quarto
-	# Ensure shinylive web assets exist (~/.cache/shinylive). The quarto filter's
-	# calls that would normally download them may be served from .quarto/shinylive-cache.
-	. $(PYBIN)/activate && shinylive extension base-htmldeps --sw-dir . > /dev/null
+site: $(PYBIN) install-quarto shinylive-assets
 	. $(PYBIN)/activate && ${QUARTO_PATH} render
 
 ## Build website and serve
 .PHONY: serve
-serve: $(PYBIN) install-quarto
-	# Ensure shinylive web assets exist (see `site` target).
-	. $(PYBIN)/activate && shinylive extension base-htmldeps --sw-dir . > /dev/null
+serve: $(PYBIN) install-quarto shinylive-assets
 	. $(PYBIN)/activate && ${QUARTO_PATH} preview
 
 
@@ -96,12 +99,16 @@ submodules-pull:
 _extensions/quarto-ext/shinylive: install-quarto
 	${QUARTO_PATH} add --no-prompt quarto-ext/shinylive
 	@echo "🔹 Re-applying shinylive render-cache patch"
-	@git apply scripts/patches/shinylive-cache.patch || \
+	@if git apply --reverse --check scripts/patches/shinylive-cache.patch > /dev/null 2>&1; then \
+		echo "   Patch already applied; skipping."; \
+	else \
+		git apply scripts/patches/shinylive-cache.patch || \
 		(echo "❌ scripts/patches/shinylive-cache.patch no longer applies." ; \
 		 echo "   Upstream quarto-ext/shinylive changed. Re-port the cache patch" ; \
-		 echo "   (see .context/specs/2026-07-09-shinylive-render-cache-design.md)" ; \
+		 echo "   (see the header of scripts/patches/shinylive-cache.patch)" ; \
 		 echo "   or delete the patch if upstream now ships its own caching." ; \
-		 exit 1)
+		 exit 1) ; \
+	fi
 _extensions/shafayetShafee/line-highlight: install-quarto
 	${QUARTO_PATH} add --no-prompt shafayetShafee/line-highlight
 _extensions/machow/quartodoc: install-quarto
@@ -183,6 +190,7 @@ use-dev-shinylive: $(PYBIN) deps
 			echo "🔹 Found artifact in run $$RUN_ID"; \
 			rm -rf $(SHINYLIVE_ARTIFACT_DIR) && \
 			. $(PYBIN)/activate && python -c "import appdirs, shutil; shutil.rmtree(appdirs.user_cache_dir('shinylive'), ignore_errors=True)" && \
+			rm -rf .quarto/shinylive-cache && \
 			gh run download --repo posit-dev/py-shiny --name shinylive-build --dir $(SHINYLIVE_ARTIFACT_DIR) $$RUN_ID && \
 			. $(PYBIN)/activate && shinylive assets install-from-local "$(SHINYLIVE_ARTIFACT_DIR)" && \
 			echo "✓ Shinylive artifact installed from branch $(SHINYLIVE_BRANCH)" && \

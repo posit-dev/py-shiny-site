@@ -1,8 +1,27 @@
+Shinylive render-cache patch (py-shiny-site)
+============================================
+
+Memoizes the shinylive Quarto filter's subprocess calls to
+.quarto/shinylive-cache/ so a full-site render pays each identical call once
+instead of once per document. See PR:
+https://github.com/posit-dev/py-shiny-site/pull/382
+
+The patched shinylive.lua is committed; this patch exists so that
+`make quarto-extensions` (which re-downloads the pristine upstream extension)
+can re-apply the change. If it stops applying, upstream changed: re-port the
+cache block to the new shinylive.lua, then regenerate this file with
+
+    git diff <pristine-ref> -- _extensions/quarto-ext/shinylive/shinylive.lua
+
+(where <pristine-ref> is a commit holding the unpatched upstream copy) and
+keep this header. If upstream ships its own caching, delete this patch and
+the `git apply` step in the Makefile instead.
+
 diff --git a/_extensions/quarto-ext/shinylive/shinylive.lua b/_extensions/quarto-ext/shinylive/shinylive.lua
-index a8ce817..eaa7d47 100644
+index a8ce817..e003c09 100644
 --- a/_extensions/quarto-ext/shinylive/shinylive.lua
 +++ b/_extensions/quarto-ext/shinylive/shinylive.lua
-@@ -40,6 +40,103 @@ function throw_quarto_error(err_msg, ...)
+@@ -40,6 +40,136 @@ function throw_quarto_error(err_msg, ...)
    assert(false, err_msg .. "\n")
  end
  
@@ -31,11 +50,13 @@ index a8ce817..eaa7d47 100644
 +    local dir = projDir .. "/.quarto/shinylive-cache"
 +    pandoc.system.make_directory(dir, true)
 +    -- Include requirements.txt in every cache key: bumping the pinned
-+    -- shinylive version invalidates the whole cache.
-+    local keySuffix = ""
++    -- shinylive version invalidates the whole cache. Include the quarto
++    -- version too: the codeblock-to-json call runs through the quarto CLI,
++    -- so its output can change when quarto is upgraded.
++    local keySuffix = "quarto-" .. tostring(quarto.version)
 +    local reqFile = io.open(projDir .. "/requirements.txt", "r")
 +    if reqFile then
-+      keySuffix = pandoc.utils.sha1(reqFile:read("*a"))
++      keySuffix = keySuffix .. "\1" .. pandoc.utils.sha1(reqFile:read("*a"))
 +      reqFile:close()
 +    end
 +    return { dir = dir, keySuffix = keySuffix }
@@ -64,6 +85,26 @@ index a8ce817..eaa7d47 100644
 +  return contents
 +end
 +
++-- Some subprocess results embed absolute paths to files elsewhere on disk,
++-- and running the subprocess is what creates those files: notably
++-- `extension base-htmldeps` downloads the shinylive web assets to the user
++-- cache dir as a side effect. Only serve a hit whose referenced files all
++-- still exist; otherwise re-run the subprocess so it can re-create them.
++-- (Matches POSIX absolute paths in "source"/"path" JSON fields; on Windows
++-- nothing matches, so hits are served unvalidated — same as no check.)
++local function pipeCacheHitUsable(hit)
++  for _, field in ipairs({ "source", "path" }) do
++    for path in hit:gmatch('"' .. field .. '":%s*"(/[^"]+)"') do
++      local f = io.open(path, "r")
++      if f == nil then
++        return false
++      end
++      f:close()
++    end
++  end
++  return true
++end
++
 +local function pipeCacheWrite(cache, key, value)
 +  -- Write to a temp file then rename: atomic on POSIX, so a concurrent
 +  -- render (e.g. quarto preview) can never observe a partial entry.
@@ -81,6 +122,8 @@ index a8ce817..eaa7d47 100644
 +-- Drop-in replacement for `pandoc.pipe()` that memoizes successful results
 +-- to disk. Failed subprocess calls are never cached (pandoc.pipe raises, so
 +-- the error propagates to the caller exactly as before).
++local pipeMemo = {} -- in-process memo: repeat calls skip hashing and disk I/O
++
 +local function cachedPipe(command, args, input)
 +  local cache = initPipeCache()
 +  if cache == false then
@@ -92,12 +135,21 @@ index a8ce817..eaa7d47 100644
 +    return pandoc.pipe(command, args, input)
 +  end
 +
++  if pipeMemo[key] ~= nil then
++    return pipeMemo[key]
++  end
++
 +  local hitOk, hit = pcall(pipeCacheRead, cache, key)
 +  if hitOk and hit ~= nil then
-+    return hit
++    local usableOk, usable = pcall(pipeCacheHitUsable, hit)
++    if usableOk and usable then
++      pipeMemo[key] = hit
++      return hit
++    end
 +  end
 +
 +  local res = pandoc.pipe(command, args, input)
++  pipeMemo[key] = res
 +  pcall(pipeCacheWrite, cache, key, res)
 +  return res
 +end
@@ -106,7 +158,7 @@ index a8ce817..eaa7d47 100644
  -- Python specific method to call py-shinylive
  -- @param args: list of string arguments to pass to py-shinylive
  -- @param input: string to pipe into to py-shinylive
-@@ -49,7 +146,7 @@ function callPythonShinylive(args, input)
+@@ -49,7 +179,7 @@ function callPythonShinylive(args, input)
    local res
    local status, err = pcall(
      function()
@@ -115,7 +167,7 @@ index a8ce817..eaa7d47 100644
      end
    )
  
-@@ -78,7 +175,7 @@ function callRShinylive(args, input)
+@@ -78,7 +208,7 @@ function callRShinylive(args, input)
    local res
    local status, err = pcall(
      function()
@@ -124,7 +176,7 @@ index a8ce817..eaa7d47 100644
      end
    )
  
-@@ -424,7 +521,7 @@ return {
+@@ -424,7 +554,7 @@ return {
        ensureLanguageSetup(language)
  
        -- Convert code block to JSON string in the same format as app.json.

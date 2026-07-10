@@ -65,11 +65,13 @@ local function initPipeCache()
     local dir = projDir .. "/.quarto/shinylive-cache"
     pandoc.system.make_directory(dir, true)
     -- Include requirements.txt in every cache key: bumping the pinned
-    -- shinylive version invalidates the whole cache.
-    local keySuffix = ""
+    -- shinylive version invalidates the whole cache. Include the quarto
+    -- version too: the codeblock-to-json call runs through the quarto CLI,
+    -- so its output can change when quarto is upgraded.
+    local keySuffix = "quarto-" .. tostring(quarto.version)
     local reqFile = io.open(projDir .. "/requirements.txt", "r")
     if reqFile then
-      keySuffix = pandoc.utils.sha1(reqFile:read("*a"))
+      keySuffix = keySuffix .. "\1" .. pandoc.utils.sha1(reqFile:read("*a"))
       reqFile:close()
     end
     return { dir = dir, keySuffix = keySuffix }
@@ -98,6 +100,26 @@ local function pipeCacheRead(cache, key)
   return contents
 end
 
+-- Some subprocess results embed absolute paths to files elsewhere on disk,
+-- and running the subprocess is what creates those files: notably
+-- `extension base-htmldeps` downloads the shinylive web assets to the user
+-- cache dir as a side effect. Only serve a hit whose referenced files all
+-- still exist; otherwise re-run the subprocess so it can re-create them.
+-- (Matches POSIX absolute paths in "source"/"path" JSON fields; on Windows
+-- nothing matches, so hits are served unvalidated — same as no check.)
+local function pipeCacheHitUsable(hit)
+  for _, field in ipairs({ "source", "path" }) do
+    for path in hit:gmatch('"' .. field .. '":%s*"(/[^"]+)"') do
+      local f = io.open(path, "r")
+      if f == nil then
+        return false
+      end
+      f:close()
+    end
+  end
+  return true
+end
+
 local function pipeCacheWrite(cache, key, value)
   -- Write to a temp file then rename: atomic on POSIX, so a concurrent
   -- render (e.g. quarto preview) can never observe a partial entry.
@@ -115,6 +137,8 @@ end
 -- Drop-in replacement for `pandoc.pipe()` that memoizes successful results
 -- to disk. Failed subprocess calls are never cached (pandoc.pipe raises, so
 -- the error propagates to the caller exactly as before).
+local pipeMemo = {} -- in-process memo: repeat calls skip hashing and disk I/O
+
 local function cachedPipe(command, args, input)
   local cache = initPipeCache()
   if cache == false then
@@ -126,12 +150,21 @@ local function cachedPipe(command, args, input)
     return pandoc.pipe(command, args, input)
   end
 
+  if pipeMemo[key] ~= nil then
+    return pipeMemo[key]
+  end
+
   local hitOk, hit = pcall(pipeCacheRead, cache, key)
   if hitOk and hit ~= nil then
-    return hit
+    local usableOk, usable = pcall(pipeCacheHitUsable, hit)
+    if usableOk and usable then
+      pipeMemo[key] = hit
+      return hit
+    end
   end
 
   local res = pandoc.pipe(command, args, input)
+  pipeMemo[key] = res
   pcall(pipeCacheWrite, cache, key, res)
   return res
 end
