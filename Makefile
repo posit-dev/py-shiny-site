@@ -47,6 +47,25 @@ SHARDS ?= 6
 site-parallel: $(PYBIN) install-quarto
 	QUARTO_PATH="$(QUARTO_PATH)" SHARDS="$(SHARDS)" scripts/local-parallel-render.sh
 
+## Serve existing _build without full re-render (fast preview; run `make site` or `make site-parallel` first)
+.PHONY: serve-fast
+serve-fast: $(PYBIN) install-quarto
+	. $(PYBIN)/activate && ${QUARTO_PATH} preview --render none --port $${CONDUCTOR_PORT:-1414} --no-browser
+
+## Best-effort seed of heavy gitignored caches (_build, shinylive render cache, _freeze) from a donor checkout
+.PHONY: seed-caches
+seed-caches:
+	@scripts/seed-caches.sh || true
+
+## Initialize a fresh worktree/workspace: submodules, seeded caches, deps, generated docs
+.PHONY: ai-setup
+ai-setup:
+	$(MAKE) submodules
+	$(MAKE) seed-caches
+	$(MAKE) deps
+	$(MAKE) quartodoc
+	$(MAKE) components
+
 
 ## Install uv if not already installed
 .PHONY: install-uv
