@@ -5,6 +5,11 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+    inputs:
+      full_render:
+        description: "Render the whole site in a single job (skip sharding)"
+        type: boolean
+        default: false
 
 concurrency:
   group: deploy-docs-${{ github.ref }}
@@ -17,10 +22,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
-      matrix:
-        python-version: ["3.12"]
       fail-fast: false
-
+      matrix:
+        shard: ${{ fromJSON((github.event_name == 'workflow_dispatch' && inputs.full_render) && '[1]' || '[1, 2, 3, 4, 5, 6]') }}
+    env:
+      SHARD_COUNT: ${{ (github.event_name == 'workflow_dispatch' && inputs.full_render) && 1 || 6 }}
     steps:
       - uses: actions/checkout@v3
       - name: Restore shinylive render cache
@@ -37,7 +43,7 @@ jobs:
         uses: astral-sh/setup-uv@v7
         with:
           # The version of Python to set UV_PYTHON to
-          python-version: ${{ matrix.python-version }}
+          python-version: "3.12"
 
       # =====================================================
       # Install dependencies
@@ -64,9 +70,39 @@ jobs:
       # =====================================================
       # Build
       # =====================================================
-      - name: Build site
+      - name: Build shard ${{ matrix.shard }}/${{ env.SHARD_COUNT }}
         run: |
-          make all QUARTO_PATH=quarto
+          make deps quartodoc components QUARTO_PATH=quarto
+          python3 scripts/ci-shard.py --shard ${{ matrix.shard }} --count ${{ env.SHARD_COUNT }}
+          make site QUARTO_PATH=quarto
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site-shard-${{ matrix.shard }}
+          path: _build/
+          include-hidden-files: true
+          retention-days: 1
+
+      # Skip the save when the restored cache already had identical content;
+      # entries are content-addressed, so an unchanged hash means nothing new.
+      - name: Save shinylive render cache
+        if: always() && steps.shinylive-cache-state.outputs.hash != hashFiles('.quarto/shinylive-cache/**')
+        uses: actions/cache/save@v4
+        with:
+          path: .quarto/shinylive-cache
+          key: shinylive-cache-${{ hashFiles('requirements.txt') }}-${{ github.run_id }}-${{ matrix.shard }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: site-shard-*
+          path: _shards/
+      - name: Merge shards
+        run: python3 scripts/ci-merge.py --shards _shards --out _build
 
       # =====================================================
       # Deploy docs to Netlify
@@ -121,12 +157,3 @@ jobs:
           env: ${{ steps.deployment.outputs.env }}
           env_url: "https://${{ steps.deployment.outputs.env }}--pyshiny.netlify.app"
           logs: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-
-      # Skip the save when the restored cache already had identical content;
-      # entries are content-addressed, so an unchanged hash means nothing new.
-      - name: Save shinylive render cache
-        if: always() && steps.shinylive-cache-state.outputs.hash != hashFiles('.quarto/shinylive-cache/**')
-        uses: actions/cache/save@v4
-        with:
-          path: .quarto/shinylive-cache
-          key: shinylive-cache-${{ hashFiles('requirements.txt') }}-${{ github.run_id }}
