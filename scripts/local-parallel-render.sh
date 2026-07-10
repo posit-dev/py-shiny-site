@@ -31,6 +31,10 @@ mkdir -p "$SCRATCH/out"
 echo "🔵 site-parallel: $SHARDS shards, scratch dir $SCRATCH"
 
 cleanup() {
+	# Never delete scratch while background shard renders may still be using
+	# it: wait for any remaining children first (returns immediately when all
+	# shards have already been reaped).
+	wait || true
 	rm -rf "$SCRATCH"
 }
 trap cleanup EXIT
@@ -43,11 +47,14 @@ shinylive extension base-htmldeps --sw-dir . > /dev/null
 
 pids=()
 shards_list=()
+launch_failed=""
 for k in $(seq 1 "$SHARDS"); do
 	clone="$SCRATCH/$k"
 	echo "🔹 cloning worktree for shard $k/$SHARDS -> $clone"
-	cp -Rc . "$clone"
-	rm -rf "$clone/_build"
+	if ! cp -Rc . "$clone" || ! rm -rf "$clone/_build"; then
+		launch_failed="$k"
+		break
+	fi
 	(
 		cd "$clone"
 		python3 scripts/ci-shard.py --shard "$k" --count "$SHARDS"
@@ -57,6 +64,19 @@ for k in $(seq 1 "$SHARDS"); do
 	pids+=("$!")
 	shards_list+=("$k")
 done
+
+if [ -n "$launch_failed" ]; then
+	# Deterministic failure: let already-launched shards run to completion
+	# before the EXIT trap removes scratch out from under them.
+	echo "❌ site-parallel: failed to prepare the clone for shard $launch_failed/$SHARDS"
+	if [ "${#pids[@]}" -gt 0 ]; then
+		echo "🔹 waiting for ${#pids[@]} already-running shard(s) to finish before cleanup"
+		for pid in "${pids[@]}"; do
+			wait "$pid" || true
+		done
+	fi
+	exit 1
+fi
 
 fail=0
 for i in "${!pids[@]}"; do
