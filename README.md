@@ -39,7 +39,6 @@ Running `make` by itself lists all targets.
   `scripts/patches/shinylive-cache.patch`). **If you edit
   `_extensions/quarto-ext/shinylive/shinylive.lua`, regenerate the patch file**
   so `make quarto-extensions` can re-apply it after extension upgrades.
-- Executed code cells are cached in `_freeze/` (Quarto freeze).
 - `scripts/ci-shard.py` / `scripts/ci-merge.py` split a full render into
   balanced slices and merge the outputs; both CI and `make site-parallel` use
   them. Known cosmetic limitation: the navbar section-highlight is missing on

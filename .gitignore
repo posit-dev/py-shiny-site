@@ -5,7 +5,6 @@
 /pypi-tmp/
 /pypi/
 /_build/
-/_freeze/
 /.quartodoc-stamp
 .DS_Store
 

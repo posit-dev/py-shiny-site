@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Best-effort copy of heavy gitignored build artifacts (_build, shinylive
-# render cache, _freeze) from a "donor" checkout into this one, so a fresh
+# render cache) from a "donor" checkout into this one, so a fresh
 # worktree/workspace doesn't have to pay for a full render + shinylive
 # render-cache warmup before it has something to preview.
 #
@@ -65,6 +65,5 @@ copy_artifact() {
 
 copy_artifact "_build"
 copy_artifact ".quarto/shinylive-cache"
-copy_artifact "_freeze"
 
 exit 0

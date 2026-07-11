@@ -61,7 +61,7 @@ site-parallel: $(PYBIN) install-quarto
 serve-fast: $(PYBIN) install-quarto
 	. $(PYBIN)/activate && ${QUARTO_PATH} preview --render none --port $${CONDUCTOR_PORT:-1414} --no-browser
 
-## Best-effort seed of heavy gitignored caches (_build, shinylive render cache, _freeze) from a donor checkout
+## Best-effort seed of heavy gitignored caches (_build, shinylive render cache) from a donor checkout
 .PHONY: seed-caches
 seed-caches:
 	@scripts/seed-caches.sh || true
