@@ -35,9 +35,18 @@ shinylive-assets: $(PYBIN)
 site: $(PYBIN) install-quarto shinylive-assets
 	. $(PYBIN)/activate && ${QUARTO_PATH} render
 
-## Build website and serve
+## Serve the site with live preview (parallel build first if _build is missing; re-renders only edited pages)
 .PHONY: serve
 serve: $(PYBIN) install-quarto shinylive-assets
+	@if [ ! -f _build/index.html ] || [ _quarto.yml -nt _build/index.html ]; then \
+		echo "🔵 _build/ is missing or older than _quarto.yml — running parallel build first"; \
+		$(MAKE) site-parallel; \
+	fi
+	. $(PYBIN)/activate && ${QUARTO_PATH} preview --render none --port $${CONDUCTOR_PORT:-1414}
+
+## Serve with a full serial initial render (use after _quarto.yml/theme/extension changes)
+.PHONY: serve-serial
+serve-serial: $(PYBIN) install-quarto shinylive-assets
 	. $(PYBIN)/activate && ${QUARTO_PATH} preview
 
 SHARDS ?= 6

@@ -1,153 +1,103 @@
-This repository contains the sources for the Shiny for Python web site.
+This repository contains the sources for the [Shiny for Python](https://shiny.posit.co/py/) web site.
 
-## Setup and build
-
-Install Quarto. Because Quarto is under rapid development, it's best to install by cloning the Quarto git repository and running a setup script; after that, just doing `git pull` will make the latest version available, without needing to run an installer each time. [Instructions here](https://github.com/quarto-dev/quarto-cli#development-version).
-
-Clone this repository:
+## Quick start for contributors
 
 ```bash
 git clone https://github.com/posit-dev/py-shiny-site.git
 cd py-shiny-site
+make ai-setup   # submodules, Python deps, generated API docs, component previews
+make serve      # live preview at http://localhost:1414
 ```
 
-Set up git submodules:
+`make ai-setup` is a one-command initialization for any fresh checkout or git
+worktree. It also seeds heavy gitignored artifacts (`_build/`, render caches)
+from a sibling checkout when one exists — on a machine that already has a
+built copy of the site, a new worktree is ready in seconds. Prerequisites it
+doesn't install for you: [Homebrew](https://brew.sh) (used to install
+[qvm](https://github.com/dpastoor/qvm), which pins the Quarto version) and
+`git`. Everything else (uv, the Python venv, Quarto itself) is installed by
+`make` on demand.
+
+Running `make` by itself lists all targets.
+
+## Everyday development
+
+| Command | What it does |
+|---|---|
+| `make serve` | Live preview. If `_build/` is missing it first runs a **parallel** full build (~7–10 min); after that, startup is instant and only pages you edit are re-rendered. |
+| `make serve-serial` | Live preview with a full **serial** initial render (~35 min). Use this after changing `_quarto.yml`, the SCSS theme, includes, or extensions — `make serve` intentionally skips the up-front full render, so site-wide config changes won't propagate to unedited pages there. |
+| `make site-parallel` | Full site build into `_build/` using local parallel shards (`SHARDS=6` by default). The honest full rebuild, several times faster than `make site` on multi-core machines. |
+| `make site` | Full serial site build (what CI's shards run under the hood; the reference for fidelity). |
+| `make quartodoc` | Regenerate API reference qmds from the py-shiny submodule. Skips itself when nothing relevant changed (submodule commit, `_renderer.py`, quartodoc configs, `requirements.txt`). |
+| `make components` | Rebuild component static previews and Shinylive links. |
+| `make clean` | Remove build outputs and render caches. |
+
+### How builds got fast (and what that means for you)
+
+- The vendored shinylive Quarto extension is patched to memoize its subprocess
+  calls in `.quarto/shinylive-cache/` (see the note in `CLAUDE.md` and
+  `scripts/patches/shinylive-cache.patch`). **If you edit
+  `_extensions/quarto-ext/shinylive/shinylive.lua`, regenerate the patch file**
+  so `make quarto-extensions` can re-apply it after extension upgrades.
+- Executed code cells are cached in `_freeze/` (Quarto freeze).
+- `scripts/ci-shard.py` / `scripts/ci-merge.py` split a full render into
+  balanced slices and merge the outputs; both CI and `make site-parallel` use
+  them. Known cosmetic limitation: the navbar section-highlight is missing on
+  a few dozen pages in sharded builds.
+
+## Working in the virtualenv
+
+`make` runs everything inside a uv-managed virtualenv at `.venv/`. To run
+commands in it yourself:
 
 ```bash
-make submodules
-```
-
-Build everything (see Notes below for information on individual steps, which can be run separately):
-
-```bash
-make all
-```
-
-Serve the website and watch for changes to the .qmd files:
-
-```bash
-make serve
-```
-
-Running `make` by itself will print out the available `make` targets:
-
-```
-$ make
-all                    Build assets and render site
-site                   Build website
-serve                  Build website and serve
-install-uv             Install uv if not already installed
-submodules             Update git submodules to commits referenced in this repository
-submodules-pull        Pull latest commits in git submodules
-quarto-extensions      Update Quarto extensions
-quartodoc              Build qmd files for Shiny API docs
-components             Build component static previews and update shinylive links
-clean                  Remove Quarto website build files
-distclean              Remove all build files (Quarto website, quarto extensions, venv)
-```
-
-
-## Notes
-
-### Details of `make all`
-
-The `make all` command runs the following steps. If you are iterating on the site, it will be more efficient to run these steps individually as needed.
-
-Install Python packages needed for building the site:
-
-```bash
-make deps
-```
-
-Build qmd files for Shiny API docs. These will go in api/.
-
-```bash
-make quartodoc
-```
-
-Build the site:
-
-```bash
-make site
-```
-
-To update shinylive links in `components/` and build static versions of the components in the gallery, run:
-
-```bash
-make components
-```
-
-### Virtualenv
-
-When running `make`, all of the Python scripts and commands run in a virtualenv. If you want to run commands at the terminal in the same virtualenv, you will need to do the following:
-
-Set up virtualenv (this only needs to be done once, and is done automatically by `make all` and `make install-uv`):
-
-```bash
-make install-uv
-```
-
-After the virtualenv is created, activate it with:
-
-```bash
-source venv/bin/activate
-```
-
-This will make the virtualenv available when you run commands at the terminal.
-
-Deactivate the virtualenv with:
-
-```bash
+source .venv/bin/activate
+# ... python, quartodoc, shinylive, etc.
 deactivate
 ```
 
-### Pulling changes
-
-To pull the latest changes:
+## Pulling changes
 
 ```bash
 git pull
+make submodules   # sync py-shiny submodule to the referenced commit
+make all          # quartodoc + components + site
 ```
 
-Update submodules. For example, if the upstream pyshiny-site points to a new commit in shinylive, this will update the local shinylive to that commit.
+If something looks stale, `make clean` (or `make distclean` to also remove
+extensions and the venv) and rebuild.
 
-```bash
-make submodules
-```
-
-Install dependencies, build the assets, and finally build the site:
-
-```bash
-make all
-```
-
-In some cases, you may need to run `make clean`, to make sure everything is rebuilt properly.
-
+Note: submodules check out a specific commit in detached-HEAD mode. If you
+develop inside `py-shiny/`, check out a branch there and keep it in sync with
+the commit this repo references.
 
 ## Updating Quarto extensions
 
-This site is built using a number of Quarto extensions. The extensions are checked into the repository so they do not need to be installed separately. However, if you want to update the extensions to the latest version, you can do so by running:
+Extensions are checked into `_extensions/` so no install step is needed. To
+update them:
 
 ```bash
 make clean-extensions quarto-extensions
 ```
 
-Then commit the changes to the repository.
+then commit the result. This re-downloads the extensions and re-applies the
+local shinylive cache patch — it fails loudly if upstream changed in a way
+that breaks the patch (see `scripts/patches/shinylive-cache.patch` for how to
+re-port or retire it).
 
+## CI and deployment
 
-## Manually deploying the site
+- Every push to a PR builds the site on GitHub Actions: six parallel shard
+  jobs render slices of the site, then a deploy job merges them and publishes
+  a preview to Netlify (`pr-<N>--pyshiny.netlify.app`, ~12 minutes end to
+  end). Superseded runs are cancelled automatically.
+- Commits to `main` deploy to production the same way.
+- Escape hatch: run the workflow manually (`workflow_dispatch`) with
+  `full_render = true` to build in a single unsharded job.
 
-Normally, any commits on the `main` branch will automatically be built and deployed on the `gh-pages` branch using GitHub Actions. (Note: the reason that the site is built to the `docs/` directory is because that's what GitHub Pages uses.)
+## Site quality checks
 
-If you want to manually deploy the site, follow the build instructions above on the `main` branch (or another branch -- but typically not `gh-pages`), then run:
-
-```bash
-git checkout -B gh-pages
-git add docs
-git push -f
-```
-
-
-## Notes
-
-By default, the submodules will have a specific commit checked out in detached HEAD mode; they will not have a branch checked out. If you want to do develop on the submodules, you may need to check out a branch like `main`. Note that when you do have a branch checked out in a submodule, you need to be careful to make sure it doesn't get out of sync with the commit that the parent project wants the submodule to be on.
+`make compare-versions` runs a viewport comparison between production and a
+local build (Playwright + vision model). Run it before merging changes that
+could affect rendered output site-wide. See `CLAUDE.md` for details and
+filtering options.
