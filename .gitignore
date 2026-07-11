@@ -5,6 +5,7 @@
 /pypi-tmp/
 /pypi/
 /_build/
+/.quartodoc-stamp
 .DS_Store
 
 /.luarc.json
@@ -26,3 +27,7 @@ shinylive/
 
 /tests/node_modules/
 /tests/dist/
+
+# Agent planning documents (specs/plans) - not committed
+/docs/superpowers/
+index-listing.json
