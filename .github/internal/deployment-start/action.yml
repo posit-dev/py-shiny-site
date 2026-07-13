@@ -30,16 +30,18 @@ runs:
       shell: bash
       env:
         GH_TOKEN: ${{ inputs.token }}
+        DEPLOY_REF: ${{ inputs.ref }}
+        DEPLOY_ENV: ${{ inputs.environment }}
+        DEPLOY_LOG_URL: ${{ inputs.log_url }}
       run: |
-        deployment_id=$(gh api "repos/${{ github.repository }}/deployments" \
-          --method POST \
-          -f ref="${{ inputs.ref }}" \
-          -f environment="${{ inputs.environment }}" \
-          -F auto_merge=false \
-          -f "required_contexts[]=" \
-          --jq '.id')
+        # Use --input with explicit JSON so required_contexts is a real empty
+        # array — gh api -f cannot express an empty array, which causes a 409.
+        deployment_id=$(printf '{"ref":"%s","environment":"%s","auto_merge":false,"required_contexts":[]}' \
+          "$DEPLOY_REF" "$DEPLOY_ENV" \
+          | gh api "repos/${{ github.repository }}/deployments" \
+              --method POST --input - --jq '.id')
         gh api "repos/${{ github.repository }}/deployments/${deployment_id}/statuses" \
           --method POST \
           -f state="in_progress" \
-          -f log_url="${{ inputs.log_url }}"
+          -f log_url="$DEPLOY_LOG_URL"
         echo "deployment_id=${deployment_id}" >> "$GITHUB_OUTPUT"
