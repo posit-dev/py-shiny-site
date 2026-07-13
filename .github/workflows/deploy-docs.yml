@@ -28,9 +28,9 @@ jobs:
     env:
       SHARD_COUNT: ${{ (github.event_name == 'workflow_dispatch' && inputs.full_render) && 1 || 10 }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
       - name: Restore shinylive render cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v6
         with:
           path: .quarto/shinylive-cache
           key: shinylive-cache-${{ hashFiles('requirements.txt') }}-${{ github.run_id }}
@@ -50,6 +50,7 @@ jobs:
       # =====================================================
       - name: Check out submodules
         run: |
+          git config --global init.defaultBranch main
           make submodules
 
       - uses: quarto-dev/quarto-actions/setup@v2
@@ -76,7 +77,7 @@ jobs:
           python3 scripts/ci-shard.py --shard ${{ matrix.shard }} --count ${{ env.SHARD_COUNT }}
           make site QUARTO_PATH=quarto
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: site-shard-${{ matrix.shard }}
           path: _build/
@@ -87,7 +88,7 @@ jobs:
       # entries are content-addressed, so an unchanged hash means nothing new.
       - name: Save shinylive render cache
         if: always() && steps.shinylive-cache-state.outputs.hash != hashFiles('.quarto/shinylive-cache/**')
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v6
         with:
           path: .quarto/shinylive-cache
           key: shinylive-cache-${{ hashFiles('requirements.txt') }}-${{ github.run_id }}-${{ matrix.shard }}
@@ -96,8 +97,8 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/download-artifact@v4
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
         with:
           pattern: site-shard-*
           path: _shards/
@@ -122,14 +123,13 @@ jobs:
 
       - name: Create Github "view deployment" button in PR
         if: ${{github.event_name == 'pull_request'}}
-        uses: bobheadxi/deployments@v1
+        uses: ./.github/internal/deployment-start
         id: deployment
         with:
-          step: start
-          token: ${{ secrets.GITHUB_TOKEN }}
-          env: ${{ env.RELEASE_NAME }}
+          environment: ${{ env.RELEASE_NAME }}
           ref: ${{ github.head_ref }}
-          logs: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          log_url: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
       - name: Deploy to Netlify
         env:
@@ -138,7 +138,7 @@ jobs:
           REF_NAME: ${{ github.ref_name }}
           ALIAS: ${{ steps.deployment.outputs.env }}
         run: |
-          npm install -g netlify-cli@15.11.0
+          npm install -g netlify-cli@26.1.0
           # push main branch to production, others to preview --
           if [ "${REF_NAME}" == "main" ]; then
             netlify deploy --dir=_build/ --prod
@@ -147,13 +147,12 @@ jobs:
           fi
 
       - name: Update Github "view deployment" button in PR
-        uses: bobheadxi/deployments@v1
+        uses: ./.github/internal/deployment-finish
         if: ${{ steps.deployment.conclusion != 'failure' && github.event_name == 'pull_request'}}
         with:
-          step: finish
-          token: ${{ secrets.GITHUB_TOKEN }}
-          status: ${{ job.status }}
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-          env: ${{ steps.deployment.outputs.env }}
-          env_url: "https://${{ steps.deployment.outputs.env }}--pyshiny.netlify.app"
-          logs: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          environment: ${{ steps.deployment.outputs.env }}
+          status: ${{ job.status }}
+          environment_url: "https://${{ steps.deployment.outputs.env }}--pyshiny.netlify.app"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          log_url: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
