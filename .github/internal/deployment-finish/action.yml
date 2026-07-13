@@ -1,0 +1,35 @@
+name: Finish GitHub deployment
+description: Updates a GitHub deployment status to success or failure
+
+inputs:
+  deployment_id:
+    description: GitHub deployment ID from the start step
+    required: true
+  environment:
+    description: Deployment environment name
+    required: true
+  status:
+    description: Final job status (success, failure, cancelled)
+    required: true
+  environment_url:
+    description: URL of the deployed environment
+    required: true
+  token:
+    description: GitHub token
+    required: true
+  log_url:
+    description: Link to the Actions run log
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.token }}
+      run: |
+        gh api "repos/${{ github.repository }}/deployments/${{ inputs.deployment_id }}/statuses" \
+          --method POST \
+          -f state="${{ inputs.status }}" \
+          -f environment_url="${{ inputs.environment_url }}" \
+          -f log_url="${{ inputs.log_url }}"

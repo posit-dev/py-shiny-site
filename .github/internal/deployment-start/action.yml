@@ -1,0 +1,45 @@
+name: Start GitHub deployment
+description: Creates a GitHub deployment and marks it in_progress
+
+inputs:
+  environment:
+    description: Deployment environment name
+    required: true
+  ref:
+    description: Git ref to deploy
+    required: true
+  token:
+    description: GitHub token
+    required: true
+  log_url:
+    description: Link to the Actions run log
+    required: true
+
+outputs:
+  deployment_id:
+    description: GitHub deployment ID
+    value: ${{ steps.create.outputs.deployment_id }}
+  env:
+    description: Environment name (echoed for downstream use)
+    value: ${{ inputs.environment }}
+
+runs:
+  using: composite
+  steps:
+    - id: create
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.token }}
+      run: |
+        deployment_id=$(gh api "repos/${{ github.repository }}/deployments" \
+          --method POST \
+          -f ref="${{ inputs.ref }}" \
+          -f environment="${{ inputs.environment }}" \
+          -F auto_merge=false \
+          -f "required_contexts[]=" \
+          --jq '.id')
+        gh api "repos/${{ github.repository }}/deployments/${deployment_id}/statuses" \
+          --method POST \
+          -f state="in_progress" \
+          -f log_url="${{ inputs.log_url }}"
+        echo "deployment_id=${deployment_id}" >> "$GITHUB_OUTPUT"
