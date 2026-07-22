@@ -753,7 +753,7 @@ shiny create --template data-sci-adventure \
 Messages can contain Shiny UI elements like [inputs](../components/#inputs), [outputs](../components/#outputs), etc.
 This allows you to collect user input, display rich interactive output (e.g., [Jupyter Widgets](jupyter-widgets.qmd)), or provide additional context (e.g. [tooltips](../components/display-messages/tooltips/index.qmd)) from within the chat.
 
-For example, in the "What's for Dinner?" app, when the user requests to extract recipe, a message is shown with a human readable version of recipe, as well as a [download button](../api/express/express.render.download.qmd) to get the recipe in a structured JSON format:
+For example, in the "What's for Dinner?" app, when the user requests to extract recipe, a message is shown with a human readable version of recipe, as well as a [download button](../api/express/express.render.download_button.qmd) to get the recipe in a structured JSON format:
 
 ![Screenshot of a download button included in a chat message](/images/genai-interactive-messages.png){class="rounded shadow lightbox mt-3"}
 
@@ -1029,7 +1029,7 @@ chat = ui.Chat("chat")
 
 chat.ui(messages=["Welcome!"])
 
-@render.download(filename="messages.json", label="Download messages")
+@render.download_button(filename="messages.json", label="Download messages")
 def download():
     yield json.dumps(chat.messages())
 
