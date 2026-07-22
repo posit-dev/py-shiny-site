@@ -1,0 +1,77 @@
+---
+title: Download Link
+sidebar: components
+appPreview:
+  file: components/inputs/download-link/app-preview.py
+  static: true
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/download-link/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAEyiooEt5kf1SDCmw5wAOhEbNkAZwAWXCLixwAHugZwZMvjAFDkmiKzgMJEgAJGTDLK1IB3CABtSUVgAo6XZ9VhwAXjoxMHYKKABaEDC4LApSdlwPAEoAXyxiGQA3EOTkAGJkAB4iiRM6NkcXN1YAfTCoFMQJZFbkXC44Z1ZkEOh4AiyoZwBXcXMwFraOrp6QgEFnLmI4AgBGAAYNsQmp1pnu3rAAIVIAIwIAJi2diBCJQlQKXHQEFDAqVQowVIBdIA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAEyiooEt5kf1SDCmw5wAOhEbNkAZwAWXCLj4wBQ5AFcuRBtVZwGRAIKYJEjOgD6W5AF5NXHFADmcS3QA2W1gAoJyAIcsVlIAdwgPUihWSwAjDQoKcj8wEPDI6Mt2CigxQmQ8gBEwiKjWZABhAGUANTyASiIAYmQAHlaJerMIfTpZAwA3Ax9FdASiUgSxiiIZOBkZLnJ6xH9AgAFdHoNgkozfOi4Palg4Wzo87KgAWhBsuCwk9lwfeoBfLGIZAYa1gN62HsylkOFBXqsIIEochcFw4B5ynloPACAMoF5xGYwH9obD4YiwEYPFxiHACABGAAMlLEWJxULxCIKYAAQqRYgQAEzU2kQPLdCx2ZAmdA+CzWbT9BhDBhdCD5MAUXDoBAoRVwAAeFDAbwAukA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.download_link
+    href: https://shiny.posit.co/py/api/ui.download_link.html
+    signature: ui.download_link(id, label, *, icon=None, width=None, **kwargs)
+  - title: ui.download_button
+    href: https://shiny.posit.co/py/api/ui.download_button.html
+    signature: ui.download_button(id, label, *, icon=None, width=None, **kwargs)
+  - title: '@render.download_link'
+    href: https://shiny.posit.co/py/api/render.download_link.html
+    signature: '@render.download_link(fn=None, *, filename=None, media_type=None, encoding="utf-8", label="Download")'
+- id: kitchen-sink
+  template: ../../_partials/components-detail-kitchen-sink.ejs
+  contents:
+  - title: Download Link
+    core: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAEyiooEt5kf1SDCmw5wAOhAmNmyAM4ALLhFx8YAocgCCmIg2qs4DIgFcuEiRnQB9U8gC8yUzigBzOFboAbU6wAUE5EDHLiwKV1kseTgoPwCg+KcwlwjPJQBrfwh47KC9TzsxMFkKXE84BTg4CkKCOJz4+T06ArB5Cgp0WUQAem7iVggAKwjiT1JjVi8oPSwyGG6oQagAD27UgCNZbrpyCgBaKAB3cuY4boA2LAB2LAAmPtktqE9PLBglWceauuyASh-frUskEnMRprFgTlQeCrFEYoZ-GAACKkQ4QMYxZAAGXSyAAostYOgyrJCoCfvEAMTIABCUFkXGIbFR6NImNSEDSFJBIVYLIxrCsHIyXFYLT5aIFAEYashPFB1nB8oUUZK2axkABhADKADUyUD6sEsOsGL5yZDsk5TebDfVqarWezcYcuBR5MgoFlGeRuYEnBKnYLhZkjfFReL+erbt9LUb5Yrlcio5iAEpwdTVQh+7I+iB2RLhLBcXyjemyKwtOhQPayUipDXVvZ0LhlA4MJiHPaBg05i1G61m-v1Qe2nMOlMa4XIV3uz3IFvLOAa12sd05gOToXpXwRwqBgUAZllCaVLUdAuQADEuEvWHsAOqiuc4zmy1fulqHgAM3-Qy17S0LX+SRQIMOg5EMAA3BElHQYwKCIcYOgQohZHKBlyF+RAfgAAT0CADAYLAD3VbdOV8FsymgeA7DofcOBrEB2CoUJSHYXBzQAX0+KCyR+cDmTVGIpXNHC4yCXAuCVDVChouACCg55jHEcwwBzKSZOQQpNFSYgFKlX8xDUjTpM8WSwBpUh1gIW4jJM0D4nw-RDBIrcQyo6hYDgFo9EzUJlizED4kE0iYluMTTK0wp00zZA3AgQxRA1cgUEKKLzLkCgzRYuA2I480QLwgiiLc4Tgx3Tz5KrW9lz2D95ACoKBLgCCwtYQ9IokwJNMywoABVFFkOVcXkel50XZcZ2fD0oK4KBkHdOBkAAAwalbkHQaZvKoYj0tAixMHsLRMF8SwbC4NDoMMEDCFQEp0AQFAwCoQKwC4gBdIA
+    express: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAEyiooEt5kf1SDCmw5wAOhAmNmyAM4ALLhFxY4AD3QM4s2XxgChyLRFZwGRAK5cJEqzigBzOAH1S6CrIAUdCwBtfzgDuXKwU8gC8ACoMFnAAlDYQAMTIAIKsrMgAYuTCqYHazHDIAMIAymXIdIJ8ZBCytlxY8nBQrM51VJSeEsh9yHYAEpEAsgAyPRD908gA5AA8vkoA1kZwvuFiYLIUuL7aLXAUW8jyWnSbYPIUFOiyiAD0D8SsEABWsljEvqQWrHS+KBaL7MB5QN5QNQPJYAI1kD2qlAAtFACrIig8AGxYADsWAATM8dGD-FgYEovjotgA+Wa9foJCCMiTBMIDJrEIGsTxxRD0vp2TkMdotNpmHpgAAipECEB+bWQYxWyAAompYOh9g0wMypv0UgAhKCyLjENgyuWkBVLCDLIhQCwUUhIzVQYhwTIANy4UGQYWKAANATD1gHkECHBZ4JR+cgAALGUwMLCsC3y9o25beLj7aDwcJ0LbsChQJEgYtwLBO9i4HkAX0pnq2RGD60u0tl6dKZQAaltGdNTHRzZ2rawAIw8vl6mbIXBcdaZLZ5uAET1QXyxMQ2MCx6bzxfILapJbugjjgAMF+3kl3M5mB98S7ABtIMII+KvN62iWmdhhDA8rG-6Abq0wpB2lrWsqrLyOGUymuQawAI5WFouhQFM6iaqaXDCAGdipqObTOJmPJhpy-gELGKQmhA7rIAGiEQGGXCyBAszCNUDCBFyHrIDCuB+i04aOs6rrupkaqaNouiZsBTREVBGYrJMs59CElxKem+LNnu-SthsWyQV2ABKcAGMchD6RpdThHYJYOJ8XCeN8xqyM4lx0KW6JLJk3lInQOZwCiDBMIESJKf21H3mB-QJtQSYpmmY6kapQW5rAcCXFollVmoVkDv0Q4jsp+JTjZc4Lk+R5gOZlnIE4EBmKImTkCgP73vu1WZDsgEVlWpA1jycUCk0AFAfeIGTTRaRiS6gKSaVXaZsgsHhlUXBqPxwShPIsYJSYZjJcRKm2tmmX5lsQXbawSK7WE+VWUQD0RFsADMV7oGo-axiV2lju9FVdf0j7PpEihycq8jGhtN07SEbLer6-qMa9YboECWVUMmnWEKguzoAgKBgFQBVgHWAC6QA
+    image: thumbnail.png  # TODO: release-docs - add thumbnail.png screenshot for download-link
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A download link triggers a file download when clicked. Use `ui.download_link()` for a link style, or `ui.download_button()` for a button style.
+
+**Express Mode**: Download links are fully supported in Express mode. Decorate your function with `@render.download_link()` and Express automatically places a download link in the UI at that location — no explicit `ui.download_link()` call is needed, as shown in the Express tab above.
+
+To add a download link to your app:
+
+  1. Add `ui.download_link()` or `ui.download_button()` to the UI with a unique `id` and descriptive `label`. (In Express mode, the link is auto-generated from the function name.)
+
+  2. In the server function, create a function with the same name as the link's `id` and decorate it with `@render.download_link()`.
+
+  3. The download function should `yield` the content to download, line by line or chunk by chunk. This allows downloading large files without loading everything into memory at once.
+
+  4. Specify the download filename using the `filename` parameter of `@render.download_link()`. This can be a string or a function that returns a string (useful for dynamic filenames with dates or user inputs).
+
+**Dynamic Filenames**: Use a lambda or function for the `filename` parameter to create dynamic filenames:
+
+```python
+@render.download_link(filename=lambda: f"data-{date.today()}.csv")
+```
+
+**Content Types**: The download handler can yield any content - CSV data, JSON, text files, images, or binary data. For binary files, yield bytes instead of strings.
+
+**Streaming**: The `yield` approach allows streaming large files efficiently without loading the entire file into memory.
+
+**Button vs Link**: Use `ui.download_link()` when you want the download control to appear as inline text (like a hyperlink), which is less visually prominent. Use `ui.download_button()` when you want a more prominent call-to-action with button styling.
+
+See Also: [Output UI](../../outputs/ui/index.qmd) can be used to dynamically generate download links based on user inputs or reactive values.
