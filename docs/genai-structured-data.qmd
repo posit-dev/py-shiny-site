@@ -181,7 +181,7 @@ with ui.card():
     with ui.card_header(class_="d-flex justify-content-between align-items-center"):
         "Extracted (editable) table"
 
-        @render.download(filename="entities.csv", label="Download CSV")
+        @render.download_button(filename="entities.csv", label="Download CSV")
         async def download():
             d = await data()
             yield d.to_csv(index=False)
