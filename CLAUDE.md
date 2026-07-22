@@ -20,22 +20,47 @@ make submodules
 make all
 ```
 
+Or, for any fresh checkout or git worktree, one command does submodules + deps
++ generated docs and seeds `_build/`/render caches from a sibling checkout:
+
+```bash
+make ai-setup
+```
+
+(Conductor workspaces run this automatically via `.conductor/settings.toml`.)
+
 ### Common Development Workflow
 
 ```bash
-# Serve site with live preview (watches for changes)
+# One-command init for a fresh checkout/worktree (submodules, deps, generated
+# docs; seeds _build/ and render caches from a sibling checkout when possible)
+make ai-setup
+
+# Serve with live preview. Runs a parallel full build first ONLY if _build/ is
+# missing or older than _quarto.yml; otherwise starts instantly and re-renders
+# just the pages you edit.
 make serve
 
+# Serve with a full SERIAL initial render (~35 min). Use after changing
+# _quarto.yml, the SCSS theme, includes, or extensions — `make serve` skips
+# the up-front full render, so site-wide config changes won't propagate there.
+make serve-serial
+
+# Full site build using local parallel shards (~9 min on a multi-core machine)
+make site-parallel
+
+# Full serial site build (the fidelity reference; what CI shards run internally)
+make site
+
 # Rebuild API documentation from py-shiny submodule
+# (skips itself when the submodule commit, _renderer.py, quartodoc configs,
+# and requirements.txt are unchanged — stamp file: .quartodoc-stamp)
 make quartodoc
 
 # Rebuild component previews and Shinylive links
 make components
 
-# Build the complete website
-make site
-
-# Clean build artifacts
+# Clean build artifacts (also purges .quarto/shinylive-cache)
 make clean
 
 # Pull latest changes including submodules
@@ -110,13 +135,34 @@ The build follows this sequence:
 5. **Quarto** - Render all .qmd files to HTML
 6. **Post-render** - Run post-processing scripts
 
+### Sharded (parallel) rendering
+
+Full renders are split into weight-balanced slices and merged:
+
+- `scripts/ci-shard.py --shard K --count N` rewrites `_quarto.yml`'s
+  `project.render` to slice K **and** transforms sidebar configs (bare qmd
+  paths → `text`/`href` entries, titles from front matter/H1) so Quarto
+  doesn't prune navigation to the shard; listing pages are co-sharded with
+  their globbed items. Must run AFTER `make quartodoc` (it also transforms
+  the generated `api/*/_sidebar.yml` files). `--count 1` is a no-op.
+- `scripts/ci-merge.py --shards DIR --out _build` overlays shard outputs,
+  concatenates the shard-scoped `search.json`/`llms.txt`, keeps the real
+  homepage over per-shard redirect stubs, and rewrites residual cross-shard
+  `.qmd` hrefs to `.html`.
+- CI runs 10 shard jobs + a merge/deploy job; `make site-parallel` does the
+  same locally in APFS clone-copy scratch trees (`SHARDS=6` default).
+- Known cosmetic gap: navbar section-highlight is missing on ~38 pages whose
+  navbar target renders in another shard.
+- Latent constraint: the listing co-sharding merge is not fully transitive —
+  revisit `ci-shard.py` before adding a second qmd-glob listing page.
+
 ### Key Technologies
 
 - **Quarto 1.9.36** - Static site generator and documentation platform
 - **uv** - Fast Python package installer
 - **Quartodoc** - API documentation generation from docstrings
 - **Griffe** - Python code inspection
-- **Shinylive 0.8.5** - WebAssembly-based Python runtime for browser-based examples
+- **Shinylive** (version pinned in requirements.txt) - WebAssembly-based Python runtime for browser-based examples
 - **Python 3.12** - Development environment (CI uses 3.12)
 
 ### Custom Documentation Renderer
@@ -144,6 +190,14 @@ Update extensions with:
 ```bash
 make clean-extensions quarto-extensions
 ```
+
+**Note:** the shinylive extension carries a local performance patch
+(`scripts/patches/shinylive-cache.patch`) that memoizes its subprocess calls to
+`.quarto/shinylive-cache/`. `make quarto-extensions` re-applies it after
+re-downloading the extension and fails loudly if upstream drift breaks it — see
+the patch file's header for how to re-port or retire it. If you edit the cache
+block in `_extensions/quarto-ext/shinylive/shinylive.lua`, regenerate the patch
+file so the two stay in sync (`git apply --reverse --check` must pass).
 
 ### Git Submodule Pattern
 
@@ -186,6 +240,9 @@ All code examples use Shinylive to run Python in the browser via WebAssembly. Th
 
 - **Production:** Commits to `main` branch trigger automatic build and deploy via GitHub Actions
 - **Preview:** Pull requests generate preview deployments (e.g., `pr-123--pyshiny.netlify.app`)
+- **Pipeline:** 10 parallel shard jobs render slices of the site, then a `deploy` job merges the artifacts (`scripts/ci-merge.py`) and publishes — ~9 min end to end. A failed shard skips the deploy entirely. Superseded runs are cancelled by a concurrency group (only the newest commit per ref deploys).
+- **Escape hatch:** run the workflow manually (`workflow_dispatch`) with `full_render = true` for a single unsharded build job.
+- **CI caches:** `.quarto/shinylive-cache/` persists across runs via `actions/cache` (content-addressed keys; safe to restore stale).
 - **Platform:** Hosted on Netlify
 - **Output directory:** `_build/` (configured in _quarto.yml)
 
@@ -222,7 +279,7 @@ The custom renderer automatically extracts examples from `py-shiny/shiny/example
 
 - **Quarto version:** Managed via qvm (Quarto Version Manager), pinned to 1.9.36
 - **Python version:** 3.12 for development, 3.12 for CI
-- **Shinylive version:** Pinned to 0.8.5 in requirements.txt
+- **Shinylive version:** Pinned in requirements.txt (bumping it invalidates `.quarto/shinylive-cache/`, whose keys include the requirements.txt hash)
 - **Package manager:** uv for fast Python package installation
 
 ## Site Quality Checks
@@ -232,8 +289,9 @@ The custom renderer automatically extracts examples from `py-shiny/shiny/example
 ### How to run
 
 ```bash
-# Serve the local build first
-make serve   # serves on localhost:1414 by default
+# Serve the local build first (serves on localhost:1414 by default;
+# make sure _build/ is a current full build — run `make site-parallel` first)
+make serve
 
 # In another terminal
 make compare-versions
@@ -270,8 +328,12 @@ The report is written to `tests/compare-versions-<timestamp>.md`. The executive 
 2. Check for syntax errors in component .qmd files
 3. Verify Shinylive extension is installed
 
-**If API docs are missing:**
+**If API docs are missing or stale:**
 
 1. Check py-shiny submodule is initialized: `ls py-shiny/`
-2. Regenerate: `make quartodoc`
+2. Regenerate: `make quartodoc` (if it says "up to date" but you believe otherwise, `rm .quartodoc-stamp` and re-run)
 3. Check py-shiny/docs/Makefile for any errors
+
+**If `make serve` shows stale content site-wide:**
+
+`make serve` intentionally skips the initial full render. After config/theme/extension changes, use `make serve-serial`, or rebuild with `make site-parallel` first.
