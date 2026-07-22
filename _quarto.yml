@@ -167,6 +167,7 @@ website:
           contents:
             - components/outputs/data-grid/index.qmd
             - components/outputs/data-table/index.qmd
+            - components/outputs/great-tables/index.qmd
             - components/outputs/image/index.qmd
             - components/outputs/map-ipyleaflet/index.qmd
             - components/outputs/plot-matplotlib/index.qmd

@@ -1,0 +1,51 @@
+---
+title: Table (Great Tables)
+sidebar: components
+preview: '<div class="p-3 w-100 h-100"><table class="w-100 my-0"><thead><tr><th>Product</th><th>Revenue</th><th>Margin</th></tr></thead><tbody><tr><td>Essentials</td><td>$184K</td><td style="background:#f8d7da">18%</td></tr><tr><td>Pro</td><td>$352K</td><td style="background:#fff3cd">29%</td></tr><tr style="background:#e7f5ff;font-weight:600"><td>Enterprise</td><td>$421K</td><td style="background:#d1e7dd">33%</td></tr></tbody></table></div>'
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/outputs/great-tables/
+  contents:
+  - title: Preview
+    file: app-core.py
+    height: 410
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5dKCAEygGdk+7LgB0IAM2akYyAObM4UCgH0KUAEYAbOPwZNWyAOIAVIhtLEiMLkV4VcW0RKmz5ileq28svABZ0IuMi6LGzy3HDMSjIUjpLSvv64WHAAHujyvDqMIcgArnSihRC8UJ7IALxCWAAiilAAYsywcAAUosgdyCDtnb3CYOmkXLnEMbTA-QCimdQUdKW8-UT9AAoauYuEyKuSS9tgRgowm8tgk5QR6XS8cP0AugQ9vR398gBu1Lm34wCMABwAFgADCCiAAmABsAHYQUCiABmACsYNh4IAnBDUcgAWCfrCHk9nv1BmI6GMUMB4fCsRC8aDkHiUfSocD6T94Wj8Y8IM9Ov0YFBmDJ-P0KUCsP8iOKwfCpVgwWi5WDEXKqQSebz9nJSAB3Cg+UXIYDioF-OU-AFKn5EAC0JtlyGlUPVvQAvqIAJRFUT5HBQGRwJSkdAUXgtOYULTlfoGVxsIwebR7UkaDSJ8pGZhfL0QIoAATCXAiURi4TEyBKnncmlaHsQhPkFFyzB5bQ1vOMLUr2iIkh10HgSjIGmjA0kw1G-RzmuQWFUaiUPgUReYbZnvQjUf6AEVcoKqMwNIFBhO2OgImIWAKIMRvtz151eLk1Ju4KOAEpwD4QL5EElk9Q6A0MlcCITguGQXAFGYG1SA+GCoMFFxdX1JZCV6adNTndQlFsZ8lygLgWjTNQ4BHHYhhGMZMN5bCF14DgIAgCJiPUMjR3qfxOGIeYNBOZBh1yGBinKCYwHeT4732f8xlOAUhRFMA7ho54sGHXglBIsi1wfZAJJ-N9+k-b8vj2GTRxWSRSVk5B5OFCBRwAWUFey9m1PUfFHABNUgvOQjz+nQzoVN6LAxBgZRiGbMJiFwFpBOE3hRNeL9JL2YkrLJe4iCLHiBT48o4QEqQOFGDMszgELOjCiKlHPZhb0oeLSHWRLkrAOzFNOdzUKUnK4DyhZyh+KqOiwHhVCHFqWB0h8EpE-kXK6oLeQ4LQKCodqAGIxD+LgoR4dKwB2sQxHhYgRC2fotq4H44AOy6XV0rgpCgfxRPFH4VUdLAkSe3lRtnedcLsLRZvXWx7DfYBIa0MKgI0NpjvusREVOqcbFBuA51SCgWh1OA6BkHwKFHNQWsuj1-vXMxiEUOhyCS2msHJrg4r7JLgABZT701QGsGDZQ+xB5g6HQfwZBafngd4Uhm1vJQIFIKgWisJGACp1YAZTlhq4EQTXkAASVTDYKCaOYPmQABHPdWAiI89O0XINFDKcVJzLYwDsc9aG93GwFdO4gA
+    height: 410
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5dKCAEygGdk+7LgB0IAM2akYyAObM4UCgH0KUAEYAbOPwZNWyAOIAVIhtLEiMLkV4VcW0RKmz5ileq28svABZ0IuMi6LGykAK4U6BFKMhRE8txwzDEUjpLSvv6BwfoAgphEYXSiJRC8UJ7IALxCWAAiilAAYsywcAAUosjdyCBdPQPCYOiSXGHEqbTAQwCivLzUFHQVvENEQwAKGmGrhMibkmv7YEYKMLvrYDOUSSN0C0MAugT9A91D8gBu1GFwQyjAACMAA4ACwABkhRAATAA2ADskPBRAAzABWaFImEATlhWOQoOhgKRz1ebyGI1IYjokwBKJR+NhxKhyGJmJZ8IhLMBKOxJJeEDePSGMCgzBk-n+yGA4KwIKIsuhKIVWGh2JV0LRKvppMFQuOclIAHcKD4pTKsODgSrAaCNYCiABaWXg5XIRXw3UDAC+ogAlKVRBh0EoitVkEUcFAZHAlGJtnQuO1wpForFOmByp53Jo-mA-UQlhQtFUhgZXGwjB5tEMAxBSlw4GJkAtmN9mO1-FE4sgU92bNpeHRyH7EGSAAIJRvJWJkxvNrPaHNadqjskDeQUMLMQWdPX6nrGdqL3jxY3QeBKMgaUvDUbjSZ1g8DLCqNRKHwKad75-6osloYAEUwjFKhmA0QJKTGCZ2CSMQWFFCBiDzAVfyFXgwjUf84FvAAlOBvggX4iEpak3zoDQaVwIhOC4ZBcAUZhHVIdtHQYsUXGNU01nXfUnzQ191CUWxMM-KAkw0dQ4BvA5SGgx9eKFQT314DgIAgJJ2kktRpNvJp-E4Yhlg0C5kGvMIYDKKppjAL4fhQ45SJpI4RTFCV6zAR5+N-LBr14JRtOkn80I3Aj7LwsKiIcpyKFvDZJDIo5RXFfxbwAWTcyU9kNE0fFvABNUh8s43KhkUt5vOfLAxBgZRiG3BJiFwdpzMs3hrI+SLfhcu8qWczyiEbIzRRMqpkTMqQOAmKojGYX5KoParaqUdAkmQygWtIbY2o6sBkvcnqcu4gbkCGhgViqQEFv1LAeFUK8tpYYKQu6VqrNclKPNQl7ug4LQKCoXaAGIxGBLh4R4HqQbEMQUWIEQ9iGIGuEBOAIYRr0ftOqQoFSi1AS1d0sHRTHf2upS32EuwV3Kg9bHsHDgHprRqoojQMyBtGxDRGHaxsam4FfOAAA8KHaI04DoGQfFioY1C2hG-VJl6zGIRRhys1WsHlrhmskI12uAUEvO+snaZ6LBSHQZR9ap5g6HQfwZFXc3umU4TwmYZClAgUgqHaKwMwAKiDgBlT3kMQEPkAASQ0bZbFaJZvmQABHEDWCSCDkHkDCNAoXY-XJ5A61KYNw3ydB2mDUM6AHNskjrPYwDsVbaBbkWKDAb1HiAA
+    height: 410
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  template-params:
+    dir: components/outputs/great-tables/
+  contents:
+  - title: great_tables.shiny.output_gt
+    href: https://github.com/posit-dev/great-tables/blob/main/great_tables/shiny.py
+    signature: output_gt(id, placeholder=False)
+  - title: great_tables.shiny.render_gt
+    href: https://github.com/posit-dev/great-tables/blob/main/great_tables/shiny.py
+    signature: render_gt(fn)
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+[Great Tables](https://posit-dev.github.io/great-tables/) creates polished presentation tables with headers, annotations, value formatting, color scales, and targeted styles. Use a [data grid](../data-grid/index.qmd) instead when users need to sort, filter, select, or edit the data.
+
+Install Great Tables with `pip install great-tables`, then:
+
+1. Build and return a `GT` object from a function decorated with `@render_gt`.
+2. In Express, the decorated function creates its output automatically.
+3. In Core, add `output_gt("id")` to the UI and give the decorated function the same name.
+
+Shiny reruns the function whenever any reactive values it reads change, so the table can respond to inputs just like other outputs. See the [Great Tables user guide](https://posit-dev.github.io/great-tables/get-started/) for more formatting and styling options.
