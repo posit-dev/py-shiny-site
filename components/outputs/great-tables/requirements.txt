@@ -1,1 +1,1 @@
-great-tables==0.18.0
+great-tables==0.14.0

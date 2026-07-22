@@ -32,7 +32,7 @@ def server(input, output, session):
             .cols_label(
                 revenue="Revenue", profit="Profit", margin="Margin", growth="YoY growth"
             )
-            .fmt_currency(columns=["revenue", "profit"], decimals=0, compact=True)
+            .fmt_currency(columns=["revenue", "profit"], decimals=0)
             .fmt_percent(columns=["margin", "growth"], decimals=1)
             .data_color(
                 columns="margin",
@@ -51,4 +51,4 @@ def server(input, output, session):
 app = App(app_ui, server)
 
 ## file: requirements.txt
-great-tables==0.18.0
+great-tables==0.14.0
