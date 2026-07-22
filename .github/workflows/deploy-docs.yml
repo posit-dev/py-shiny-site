@@ -5,6 +5,15 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+    inputs:
+      full_render:
+        description: "Render the whole site in a single job (skip sharding)"
+        type: boolean
+        default: false
+
+concurrency:
+  group: deploy-docs-${{ github.ref }}
+  cancel-in-progress: true
 
 env:
   QUARTO_VERSION: 1.9.36
@@ -13,24 +22,35 @@ jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
-      matrix:
-        python-version: ["3.12"]
       fail-fast: false
-
+      matrix:
+        shard: ${{ fromJSON((github.event_name == 'workflow_dispatch' && inputs.full_render) && '[1]' || '[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]') }}
+    env:
+      SHARD_COUNT: ${{ (github.event_name == 'workflow_dispatch' && inputs.full_render) && 1 || 10 }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/internal/build-cache-restore
+      - uses: actions/checkout@v7
+      - name: Restore shinylive render cache
+        uses: actions/cache/restore@v6
+        with:
+          path: .quarto/shinylive-cache
+          key: shinylive-cache-${{ hashFiles('requirements.txt') }}-${{ github.run_id }}
+          restore-keys: |
+            shinylive-cache-${{ hashFiles('requirements.txt') }}-
+      - name: Record restored shinylive cache state
+        id: shinylive-cache-state
+        run: echo "hash=${{ hashFiles('.quarto/shinylive-cache/**') }}" >> "$GITHUB_OUTPUT"
       - name: Install uv
         uses: astral-sh/setup-uv@v7
         with:
           # The version of Python to set UV_PYTHON to
-          python-version: ${{ matrix.python-version }}
+          python-version: "3.12"
 
       # =====================================================
       # Install dependencies
       # =====================================================
       - name: Check out submodules
         run: |
+          git config --global init.defaultBranch main
           make submodules
 
       - uses: quarto-dev/quarto-actions/setup@v2
@@ -51,9 +71,39 @@ jobs:
       # =====================================================
       # Build
       # =====================================================
-      - name: Build site
+      - name: Build shard ${{ matrix.shard }}/${{ env.SHARD_COUNT }}
         run: |
-          make all QUARTO_PATH=quarto
+          make deps quartodoc components QUARTO_PATH=quarto
+          python3 scripts/ci-shard.py --shard ${{ matrix.shard }} --count ${{ env.SHARD_COUNT }}
+          make site QUARTO_PATH=quarto
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: site-shard-${{ matrix.shard }}
+          path: _build/
+          include-hidden-files: true
+          retention-days: 1
+
+      # Skip the save when the restored cache already had identical content;
+      # entries are content-addressed, so an unchanged hash means nothing new.
+      - name: Save shinylive render cache
+        if: always() && steps.shinylive-cache-state.outputs.hash != hashFiles('.quarto/shinylive-cache/**')
+        uses: actions/cache/save@v6
+        with:
+          path: .quarto/shinylive-cache
+          key: shinylive-cache-${{ hashFiles('requirements.txt') }}-${{ github.run_id }}-${{ matrix.shard }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: site-shard-*
+          path: _shards/
+      - name: Merge shards
+        run: python3 scripts/ci-merge.py --shards _shards --out _build
 
       # =====================================================
       # Deploy docs to Netlify
@@ -73,14 +123,13 @@ jobs:
 
       - name: Create Github "view deployment" button in PR
         if: ${{github.event_name == 'pull_request'}}
-        uses: bobheadxi/deployments@v1
+        uses: ./.github/internal/deployment-start
         id: deployment
         with:
-          step: start
-          token: ${{ secrets.GITHUB_TOKEN }}
-          env: ${{ env.RELEASE_NAME }}
+          environment: ${{ env.RELEASE_NAME }}
           ref: ${{ github.head_ref }}
-          logs: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          log_url: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
       - name: Deploy to Netlify
         env:
@@ -89,7 +138,7 @@ jobs:
           REF_NAME: ${{ github.ref_name }}
           ALIAS: ${{ steps.deployment.outputs.env }}
         run: |
-          npm install -g netlify-cli@15.11.0
+          npm install -g netlify-cli@26.1.0
           # push main branch to production, others to preview --
           if [ "${REF_NAME}" == "main" ]; then
             netlify deploy --dir=_build/ --prod
@@ -98,14 +147,12 @@ jobs:
           fi
 
       - name: Update Github "view deployment" button in PR
-        uses: bobheadxi/deployments@v1
+        uses: ./.github/internal/deployment-finish
         if: ${{ steps.deployment.conclusion != 'failure' && github.event_name == 'pull_request'}}
         with:
-          step: finish
-          token: ${{ secrets.GITHUB_TOKEN }}
-          status: ${{ job.status }}
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-          env: ${{ steps.deployment.outputs.env }}
-          env_url: "https://${{ steps.deployment.outputs.env }}--pyshiny.netlify.app"
-          logs: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-      - uses: ./.github/internal/build-cache-save
+          environment: ${{ steps.deployment.outputs.env }}
+          status: ${{ job.status }}
+          environment_url: "https://${{ steps.deployment.outputs.env }}--pyshiny.netlify.app"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          log_url: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"

@@ -1,0 +1,14 @@
+"$schema" = "https://conductor.build/schemas/settings.repo.schema.json"
+
+[scripts]
+setup = "make ai-setup"
+run_mode = "concurrent"
+
+[scripts.run.preview]
+command = "make serve-fast"
+default = true
+icon = "globe"
+
+[scripts.run.build]
+command = "make site-parallel"
+icon = "rocket"

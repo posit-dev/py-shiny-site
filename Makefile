@@ -22,15 +22,58 @@ $(PYBIN): $(VENV)
 .PHONY: all
 all: quartodoc components site
 
+# Ensure shinylive web assets exist in the shinylive user cache dir.
+# Downloading them is a side effect of `base-htmldeps` that the render cache
+# in _extensions/quarto-ext/shinylive/shinylive.lua may skip; run it once,
+# uncached, before rendering. No-op (~0.1 s) when assets are already present.
+.PHONY: shinylive-assets
+shinylive-assets: $(PYBIN)
+	. $(PYBIN)/activate && shinylive extension base-htmldeps --sw-dir . > /dev/null
+
 ## Build website
 .PHONY: site
-site: $(PYBIN) install-quarto
+site: $(PYBIN) install-quarto shinylive-assets
 	. $(PYBIN)/activate && ${QUARTO_PATH} render
 
-## Build website and serve
+## Serve the site with live preview (parallel build first if _build is missing; re-renders only edited pages)
 .PHONY: serve
-serve: $(PYBIN) install-quarto
+serve: $(PYBIN) install-quarto shinylive-assets
+	@if [ ! -f _build/index.html ] || [ _quarto.yml -nt _build/index.html ]; then \
+		echo "🔵 _build/ is missing or older than _quarto.yml — running parallel build first"; \
+		$(MAKE) site-parallel; \
+	fi
+	. $(PYBIN)/activate && ${QUARTO_PATH} preview --render none --port $${CONDUCTOR_PORT:-1414}
+
+## Serve with a full serial initial render (use after _quarto.yml/theme/extension changes)
+.PHONY: serve-serial
+serve-serial: $(PYBIN) install-quarto shinylive-assets
 	. $(PYBIN)/activate && ${QUARTO_PATH} preview
+
+SHARDS ?= 6
+
+## Render the site in SHARDS local parallel jobs and merge into _build (faster than `site` on multi-core machines)
+.PHONY: site-parallel
+site-parallel: $(PYBIN) install-quarto
+	QUARTO_PATH="$(QUARTO_PATH)" SHARDS="$(SHARDS)" scripts/local-parallel-render.sh
+
+## Serve existing _build without full re-render (fast preview; run `make site` or `make site-parallel` first)
+.PHONY: serve-fast
+serve-fast: $(PYBIN) install-quarto
+	. $(PYBIN)/activate && ${QUARTO_PATH} preview --render none --port $${CONDUCTOR_PORT:-1414} --no-browser
+
+## Best-effort seed of heavy gitignored caches (_build, shinylive render cache) from a donor checkout
+.PHONY: seed-caches
+seed-caches:
+	@scripts/seed-caches.sh || true
+
+## Initialize a fresh worktree/workspace: submodules, seeded caches, deps, generated docs
+.PHONY: ai-setup
+ai-setup:
+	$(MAKE) submodules
+	$(MAKE) seed-caches
+	$(MAKE) deps
+	$(MAKE) quartodoc
+	$(MAKE) components
 
 
 ## Install uv if not already installed
@@ -90,6 +133,17 @@ submodules-pull:
 
 _extensions/quarto-ext/shinylive: install-quarto
 	${QUARTO_PATH} add --no-prompt quarto-ext/shinylive
+	@echo "🔹 Re-applying shinylive render-cache patch"
+	@if git apply --reverse --check scripts/patches/shinylive-cache.patch > /dev/null 2>&1; then \
+		echo "   Patch already applied; skipping."; \
+	else \
+		git apply scripts/patches/shinylive-cache.patch || \
+		(echo "❌ scripts/patches/shinylive-cache.patch no longer applies." ; \
+		 echo "   Upstream quarto-ext/shinylive changed. Re-port the cache patch" ; \
+		 echo "   (see the header of scripts/patches/shinylive-cache.patch)" ; \
+		 echo "   or delete the patch if upstream now ships its own caching." ; \
+		 exit 1) ; \
+	fi
 _extensions/shafayetShafee/line-highlight: install-quarto
 	${QUARTO_PATH} add --no-prompt shafayetShafee/line-highlight
 _extensions/machow/quartodoc: install-quarto
@@ -106,16 +160,25 @@ deps: $(PYBIN)
 	. $(PYBIN)/activate && cd py-shiny && make ci-install-docs
 
 
-## Build qmd files for Shiny API docs
+QUARTODOC_STAMP ?= .quartodoc-stamp
+
+## Build qmd files for Shiny API docs (skips the body when inputs are unchanged)
 quartodoc: $(PYBIN) deps install-quarto
-	. $(PYBIN)/activate && cd py-shiny/docs && make quartodoc
-	# Copy all generated files except index.qmd
-	rsync -av --exclude="index.qmd" py-shiny/docs/api/ ./api
-	cp -R py-shiny/docs/_inv py-shiny/docs/objects.json ./
-	# Copy over index.qmd, but rename it to _api_index.qmd
-	cp py-shiny/docs/api/express/index.qmd ./api/express/_api_index.qmd
-	cp py-shiny/docs/api/core/index.qmd ./api/core/_api_index.qmd
-	cp py-shiny/docs/api/testing/index.qmd ./api/testing/_api_index.qmd
+	@key="$$(scripts/quartodoc-stamp.sh)"; \
+	if [ -f $(QUARTODOC_STAMP) ] && [ "$$(cat $(QUARTODOC_STAMP))" = "$$key" ]; then \
+		echo "quartodoc up to date"; \
+	else \
+		set -e; \
+		. $(PYBIN)/activate && cd py-shiny/docs && make quartodoc; \
+		cd $(CURDIR); \
+		echo "🔹 Copying generated api/ files (checksum mode: identical files keep their mtimes)"; \
+		rsync -ac --exclude="index.qmd" py-shiny/docs/api/ ./api; \
+		cp -R py-shiny/docs/_inv py-shiny/docs/objects.json ./; \
+		cp py-shiny/docs/api/express/index.qmd ./api/express/_api_index.qmd; \
+		cp py-shiny/docs/api/core/index.qmd ./api/core/_api_index.qmd; \
+		cp py-shiny/docs/api/testing/index.qmd ./api/testing/_api_index.qmd; \
+		echo "$$key" > $(QUARTODOC_STAMP); \
+	fi
 
 
 ## Build component static previews and update shinylive links
@@ -135,6 +198,7 @@ components-shinylive-links: $(PYBIN) deps
 .PHONY: clean
 clean:
 	rm -rf _build
+	rm -rf .quarto/shinylive-cache
 	rm -rf components/static
 	cd py-shiny/docs && make clean
 
@@ -170,6 +234,7 @@ use-dev-shinylive: $(PYBIN) deps
 			echo "🔹 Found artifact in run $$RUN_ID"; \
 			rm -rf $(SHINYLIVE_ARTIFACT_DIR) && \
 			. $(PYBIN)/activate && python -c "import appdirs, shutil; shutil.rmtree(appdirs.user_cache_dir('shinylive'), ignore_errors=True)" && \
+			rm -rf .quarto/shinylive-cache && \
 			gh run download --repo posit-dev/py-shiny --name shinylive-build --dir $(SHINYLIVE_ARTIFACT_DIR) $$RUN_ID && \
 			. $(PYBIN)/activate && shinylive assets install-from-local "$(SHINYLIVE_ARTIFACT_DIR)" && \
 			echo "✓ Shinylive artifact installed from branch $(SHINYLIVE_BRANCH)" && \
