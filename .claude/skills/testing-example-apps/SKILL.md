@@ -74,6 +74,10 @@ itself). Using it elsewhere silently fails to match `output_code`'s `<pre>` and,
 encourages example apps to diverge (a bare Express `@render.text` renders a `<div>`, not a
 `<pre>` — inconsistent with a Core `output_text_verbatim`). Standardize on `output_code`.
 
+**The one exception is the `outputs/verbatim-text/` component** — it documents
+`ui.output_text_verbatim` itself, so its example apps use `ui.output_text_verbatim` /
+`@render.text` (and would assert with `controller.OutputTextVerbatim`), not `output_code`.
+
 ## Running
 
 `pytest.ini` sets `--browser chromium -n auto` as defaults, so you never pass them.

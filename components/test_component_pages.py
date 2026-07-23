@@ -21,6 +21,8 @@ COMPONENTS_DIR = Path(__file__).parent
 SECTIONS = ("inputs", "outputs", "display-messages", "layout")
 
 # Component pages ("<section>/<name>") whose example-app coverage is enforced.
+# TODO: remove this narrowing and enforce all discovered pages (or invert to
+# "enforce all except an allowlist"). Tracked for follow-up PRs.
 ENFORCE_HAS_APP: set[str] = {
     "layout/accordion",
 }
