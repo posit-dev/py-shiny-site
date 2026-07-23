@@ -33,9 +33,15 @@ jobs:
       - name: Install dependencies
         run: make deps
 
-      # `--with-deps` also installs the OS libraries chromium needs on the runner.
-      - name: Install Playwright chromium
-        run: . .venv/bin/activate && playwright install --with-deps chromium
+      # Make the Makefile-managed .venv the default python/pytest for later steps
+      # (incl. the remote-Playwright action, which shells out to `python3`).
+      - name: Put venv on PATH
+        run: echo "$PWD/.venv/bin" >> "$GITHUB_PATH"
+
+      # Run the browser in a cached Docker container instead of installing it on
+      # the runner; pytest-playwright connects over PW_TEST_CONNECT_WS_ENDPOINT.
+      - name: Set up remote Playwright
+        uses: ./.github/internal/setup-playwright-remote
 
       # Smoke-test this shard's slice of every components/**/app*.py. Each app
       # launches with no server, JavaScript, or output errors. xdist (`-n auto`)
