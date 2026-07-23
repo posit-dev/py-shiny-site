@@ -1,0 +1,54 @@
+name: Test example apps (smoke)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: test-smoke-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      # One failing shard should not cancel the others -- we want the full
+      # picture of which example apps are broken.
+      fail-fast: false
+      matrix:
+        # NOTE: keep this list and `--num-shards` below in sync. N shards ->
+        # indices 0..N-1. ~308 example apps / 6 shards ~= 50 apps per job.
+        shard: [0, 1, 2, 3, 4, 5]
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up uv
+        uses: ./.github/internal/setup-uv
+
+      # The tests import the `shiny` package installed from the py-shiny
+      # submodule (via `make deps`), so controllers/version match the site build.
+      - name: Check out submodules
+        run: |
+          git config --global init.defaultBranch main
+          make submodules
+
+      # Installs requirements.txt + py-shiny's [dev,test,doc] extras (pytest,
+      # pytest-playwright, pytest-xdist, pytest-shard, playwright).
+      - name: Install dependencies
+        run: make deps
+
+      # `--with-deps` also installs the OS libraries chromium needs on the runner.
+      - name: Install Playwright chromium
+        run: . .venv/bin/activate && playwright install --with-deps chromium
+
+      # Smoke-test this shard's slice of every components/**/app*.py. Each app
+      # launches with no server, JavaScript, or output errors. xdist (`-n auto`)
+      # parallelizes within the shard.
+      - name: Smoke-test shard ${{ matrix.shard }} of 6
+        run: |
+          . .venv/bin/activate && pytest components/test_examples_smoke.py \
+            --num-shards 6 --shard-id ${{ matrix.shard }} \
+            --browser chromium -n auto

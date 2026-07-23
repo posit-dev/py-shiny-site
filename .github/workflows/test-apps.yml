@@ -1,0 +1,40 @@
+name: Test example apps (interaction)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: test-apps-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  apps:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up uv
+        uses: ./.github/internal/setup-uv
+
+      - name: Check out submodules
+        run: |
+          git config --global init.defaultBranch main
+          make submodules
+
+      - name: Install dependencies
+        run: make deps
+
+      - name: Install Playwright chromium
+        run: . .venv/bin/activate && playwright install --with-deps chromium
+
+      # Per-component controller interaction tests + conftest unit tests --
+      # everything except the smoke sweep (which runs sharded in test-smoke.yml).
+      - name: Run per-component app tests
+        run: |
+          . .venv/bin/activate && pytest \
+            --ignore=components/test_examples_smoke.py \
+            --browser chromium -n auto
