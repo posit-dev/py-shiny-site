@@ -37,10 +37,11 @@ Everything uses the **public `shiny` package API** — `shiny.pytest.create_app_
 - `components/test_examples_smoke.py` — smoke-tests EVERY discovered example app
   (`app.py` / `app-*.py`) as its own parametrized case; you do NOT write per-component
   smoke tests.
-- `components/test_component_pages.py` — a static (non-browser) check that EVERY component
-  page (`components/<section>/<name>/index.qmd`) ships at least one example app. A page
-  with no `app.py` / `app-*.py` fails; opt a page out only by adding its `<section>/<name>`
-  path to `NO_APP_ALLOWLIST` (with a reason). Runs under `make test-apps`.
+- `components/test_component_pages.py` — a static (non-browser) check that a component
+  page (`components/<section>/<name>/index.qmd`) ships at least one example app
+  (`app.py` / `app-*.py`). Enforcement is scoped to the pages in `ENFORCE_HAS_APP`
+  (currently just `layout/accordion`); all other pages are discovered but skipped. Add a
+  page's `<section>/<name>` path to `ENFORCE_HAS_APP` to enforce it. Runs under `make test-apps`.
 
 ## Steps to test a component
 
