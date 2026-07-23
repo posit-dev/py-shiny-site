@@ -97,3 +97,32 @@ def test_variation_update_preview_app_smoke(
     page: Page, variation_update_preview_app: ShinyAppProc, smoke_test
 ) -> None:
     smoke_test(page, variation_update_preview_app)
+
+
+import re
+
+from shiny.playwright import controller
+
+
+def _check_accordion_interaction(page: Page, app: ShinyAppProc) -> None:
+    page.goto(app.url)
+
+    acc = controller.Accordion(page, "acc")
+    acc.expect_panels(["Section A", "Section B", "Section C"])
+    acc.expect_open(["Section A"])
+
+    selected = controller.OutputCode(page, "selected")
+    selected.expect_value(re.compile("Section A"))
+
+    # Open only Section B; the others close.
+    acc.set(["Section B"])
+    acc.expect_open(["Section B"])
+    selected.expect_value(re.compile("Section B"))
+
+
+def test_accordion_core_interaction(page: Page, core_app: ShinyAppProc) -> None:
+    _check_accordion_interaction(page, core_app)
+
+
+def test_accordion_express_interaction(page: Page, express_app: ShinyAppProc) -> None:
+    _check_accordion_interaction(page, express_app)

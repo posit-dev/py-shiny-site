@@ -17,13 +17,13 @@ app_ui = ui.page_fluid(
         ),
         id="acc",
     ),
-    ui.output_text_verbatim("selected"),
+    ui.output_code("selected"),
     class_="px-3 pt-3",
 )
 
 
 def server(input, output, session):
-    @render.text
+    @render.code
     def selected():
         return f"Open panel(s): {input.acc()}"
 
