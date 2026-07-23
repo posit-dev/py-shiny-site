@@ -44,6 +44,15 @@ components/inputs/<name>/
 | `app-variation-*-{core,express}.py` | One entry in the `#variations` block | Same as core/express |
 | `app-kitchensink-*.py` | Linked from the `#kitchen-sink` block | All parameters exercised |
 
+**Every example app file MUST be named `app.py` or `app-<name>.py`.** This is the only
+naming the tooling recognizes: the shinylive-link generator, the static-preview renderer,
+and the smoke-test collector (`components/test_examples.py`, which auto-discovers and
+launches every `app.py`/`app-*.py` under `components/`) all key off this convention. A
+differently named `.py` file is silently ignored — never rendered, never linked, never
+tested. Companion files inside a multi-file app use `## file: <name>.py` markers *inside*
+the `app-*.py`, not separate top-level names. See the `testing-example-apps` skill for how
+those apps get smoke-tested.
+
 **Why `app-preview.py` and `app-detail-preview.py` must be Core style:**
 `components/make-static-previews.py` imports the module and reads `app_ui`. Express
 apps have no module-level `app_ui`, so the static renderer raises `app_ui not found`.
