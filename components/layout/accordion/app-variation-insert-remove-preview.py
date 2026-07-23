@@ -19,9 +19,9 @@ def _():
     count.set(n)
     ui.insert_accordion_panel(
         "acc",
-        ui.accordion_panel(
-            f"Section {n}", f"Some narrative for section {n}", value=f"sec_{n}"
-        ),
+        f"Section {n}",
+        f"Some narrative for section {n}",
+        panel_value=f"sec_{n}",
     )
 
 
