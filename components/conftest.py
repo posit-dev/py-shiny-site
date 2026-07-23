@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import re
 import tempfile
+from contextlib import contextmanager
 from pathlib import Path
 from typing import Callable, Sequence
 
@@ -21,7 +22,7 @@ import pytest
 from playwright.sync_api import ConsoleMessage, Page, expect
 
 from shiny.pytest import create_app_fixture
-from shiny.run import ShinyAppProc
+from shiny.run import ShinyAppProc, run_shiny_app
 
 FILE_MARKER = re.compile(r"^## file: (.+)$", re.MULTILINE)
 
@@ -129,3 +130,28 @@ def smoke_test() -> Callable[..., None]:
         expect(page.locator(".shiny-output-error")).to_have_count(0)
 
     return smoke
+
+
+COMPONENTS_DIR = Path(__file__).parent
+
+
+def example_app_paths() -> list[Path]:
+    """Every example app under ``components/`` (``app.py`` or ``app-*.py``).
+
+    Example apps follow the naming convention ``app.py`` / ``app-<name>.py``;
+    build scripts and other ``.py`` files are deliberately excluded.
+    """
+    paths = set(COMPONENTS_DIR.rglob("app.py")) | set(COMPONENTS_DIR.rglob("app-*.py"))
+    return sorted(p for p in paths if "static" not in p.parts)
+
+
+@contextmanager
+def launch_example_app(app_path: Path):
+    """Launch a raw example app (splitting multi-file ``## file:`` apps first)."""
+    text = Path(app_path).read_text()
+    if _num_file_sections(text) > 1:
+        launch_path = split_shinylive_app(text, Path(tempfile.mkdtemp(prefix="shiny-example-")))
+    else:
+        launch_path = Path(app_path)
+    with run_shiny_app(launch_path, wait_for_start=True) as proc:
+        yield proc
