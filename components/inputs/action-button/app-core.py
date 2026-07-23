@@ -1,6 +1,5 @@
 from shiny import App, reactive, render, ui
 
-# Demo edit to exercise the check-shinylive-links workflow (stale link).
 app_ui = ui.page_fluid(
     ui.input_action_button("action_button", "Action"),  # <<
     ui.output_text("counter"),
