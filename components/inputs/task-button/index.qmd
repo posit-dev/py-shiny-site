@@ -1,0 +1,77 @@
+---
+title: Task Button
+sidebar: components
+appPreview:
+  file: components/inputs/task-button/app-preview.py
+  static: true
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/task-button/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5ChuAHQh4DNmpGMgDOACzoRcyBk1bJmcKMQ4A3OEUUQAJnGb9Bw8ZNxY4AD3SKRImYxZtJ6AK4Uizujx4esT1wH0KKBEAa38AI1cKcgAKLjAg0Iio8niieIAlZwh2YJD4gEpkZABiZAAecq9eCAABLV1mLCpzCh56pRU6dTN1Shi-Cma85IpoiAKeXT4FOBFnABsKGILEHmLijngsEQW4OHQYgCZJnI3FCmdmHL54gBU85DJGPaptZBBB4aTIsdiCgC+7E4MREkzAPEIqAouHQCBQCQsFDAAIAukA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5ChuAHQh4DNmpGMgDOACzoRcyBk1bIAgpiLM4UYhwBucFdQAmcZkQCudHjwzoA+qeQBeZKZxQA5nCt8ANqb0AKHsiBjnRYkujGFFYUUCIA1lYARhEU5P5g0XGJyeRchMi5AErGEOwxsbkAlETIAMTIADz1AUFOpBHhkVQAHhRpqiLGnhSVBDwV5rwQBnyihtrMvmERRG0UHUQicCIidOQViM2BAAKqU4ZY3cMlQSdqGnTaWHDalIsQHRdlWRQpEOPXgWmyH6g16+0OQUCHHgWBEnjgcHQvgATP9IZDVBRjMwSnxcgAVMrIMiMeFUPTIEBLCifTJJH6pCoAX3YnF8InGYAmFkw9kUmF8lhsdA2c0M-zy6Vw6AQKHScB6YCZAF0gA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.input_task_button
+    href: https://shiny.posit.co/py/api/core/ui.input_task_button.html
+    signature: ui.input_task_button(id, label, *args, icon=None, label_busy='Processing...',
+      icon_busy=MISSING, width=None, type='primary', auto_reset=True, **kwargs)
+  - title: ui.update_task_button
+    href: https://shiny.posit.co/py/api/core/ui.update_task_button.html
+    signature: ui.update_task_button(id, *, state, session=None)
+  - title: reactive.extended_task
+    href: https://shiny.posit.co/py/api/core/reactive.extended_task.html
+    signature: reactive.extended_task(f)
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A task button is similar to an [action button](../action-button/index.qmd), except that it prevents the user from clicking again while its associated operation is already in progress. On click, it automatically displays a busy message and disables itself, then resets back to its normal appearance once the server has finished handling the click.
+
+Follow these steps to add a task button to your app:
+
+  1. Add `ui.input_task_button()` to the UI of your app to create a task button. Where you call this function will determine where the button will appear within the app's layout.
+
+  2. Specify the `id` and `label` parameters of `ui.input_task_button()` to define the button's identifier and its label when ready to be clicked.
+
+  3. Optionally, set `label_busy` to customize the message shown while the button is busy (defaults to `"Processing..."`).
+
+The value of a task button is accessible as a reactive value within the `server()` function. To access the value of a task button:
+
+  1. Use `input.<task_button_id>()` (e.g., `input.task_button()`) to access the value of the task button. The server value of a task button is an integer representing the number of clicks.
+
+### Long-running tasks
+
+For operations that take a while to complete, pair `ui.input_task_button()` with [`reactive.extended_task()`](https://shiny.posit.co/py/api/core/reactive.extended_task.html) so the rest of the app stays responsive while the task runs in the background. Bind the task to the button with `ui.bind_task_button()` so the button automatically shows its busy state for as long as the task is running:
+
+```python
+@ui.bind_task_button(button_id="task_button")
+@reactive.extended_task
+async def slow_compute(x: int, y: int) -> int:
+    await asyncio.sleep(3)
+    return x + y
+
+
+@reactive.effect
+@reactive.event(input.task_button)
+def handle_click():
+    slow_compute(input.x(), input.y())
+```
+
+See also: [Action Button](../action-button/index.qmd)
