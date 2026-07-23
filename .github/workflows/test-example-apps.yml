@@ -1,0 +1,61 @@
+name: Test example apps
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: test-example-apps-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-example-apps:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      # Single source of truth: the Makefile's `PYTHON_VERSION ?= ...` controls
+      # the venv Python, so read it here rather than hardcoding a version.
+      - name: Read Python version from Makefile
+        id: python-version
+        run: |
+          version="$(sed -n 's/^PYTHON_VERSION[[:space:]]*?=[[:space:]]*//p' Makefile | head -n1)"
+          if [ -z "$version" ]; then
+            echo "::error::Could not read PYTHON_VERSION from Makefile"
+            exit 1
+          fi
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          python-version: ${{ steps.python-version.outputs.version }}
+
+      # The tests import the `shiny` package installed from the py-shiny submodule
+      # (via `make deps` -> py-shiny's docs extras), so the controllers/version
+      # match the site build. Check out the pinned submodule commit.
+      - name: Check out submodules
+        run: |
+          git config --global init.defaultBranch main
+          make submodules
+
+      # Installs requirements.txt + py-shiny's [dev,test,doc] extras, which bring
+      # pytest, pytest-playwright, pytest-xdist and playwright.
+      - name: Install dependencies
+        run: make deps
+
+      # `--with-deps` also installs the OS libraries chromium needs on the runner.
+      - name: Install Playwright chromium
+        run: . .venv/bin/activate && playwright install --with-deps chromium
+
+      # Fast, targeted behavior checks first (controller interaction + unit tests).
+      - name: Run per-component app tests
+        run: . .venv/bin/activate && pytest --ignore=components/test_examples_smoke.py --browser chromium -n auto
+
+      # Smoke-test every components/**/app*.py: each launches with no server,
+      # JavaScript, or output errors.
+      - name: Smoke-test every example app
+        run: . .venv/bin/activate && pytest components/test_examples_smoke.py --browser chromium -n auto
