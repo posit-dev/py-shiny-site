@@ -1,0 +1,142 @@
+---
+title: Accordion
+sidebar: components
+appPreview:
+  file: components/layout/accordion/app-preview.py
+  static: true
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/layout/accordion/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 300
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhXER0AVwpFhEACZwGRBZwA6EfQHdOFdsh1YoxMgzWdyACk5qAvLrTX3RUumovg7gDKcMQU9hDIAILuALoAlCjIAMTIADyp+shZyMam5pyW1tJ25AD66FAQcAA2DkEhYeRR7gmZ2e1BzHDI0AwMUGEAbt100mwN4c1gbVm5ZhZWNiUQ5ZU1dWDBoZMAQi2IM+3InfA9UH0DnMPIowzj20170xHZc-mFS+GrVbX1DxEAYX2hw6my6ZwuQxGY1YEyaQOe+n0AAFVBoGFgqPwKPoNHRxtUGnA1A5Wi8ssIKAoGBE6O4APK+CIVH4OVgJZAgbiKCgfUkAX3c+kIqAouF8tDAWIoYH5MSAA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLFGJkG0zuRsOAxMgAeAPtHUMNXd09yTXQoCDgLOzAAZThiCi8IMWVCZBzk5jhkaAYGKAyANyK6ITY0jPJssABKAhDQh3C3ISiIGLiEpNT0zOQAIRyifMLiqFLyzirkGoY6kcaJlrasjs7nCJ7M-vjE-PrRgGFJvJSZkrLK6trWc8arrfaOzmldHIjJz6hUjoai6YBndZZUQ5AC621CrU+hlICgo6FRmioAA8KJoqgwAEYLGBJF4WepwaQ5REQZqqekQWR0OoMfE2bjoihEFFo1FEF6sViZZqIT4AASkjLkWGxFE+TLq5PSlJsIsBjikFAUDCydByAHkQVlYicbKwRcgQBzUS43KqAL45BnqTB6MSYGwabScflyfF0iC5MAUXAg2jBuA4sD2mFAA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.accordion
+    href: https://shiny.posit.co/py/api/ui.accordion.html
+    signature: ui.accordion(*args, id=None, open=None, multiple=True, class_=None,
+      width=None, height=None, **kwargs)
+  - title: ui.accordion_panel
+    href: https://shiny.posit.co/py/api/ui.accordion_panel.html
+    signature: ui.accordion_panel(title, *args, value=MISSING, icon=None, **kwargs)
+  - title: ui.update_accordion
+    href: https://shiny.posit.co/py/api/ui.update_accordion.html
+    signature: ui.update_accordion(id, *, show, session=None)
+  - title: ui.update_accordion_panel
+    href: https://shiny.posit.co/py/api/ui.update_accordion_panel.html
+    signature: ui.update_accordion_panel(id, target, *body, title=MISSING, value=MISSING,
+      icon=MISSING, show=None, session=None)
+  - title: ui.insert_accordion_panel
+    href: https://shiny.posit.co/py/api/ui.insert_accordion_panel.html
+    signature: ui.insert_accordion_panel(id, panel, target=None, position="after",
+      session=None)
+  - title: ui.remove_accordion_panel
+    href: https://shiny.posit.co/py/api/ui.remove_accordion_panel.html
+    signature: ui.remove_accordion_panel(id, target, session=None)
+- id: variation-update-panel
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/layout/accordion/
+  contents:
+  - title: Update a panel
+    description: Call `ui.update_accordion_panel()` from the server to change a panel's
+      title, body, or open state. Give the accordion an `id` and each panel a stable
+      `value` so you can target it.
+    apps:
+    - title: Preview
+      file: app-variation-update-panel-preview.py
+      height: 350
+    - title: Express
+      file: app-variation-update-panel-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDOFGIVOANzgAdCI2ZsuPLHAAe6Ma1Z8BQkd3QBXCkROcFCy1mNmA+qwDunCsXYAKOWBPoAJlBUDuhQEHAANj5EPgCqAUFwyJ5h-sik6NQAlGxwkpzkrD5Z1hCuFOzIthJkDP4FEJ6c-gC8PjXRyDAmEVLoEXAtACoMJnBZiArI08h0QsgDFFQMfBDIPgCCAEIAwj6TazNH5ZXVxLX15CFhkZ50PgDKeVLkyCCLywC+ndJQEWMte5gVh5BzvOBLOAMb5gCZTI4I6ZAh7MJLQBgMIIyJJzFYg-KvcGQ6E+UoKAACYgkUlk6jodGeFKp+VpcFklCaEFMFCwfkCwVC4QiJQg-jgdGQDk8cMO0woGhELXWYGSfMS-hKKs4EvsPLVApuEWlyEiIOVpNlKlIzmQSoARqRSEbdbyEgahcaAKTIABMtqVAEYRUdcQsIctVsrtnskPDEbZ9XAHDUhJcINcPdMAMTIAA8ubjiJm7XO0ULRdmPnxYI+UJhBHLReRqJA8oon2Q6MxNJx83xLzWRK+ZctFakFAGgMezwab1r0NbCvrjcRHGtLTXzgbo5mIsIqAouEytDAVAVYE+AF0gA
+    - title: Core
+      file: app-variation-update-panel-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGjQBM4dZDCgBrOAH10UCHAA2ACmtwKVBgEpEG5J+RSKyhhGRVLBkyBm1OcnNLG1sPL3i6NTAAZThZCICQByc4BgBfJII4+M9ElOY4ZGgGBig5RWQ6ITY0uXJkLMdnAsJikvkoa2U4AF4y1jTTTpz8wr6XLU1oTFNVZBHAzhwoAHMzOiHObViAryDudGUKU1YAd04KYnZYsGV0bTqzCytrQuQkgCq70+yFslm0yFI6GoLha6XIrCSLiKp08QRCQnC5FsACpgIYTFEfvYurlYU0GMhss4+AEkqIAEIAYSSAF0iEcRkkQn8YMprHJ0A4RgAVBjDZEaBZLHR6FoMRQMWwXK5EUhXS4UIgTVisDJuPoAASkMnqcCwejorSNJvSigtikoyogmqwbw+VCJNml8V0+lMtgNqJKFAAHiINklQe7PtoFmA+PoVRQ3cDPd8YrCbBN-mAkn14hxSLd1sgAEakUh2ZOpj1faJ2WEAUmQACZ1hsAIw+kqlZrU3K03OMllIAu9za1z6mDFhDJeuyeADEyAAPKvxxOvNziMQ5sGtwkkhNiFMB7NegfD6UkskKiAwxQ8lUoDU6gpKhS4W1Mueeijr17OQKGFMpUnhX9SXyB9w3-TdDyLW4RkQgDAOlRYMHQUtxHQMEVlUbVckVaVCFQChcGhWgwCocMwDyVkgA
+- id: variation-insert-remove
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/layout/accordion/
+  contents:
+  - title: Insert and remove panels
+    description: Call `ui.insert_accordion_panel()` and `ui.remove_accordion_panel()`
+      from the server to add or drop panels while the app is running.
+    apps:
+    - title: Preview
+      file: app-variation-insert-remove-preview.py
+      height: 350
+    - title: Express
+      file: app-variation-insert-remove-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDOFGIVOANzgAdCI2ZsuPLHAAe6Ma1Z8BQkd3QBXCkROcFCgO6cK7ZJawAbKLlJmA+mRcmYEKwAFACUiArIkU6cWMbeElLkXgBGZhTkQXJoACbZXuhQEHAuWURZAIK5yAVFJWAhEVHOcRReCZxJqRTpEJlgYjCksvmFxaXIWQBKcIOyyG6sIjVj9dYQdg7RWBJkDNkdvZzZALxZO+MwJi5S6C5wxwAqDCZwYY2RG47OO0L7ScsuPoAZTgkgOyAAjONpFA-PcsqxQV4ofVwhAohiJmAgcw4MhoAwGFApHM6EI2KDEuiUWsyCZKMhjqJxGDZFgYXCghCGhA1gABMTtNlwOh0SkKAUsklwdSyShBFrbXIjWo87Ii5BeUJojHopl0+UhZAAakh72QBooWERFCCEB5GOagTgwjaxF2fwgKuKQUiAGJkAAeQPmjFnd2lUNROhZEFg8jIEAQAC+kfRmMiMexuPxUEJxJkeLJDAp8fRSdThCjkQBXg5L2OWcRxC8FbTGJ5-MFrJlIrFkgl3elsuotsVAyGcG9LjVGq1b3TkT1Fs8hvNnDo+OQAD5kAAGHUZrYT4Y-PYHad9c6EZBNpFt1aLzGW61wW3ogC0kJ5N7AFFw6AICgf6aBQYDJgAukAA
+    - title: Core
+      file: app-variation-insert-remove-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGjOgD6q5AF5kqnFADmcHXQA2qgCYAKDchfHOWa1FyllFHWVsYCFYnCFdwtyxudF8dGTlyHQAjXwpyJzQ7Ox10KAg4azVCZCLRLORc-MKwAEoCZwiXE2jY+M5ElIo0iAypGFJFHLyCoqIigCU4fsVkT1YRSpHa+rDXOoam9xkyBjt2no2Ik22hPcTF61DGxqKAZThZfeQARlGSsFvmOGRoBgYoOQzOhCNgPBJhV7FeRQWxwAxFVgPHSQw7hdarRqcOzwtDEYijVGuGDKaxydDWOEAFQYyiUh3RNQ0TIgdjgdFBDEUDAcLQoRB8FBifNBrFY+xqiEOZGUlEMyCkbUUWGhsIcz0ZmgxyAAAgrHkq2XQwYdddJ9XAsHBFJQeRAhVgoFkhlUNeFWeydA4JYSXGEjNKbTVkABqF4+5ABihYREUBwQV3XZrBODCOJ4077Z0FBwuADEyAAPAXw+EitsCVrrpETrtMxcrlXrnQ7mCniAIABfN7Nj5fH5QP4AhTfYEMUGPcjIdtdqEw2kGHuI4g6adFEtrFZVjUmvWAi2G41a02K-fW2O8rB9AaWC4Jlzu5Ce72V1x+iM+QPhzjssIAPmQAAMkovo0JhXoMNZnBAWaXGWeLdgiSKrrU64uJG0ZwLGYQALQvNumraHK4joA42h6JwRCIpyKYasUYAULg6AICg9FwAAHhQYAdgAukAA
+- id: kitchen-sink
+  template: ../../_partials/components-detail-kitchen-sink.ejs
+  contents:
+  - title: Accordion
+    core: https://shinylive.io/py/editor/#h=0&code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4+AoSICCmIg2oATOAyIBXdvPkZ0Yq8gC8yKzijS4YugBsrxgAp5ZBDXdiwoYjIGY3ZyIIhQpLCIqKFY8jF0KAg4HwTkwuRZMABJSiZjC2IKOIgSgmCipJKAFTVebNyfPl5SdGpkACNNUzYLHxEc42UVUgB3XihkHzgoWIhpUXIsBqbmkMkoPzgnEvUKJj3Eg5DOcid7iAkZILAh0lIAaxKASkaboV-vtkm5ItEMs8unkCrdimAAMLkOjsaQWBhQWrka5wlLqdAWCgSHzsUwMN71QjwgBqxwscAayAADEQAIxMlnIACsTOBgIORxOZzAXBRckIIOaT0e4ik0jenigDD+AOafOaYLSMTqWRyMMlRRKACU4NwJhRuDi4W5SISCUSqAAPImSMxDTH8N5GM2TFUGwqC+nC73my0S-lSrgyzJyt7EFRKigAWm4-HQqz9EdC6qKpOF4KthX61CcwHOFVIjJKIcmYYAuqqijBzex06dWgx6Y3CsQfFBuNwxMKYLgkwBmQvJeakigqYXspkAUknSRUcFRKgowp5TPQjsnOZCNrthLETpdbo9MDexahep8Yb5vxs9QgY2UZld5PxhKItoo9pENwpqpuQvyICCAACRhvmYWDniC741hQATgf6yBGBQ6KJHQJSJC4IA-hQWAQKhAC+JQvkk0EmHBCH8u+t66t03CoRBWYhJh2GsCUADyAyJNC+TcOByCERA9qpMQ5GUa+tiYM4yD6OgAR2A47BAZ+ZjPhAVJgBQuADLQ+lwM6YBkXWQA
+    express: https://shinylive.io/py/editor/#h=0&code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcAFuwi4scAB7oGcbr36DhfCOgCuFIvogATOAyIX28+QHd2FFchdYoxGQMduzkABTyyFF8dgC8smiBCQSR0aTo1LHACeoUTMnICfrcFgA2FNwJALopENHIMGUU7OilcLEAKgwWcLX1xKVQhmLxYDC4ALQAzMmpUZ523qMAjAAMqwCks3XRKnDs0ioUowCs6+ja2wCUiHPInt6+7P6BQiHkYuhQEHClEWAASUoTDsFmIzXIBUkUFKPVGuXyhFE5FinA+Umk-wARqRSABrBJXG53eoJDpqXhfH6lPi8dLUZBY3DIBxsJrIb52ZQqUjuXhQZBtKAhCDSZEQLAJNw7eZeHx+AJBd4QT7fX7-ADC5DoBwsDCgEIgUJhcISXB1ciRaIgqPEGP+0jgUAYhOJMvqTyw6ksFAkpXYDgY-yNSISADUTXACqsiGsY8gzldpfUHvLnoq3qEVVT1STogkAEoGJqVJHQ2HtIrF8qlojW23omT-YgqZ0UCbcYxtQl3N15qIAAVsgawVG0FH7LLgdGQxSaYTdHqXs7gFD1dToCTqsWQIG9ViwEAXAF8pUbz0PqCOxxP7NPkPTs2rStwF7d3fo1wwNwkAPIZOocz+bgbl3fcKBeYgTzPJEwAoXAMloOCdAoMBjyqIA
+    image: thumbnail.png
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+An accordion is a set of vertically stacked, collapsible panels. It lets you organize a lot of content into compact sections that the user can expand one at a time (or several at once), which is handy for sidebars, settings, and long forms.
+
+To make an accordion:
+
+  1. Create the container with `ui.accordion()`.
+
+  2. Add one `ui.accordion_panel()` for each section. The first positional argument is the panel `title`; the remaining arguments are the panel's body content.
+
+  3. Give the accordion an `id` if you want to read which panels are currently open. In the server, `input.<id>()` returns the `value`(s) of the open panel(s). A panel's `value` defaults to its `title`, but you can set an explicit `value` so your server code does not break when a title changes.
+
+### Controlling which panels are open
+
+Use the `open` argument to set the initial state:
+
+- `open=None` (the default) opens the first panel.
+- `open="Section B"` (or a list of values) opens specific panels.
+- `open=True` opens every panel and `open=False` closes them all.
+
+By default `multiple=True`, so users can expand several panels at once. Set `multiple=False` to make the accordion behave like a single-selection group, where opening one panel closes the others.
+
+### Panel icons and sizing
+
+Pass `icon` to `ui.accordion_panel()` to place an element (such as a [Font Awesome](https://fontawesome.com/) icon from `faicons`) just before the title. Use the accordion's `width` and `height` arguments to constrain its size; when `height` is set the panel bodies scroll within the accordion.
+
+:::{#variation-update-panel}
+:::
+
+### Adding and removing panels dynamically
+
+Panels do not have to be fixed at startup. From the server you can:
+
+- `ui.update_accordion_panel(id, target, ...)` — change a panel's title, body, icon, value, or open state.
+- `ui.update_accordion(id, show=...)` — open or close panels by value.
+- `ui.insert_accordion_panel(id, panel, target=None, position="after")` — add a new panel.
+- `ui.remove_accordion_panel(id, target)` — remove one or more panels by value.
+
+:::{#variation-insert-remove}
+:::
+
+:::{#kitchen-sink}
+:::
+
+See also: [Card](../cards/index.qmd) | [Toolbar](../toolbar/index.qmd)
