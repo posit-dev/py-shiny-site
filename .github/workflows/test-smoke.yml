@@ -43,11 +43,8 @@ jobs:
       - name: Set up remote Playwright
         uses: ./.github/internal/setup-playwright-remote
 
-      # Smoke-test this shard's slice of every components/**/app*.py. Each app
-      # launches with no server, JavaScript, or output errors. xdist (`-n auto`)
-      # parallelizes within the shard.
+      # Smoke-test this shard's slice of every components/**/app*.py via the
+      # Makefile target (chromium + xdist come from pytest.ini; install-playwright
+      # no-ops because the remote server env is set above).
       - name: Smoke-test shard ${{ matrix.shard }} of 6
-        run: |
-          . .venv/bin/activate && pytest components/test_examples_smoke.py \
-            --num-shards 6 --shard-id ${{ matrix.shard }} \
-            --browser chromium -n auto
+        run: make test-smoke PYTEST_ARGS="--num-shards 6 --shard-id ${{ matrix.shard }}"

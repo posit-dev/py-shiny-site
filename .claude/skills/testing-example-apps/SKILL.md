@@ -71,27 +71,25 @@ encourages example apps to diverge (a bare Express `@render.text` renders a `<di
 
 ## Running
 
+`pytest.ini` sets `--browser chromium -n auto` as defaults, so you never pass them.
+
 ```bash
-# Make targets (install deps + chromium, then run in parallel)
+# Make targets (install deps + chromium, then run)
 make test          # smoke sweep + per-component app tests
 make test-smoke    # just the smoke sweep over every app
 make test-apps     # just the per-component interaction + unit tests
-make test-smoke PYTEST_ARGS='-k "layout/accordion"'   # narrow to one component
+make test-smoke PYTEST_ARGS='-k "layout/accordion"'          # narrow to one component
+make test-smoke PYTEST_ARGS='--num-shards 6 --shard-id 0'    # one shard (CI does this)
 ```
 
-Or drive pytest directly for fast local iteration:
+Or drive pytest directly for fast local iteration (chromium + xdist still apply from `pytest.ini`; add `-n0` to run serially / one app at a time):
 
 ```bash
 source .venv/bin/activate
-
-# Whole smoke sweep (parallelize with xdist)
-pytest components/test_examples_smoke.py --browser chromium -n auto
-# One component's example apps
-pytest components/test_examples_smoke.py -k "layout/accordion" --browser chromium
-# One component's interaction tests
-pytest components/layout/accordion/test_accordion.py --browser chromium
+pytest components/test_examples_smoke.py                      # whole smoke sweep
+pytest components/test_examples_smoke.py -k "layout/accordion"
+pytest components/layout/accordion/test_accordion.py          # one component's interaction tests
 ```
-(chromium is already installed via `playwright install`.)
 
 ## Rules
 

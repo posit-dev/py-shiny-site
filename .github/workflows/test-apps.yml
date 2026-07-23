@@ -40,10 +40,8 @@ jobs:
         uses: ./.github/internal/setup-playwright-remote
 
       # Per-component controller interaction tests + conftest unit tests --
-      # everything except the smoke sweep (which runs in test-smoke.yml).
+      # everything except the smoke sweep (which runs in test-smoke.yml). Uses
+      # the Makefile target (chromium + xdist from pytest.ini; install-playwright
+      # no-ops because the remote server env is set above).
       - name: Run per-component app tests (shard ${{ matrix.shard }} of 6)
-        run: |
-          . .venv/bin/activate && pytest \
-            --ignore=components/test_examples_smoke.py \
-            --num-shards 6 --shard-id ${{ matrix.shard }} \
-            --browser chromium -n auto
+        run: make test-apps PYTEST_ARGS="--num-shards 6 --shard-id ${{ matrix.shard }}"

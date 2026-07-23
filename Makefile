@@ -195,24 +195,30 @@ components-static: $(PYBIN) deps
 components-shinylive-links: $(PYBIN) deps
 	. $(PYBIN)/activate && python components/update-shinylive-links.py $(FILES)
 
-# Install the Playwright browser used by `make test` (idempotent; ~no-op once present)
+# Install the Playwright browser used by `make test` (idempotent; ~no-op once
+# present). Skipped when a remote Playwright server is configured
+# (PW_TEST_CONNECT_WS_ENDPOINT set, e.g. by CI's setup-playwright-remote action).
 .PHONY: install-playwright
 install-playwright: $(PYBIN) deps
-	. $(PYBIN)/activate && playwright install chromium
+	@if [ -n "$$PW_TEST_CONNECT_WS_ENDPOINT" ]; then \
+		echo "Remote Playwright configured; skipping local browser install."; \
+	else \
+		. $(PYBIN)/activate && playwright install chromium; \
+	fi
 
-## Run all example-app tests: smoke sweep + per-component app tests (Playwright chromium, parallel)
+## Run all example-app tests: smoke sweep + per-component app tests (chromium, parallel; from pytest.ini)
 .PHONY: test
 test: test-smoke test-apps
 
-## Smoke-test every components/**/app*.py (each app launches with no server/JS/output errors). Pass PYTEST_ARGS="..." to narrow (e.g. PYTEST_ARGS='-k "layout/accordion"').
+## Smoke-test every components/**/app*.py (each app launches with no server/JS/output errors). Pass PYTEST_ARGS="..." to narrow (e.g. PYTEST_ARGS='-k "layout/accordion"') or shard (PYTEST_ARGS='--num-shards 6 --shard-id 0').
 .PHONY: test-smoke
 test-smoke: $(PYBIN) deps install-playwright
-	. $(PYBIN)/activate && pytest components/test_examples_smoke.py --browser chromium -n auto $(PYTEST_ARGS)
+	. $(PYBIN)/activate && pytest components/test_examples_smoke.py $(PYTEST_ARGS)
 
-## Run per-component app tests (controller interaction tests + conftest unit tests), excluding the smoke sweep. Pass PYTEST_ARGS="..." to narrow.
+## Run per-component app tests (controller interaction tests + conftest unit tests), excluding the smoke sweep. Pass PYTEST_ARGS="..." to narrow or shard.
 .PHONY: test-apps
 test-apps: $(PYBIN) deps install-playwright
-	. $(PYBIN)/activate && pytest --ignore=components/test_examples_smoke.py --browser chromium -n auto $(PYTEST_ARGS)
+	. $(PYBIN)/activate && pytest --ignore=components/test_examples_smoke.py $(PYTEST_ARGS)
 
 ## Remove Quarto website build files
 .PHONY: clean
