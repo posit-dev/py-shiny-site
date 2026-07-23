@@ -7,12 +7,14 @@ description: Use when adding Playwright tests that verify a component's example 
 
 ## Overview
 
-Component example apps (`components/**/app-*.py`) are the source of truth for each
-page — the shinylive links in `index.qmd` are generated from them. This skill adds
-[py-shiny Playwright](https://shiny.posit.co/py/docs/end-to-end-testing.html) tests
-that (1) **smoke-test** every `app-*.py` in a component dir (it loads with no server,
-JS, or output errors) and (2) **interaction-test** the primary Core + Express apps via
-py-shiny's controllers.
+Component example apps (`components/**/app.py`, `components/**/app-*.py`) are the source
+of truth for each page — the shinylive links in `index.qmd` are generated from them. Smoke
+coverage (it loads with no server, JS, or output errors) is centralized: a single
+parametrized `components/test_examples.py` auto-discovers and smoke-tests every such app,
+one `test_example_app_smoke[<relative path>]` case per app. This skill covers adding
+[py-shiny Playwright](https://shiny.posit.co/py/docs/end-to-end-testing.html)
+**interaction tests** for the primary Core + Express apps via py-shiny's controllers — you
+do not write per-component smoke tests.
 
 Everything uses the **public `shiny` package API** — `shiny.pytest.create_app_fixture`,
 `shiny.playwright.controller`, `shiny.run.ShinyAppProc`. No custom test runner.
@@ -30,25 +32,18 @@ Everything uses the **public `shiny` package API** — `shiny.pytest.create_app_
   - `smoke_test` fixture — a callable `smoke_test(page, app, *, allow_stderr=(), allow_js=())`
     that navigates, waits for Shiny idle, and asserts no un-allow-listed server stderr,
     no JS console errors, and zero `.shiny-output-error`.
+  - `example_app_paths()` / `launch_example_app()` — power the centralized smoke sweep below;
+    you generally don't call these directly from a component's `test_<name>.py`.
+- `components/test_examples.py` — smoke-tests EVERY discovered example app
+  (`app.py` / `app-*.py`) as its own parametrized case; you do NOT write per-component
+  smoke tests.
 
 ## Steps to test a component
 
 1. Create `components/<section>/<name>/test_<name>.py` next to the app files.
-2. **Smoke:** for every `app-*.py` in the dir, declare a module-level fixture and a test:
-   ```python
-   from pathlib import Path
-   from playwright.sync_api import Page
-   from conftest import create_example_fixture
-   from shiny.run import ShinyAppProc
-
-   HERE = Path(__file__).parent
-   core_app = create_example_fixture(HERE / "app-core.py")
-
-   def test_core_app_smoke(page: Page, core_app: ShinyAppProc, smoke_test) -> None:
-       smoke_test(page, core_app)
-   ```
-   The module-level fixture variable name MUST match the test parameter name.
-3. **Interaction:** drive the primary Core AND Express apps with `shiny.playwright.controller`:
+2. Smoke coverage is automatic — just make sure every example app is named `app.py` or
+   `app-<name>.py` so it is discovered. Your `test_<name>.py` contains only interaction
+   tests: drive the primary Core AND Express apps with `shiny.playwright.controller`:
    ```python
    from shiny.playwright import controller
 
@@ -78,7 +73,13 @@ encourages example apps to diverge (a bare Express `@render.text` renders a `<di
 
 ```bash
 source .venv/bin/activate
-pytest components/<section>/<name>/test_<name>.py --browser chromium
+
+# Whole smoke sweep (parallelize with xdist)
+pytest components/test_examples.py --browser chromium -n auto
+# One component's example apps
+pytest components/test_examples.py -k "layout/accordion" --browser chromium
+# One component's interaction tests
+pytest components/layout/accordion/test_accordion.py --browser chromium
 ```
 (chromium is already installed via `playwright install`.)
 
@@ -97,5 +98,8 @@ pytest components/<section>/<name>/test_<name>.py --browser chromium
   do NOT broaden the global default in `conftest.py`.
 - **Never** add `*.py` to `_quarto.yml` `resources:` — `.py` files are already excluded
   from `_build/`.
-- Every non-Preview app should get both a smoke test; interaction tests cover the primary
-  Core + Express apps at minimum.
+- Name every example app `app.py` or `app-<name>.py` — the smoke collector
+  (`components/test_examples.py`) discovers apps by that convention; a differently named
+  file is silently untested.
+- Smoke coverage is automatic for every discovered `app.py`/`app-*.py`; per-component
+  `test_<name>.py` files add interaction tests for the primary Core + Express apps.
