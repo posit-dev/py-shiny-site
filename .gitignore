@@ -23,6 +23,7 @@ components/static/
 .claude/*
 # ...but track shared, repo-specific Claude skills
 !.claude/skills/
+.playwright-mcp/
 shinylive/
 
 **/*.quarto_ipynb
