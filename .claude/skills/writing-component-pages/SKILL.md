@@ -46,7 +46,7 @@ components/inputs/<name>/
 
 **Every example app file MUST be named `app.py` or `app-<name>.py`.** This is the only
 naming the tooling recognizes: the shinylive-link generator, the static-preview renderer,
-and the smoke-test collector (`components/test_examples.py`, which auto-discovers and
+and the smoke-test collector (`components/test_examples_smoke.py`, which auto-discovers and
 launches every `app.py`/`app-*.py` under `components/`) all key off this convention. A
 differently named `.py` file is silently ignored — never rendered, never linked, never
 tested. Companion files inside a multi-file app use `## file: <name>.py` markers *inside*

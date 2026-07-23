@@ -10,7 +10,7 @@ description: Use when adding Playwright tests that verify a component's example 
 Component example apps (`components/**/app.py`, `components/**/app-*.py`) are the source
 of truth for each page — the shinylive links in `index.qmd` are generated from them. Smoke
 coverage (it loads with no server, JS, or output errors) is centralized: a single
-parametrized `components/test_examples.py` auto-discovers and smoke-tests every such app,
+parametrized `components/test_examples_smoke.py` auto-discovers and smoke-tests every such app,
 one `test_example_app_smoke[<relative path>]` case per app. This skill covers adding
 [py-shiny Playwright](https://shiny.posit.co/py/docs/end-to-end-testing.html)
 **interaction tests** for the primary Core + Express apps via py-shiny's controllers — you
@@ -34,7 +34,7 @@ Everything uses the **public `shiny` package API** — `shiny.pytest.create_app_
     no JS console errors, and zero `.shiny-output-error`.
   - `example_app_paths()` / `launch_example_app()` — power the centralized smoke sweep below;
     you generally don't call these directly from a component's `test_<name>.py`.
-- `components/test_examples.py` — smoke-tests EVERY discovered example app
+- `components/test_examples_smoke.py` — smoke-tests EVERY discovered example app
   (`app.py` / `app-*.py`) as its own parametrized case; you do NOT write per-component
   smoke tests.
 
@@ -75,9 +75,9 @@ encourages example apps to diverge (a bare Express `@render.text` renders a `<di
 source .venv/bin/activate
 
 # Whole smoke sweep (parallelize with xdist)
-pytest components/test_examples.py --browser chromium -n auto
+pytest components/test_examples_smoke.py --browser chromium -n auto
 # One component's example apps
-pytest components/test_examples.py -k "layout/accordion" --browser chromium
+pytest components/test_examples_smoke.py -k "layout/accordion" --browser chromium
 # One component's interaction tests
 pytest components/layout/accordion/test_accordion.py --browser chromium
 ```
@@ -99,7 +99,7 @@ pytest components/layout/accordion/test_accordion.py --browser chromium
 - **Never** add `*.py` to `_quarto.yml` `resources:` — `.py` files are already excluded
   from `_build/`.
 - Name every example app `app.py` or `app-<name>.py` — the smoke collector
-  (`components/test_examples.py`) discovers apps by that convention; a differently named
+  (`components/test_examples_smoke.py`) discovers apps by that convention; a differently named
   file is silently untested.
 - Smoke coverage is automatic for every discovered `app.py`/`app-*.py`; per-component
   `test_<name>.py` files add interaction tests for the primary Core + Express apps.
