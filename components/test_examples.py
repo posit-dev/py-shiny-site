@@ -17,6 +17,14 @@ from shiny.run import ShinyAppProc
 _COMPONENTS = Path(__file__).parent
 _APPS = example_app_paths()
 
+# Guard against a broken discovery glob silently collecting zero apps (which would
+# make the smoke suite "pass" by testing nothing). There are ~308 example apps today;
+# any regression that drops us below 300 should fail loudly at collection time.
+assert len(_APPS) > 300, (
+    f"Expected >300 example apps under components/, found {len(_APPS)}. "
+    "Discovery in example_app_paths() may be broken."
+)
+
 
 @pytest.mark.parametrize(
     "app_path",
