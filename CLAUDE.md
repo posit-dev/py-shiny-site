@@ -92,12 +92,16 @@ make components-static
 
 ### Virtual Environment
 
-The Makefile automatically creates a venv using `uv`. To run commands manually in the same environment:
+`uv` is a required prerequisite: the Makefile runs every Python tool through
+`uv run` (via the `$(UVRUN)` variable) and creates the venv at `.venv/` with
+`uv`. If `uv` is not installed, `make` stops with a link to
+https://docs.astral.sh/uv/getting-started/installation/ (it no longer
+auto-installs uv). To run commands manually in the same environment, prefix
+with `uv run` — it auto-discovers `.venv`, so there's nothing to activate:
 
 ```bash
-source .venv/bin/activate  # Activate venv
-# ... run commands ...
-deactivate                  # Exit venv
+uv run python -c "import shiny; print(shiny.__version__)"
+uv run pytest components/layout/accordion/test_accordion.py
 ```
 
 ### Cleaning

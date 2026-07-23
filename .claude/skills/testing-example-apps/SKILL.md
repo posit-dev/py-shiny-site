@@ -82,13 +82,14 @@ make test-smoke PYTEST_ARGS='-k "layout/accordion"'          # narrow to one com
 make test-smoke PYTEST_ARGS='--num-shards 6 --shard-id 0'    # one shard (CI does this)
 ```
 
-Or drive pytest directly for fast local iteration (chromium + xdist still apply from `pytest.ini`; add `-n0` to run serially / one app at a time):
+Or drive pytest directly via `uv run` for fast local iteration (`uv run`
+auto-discovers `.venv` — nothing to activate; chromium + xdist still apply from
+`pytest.ini`; add `-n0` to run serially / one app at a time):
 
 ```bash
-source .venv/bin/activate
-pytest components/test_examples_smoke.py                      # whole smoke sweep
-pytest components/test_examples_smoke.py -k "layout/accordion"
-pytest components/layout/accordion/test_accordion.py          # one component's interaction tests
+uv run pytest components/test_examples_smoke.py                      # whole smoke sweep
+uv run pytest components/test_examples_smoke.py -k "layout/accordion"
+uv run pytest components/layout/accordion/test_accordion.py          # one component's interaction tests
 ```
 
 ## Rules
