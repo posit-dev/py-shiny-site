@@ -1,0 +1,88 @@
+---
+title: Popovers
+sidebar: components
+appPreview:
+  file: components/display-messages/popovers/app-preview.py
+  static: true
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/display-messages/popovers/
+  contents:
+  - title: Preview
+    file: app-core.py
+    height: 200
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhXER0AVwpFhEACZwGRBZwA6EfQHdOFdsh05SUgG6aAFJzUBeXWABGFCAH0pNza6IKEwAbOBcwAAUrUlsGZAAVELgA5HRgqGI4eEpwhk4Ac3YKVwBKFGQAYmQAHmr9ZAbzTixuRQovDKDyLzclCnI7Vw8DQmRXAGFgzmIAa2Q6aVTo2NKGqtr6xtcAQSW-OKEYxxFkKDU1E05yKGDkMkoBWSh1OSoGTs5bZDhQ7IpWLCuNY1OoGMEAAVUGgYWCo-GK6jgdGQwx8y00XlYFCgVDsZU2DWEFAUDAg81cUX2yCs1DY2KoKBArSUWFRvhi9hKAF8gZUQfpRmAKLh0AgUELHmAuQBdIA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnHKUEA3OTYcBiZAB4-e0dgw250BQpNKGIKTnJNACMIinI7MASKNUJkZTAAYQtOYgBrZDohZEF3OVyASiJkXwCg4Idc0UrXUg8GSqY3TllWZChpaU5Y8igLZDJKOAAPESgIaT55hmjYj2Q4Czh4SlYsXIamwIhWx1iKfd1cgAUunuQAFQn9059-C6uHQfu6Uymiq3Rq2UaPxarXQFmiB2oFEBDE4xnYFC+kOal0c9W+2JCzlIEXCkSoS00PQSUFiMDS5IxYHqqlqqjZqzgdDYch6NjCESIxIopKIrDgrFYcQgtUQ0IAAlIOQwsAzobIuQybDLocEpBQFAxLnRHs85MhXNQ2BQaXAUCB+RQsBkICDTQwtQBfXL4i7sjR6MSYGwabScUU8uSsiDZMAUXDoBAoWOLChgD0AXSAA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  template-params:
+    dir: components/display-messages/popovers/
+  contents:
+  - title: ui.popover
+    href: https://shiny.posit.co/py/api/core/ui.popover.html
+    signature: ui.popover(trigger, *args, title=None, id=None, placement='auto', options=None,
+      **kwargs)
+  - title: express.ui.popover
+    href: https://shiny.posit.co/py/api/express/express.ui.popover.html
+    signature: express.ui.popover(*args, title=None, id=None, placement='auto', options=None,
+      **kwargs)
+  - title: ui.update_popover
+    href: https://shiny.posit.co/py/api/core/ui.update_popover.html
+    signature: ui.update_popover(id, *args, title=None, show=None, session=None)
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/display-messages/popovers/
+  contents:
+  - title: Update a popover message
+    description: Call `ui.update_popover()` to toggle or change the state of a popover
+      with a given id.
+    apps:
+    - title: Preview
+      file: app-variation-update-popover-core.py
+    - title: Express
+      file: app-variation-update-popover-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDOFGIVOANzgAdCI2ZsuPLHAAe6Ma1Z8BQkd3QBXCkROcFCy1mNmA+hKnkHAIzMVyACjlg3FBAOHKQA7n5EfgDK7GHIgoKyDBHIxAA2ULoOALx+MBQAtADMyPDFfgCUNpx2EKYUTpKcrh4UXhC+-oEO6aSs8oTIfgDCaX1w8aSJcMmD6ZmsOXmFJWVFldYQoZwU7Mi2CaRJ3pwAJrlgh0kOZylSFGlwFwAiuNAwnMTIAApTRzOVRAKZAg-Y1ewNZzNIKtdqdAJBUIOK4AwZ+ACCyFh5GQ212yCgk2msyI8yyF3y5TAVQgoKGYEx8F0UAA5hNuKwzhNdhMUbNNgoAAJiKGydR0OhwSRCkVNMVwWSUE51MxYBHBWKhGmnOB0ZAObwVIG00G2EzoU5QKjIv7HPx8m6nFIhULZAAqDBMcAqIIAxMgADwBgUQYXiOVwcWS6Wh2VSeWKijK+pq7q9fra3X6w3Gulmi1WuA24mdB23QYu7IAMSgaQzfsDwYggzAFFw6AQKFbmgoYAAvgBdIA
+    - title: Core
+      file: app-variation-update-popover-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEAkhHQBXCqyIB5eXIVEAynFatO5IgzhRiFTgDc4RWZwA6EOxnQB9a8gC8yazigBzOE7oAG2sAEwAKO2Qoz04sbjUnY1NyJwAjeQpyCLBUiggnDlIAdxtCZFKNdmLkQUELBlKiYkCoHSc3UpgKAFoAZmR4PtKASgJI6K94+USTPXz0ikyIbNz85tJWOEbysABhQI24GtI6uAay5tbWds6e-sHekbGIaJisVIYw0fGorw+v56vLy1Uj1CIvV4TWJTCgzZLzDJZH6Q16lVZOIpOEH1balUTIBZLZBFTgUdjIKDHU7nJotNodMBdIZgZGvb4QlF4gbaVi+I7cXQhI5ko7Ys6NVnRUwUQJwBkAEVw0BgnGIyAACidQeLCJKopwQgyxQwnAaJRzkOzhnYbRAhXQ2GcwTCUNI1IpkKRVPIUCoKO6iJsdHMUFpg+RhohkQABQxJcxwLBwOh0OAmGNx2YWJMWShhGHvPIFKpFa0W+3IJxfKMWoGxWToEJQKhYrVg0rG00hbaFIpuAAqDFkcGGUQAxMgADyT22vWNGLOJ5Op9MW+fx7NwXMUfMyeSFtYHTZl14VquRvVvBtNlvG7Kds1lXtuABiUECx-HU5n9l-jncYiYGEjguJwgZOmcZZlGAFC4OgCAoDBcAAB4UGAAC+AC6QA
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A popover is a popup box that appears next to a trigger element when the user clicks or toggles it. Popovers provide a persistent, overlay container that can hold rich content such as explanatory text, input controls, or complex UI elements.
+
+To add a popover in Shiny Core, pass the target trigger element as the first argument to [`ui.popover()`](https://shiny.posit.co/py/api/core/ui.popover.html), followed by the popover contents. In Shiny Express, use the [`with ui.popover():`](https://shiny.posit.co/py/api/express/express.ui.popover.html) context manager, placing the trigger element inside the context block along with the popover contents.
+
+### Popover vs. Tooltip
+
+While [tooltips](../tooltips/index.qmd) are lightweight overlay boxes designed for brief hover text, popovers are larger, interactive containers designed to contain detailed context, input fields, or multi-element controls. Popovers open on interaction (click) and remain open until dismissed.
+
+### Placement and Title
+
+- **Placement**: Control where the popover appears relative to its trigger via the `placement` argument (`'auto'`, `'top'`, `'bottom'`, `'left'`, or `'right'`).
+- **Title**: Optional heading content displayed at the top of the popover box using the `title` parameter.
+- **Server Reactions**: If an `id` is provided, the open state of the popover is accessible on the server as `input.<id>()` as a boolean (`True` when visible, `False` when hidden).
+
+### Updating Popovers
+
+Use [`ui.update_popover()`](https://shiny.posit.co/py/api/core/ui.update_popover.html) on the server side to programmatically show or hide a popover with a specific `id` by setting `show=True` or `show=False`.
+
+See Also: [Tooltips](../tooltips/index.qmd) for simple hover messages, [Modal messages](../modal/index.qmd) for modal dialog overlays, and [Cards](../../layout/cards/index.qmd) for layout containers.
+
+## Variations
+
+:::{#variations}
+:::
