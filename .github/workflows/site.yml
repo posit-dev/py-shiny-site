@@ -1,4 +1,4 @@
-name: deploy-docs
+name: site
 
 on:
   push:
@@ -12,7 +12,7 @@ on:
         default: false
 
 concurrency:
-  group: deploy-docs-${{ github.ref }}
+  group: site-${{ github.ref }}
   cancel-in-progress: true
 
 env:
