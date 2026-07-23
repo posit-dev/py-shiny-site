@@ -39,19 +39,13 @@ jobs:
       - name: Record restored shinylive cache state
         id: shinylive-cache-state
         run: echo "hash=${{ hashFiles('.quarto/shinylive-cache/**') }}" >> "$GITHUB_OUTPUT"
-      - name: Install uv
-        uses: astral-sh/setup-uv@v7
-        with:
-          # The version of Python to set UV_PYTHON to
-          python-version: "3.12"
-
       # =====================================================
       # Install dependencies
       # =====================================================
-      - name: Check out submodules
-        run: |
-          git config --global init.defaultBranch main
-          make submodules
+      # Installs uv (Python from the Makefile) and checks out the pinned
+      # py-shiny submodule.
+      - name: Set up py-shiny-site
+        uses: ./.github/internal/setup-py-shiny-site
 
       - uses: quarto-dev/quarto-actions/setup@v2
         id: quarto

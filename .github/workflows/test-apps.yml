@@ -14,16 +14,17 @@ jobs:
   apps:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        # Sharded like the smoke suite -- only a few interaction tests exist
+        # today, but more will come. Keep this list and `--num-shards` in sync.
+        shard: [0, 1, 2, 3, 4, 5]
     steps:
       - uses: actions/checkout@v7
 
-      - name: Set up uv
-        uses: ./.github/internal/setup-uv
-
-      - name: Check out submodules
-        run: |
-          git config --global init.defaultBranch main
-          make submodules
+      - name: Set up py-shiny-site
+        uses: ./.github/internal/setup-py-shiny-site
 
       - name: Install dependencies
         run: make deps
@@ -32,9 +33,10 @@ jobs:
         run: . .venv/bin/activate && playwright install --with-deps chromium
 
       # Per-component controller interaction tests + conftest unit tests --
-      # everything except the smoke sweep (which runs sharded in test-smoke.yml).
-      - name: Run per-component app tests
+      # everything except the smoke sweep (which runs in test-smoke.yml).
+      - name: Run per-component app tests (shard ${{ matrix.shard }} of 6)
         run: |
           . .venv/bin/activate && pytest \
             --ignore=components/test_examples_smoke.py \
+            --num-shards 6 --shard-id ${{ matrix.shard }} \
             --browser chromium -n auto
