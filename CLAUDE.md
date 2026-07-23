@@ -80,8 +80,11 @@ make deps
 # Generate API docs (outputs to api/)
 make quartodoc
 
-# Update component Shinylive links
+# Update component Shinylive links (all pages)
 make components-shinylive-links
+# ...or just the pages you touched (dirs, index.qmd, or any file inside a
+# component dir such as an edited app-*.py — resolved to the owning index.qmd)
+make components-shinylive-links FILES="components/inputs/action-button/app-core.py"
 
 # Generate static component previews
 make components-static
@@ -246,6 +249,10 @@ All code examples use Shinylive to run Python in the browser via WebAssembly. Th
 - **Platform:** Hosted on Netlify
 - **Output directory:** `_build/` (configured in _quarto.yml)
 
+### Other CI checks
+
+- **`check-shinylive-links`** (`.github/workflows/check-shinylive-links.yml`) — on every PR, regenerates the component Shinylive links (`make components-shinylive-links`) and **fails if the committed links differ**. This catches an edited `app-*.py` whose `shinylive:` link in `index.qmd` wasn't regenerated. It installs the py-shiny submodule + full `deps` so the shinylive version matches the site build, and reads `PYTHON_VERSION` from the Makefile. Fix a failure by running `make components-shinylive-links` and committing the updated `index.qmd` files.
+
 ## Working with Components
 
 Component pages follow a consistent structure:
@@ -258,12 +265,17 @@ Component pages follow a consistent structure:
 To update component examples:
 
 ```bash
-# Regenerate Shinylive links
+# Regenerate Shinylive links (add FILES="..." to limit to specific pages)
 make components-shinylive-links
 
 # Regenerate static preview images
 make components-static
 ```
+
+**Always regenerate the Shinylive links after editing any `app-*.py` file** and
+commit the updated `index.qmd`. The `shinylive:` values encode the app source, so
+a stale link ships the wrong code — and the `check-shinylive-links` CI workflow
+fails the PR when committed links are out of date.
 
 ## Working with API Documentation
 

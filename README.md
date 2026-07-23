@@ -93,6 +93,11 @@ re-port or retire it).
 - Commits to `main` deploy to production the same way.
 - Escape hatch: run the workflow manually (`workflow_dispatch`) with
   `full_render = true` to build in a single unsharded job.
+- A separate **`check-shinylive-links`** workflow runs on every PR: it
+  regenerates the component Shinylive links and fails if the committed links
+  are out of date. So after editing any `app-*.py`, run
+  `make components-shinylive-links` (optionally scoped with `FILES="..."`) and
+  commit the updated `index.qmd`.
 
 ## Site quality checks
 

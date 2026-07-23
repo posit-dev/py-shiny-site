@@ -148,6 +148,24 @@ Run `make components-shinylive-links` (script: `components/update-shinylive-link
 It encodes each app's source into the `shinylive:` value in place. You only need a
 `shinylive:` **key** present (a placeholder value is fine); the script overwrites it.
 
+**Always re-run `make components-shinylive-links` after editing, adding, or removing
+any `app-*.py` file (or its `resources:`).** The `shinylive:` values are an encoding of
+the app source, so any change to the source makes the committed link stale. This is not
+optional: the `check-shinylive-links` GitHub Actions workflow regenerates the links on
+every PR and **fails the build if the committed links differ**. Regenerate and commit the
+updated `index.qmd` files as part of the same change — do not leave it for later.
+
+To rebuild just the page(s) you touched (faster than rewriting all of them), pass
+`FILES=` — it accepts component dirs, `index.qmd` paths, or any file inside a component
+dir (e.g. the `app-*.py` you just edited), which it resolves to the owning `index.qmd`:
+
+```bash
+make components-shinylive-links FILES="components/inputs/<name>/"
+make components-shinylive-links FILES="components/inputs/<name>/app-core.py components/inputs/<name>/app-express.py"
+```
+
+With no `FILES`, it rewrites every component page (what CI does).
+
 - **Multi-file apps:** if an app needs extra files, split with `## file: app.py`
   markers inside the `.py`, and list companion assets under a `resources:` key in the
   front-matter entry. The link checker warns `Multiple files in app` when a bundle has
