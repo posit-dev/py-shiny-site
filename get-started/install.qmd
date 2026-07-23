@@ -152,6 +152,13 @@ uv pip install shiny
 
 :::
 
+::: {.callout-tip}
+## Recommended: install Shiny's Agent Skills
+
+If you use a coding agent such as Claude Code or Cursor, we also recommend installing Shiny's bundled [Agent Skills](agent-skills.qmd).
+They teach your agent how to build, style, test, and debug Shiny for Python apps using shiny's public APIs.
+:::
+
 ## Positron {#positron}
 
 We recommend using
