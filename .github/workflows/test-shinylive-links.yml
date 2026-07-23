@@ -1,4 +1,4 @@
-name: Check shinylive links
+name: test-shinylive-links
 
 on:
   push:
@@ -7,11 +7,11 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: check-shinylive-links-${{ github.ref }}
+  group: test-shinylive-links-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  check-shinylive-links:
+  test-shinylive-links:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7

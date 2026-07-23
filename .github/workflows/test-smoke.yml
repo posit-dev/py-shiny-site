@@ -1,4 +1,4 @@
-name: Test example apps (smoke)
+name: test-smoke
 
 on:
   push:

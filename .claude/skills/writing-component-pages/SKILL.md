@@ -160,7 +160,7 @@ It encodes each app's source into the `shinylive:` value in place. You only need
 **Always re-run `make components-shinylive-links` after editing, adding, or removing
 any `app-*.py` file (or its `resources:`).** The `shinylive:` values are an encoding of
 the app source, so any change to the source makes the committed link stale. This is not
-optional: the `check-shinylive-links` GitHub Actions workflow regenerates the links on
+optional: the `test-shinylive-links` GitHub Actions workflow regenerates the links on
 every PR and **fails the build if the committed links differ**. Regenerate and commit the
 updated `index.qmd` files as part of the same change — do not leave it for later.
 

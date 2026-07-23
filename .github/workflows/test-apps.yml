@@ -1,4 +1,4 @@
-name: Test example apps (interaction)
+name: test-apps
 
 on:
   push:

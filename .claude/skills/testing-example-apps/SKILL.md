@@ -106,7 +106,7 @@ uv run pytest components/layout/accordion/test_accordion.py          # one compo
 - Test the **raw `app-*.py`** files, never the shinylive URLs (they are derived). After
   editing any `app-*.py`, regenerate the page's shinylive links
   (`make components-shinylive-links FILES="components/<section>/<name>/index.qmd"`) and
-  commit the updated `index.qmd`, or `check-shinylive-links` CI fails.
+  commit the updated `index.qmd`, or `test-shinylive-links` CI fails.
 - Display values with `output_code` / `@render.code`; only use `controller.OutputTextVerbatim`
   when the component under test is itself `output_text_verbatim`.
 - In Core apps, pair matching output/render names: `ui.output_code("id")` ↔ `@render.code`
