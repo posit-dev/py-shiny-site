@@ -182,6 +182,39 @@ make serve             # live preview; open the new page
 Confirm: gallery card renders, Preview tab runs live, Core/Express tabs show code with
 working "Open in editor" links, variations/kitchen sink render, and the sidebar links.
 
+## After the PR deploys: verify, then hand the author review links
+
+Every PR gets a Netlify preview at `https://pr-<N>--pyshiny.netlify.app` (deployed from
+`_build/`; find the exact URL via the "View deployment" button on the PR or
+`gh pr checks <N>` / `gh pr view <N>`). Rendered visuals — screenshot cards, live WASM
+apps, sidebar placement — are things you (Claude) can only partially judge, so the
+**author must do the final visual review**. Do NOT close this out yourself.
+
+1. **Verify first.** Wait for the deploy to finish, then load each new/changed component
+   page in the preview and confirm the gallery card image rendered, the Preview app runs,
+   the Core/Express tabs and their "Open in editor" links work, variations/kitchen sink
+   render, and the new sidebar entry appears in the right section in the right order.
+   Report anything broken instead of handing over links to a broken page.
+
+2. **Then give the author direct links** — one per new/changed component, plus the
+   gallery and the affected sidebar section, so they can eyeball the real output:
+
+   ```
+   Preview: https://pr-<N>--pyshiny.netlify.app
+
+   New/changed component pages:
+   - Accordion: https://pr-<N>--pyshiny.netlify.app/components/layout/accordion/
+
+   Sidebar & gallery to check:
+   - Components gallery (new card): https://pr-<N>--pyshiny.netlify.app/components/
+   - Layout section sidebar (order/placement): open any page above and check the
+     left sidebar shows the new entry in the right section, alphabetically placed
+   ```
+
+   Page URL = the directory path under `components/` with a trailing slash
+   (`components/<section>/<name>/`). Ask the author to confirm each page and the sidebar
+   before merging.
+
 ## Common mistakes
 
 | Mistake | Fix |
