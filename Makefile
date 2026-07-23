@@ -195,6 +195,16 @@ components-static: $(PYBIN) deps
 components-shinylive-links: $(PYBIN) deps
 	. $(PYBIN)/activate && python components/update-shinylive-links.py $(FILES)
 
+# Install the Playwright browser used by `make test` (idempotent; ~no-op once present)
+.PHONY: install-playwright
+install-playwright: $(PYBIN) deps
+	. $(PYBIN)/activate && playwright install chromium
+
+## Run example-app tests: parametrized smoke over every components/**/app*.py plus per-component interaction tests (Playwright chromium, parallel). Pass PYTEST_ARGS="..." to narrow (e.g. PYTEST_ARGS='-k "layout/accordion"').
+.PHONY: test
+test: $(PYBIN) deps install-playwright
+	. $(PYBIN)/activate && pytest --browser chromium -n auto $(PYTEST_ARGS)
+
 ## Remove Quarto website build files
 .PHONY: clean
 clean:
