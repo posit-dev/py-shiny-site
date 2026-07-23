@@ -190,9 +190,10 @@ components-static: $(PYBIN) deps
 	rm -rf components/static
 	. $(PYBIN)/activate && python components/make-static-previews.py
 
+## Update shinylive links; pass FILES="dir-or-file ..." to limit to those pages
 .PHONY: components-shinylive-links
 components-shinylive-links: $(PYBIN) deps
-	. $(PYBIN)/activate && python components/update-shinylive-links.py
+	. $(PYBIN)/activate && python components/update-shinylive-links.py $(FILES)
 
 ## Remove Quarto website build files
 .PHONY: clean

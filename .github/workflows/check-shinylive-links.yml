@@ -1,0 +1,60 @@
+name: Check shinylive links
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: check-shinylive-links-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check-shinylive-links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # Single source of truth: the Makefile's `PYTHON_VERSION ?= ...` controls
+      # the venv Python, so read it here rather than hardcoding a version.
+      - name: Read Python version from Makefile
+        id: python-version
+        run: |
+          version="$(sed -n 's/^PYTHON_VERSION[[:space:]]*?=[[:space:]]*//p' Makefile | head -n1)"
+          if [ -z "$version" ]; then
+            echo "::error::Could not read PYTHON_VERSION from Makefile"
+            exit 1
+          fi
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          python-version: ${{ steps.python-version.outputs.version }}
+
+      # The link generator's `shinylive:` values must be encoded with the same
+      # shinylive version the site build uses, or this check produces false
+      # failures. `make deps` (pulled in by `components-shinylive-links`)
+      # installs py-shiny's docs extras, which pin shinylive from git -- exactly
+      # what the site build does -- so check out the submodule it needs.
+      - name: Check out submodules
+        run: |
+          git config --global init.defaultBranch main
+          make submodules
+
+      # Regenerate the shinylive links embedded in the component index.qmd
+      # files. The Makefile self-manages its uv venv.
+      - name: Regenerate shinylive links
+        run: make components-shinylive-links
+
+      # If regenerating changed any tracked file, the committed links are stale.
+      - name: Verify shinylive links are up to date
+        run: |
+          if ! git diff --quiet; then
+            echo "::error::Shinylive links are out of date. Run 'make components-shinylive-links' and commit the result."
+            echo "--- Offending diff ---"
+            git diff
+            exit 1
+          fi
+          echo "Shinylive links are up to date."
