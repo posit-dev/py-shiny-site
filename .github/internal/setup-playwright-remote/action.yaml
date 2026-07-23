@@ -4,6 +4,10 @@
 # it (PW_TEST_CONNECT_WS_ENDPOINT + expose_network=*), avoiding the slow
 # `playwright install --with-deps` browser download on every job. Requires the
 # `playwright` Python package to be installed already (via `make deps`).
+#
+# LOCAL ADAPTATION: the two Python invocations run via `uv run --no-project`
+# (not bare `python3`) so they use this repo's uv-managed .venv without any
+# PATH/VIRTUAL_ENV export in the calling workflow. Preserve this when syncing.
 name: "Setup remote Playwright"
 description: "Start a Playwright server in Docker and configure pytest-playwright to connect to it"
 inputs:
@@ -39,7 +43,7 @@ runs:
       run: |
         VERSION="${{ inputs.version }}"
         if [ -z "$VERSION" ]; then
-          VERSION=$(python3 -c "from importlib.metadata import version; print(version('playwright'))")
+          VERSION=$(uv run --no-project python3 -c "from importlib.metadata import version; print(version('playwright'))")
         fi
 
         echo "version=$VERSION" >> "$GITHUB_OUTPUT"
@@ -150,7 +154,7 @@ runs:
     - name: Wait for Playwright server
       shell: bash
       run: |
-        python3 - <<'PY'
+        uv run --no-project python3 - <<'PY'
         from playwright.sync_api import Error, sync_playwright
         import socket
         import time
