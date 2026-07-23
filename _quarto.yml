@@ -247,6 +247,7 @@ website:
         - get-started/index.qmd
         - get-started/what-is-shiny.qmd
         - get-started/install.qmd
+        - get-started/agent-skills.qmd
         - get-started/create-run.qmd
         - get-started/debug.qmd
         - section: "Deploy"
