@@ -20,7 +20,9 @@ __pycache__/
 __pycache__/
 
 components/static/
-.claude/
+.claude/*
+# ...but track shared, repo-specific Claude skills
+!.claude/skills/
 shinylive/
 
 **/*.quarto_ipynb
