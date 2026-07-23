@@ -42,8 +42,6 @@ jobs:
       # =====================================================
       # Install dependencies
       # =====================================================
-      # Installs uv (Python from the Makefile) and checks out the pinned
-      # py-shiny submodule.
       - name: Set up py-shiny-site
         uses: ./.github/internal/setup-py-shiny-site
 

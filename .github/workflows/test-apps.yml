@@ -17,8 +17,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Sharded like the smoke suite -- only a few interaction tests exist
-        # today, but more will come. Keep this list and `--num-shards` in sync.
         shard: [0, 1, 2, 3, 4, 5]
     steps:
       - uses: actions/checkout@v7
