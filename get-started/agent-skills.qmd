@@ -65,10 +65,4 @@ List the bundled skills with their names and descriptions:
 shiny skills list
 ```
 
-Print the directory that contains a skill so you can open its `SKILL.md` and reference files:
-
-```bash
-shiny skills path shiny-for-python
-```
-
 See `shiny skills --help` for more details.
