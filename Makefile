@@ -200,10 +200,19 @@ components-shinylive-links: $(PYBIN) deps
 install-playwright: $(PYBIN) deps
 	. $(PYBIN)/activate && playwright install chromium
 
-## Run example-app tests: parametrized smoke over every components/**/app*.py plus per-component interaction tests (Playwright chromium, parallel). Pass PYTEST_ARGS="..." to narrow (e.g. PYTEST_ARGS='-k "layout/accordion"').
+## Run all example-app tests: smoke sweep + per-component app tests (Playwright chromium, parallel)
 .PHONY: test
-test: $(PYBIN) deps install-playwright
-	. $(PYBIN)/activate && pytest --browser chromium -n auto $(PYTEST_ARGS)
+test: test-smoke test-apps
+
+## Smoke-test every components/**/app*.py (each app launches with no server/JS/output errors). Pass PYTEST_ARGS="..." to narrow (e.g. PYTEST_ARGS='-k "layout/accordion"').
+.PHONY: test-smoke
+test-smoke: $(PYBIN) deps install-playwright
+	. $(PYBIN)/activate && pytest components/test_examples_smoke.py --browser chromium -n auto $(PYTEST_ARGS)
+
+## Run per-component app tests (controller interaction tests + conftest unit tests), excluding the smoke sweep. Pass PYTEST_ARGS="..." to narrow.
+.PHONY: test-apps
+test-apps: $(PYBIN) deps install-playwright
+	. $(PYBIN)/activate && pytest --ignore=components/test_examples_smoke.py --browser chromium -n auto $(PYTEST_ARGS)
 
 ## Remove Quarto website build files
 .PHONY: clean

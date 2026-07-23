@@ -72,6 +72,16 @@ encourages example apps to diverge (a bare Express `@render.text` renders a `<di
 ## Running
 
 ```bash
+# Make targets (install deps + chromium, then run in parallel)
+make test          # smoke sweep + per-component app tests
+make test-smoke    # just the smoke sweep over every app
+make test-apps     # just the per-component interaction + unit tests
+make test-smoke PYTEST_ARGS='-k "layout/accordion"'   # narrow to one component
+```
+
+Or drive pytest directly for fast local iteration:
+
+```bash
 source .venv/bin/activate
 
 # Whole smoke sweep (parallelize with xdist)
