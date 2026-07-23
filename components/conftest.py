@@ -12,19 +12,50 @@ Only the public ``shiny`` package API is used:
 
 from __future__ import annotations
 
+import os
 import re
 import tempfile
 from contextlib import contextmanager
+from inspect import signature
 from pathlib import Path
 from typing import Callable, Sequence
 
 import pytest
-from playwright.sync_api import ConsoleMessage, Page, expect
+from playwright.sync_api import BrowserType, ConsoleMessage, Page, expect
 
 from shiny.pytest import create_app_fixture
 from shiny.run import ShinyAppProc, run_shiny_app
 
 FILE_MARKER = re.compile(r"^## file: (.+)$", re.MULTILINE)
+
+
+@pytest.fixture(scope="session")
+def connect_options() -> dict[str, str] | None:
+    """Connect to a remote Playwright server when one is configured.
+
+    pytest-playwright's built-in ``launch_browser`` fixture connects to a
+    running server (instead of launching a local browser) only when this
+    fixture returns non-``None``. CI sets ``PW_TEST_CONNECT_WS_ENDPOINT`` to a
+    Dockerized Playwright server (see ``.github/internal/setup-playwright-remote``);
+    locally the var is unset, so we launch a local browser as usual.
+
+    Ported from py-shiny's ``tests/playwright/conftest.py``.
+    """
+    ws_endpoint = os.getenv("PW_TEST_CONNECT_WS_ENDPOINT")
+    if not ws_endpoint:
+        return None
+
+    endpoint_arg = (
+        "endpoint"
+        if "endpoint" in signature(BrowserType.connect).parameters
+        else "ws_endpoint"
+    )
+    options = {endpoint_arg: ws_endpoint}
+    expose_network = os.getenv("PW_TEST_CONNECT_EXPOSE_NETWORK")
+    if expose_network:
+        options["expose_network"] = expose_network
+
+    return options
 
 
 def _num_file_sections(text: str) -> int:
