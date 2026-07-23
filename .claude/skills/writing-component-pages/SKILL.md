@@ -28,8 +28,9 @@ components/inputs/<name>/
   app-express.py                # Express-mode example (shown in "Express" tab)
   app-kitchensink-core.py       # optional — every-parameter demo (Core)
   app-kitchensink-express.py    # optional — every-parameter demo (Express)
-  app-variation-<slug>-core.py  # optional — one pair per variation
+  app-variation-<slug>-core.py     # optional — one set per variation
   app-variation-<slug>-express.py
+  app-variation-<slug>-preview.py  # dedicated live Preview app for that variation
   thumbnail.png                 # optional — static image for the kitchen-sink block
 ```
 
@@ -78,7 +79,7 @@ listing:
   template: ../../_partials/components-detail-relevant-functions.ejs
   contents:
   - title: ui.input_task_button
-    href: https://shiny.posit.co/py/api/core/ui.input_task_button.html
+    href: https://shiny.posit.co/py/api/ui.input_task_button.html
     signature: ui.input_task_button(id, label, ...)
 - id: variations           # optional
   template: ../../_partials/components-variations.ejs
@@ -88,8 +89,9 @@ listing:
   - title: Reset the button
     description: Call `ui.update_task_button()` to reset it.
     apps:
-    - title: Preview
-      file: app-variation-reset-core.py
+    - title: Preview                          # dedicated preview file, no shinylive key
+      file: app-variation-reset-preview.py
+      height: 350
     - title: Express
       file: app-variation-reset-express.py
       shinylive: PLACEHOLDER
@@ -134,8 +136,11 @@ See also: [Action Button](../action-button/index.qmd)
   Every non-Preview app **must** carry a `shinylive:` key or the generator warns and skips it.
 - Point the Preview tab at a dedicated **`app-detail-preview.py`**, not at `app-core.py`
   or `app-preview.py`. (Reusing core/preview is the most common shortcut in review.)
-- `relevant-functions` `href`s point at the API pages (`https://shiny.posit.co/py/api/...`);
-  use the real `signature`. For third-party outputs (e.g. Great Tables) link the package docs.
+- `relevant-functions` `href`s use the flat API-page form `https://shiny.posit.co/py/api/<name>.html`
+  (NOT `/py/api/core/<name>.html` — the `/core/` path is a minority form). Use the real
+  `signature`. For third-party outputs (e.g. Great Tables) link the package docs.
+- Each variation's **Preview** app should be its own `app-variation-<slug>-preview.py`
+  (same rule as the top-level Preview — no `shinylive:` key), not a reuse of its `-core.py`.
 
 ## Shinylive links — never hand-write them
 
