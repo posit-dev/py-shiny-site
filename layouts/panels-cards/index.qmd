@@ -30,9 +30,6 @@ listing:
   - title: ui.panel_fixed
     href: https://shiny.posit.co/py/api/ui.panel_fixed.html
     signature: ui.panel_fixed(*args, **kwargs)
-  - title: ui.panel_well
-    href: https://shiny.posit.co/py/api/ui.panel_well.html
-    signature: ui.panel_well(*args, **kwargs)
 - id: variation-hello-card
   template: ../../components/_partials/components-detail-example.ejs
   template-params:
