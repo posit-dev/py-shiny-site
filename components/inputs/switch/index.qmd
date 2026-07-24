@@ -25,6 +25,9 @@ listing:
   - title: ui.input_switch
     href: https://shiny.posit.co/py/api/ui.input_switch.html
     signature: ui.input_switch(id, label, value=False, *, width=None)
+  - title: ui.update_switch
+    href: https://shiny.posit.co/py/api/ui.update_switch.html
+    signature: ui.update_switch(id, *, label=None, value=None, session=None)
 - id: kitchen-sink
   template: ../../_partials/components-detail-kitchen-sink.ejs
   contents:

@@ -33,6 +33,13 @@ listing:
     href: https://shiny.posit.co/py/api/express/express.render.express.html
     signature: express.render.express(self, _fn=None, *, inline=False, container=None,
       fill=False, fillable=False, **kwargs)
+  - title: ui.insert_ui
+    href: https://shiny.posit.co/py/api/ui.insert_ui.html
+    signature: ui.insert_ui(ui, selector, where='beforeEnd', multiple=False, immediate=False,
+      session=None)
+  - title: ui.remove_ui
+    href: https://shiny.posit.co/py/api/ui.remove_ui.html
+    signature: ui.remove_ui(selector, multiple=False, immediate=False, session=None)
 - id: variations
   template: ../../_partials/components-variations.ejs
   template-params:

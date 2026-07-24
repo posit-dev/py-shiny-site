@@ -148,6 +148,17 @@ See also: [Action Button](../action-button/index.qmd)
 - `relevant-functions` `href`s use the flat API-page form `https://shiny.posit.co/py/api/<name>.html`
   (NOT `/py/api/core/<name>.html` — the `/core/` path is a minority form). Use the real
   `signature`. For third-party outputs (e.g. Great Tables) link the package docs.
+- **List the component's mutator functions in `relevant-functions`, not just its
+  constructor.** Every server-side `update_<name>` / `insert_<name>` / `remove_<name>`
+  that pairs with the component belongs here as its own `title`/`href`/`signature`
+  entry (e.g. the Text Area page lists both `ui.input_text_area` and
+  `ui.update_text_area`; Accordion lists `ui.accordion` plus `update_accordion`,
+  `update_accordion_panel`, `insert_accordion_panel`, `remove_accordion_panel`). This
+  is enforced: `components/test_ui_api_has_page.py` checks that every public `ui`
+  export is documented by some page's `relevant-functions` block, and mutators are
+  expected to be found on their base component's page rather than opted out. Generate
+  each `signature` annotation-free to match the surrounding entries, e.g.
+  `python -c "import inspect, shiny.ui as u; s=inspect.signature(u.update_text_area); print('ui.update_text_area'+str(s.replace(parameters=[p.replace(annotation=inspect.Parameter.empty) for p in s.parameters.values()], return_annotation=inspect.Signature.empty)))"`.
 - Each variation's **Preview** app should be its own `app-variation-<slug>-preview.py`
   (same rule as the top-level Preview — no `shinylive:` key), not a reuse of its `-core.py`.
 
@@ -328,5 +339,6 @@ apps, sidebar placement — are things you (Claude) can only partially judge, so
 | Forgot `_quarto.yml` sidebar entry | Add the `index.qmd` path alphabetically in the right section |
 | Empty/half-made component dir left behind | Remove it; a dir under `components/*/` without `index.qmd` used to crash the link script |
 | Missing `sidebar: components` in front matter | Add it — required on every component page |
+| `relevant-functions` lists only the constructor, not the `update_*`/`insert_*`/`remove_*` mutators | Add an entry per mutator (title/href/signature); `test_ui_api_has_page.py` fails when a `ui` export is documented nowhere |
 | Shipping a demo whose buttons were never clicked (compiles ≠ works) | Run each interactive app and exercise every control in a browser; assert the visible effect, then save it as a `test_<name>.py` interaction test (see `testing-example-apps`) so CI keeps checking |
 | Copying a Core `ui.insert_*`/`ui.update_*` call verbatim into the Express demo | Check the Express signature — it can differ (e.g. `insert_accordion_panel`); copy py-shiny's `api-examples/<fn>/app-express.py` |

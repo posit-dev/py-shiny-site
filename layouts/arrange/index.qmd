@@ -20,6 +20,9 @@ listing:
   - title: ui.page_fillable
     href: https://shiny.posit.co/py/api/ui.page_fillable.html
     signature: ui.page_fillable(*args, padding=None, gap=None, fillable_mobile=False, title=None, lang=None, **kwargs)
+  - title: ui.page_fluid
+    href: https://shiny.posit.co/py/api/ui.page_fluid.html
+    signature: ui.page_fluid(*args, title=None, lang=None, theme=None, **kwargs)
 ---
 
 ```{python}

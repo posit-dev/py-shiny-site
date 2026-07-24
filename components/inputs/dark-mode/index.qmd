@@ -25,6 +25,9 @@ listing:
   - title: ui.input_dark_mode
     href: https://shiny.posit.co/py/api/ui.input_dark_mode.html
     signature: ui.input_dark_mode(id=None, mode=None, **kwargs)
+  - title: ui.update_dark_mode
+    href: https://shiny.posit.co/py/api/ui.update_dark_mode.html
+    signature: ui.update_dark_mode(mode, *, session=None)
 - id: variations
   template: ../../_partials/components-variations.ejs
   template-params:

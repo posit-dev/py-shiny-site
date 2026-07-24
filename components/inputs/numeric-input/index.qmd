@@ -26,6 +26,10 @@ listing:
     href: https://shiny.posit.co/py/api/ui.input_numeric.html
     signature: ui.input_numeric(id, label, value, *, min=None, max=None, step=None,
       width=None)
+  - title: ui.update_numeric
+    href: https://shiny.posit.co/py/api/ui.update_numeric.html
+    signature: ui.update_numeric(id, *, label=None, value=None, min=None, max=None,
+      step=None, session=None)
 - id: kitchen-sink
   template: ../../_partials/components-detail-kitchen-sink.ejs
   contents:

@@ -14,6 +14,15 @@ listing:
   - title: ui.nav_panel
     href: https://shiny.posit.co/py/api/core/ui.nav_panel.html
     signature: ui.nav_panel(title, *args, value=None, icon=None)
+  - title: ui.update_nav_panel
+    href: https://shiny.posit.co/py/api/core/ui.update_nav_panel.html
+    signature: ui.update_nav_panel(id, target, method, session=None)
+  - title: ui.insert_nav_panel
+    href: https://shiny.posit.co/py/api/core/ui.insert_nav_panel.html
+    signature: ui.insert_nav_panel(id, nav_panel, target=None, position='after', select=False, session=None)
+  - title: ui.remove_nav_panel
+    href: https://shiny.posit.co/py/api/core/ui.remove_nav_panel.html
+    signature: ui.remove_nav_panel(id, target, session=None)
 ---
 
 ```{python}

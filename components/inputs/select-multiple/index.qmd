@@ -26,6 +26,9 @@ listing:
     href: https://shiny.posit.co/py/api/ui.input_select.html
     signature: ui.input_select(id, label, choices, *, selected=None, multiple=False,
       selectize=False, width=None, size=None)
+  - title: ui.update_select
+    href: https://shiny.posit.co/py/api/ui.update_select.html
+    signature: ui.update_select(id, *, label=None, choices=None, selected=None, session=None)
 - id: variations
   template: ../../_partials/components-variations.ejs
   template-params:

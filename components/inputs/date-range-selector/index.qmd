@@ -27,6 +27,10 @@ listing:
     signature: ui.input_date_range(id, label, *, start=None, end=None, min=None, max=None,
       format='yyyy-mm-dd', startview='month', weekstart=0, language='en', separator='
       to ', width=None, autoclose=True)
+  - title: ui.update_date_range
+    href: https://shiny.posit.co/py/api/ui.update_date_range.html
+    signature: ui.update_date_range(id, *, label=None, start=None, end=None, min=None,
+      max=None, session=None)
 - id: kitchen-sink
   template: ../../_partials/components-detail-kitchen-sink.ejs
   contents:
