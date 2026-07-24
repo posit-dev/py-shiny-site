@@ -116,8 +116,8 @@ install-quarto:
 		qvm install v${QUARTO_VERSION}; \
 		echo "🔹 Updating .vscode/settings.json"; \
 		awk -v path="${QUARTO_PATH}" '/"quarto.path":/ {gsub(/"quarto.path": ".*"/, "\"quarto.path\": \"" path "\"")} 1' .vscode/settings.json > .vscode/settings.json.tmp && mv .vscode/settings.json.tmp .vscode/settings.json; \
-		echo "🔹 Updating .github/workflows/deploy-docs.yml"; \
-		awk -v ver="${QUARTO_VERSION}" '/QUARTO_VERSION:/ {gsub(/QUARTO_VERSION: .*/, "QUARTO_VERSION: " ver)} 1' .github/workflows/deploy-docs.yml > .github/workflows/deploy-docs.yml.tmp && mv .github/workflows/deploy-docs.yml.tmp .github/workflows/deploy-docs.yml; \
+		echo "🔹 Updating .github/workflows/site.yml"; \
+		awk -v ver="${QUARTO_VERSION}" '/QUARTO_VERSION:/ {gsub(/QUARTO_VERSION: .*/, "QUARTO_VERSION: " ver)} 1' .github/workflows/site.yml > .github/workflows/site.yml.tmp && mv .github/workflows/site.yml.tmp .github/workflows/site.yml; \
 	fi
 
 $(QUARTO_PATH): install-quarto
