@@ -23,9 +23,13 @@ listing:
   template: ../../_partials/components-detail-relevant-functions.ejs
   contents:
   - title: ui.input_numeric
-    href: https://shiny.posit.co/py/api/ui.input_numeric.html
+    href: https://shiny.posit.co/py/api/core/ui.input_numeric.html#shiny.ui.input_numeric
     signature: ui.input_numeric(id, label, value, *, min=None, max=None, step=None,
-      width=None)
+      width=None, update_on='change')
+  - title: ui.update_numeric
+    href: https://shiny.posit.co/py/api/core/ui.update_numeric.html#shiny.ui.update_numeric
+    signature: ui.update_numeric(id, *, label=None, value=None, min=None, max=None,
+      step=None, session=None)
 - id: kitchen-sink
   template: ../../_partials/components-detail-kitchen-sink.ejs
   contents:

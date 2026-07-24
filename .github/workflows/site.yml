@@ -15,9 +15,6 @@ concurrency:
   group: site-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  QUARTO_VERSION: 1.9.36
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -42,13 +39,9 @@ jobs:
       # =====================================================
       # Install dependencies
       # =====================================================
+      # Sets up uv + Quarto (versions from the Makefile) + the py-shiny submodule.
       - name: Set up py-shiny-site
         uses: ./.github/internal/setup-py-shiny-site
-
-      - uses: quarto-dev/quarto-actions/setup@v2
-        id: quarto
-        with:
-          version: ${{ env.QUARTO_VERSION }}
 
       - name: Install R
         uses: r-lib/actions/setup-r@v2

@@ -1,15 +1,18 @@
 name: Set up py-shiny-site
 description: >
   Shared environment setup for py-shiny-site workflows: install uv (with the
-  Python version from the Makefile) and check out the pinned py-shiny submodule.
-  Requires the repo to already be checked out (`actions/checkout`) first -- a
-  local action cannot check out the repo it lives in. Exposes the resolved
-  Python version as the `python-version` output.
+  Python version from the Makefile), install Quarto (version from the Makefile),
+  and check out the pinned py-shiny submodule. Requires the repo to already be
+  checked out (`actions/checkout`) first -- a local action cannot check out the
+  repo it lives in. Exposes the resolved Python and Quarto versions as outputs.
 
 outputs:
   python-version:
     description: The Python version read from the Makefile.
     value: ${{ steps.uv.outputs.python-version }}
+  quarto-version:
+    description: The Quarto version read from the Makefile.
+    value: ${{ steps.quarto.outputs.quarto-version }}
 
 runs:
   using: composite
@@ -17,6 +20,12 @@ runs:
     - name: Set up uv
       id: uv
       uses: ./.github/internal/setup-uv
+
+    # Quarto (version pinned in the Makefile). Needed by workflows that run
+    # quartodoc / render the site; a no-op-cheap add for the rest.
+    - name: Set up Quarto
+      id: quarto
+      uses: ./.github/internal/setup-quarto
 
     # `make deps` builds the shiny package from the pinned submodule commit, so
     # the installed controllers/version match the site build.
