@@ -29,7 +29,8 @@ listing:
       spellcheck=None)
   - title: ui.update_text_area
     href: https://shiny.posit.co/py/api/ui.update_text_area.html
-    signature: ui.update_text_area(id, *, label=None, value=None, placeholder=None, session=None)
+    signature: ui.update_text_area(id, *, label=None, value=None, placeholder=None,
+      session=None)
 - id: kitchen-sink
   template: ../../_partials/components-detail-kitchen-sink.ejs
   contents:

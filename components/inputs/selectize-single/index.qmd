@@ -28,7 +28,8 @@ listing:
       width=None)
   - title: ui.update_selectize
     href: https://shiny.posit.co/py/api/ui.update_selectize.html
-    signature: ui.update_selectize(id, *, label=None, choices=None, selected=None, options=None, server=False, session=None)
+    signature: ui.update_selectize(id, *, label=None, choices=None, selected=None,
+      options=None, server=False, session=None)
 - id: variations
   template: ../../_partials/components-variations.ejs
   template-params:

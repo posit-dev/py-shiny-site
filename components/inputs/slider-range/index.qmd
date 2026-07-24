@@ -39,7 +39,8 @@ listing:
       summary=True, filters=False, row_selection_mode='none')
   - title: ui.update_slider
     href: https://shiny.posit.co/py/api/ui.update_slider.html
-    signature: ui.update_slider(id, *, label=None, value=None, min=None, max=None, step=None, time_format=None, timezone=None, session=None)
+    signature: ui.update_slider(id, *, label=None, value=None, min=None, max=None,
+      step=None, time_format=None, timezone=None, session=None)
 - id: kitchen-sink
   template: ../../_partials/components-detail-kitchen-sink.ejs
   contents:

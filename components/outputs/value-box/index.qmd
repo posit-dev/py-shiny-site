@@ -34,13 +34,16 @@ listing:
       fill=True, class_=None, **kwargs)
   - title: ui.showcase_left_center
     href: https://shiny.posit.co/py/api/ui.showcase_left_center.html
-    signature: ui.showcase_left_center(*, width='30%', width_full_screen='1fr', max_height='100px', max_height_full_screen='67%')
+    signature: ui.showcase_left_center(*, width='30%', width_full_screen='1fr', max_height='100px',
+      max_height_full_screen='67%')
   - title: ui.showcase_top_right
     href: https://shiny.posit.co/py/api/ui.showcase_top_right.html
-    signature: ui.showcase_top_right(*, width='40%', width_full_screen='1fr', max_height='75px', max_height_full_screen='67%')
+    signature: ui.showcase_top_right(*, width='40%', width_full_screen='1fr', max_height='75px',
+      max_height_full_screen='67%')
   - title: ui.showcase_bottom
     href: https://shiny.posit.co/py/api/ui.showcase_bottom.html
-    signature: ui.showcase_bottom(*, width='100%', width_full_screen=None, height='auto', height_full_screen='2fr', max_height='100px', max_height_full_screen=None)
+    signature: ui.showcase_bottom(*, width='100%', width_full_screen=None, height='auto',
+      height_full_screen='2fr', max_height='100px', max_height_full_screen=None)
   - title: ui.value_box_theme
     href: https://shiny.posit.co/py/api/ui.value_box_theme.html
     signature: ui.value_box_theme(name=None, *, fg=None, bg=None)
