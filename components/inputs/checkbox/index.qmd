@@ -23,10 +23,10 @@ listing:
   template: ../../_partials/components-detail-relevant-functions.ejs
   contents:
   - title: ui.input_checkbox()
-    href: https://shiny.posit.co/py/api/ui.input_checkbox.html
+    href: https://shiny.posit.co/py/api/core/ui.input_checkbox.html#shiny.ui.input_checkbox
     signature: ui.input_checkbox(id, label, value=False, *, width=None)
   - title: ui.update_checkbox
-    href: https://shiny.posit.co/py/api/ui.update_checkbox.html
+    href: https://shiny.posit.co/py/api/core/ui.update_checkbox.html#shiny.ui.update_checkbox
     signature: ui.update_checkbox(id, *, label=None, value=None, session=None)
 - id: kitchen-sink
   template: ../../_partials/components-detail-kitchen-sink.ejs

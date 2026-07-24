@@ -23,25 +23,25 @@ listing:
   template: ../../_partials/components-detail-relevant-functions.ejs
   contents:
   - title: ui.accordion
-    href: https://shiny.posit.co/py/api/ui.accordion.html
+    href: https://shiny.posit.co/py/api/core/ui.accordion.html#shiny.ui.accordion
     signature: ui.accordion(*args, id=None, open=None, multiple=True, class_=None,
       width=None, height=None, **kwargs)
   - title: ui.accordion_panel
-    href: https://shiny.posit.co/py/api/ui.accordion_panel.html
+    href: https://shiny.posit.co/py/api/core/ui.accordion_panel.html#shiny.ui.accordion_panel
     signature: ui.accordion_panel(title, *args, value=MISSING, icon=None, **kwargs)
   - title: ui.update_accordion
-    href: https://shiny.posit.co/py/api/ui.update_accordion.html
+    href: https://shiny.posit.co/py/api/core/ui.update_accordion.html#shiny.ui.update_accordion
     signature: ui.update_accordion(id, *, show, session=None)
   - title: ui.update_accordion_panel
-    href: https://shiny.posit.co/py/api/ui.update_accordion_panel.html
+    href: https://shiny.posit.co/py/api/core/ui.update_accordion_panel.html#shiny.ui.update_accordion_panel
     signature: ui.update_accordion_panel(id, target, *body, title=MISSING, value=MISSING,
       icon=MISSING, show=None, session=None)
   - title: ui.insert_accordion_panel
-    href: https://shiny.posit.co/py/api/ui.insert_accordion_panel.html
-    signature: ui.insert_accordion_panel(id, panel, target=None, position="after",
+    href: https://shiny.posit.co/py/api/core/ui.insert_accordion_panel.html#shiny.ui.insert_accordion_panel
+    signature: ui.insert_accordion_panel(id, panel, target=None, position='after',
       session=None)
   - title: ui.remove_accordion_panel
-    href: https://shiny.posit.co/py/api/ui.remove_accordion_panel.html
+    href: https://shiny.posit.co/py/api/core/ui.remove_accordion_panel.html#shiny.ui.remove_accordion_panel
     signature: ui.remove_accordion_panel(id, target, session=None)
 - id: variation-update-panel
   template: ../../_partials/components-variations.ejs

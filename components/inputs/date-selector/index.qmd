@@ -23,12 +23,12 @@ listing:
   template: ../../_partials/components-detail-relevant-functions.ejs
   contents:
   - title: ui.input_date
-    href: https://shiny.posit.co/py/api/ui.input_date.html
+    href: https://shiny.posit.co/py/api/core/ui.input_date.html#shiny.ui.input_date
     signature: ui.input_date(id, label, *, value=None, min=None, max=None, format='yyyy-mm-dd',
       startview='month', weekstart=0, language='en', width=None, autoclose=True, datesdisabled=None,
       daysofweekdisabled=None)
   - title: ui.update_date
-    href: https://shiny.posit.co/py/api/ui.update_date.html
+    href: https://shiny.posit.co/py/api/core/ui.update_date.html#shiny.ui.update_date
     signature: ui.update_date(id, *, label=None, value=None, min=None, max=None, session=None)
 - id: kitchen-sink
   template: ../../_partials/components-detail-kitchen-sink.ejs

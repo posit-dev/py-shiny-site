@@ -23,12 +23,12 @@ listing:
   template: ../../_partials/components-detail-relevant-functions.ejs
   contents:
   - title: ui.input_text_area
-    href: https://shiny.posit.co/py/api/ui.input_text_area.html
+    href: https://shiny.posit.co/py/api/core/ui.input_text_area.html#shiny.ui.input_text_area
     signature: ui.input_text_area(id, label, value='', *, width=None, height=None,
       cols=None, rows=None, placeholder=None, resize=None, autoresize=False, autocomplete=None,
-      spellcheck=None)
+      spellcheck=None, update_on='change')
   - title: ui.update_text_area
-    href: https://shiny.posit.co/py/api/ui.update_text_area.html
+    href: https://shiny.posit.co/py/api/core/ui.update_text_area.html#shiny.ui.update_text_area
     signature: ui.update_text_area(id, *, label=None, value=None, placeholder=None,
       session=None)
 - id: kitchen-sink
