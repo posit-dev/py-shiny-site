@@ -16,6 +16,9 @@ listing:
   - title: ui.sidebar
     href: https://shiny.posit.co/py/api/ui.sidebar.html#shiny.ui.sidebar
     signature: ui.sidebar(*args, width=250, position='left', open='desktop', id=None, title=None, bg=None, fg=None, class_=None, max_height_mobile=None, gap=None, padding=None)
+  - title: ui.update_sidebar
+    href: https://shiny.posit.co/py/api/ui.update_sidebar.html
+    signature: ui.update_sidebar(id, *, show=None, session=None)
 ---
 
 ```{python}

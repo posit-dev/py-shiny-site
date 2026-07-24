@@ -28,6 +28,9 @@ listing:
   - title: reactive.event
     href: https://shiny.posit.co/py/api/reactive.event.html
     signature: reactive.event(*args, ignore_none=True, ignore_init=False)
+  - title: ui.update_action_button
+    href: https://shiny.posit.co/py/api/ui.update_action_button.html
+    signature: ui.update_action_button(id, *, label=None, icon=None, disabled=None, session=None)
 - id: kitchen-sink
   template: ../../_partials/components-detail-kitchen-sink.ejs
   contents:

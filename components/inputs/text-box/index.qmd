@@ -26,6 +26,9 @@ listing:
     href: https://shiny.posit.co/py/api/ui.input_text.html
     signature: ui.input_text(id, label, value='', *, width=None, placeholder=None,
       autocomplete='off', spellcheck=None)
+  - title: ui.update_text
+    href: https://shiny.posit.co/py/api/ui.update_text.html
+    signature: ui.update_text(id, *, label=None, value=None, placeholder=None, session=None)
 - id: kitchen-sink
   template: ../../_partials/components-detail-kitchen-sink.ejs
   contents:

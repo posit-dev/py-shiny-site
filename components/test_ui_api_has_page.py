@@ -68,17 +68,16 @@ _CLASSES = {
 # Plot brushing / click option builders.
 _OPTS = {"brush_opts", "click_opts", "dblclick_opts", "hover_opts"}
 
-# Mutators: ``update_*`` / ``insert_*`` / ``remove_*``. Documented on their base
-# component's page, which is enforced separately by that page existing.
+# Mutators (``update_*`` / ``insert_*`` / ``remove_*``) are documented in their
+# base component's ``relevant-functions`` block, not opted out. The only ones
+# still listed here are those whose base component has no page yet -- their
+# mutator should be added to that page's ``relevant-functions`` when it is
+# written (the base component is tracked in _TODO_NEEDS_COMPONENT_PAGE).
 _MUTATORS = {
-    "insert_nav_panel", "insert_ui", "remove_nav_panel", "remove_ui",
-    "update_action_button", "update_action_link", "update_checkbox",
-    "update_checkbox_group", "update_code_editor", "update_dark_mode",
-    "update_date", "update_date_range", "update_nav_panel", "update_navs",
-    "update_navset", "update_numeric", "update_popover", "update_radio_buttons",
-    "update_select", "update_selectize", "update_sidebar", "update_slider",
-    "update_submit_textarea", "update_switch", "update_task_button",
-    "update_text", "update_text_area",
+    "update_code_editor",       # base: input_code_editor
+    "update_popover",           # base: popover
+    "update_submit_textarea",   # base: input_submit_textarea
+    "update_task_button",       # base: input_task_button
 }
 
 # Deprecated / superseded functions that intentionally have no doc page.

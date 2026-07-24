@@ -26,6 +26,9 @@ listing:
     href: https://shiny.posit.co/py/api/ui.input_checkbox_group.html
     signature: ui.input_checkbox_group(id, label, choices, *, selected=None, inline=False,
       width=None)
+  - title: ui.update_checkbox_group
+    href: https://shiny.posit.co/py/api/ui.update_checkbox_group.html
+    signature: ui.update_checkbox_group(id, *, label=None, choices=None, selected=None, inline=False, session=None)
 - id: kitchen-sink
   template: ../../_partials/components-detail-kitchen-sink.ejs
   contents:

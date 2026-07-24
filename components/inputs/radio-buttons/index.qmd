@@ -26,6 +26,9 @@ listing:
     href: https://shiny.posit.co/py/api/ui.input_radio_buttons.html
     signature: ui.input_radio_buttons(id, label, choices, *, selected=None, inline=False,
       width=None)
+  - title: ui.update_radio_buttons
+    href: https://shiny.posit.co/py/api/ui.update_radio_buttons.html
+    signature: ui.update_radio_buttons(id, *, label=None, choices=None, selected=None, inline=False, session=None)
 - id: kitchen-sink
   template: ../../_partials/components-detail-kitchen-sink.ejs
   contents:
