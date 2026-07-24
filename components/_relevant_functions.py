@@ -62,7 +62,8 @@ def flatten_python_block(block: str) -> str:
     joined = re.sub(r"\s+", " ", joined)
     # Remove a space after "(" and before ")", and the trailing comma before ")".
     joined = joined.replace("( ", "(").replace(" )", ")")
-    joined = joined.replace(", )", ")").replace(",)", ")")
+    # Strip only the trailing separator comma before the final ")".
+    joined = re.sub(r",\s*\)$", ")", joined)
     return joined.strip()
 
 
