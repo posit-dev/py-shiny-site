@@ -3,6 +3,19 @@ import os
 import yaml as yml
 
 
+class _QmdDumper(yml.Dumper):
+    pass
+
+
+def _represent_str(dumper, data):
+    if "\n" in data:
+        return dumper.represent_scalar("tag:yaml.org,2002:str", data, style="|")
+    return dumper.represent_scalar("tag:yaml.org,2002:str", data)
+
+
+_QmdDumper.add_representer(str, _represent_str)
+
+
 def find_qmds(dir, exclude):
     qmd_list = [p for p in os.listdir(dir) if p.endswith(".qmd")]
     qmd_list = [os.path.join(dir, p) for p in qmd_list if p not in exclude]
@@ -64,7 +77,11 @@ def write_qmd(qmd, path):
 
     with open(path, "w") as f:
         f.write("---\n")
-        f.write(yml.dump(meta, sort_keys=False, indent=2, default_flow_style=False))
+        f.write(
+            yml.dump(
+                meta, Dumper=_QmdDumper, sort_keys=False, indent=2, default_flow_style=False
+            )
+        )
         f.write("---\n\n")
         f.write(body.strip())
         f.write("\n")
