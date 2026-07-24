@@ -1,0 +1,78 @@
+---
+title: Download Button
+sidebar: components
+appPreview:
+  file: components/inputs/download-button/app-preview.py
+  static: true
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/download-button/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAEyiooEt5kf1SDCmw5wAOhEbNkAZwAWXCLixwAHugZwZMvjAFDkmiKzgMJEgAJGTDLK1IB3CABtSUVgAo6XZ9VhwAXjoxMHYKKABaEDC4LApSdlwPAEoAXyxiGQA3EOTkAGJkAB4iiRM6NkcXN1YAfTCoFMQJZFbkXC44Z1ZkEOh4AiyoZwBXcXMwFraOrp6QgEFnLmI4AgBGAAYNsQmp1pnu3rAAIVIAIwIAJi2diBCJQlQKXHQEFDAqVQowVIBdIA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAEyiooEt5kf1SDCmw5wAOhEbNkAZwAWXCLj4wBQ5AFcuRBtVZwGRAIKYJEjOgD6W5AF5NXHFADmcS3QA2W1gAoJyAIcsVlIAdwgPUihWSwAjDQoKcj8wEPDI6Mt2CigxQmQ8gBEwiKjWZABhAGUANTyASiIAYmQAHlaJerMIfTpZAwA3Ax9FdASiUgSxiiIZOBkZLnJ6xH9AgAFdHoNgkozfOi4Palg4Wzo87KgAWhBsuCwk9lwfeoBfLGIZAYa1gN62HsylkOFBXqsIIEochcFw4B5ynloPACAMoF5xGYwH9obD4YiwEYPFxiHACABGAAMlLEWJxULxCIKYAAQqRYgQAEzU2kQPLdCx2ZAmdA+CzWbT9BhDBhdCD5MAUXDoBAoRVwAAeFDAbwAukA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.download_button
+    href: https://shiny.posit.co/py/api/ui.download_button.html
+    signature: ui.download_button(id, label, *, icon=None, width=None, **kwargs)
+  - title: ui.download_link
+    href: https://shiny.posit.co/py/api/ui.download_link.html
+    signature: ui.download_link(id, label, *, icon=None, width=None, **kwargs)
+  - title: '@render.download_button'
+    href: https://shiny.posit.co/py/api/render/render.download_button.html
+    signature: '@render.download_button(fn=None, *, filename=None, media_type=None, encoding="utf-8", label="Download", width=None)'
+  - title: '@render.download_link'
+    href: https://shiny.posit.co/py/api/render/render.download_link.html
+    signature: '@render.download_link(fn=None, *, filename=None, media_type=None, encoding="utf-8", label="Download")'
+- id: kitchen-sink
+  template: ../../_partials/components-detail-kitchen-sink.ejs
+  contents:
+  - title: Download Button
+    core: https://shinylive.io/py/editor/#h=0&code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAEyiooEt5kf1SDCmw5wAOhAmNmyAM4ALLhFx8YAocgCCmIg2qs4DIgFcuEiQGJkAYT2jkFeXGQBVAJISM6APqnkAXmRTHCgAczhvOgAbU1YACglkJOQrTVZWZAAxcmFNAHc4WWZnawBlUr4IBydkJyhWROTgijDZLDr4xuSmriwW0LaopQBrBKruiaS9KP8xMFkKXCjCpzgKOYIuyeT5PTpZsHkKCnRZRAB6c+JWCAArNuIo0mNWaKg9LDIYc6hbqAAPc5DABGsnOdByAFooAUivBzgA2LAAdiwACYrrIwVAolEsDAlJ8sRstt0AJRbMmbcZJKwAWSgSmQUSguGe6xpQV6LLZxgo3jIMRgEG8eQYGDG2y5n3enU5UuCxFl3g6hgSYAAIqQ8hAnvVkAAhPkUcjIACi-1g6GWsjmVNJ2ysBqgsi4xGQwONpryXEcyB9rD96HesDWhgdk2CrG1utI9W8nuO5DiXFYB2jOr1rAAjBtmVBgXAZnNna73VrM3GGoR-anHAc0QAGRvof526lS7rBYEMOJU2ladJyYPEJShCMTJ1eqo+v1u8gTru9DOx+OJk0QSWdyap9MxrNokny7f5wvFzX7qu1v1uMiSQiL7bziD+ZqtLBcOKPF2ybwHOhQJCRRDBkAGQnQXDLJCxCyAAbu2j5JPax6Rr0PZ9kQKSDhksgjmOiFYUaSYzr68jIMQxgLDI35YsgUAQDhizLHRxwMFwiaFARUaXmu05bieyS7nMK5ZgAzEeAndCyZ4HKUTFwBkFartWHaSUkNG-gcwIUBAQHGMQxCFLaD4oZ2CxLHABwwO8oRKJCJroCgTatgA3BJJ7IVKnnbAG9ZzNmzYAKTuUh1IUpIEVWBqcAQRAziOM4siGLB4YMTFcjJWqSjoHyRDsjlFBEElWJcOQZKIFsAACehpQwWAiVWCZ8RByzQPA-gsjAwLsCgdBzMCLpupCIDsFQfSkOwuB9gAvkS8FgOF3QGHQbA8TmfYVaZuBcEWGRzG1cAELBOLGOI5hgBO227cgcyaEMhkEAFjZiOdl07VEe1gAapDAgQTbPa9EXdNV+iGPVa1NcRcQtdQoYdbA3VQL1cyzvIkLPsNo1wONk0zXNdpbMtq2VvUaIbW9137aGR0nWd94Ux9N1gNY7ykFEBCic2L301t72fRqUApQQAAsXOA1VNUGHVDW8VDMMHfDXU9cgfXzPJrCY6IOOsnjMHzYtyREzLrCieTvOU5A1PHTEdNzAzn1mkLACsYs81KV2M3MmTihAwwEAirt2xFlg2HYVB0QxyB6BQxgMFUCV0ZgniYAEWiYHEXi+FwRWZQw4U1mAizoAgKCF3A-wUGA00ALpAA
+    express: https://shinylive.io/py/editor/#h=0&code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAEyiooEt5kf1SDCmw5wAOhAmNmyAM4ALLhFxY4AD3QM4s2XxgChyLRFZwGRAK5cJEqzigBzOAH1S6CrIAUdCwBtfzgDuXKwU8gC8ACoMFnAAlDYQAMTIAIKsrMgAYuTCqYHazHDIAMIAymXIdIJ8ZBCytlxY8nBQrM51VJSeEsh9yHYAEpEAsgAyPRD908gA5AA8vkoA1kZwvuFiYLIUuL7aLXAUW8jyWnSbYPIUFOiyiAD0D8SsEABWsljEvqQWrHS+KBaL7MB5QN5QNQPJYAI1kD2qlAAtFACrIig8AGxYADsWAATM8dGD-FgYEovjotgA+Wa9foJCCMiQpEpaUTIKDIQG4X7CYJhORFOToKDEJQOCQC+QDJo8vkdUi+CwwCBBBgYTzBUIRLYARgADAaAKRbOKIel9aWyr5A1iec2WmZ2Yh25wtNpmHpgAAipECEB+bWQACELDdyMgAKJqWDofYNMDMqYzPopENQWRcYjIGHhiiR63awWijXwKgMJ3TOysf2B0htZx5iMQTwhS61gNB1h6rZEQEw9aXDNZnN+rsN1h95DF3VgfFG9BqM2JVN9AACxlMDCwnfrjebBdbdC4+2g8HCgJgMPYKDoWxhmezSJA7CoWAL7FwDoAvpSAG4rimqamHQbB1t2eoOhawFrn0uBcOsmRbOecAEP+UDKuINhgFWa4IUhyBbKkSzEGhhoGmIOF4amBG+MhYAhqQMIEAulHUZIsHVk0MIMA6aZpBkQq8LIorihAkqcXB6b5oWXCCtm5A0Tae7dk2smtsp0ztlsqmTvifZaf0A5Dls477pk1oAJJ1IZXFropEDhHYFCOJ8XCeN8mayM4lx0FASLoksmT+UiJ77EixCyIBSYEMpyZwZu1DbruEGTupLbeKe1CwHAl6wDeUB3ls0pIo5L5vnAH6kF+v4AUBcGgeBE5tPi0FGfBiH0URkC5ehmGxFRki4fZtFdQxJRAkqBAAMxGkNWwdcgdEMT6UD-mhAAs80ccpdi8fxyApOkmToiJYkSqua4yS2M7yTKxAWDsMheTonImHIuz7JyNwMFwzbaHtTR6QeGmTHB2msB2aVtDNdkQ8ZUCDhsWxlF9cCZOZ3bwwjyCvT5lwwhQECBRYxBkVShBLTsex5VsMBAg4ShIgW6AoAuS4ANw46mCVrklJhmKlLXtIe5BZWeuX5det5VFsNP7KwFWiNVtVxH+UUxYyjVwGBIOsDN7WjTMK09ah-VYQtI248t409VGG0EAArDtw1LabWxZBqEDLAQmKu4tECEKguzoAgKBgFQagUGAP4ALpAA
+    image: thumbnail.png  # TODO: release-docs - add thumbnail.png screenshot for download-button
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A download button triggers a file download when clicked. Use `ui.download_button()` for a button style, or `ui.download_link()` for a link style.
+
+To add a download button to your app:
+
+1. Add `ui.download_button()` or `ui.download_link()` to the UI with a unique `id` and descriptive `label`. (In Express mode, the button is auto-generated from the function name.)
+
+2. Create a function with the same name as the button's `id` and decorate it with `@render.download_button()` (or `@render.download_link()` when pairing with `ui.download_link()`).
+
+3. The download function can either:
+   - Return a string filepath (for existing files on disk)
+   - `yield` content line by line or chunk by chunk (for generated content or temp files)
+
+4. Specify the download filename using the `filename` parameter of `@render.download_button()`. This can be a string or a function that returns a string (useful for dynamic filenames).
+
+**Dynamic Filenames**: Use a lambda or function for the `filename` parameter to create dynamic filenames:
+
+```python
+@render.download_button(filename=lambda: f"data-{date.today()}.csv")
+```
+
+**Content Types**: The download handler can yield any content - CSV data, JSON, text files, images, or binary data. For binary files, yield bytes instead of strings.
+
+**Streaming**: The `yield` approach allows streaming large files efficiently without loading the entire file into memory.
+
+See Also: [Download Link](../download-link/index.qmd) for the link-styled counterpart of this component, and [Output UI](../../outputs/ui/index.qmd) which can be used to dynamically generate download buttons based on user inputs or reactive values.
