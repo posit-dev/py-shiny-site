@@ -197,6 +197,56 @@ def test_rewrite_emits_literal_block_for_multiline_description(tmp_path, monkeyp
     assert "core/ui.value_box.html#shiny.ui.value_box" in result
 
 
+def _write_page_with_unresolvable_title(tmp_path: Path) -> Path:
+    page = tmp_path / "comp" / "index.qmd"
+    page.parent.mkdir(parents=True)
+    page.write_text(
+        "---\n"
+        "title: X\n"
+        "listing:\n"
+        "- id: relevant-functions\n"
+        "  template: t.ejs\n"
+        "  template-params:\n"
+        "    dir: comp/\n"
+        "  contents:\n"
+        "  - title: ui.value_box\n"
+        "    href: stale\n"
+        "    signature: stale\n"
+        "  - title: ui.does_not_exist\n"
+        "    href: keep-me\n"
+        "    signature: keep-me\n"
+        "---\n\n"
+        "body\n"
+    )
+    return page
+
+
+def test_rewrite_strict_raises_on_unresolvable_title(tmp_path, monkeypatch):
+    from _relevant_functions import rewrite_relevant_functions
+
+    api = _write_api(tmp_path)
+    page = _write_page_with_unresolvable_title(tmp_path)
+    monkeypatch.chdir(tmp_path)
+    with pytest.raises(TitleResolutionError):
+        rewrite_relevant_functions("comp/index.qmd", api_dir=api, strict=True)
+
+
+def test_rewrite_non_strict_falls_forward(tmp_path, monkeypatch):
+    """Non-strict leaves the unresolvable entry as-authored but still rewrites
+    the resolvable ones -- a single rotted title never aborts the run."""
+    from _relevant_functions import rewrite_relevant_functions
+
+    api = _write_api(tmp_path)
+    page = _write_page_with_unresolvable_title(tmp_path)
+    monkeypatch.chdir(tmp_path)
+    assert rewrite_relevant_functions("comp/index.qmd", api_dir=api, strict=False) is True
+    result = page.read_text()
+    # Resolvable entry was regenerated ...
+    assert "core/ui.value_box.html#shiny.ui.value_box" in result
+    # ... while the unresolvable one kept its hand-authored fields.
+    assert "keep-me" in result
+
+
 def test_flatten_preserves_single_element_tuple_default():
     block = "ui.foo(\n    x=(1,),\n    y=2,\n)"
     assert flatten_python_block(block) == "ui.foo(x=(1,), y=2)"

@@ -12,10 +12,13 @@ which renders a different context-manager signature).
 
 from __future__ import annotations
 
+import logging
 import os
 import re
 
 from _qmd import get_qmd_split, write_qmd
+
+lg = logging.getLogger("relevant-functions")
 
 API_BASE_URL = "https://shiny.posit.co/py/api/core"
 
@@ -179,8 +182,19 @@ def resolve_index_qmds(paths: list[str]) -> list[str]:
     return out
 
 
-def rewrite_relevant_functions(qmd: str, api_dir: str | os.PathLike = DEFAULT_API_DIR) -> bool:
-    """Rewrite href/signature for every relevant-functions entry in ``qmd``."""
+def rewrite_relevant_functions(
+    qmd: str,
+    api_dir: str | os.PathLike = DEFAULT_API_DIR,
+    strict: bool = True,
+) -> bool:
+    """Rewrite href/signature for every relevant-functions entry in ``qmd``.
+
+    When ``strict`` (the default), an unresolvable title raises
+    ``TitleResolutionError``. When not strict, the generator "falls forward":
+    an unresolvable title is logged and left as-authored so a single rotted
+    entry never aborts a build/setup run. CI runs strict, so the rot is still
+    required to be fixed before merge.
+    """
     meta, body = get_qmd_split(qmd)
     listing = meta.get("listing")
     if not listing:
@@ -197,7 +211,13 @@ def rewrite_relevant_functions(qmd: str, api_dir: str | os.PathLike = DEFAULT_AP
             title = str(item.get("title", ""))
             if title in SKIP_TITLES:
                 continue
-            href, signature = resolve_title(title, api_dir=api_dir)
+            try:
+                href, signature = resolve_title(title, api_dir=api_dir)
+            except TitleResolutionError as err:
+                if strict:
+                    raise
+                lg.warning(f"{qmd}: leaving unresolvable title as-authored: {err}")
+                continue
             item["href"] = href
             item["signature"] = signature
 

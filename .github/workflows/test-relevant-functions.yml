@@ -26,8 +26,12 @@ jobs:
       # target depends on quartodoc (which regenerates the api/** pages and needs
       # the quarto binary set up above). QUARTO_PATH=quarto points the Makefile
       # at that quarto; `install-quarto`'s CI branch just checks it is on PATH.
+      #
+      # RELEVANT_FUNCTIONS_STRICT=1 makes an unresolvable (rotted/renamed) title
+      # fail here rather than be silently left as-authored: unlike the build/setup
+      # chain, which falls forward, CI requires the fields to be correct.
       - name: Regenerate relevant-functions fields
-        run: make components-relevant-functions QUARTO_PATH=quarto
+        run: make components-relevant-functions QUARTO_PATH=quarto RELEVANT_FUNCTIONS_STRICT=1
 
       # If regenerating changed any tracked file, the committed fields are stale.
       - name: Verify relevant-functions are up to date
