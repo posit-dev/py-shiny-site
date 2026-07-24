@@ -24,28 +24,28 @@ listing:
     dir: components/outputs/value-box/
   contents:
   - title: ui.value_box
-    href: https://shiny.posit.co/py/api/ui.value_box.html
+    href: https://shiny.posit.co/py/api/core/ui.value_box.html#shiny.ui.value_box
     signature: ui.value_box(title, value, *args, showcase=None, showcase_layout='left
-      center', full_screen=False, theme=None, height=None, max_height=None, fill=True,
-      class_=None, **kwargs)
+      center', full_screen=False, theme=None, height=None, max_height=None, min_height=None,
+      fill=True, class_=None, id=None, **kwargs)
   - title: ui.card
-    href: https://shiny.posit.co/py/api/ui.card.html#shiny.ui.card
+    href: https://shiny.posit.co/py/api/core/ui.card.html#shiny.ui.card
     signature: ui.card(*args, full_screen=False, height=None, max_height=None, min_height=None,
-      fill=True, class_=None, **kwargs)
+      fill=True, class_=None, id=None, **kwargs)
   - title: ui.showcase_left_center
-    href: https://shiny.posit.co/py/api/ui.showcase_left_center.html
-    signature: ui.showcase_left_center(*, width='30%', width_full_screen='1fr', max_height='100px',
+    href: https://shiny.posit.co/py/api/core/ui.showcase_left_center.html#shiny.ui.showcase_left_center
+    signature: ui.showcase_left_center(width='30%', width_full_screen='1fr', max_height='100px',
       max_height_full_screen='67%')
   - title: ui.showcase_top_right
-    href: https://shiny.posit.co/py/api/ui.showcase_top_right.html
-    signature: ui.showcase_top_right(*, width='40%', width_full_screen='1fr', max_height='75px',
+    href: https://shiny.posit.co/py/api/core/ui.showcase_top_right.html#shiny.ui.showcase_top_right
+    signature: ui.showcase_top_right(width='40%', width_full_screen='1fr', max_height='75px',
       max_height_full_screen='67%')
   - title: ui.showcase_bottom
-    href: https://shiny.posit.co/py/api/ui.showcase_bottom.html
-    signature: ui.showcase_bottom(*, width='100%', width_full_screen=None, height='auto',
+    href: https://shiny.posit.co/py/api/core/ui.showcase_bottom.html#shiny.ui.showcase_bottom
+    signature: ui.showcase_bottom(width='100%', width_full_screen=None, height='auto',
       height_full_screen='2fr', max_height='100px', max_height_full_screen=None)
   - title: ui.value_box_theme
-    href: https://shiny.posit.co/py/api/ui.value_box_theme.html
+    href: https://shiny.posit.co/py/api/core/ui.value_box_theme.html#shiny.ui.value_box_theme
     signature: ui.value_box_theme(name=None, *, fg=None, bg=None)
 - id: variations
   template: ../../_partials/components-variations.ejs

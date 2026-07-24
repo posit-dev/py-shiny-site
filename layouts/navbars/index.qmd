@@ -1,27 +1,30 @@
 ---
-title: "Navbars"
-description: >
-  A navbar adds a navigation bar, allowing users to easily navigate your
-  Shiny app.
-
+title: Navbars
+description: |
+  A navbar adds a navigation bar, allowing users to easily navigate your Shiny app.
 listing:
 - id: relevant-functions
   template: ../../components/_partials/components-detail-relevant-functions.ejs
   contents:
   - title: ui.page_navbar
-    href: https://shiny.posit.co/py/api/core/ui.page_navbar.html
-    signature: ui.page_navbar(*args, title=None, id=None, selected=None, sidebar=None, fillable=True, fillable_mobile=False, gap=None, padding=None, position='static-top', header=None, footer=None, bg=None, inverse=False, underline=True, collapsible=True, fluid=True, window_title=MISSING, lang=None)
+    href: https://shiny.posit.co/py/api/core/ui.page_navbar.html#shiny.ui.page_navbar
+    signature: ui.page_navbar(*args, title=None, id=None, selected=None, sidebar=None,
+      fillable=False, fillable_mobile=False, gap=None, padding=None, header=None,
+      footer=None, navbar_options=None, fluid=True, window_title=MISSING, lang=None,
+      theme=None, position=DEPRECATED, bg=DEPRECATED, inverse=DEPRECATED, underline=DEPRECATED,
+      collapsible=DEPRECATED)
   - title: ui.nav_panel
-    href: https://shiny.posit.co/py/api/core/ui.nav_panel.html
+    href: https://shiny.posit.co/py/api/core/ui.nav_panel.html#shiny.ui.nav_panel
     signature: ui.nav_panel(title, *args, value=None, icon=None)
   - title: ui.update_nav_panel
-    href: https://shiny.posit.co/py/api/core/ui.update_nav_panel.html
+    href: https://shiny.posit.co/py/api/core/ui.update_nav_panel.html#shiny.ui.update_nav_panel
     signature: ui.update_nav_panel(id, target, method, session=None)
   - title: ui.insert_nav_panel
-    href: https://shiny.posit.co/py/api/core/ui.insert_nav_panel.html
-    signature: ui.insert_nav_panel(id, nav_panel, target=None, position='after', select=False, session=None)
+    href: https://shiny.posit.co/py/api/core/ui.insert_nav_panel.html#shiny.ui.insert_nav_panel
+    signature: ui.insert_nav_panel(id, nav_panel, target=None, position='after', select=False,
+      session=None)
   - title: ui.remove_nav_panel
-    href: https://shiny.posit.co/py/api/core/ui.remove_nav_panel.html
+    href: https://shiny.posit.co/py/api/core/ui.remove_nav_panel.html#shiny.ui.remove_nav_panel
     signature: ui.remove_nav_panel(id, target, session=None)
 ---
 

@@ -186,10 +186,10 @@ quartodoc: $(PYBIN) deps install-quarto
 
 ## Build component static previews and update shinylive links
 .PHONY: components
-components: components-shinylive-links components-static
+components: components-shinylive-links components-relevant-functions components-static-previews
 
-.PHONY: components-static
-components-static: $(PYBIN) deps
+.PHONY: components-static-previews
+components-static-previews: $(PYBIN) deps
 	rm -rf components/static
 	$(UVRUN) python components/make-static-previews.py
 
@@ -197,6 +197,19 @@ components-static: $(PYBIN) deps
 .PHONY: components-shinylive-links
 components-shinylive-links: $(PYBIN) deps
 	$(UVRUN) python components/update-shinylive-links.py $(FILES)
+
+## Regenerate relevant-functions href/signature from the API pages; pass
+## FILES="dir-or-file ..." to limit to those pages.
+##
+## The build/setup chain "falls forward": an unresolvable (rotted/renamed)
+## title is warned about and left as-authored so it never aborts a local build
+## or `make ai-setup`. CI sets RELEVANT_FUNCTIONS_STRICT=1 so the same rot
+## fails the check -- the correct fields are still required before merge.
+RELEVANT_FUNCTIONS_STRICT ?=
+.PHONY: components-relevant-functions
+components-relevant-functions: $(PYBIN) deps quartodoc
+	$(UVRUN) python components/update-relevant-functions.py \
+		$(if $(RELEVANT_FUNCTIONS_STRICT),--strict,--no-strict) $(FILES)
 
 # Install the Playwright browser used by `make test` (idempotent; ~no-op once
 # present). Skipped when a remote Playwright server is configured

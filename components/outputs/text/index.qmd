@@ -24,11 +24,11 @@ listing:
     dir: components/outputs/text/
   contents:
   - title: ui.output_text
-    href: https://shiny.posit.co/py/api/ui.output_text.html
+    href: https://shiny.posit.co/py/api/core/ui.output_text.html#shiny.ui.output_text
     signature: ui.output_text(id, inline=False, container=None)
   - title: '@render.text'
-    href: https://shiny.posit.co/py/api/render.text.html
-    signature: render.text(fn=None)
+    href: https://shiny.posit.co/py/api/core/render.text.html#shiny.render.text
+    signature: render.text(_fn=None, *, inline=False)
 - id: variations
   template: ../../_partials/components-variations.ejs
   template-params:

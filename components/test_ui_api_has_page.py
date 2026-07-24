@@ -81,7 +81,10 @@ _MUTATORS = {
 }
 
 # Deprecated / superseded functions that intentionally have no doc page.
-_DEPRECATED = {"column", "row"}  # superseded by layout_columns / layout_column_wrap
+_DEPRECATED = {
+    "column", "row",  # superseded by layout_columns / layout_column_wrap
+    "update_navs",  # superseded by update_navset
+}
 
 # TODO: layout / navigation / page / panel functions not yet documented in a
 # ``layouts/`` page. The ``layouts/`` files' ``relevant-functions`` blocks are

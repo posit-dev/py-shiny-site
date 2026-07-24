@@ -97,7 +97,7 @@ make components-shinylive-links
 make components-shinylive-links FILES="components/inputs/action-button/app-core.py"
 
 # Generate static component previews
-make components-static
+make components-static-previews
 ```
 
 ### Virtual Environment
@@ -267,6 +267,8 @@ All code examples use Shinylive to run Python in the browser via WebAssembly. Th
 
 - **`test-shinylive-links`** (`.github/workflows/test-shinylive-links.yml`) — on every PR, regenerates the component Shinylive links (`make components-shinylive-links`) and **fails if the committed links differ**. This catches an edited `app-*.py` whose `shinylive:` link in `index.qmd` wasn't regenerated. It installs the py-shiny submodule + full `deps` so the shinylive version matches the site build, and reads `PYTHON_VERSION` from the Makefile. Fix a failure by running `make components-shinylive-links` and committing the updated `index.qmd` files.
 
+- **`test-relevant-functions`** (`.github/workflows/test-relevant-functions.yml`) — on every PR, regenerates the `relevant-functions` front-matter fields (`make components-relevant-functions`) and **fails if the committed `index.qmd` files differ**. This catches a `title`/`href`/`signature` in a component or layout page's `relevant-functions` block that drifted from the live `shiny.ui` / `shiny.express.ui` API (e.g. after a py-shiny submodule bump). It sets up the submodule + `deps` and runs `quartodoc` first (the generator reads the generated `api/**` pages). Fix a failure by running `make components-relevant-functions` and committing the updated `index.qmd` files.
+
 ## Working with Components
 
 Component pages follow a consistent structure:
@@ -283,13 +285,15 @@ To update component examples:
 make components-shinylive-links
 
 # Regenerate static preview images
-make components-static
+make components-static-previews
 ```
 
 **Always regenerate the Shinylive links after editing any `app-*.py` file** and
 commit the updated `index.qmd`. The `shinylive:` values encode the app source, so
 a stale link ships the wrong code — and the `test-shinylive-links` CI workflow
 fails the PR when committed links are out of date.
+
+**Regenerate the `relevant-functions` fields** with `make components-relevant-functions` whenever you add a new component/layout page (or edit its `relevant-functions` block), bump the py-shiny submodule, or otherwise change the documented API — the `title`/`href`/`signature` values are generated from the `api/**` reference pages, and the `test-relevant-functions` CI workflow fails the PR when committed values are stale.
 
 ## Working with API Documentation
 
@@ -298,6 +302,7 @@ API docs are generated from the py-shiny repository:
 1. Update py-shiny submodule if needed: `make submodules-pull`
 2. Regenerate docs: `make quartodoc`
 3. Docs appear in `api/express/`, `api/core/`, `api/testing/`
+4. Regenerate the component/layout `relevant-functions` fields: `make components-relevant-functions` (the `title`/`href`/`signature` values are generated from the `api/**` pages, so a submodule bump can change them). Commit the updated `index.qmd` files.
 
 The custom renderer automatically extracts examples from `py-shiny/shiny/examples/{function_name}/` and embeds them as interactive Shinylive demos.
 
