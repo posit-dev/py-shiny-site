@@ -19,6 +19,9 @@ listing:
   - title: ui.update_sidebar
     href: https://shiny.posit.co/py/api/ui.update_sidebar.html
     signature: ui.update_sidebar(id, *, show=None, session=None)
+  - title: ui.page_sidebar
+    href: https://shiny.posit.co/py/api/ui.page_sidebar.html
+    signature: ui.page_sidebar(sidebar, *args, title=None, fillable=False, fillable_mobile=False, window_title=<shiny.types.MISSING_TYPE object at 0x10529a720>, lang=None, theme=None, **kwargs)
 ---
 
 ```{python}

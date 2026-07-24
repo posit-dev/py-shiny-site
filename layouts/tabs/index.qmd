@@ -40,6 +40,15 @@ listing:
   - title: ui.update_navset
     href: https://shiny.posit.co/py/api/ui.update_navset.html
     signature: ui.update_navset(id, selected=None, session=None)
+  - title: ui.nav_control
+    href: https://shiny.posit.co/py/api/ui.nav_control.html
+    signature: ui.nav_control(*args)
+  - title: ui.nav_menu
+    href: https://shiny.posit.co/py/api/ui.nav_menu.html
+    signature: ui.nav_menu(title, *args, value=None, icon=None, align='left')
+  - title: ui.nav_panel
+    href: https://shiny.posit.co/py/api/ui.nav_panel.html
+    signature: ui.nav_panel(title, *args, value=None, icon=None)
 ---
 
 ```{python}

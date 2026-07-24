@@ -33,6 +33,9 @@ listing:
   - title: ui.panel_well
     href: https://shiny.posit.co/py/api/ui.panel_well.html
     signature: ui.panel_well(*args, **kwargs)
+  - title: ui.panel_title
+    href: https://shiny.posit.co/py/api/ui.panel_title.html
+    signature: ui.panel_title(title, window_title=<shiny.types.MISSING_TYPE object at 0x10529a720>)
 - id: variation-hello-card
   template: ../../components/_partials/components-detail-example.ejs
   template-params:
