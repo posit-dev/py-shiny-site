@@ -195,3 +195,13 @@ def test_rewrite_emits_literal_block_for_multiline_description(tmp_path, monkeyp
         "as a folded block scalar.\n"
     ) in result
     assert "core/ui.value_box.html#shiny.ui.value_box" in result
+
+
+def test_flatten_preserves_single_element_tuple_default():
+    block = "ui.foo(\n    x=(1,),\n    y=2,\n)"
+    assert flatten_python_block(block) == "ui.foo(x=(1,), y=2)"
+
+
+def test_flatten_single_element_tuple_default_last_arg():
+    block = "ui.foo(\n    y=2,\n    x=(1,),\n)"
+    assert flatten_python_block(block) == "ui.foo(y=2, x=(1,))"
