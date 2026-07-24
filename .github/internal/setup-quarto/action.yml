@@ -1,0 +1,32 @@
+name: Set up Quarto (version from Makefile)
+description: >
+  Read QUARTO_VERSION from the repo Makefile (single source of truth) and
+  install Quarto at that version via quarto-dev/quarto-actions/setup. Requires
+  the repo to be checked out first. Exposes the resolved version as the
+  `quarto-version` output.
+
+outputs:
+  quarto-version:
+    description: The Quarto version read from the Makefile.
+    value: ${{ steps.quarto-version.outputs.version }}
+
+runs:
+  using: composite
+  steps:
+    # Single source of truth: the Makefile's `QUARTO_VERSION ?= ...` pins the
+    # Quarto version, so read it here rather than hardcoding it per workflow.
+    - name: Read Quarto version from Makefile
+      id: quarto-version
+      shell: bash
+      run: |
+        version="$(sed -n 's/^QUARTO_VERSION[[:space:]]*?=[[:space:]]*//p' Makefile | head -n1)"
+        if [ -z "$version" ]; then
+          echo "::error::Could not read QUARTO_VERSION from Makefile"
+          exit 1
+        fi
+        echo "version=${version}" >> "$GITHUB_OUTPUT"
+
+    - name: Install Quarto
+      uses: quarto-dev/quarto-actions/setup@v2
+      with:
+        version: ${{ steps.quarto-version.outputs.version }}

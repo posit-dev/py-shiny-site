@@ -10,9 +10,6 @@ concurrency:
   group: test-relevant-functions-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  QUARTO_VERSION: 1.9.36
-
 jobs:
   test-relevant-functions:
     runs-on: ubuntu-latest
@@ -26,10 +23,9 @@ jobs:
 
       # The generator depends on `quartodoc`, which regenerates the api/** pages
       # it reads -- and quartodoc needs the quarto binary. `install-quarto`'s CI
-      # branch just checks quarto is on PATH, so install it here (as site.yml does).
-      - uses: quarto-dev/quarto-actions/setup@v2
-        with:
-          version: ${{ env.QUARTO_VERSION }}
+      # branch just checks quarto is on PATH, so install it here (version pinned
+      # in the Makefile, same as site.yml).
+      - uses: ./.github/internal/setup-quarto
 
       # Regenerate href/signature in the component/layout index.qmd files. The
       # target depends on quartodoc, so the API pages are generated first.
