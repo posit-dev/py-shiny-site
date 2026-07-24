@@ -81,10 +81,11 @@ _MUTATORS = {
     "update_text", "update_text_area",
 }
 
-# Layout / navigation / page / panel functions with no doc page of their own.
-# (Many siblings -- e.g. layout_columns, sidebar, navset_tab -- ARE documented in
-# ``layouts/`` and so are counted, not opted out.)
-_LAYOUT = {
+# TODO: layout / navigation / page / panel functions not yet documented in a
+# ``layouts/`` page. The ``layouts/`` files' ``relevant-functions`` blocks are
+# the source of truth for layout documentation -- once one of these appears
+# there (or on a component page) it is counted, so drop it from this list.
+_TODO_NEEDS_LAYOUT_PAGE = {
     "column", "row", "nav_control", "nav_menu", "nav_spacer", "navbar_options",
     "navset_bar", "navset_card_underline", "navset_hidden", "navset_underline",
     "page_auto", "page_bootstrap", "page_fluid", "page_opts", "page_output",
@@ -97,7 +98,7 @@ _MISC = {"busy_indicators", "fill", "hold"}
 
 # TODO: genuine components that should get their own component page. Move each
 # to a real page (and drop it from here) as pages are written.
-_TODO_NEEDS_PAGE = {
+_TODO_NEEDS_COMPONENT_PAGE = {
     "bind_task_button", "chat_ui", "download_button", "download_link",
     "input_bookmark_button", "input_code_editor", "input_submit_textarea",
     "input_task_button", "output_code", "output_markdown_stream", "output_table",
@@ -110,9 +111,9 @@ KNOWN_MISSING_COMPONENTS: set[str] = (
     | _CLASSES
     | _OPTS
     | _MUTATORS
-    | _LAYOUT
     | _MISC
-    | _TODO_NEEDS_PAGE
+    | _TODO_NEEDS_LAYOUT_PAGE
+    | _TODO_NEEDS_COMPONENT_PAGE
 )
 
 
