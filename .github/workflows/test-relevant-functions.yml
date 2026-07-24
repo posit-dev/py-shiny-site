@@ -1,0 +1,38 @@
+name: test-relevant-functions
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: test-relevant-functions-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-relevant-functions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # Installs uv + checks out the pinned py-shiny submodule so the generated
+      # API pages (the generator's input) match the site build.
+      - name: Set up py-shiny-site
+        uses: ./.github/internal/setup-py-shiny-site
+
+      # Regenerate href/signature in the component/layout index.qmd files. The
+      # target depends on quartodoc, so the API pages are generated first.
+      - name: Regenerate relevant-functions fields
+        run: make components-relevant-functions
+
+      # If regenerating changed any tracked file, the committed fields are stale.
+      - name: Verify relevant-functions are up to date
+        run: |
+          if ! git diff --quiet; then
+            echo "::error::relevant-functions href/signature are out of date. Run 'make components-relevant-functions' and commit the result."
+            echo "--- Offending diff ---"
+            git diff
+            exit 1
+          fi
+          echo "relevant-functions are up to date."
