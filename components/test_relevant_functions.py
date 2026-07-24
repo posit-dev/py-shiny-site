@@ -155,3 +155,43 @@ def test_rewrite_is_idempotent(tmp_path, monkeypatch):
     assert "stale" not in first
     rewrite_relevant_functions("comp/index.qmd", api_dir=api)
     assert page.read_text() == first  # idempotent
+
+
+def test_rewrite_emits_literal_block_for_multiline_description(tmp_path, monkeypatch):
+    """Multi-line front-matter strings (e.g. a folded `>` description) should be
+    re-serialized as clean YAML literal blocks (`|`), not single-quoted scalars."""
+    from _relevant_functions import rewrite_relevant_functions
+
+    api = _write_api(tmp_path)
+    page = tmp_path / "comp" / "index.qmd"
+    page.parent.mkdir(parents=True)
+    page.write_text(
+        "---\n"
+        "title: X\n"
+        "description: >\n"
+        "  This is a longer description that spans\n"
+        "  multiple lines when authored as a folded\n"
+        "  block scalar.\n"
+        "listing:\n"
+        "- id: relevant-functions\n"
+        "  template: t.ejs\n"
+        "  template-params:\n"
+        "    dir: comp/\n"
+        "  contents:\n"
+        "  - title: ui.value_box\n"
+        "    href: stale\n"
+        "    signature: stale\n"
+        "---\n\n"
+        "body\n"
+    )
+    monkeypatch.chdir(tmp_path)
+    assert rewrite_relevant_functions("comp/index.qmd", api_dir=api) is True
+    result = page.read_text()
+
+    assert "description: |" in result
+    assert "description: '" not in result
+    assert (
+        "This is a longer description that spans multiple lines when authored "
+        "as a folded block scalar.\n"
+    ) in result
+    assert "core/ui.value_box.html#shiny.ui.value_box" in result
