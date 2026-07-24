@@ -91,8 +91,7 @@ _TODO_NEEDS_LAYOUT_PAGE = {
     "nav_control", "nav_menu", "nav_spacer", "navbar_options",
     "navset_bar", "navset_card_underline", "navset_hidden", "navset_underline",
     "page_auto", "page_bootstrap", "page_fluid", "page_opts", "page_output",
-    "page_sidebar", "panel_conditional", "panel_title", "showcase_bottom",
-    "showcase_left_center", "showcase_top_right", "value_box_theme",
+    "page_sidebar", "panel_conditional", "panel_title",
 }
 
 # Express-only / low-level helpers with no standalone component page.
