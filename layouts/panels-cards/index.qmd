@@ -14,9 +14,9 @@ listing:
     href: https://shiny.posit.co/py/api/core/ui.card_header.html#shiny.ui.card_header
     signature: ui.card_header(*args, container=tags.div, **kwargs)
   - title: ui.card_body
-    href: https://shiny.posit.co/py/api/ui.card_body.html
+    href: https://shiny.posit.co/py/api/core/ui.card_body.html#shiny.ui.card_body
     signature: ui.card_body(*args, fillable=True, min_height=None, max_height=None,
-      max_height_full_screen=None, height=None, padding=None, gap=None, fill=True,
+      max_height_full_screen=MISSING, height=None, padding=None, gap=None, fill=True,
       class_=None, **kwargs)
   - title: ui.card_footer
     href: https://shiny.posit.co/py/api/core/ui.card_footer.html#shiny.ui.card_footer
@@ -29,9 +29,6 @@ listing:
     href: https://shiny.posit.co/py/api/core/ui.panel_fixed.html#shiny.ui.panel_fixed
     signature: ui.panel_fixed(*args, top=None, left=None, right=None, bottom=None,
       width=None, height=None, draggable=False, cursor='auto', **kwargs)
-  - title: ui.panel_well
-    href: https://shiny.posit.co/py/api/ui.panel_well.html
-    signature: ui.panel_well(*args, **kwargs)
   - title: ui.panel_title
     href: https://shiny.posit.co/py/api/core/ui.panel_title.html#shiny.ui.panel_title
     signature: ui.panel_title(title, window_title=MISSING)
