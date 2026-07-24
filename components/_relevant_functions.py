@@ -117,3 +117,75 @@ def resolve_title(
 def _read(path: str) -> str:
     with open(path, encoding="utf-8") as f:
         return f.read()
+
+
+from _qmd import get_qmd_split, write_qmd
+
+_COMPONENT_DIRS = (
+    "components/inputs",
+    "components/outputs",
+    "components/display-messages",
+    "components/layout",
+)
+_LAYOUT_DIRS = ("layouts",)
+
+
+def find_index_qmds() -> list[str]:
+    """Every component + layout ``index.qmd`` (leaf pages)."""
+    out: list[str] = []
+    for base in (*_COMPONENT_DIRS, *_LAYOUT_DIRS):
+        if not os.path.isdir(base):
+            continue
+        for entry in sorted(os.listdir(base)):
+            cdir = os.path.join(base, entry)
+            if not os.path.isdir(cdir) or ".ruff_cache" in cdir:
+                continue
+            qmd = os.path.join(cdir, "index.qmd")
+            if os.path.isfile(qmd):
+                out.append(qmd)
+    return out
+
+
+def resolve_index_qmds(paths: list[str]) -> list[str]:
+    """Map dirs / files / index.qmd paths to their owning ``index.qmd``."""
+    out: list[str] = []
+    seen: set[str] = set()
+    for path in paths:
+        path = os.path.normpath(path)
+        if os.path.isdir(path):
+            qmd = os.path.join(path, "index.qmd")
+        elif os.path.basename(path) == "index.qmd":
+            qmd = path
+        else:
+            qmd = os.path.join(os.path.dirname(path), "index.qmd")
+        if os.path.isfile(qmd) and qmd not in seen:
+            seen.add(qmd)
+            out.append(qmd)
+    return out
+
+
+def rewrite_relevant_functions(qmd: str, api_dir: str | os.PathLike = "api/core") -> bool:
+    """Rewrite href/signature for every relevant-functions entry in ``qmd``."""
+    meta, body = get_qmd_split(qmd)
+    listing = meta.get("listing")
+    if not listing:
+        return False
+    if isinstance(listing, dict):
+        listing = [listing]
+
+    had_block = False
+    for block in listing:
+        if not (isinstance(block, dict) and block.get("id") == "relevant-functions"):
+            continue
+        had_block = True
+        for item in block.get("contents") or []:
+            title = str(item.get("title", ""))
+            if title in SKIP_TITLES:
+                continue
+            href, signature = resolve_title(title, api_dir=api_dir)
+            item["href"] = href
+            item["signature"] = signature
+
+    if had_block:
+        write_qmd((meta, body), qmd)
+    return had_block

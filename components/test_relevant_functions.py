@@ -116,3 +116,42 @@ def test_extract_signature_block_missing_anchor_raises(tmp_path):
 def test_skip_titles_contains_external_and_instance_forms():
     assert "shinywidgets.output_widget" in SKIP_TITLES
     assert "chat.append_message()" in SKIP_TITLES
+
+
+def test_find_index_qmds_discovers_many():
+    from _relevant_functions import find_index_qmds
+
+    qmds = find_index_qmds()
+    assert len(qmds) > 40, f"expected >40 index.qmd files, found {len(qmds)}"
+    assert all(q.endswith("index.qmd") for q in qmds)
+
+
+def test_rewrite_is_idempotent(tmp_path, monkeypatch):
+    """Rewriting an already-fresh page produces no further change."""
+    from _relevant_functions import rewrite_relevant_functions
+
+    api = _write_api(tmp_path)
+    page = tmp_path / "comp" / "index.qmd"
+    page.parent.mkdir(parents=True)
+    page.write_text(
+        "---\n"
+        "title: X\n"
+        "listing:\n"
+        "- id: relevant-functions\n"
+        "  template: t.ejs\n"
+        "  template-params:\n"
+        "    dir: comp/\n"
+        "  contents:\n"
+        "  - title: ui.value_box\n"
+        "    href: stale\n"
+        "    signature: stale\n"
+        "---\n\n"
+        "body\n"
+    )
+    monkeypatch.chdir(tmp_path)
+    assert rewrite_relevant_functions("comp/index.qmd", api_dir=api) is True
+    first = page.read_text()
+    assert "core/ui.value_box.html#shiny.ui.value_box" in first
+    assert "stale" not in first
+    rewrite_relevant_functions("comp/index.qmd", api_dir=api)
+    assert page.read_text() == first  # idempotent
