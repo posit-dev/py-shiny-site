@@ -1,16 +1,16 @@
-"""Verify every public ``ui`` export is documented by a component page.
+"""Verify every public ``ui`` export is documented by a doc page.
 
 Each public function in ``shiny.ui.__all__`` and ``shiny.express.ui.__all__``
-should either be documented by a component page under ``components/`` -- listed
-in that page's ``relevant-functions`` front-matter block -- or be named in the
-``KNOWN_MISSING_COMPONENTS`` opt-out set below. A newly added ``ui`` export that
-is neither fails ``test_every_ui_export_has_a_page``, forcing a conscious
-"add a component page or opt out" decision.
+should either be documented by a page under ``components/`` or ``layouts/`` --
+listed in that page's ``relevant-functions`` front-matter block -- or be named in
+the ``KNOWN_MISSING_COMPONENTS`` opt-out set below. A newly added ``ui`` export
+that is neither fails ``test_every_ui_export_has_a_page``, forcing a conscious
+"add a doc page or opt out" decision.
 
 Coverage is read from the ``relevant-functions`` listing block already present in
-each ``components/**/index.qmd`` front matter (its ``title:`` entries name the
-documented functions, e.g. ``ui.input_action_button``); no dedicated registry is
-needed.
+each ``components/**/index.qmd`` and ``layouts/**/index.qmd`` front matter (its
+``title:`` entries name the documented functions, e.g.
+``ui.input_action_button``); no dedicated registry is needed.
 
 This is a static filesystem check (no browser), so it runs under ``make test-apps``.
 It mirrors py-shiny's ``test_express_ui_is_complete`` (explicit opt-out set +
@@ -27,6 +27,10 @@ import shiny.ui
 import yaml
 
 COMPONENTS_DIR = Path(__file__).parent
+REPO_ROOT = COMPONENTS_DIR.parent
+
+# Documentation sections whose pages carry ``relevant-functions`` front matter.
+DOC_DIRS = (COMPONENTS_DIR, REPO_ROOT / "layouts")
 
 # Every public ``ui`` export across the Core and Express APIs.
 API: set[str] = set(shiny.ui.__all__) | set(shiny.express.ui.__all__)
@@ -77,16 +81,14 @@ _MUTATORS = {
     "update_text", "update_text_area",
 }
 
-# Layout / navigation / page / panel functions -- documented in ``layouts/``.
+# Layout / navigation / page / panel functions with no doc page of their own.
+# (Many siblings -- e.g. layout_columns, sidebar, navset_tab -- ARE documented in
+# ``layouts/`` and so are counted, not opted out.)
 _LAYOUT = {
-    "column", "row", "layout_column_wrap", "layout_columns", "layout_sidebar",
-    "sidebar", "nav_control", "nav_menu", "nav_panel", "nav_spacer",
-    "navbar_options", "navset_bar", "navset_card_pill", "navset_card_tab",
-    "navset_card_underline", "navset_hidden", "navset_pill", "navset_pill_list",
-    "navset_tab", "navset_underline", "page_auto", "page_bootstrap",
-    "page_fillable", "page_fixed", "page_fluid", "page_navbar", "page_opts",
-    "page_output", "page_sidebar", "panel_absolute", "panel_conditional",
-    "panel_fixed", "panel_title", "panel_well", "showcase_bottom",
+    "column", "row", "nav_control", "nav_menu", "nav_spacer", "navbar_options",
+    "navset_bar", "navset_card_underline", "navset_hidden", "navset_underline",
+    "page_auto", "page_bootstrap", "page_fluid", "page_opts", "page_output",
+    "page_sidebar", "panel_conditional", "panel_title", "showcase_bottom",
     "showcase_left_center", "showcase_top_right", "value_box_theme",
 }
 
@@ -117,26 +119,27 @@ KNOWN_MISSING_COMPONENTS: set[str] = (
 def _documented_functions() -> set[str]:
     """``ui`` function names named by any page's ``relevant-functions`` block."""
     names: set[str] = set()
-    for qmd in COMPONENTS_DIR.glob("**/index.qmd"):
-        text = qmd.read_text()
-        if not text.startswith("---"):
-            continue
-        try:
-            front_matter = yaml.safe_load(text.split("---", 2)[1])
-        except yaml.YAMLError:
-            continue
-        if not isinstance(front_matter, dict):
-            continue
-        listing = front_matter.get("listing") or []
-        if isinstance(listing, dict):
-            listing = [listing]
-        for block in listing:
-            if not (isinstance(block, dict) and block.get("id") == "relevant-functions"):
+    for doc_dir in DOC_DIRS:
+        for qmd in doc_dir.glob("**/index.qmd"):
+            text = qmd.read_text()
+            if not text.startswith("---"):
                 continue
-            for item in block.get("contents") or []:
-                match = _TITLE_RE.match(str((item or {}).get("title", "")))
-                if match:
-                    names.add(match.group(1))
+            try:
+                front_matter = yaml.safe_load(text.split("---", 2)[1])
+            except yaml.YAMLError:
+                continue
+            if not isinstance(front_matter, dict):
+                continue
+            listing = front_matter.get("listing") or []
+            if isinstance(listing, dict):
+                listing = [listing]
+            for block in listing:
+                if not (isinstance(block, dict) and block.get("id") == "relevant-functions"):
+                    continue
+                for item in block.get("contents") or []:
+                    match = _TITLE_RE.match(str((item or {}).get("title", "")))
+                    if match:
+                        names.add(match.group(1))
     return names
 
 
@@ -173,9 +176,9 @@ def test_every_ui_export_has_a_page() -> None:
     """Every public ui export is documented by a page or explicitly opted out."""
     missing = API - DOCUMENTED - KNOWN_MISSING_COMPONENTS
     assert not missing, (
-        f"These shiny.ui / shiny.express.ui exports have no component page: "
+        f"These shiny.ui / shiny.express.ui exports have no doc page: "
         f"{sorted(missing)}.\n"
-        "For each: add it to a component page's `relevant-functions` front-matter "
-        "block, or add it to KNOWN_MISSING_COMPONENTS in this file (with the "
-        "right category group)."
+        "For each: add it to a components/ or layouts/ page's `relevant-functions` "
+        "front-matter block, or add it to KNOWN_MISSING_COMPONENTS in this file "
+        "(with the right category group)."
     )
