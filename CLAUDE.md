@@ -92,12 +92,16 @@ make components-static
 
 ### Virtual Environment
 
-The Makefile automatically creates a venv using `uv`. To run commands manually in the same environment:
+`uv` is a required prerequisite: the Makefile runs every Python tool through
+`uv run` (via the `$(UVRUN)` variable) and creates the venv at `.venv/` with
+`uv`. If `uv` is not installed, `make` stops with a link to
+https://docs.astral.sh/uv/getting-started/installation/ (it no longer
+auto-installs uv). To run commands manually in the same environment, prefix
+with `uv run` — it auto-discovers `.venv`, so there's nothing to activate:
 
 ```bash
-source .venv/bin/activate  # Activate venv
-# ... run commands ...
-deactivate                  # Exit venv
+uv run python -c "import shiny; print(shiny.__version__)"
+uv run pytest components/layout/accordion/test_accordion.py
 ```
 
 ### Cleaning
@@ -251,7 +255,7 @@ All code examples use Shinylive to run Python in the browser via WebAssembly. Th
 
 ### Other CI checks
 
-- **`check-shinylive-links`** (`.github/workflows/check-shinylive-links.yml`) — on every PR, regenerates the component Shinylive links (`make components-shinylive-links`) and **fails if the committed links differ**. This catches an edited `app-*.py` whose `shinylive:` link in `index.qmd` wasn't regenerated. It installs the py-shiny submodule + full `deps` so the shinylive version matches the site build, and reads `PYTHON_VERSION` from the Makefile. Fix a failure by running `make components-shinylive-links` and committing the updated `index.qmd` files.
+- **`test-shinylive-links`** (`.github/workflows/test-shinylive-links.yml`) — on every PR, regenerates the component Shinylive links (`make components-shinylive-links`) and **fails if the committed links differ**. This catches an edited `app-*.py` whose `shinylive:` link in `index.qmd` wasn't regenerated. It installs the py-shiny submodule + full `deps` so the shinylive version matches the site build, and reads `PYTHON_VERSION` from the Makefile. Fix a failure by running `make components-shinylive-links` and committing the updated `index.qmd` files.
 
 ## Working with Components
 
@@ -274,7 +278,7 @@ make components-static
 
 **Always regenerate the Shinylive links after editing any `app-*.py` file** and
 commit the updated `index.qmd`. The `shinylive:` values encode the app source, so
-a stale link ships the wrong code — and the `check-shinylive-links` CI workflow
+a stale link ships the wrong code — and the `test-shinylive-links` CI workflow
 fails the PR when committed links are out of date.
 
 ## Working with API Documentation

@@ -19,6 +19,10 @@ __pycache__/
 .venv/
 __pycache__/
 
+# Test artifacts (pytest + pytest-playwright)
+.pytest_cache/
+/test-results/
+
 components/static/
 .claude/*
 # ...but track shared, repo-specific Claude skills

@@ -8,12 +8,12 @@ app_ui = ui.page_fluid(
         id="acc",
         open=["Section A"],
     ),
-    ui.output_text_verbatim("selected"),
+    ui.output_code("selected"),
 )
 
 
 def server(input, output, session):
-    @render.text
+    @render.code
     def selected():
         return f"Open panel(s): {input.acc()}"
 

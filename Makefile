@@ -5,14 +5,19 @@ PYBIN ?= $(VENV)/bin
 PYTHON_VERSION ?= 3.12
 PIP3 ?= pip3
 
+# Run a command inside the uv-managed .venv. `uv run` auto-discovers ./.venv, so
+# recipes need no `activate` and CI needs no PATH/VIRTUAL_ENV export.
+UVRUN ?= uv run --no-project
+
 QUARTO_VERSION ?= 1.9.36
 QUARTO_PATH ?= ~/.local/share/qvm/versions/v${QUARTO_VERSION}/bin/quarto
 
 # Any targets that depend on $(VENV) or $(PYBIN) will cause the venv to be
-# created using uv (much faster than standard venv). To use the venv, python
-# scripts should run with the prefix $(PYBIN), as in `$(PYBIN)/python`.
-$(VENV):
-	$(MAKE) install-uv
+# created using uv (much faster than standard venv). To run a tool inside it,
+# use `$(UVRUN) <cmd>` (e.g. `$(UVRUN) pytest ...`).
+# check-uv is an order-only prerequisite: it runs (and errors on missing uv)
+# only when .venv actually needs to be created, not on every build.
+$(VENV): | check-uv
 	uv venv --python $(PYTHON_VERSION)
 
 $(PYBIN): $(VENV)
@@ -28,12 +33,12 @@ all: quartodoc components site
 # uncached, before rendering. No-op (~0.1 s) when assets are already present.
 .PHONY: shinylive-assets
 shinylive-assets: $(PYBIN)
-	. $(PYBIN)/activate && shinylive extension base-htmldeps --sw-dir . > /dev/null
+	$(UVRUN) shinylive extension base-htmldeps --sw-dir . > /dev/null
 
 ## Build website
 .PHONY: site
 site: $(PYBIN) install-quarto shinylive-assets
-	. $(PYBIN)/activate && ${QUARTO_PATH} render
+	$(UVRUN) ${QUARTO_PATH} render
 
 ## Serve the site with live preview (parallel build first if _build is missing; re-renders only edited pages)
 .PHONY: serve
@@ -42,12 +47,12 @@ serve: $(PYBIN) install-quarto shinylive-assets
 		echo "🔵 _build/ is missing or older than _quarto.yml — running parallel build first"; \
 		$(MAKE) site-parallel; \
 	fi
-	. $(PYBIN)/activate && ${QUARTO_PATH} preview --render none --port $${CONDUCTOR_PORT:-1414}
+	$(UVRUN) ${QUARTO_PATH} preview --render none --port $${CONDUCTOR_PORT:-1414}
 
 ## Serve with a full serial initial render (use after _quarto.yml/theme/extension changes)
 .PHONY: serve-serial
 serve-serial: $(PYBIN) install-quarto shinylive-assets
-	. $(PYBIN)/activate && ${QUARTO_PATH} preview
+	$(UVRUN) ${QUARTO_PATH} preview
 
 SHARDS ?= 6
 
@@ -59,7 +64,7 @@ site-parallel: $(PYBIN) install-quarto
 ## Serve existing _build without full re-render (fast preview; run `make site` or `make site-parallel` first)
 .PHONY: serve-fast
 serve-fast: $(PYBIN) install-quarto
-	. $(PYBIN)/activate && ${QUARTO_PATH} preview --render none --port $${CONDUCTOR_PORT:-1414} --no-browser
+	$(UVRUN) ${QUARTO_PATH} preview --render none --port $${CONDUCTOR_PORT:-1414} --no-browser
 
 ## Best-effort seed of heavy gitignored caches (_build, shinylive render cache) from a donor checkout
 .PHONY: seed-caches
@@ -76,16 +81,14 @@ ai-setup:
 	$(MAKE) components
 
 
-## Install uv if not already installed
-.PHONY: install-uv
-install-uv:
-	@if command -v uv > /dev/null 2>&1; then \
-		exit 0; \
-	else \
-		echo "🔵 Installing uv from pip..."; \
-		curl -LsSf https://astral.sh/uv/install.sh | sh; \
-		echo "✓ uv installed successfully"; \
-	fi
+# Fail early with install guidance if uv is not on PATH.
+.PHONY: check-uv
+check-uv:
+	@command -v uv > /dev/null 2>&1 || { \
+		echo "❌ uv is not installed. Install it, then re-run:"; \
+		echo "   https://docs.astral.sh/uv/getting-started/installation/"; \
+		exit 1; \
+	}
 
 
 .PHONY: install-quarto
@@ -157,7 +160,7 @@ quarto-extensions: _extensions/quarto-ext/shinylive _extensions/shafayetShafee/l
 # Install build dependencies
 deps: $(PYBIN)
 	uv pip install -r requirements.txt
-	. $(PYBIN)/activate && cd py-shiny && make ci-install-docs
+	cd py-shiny && $(UVRUN) make ci-install-docs
 
 
 QUARTODOC_STAMP ?= .quartodoc-stamp
@@ -169,7 +172,7 @@ quartodoc: $(PYBIN) deps install-quarto
 		echo "quartodoc up to date"; \
 	else \
 		set -e; \
-		. $(PYBIN)/activate && cd py-shiny/docs && make quartodoc; \
+		cd py-shiny/docs && $(UVRUN) make quartodoc; \
 		cd $(CURDIR); \
 		echo "🔹 Copying generated api/ files (checksum mode: identical files keep their mtimes)"; \
 		rsync -ac --exclude="index.qmd" py-shiny/docs/api/ ./api; \
@@ -188,12 +191,37 @@ components: components-shinylive-links components-static
 .PHONY: components-static
 components-static: $(PYBIN) deps
 	rm -rf components/static
-	. $(PYBIN)/activate && python components/make-static-previews.py
+	$(UVRUN) python components/make-static-previews.py
 
 ## Update shinylive links; pass FILES="dir-or-file ..." to limit to those pages
 .PHONY: components-shinylive-links
 components-shinylive-links: $(PYBIN) deps
-	. $(PYBIN)/activate && python components/update-shinylive-links.py $(FILES)
+	$(UVRUN) python components/update-shinylive-links.py $(FILES)
+
+# Install the Playwright browser used by `make test` (idempotent; ~no-op once
+# present). Skipped when a remote Playwright server is configured
+# (PW_TEST_CONNECT_WS_ENDPOINT set, e.g. by CI's setup-playwright-remote action).
+.PHONY: install-playwright
+install-playwright: $(PYBIN) deps
+	@if [ -n "$$PW_TEST_CONNECT_WS_ENDPOINT" ]; then \
+		echo "Remote Playwright configured; skipping local browser install."; \
+	else \
+		$(UVRUN) playwright install chromium; \
+	fi
+
+## Run all example-app tests: smoke sweep + per-component app tests (chromium, parallel; from pytest.ini)
+.PHONY: test
+test: test-smoke test-apps
+
+## Smoke-test every components/**/app*.py (each app launches with no server/JS/output errors). Pass PYTEST_ARGS="..." to narrow (e.g. PYTEST_ARGS='-k "layout/accordion"') or shard (PYTEST_ARGS='--num-shards 6 --shard-id 0').
+.PHONY: test-smoke
+test-smoke: $(PYBIN) deps install-playwright
+	$(UVRUN) pytest components/test_examples_smoke.py $(PYTEST_ARGS)
+
+## Run per-component app tests (controller interaction tests + conftest unit tests), excluding the smoke sweep. Pass PYTEST_ARGS="..." to narrow or shard.
+.PHONY: test-apps
+test-apps: $(PYBIN) deps install-playwright
+	$(UVRUN) pytest --ignore=components/test_examples_smoke.py $(PYTEST_ARGS)
 
 ## Remove Quarto website build files
 .PHONY: clean
@@ -234,10 +262,10 @@ use-dev-shinylive: $(PYBIN) deps
 		if gh api repos/posit-dev/py-shiny/actions/runs/$$RUN_ID/artifacts --jq '.artifacts[].name' 2>/dev/null | grep -q '^shinylive-build$$'; then \
 			echo "🔹 Found artifact in run $$RUN_ID"; \
 			rm -rf $(SHINYLIVE_ARTIFACT_DIR) && \
-			. $(PYBIN)/activate && python -c "import appdirs, shutil; shutil.rmtree(appdirs.user_cache_dir('shinylive'), ignore_errors=True)" && \
+			$(UVRUN) python -c "import appdirs, shutil; shutil.rmtree(appdirs.user_cache_dir('shinylive'), ignore_errors=True)" && \
 			rm -rf .quarto/shinylive-cache && \
 			gh run download --repo posit-dev/py-shiny --name shinylive-build --dir $(SHINYLIVE_ARTIFACT_DIR) $$RUN_ID && \
-			. $(PYBIN)/activate && shinylive assets install-from-local "$(SHINYLIVE_ARTIFACT_DIR)" && \
+			$(UVRUN) shinylive assets install-from-local "$(SHINYLIVE_ARTIFACT_DIR)" && \
 			echo "✓ Shinylive artifact installed from branch $(SHINYLIVE_BRANCH)" && \
 			FOUND=true && \
 			break; \

@@ -17,7 +17,7 @@ app_ui = ui.page_fluid(
         ),
         ui.accordion_panel(
             "Results",
-            ui.output_text_verbatim("result"),
+            ui.output_code("result"),
             value="results",
             icon=icon_svg("chart-simple"),
         ),
@@ -28,16 +28,16 @@ app_ui = ui.page_fluid(
         width="100%",
         height="500px",
     ),
-    ui.output_text_verbatim("open_panels"),
+    ui.output_code("open_panels"),
 )
 
 
 def server(input, output, session):
-    @render.text
+    @render.code
     def result():
         return f"n = {input.n()}"
 
-    @render.text
+    @render.code
     def open_panels():
         return f"Open panel(s): {input.acc()}"
 

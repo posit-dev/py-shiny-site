@@ -19,11 +19,11 @@ with ui.accordion(
         "Results", value="results", icon=icon_svg("chart-simple")
     ):
 
-        @render.text
+        @render.code
         def result():
             return f"n = {input.n()}"
 
 
-@render.text
+@render.code
 def open_panels():
     return f"Open panel(s): {input.acc()}"

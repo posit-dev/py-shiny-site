@@ -9,6 +9,6 @@ with ui.accordion(id="acc", open=["Section A"]):  # <<
         "Some narrative for section C"
 
 
-@render.text
+@render.code
 def selected():
     return f"Open panel(s): {input.acc()}"
