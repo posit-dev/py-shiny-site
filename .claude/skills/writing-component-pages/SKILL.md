@@ -209,6 +209,77 @@ make serve             # live preview; open the new page
 Confirm: gallery card renders, Preview tab runs live, Core/Express tabs show code with
 working "Open in editor" links, variations/kitchen sink render, and the sidebar links.
 
+### Exercise every interactive control in every demo app
+
+Compiling / importing an app only proves it starts — it does NOT prove the buttons
+work. Reactive handlers (`@reactive.event`) only run **on interaction**, so a broken
+`ui.insert_*`/`ui.update_*` call raises at click time and is invisible until then. You
+MUST drive each interactive `app-*.py` in a real browser and confirm every control does
+what its demo claims.
+
+For each app that has a desired behavior or interactive control — a button, switch,
+slider, clickable panel/header, or even the mere appearance of an icon or rendered
+element (not everything worth confirming is interactive) — run it and exercise / observe
+it:
+
+```bash
+# Run one app (use the repo venv's shiny)
+.venv/bin/shiny run --port 8765 components/<section>/<name>/app-variation-<slug>-express.py \
+  > /tmp/app.log 2>&1 &
+# wait for "Uvicorn running", then drive it in a browser (Playwright MCP) and assert
+# the visible result changed the way the demo promises; finally check the app log has
+# no traceback.
+```
+
+In the browser, for each control assert the *observable* effect, not just the absence of
+a crash — e.g. "Add panel" adds a panel to the accordion, the switch flips the panel
+titles, the slider updates the output text. Then grep the server log for
+`Traceback`/`Error`. Do this for **both** the Core and Express versions and every
+variation's live Preview app — bugs frequently live in only one mode (see below).
+
+**Save the confirmation as a test — don't let it evaporate.** A one-off manual browser
+drive proves the control works *today*; it does nothing to stop a future edit from
+re-breaking it. Once you've confirmed the observable effect by hand, capture the same
+interaction as a py-shiny Playwright test so it runs in CI on every PR. See the
+[`testing-example-apps`](../testing-example-apps/SKILL.md) skill for the full workflow —
+in short, add `components/<section>/<name>/test_<name>.py` next to the app files and drive
+the primary Core AND Express apps with `shiny.playwright.controller`, asserting the same
+observable effect you just checked by hand:
+
+```python
+from playwright.sync_api import Page
+from shiny.playwright import controller
+from shiny.run import ShinyAppProc
+
+def test_core_interaction(page: Page, core_app: ShinyAppProc) -> None:
+    page.goto(core_app.url)
+    acc = controller.Accordion(page, "acc")
+    acc.expect_open(["Section A"])
+    acc.set(["Section B"])          # the click you just did by hand
+    acc.expect_open(["Section B"])  # the observable effect you just confirmed
+```
+
+Smoke coverage (app starts with no server/JS/output errors) is already automatic for every
+discovered `app.py`/`app-*.py` via `components/test_examples_smoke.py`, so your
+`test_<name>.py` only needs the interaction assertions. Run it with
+`uv run pytest components/<section>/<name>/test_<name>.py` (or `make test-apps`).
+
+### Core and Express APIs can differ — verify the signature you actually call
+
+Some server-side UI functions have a **different signature in Express than in Core**.
+The classic trap is `insert_accordion_panel`:
+
+- Core: `ui.insert_accordion_panel(id, panel, ...)` — pass a pre-built `ui.accordion_panel(...)`.
+- Express: `ui.insert_accordion_panel(id, panel_title, *panel_contents, panel_value=..., ...)`
+  — pass the title and body directly; there is no panel object, and in Express
+  `ui.accordion_panel` is a context manager (one positional arg), so the Core form
+  raises `TypeError` at click time.
+
+Don't assume a call that works in the Core demo works verbatim in the Express demo.
+Check the real signature for the mode you're in (`inspect.signature(shiny.express.ui.<fn>)`
+vs `shiny.ui.<fn>`) and copy py-shiny's own Express example from
+`py-shiny/shiny/api-examples/<fn>/app-express.py` when one exists.
+
 ## After the PR deploys: verify, then hand the author review links
 
 Every PR gets a Netlify preview at `https://pr-<N>--pyshiny.netlify.app` (deployed from
@@ -221,7 +292,9 @@ apps, sidebar placement — are things you (Claude) can only partially judge, so
    page in the preview and confirm the gallery card image rendered, the Preview app runs,
    the Core/Express tabs and their "Open in editor" links work, variations/kitchen sink
    render, and the new sidebar entry appears in the right section in the right order.
-   Report anything broken instead of handing over links to a broken page.
+   Actually **click every button / toggle every control** in each live Preview app and
+   confirm the promised effect happens with no error (see "Exercise every interactive
+   control" above). Report anything broken instead of handing over links to a broken page.
 
 2. **Then give the author direct links** — one per new/changed component, plus the
    gallery and the affected sidebar section, so they can eyeball the real output:
@@ -255,3 +328,5 @@ apps, sidebar placement — are things you (Claude) can only partially judge, so
 | Forgot `_quarto.yml` sidebar entry | Add the `index.qmd` path alphabetically in the right section |
 | Empty/half-made component dir left behind | Remove it; a dir under `components/*/` without `index.qmd` used to crash the link script |
 | Missing `sidebar: components` in front matter | Add it — required on every component page |
+| Shipping a demo whose buttons were never clicked (compiles ≠ works) | Run each interactive app and exercise every control in a browser; assert the visible effect, then save it as a `test_<name>.py` interaction test (see `testing-example-apps`) so CI keeps checking |
+| Copying a Core `ui.insert_*`/`ui.update_*` call verbatim into the Express demo | Check the Express signature — it can differ (e.g. `insert_accordion_panel`); copy py-shiny's `api-examples/<fn>/app-express.py` |
