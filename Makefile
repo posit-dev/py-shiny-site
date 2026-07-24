@@ -186,7 +186,7 @@ quartodoc: $(PYBIN) deps install-quarto
 
 ## Build component static previews and update shinylive links
 .PHONY: components
-components: components-shinylive-links components-static
+components: components-shinylive-links components-relevant-functions components-static
 
 .PHONY: components-static
 components-static: $(PYBIN) deps
@@ -197,6 +197,12 @@ components-static: $(PYBIN) deps
 .PHONY: components-shinylive-links
 components-shinylive-links: $(PYBIN) deps
 	$(UVRUN) python components/update-shinylive-links.py $(FILES)
+
+## Regenerate relevant-functions href/signature from the API pages; pass
+## FILES="dir-or-file ..." to limit to those pages
+.PHONY: components-relevant-functions
+components-relevant-functions: $(PYBIN) deps quartodoc
+	$(UVRUN) python components/update-relevant-functions.py $(FILES)
 
 # Install the Playwright browser used by `make test` (idempotent; ~no-op once
 # present). Skipped when a remote Playwright server is configured
