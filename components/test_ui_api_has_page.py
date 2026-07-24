@@ -81,12 +81,15 @@ _MUTATORS = {
     "update_text", "update_text_area",
 }
 
+# Deprecated / superseded functions that intentionally have no doc page.
+_DEPRECATED = {"column", "row"}  # superseded by layout_columns / layout_column_wrap
+
 # TODO: layout / navigation / page / panel functions not yet documented in a
 # ``layouts/`` page. The ``layouts/`` files' ``relevant-functions`` blocks are
 # the source of truth for layout documentation -- once one of these appears
 # there (or on a component page) it is counted, so drop it from this list.
 _TODO_NEEDS_LAYOUT_PAGE = {
-    "column", "row", "nav_control", "nav_menu", "nav_spacer", "navbar_options",
+    "nav_control", "nav_menu", "nav_spacer", "navbar_options",
     "navset_bar", "navset_card_underline", "navset_hidden", "navset_underline",
     "page_auto", "page_bootstrap", "page_fluid", "page_opts", "page_output",
     "page_sidebar", "panel_conditional", "panel_title", "showcase_bottom",
@@ -112,6 +115,7 @@ KNOWN_MISSING_COMPONENTS: set[str] = (
     | _OPTS
     | _MUTATORS
     | _MISC
+    | _DEPRECATED
     | _TODO_NEEDS_LAYOUT_PAGE
     | _TODO_NEEDS_COMPONENT_PAGE
 )
