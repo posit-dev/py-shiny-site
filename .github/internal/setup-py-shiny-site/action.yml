@@ -1,0 +1,27 @@
+name: Set up py-shiny-site
+description: >
+  Shared environment setup for py-shiny-site workflows: install uv (with the
+  Python version from the Makefile) and check out the pinned py-shiny submodule.
+  Requires the repo to already be checked out (`actions/checkout`) first -- a
+  local action cannot check out the repo it lives in. Exposes the resolved
+  Python version as the `python-version` output.
+
+outputs:
+  python-version:
+    description: The Python version read from the Makefile.
+    value: ${{ steps.uv.outputs.python-version }}
+
+runs:
+  using: composite
+  steps:
+    - name: Set up uv
+      id: uv
+      uses: ./.github/internal/setup-uv
+
+    # `make deps` builds the shiny package from the pinned submodule commit, so
+    # the installed controllers/version match the site build.
+    - name: Check out submodules
+      shell: bash
+      run: |
+        git config --global init.defaultBranch main
+        make submodules

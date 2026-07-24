@@ -44,6 +44,15 @@ components/inputs/<name>/
 | `app-variation-*-{core,express}.py` | One entry in the `#variations` block | Same as core/express |
 | `app-kitchensink-*.py` | Linked from the `#kitchen-sink` block | All parameters exercised |
 
+**Every example app file MUST be named `app.py` or `app-<name>.py`.** This is the only
+naming the tooling recognizes: the shinylive-link generator, the static-preview renderer,
+and the smoke-test collector (`components/test_examples_smoke.py`, which auto-discovers and
+launches every `app.py`/`app-*.py` under `components/`) all key off this convention. A
+differently named `.py` file is silently ignored — never rendered, never linked, never
+tested. Companion files inside a multi-file app use `## file: <name>.py` markers *inside*
+the `app-*.py`, not separate top-level names. See the `testing-example-apps` skill for how
+those apps get smoke-tested.
+
 **Why `app-preview.py` and `app-detail-preview.py` must be Core style:**
 `components/make-static-previews.py` imports the module and reads `app_ui`. Express
 apps have no module-level `app_ui`, so the static renderer raises `app_ui not found`.
@@ -147,6 +156,24 @@ See also: [Action Button](../action-button/index.qmd)
 Run `make components-shinylive-links` (script: `components/update-shinylive-links.py`).
 It encodes each app's source into the `shinylive:` value in place. You only need a
 `shinylive:` **key** present (a placeholder value is fine); the script overwrites it.
+
+**Always re-run `make components-shinylive-links` after editing, adding, or removing
+any `app-*.py` file (or its `resources:`).** The `shinylive:` values are an encoding of
+the app source, so any change to the source makes the committed link stale. This is not
+optional: the `test-shinylive-links` GitHub Actions workflow regenerates the links on
+every PR and **fails the build if the committed links differ**. Regenerate and commit the
+updated `index.qmd` files as part of the same change — do not leave it for later.
+
+To rebuild just the page(s) you touched (faster than rewriting all of them), pass
+`FILES=` — it accepts component dirs, `index.qmd` paths, or any file inside a component
+dir (e.g. the `app-*.py` you just edited), which it resolves to the owning `index.qmd`:
+
+```bash
+make components-shinylive-links FILES="components/inputs/<name>/"
+make components-shinylive-links FILES="components/inputs/<name>/app-core.py components/inputs/<name>/app-express.py"
+```
+
+With no `FILES`, it rewrites every component page (what CI does).
 
 - **Multi-file apps:** if an app needs extra files, split with `## file: app.py`
   markers inside the `.py`, and list companion assets under a `resources:` key in the

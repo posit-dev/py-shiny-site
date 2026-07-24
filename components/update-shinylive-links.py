@@ -1,5 +1,6 @@
 import logging
 import os
+import sys
 
 import shinylive
 from _qmd import get_qmd_split, write_qmd
@@ -161,7 +162,46 @@ def rewrite_shinylive_links_all(index_qmds):
     return index_qmds
 
 
+def resolve_index_qmds(paths):
+    """
+    Map arbitrary file/dir paths to the component ``index.qmd`` they belong to.
+
+    Accepts a component directory, an ``index.qmd``, or any file inside a
+    component directory (e.g. an edited ``app-core.py``) and resolves each to
+    the owning ``index.qmd``. Paths without a real ``index.qmd`` are skipped
+    with a warning. Duplicates are collapsed, order preserved.
+    """
+    index_qmds = []
+    seen = set()
+
+    for path in paths:
+        path = os.path.normpath(path)
+        if os.path.isdir(path):
+            qmd = os.path.join(path, "index.qmd")
+        elif os.path.basename(path) == "index.qmd":
+            qmd = path
+        else:
+            qmd = os.path.join(os.path.dirname(path), "index.qmd")
+
+        if not os.path.isfile(qmd):
+            lg.warning(f"Skipping {path}: no component index.qmd found at {qmd}")
+            continue
+
+        if qmd not in seen:
+            seen.add(qmd)
+            index_qmds.append(qmd)
+
+    return index_qmds
+
+
 if __name__ == "__main__":
-    dirs = ["inputs", "outputs", "display-messages", "layout"]
-    index_qmds = find_index_qmds([os.path.join("components", d) for d in dirs])
+    # With no args, rewrite links for every component page. Given one or more
+    # path args (component dirs, index.qmd files, or any file inside a
+    # component dir such as an edited app-*.py), rewrite only those pages.
+    if len(sys.argv) > 1:
+        index_qmds = resolve_index_qmds(sys.argv[1:])
+    else:
+        dirs = ["inputs", "outputs", "display-messages", "layout"]
+        index_qmds = find_index_qmds([os.path.join("components", d) for d in dirs])
+
     rewrite_shinylive_links_all(index_qmds)

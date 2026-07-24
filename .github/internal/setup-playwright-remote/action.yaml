@@ -1,0 +1,210 @@
+# Adopted from py-shiny:
+# https://github.com/posit-dev/py-shiny/blob/main/.github/py-shiny/setup-playwright-remote/action.yaml
+# Runs Playwright in a cached Docker container and points pytest-playwright at
+# it (PW_TEST_CONNECT_WS_ENDPOINT + expose_network=*), avoiding the slow
+# `playwright install --with-deps` browser download on every job. Requires the
+# `playwright` Python package to be installed already (via `make deps`).
+#
+# LOCAL ADAPTATION: the two Python invocations run via `uv run --no-project`
+# (not bare `python3`) so they use this repo's uv-managed .venv without any
+# PATH/VIRTUAL_ENV export in the calling workflow. Preserve this when syncing.
+name: "Setup remote Playwright"
+description: "Start a Playwright server in Docker and configure pytest-playwright to connect to it"
+inputs:
+  version:
+    description: "Playwright version to use. Defaults to the installed Python package version."
+    required: false
+    default: ""
+  browser:
+    description: "Browser to use when verifying the remote Playwright server is ready"
+    required: false
+    default: "chromium"
+  port:
+    description: "Port to expose the Playwright server on"
+    required: false
+    default: "43424"
+  container-name:
+    description: "Docker container name"
+    required: false
+    default: "playwright"
+outputs:
+  version:
+    description: "Resolved Playwright version"
+    value: ${{ steps.resolve-version.outputs.version }}
+  ws-endpoint:
+    description: "WebSocket endpoint for the Playwright server"
+    value: ${{ steps.set-env.outputs.ws-endpoint }}
+runs:
+  using: "composite"
+  steps:
+    - name: Resolve Playwright version
+      id: resolve-version
+      shell: bash
+      run: |
+        VERSION="${{ inputs.version }}"
+        if [ -z "$VERSION" ]; then
+          VERSION=$(uv run --no-project python3 -c "from importlib.metadata import version; print(version('playwright'))")
+        fi
+
+        echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+    - name: Compute Playwright image cache key
+      id: image-cache-key
+      shell: bash
+      run: |
+        VERSION="${{ steps.resolve-version.outputs.version }}"
+        IMAGE="mcr.microsoft.com/playwright:v${VERSION}-noble"
+        # Slugify the image reference for safe filesystem use.
+        SLUG=$(echo "$IMAGE" | tr '/:' '__')
+        CACHE_DIR="${RUNNER_TEMP:-/tmp}/playwright-image-cache"
+        CACHE_FILE="${CACHE_DIR}/${SLUG}.tar"
+        mkdir -p "$CACHE_DIR"
+        echo "image=$IMAGE" >> "$GITHUB_OUTPUT"
+        echo "cache-dir=$CACHE_DIR" >> "$GITHUB_OUTPUT"
+        echo "cache-file=$CACHE_FILE" >> "$GITHUB_OUTPUT"
+        echo "cache-key=playwright-docker-image-${{ runner.os }}-${{ runner.arch }}-v${VERSION}-noble" >> "$GITHUB_OUTPUT"
+
+    - name: Restore cached Playwright image
+      id: restore-image-cache
+      uses: actions/cache/restore@v5
+      with:
+        path: ${{ steps.image-cache-key.outputs.cache-dir }}
+        key: ${{ steps.image-cache-key.outputs.cache-key }}
+
+    - name: Load cached Playwright image
+      id: load-image-cache
+      if: steps.restore-image-cache.outputs.cache-hit == 'true'
+      shell: bash
+      run: |
+        CACHE_FILE="${{ steps.image-cache-key.outputs.cache-file }}"
+        LOADED=false
+        if [ -f "$CACHE_FILE" ]; then
+          echo "Loading cached image from $CACHE_FILE"
+          if docker load -i "$CACHE_FILE"; then
+            LOADED=true
+          else
+            echo "Cached image tar at $CACHE_FILE is invalid or corrupted; deleting it and pulling instead." >&2
+            rm -f "$CACHE_FILE"
+          fi
+        else
+          echo "Cache hit reported but $CACHE_FILE is missing; will pull instead." >&2
+        fi
+        echo "loaded=$LOADED" >> "$GITHUB_OUTPUT"
+
+    - name: Pull Playwright image
+      id: pull-image
+      shell: bash
+      run: |
+        IMAGE="${{ steps.image-cache-key.outputs.image }}"
+        # If the cached image was loaded successfully, skip the pull entirely.
+        if docker image inspect "$IMAGE" >/dev/null 2>&1; then
+          echo "Image $IMAGE already present locally; skipping pull."
+          echo "pulled=false" >> "$GITHUB_OUTPUT"
+          exit 0
+        fi
+
+        # MCR (Azure Front Door) intermittently returns "The request is blocked"
+        # for GitHub Actions runners. Retry a few times before giving up.
+        attempt=1
+        max_attempts=5
+        until docker pull "$IMAGE"; do
+          if [ "$attempt" -ge "$max_attempts" ]; then
+            echo "Failed to pull $IMAGE after $attempt attempts" >&2
+            exit 1
+          fi
+          sleep_seconds=$((attempt * 10))
+          echo "docker pull failed (attempt $attempt/$max_attempts); retrying in ${sleep_seconds}s..." >&2
+          sleep "$sleep_seconds"
+          attempt=$((attempt + 1))
+        done
+        echo "pulled=true" >> "$GITHUB_OUTPUT"
+
+    - name: Save Playwright image to cache
+      if: steps.pull-image.outputs.pulled == 'true'
+      shell: bash
+      run: |
+        IMAGE="${{ steps.image-cache-key.outputs.image }}"
+        CACHE_FILE="${{ steps.image-cache-key.outputs.cache-file }}"
+        echo "Saving $IMAGE to $CACHE_FILE"
+        docker save "$IMAGE" -o "$CACHE_FILE"
+
+    - name: Persist Playwright image cache
+      if: steps.pull-image.outputs.pulled == 'true'
+      uses: actions/cache/save@v5
+      with:
+        path: ${{ steps.image-cache-key.outputs.cache-dir }}
+        key: ${{ steps.image-cache-key.outputs.cache-key }}
+
+    - name: Start Playwright server
+      shell: bash
+      run: |
+        docker rm -f "${{ inputs.container-name }}" >/dev/null 2>&1 || true
+
+        docker run -d \
+          --name "${{ inputs.container-name }}" \
+          --ipc=host \
+          -p "127.0.0.1:${{ inputs.port }}:${{ inputs.port }}" \
+          --rm \
+          --init \
+          --workdir /home/pwuser \
+          --user pwuser \
+          "mcr.microsoft.com/playwright:v${{ steps.resolve-version.outputs.version }}-noble" \
+          /bin/sh -c "npx -y playwright@${{ steps.resolve-version.outputs.version }} run-server --port ${{ inputs.port }} --host 0.0.0.0"
+
+    - name: Wait for Playwright server
+      shell: bash
+      run: |
+        uv run --no-project python3 - <<'PY'
+        from playwright.sync_api import Error, sync_playwright
+        import socket
+        import time
+
+        host = "127.0.0.1"
+        port = int("${{ inputs.port }}")
+        browser_name = "${{ inputs.browser }}"
+        ws_endpoint = f"ws://{host}:{port}/"
+        deadline = time.time() + 60
+        last_error = None
+
+        while time.time() < deadline:
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+                sock.settimeout(1)
+                try:
+                    sock.connect((host, port))
+                except OSError:
+                    time.sleep(1)
+                    continue
+            try:
+                with sync_playwright() as playwright:
+                    browser_type = getattr(playwright, browser_name)
+                    browser = browser_type.connect(
+                        ws_endpoint,
+                        expose_network="*",
+                        timeout=10000,
+                    )
+                    browser.close()
+                    break
+            except Error as err:
+                last_error = err
+                time.sleep(1)
+        else:
+            raise SystemExit(
+                f"Timed out waiting for Playwright {browser_name} server "
+                f"on {ws_endpoint}: {last_error}"
+            )
+        PY
+
+    - name: Show Playwright server logs on failure
+      if: failure()
+      shell: bash
+      run: |
+        docker logs "${{ inputs.container-name }}" || true
+
+    - name: Export Playwright connection env vars
+      id: set-env
+      shell: bash
+      run: |
+        WS_ENDPOINT="ws://127.0.0.1:${{ inputs.port }}/"
+        echo "PW_TEST_CONNECT_WS_ENDPOINT=$WS_ENDPOINT" >> "$GITHUB_ENV"
+        echo 'PW_TEST_CONNECT_EXPOSE_NETWORK=*' >> "$GITHUB_ENV"
+        echo "ws-endpoint=$WS_ENDPOINT" >> "$GITHUB_OUTPUT"

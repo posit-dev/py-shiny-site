@@ -13,10 +13,16 @@ make serve      # live preview at http://localhost:1414
 worktree. It also seeds heavy gitignored artifacts (`_build/`, render caches)
 from a sibling checkout when one exists — on a machine that already has a
 built copy of the site, a new worktree is ready in seconds. Prerequisites it
-doesn't install for you: [Homebrew](https://brew.sh) (used to install
-[qvm](https://github.com/dpastoor/qvm), which pins the Quarto version) and
-`git`. Everything else (uv, the Python venv, Quarto itself) is installed by
-`make` on demand.
+doesn't install for you:
+
+- [**uv**](https://docs.astral.sh/uv/getting-started/installation/) — the
+  Python package/venv manager. `make` runs every Python tool through it; if uv
+  isn't on your `PATH`, `make` stops immediately with the install link above.
+- [**Homebrew**](https://brew.sh) — used to install
+  [qvm](https://github.com/dpastoor/qvm), which pins the Quarto version.
+- `git`.
+
+The Python venv and Quarto itself are still installed by `make` on demand.
 
 Running `make` by itself lists all targets.
 
@@ -46,14 +52,29 @@ Running `make` by itself lists all targets.
 
 ## Working in the virtualenv
 
-`make` runs everything inside a uv-managed virtualenv at `.venv/`. To run
-commands in it yourself:
+`make` runs everything through `uv` inside a uv-managed virtualenv at `.venv/`.
+To run commands in it yourself, prefix them with `uv run` — it auto-discovers
+`.venv`, so there's nothing to activate:
 
 ```bash
-source .venv/bin/activate
-# ... python, quartodoc, shinylive, etc.
-deactivate
+uv run python -c "import shiny; print(shiny.__version__)"
+uv run pytest components/layout/accordion/test_accordion.py
 ```
+
+## Testing example apps
+
+Every example app under `components/` is exercised by Playwright tests
+(reusing py-shiny's public testing API — no custom runner):
+
+```bash
+make test          # smoke sweep (every app-*.py) + per-component interaction tests
+make test-smoke    # just the smoke sweep
+make test-apps     # just the per-component interaction/unit tests
+```
+
+`pytest.ini` defaults to the chromium browser and xdist (`-n auto`); narrow a
+run with `PYTEST_ARGS`, e.g. `make test-smoke PYTEST_ARGS='-k "layout/accordion"'`.
+See the `testing-example-apps` skill for how to add tests for a component.
 
 ## Pulling changes
 
@@ -93,6 +114,17 @@ re-port or retire it).
 - Commits to `main` deploy to production the same way.
 - Escape hatch: run the workflow manually (`workflow_dispatch`) with
   `full_render = true` to build in a single unsharded job.
+- A separate **`test-shinylive-links`** workflow runs on every PR: it
+  regenerates the component Shinylive links and fails if the committed links
+  are out of date. So after editing any `app-*.py`, run
+  `make components-shinylive-links` (optionally scoped with `FILES="..."`) and
+  commit the updated `index.qmd`.
+- **`test-smoke`** (sharded, 6 jobs) and **`test-apps`** run the example-app
+  Playwright tests on every PR (`make test-smoke` / `make test-apps`). They use
+  a cached Docker Playwright browser, so no per-job browser download.
+- Shared workflow setup lives in local composite actions under
+  `.github/internal/` (`setup-uv`, `setup-py-shiny-site`,
+  `setup-playwright-remote`).
 
 ## Site quality checks
 

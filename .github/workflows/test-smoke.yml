@@ -1,0 +1,45 @@
+name: test-smoke
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: test-smoke-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      # One failing shard should not cancel the others -- we want the full
+      # picture of which example apps are broken.
+      fail-fast: false
+      matrix:
+        # NOTE: keep this list and `--num-shards` below in sync. N shards ->
+        # indices 0..N-1. ~308 example apps / 6 shards ~= 50 apps per job.
+        shard: [0, 1, 2, 3, 4, 5]
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up py-shiny-site
+        uses: ./.github/internal/setup-py-shiny-site
+
+      # Installs requirements.txt + py-shiny's [dev,test,doc] extras (pytest,
+      # pytest-playwright, pytest-xdist, pytest-shard, playwright).
+      - name: Install dependencies
+        run: make deps
+
+      # Run the browser in a cached Docker container instead of installing it on
+      # the runner; pytest-playwright connects over PW_TEST_CONNECT_WS_ENDPOINT.
+      - name: Set up remote Playwright
+        uses: ./.github/internal/setup-playwright-remote
+
+      # Smoke-test this shard's slice of every components/**/app*.py via the
+      # Makefile target (chromium + xdist come from pytest.ini; install-playwright
+      # no-ops because the remote server env is set above).
+      - name: Smoke-test shard ${{ matrix.shard }} of 6
+        run: make test-smoke PYTEST_ARGS="--num-shards 6 --shard-id ${{ matrix.shard }}"
