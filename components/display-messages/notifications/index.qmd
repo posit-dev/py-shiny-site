@@ -24,11 +24,11 @@ listing:
     dir: components/display-messages/notifications/
   contents:
   - title: ui.notification_show
-    href: https://shiny.posit.co/py/api/ui.notification_show.html
+    href: https://shiny.posit.co/py/api/core/ui.notification_show.html#shiny.ui.notification_show
     signature: ui.notification_show(ui, *, action=None, duration=5, close_button=True,
       id=None, type='default', session=None)
   - title: ui.notification_remove
-    href: https://shiny.posit.co/py/api/ui.notification_remove.html
+    href: https://shiny.posit.co/py/api/core/ui.notification_remove.html#shiny.ui.notification_remove
     signature: ui.notification_remove(id, *, session=None)
 - id: variations
   template: ../../_partials/components-variations.ejs
@@ -36,11 +36,8 @@ listing:
     dir: components/display-messages/notifications/
   contents:
   - title: Replace/update a notification
-    description: 'Assign a notification an `id` to replace any existing notification
-      with the same `id`. In the example below, a persistant notification is created
-      with `duration=None` and updated each time you click the notification button.
-
-      '
+    description: |
+      Assign a notification an `id` to replace any existing notification with the same `id`. In the example below, a persistant notification is created with `duration=None` and updated each time you click the notification button.
     apps:
     - title: Preview
       file: app-variation-replace-update-a-notification-core.py

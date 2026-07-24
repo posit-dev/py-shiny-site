@@ -23,9 +23,9 @@ listing:
   template: ../../_partials/components-detail-relevant-functions.ejs
   contents:
   - title: ui.input_selectize
-    href: https://shiny.posit.co/py/api/ui.input_selectize.html
+    href: https://shiny.posit.co/py/api/core/ui.input_selectize.html#shiny.ui.input_selectize
     signature: ui.input_selectize(id, label, choices, *, selected=None, multiple=False,
-      width=None)
+      width=None, remove_button=None, options=None)
 - id: variations
   template: ../../_partials/components-variations.ejs
   template-params:

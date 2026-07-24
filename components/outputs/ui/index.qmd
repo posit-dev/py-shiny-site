@@ -23,30 +23,25 @@ listing:
     dir: components/outputs/ui/
   contents:
   - title: ui.output_ui
-    href: https://shiny.posit.co/py/api/ui.output_ui.html
+    href: https://shiny.posit.co/py/api/core/ui.output_ui.html#shiny.ui.output_ui
     signature: ui.output_ui(id, inline=False, container=None, fill=False, fillable=False,
       **kwargs)
   - title: '@render.ui'
-    href: https://shiny.posit.co/py/api/render.ui.html
+    href: https://shiny.posit.co/py/api/core/render.ui.html#shiny.render.ui
     signature: render.ui(_fn=None)
   - title: '@render.express'
-    href: https://shiny.posit.co/py/api/express/express.render.express.html
-    signature: express.render.express(self, _fn=None, *, inline=False, container=None,
-      fill=False, fillable=False, **kwargs)
+    href: https://shiny.posit.co/py/api/core/render.express.html#shiny.render.express
+    signature: render.express(_fn=None, *, inline=False, container=None, fill=False,
+      fillable=False, **kwargs)
 - id: variations
   template: ../../_partials/components-variations.ejs
   template-params:
     dir: components/outputs/ui/
   contents:
   - title: Create dependent controls
-    description: 'You can use `@render.ui` or `@render.express` and `ui.output_ui()`
-      to create a set of controls that are dependent on a setting in your app. In
-      this example, we show a different set of options when the app is in "plot" or
-      "table" mode.
-
-      Note that we use the current input values or a default value when creating the
-      dependent controls. Without this, the values are re-initialized every time and
-      forget previous user input.'
+    description: |-
+      You can use `@render.ui` or `@render.express` and `ui.output_ui()` to create a set of controls that are dependent on a setting in your app. In this example, we show a different set of options when the app is in "plot" or "table" mode.
+      Note that we use the current input values or a default value when creating the dependent controls. Without this, the values are re-initialized every time and forget previous user input.
     apps:
     - title: Preview
       file: app-variation-update-an-input-core.py

@@ -23,7 +23,7 @@ listing:
   template: ../../_partials/components-detail-relevant-functions.ejs
   contents:
   - title: ui.input_date_range
-    href: https://shiny.posit.co/py/api/ui.input_date_range.html
+    href: https://shiny.posit.co/py/api/core/ui.input_date_range.html#shiny.ui.input_date_range
     signature: ui.input_date_range(id, label, *, start=None, end=None, min=None, max=None,
       format='yyyy-mm-dd', startview='month', weekstart=0, language='en', separator='
       to ', width=None, autoclose=True)

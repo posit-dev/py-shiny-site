@@ -23,7 +23,7 @@ listing:
   template: ../../_partials/components-detail-relevant-functions.ejs
   contents:
   - title: ui.input_checkbox()
-    href: https://shiny.posit.co/py/api/ui.input_checkbox.html
+    href: https://shiny.posit.co/py/api/core/ui.input_checkbox.html#shiny.ui.input_checkbox
     signature: ui.input_checkbox(id, label, value=False, *, width=None)
 - id: kitchen-sink
   template: ../../_partials/components-detail-kitchen-sink.ejs

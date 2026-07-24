@@ -24,14 +24,14 @@ listing:
     dir: components/outputs/value-box/
   contents:
   - title: ui.value_box
-    href: https://shiny.posit.co/py/api/ui.value_box.html
+    href: https://shiny.posit.co/py/api/core/ui.value_box.html#shiny.ui.value_box
     signature: ui.value_box(title, value, *args, showcase=None, showcase_layout='left
-      center', full_screen=False, theme=None, height=None, max_height=None, fill=True,
-      class_=None, **kwargs)
+      center', full_screen=False, theme=None, height=None, max_height=None, min_height=None,
+      fill=True, class_=None, id=None, **kwargs)
   - title: ui.card
-    href: https://shiny.posit.co/py/api/ui.card.html#shiny.ui.card
+    href: https://shiny.posit.co/py/api/core/ui.card.html#shiny.ui.card
     signature: ui.card(*args, full_screen=False, height=None, max_height=None, min_height=None,
-      fill=True, class_=None, **kwargs)
+      fill=True, class_=None, id=None, **kwargs)
 - id: variations
   template: ../../_partials/components-variations.ejs
   template-params:

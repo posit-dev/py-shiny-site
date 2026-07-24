@@ -24,11 +24,11 @@ listing:
     dir: components/outputs/plot-matplotlib/
   contents:
   - title: ui.output_plot
-    href: https://shiny.posit.co/py/api/ui.output_plot.html
+    href: https://shiny.posit.co/py/api/core/ui.output_plot.html#shiny.ui.output_plot
     signature: ui.output_plot(id, width='100%', height='400px', *, inline=False, click=False,
       dblclick=False, hover=False, brush=False, fill=MISSING)
   - title: '@render.plot'
-    href: https://shiny.posit.co/py/api/render.plot.html
+    href: https://shiny.posit.co/py/api/core/render.plot.html#shiny.render.plot
     signature: render.plot(_fn=None, *, alt=None, width=MISSING, height=MISSING, **kwargs)
 - id: variations
   template: ../../_partials/components-variations.ejs

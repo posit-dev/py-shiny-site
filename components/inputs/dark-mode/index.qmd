@@ -23,7 +23,7 @@ listing:
   template: ../../_partials/components-detail-relevant-functions.ejs
   contents:
   - title: ui.input_dark_mode
-    href: https://shiny.posit.co/py/api/ui.input_dark_mode.html
+    href: https://shiny.posit.co/py/api/core/ui.input_dark_mode.html#shiny.ui.input_dark_mode
     signature: ui.input_dark_mode(id=None, mode=None, **kwargs)
 - id: variations
   template: ../../_partials/components-variations.ejs
@@ -31,18 +31,13 @@ listing:
     dir: components/inputs/dark-mode/
   contents:
   - title: Dark mode switch in a navbar
-    description: 'To add a dark mode switch to a navbar, use `ui.page_navbar()` to
-      create a page with a navbar, and `ui.nav_spacer()` to push the dark mode switch
-      to the right. Place the `ui.input_dark_mode()` element within a `ui.nav_control()`
-      element, to add the control to the navbar without creating a corresponding panel.
-
-      '
+    description: |
+      To add a dark mode switch to a navbar, use `ui.page_navbar()` to create a page with a navbar, and `ui.nav_spacer()` to push the dark mode switch to the right. Place the `ui.input_dark_mode()` element within a `ui.nav_control()` element, to add the control to the navbar without creating a corresponding panel.
     apps:
     - title: Preview
       file: app-variation-dark-mode-navbar-core.py
-      attrs: '.scale-iframe style="--scale-factor: 0.8;"
-
-        '
+      attrs: |
+        .scale-iframe style="--scale-factor: 0.8;"
     - title: Express
       file: app-variation-dark-mode-navbar-express.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IyhTigBzOAH1S6CqwAUFThQA2cALyKwAESgMA1shikAJnDYB3U8XbiIZGgANwAjBxsiOk4zMyhQi0sAFQY5OCJON2swdE04GwBKZVVOLBDtVlziOAZDAuRkAGJkAB4W5R8KfzVyskomMzqUJtb2wIb5Uu50OQptNwdHbVcPOobmtuVCVApcdAQUMCp+CjAAXwBdIA

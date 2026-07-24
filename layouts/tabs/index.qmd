@@ -1,38 +1,35 @@
 ---
-title: "Tabs"
-description: >
+title: Tabs
+description: |
   Tabs and navigation allow you to create Shiny apps with multiple pages.
-
 listing:
 - id: relevant-functions
   template: ../../components/_partials/components-detail-relevant-functions.ejs
   contents:
   - title: ui.accordion
-    href: https://shiny.posit.co/py/api/ui.accordion.html#shiny.ui.accordion
-    signature: ui.accordion(*args, id=None, open=None, multiple=True, class_=None, width=None, height=None, **kwargs)
-
+    href: https://shiny.posit.co/py/api/core/ui.accordion.html#shiny.ui.accordion
+    signature: ui.accordion(*args, id=None, open=None, multiple=True, class_=None,
+      width=None, height=None, **kwargs)
   - title: ui.accordion_panel
-    href: https://shiny.posit.co/py/api/ui.accordion_panel.html
+    href: https://shiny.posit.co/py/api/core/ui.accordion_panel.html#shiny.ui.accordion_panel
     signature: ui.accordion_panel(title, *args, value=MISSING, icon=None, **kwargs)
-
   - title: ui.navset_card_tab
-    href: https://shiny.posit.co/py/api/ui.navset_card_tab.html
-    signature: ui.navset_card_tab(*args, id=None, selected=None, title=None, sidebar=None, header=None, footer=None)
-
+    href: https://shiny.posit.co/py/api/core/ui.navset_card_tab.html#shiny.ui.navset_card_tab
+    signature: ui.navset_card_tab(*args, id=None, selected=None, title=None, sidebar=None,
+      full_screen=False, header=None, footer=None)
   - title: ui.navset_card_pill
-    href: https://shiny.posit.co/py/api/ui.navset_card_pill.html
-    signature: ui.navset_card_pill(*args, id=None, selected=None, title=None, sidebar=None, header=None, footer=None, placement='above')
-
+    href: https://shiny.posit.co/py/api/core/ui.navset_card_pill.html#shiny.ui.navset_card_pill
+    signature: ui.navset_card_pill(*args, id=None, selected=None, title=None, sidebar=None,
+      full_screen=False, header=None, footer=None, placement='above')
   - title: ui.navset_pill
-    href: https://shiny.posit.co/py/api/ui.navset_pill.html
+    href: https://shiny.posit.co/py/api/core/ui.navset_pill.html#shiny.ui.navset_pill
     signature: ui.navset_pill(*args, id=None, selected=None, header=None, footer=None)
-
   - title: ui.navset_pill_list
-    href: https://shiny.posit.co/py/api/ui.navset_pill_list.html
-    signature: ui.navset_pill_list(*args, id=None, selected=None, header=None, footer=None, well=True, widths=(4, 8))
-
+    href: https://shiny.posit.co/py/api/core/ui.navset_pill_list.html#shiny.ui.navset_pill_list
+    signature: ui.navset_pill_list(*args, id=None, selected=None, header=None, footer=None,
+      well=True, widths=(4, 8))
   - title: ui.navset_tab
-    href: https://shiny.posit.co/py/api/ui.navset_tab.html
+    href: https://shiny.posit.co/py/api/core/ui.navset_tab.html#shiny.ui.navset_tab
     signature: ui.navset_tab(*args, id=None, selected=None, header=None, footer=None)
 ---
 

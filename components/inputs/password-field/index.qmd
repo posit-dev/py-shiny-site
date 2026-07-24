@@ -23,8 +23,9 @@ listing:
   template: ../../_partials/components-detail-relevant-functions.ejs
   contents:
   - title: ui.input_password
-    href: https://shiny.posit.co/py/api/ui.input_password.html
-    signature: ui.input_password(id, label, value='', *, width=None, placeholder=None)
+    href: https://shiny.posit.co/py/api/core/ui.input_password.html#shiny.ui.input_password
+    signature: ui.input_password(id, label, value='', *, width=None, placeholder=None,
+      update_on='change')
 - id: kitchen-sink
   template: ../../_partials/components-detail-kitchen-sink.ejs
   contents:

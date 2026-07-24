@@ -23,7 +23,7 @@ listing:
   template: ../../_partials/components-detail-relevant-functions.ejs
   contents:
   - title: ui.input_switch
-    href: https://shiny.posit.co/py/api/ui.input_switch.html
+    href: https://shiny.posit.co/py/api/core/ui.input_switch.html#shiny.ui.input_switch
     signature: ui.input_switch(id, label, value=False, *, width=None)
 - id: kitchen-sink
   template: ../../_partials/components-detail-kitchen-sink.ejs
