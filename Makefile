@@ -186,10 +186,10 @@ quartodoc: $(PYBIN) deps install-quarto
 
 ## Build component static previews and update shinylive links
 .PHONY: components
-components: components-shinylive-links components-relevant-functions components-static
+components: components-shinylive-links components-relevant-functions components-static-previews
 
-.PHONY: components-static
-components-static: $(PYBIN) deps
+.PHONY: components-static-previews
+components-static-previews: $(PYBIN) deps
 	rm -rf components/static
 	$(UVRUN) python components/make-static-previews.py
 

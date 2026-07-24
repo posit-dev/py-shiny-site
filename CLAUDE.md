@@ -97,7 +97,7 @@ make components-shinylive-links
 make components-shinylive-links FILES="components/inputs/action-button/app-core.py"
 
 # Generate static component previews
-make components-static
+make components-static-previews
 ```
 
 ### Virtual Environment
@@ -285,7 +285,7 @@ To update component examples:
 make components-shinylive-links
 
 # Regenerate static preview images
-make components-static
+make components-static-previews
 ```
 
 **Always regenerate the Shinylive links after editing any `app-*.py` file** and

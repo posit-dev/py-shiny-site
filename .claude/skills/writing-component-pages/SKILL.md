@@ -38,7 +38,7 @@ components/inputs/<name>/
 
 | File | Rendered as | Style |
 |------|-------------|-------|
-| `app-preview.py` | Gallery-list card (via `appPreview:` + `make components-static`) | Core, module-level `app_ui`, viewport-filling (`vh-100 d-flex justify-content-center align-items-center`) |
+| `app-preview.py` | Gallery-list card (via `appPreview:` + `make components-static-previews`) | Core, module-level `app_ui`, viewport-filling (`vh-100 d-flex justify-content-center align-items-center`) |
 | `app-detail-preview.py` | Live standalone app at top of `#example` (the "Preview" tab) | Core, module-level `app_ui`; may use `## file: app.py` multi-file marker |
 | `app-core.py` / `app-express.py` | Static code blocks in the Core/Express tabs, each with an "Open in editor" shinylive link | Idiomatic Core / Express; mark the key line with a trailing `# <<` comment |
 | `app-variation-*-{core,express}.py` | One entry in the `#variations` block | Same as core/express |
@@ -184,7 +184,7 @@ With no `FILES`, it rewrites every component page (what CI does).
 
 ## Static preview cards
 
-`make components-static` (script: `components/make-static-previews.py`) walks every
+`make components-static-previews` (script: `components/make-static-previews.py`) walks every
 `index.qmd`, and for each with `appPreview.static: true` renders `appPreview.file` to
 `components/static/.../*.html`. This is why `app-preview.py` must expose a module-level
 `app_ui` and should be laid out to look good centered in a small card.
@@ -202,7 +202,7 @@ The four sections are `inputs`, `outputs`, `display-messages`, `layout`.
 ## Build & verify
 
 ```bash
-make components        # = components-shinylive-links + components-static
+make components        # = components-shinylive-links + components-relevant-functions + components-static-previews
 make serve             # live preview; open the new page
 ```
 
