@@ -16,20 +16,16 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      # Installs uv + checks out the pinned py-shiny submodule so the generated
-      # API pages (the generator's input) match the site build.
+      # Installs uv + Quarto (versions from the Makefile) + checks out the pinned
+      # py-shiny submodule so the generated API pages (the generator's input)
+      # match the site build.
       - name: Set up py-shiny-site
         uses: ./.github/internal/setup-py-shiny-site
 
-      # The generator depends on `quartodoc`, which regenerates the api/** pages
-      # it reads -- and quartodoc needs the quarto binary. `install-quarto`'s CI
-      # branch just checks quarto is on PATH, so install it here (version pinned
-      # in the Makefile, same as site.yml).
-      - uses: ./.github/internal/setup-quarto
-
       # Regenerate href/signature in the component/layout index.qmd files. The
-      # target depends on quartodoc, so the API pages are generated first.
-      # QUARTO_PATH=quarto points the Makefile at the quarto installed above.
+      # target depends on quartodoc (which regenerates the api/** pages and needs
+      # the quarto binary set up above). QUARTO_PATH=quarto points the Makefile
+      # at that quarto; `install-quarto`'s CI branch just checks it is on PATH.
       - name: Regenerate relevant-functions fields
         run: make components-relevant-functions QUARTO_PATH=quarto
 
