@@ -10,6 +10,9 @@ concurrency:
   group: test-relevant-functions-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  QUARTO_VERSION: 1.9.36
+
 jobs:
   test-relevant-functions:
     runs-on: ubuntu-latest
@@ -21,10 +24,18 @@ jobs:
       - name: Set up py-shiny-site
         uses: ./.github/internal/setup-py-shiny-site
 
+      # The generator depends on `quartodoc`, which regenerates the api/** pages
+      # it reads -- and quartodoc needs the quarto binary. `install-quarto`'s CI
+      # branch just checks quarto is on PATH, so install it here (as site.yml does).
+      - uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: ${{ env.QUARTO_VERSION }}
+
       # Regenerate href/signature in the component/layout index.qmd files. The
       # target depends on quartodoc, so the API pages are generated first.
+      # QUARTO_PATH=quarto points the Makefile at the quarto installed above.
       - name: Regenerate relevant-functions fields
-        run: make components-relevant-functions
+        run: make components-relevant-functions QUARTO_PATH=quarto
 
       # If regenerating changed any tracked file, the committed fields are stale.
       - name: Verify relevant-functions are up to date
