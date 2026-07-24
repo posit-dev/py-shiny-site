@@ -6,6 +6,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is the **Shiny for Python documentation website** - the official documentation, API reference, component gallery, and template showcase for the Shiny for Python framework. Built with Quarto, it combines hand-written conceptual documentation with auto-generated API reference docs extracted from the main py-shiny repository.
 
+## Commits and Pull Requests
+
+Use [Conventional Commits](https://www.conventionalcommits.org/) for **both commit messages and PR titles**. Format: `<type>: <description>` (or `<type>(<scope>): <description>`).
+
+Common types in this repo: `feat`, `fix`, `docs`, `ci`, `test`, `refactor`, `chore`, `build`. Examples:
+
+- `docs: add Accordion layout component page`
+- `ci: verify shinylive links are up to date`
+- `fix: point install-quarto at renamed site.yml workflow`
+
 ## Development Commands
 
 ### Initial Setup
