@@ -185,6 +185,7 @@ website:
             - components/display-messages/tooltips/index.qmd
         - section: "![](/images/cards-blue.svg){.sidebar-icon .sidebar-subtitle}__Layout__"
           contents:
+            - components/layout/accordion/index.qmd
             - components/layout/cards/index.qmd
             - components/layout/toolbar/index.qmd
 
@@ -247,6 +248,7 @@ website:
         - get-started/index.qmd
         - get-started/what-is-shiny.qmd
         - get-started/install.qmd
+        - get-started/agent-skills.qmd
         - get-started/create-run.qmd
         - get-started/debug.qmd
         - section: "Deploy"

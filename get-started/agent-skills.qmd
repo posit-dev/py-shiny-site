@@ -1,0 +1,68 @@
+---
+title: Agent Skills
+
+editor:
+  markdown:
+    wrap: sentence
+---
+
+If you use a coding agent such as [Claude Code](https://www.claude.com/product/claude-code) or [Cursor](https://cursor.com/) to help you build Shiny apps, you can teach it how to use Shiny for Python's public APIs by installing the [Agent Skill](https://agentskills.io) that ships with the `shiny` package.
+
+## What is the bundled skill?
+
+An [Agent Skill](https://agentskills.io) is a set of reference docs, written for coding agents, that teaches them how to work with a particular library.
+The `shiny` package ships a single skill, `shiny-for-python`, that teaches agents how to build, style, test, and debug Shiny for Python apps using shiny's public APIs.
+
+The skill lives inside the installed package (under `shiny/.agents/skills/`) and follows the [Agent Skills](https://agentskills.io) specification and the [library-skills](https://library-skills.io) convention of shipping skills with the library they document.
+Its `SKILL.md` is a routing index: the agent reads it first, then follows links into per-topic reference files as needed.
+Because the skill ships with the package, it always matches the version of `shiny` you have installed, and there is nothing extra to download.
+
+## Install the skill into your project
+
+Once `shiny` is a dependency of your project, use [`library-skills`](https://library-skills.io) to make the bundled skill available to your agent.
+Run these commands from your own project directory (where `shiny` is installed) — `library-skills` finds the skill in your installed `shiny` package, so this is not tied to the py-shiny source repository.
+
+::: {.panel-tabset .panel-pills}
+
+#### Claude Code
+
+Install the skill into your project's `.claude/skills` directory:
+
+```bash
+uvx library-skills --claude
+```
+
+#### Other agents
+
+Install the skill into the standard `.agents/skills` location that most agents read:
+
+```bash
+uvx library-skills
+```
+
+On Windows, add the `--copy` flag:
+
+```bash
+uvx library-skills --copy
+```
+
+:::
+
+By default, `library-skills` symlinks the packaged skill into your project rather than copying it.
+This means the skill stays in sync automatically when you upgrade `shiny` — there is no separate step to re-install it after an upgrade.
+
+::: {.callout-tip}
+See `uvx library-skills --help` for the full list of options.
+:::
+
+## Inspect the skill without installing it
+
+The `shiny` command line interface can show you the bundled skill directly, which is handy if you want to read it before installing or point another tool at it.
+
+List the bundled skills with their names and descriptions:
+
+```bash
+shiny skills list
+```
+
+See `shiny skills --help` for more details.

@@ -6,6 +6,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is the **Shiny for Python documentation website** - the official documentation, API reference, component gallery, and template showcase for the Shiny for Python framework. Built with Quarto, it combines hand-written conceptual documentation with auto-generated API reference docs extracted from the main py-shiny repository.
 
+## Commits and Pull Requests
+
+Use [Conventional Commits](https://www.conventionalcommits.org/) for **both commit messages and PR titles**. Format: `<type>: <description>` (or `<type>(<scope>): <description>`).
+
+Common types in this repo: `feat`, `fix`, `docs`, `ci`, `test`, `refactor`, `chore`, `build`. Examples:
+
+- `docs: add Accordion layout component page`
+- `ci: verify shinylive links are up to date`
+- `fix: point install-quarto at renamed site.yml workflow`
+
 ## Development Commands
 
 ### Initial Setup
@@ -80,8 +90,11 @@ make deps
 # Generate API docs (outputs to api/)
 make quartodoc
 
-# Update component Shinylive links
+# Update component Shinylive links (all pages)
 make components-shinylive-links
+# ...or just the pages you touched (dirs, index.qmd, or any file inside a
+# component dir such as an edited app-*.py — resolved to the owning index.qmd)
+make components-shinylive-links FILES="components/inputs/action-button/app-core.py"
 
 # Generate static component previews
 make components-static
@@ -89,12 +102,16 @@ make components-static
 
 ### Virtual Environment
 
-The Makefile automatically creates a venv using `uv`. To run commands manually in the same environment:
+`uv` is a required prerequisite: the Makefile runs every Python tool through
+`uv run` (via the `$(UVRUN)` variable) and creates the venv at `.venv/` with
+`uv`. If `uv` is not installed, `make` stops with a link to
+https://docs.astral.sh/uv/getting-started/installation/ (it no longer
+auto-installs uv). To run commands manually in the same environment, prefix
+with `uv run` — it auto-discovers `.venv`, so there's nothing to activate:
 
 ```bash
-source .venv/bin/activate  # Activate venv
-# ... run commands ...
-deactivate                  # Exit venv
+uv run python -c "import shiny; print(shiny.__version__)"
+uv run pytest components/layout/accordion/test_accordion.py
 ```
 
 ### Cleaning
@@ -246,6 +263,10 @@ All code examples use Shinylive to run Python in the browser via WebAssembly. Th
 - **Platform:** Hosted on Netlify
 - **Output directory:** `_build/` (configured in _quarto.yml)
 
+### Other CI checks
+
+- **`test-shinylive-links`** (`.github/workflows/test-shinylive-links.yml`) — on every PR, regenerates the component Shinylive links (`make components-shinylive-links`) and **fails if the committed links differ**. This catches an edited `app-*.py` whose `shinylive:` link in `index.qmd` wasn't regenerated. It installs the py-shiny submodule + full `deps` so the shinylive version matches the site build, and reads `PYTHON_VERSION` from the Makefile. Fix a failure by running `make components-shinylive-links` and committing the updated `index.qmd` files.
+
 ## Working with Components
 
 Component pages follow a consistent structure:
@@ -258,12 +279,17 @@ Component pages follow a consistent structure:
 To update component examples:
 
 ```bash
-# Regenerate Shinylive links
+# Regenerate Shinylive links (add FILES="..." to limit to specific pages)
 make components-shinylive-links
 
 # Regenerate static preview images
 make components-static
 ```
+
+**Always regenerate the Shinylive links after editing any `app-*.py` file** and
+commit the updated `index.qmd`. The `shinylive:` values encode the app source, so
+a stale link ships the wrong code — and the `test-shinylive-links` CI workflow
+fails the PR when committed links are out of date.
 
 ## Working with API Documentation
 
