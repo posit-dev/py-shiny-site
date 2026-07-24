@@ -42,7 +42,7 @@ listing:
       file: app-variation-placeholder-rectangle-when-string-is-empty-core.py
     - title: Express
       file: app-variation-placeholder-rectangle-when-string-is-empty-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhXER0AVwpFhEACZwGRBZwA6EfTqzdFFAPpV+FABS6wAFQEU7ROwFFKm5I6svkduwBKfRCIAAFVDQYsMg1rdAAbKGI4dlIEqIBeewYFOEDkZABiZAAeUv0NOmRLG0DEfULC4QoFBgg5UywfOv1CVApcdAQUMFqwAF8AXSA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAV07IorZGQZwA+uIA6ERszZceWOAA90c1tP6DhfCOlEUiciABM4DIsogrxWbhYryqOigAolMAAVXQpAokCAUUoHZBDfcORAwIBKFVkFN1JLT29Q+QA3BwAjKAp+ALAfMMJkdAAbKGI4dlJ6+wYAXiCGUTgU5GQAYmQAHlGVFQB3Tgp2MU4sVva-FJRhsYmXCEHBgAEbDqxqwZHxlV3kezpkatXEC8vduQpRBh2PSyx4-zSIWqquHQCBQVVCYAAvgBdIA
     - title: Core
       file: app-variation-placeholder-rectangle-when-string-is-empty-core.py
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKmqgA8KdsABU4H2VCZBCAUUo5ZEDg0JCQgEoCe0dDUnc3D28PADc5ACMoCn4-HJCidAsoYjh2UgtZBl1-BgU4ZIcAYmQAHl7VRNVhiFk6Njl8hhtXdyIMiiyiVjhWVk5yRMRUhwABKVG5LBzuvoGIR2Qx5BybLZ3L5CkKBQYL2YosWN8htT+NPRiTA2DTaTjLSZyX6hMAUXDoBAoWFBChgAC+AF0gA
