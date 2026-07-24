@@ -15,7 +15,15 @@ from __future__ import annotations
 import os
 import re
 
+from _qmd import get_qmd_split, write_qmd
+
 API_BASE_URL = "https://shiny.posit.co/py/api/core"
+
+# Anchor default paths to the repo root (parent of this file's ``components/``
+# dir) so discovery and API-page lookup work regardless of the current working
+# directory -- pytest run from the repo root, the CLI, or ``cd components``.
+_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DEFAULT_API_DIR = os.path.join(_REPO_ROOT, "api", "core")
 
 
 class TitleResolutionError(Exception):
@@ -41,7 +49,17 @@ _CHAT_INSTANCE = {
     "chat.ui()",
 }
 
-SKIP_TITLES: set[str] = _EXTERNAL | _CHAT_INSTANCE
+# Transitional: these resolve once the py-shiny submodule bump lands (see
+# posit-dev/py-shiny-site#404). Until then the pinned submodule has no API page
+# for them, so leave their hand-authored fields untouched instead of erroring.
+# Remove from this set once #404 is merged (card_body gains an api/ page;
+# panel_well's dead link is dropped).
+_PENDING_SUBMODULE_BUMP = {
+    "ui.card_body",
+    "ui.panel_well",
+}
+
+SKIP_TITLES: set[str] = _EXTERNAL | _CHAT_INSTANCE | _PENDING_SUBMODULE_BUMP
 
 
 def normalize_title(title: str) -> str:
@@ -88,7 +106,7 @@ def _href(file_stem: str, anchor: str) -> str:
 
 
 def resolve_title(
-    title: str, api_dir: str | os.PathLike = "api/core"
+    title: str, api_dir: str | os.PathLike = DEFAULT_API_DIR
 ) -> tuple[str, str]:
     """Return ``(href, signature)`` for ``title``; raise if unresolvable."""
     name = normalize_title(title)
@@ -120,15 +138,11 @@ def _read(path: str) -> str:
         return f.read()
 
 
-from _qmd import get_qmd_split, write_qmd
-
-_COMPONENT_DIRS = (
-    "components/inputs",
-    "components/outputs",
-    "components/display-messages",
-    "components/layout",
+_COMPONENT_DIRS = tuple(
+    os.path.join(_REPO_ROOT, "components", d)
+    for d in ("inputs", "outputs", "display-messages", "layout")
 )
-_LAYOUT_DIRS = ("layouts",)
+_LAYOUT_DIRS = (os.path.join(_REPO_ROOT, "layouts"),)
 
 
 def find_index_qmds() -> list[str]:
@@ -165,7 +179,7 @@ def resolve_index_qmds(paths: list[str]) -> list[str]:
     return out
 
 
-def rewrite_relevant_functions(qmd: str, api_dir: str | os.PathLike = "api/core") -> bool:
+def rewrite_relevant_functions(qmd: str, api_dir: str | os.PathLike = DEFAULT_API_DIR) -> bool:
     """Rewrite href/signature for every relevant-functions entry in ``qmd``."""
     meta, body = get_qmd_split(qmd)
     listing = meta.get("listing")

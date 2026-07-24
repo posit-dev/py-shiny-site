@@ -205,3 +205,13 @@ def test_flatten_preserves_single_element_tuple_default():
 def test_flatten_single_element_tuple_default_last_arg():
     block = "ui.foo(\n    y=2,\n    x=(1,),\n)"
     assert flatten_python_block(block) == "ui.foo(y=2, x=(1,))"
+
+
+def test_find_index_qmds_is_cwd_independent(monkeypatch, tmp_path):
+    """Discovery is anchored to the repo root, not the CWD (regression)."""
+    from _relevant_functions import find_index_qmds
+
+    monkeypatch.chdir(tmp_path)  # anywhere other than the repo root
+    qmds = find_index_qmds()
+    assert len(qmds) > 40, f"expected >40 index.qmd files, found {len(qmds)}"
+    assert all(q.endswith("index.qmd") for q in qmds)
