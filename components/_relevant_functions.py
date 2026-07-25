@@ -62,7 +62,16 @@ _PENDING_SUBMODULE_BUMP = {
     "ui.panel_well",
 }
 
-SKIP_TITLES: set[str] = _EXTERNAL | _CHAT_INSTANCE | _PENDING_SUBMODULE_BUMP
+# Public ``shiny.ui`` exports with no page in the generated API reference (not
+# listed in py-shiny's quartodoc config), documented on a component page with
+# hand-authored fields.
+_NO_API_PAGE = {
+    "ui.bind_task_button",
+}
+
+SKIP_TITLES: set[str] = (
+    _EXTERNAL | _CHAT_INSTANCE | _PENDING_SUBMODULE_BUMP | _NO_API_PAGE
+)
 
 
 def normalize_title(title: str) -> str:

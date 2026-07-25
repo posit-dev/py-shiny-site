@@ -77,7 +77,6 @@ _MUTATORS = {
     "update_code_editor",       # base: input_code_editor
     "update_popover",           # base: popover
     "update_submit_textarea",   # base: input_submit_textarea
-    "update_task_button",       # base: input_task_button
 }
 
 # Deprecated / superseded functions that intentionally have no doc page.
@@ -103,9 +102,9 @@ _MISC = {"busy_indicators", "fill", "hold"}
 # TODO: genuine components that should get their own component page. Move each
 # to a real page (and drop it from here) as pages are written.
 _TODO_NEEDS_COMPONENT_PAGE = {
-    "bind_task_button", "chat_ui", "download_button", "download_link",
-    "input_bookmark_button", "input_code_editor", "input_submit_textarea",
-    "input_task_button", "output_code", "output_markdown_stream", "output_table",
+    "chat_ui", "download_button", "download_link",
+    "input_code_editor", "input_submit_textarea",
+    "output_code", "output_markdown_stream", "output_table",
     "popover", "toast", "toast_header", "show_toast", "hide_toast",
 }
 

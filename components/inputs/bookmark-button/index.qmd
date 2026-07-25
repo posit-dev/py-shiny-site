@@ -1,0 +1,79 @@
+---
+title: Bookmark Button
+sidebar: components
+appPreview:
+  file: components/inputs/bookmark-button/app-preview.py
+  static: true
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/bookmark-button/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 250
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQZ0AfVLoKrIqxGtO5IgFdOAHQhH5SlawAUAI1KkA1jCgM7C1hWlwAvAbC6GAGx8ASiMjfSxudF0KBQYoABNtBSto9whLH384CioGHyIfAGF2Ww05ZCycuDzCZGISzmIRT2AfAEF85B8AIU6inwBdEIhwyOjk2wcnFxSc8gsg5GQAYmQAHjXQ4whVgFV0eKgqZAp2OGQrJgB3DQYAcjFdgCUAGXEIZHR-KCb3tzgEshSHQ2CUrtwAOblGCkQ7+LBGAACGlE2ggWBs9kcziw5AmWOmcHiJlYuAgxGQ8TgIIUFj8-hQbgYQUQRiWSygVygnFkKK05Axk2xdiwugORzgCgAjrpqrhXBQGJC6QFhrUwBRcOgECgNQIKGAAL4DIA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwqgYBs4KqsGcAI4BXOO1bIAljHSkGFZACVhY9gB0ImxszYALKRFzTZ8xQEFMREVM12IAYmQAVPXGQBVAJLIYI9sgARu5QyHQiEMQUUuTIFKTI1KwignF6UIpwUMR6yP5wDMiC7PLiaXBShaQA7hCePgBuUFxqWJoAJnB0yBjoAPo2ABSCouIUKCqj7ACUiJrIC0W8KXU2OFAA5nB9dC1S7YPzi8drhugiFH0MUO0xfYEX8RCsh2A8fAXqhMhfAMJ6pFIrBCyHeVAYXyIOVIUmI4gAvMAvuZIT8wAAhVF-L4AXWmBCOxwWpwg50ugUBAGsYJxKfdHuRBviFk4ADyswnIab2DpdNgFBoFQZnC5EUgXMlEYGsVgxCCzTlODzodoZdwUNxBJjVYEMADkkg8SgAMtI6uguNl3IZ2Fl2shSN1WADqoYNj1fKRVVw2nVFgABaWy8hYCmkam0rDke5UmkMSlwdqcqCsXCRZCdbp9QYpLgodgMBV+ok9apQKSKINy0OxyMiFVqvqjBi4PoFt057jcrQ93rIeHISzoQa9AZSKUCgpEMMR+Nt+KCeFfXNfbvfMAUXDoBAoDdwAAeFDAAF8cUA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.input_bookmark_button
+    href: https://shiny.posit.co/py/api/core/ui.input_bookmark_button.html#shiny.ui.input_bookmark_button
+    signature: ui.input_bookmark_button(label='Bookmark...', *, icon=MISSING, width=None,
+      disabled=False, id=BOOKMARK_ID, title="Bookmark this application's state and
+      get a URL for sharing.", **kwargs)
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A bookmark button lets users save the current state of an app's inputs and share it as a URL. It is an [action button](../action-button/index.qmd) with a default link icon and label that, when clicked, calls `session.bookmark()` for you.
+
+Bookmarking must be enabled on the app itself before the button will do anything:
+
+  1. Enable bookmarking by passing `bookmark_store="url"` (or `"server"`) to `App()` in Core, or by calling `app_opts(bookmark_store="url")` in Express. In Core, the UI must also be a *function* that accepts a `request` argument (e.g. `def app_ui(request): ...`) so that each user's bookmarked state can be restored independently.
+
+  2. Add `ui.input_bookmark_button()` to the UI of your app. Where you call this function will determine where the button will appear within the app's layout.
+
+  3. Optionally customize the `label`, `icon`, `width`, or `title` (tooltip) parameters of `ui.input_bookmark_button()`.
+
+Clicking the button saves the current input values and, by default, shows a modal with a URL that restores them. With `bookmark_store="url"` the input values are encoded directly in the URL's query string; with `"server"` they are saved on the server and the URL contains only an identifier.
+
+To update the browser's address bar in place instead of showing a modal, register a `session.bookmark.on_bookmarked()` callback that calls `session.bookmark.update_query_string()`, as the Express and Core examples above do:
+
+```python
+@session.bookmark.on_bookmarked
+async def _(url: str):
+    await session.bookmark.update_query_string(url)
+```
+
+::: {.callout-note}
+## Bookmarking in the embedded preview
+
+The live preview above runs inside an embedded [Shinylive](https://shiny.posit.co/py/docs/shinylive.html) frame, so the bookmark URL it produces points at the frame, not at a page you can share, and reloading this documentation page will not restore the app's state. The button still works — click it to see the bookmark modal — but to experience saving and restoring state end to end, run the example in its own browser tab (e.g. open the Express or Core code in the Shinylive editor) or run the app locally.
+:::
+
+### Multiple bookmark buttons
+
+By default, Shiny listens for the bookmark button's default `id` and calls `session.bookmark()` automatically on click. If you use more than one bookmark button, or use one inside a [module](https://shiny.posit.co/py/docs/modules.html), supply a custom `id` for each button, exclude that `id` from bookmarking, and trigger the bookmark yourself:
+
+```python
+session.bookmark.exclude.append("custom_id")
+
+@reactive.effect
+@reactive.event(input.custom_id)
+async def _():
+    await session.bookmark()
+```
+
+See also: [Action Button](../action-button/index.qmd)

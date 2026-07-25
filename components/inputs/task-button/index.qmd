@@ -1,0 +1,100 @@
+---
+title: Task Button
+sidebar: components
+appPreview:
+  file: components/inputs/task-button/app-preview.py
+  static: true
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/task-button/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5ChuAHQh4DNmpGMgDOACzoRcyBk1bJmcKMQ4A3OEUUQAJnGb9Bw8ZNxY4AD3SKRImYxZtJ6AK4Uizujx4esT1wH0KKBEAa38AI1cKcgAKLjAg0Iio8niieIAlZwh2YJD4gEpkZABiZAAecq9eCAABLV1mLDJdHnqlFTp1M3VKGL8KLESwyIpoiAKeXT4FOBFnABsKGILEHmLijngsEQW4OHQYgCYi0uQAZQZFqCpkKGQF8gBzAFpmbIhJJ9zQ9Y3FCjOZg5PjxAAqeWQZEYeyo2mQIAGQzyyTGsQKAF92JwYiJJmAeIRUBRcOgECgEhYKGAMQBdIA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5ChuAHQh4DNmpGMgDOACzoRcyBk1bIAgpiLM4UYhwBucFdQAmcZkQCudHjwzoA+qeQBeZKZxQA5nCt8ANqb0AKHsiBjnRYkujGFFYUUCIA1lYARhEU5P5g0XGJyeRchMi5AErGEOwxsbkAlETIAMTIADz1AUFOpBHhkWQGaaoixp4UlQQ8Fea8EAZ8oobazL5hEURtFB1EInAiInTkFYjNgQACqhOGWF3cJUFHahp02lhw2pTzEB1YGfFJFCkQo5eBk2QvX6FF8u32QUCHHgWBEnjgcHQvgATBVAnUAMoMfpQKjIKDITzkFwAWmYxQgkhcpTiEMhqgoxmYJT4uQAKmVkGRGPCqHpkCAFhR3mUst9UhUAL7sTi+ESjMBjCyYeyKTC+Sw2OhrGaGP55dK4dAIFDpOAADwoYElAF0gA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.input_task_button
+    href: https://shiny.posit.co/py/api/core/ui.input_task_button.html#shiny.ui.input_task_button
+    signature: ui.input_task_button(id, label, *args, icon=None, label_busy='Processing...',
+      icon_busy=MISSING, width=None, type='primary', auto_reset=True, **kwargs)
+  - title: ui.update_task_button
+    href: https://shiny.posit.co/py/api/core/ui.update_task_button.html#shiny.ui.update_task_button
+    signature: ui.update_task_button(id, *, state=None, session=None)
+  - title: ui.bind_task_button
+    href: https://shiny.posit.co/py/docs/nonblocking.html
+    signature: ui.bind_task_button(task=None, *, button_id)
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/inputs/task-button/
+  contents:
+  - title: Manually reset the button with `update_task_button`
+    description: |
+      Pass `auto_reset=False` to `ui.input_task_button()` to keep the button in its busy state after the click has been handled, then call `ui.update_task_button(id, state="ready")` from the server to reset it yourself. Click "Run task", wait for the result, and note the button stays busy until you click "Reset task button".
+    apps:
+    - title: Preview
+      file: app-variation-update-preview.py
+      height: 200
+    - title: Express
+      file: app-variation-update-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5ChuAHQh4DNmpGMgDOACzoRcyBk1bJmcKMQ4A3OEUUQAJnGb9Bw8ZNxY4AD3SKRImYxZtJ6AK4Uizujx4esT1wH0KKBEAa38AI1cKcgAKLjBmZ15CZHiAJST2YJD4oihXUn9rOAoAXgAxKAAbETgASmRkAGJkAB5W7zpfCBcKf2UOcgio2PjiilzUsDS4WrYg0ORIimjkuq9eCAABLV1mLDJdHh2lFTp1M3VKGL8KLESIdZ04PgVZ5yqKGLrEHkbGjjwLAiKpwODoGIARiwAFYGs1kABlBgfKBUZBQZBVcgAcwAtA8IJIcVlQn9-ooKM5mBBkHx4gAVbLIMiMUFUbTIEC3e5Jb4AX3YnBiInWYA2x0UA3OcDMfD4cBUktOallcCuXx54yeule-m+v1p-x8znQ2jRcEC2WGK1GCSSkxEQSopTGSm0uHi8Ja7R4KTAFFw6AQKADFgoYH5AF0gA
+    - title: Core
+      file: app-variation-update-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5ChuAHQh4DNmpGMgDOACzoRcyBk1bIAgpiLM4UYhwBucFdQAmcZkQCudHjwzoA+qeQBeZKZxQA5nCt8ANqb0AKHsiBjnRYkujGFFYUUCIA1lYARhEU5P5gzMa8hMhcYABKmewxsblEUBGkVqoicBR2AGJQnjUAlETIAMTIADzdAUFOYRFW6hzkicmpudW1pTn5cDVs0XHISRQpWW39gU6kEeGRZAZp1caeFLnbEC3mvBAGfKKG2sy+QxRE+xSHRDUiIjo5BaiB2yAAAqoHoYsMduBAghDVKM6NosHBtJR3hBDlgMjcwY9kGcLr4QWDERx4FgRJ44HB0L4AIxYACsLUCXQAygxzlAqMgoMhPOQXABafEQSQuIpxClBVQUYzMBF8XIAFWKyDIjDpVD0yBAHzxmTJAF92JxfCJbmA7ojIWoNKi4Oi+Hw4BowY6UWiMdQKNjcTMKLcEUEiVYyaDw4jdiFjOg9Pz3Ct4utNqdMnMRNEqHZpmo9Lgrpyen17hZMPZFJhfJYbHQ-i9DGHsmAKLh0AgUB24AAPChgM0AXSAA
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A task button is similar to an [action button](../action-button/index.qmd), but it is designed for triggering operations that take a while to complete. When clicked, the button immediately disables itself and displays a busy message (`"Processing..."` by default) so the user cannot re-submit the task while it is still running. Once the server finishes handling the click, the button automatically resets to its ready state.
+
+Follow these steps to add a task button to your app:
+
+  1. Add `ui.input_task_button()` to the UI of your app to create a task button. Where you call this function will determine where the button will appear within the app's layout.
+
+  2. Specify the `id` and `label` parameters of `ui.input_task_button()` to define the button's identifier and the label shown while it is ready to be clicked.
+
+  3. Optionally, set `label_busy` to customize the message shown while the button is busy, or pass `auto_reset=False` to keep the button busy until you reset it yourself with `ui.update_task_button()` (see the variation below).
+
+The value of a task button is accessible as a reactive value within the `server()` function. To access the value of a task button:
+
+  1. Use `input.<task_button_id>()` (e.g., `input.task_button()`) to access the value of the task button. The server value of a task button is an integer representing the number of clicks.
+
+### Long-running tasks
+
+For truly long-running operations, pair the task button with [`reactive.extended_task`](https://shiny.posit.co/py/api/reactive.extended_task.html) so the rest of the app (and other sessions) stays responsive while the task runs in the background. Decorate the extended task with `ui.bind_task_button()` to link it to the button: the button then stays busy for as long as the task is running, not just for the duration of the click's reactive flush.
+
+```python
+@ui.bind_task_button(button_id="task_button")
+@reactive.extended_task
+async def slow_compute(x: int, y: int) -> int:
+    await asyncio.sleep(3)
+    return x + y
+
+
+@reactive.effect
+@reactive.event(input.task_button)
+def handle_click():
+    slow_compute(input.x(), input.y())
+```
+
+See [Non-blocking operations](https://shiny.posit.co/py/docs/nonblocking.html) for a complete guide.
+
+:::{#variations}
+:::
+
+See also: [Action Button](../action-button/index.qmd)
