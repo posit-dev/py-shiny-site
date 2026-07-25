@@ -16,7 +16,7 @@ express_app = create_example_fixture(HERE / "app-express.py")
 EXPECTED_CSV = "name,value\nAlice,100\nBob,200\n"
 
 
-def _check_download_button(page: Page, app: ShinyAppProc) -> None:
+def _check_download_button(page: Page, app: ShinyAppProc, tmp_path: Path) -> None:
     page.goto(app.url)
 
     button = controller.DownloadButton(page, "download_data")
@@ -29,12 +29,16 @@ def _check_download_button(page: Page, app: ShinyAppProc) -> None:
     download = download_info.value
 
     assert download.suggested_filename == f"data-{date.today().isoformat()}.csv"
-    assert Path(download.path()).read_text() == EXPECTED_CSV
+    # download.path() is unavailable against a remote browser (CI uses
+    # browser_type.connect()), so save a local copy instead.
+    saved = tmp_path / download.suggested_filename
+    download.save_as(saved)
+    assert saved.read_text() == EXPECTED_CSV
 
 
-def test_download_button_core(page: Page, core_app: ShinyAppProc) -> None:
-    _check_download_button(page, core_app)
+def test_download_button_core(page: Page, core_app: ShinyAppProc, tmp_path: Path) -> None:
+    _check_download_button(page, core_app, tmp_path)
 
 
-def test_download_button_express(page: Page, express_app: ShinyAppProc) -> None:
-    _check_download_button(page, express_app)
+def test_download_button_express(page: Page, express_app: ShinyAppProc, tmp_path: Path) -> None:
+    _check_download_button(page, express_app, tmp_path)
