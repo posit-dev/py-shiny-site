@@ -13,6 +13,16 @@ listing:
       footer=None, navbar_options=None, fluid=True, window_title=MISSING, lang=None,
       theme=None, position=DEPRECATED, bg=DEPRECATED, inverse=DEPRECATED, underline=DEPRECATED,
       collapsible=DEPRECATED)
+  - title: ui.navset_bar
+    href: https://shiny.posit.co/py/api/core/ui.navset_bar.html#shiny.ui.navset_bar
+    signature: ui.navset_bar(*args, title, id=None, selected=None, sidebar=None, fillable=True,
+      gap=None, padding=None, header=None, footer=None, navbar_options=None, fluid=True,
+      position=DEPRECATED, bg=DEPRECATED, inverse=DEPRECATED, underline=DEPRECATED,
+      collapsible=DEPRECATED)
+  - title: ui.navbar_options
+    href: https://shiny.posit.co/py/api/core/ui.navbar_options.html#shiny.ui.navbar_options
+    signature: ui.navbar_options(position=MISSING, bg=MISSING, theme=MISSING, underline=MISSING,
+      collapsible=MISSING, **attrs)
   - title: ui.nav_panel
     href: https://shiny.posit.co/py/api/core/ui.nav_panel.html#shiny.ui.nav_panel
     signature: ui.nav_panel(title, *args, value=None, icon=None)
@@ -26,6 +36,9 @@ listing:
   - title: ui.remove_nav_panel
     href: https://shiny.posit.co/py/api/core/ui.remove_nav_panel.html#shiny.ui.remove_nav_panel
     signature: ui.remove_nav_panel(id, target, session=None)
+  - title: ui.nav_spacer
+    href: https://shiny.posit.co/py/api/core/ui.nav_spacer.html#shiny.ui.nav_spacer
+    signature: ui.nav_spacer()
 ---
 
 ```{python}
@@ -65,6 +78,13 @@ Follow these steps to add a navbar to the top of your app:
 
   4. _Optional:_ Pass a string to the `id` argument of `ui.page_navbar()`. This will create an input value that holds the title of the currently selected nav item. For example, `id = "tab"` would create a reactive value accessible as `input.tab()`.
 
+::: {.callout-tip}
+A few related functions are useful when building navbars:
+
+  - `ui.navbar_options()` bundles appearance options (e.g., `position`, `bg`, `underline`) to pass to the `navbar_options` argument of `ui.page_navbar()`.
+  - `ui.nav_spacer()` adds a spacer between nav items, for example to push subsequent items to the right side of the navbar.
+  - `ui.navset_bar()` creates a navbar *inside* a page (e.g., within `ui.page_fluid()`), rather than as the page layout itself, and accepts the same nav items as `ui.page_navbar()`.
+:::
 
 
 ## Navbar at bottom

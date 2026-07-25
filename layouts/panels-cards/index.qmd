@@ -35,6 +35,9 @@ listing:
   - title: ui.panel_title
     href: https://shiny.posit.co/py/api/core/ui.panel_title.html#shiny.ui.panel_title
     signature: ui.panel_title(title, window_title=MISSING)
+  - title: ui.panel_conditional
+    href: https://shiny.posit.co/py/api/core/ui.panel_conditional.html#shiny.ui.panel_conditional
+    signature: ui.panel_conditional(condition, *args, **kwargs)
 - id: variation-hello-card
   template: ../../components/_partials/components-detail-example.ejs
   template-params:
@@ -244,3 +247,7 @@ You can also use `ui.img()` to create this effect:
 
 
 See also: [`ui.panel_fixed()`](https://shiny.posit.co/py/api/ui.panel_fixed.html). `ui.panel_fixed()` is equivalent to calling `ui.panel_absolute()` with `fixed=True` (i.e., the panel does not scroll with the rest of the page).
+
+## Conditional panel
+
+Use [`ui.panel_conditional()`](https://shiny.posit.co/py/api/ui.panel_conditional.html) to create a panel that is shown or hidden depending on a JavaScript condition evaluated in the browser, such as the current value of an input (e.g., `"input.show_details"`).
