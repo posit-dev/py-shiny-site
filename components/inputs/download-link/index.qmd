@@ -1,0 +1,58 @@
+---
+title: Download Link
+sidebar: components
+appPreview:
+  file: components/inputs/download-link/app-preview.py
+  static: true
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/download-link/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAEyiooEt5kf1SDCmw5wAOhAmNmyAM4ALLhFxY4AD3QM4s2XxgChyLRFZwGRAK5cpTFgqUqreg8NakA7hAA2pKKwD6XkoA1hISbp4+foEhABRiYBHevgHsFFAJRAkAIh7JfsgAwgDKAGoJAJTIyADEyAA89WEQdQAGAALGpgxYSVGsrchQFhSkALToXlDE2kNsef3IAFQARiOjEEsA3MjuDBh8wkrIrVZY8qRerLEVrRJ1o0ZwAOZcslQMyBTycMjyUCYvGZdlxvqQRl8fsg1hQNkQAaxkOgoFxPqCQd9IeIWic+ikYhBgjdBlAVqQAG6-clcKBY5AwDjERQQZ58VgAejoFggxG45GQ0HgWAk7lB8mQZwuVxuiGa1WqnWo3V6CxSsToXCBgrgAF4pjAVuwUHQEmkoGMQGk4FhRuxcDcsG9SHRBAyKDcAL5YYiycmVCTythwOjzSL4s0ygOB+W4LhwK7IBLagjkqBeCziMJgKPR5Cx+OIhIAQSCMwIAEYAAyVsRZnPR-MJhIAIVIKwIACZq7XJNmIIRUBRcOgECgwFQ1BQwB6ALpAA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAEyiooEt5kf1SDCmw5wAOhAmNmyAM4ALLhFx8YAocgCCmIg2qs4DIgFcuEiRnQB9U8gC8yUzigBzOFboAbU6wAUE5EDHLixWUgB3CE9SKFYrTyUAa38wMMjo2Kt2CigxQmQ8gBEIqJjWZABhAGUANTyASiJkAGJkAB42iXrzSQgDOjlDADdDXyV0YwoiUkmJqcHZWS5yesQAoIABPT7DUJKMvzouT2pYODtPWAAjdhQ6POyoAFoQbLgsClJ2XF96rC5ZKQ6IIYBxfgBfLDEWRDBrrQL9Nj7MpZDhQX5rCBBbHIXBcOCecp5aDwAhDKDecTmMDwnF4glEsCaBLEOAEACMAAZOWJqbTsfTCQUwAAhUhXAgAJm5vMkNN6Fkw9i0mF8lhsXCIsmGhm6EHyYAouHQCBQhrgAA8KGBwQBdIA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.download_link
+    href: https://shiny.posit.co/py/api/core/ui.download_link.html#shiny.ui.download_link
+    signature: ui.download_link(id, label, *, icon=None, width=None, **kwargs)
+  - title: '@render.download'
+    href: https://shiny.posit.co/py/api/core/render.download.html#shiny.render.download
+    signature: render.download(fn=None, *, filename=None, media_type=None, encoding='utf-8',
+      label='Download')
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A download link lets the user download a file from your app when they click it. It behaves exactly like a [Download Button](../download-button/index.qmd), but renders as an inline link, which fits naturally inside prose or compact layouts.
+
+To add a download link to your app:
+
+  1. Add `ui.download_link()` to the UI with a unique `id` and a descriptive `label`.
+
+  2. Define a function with the same name as the link's `id` and decorate it with `@render.download()`.
+
+  3. The download function can either:
+     - Return a string filepath pointing to an existing file on disk.
+     - `yield` the content chunk by chunk (bytes or strings), which lets you generate the file in memory — for example, building a CSV on the fly.
+
+  4. Set the download's filename with the `filename` parameter of `@render.download()`. It accepts a string or a function returning a string, which is useful for dynamic filenames.
+
+**Express mode:** `@render.download` automatically places a download *button* in the UI. To get a link instead, place `shiny.ui.download_link()` where you want it and register the handler inside `ui.hold()` so the automatic button isn't shown — the link and the handler are paired by the shared `id`/function name, as shown in the Express tab above.
+
+See also: [Download Button](../download-button/index.qmd).
