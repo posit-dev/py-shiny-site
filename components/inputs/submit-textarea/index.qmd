@@ -1,0 +1,100 @@
+---
+title: Submit Textarea
+sidebar: components
+appPreview:
+  file: components/inputs/submit-textarea/app-preview.py
+  static: true
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/submit-textarea/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 260
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhXER0AVwpFhEACZwGRBZwA6EfTqzdFFAPqsFAIxidzVfhSjCoACl1h4oqAHM4Hog8AUUpNZFxSBQZkL1ZfOEQPAEpkZABiZAAeTP1ciAABVQ0GLDINfQ06ZAA3KAAbBThXJMSIVNTOKo9Y+I85OVNW9uHkYQootroPAE1ItmtbCio1FBATJSwev2aAXw99YbGJ5A8AOVIKLggfeZs7ZfC4Cix9iEJUClx0BBQwBwowDsALpAA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKm1goBGMTh6oADwooKSg7MHhWVhM4ZUJkeIBRSjlkXFIFBmQomNNEeIBKImQAYmQAHgr7R0NMijcPMlkIgDcoKziwYtVC1X6IWTo2OVa5G1d3InrGolY4aM5yQoKIR2QAASlBuSxmuLXHIeR2zpsVmvWHTmH43Nj4vjXJilWr9+QpCiy1uniATUybB8fgoVGkKBALyw91M5wAvvFLlcvj9EmAAHKkChcCDGYG+fzg9JwChYJFqSkaPRiTA2DTaThzUZyPoQBJgCi4dAIFCcuDBMDwgC6QA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.input_submit_textarea
+    href: https://shiny.posit.co/py/api/core/ui.input_submit_textarea.html#shiny.ui.input_submit_textarea
+    signature: ui.input_submit_textarea(id, label=None, *, placeholder=None, value='',
+      width='min(680px, 100%)', rows=1, button=None, toolbar=None, submit_key='enter+modifier',
+      **kwargs)
+  - title: ui.update_submit_textarea
+    href: https://shiny.posit.co/py/api/core/ui.update_submit_textarea.html#shiny.ui.update_submit_textarea
+    signature: ui.update_submit_textarea(id, *, value=None, placeholder=None, label=None,
+      submit=False, focus=False, session=None)
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/inputs/submit-textarea/
+  contents:
+  - title: Submit on Enter key
+    description: |
+      By default, users must press Ctrl+Enter (or Cmd+Enter on Mac) to submit, which helps prevent accidental submissions. Set `submit_key="enter"` to submit with just the Enter key; users can still insert newlines with Shift+Enter.
+    apps:
+    - title: Preview
+      file: app-variation-enter-key-preview.py
+      height: 260
+    - title: Express
+      file: app-variation-enter-key-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhXER0AVwpFhEACZwGRBZwA6EfTqzdFFAPqsFAIxidzVfhSjCoACn3JPyXWACOO4gBrM3hRKABzOB8CDy8fAEUAwORQ1gi4RGjYz0sbOzNAuFwAXh9qKgZozwBiZAAeOuzkdAAbKGI4dlIWjQZSsAAFYVFkAFFKTWQKUjZrW2VkAGUuOgoAanGK5DppZChkCDgAd2QW7ijCfQBKfVuIAAFVXqwyDX0NOmQANygWhThXFdMhAvOJPj5-JwgiERGlIj45HJTMDQaDhBQFAwQXQfABNUgKWZ5ChUNQoEAmJRYSHQ1LpQEAXx8TXRmJBPgAcqQKFwIOEifNSchcHAKFhmRBCKgKLh0AgUGAHBQwAyALpAA
+    - title: Core
+      file: app-variation-enter-key-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKm1goBGMTh6oADwooKSg7CEco5GUwAEclYgBrTXhWVhM4WIJ7aIdYgEVEpOQ0jNNEbNy8r19-TSS4XF1Y6ioGbIcAYmQAHl7q6PQLKGI4dlILWQYWsAAFKXTkAFFKOWQKUjYfPwoiAGUuOgoAalX25DohZChkCDgAd2QLbizCQYBKHMjHQ1J3NweMiyOxgABuUCsby+qg+qnhEFkdDYcjBchsrncRH+FEBRFYcHSnHIH0qPwcAAEpIi5FhgVlycgkcgIVCbKTBlFOMjYglOMlUoTym8+JFMRQyXk8lIKAoGJE6LEAJr-bZ1ChUaQoEDirB8gVlTLsgC+sU5jhlcsisQAcqQKFwIMY1btNchcHAKFgzWpfRo9GJMDYNNpOPjUXI4RBCKgKLh0AgUGAghQwMaALpAA
+  - title: Update the textarea from the server
+    description: |
+      Call `ui.update_submit_textarea()` within a reactive effect to change the value, placeholder, or label from the server, or to programmatically submit or focus the input. Here, toolbar buttons clear the textarea or fill in a template.
+    apps:
+    - title: Preview
+      file: app-variation-update-preview.py
+      height: 300
+    - title: Express
+      file: app-variation-update-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDOFGIVOANzgAdCI2ZsuPLHAAe6Ma1Z8BQkd3QBXCkTEQAJnAZETnBQodZjZgPqsTAIxicK7lQaFFBiUAAUCsjRyHJgZDDwlHEEUTFxAJqkJgzICUkUiClp0egANhJw7KRlNgwAvHEAKrjocMi42bn51CLstnBYQ8UQMaKkAO6s9QBMqaMxFKQ13qH1wCVjyC5uARJS5O7eZksQkfFl4gwpsWAAwpehN8QVuu6NYN4UEAC0rCxfX5WKAQADmtjiAEp5lsYjsIKY9pJOIdjhRTucqAIKlQbnEAKqsdpY8pQXGEPKvVjvOKAv4wKEwmIAXXmkKcEAUAAEwsjZOo6HQ4JJubypPy4LJKOFdlgXld2dY4HRkO5wpCigtoi4TOhgVRPD4-AEgiEwuceskKdIoGUTHAPjc6KRiCZpk0GPbIdEAMTIAA8-o5ovEfMGyqFIogPND4vDUooMoRZiwJJxcEVNhVao1mx1erJcENvn8gU0ZvE4V9AaDWq2cUtFBGsOiNrtDua7BBAGsOtlkM7cp0cgO4HArKtiN2sMgAOrtDDaYWcQt9ke7ACEzZiio5MaVDDlpBsCizyDb9vVmrGnBVDeYBTifFGu2vLbEFByozomX7XhL6LjigICyo26oAL5xJsH5frcABypAUKooJsEa-hUFYHRwBQWBQRAFJgBQrQICghHlmA4HMkAA
+    - title: Core
+      file: app-variation-update-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnEnUAJnAZEArpwA6EPRnQB9bcgC8ybTigBzOEboAbbSoAUe5J8ucs3dJoojVk0AIxhOQKoADwooKSh3CC9k5B0wMhh4SjSCDxTPNIBNUk0GZAysikQcvPz0Rxk4dlJHNQYzNIAVXHQ4ZFwSsorqEXZ1OCxJmqT85CYAd1YzACZcmfyKUhaQuLNgWtnPKz8Aoxk5ciMQgM2Id3THaQYc1LAAYUe4l+IG1lYjDpgEIUCAAWlYLGBYJUUAgdmeYAAlGtDsljhB-IFzpxLtcKLd7lQBA0qC80gBVVh9In1KCkwjlX7-QFQ8EwNLIg7JAC6KK8nPW3iwJQomKMZDU93kUGccA5a0ReiVEDUdDY6kUDFcJwoRBFmKIVL+OIgiOqgoAAvFZAoJnA6HQ4LIDlbpDbFFg4IpKNqMQEsD8norBarkEZXGauV4rJp0DCqEFQuFInAYnFpPdhtkGdLZYCXnRSMRNEtOgxNHBEZ4AMTIAA8deVyVd2I99sdzst1rkbe9FF9mKwNJJlYOofDkcFaJ8sfj9mCYQiRmisXirhr9cbU9maSzFGmqK8uYrgM67FhAGt+iVkIWygNSre4HAVDtiBesMgAOp9QxSYicHSfQPmUOoAIQHrMwYulIKrqAGpBqGO9rIMecARuahycGqu7MJUaR8EkOqYYecxwBQpRJHQRQ3guyZUCoKAgDqCGZCMEYAL5pFGnhSBRDBJGkABypAUFwcJsEmEQMf05FYNx+iKYY5hiJgriGCYnCGhq6jBgyYAUD0CAoAZqYUGAHHckAA
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A submit textarea is a multi-line text input with explicit submission via a button or keyboard shortcut. Unlike a regular [Text Area](../text-area/index.qmd) that sends its value on every change, this component only updates the server when the user explicitly submits. This makes it ideal for chat interfaces, comment forms, or any scenario where users compose and review text before sending it.
+
+To add a submit textarea to your app:
+
+  1. Add `ui.input_submit_textarea()` to the UI of your app to create the input. Where you call this function will determine where it will appear within the app's layout.
+
+  2. Specify the `id` and `label` parameters of `ui.input_submit_textarea()` to define the identifier and label of the input.
+
+  3. Optionally set a `placeholder` hint, the initial number of `rows` (the textarea auto-expands as users type), or a `toolbar` of extra UI elements displayed next to the submit button.
+
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a submit textarea:
+
+  1. Use `input.<submit_textarea_id>()` (e.g., `input.message()`) to access the submitted text as a string.
+
+  2. The server doesn't receive a value until the user first submits, so use `if "<submit_textarea_id>" in input` to check whether anything has been submitted before reading the value.
+
+Users submit with **Ctrl+Enter** (or Cmd+Enter on Mac) or by clicking the submit button, which is a [task button](https://shiny.posit.co/py/api/ui.input_task_button.html) that shows a busy indicator while the server processes the submission. Set `submit_key="enter"` to submit with just Enter instead.
+
+To update the input from the server, call `ui.update_submit_textarea()` within a reactive effect. You can change the `value`, `placeholder`, or `label`, move keyboard `focus` to the input, or set `submit=True` to submit the updated value programmatically.
+
+## Variations
+
+:::{#variations}
+:::
+
+See also: [Text Area](../text-area/index.qmd)

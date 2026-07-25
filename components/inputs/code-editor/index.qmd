@@ -1,0 +1,102 @@
+---
+title: Code Editor
+sidebar: components
+appPreview:
+  file: components/inputs/code-editor/app-preview.py
+  static: true
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/code-editor/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 380
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhXER0AVwpFhEACZwGRBZwA6EfTqzdFFAPpkNZuGs4VpACl1hLcZ0WcBRSpuQAFXAp2cmRXRHdkZyFuCgcAcgAJOAAbZNIiAHdpZLUAQjiASgjkqAgAcwUoMrgAXijA4IMwAuRkAGJkAB5O-V6IAAFVDQYsV30NOmQANyhkhTgHAvCIVtbhCgUGFZMlUdINRf1CVApcdAQUMCp+CjAAXwBdIA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKmsrM1xpnCkJ2YF5wyoTIYQCilHLIAAq4FOzkyCGIYURh6AzcFDYA5AAScBYWpEQA7kIW0gCE+QCUGcgWUBDGCiZwulmJyWpgDUTIAMTIADzj9o6GpO5uHiFBAG5QVqGDBKpNaruydGxyy3I2ru5EcxQLRKxwrKyc5A3pEI7IAAJSELIMWCHTDn2yFW6xszwBb2QUgoCgYrzOFD+pFkYNUaOgmD0YkwNg02k4NyOch24TAFFw6AQKDJcAAHhQwABfAC6QA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.input_code_editor
+    href: https://shiny.posit.co/py/api/core/ui.input_code_editor.html#shiny.ui.input_code_editor
+    signature: ui.input_code_editor(id, label=None, value='', *, language='plain',
+      height='auto', width='100%', theme_light='github-light', theme_dark='github-dark',
+      read_only=False, line_numbers=None, word_wrap=None, tab_size=4, indentation='space',
+      fill=True, **kwargs)
+  - title: ui.update_code_editor
+    href: https://shiny.posit.co/py/api/core/ui.update_code_editor.html#shiny.ui.update_code_editor
+    signature: ui.update_code_editor(id, *, label=None, value=None, language=None,
+      theme_light=None, theme_dark=None, read_only=None, line_numbers=None, word_wrap=None,
+      tab_size=None, indentation=None, session=None)
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/inputs/code-editor/
+  contents:
+  - title: Different programming languages
+    description: |
+      The code editor supports syntax highlighting for many programming languages including Python, JavaScript, R, SQL, HTML, CSS, JSON, Markdown, and more. Set the `language` parameter to enable syntax highlighting for your preferred language.
+    apps:
+    - title: Preview
+      file: app-variation-languages-preview.py
+      height: 620
+    - title: Express
+      file: app-variation-languages-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IyhVm7o5FAPpkAJnG1w9nCtIAUy5NeSKweCu3K7SBuwSs27ABVyPy7p7WdgZ0yOxwADaRpOYAlIiKQchC3BTmAOQAElExRL7+EACEGXGBEDbIkVAQAOZyULVwALx2Dk4qhNYAxMgAPH3KZSoQahpaLgZGJmYMlhVeYABWUABuUKzEDJzoOvpw5ZV2AFJrUADKWzsUh4t0chDEFJzk4bmxccggSQtkEKykSJwLAxWqZHLRUhEU7rS7bXYlOIAbh+AF9btZqnUGk1Wsszpt4TcushegMhspVJx1BBNHtXIZjKYLMk7KwAI6RSYHQissDnACKABkMbZ+QBRIXigDCABVkAAqZAAMQASgB5ACy8lYcAYrB+AHUsuLVeLkFAnpxVnBkM1kBQGHI4CjeQtMTV6o0WmzOe4ev1BhBhl0wBRcOgECgwwIKGBUQBdIA
+    - title: Core
+      file: app-variation-languages-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEArpwA6EORnQB9acgC8yaTigBzOEroAbaQBMAFHORXNnLN3SSKSsif1wTnCkIsRrf5DJgeBTs5M6kroEElv5WgQAKuCHkUTGxga50yOxwhoakZgCUiDJpyOgM3BRmAOQAErn5RInJEACENYWpvrHIhlAQOpK6cGqBwaHyhFYAxMgAPPNlhdE9Vlr2juGuSu6e3mV+gQBWUABuUKzElehOLnDdvQFgAFLnUADK15y3j72BdEkEGIFE45GyjQKhWQIFKPTIEFYpEMcCw+R0tQaeVIRDeFy+NwoHUKAG44QBfP6xfqDYZ6MZgU4XK6EqKzBZLNbIFZlDYQBx3CJuDxeBg+J6BVgAR0M2wehEO1kCHwAigAZKn+ZUAUTV2oAwgAVZAAKmQADEAEoAeQAsppWHAGKw4QB1Oray3a5BQEGcM5wdTICgMSRwMkKrl+GlDEYM6WGNnIOaLZarLryTOZNhOgNizYUIikRwCoiO1isMEQYpldCXF2ZhSYIPidBmRQqThl3NOjPTMAUXDoBAoAdwAAeFDA5IAukA
+  - title: Update the editor from the server
+    description: |
+      Call `ui.update_code_editor()` within a reactive effect to change the editor's value, language, or other options from the server. Here, choosing a language swaps in a matching code sample, and the switch toggles `read_only`.
+    apps:
+    - title: Preview
+      file: app-variation-update-preview.py
+      height: 420
+    - title: Express
+      file: app-variation-update-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDOFGIVOANzgAdCI2ZsuPLHAAe6Ma1Z8BQkd3QBXCkROcFCsgBM4AfVax0AGzh6AvMhALk-5DkwPAp2ciCUIPs6ZABzMTgKAApoeABKRDk-ALEKEwYIZDoAcgAJOFdXUiIQVLgAXwBCYqCCbP8ggCsoaShWYgZOdAoIwLA6EwhJTnI4hOS6tJ8swtFE-MKAA3LK6uQAElrYBsbNgG4V+tb2sdYAR1dRoIBlAFEAGVeAYQAVObhEtxYsgAGIAJQA8gBZf6AiCxVgrADqpVeYNeyDqyG8xSRQlctmKF0ICiuEAUliwxjMTgqcEkSRuQVcUHhJigsXkJNWHTA71ZsXZnMy3ICyGIYU4xA8nlcnFYyTsjmcAncrCwAGs4LhWEk0mk2jy2HTJHBbJ4giEwuTuWkKZwqRBTBQnAB3TgUCWMsBiKC2BzkVy4VpjMHiWzIQPBwjIXquExwTwgqCuVhwO0QSnUl1Khxmj1CRlGoJK67FsBfUj2ZD5ihCEWGsW5lVuDzAS24ULhMAAXUbARZbI5iY7XZthoz1ggAAFfdNZOo6HR6SMZ3OpAu4LJKEls1hB4LhxnosgHHrMkbKSZ0LYoFQHLna4X-ABiZAAHnfNzFJarXP7Yr+HGCaeM2LhqsAe4HkKcB6n234DgKMGeFBSHDnqAHIJO5JruI85wIuy6SAos54RuBFbtQyR7r6-pRsecAxGeGQ3FeN53o4j62AWDDeqWMa0QGEBBihTpmFgglRnqSzIG+n4KDGYAULg6AICgSmaBQYD1D2QA
+    - title: Core
+      file: app-variation-update-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGsgBM4AfVax0AGzitkAXmQgNyO8jVg8FduUcpHuusgDmUuBQAFNDwAJSIarb2UhTKDBDIdADkABJwxsakRCAhcAC+AIRJjgRRdo4AVlDyUKzEDJzoFO4OYHTKELKc5L7+Qbmh1pEJyDFxCQAGaRlZyAAkObD5BRMA3MN5JWWtrACOxi2OAMoAogAyJwDCACq9cAHcPsgAYgBKAPIAsncPED6swwA6ikTq8TshcpZkElAUJjNokutCBpNppoJg9KooaocFAfPo6MZVNpAtscdx0MoKAZ0nBZKSRvZ7I5jFA-so8XAtoyma0zmyfBz8RFkTymcRXJxiGYLMZOKwgjp9IYBKZWFgANZwXCsQKhUKlMX2Vi02RwbQWRzOVyaUVMg1kzhYClUgwAd04FAlpLAUig2j05GMuBKrVe0m0yCDIcIyBqRLgFmeUGMJodPPJEEp1KVenNnqEDN5zLASu5xfKYEupF0yHzFCEIsNFeQuZVJjMwCtuBcbjAAF1mxXWezOZanD2beX7OnQhp5xAvGw4AxFAxAi6KERSFTs0QTaxWN0IOFtgABP1dRRYOB0Oh05o8i-SK9wG+KSgbrNUrAjwWcuceSXPQ9QiI07BxZR0G0KAqD0XN60LOwAGJkAAHjQ7YW0cMs7Rbex42URM2yMNVgE3X8BSFOA9UHLDhyoscKL-ai9SHYtAPPS85GvW971kLiXx4t84A-IIKL9ANo0AplgNA+iIKdKCYLghDtALdccJrLlY0kwMIGDCwJIjfTgz1QZkFQjCFw0DB0ChcR0ECOzMU4fcVzXQDYzAChcHQBAUB8uAAA8KDAPJ+yAA
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A code editor input provides an interactive code editing experience with syntax highlighting, line numbers, and keyboard shortcuts. It's powered by [Prism Code Editor](https://prism-code-editor.netlify.app/) and supports many programming languages.
+
+To add a code editor to your app:
+
+  1. Add `ui.input_code_editor()` to the UI of your app to create a code editor. Where you call this function will determine where the code editor will appear within the app's layout.
+
+  2. Specify the `id` and `label` parameters of `ui.input_code_editor()` to define the identifier and label of the code editor.
+
+  3. Set the initial code with the `value` parameter, and specify the programming `language` for syntax highlighting. The editor supports many languages including `"python"`, `"javascript"`, `"r"`, `"sql"`, `"html"`, `"css"`, `"json"`, and `"markdown"`.
+
+The value of an input component is accessible as a reactive value within the `server()` function. To access the value of a code editor:
+
+  1. Use `input.<code_editor_id>()` (e.g., `input.code()`) to access the current code as a string.
+
+Unlike a text area that updates on every keystroke, the code editor only sends its value to the server when the user presses `Ctrl/Cmd + Enter` or when the editor loses focus.
+
+To update the editor from the server, call `ui.update_code_editor()` within a reactive effect. You can change the `value`, `language`, themes, and options like `read_only` or `line_numbers`.
+
+The editor automatically switches between `theme_light` and `theme_dark` when used with [Dark Mode Switch](../dark-mode/index.qmd).
+
+## Variations
+
+:::{#variations}
+:::
+
+See also: [Text Area](../text-area/index.qmd)
