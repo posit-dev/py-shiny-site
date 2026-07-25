@@ -182,6 +182,7 @@ website:
             - components/display-messages/modal/index.qmd
             - components/display-messages/notifications/index.qmd
             - components/display-messages/progress-bar/index.qmd
+            - components/display-messages/toasts/index.qmd
             - components/display-messages/tooltips/index.qmd
         - section: "![](/images/cards-blue.svg){.sidebar-icon .sidebar-subtitle}__Layout__"
           contents:
