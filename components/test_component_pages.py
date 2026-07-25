@@ -5,10 +5,9 @@ have at least one ``app.py`` / ``app-*.py`` alongside it (which the smoke sweep
 in ``test_examples_smoke.py`` then launches). A page with no example app is a
 documentation gap.
 
-For now enforcement is scoped to the pages in ``ENFORCE_HAS_APP`` (just the
-accordion page); every other page is discovered but skipped. Broaden coverage by
-adding paths here -- or, once all pages qualify, invert to "enforce all except an
-allowlist".
+Every discovered page is enforced. A page may only skip the requirement by
+being listed in ``EXEMPT_PAGES`` with a documented reason -- the set should
+normally stay empty.
 
 This is a static filesystem check (no browser), so it runs under ``make test-apps``.
 """
@@ -20,12 +19,10 @@ import pytest
 COMPONENTS_DIR = Path(__file__).parent
 SECTIONS = ("inputs", "outputs", "display-messages", "layout")
 
-# Component pages ("<section>/<name>") whose example-app coverage is enforced.
-# TODO: remove this narrowing and enforce all discovered pages (or invert to
-# "enforce all except an allowlist"). Tracked for follow-up PRs.
-ENFORCE_HAS_APP: set[str] = {
-    "layout/accordion",
-}
+# Component pages ("<section>/<name>") exempt from the example-app requirement.
+# Keep this empty; add an entry only with a comment explaining why the page
+# cannot ship a runnable example app.
+EXEMPT_PAGES: set[str] = set()
 
 
 def _component_pages() -> list[Path]:
@@ -50,12 +47,12 @@ def _has_example_app(page_dir: Path) -> bool:
     return any(page_dir.glob("app.py")) or any(page_dir.glob("app-*.py"))
 
 
-def test_enforced_pages_are_real() -> None:
-    """Keep the enforce list honest: every entry must name a discovered page."""
+def test_exempt_pages_are_real() -> None:
+    """Keep the exempt list honest: every entry must name a discovered page."""
     known = {str(p.relative_to(COMPONENTS_DIR)) for p in _PAGES}
-    unknown = ENFORCE_HAS_APP - known
+    unknown = EXEMPT_PAGES - known
     assert not unknown, (
-        f"ENFORCE_HAS_APP names pages that don't exist (stale/typo): {sorted(unknown)}"
+        f"EXEMPT_PAGES names pages that don't exist (stale/typo): {sorted(unknown)}"
     )
 
 
@@ -66,8 +63,8 @@ def test_enforced_pages_are_real() -> None:
 )
 def test_component_page_has_example_app(page_dir: Path) -> None:
     rel = str(page_dir.relative_to(COMPONENTS_DIR))
-    if rel not in ENFORCE_HAS_APP:
-        pytest.skip(f"{rel} not yet enforced (see ENFORCE_HAS_APP)")
+    if rel in EXEMPT_PAGES:
+        pytest.skip(f"{rel} is exempt (see EXEMPT_PAGES)")
     assert _has_example_app(page_dir), (
         f"Component page '{rel}' has no example app (app.py / app-*.py). "
         "Add an example app for it."
