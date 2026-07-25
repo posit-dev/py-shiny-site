@@ -181,6 +181,7 @@ website:
             - components/display-messages/chat/index.qmd
             - components/display-messages/modal/index.qmd
             - components/display-messages/notifications/index.qmd
+            - components/display-messages/popovers/index.qmd
             - components/display-messages/progress-bar/index.qmd
             - components/display-messages/tooltips/index.qmd
         - section: "![](/images/cards-blue.svg){.sidebar-icon .sidebar-subtitle}__Layout__"
