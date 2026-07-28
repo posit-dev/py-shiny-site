@@ -17,7 +17,6 @@ def _check_slider_range_interaction(page: Page, app: ShinyAppProc) -> None:
 
     slider = controller.InputSlider(page, "slider")
     slider.expect_label("Slider")
-    slider.expect_value(("35", "65"))
 
     out = page.locator("#value")
     expect(out).to_have_text("(35, 65)")

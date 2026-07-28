@@ -14,7 +14,7 @@ express_app = create_example_fixture(HERE / "app-express.py")
 def _check_map_ipyleaflet_interaction(page: Page, app: ShinyAppProc) -> None:
     page.goto(app.url)
 
-    m = page.locator("#map, .leaflet-container")
+    m = page.locator("#map")
     expect(m).to_be_visible()
 
 
