@@ -14,7 +14,7 @@ express_app = create_example_fixture(HERE / "app-express.py")
 def _check_data_grid_interaction(page: Page, app: ShinyAppProc) -> None:
     page.goto(app.url)
 
-    grid = page.locator("#penguins_df, .shiny-data-grid, shiny-data-grid")
+    grid = page.locator("#penguins_df")
     expect(grid).to_be_visible()
 
 
