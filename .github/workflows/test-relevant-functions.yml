@@ -1,0 +1,45 @@
+name: test-relevant-functions
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: test-relevant-functions-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-relevant-functions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # Installs uv + Quarto (versions from the Makefile) + checks out the pinned
+      # py-shiny submodule so the generated API pages (the generator's input)
+      # match the site build.
+      - name: Set up py-shiny-site
+        uses: ./.github/internal/setup-py-shiny-site
+
+      # Regenerate href/signature in the component/layout index.qmd files. The
+      # target depends on quartodoc (which regenerates the api/** pages and needs
+      # the quarto binary set up above). QUARTO_PATH=quarto points the Makefile
+      # at that quarto; `install-quarto`'s CI branch just checks it is on PATH.
+      #
+      # RELEVANT_FUNCTIONS_STRICT=1 makes an unresolvable (rotted/renamed) title
+      # fail here rather than be silently left as-authored: unlike the build/setup
+      # chain, which falls forward, CI requires the fields to be correct.
+      - name: Regenerate relevant-functions fields
+        run: make components-relevant-functions QUARTO_PATH=quarto RELEVANT_FUNCTIONS_STRICT=1
+
+      # If regenerating changed any tracked file, the committed fields are stale.
+      - name: Verify relevant-functions are up to date
+        run: |
+          if ! git diff --quiet; then
+            echo "::error::relevant-functions href/signature are out of date. Run 'make components-relevant-functions' and commit the result."
+            echo "--- Offending diff ---"
+            git diff
+            exit 1
+          fi
+          echo "relevant-functions are up to date."

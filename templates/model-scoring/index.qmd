@@ -46,8 +46,8 @@ Shiny's reactive programming model makes it easy and performant to update those 
 
 **Packages:**
 
-* `numpy`
-* `pandas`
+* `polars`
+* `pyarrow`
 * `plotnine`
 * `scikit-learn`
 

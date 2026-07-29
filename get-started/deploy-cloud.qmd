@@ -18,17 +18,24 @@ To get started, sign up for [Connect Cloud](https://connect.posit.cloud/), revie
 
 ## Shinyapps.io
 
+::: callout-tip
+# shinyapps.io migration
+
+shinyapps.io is being sunsetted in favor of Connect Cloud in 2027 (see the [blog post](https://posit.co/blog/migrating-connect-cloud-posits-unified-publishing-solution) and
+[migration documentation](https://docs.posit.co/shinyapps.io/guide/migration/){target="_blank"} for more details). We recommend using Connect Cloud (see above) instead.
+:::
+
 [shinyapps.io](https://www.shinyapps.io/) also allows you to easily host applications without having to set up your own server, and has a variety of free and paid plans depending on your use case.
 
 To use shinyapps.io, follow these steps:
 
-1. Install the [rsconnect-python](https://github.com/rstudio/rsconnect-python) package.
+1. Install the [rsconnect-python](https://github.com/posit-dev/rsconnect-python) package.
 
     ```bash
     pip install rsconnect-python
     ```
 
-    Deploying [Shiny Express](https://shiny.posit.co/blog/posts/shiny-express/) applications requires version 1.22.0 or later of the [rsconnect-python package](https://github.com/rstudio/rsconnect-python).
+    Deploying [Shiny Express](https://shiny.posit.co/blog/posts/shiny-express/) applications requires version 1.22.0 or later of the [rsconnect-python package](https://github.com/posit-dev/rsconnect-python).
 
 2. [Sign up](https://www.shinyapps.io/admin/#/signup) for a free shinyapps.io account
 

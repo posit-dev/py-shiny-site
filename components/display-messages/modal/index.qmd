@@ -22,17 +22,17 @@ listing:
   template: ../../_partials/components-detail-relevant-functions.ejs
   contents:
   - title: ui.modal
-    href: https://shiny.posit.co/py/api/ui.modal.html
+    href: https://shiny.posit.co/py/api/core/ui.modal.html#shiny.ui.modal
     signature: ui.modal(*args, title=None, footer=MISSING, size='m', easy_close=False,
       fade=True, **kwargs)
   - title: ui.modal_show
-    href: https://shiny.posit.co/py/api/ui.modal_show.html
+    href: https://shiny.posit.co/py/api/core/ui.modal_show.html#shiny.ui.modal_show
     signature: ui.modal_show(modal, session=None)
   - title: ui.modal_remove
-    href: https://shiny.posit.co/py/api/ui.modal_remove.html
+    href: https://shiny.posit.co/py/api/core/ui.modal_remove.html#shiny.ui.modal_remove
     signature: ui.modal_remove(session=None)
   - title: ui.modal_button
-    href: https://shiny.posit.co/py/api/ui.modal_button.html
+    href: https://shiny.posit.co/py/api/core/ui.modal_button.html#shiny.ui.modal_button
     signature: ui.modal_button(label, icon=None, **kwargs)
 - id: variations
   template: ../../_partials/components-variations.ejs

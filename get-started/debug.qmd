@@ -206,7 +206,7 @@ If your Shiny application is running with [Shinylive (Python in the browser)](sh
 
 ### Shiny
 
-  1. The first place to look for help with Shiny is [Posit Community](https://community.rstudio.com/c/shiny){target="_blank"}, which is a warm and welcoming place to ask any questions you might have about Shiny (as well as tidyverse and all things Posit). The web site is running Discourse, which is an excellent community discussion platform. Our developers monitor Posit Community and answer questions periodically.
+  1. The first place to look for help with Shiny is [Posit Community](https://forum.posit.co/c/shiny){target="_blank"}, which is a warm and welcoming place to ask any questions you might have about Shiny (as well as tidyverse and all things Posit). The web site is running Discourse, which is an excellent community discussion platform. Our developers monitor Posit Community and answer questions periodically.
 
   2. Shiny users (and the Shiny team!) regularly talk on [Shiny's Discord server](https://discord.gg/yMGCamUMnS){target="_blank"}. Discord has more of a chat interface than Posit Community, and is not indexed by search engines. It's a great forum for casual conversations or networking with other Shiny developers.
 
@@ -215,15 +215,23 @@ If your Shiny application is running with [Shinylive (Python in the browser)](sh
 ### Posit Connect Cloud
 
   1. For information about [Posit Connect Cloud](https://connect.posit.cloud/), see the [Connect Cloud Documentation](https://docs.posit.co/connect-cloud/){target="_blank"}
+
   2. For community support, there is a [community forum for Connect Cloud](https://forum.posit.co/c/posit-professional-hosted/posit-connect-cloud/67){target="_blank"}.
 
   3. Customers with Starter, Basic, Standard or Pro subscriptions can get direct access to our support engineers by opening a case on [the Posit Support site](https://support.posit.co/){target="_blank"}. Questions are answered from 9AM - 5PM(EST) Monday - Friday.
 
-### shinyapps.io
+### Shinyapps.io
+
+::: callout-tip
+# shinyapps.io migration
+
+shinyapps.io is being sunsetted in favor of Connect Cloud in 2027 (see the [blog post](https://posit.co/blog/migrating-connect-cloud-posits-unified-publishing-solution) and
+[migration documentation](https://docs.posit.co/shinyapps.io/guide/migration/){target="_blank"} for more details).
+:::
 
   1. For documentation and instructions on how to use [shinyapps.io](http://shinyapps.io){target="_blank"}, see the [shinyapps.io user guide](https://docs.posit.co/shinyapps.io/){target="_blank"}.
 
-  2. The best place to get community support for shinyapps.io is the [shinyapps.io category on Posit Community](https://community.rstudio.com/tags/shinyappsio){target="_blank"}. If you're having difficulties with shinyapps.io, feel free to ask questions there. Another option is to file an issue in the [rsconnect-python package repo](https://github.com/rstudio/rsconnect-python/issues){target="_blank"}.
+  2. The best place to get community support for shinyapps.io is the [shinyapps.io category on Posit Community](https://forum.posit.co/tag/shinyappsio){target="_blank"}. If you're having difficulties with shinyapps.io, feel free to ask questions there. Another option is to file an issue in the [rsconnect-python package repo](https://github.com/posit-dev/rsconnect-python/issues){target="_blank"}.
 
   3. Customers with Starter, Basic, Standard or Pro subscriptions can get direct access to our support engineers by opening a case on [the Posit Support site](https://support.posit.co/){target="_blank"}. Questions are answered from 9AM - 5PM(EST) Monday - Friday.
 

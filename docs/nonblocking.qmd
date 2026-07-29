@@ -278,3 +278,9 @@ Only use async functions in your reactive code if you need to call async-only fu
 Don't expect your application to run faster, more responsively, or more efficiently.
 
 To achieve true non-blocking behavior in Shiny applications, factor your slow/async code into an `ExtendedTask` callable object, call it from a reactive effect, and read its `result()` from a render function or reactive calc.
+
+::: {.callout-tip}
+## Monitoring Performance with OpenTelemetry
+
+`ExtendedTask` operations are automatically traced when using [OpenTelemetry](opentelemetry.qmd). This lets you monitor background task execution, identify slow operations, and track performance in production without adding debug code.
+:::

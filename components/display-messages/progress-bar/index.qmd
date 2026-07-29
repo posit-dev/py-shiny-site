@@ -24,17 +24,17 @@ listing:
     dir: components/display-messages/progress-bar/
   contents:
   - title: ui.Progress
-    href: https://shiny.posit.co/py/api/ui.Progress.html
-    signature: ui.Progress(self, min=0, max=1, session=None)
+    href: https://shiny.posit.co/py/api/core/ui.Progress.html#shiny.ui.Progress
+    signature: ui.Progress(min=0, max=1, session=None)
   - title: ui.Progress.close
-    href: https://shiny.posit.co/py/api/ui.Progress.html
-    signature: ui.Progress.close(self)
+    href: https://shiny.posit.co/py/api/core/ui.Progress.html#shiny.ui.Progress.close
+    signature: ui.Progress.close()
   - title: ui.Progress.inc
-    href: https://shiny.posit.co/py/api/ui.Progress.html
-    signature: ui.Progress.inc(self, amount=0.1, message=None, detail=None)
+    href: https://shiny.posit.co/py/api/core/ui.Progress.html#shiny.ui.Progress.inc
+    signature: ui.Progress.inc(amount=0.1, message=None, detail=None)
   - title: ui.Progress.set
-    href: https://shiny.posit.co/py/api/ui.Progress.html
-    signature: ui.Progress.set(self, value=None, message=None, detail=None)
+    href: https://shiny.posit.co/py/api/core/ui.Progress.html#shiny.ui.Progress.set
+    signature: ui.Progress.set(value=None, message=None, detail=None)
 ---
 
 :::{#example}

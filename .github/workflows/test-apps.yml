@@ -1,0 +1,40 @@
+name: test-apps
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: test-apps-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  apps:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5]
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up py-shiny-site
+        uses: ./.github/internal/setup-py-shiny-site
+
+      - name: Install dependencies
+        run: make deps
+
+      # Run the browser in a cached Docker container instead of installing it on
+      # the runner; pytest-playwright connects over PW_TEST_CONNECT_WS_ENDPOINT.
+      - name: Set up remote Playwright
+        uses: ./.github/internal/setup-playwright-remote
+
+      # Per-component controller interaction tests + conftest unit tests --
+      # everything except the smoke sweep (which runs in test-smoke.yml). Uses
+      # the Makefile target (chromium + xdist from pytest.ini; install-playwright
+      # no-ops because the remote server env is set above).
+      - name: Run per-component app tests (shard ${{ matrix.shard }} of 6)
+        run: make test-apps PYTEST_ARGS="--num-shards 6 --shard-id ${{ matrix.shard }}"
