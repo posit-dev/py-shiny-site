@@ -77,13 +77,17 @@ Now for the exciting part – writing the test code!
 2.  **Copy and paste this code:**
 
 ```python
-from shiny.playwright import controller
-from shiny.run import ShinyAppProc
 from playwright.sync_api import Page
+from shiny.playwright import controller
+from shiny.pytest import create_app_fixture
+from shiny.run import ShinyAppProc
 
-def test_basic_app(page: Page, local_app: ShinyAppProc) -> None:
+app = create_app_fixture(["app.py"])
+
+
+def test_basic_app(page: Page, app: ShinyAppProc) -> None:
     # Navigate to the app URL when it's ready
-    page.goto(local_app.url)
+    page.goto(app.url)
 
     # Controller objects for interacting with specific Shiny components
     txt = controller.OutputText(page, "txt")
@@ -100,7 +104,7 @@ def test_basic_app(page: Page, local_app: ShinyAppProc) -> None:
 - **Understand role of Fixtures**
     - **ShinyAppProc**: Manages a Shiny application subprocess, handling lifecycle (startup, shutdown) and providing access to output streams.
     - **page**: Playwright object representing the browser tab.
-    - **local_app**: Running instance of the Shiny application.
+    - **app**: Running instance of the Shiny application.
 
 -  **Understand role of Controllers**
 
