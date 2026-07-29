@@ -15,19 +15,22 @@ listing:
     height: 200
   - title: Express
     file: app-express.py
-    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDOFGIVOANzgAdCI2ZsuPLHAAe6Ma1Z8BQkd3QBXCkTEQAJnAZETnBQodZjZgPoSp5dwBtuANYAFHJokpw+-hABoUShAJIQxGJQrHDIAHImMABGtqEAlMjIAMTIADzlThAKZCaUyAC8ouLhsljSUL4mcEEADAXVCgACKW1w6nR0cJIjY1LtcLKUQW4UWF4REH6Bg9ZwdMjuQQWICsXFdZRYaRRBV3dFANTIAIx71aPUNgxYVBqPBQ2Q4PWwnM4QC4tCgmBiQuihEAPE4AX1CCkIqAouHQCBQYH+FDAKIAukA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDOFGIVOANzgAdCI2ZsuPLHAAe6Ma1Z8BQkd3QBXCkTEQAJnAZETnBQodZjZgPoSp5dwBtuANYAFHJokpw+-hABoUShAJIQxGJQrHDIAHImMABGtqEAlMjIAMTIADzlThAKZCaUyAC8ouLhsljSUL4mcEEADAXVCgACKW1w6nR0cJIjY1LtcLKUQW4UWF4REH6Bg9ZwdMjuQQWICsXFdZRYaRRBV3dFANTIAIx71aPUNgxYVBoUBQ2Q4PWwnM4QC4tCgmBiQuihEAPE4AX1CCkIqAouHQCBQYH+FDAKIAukA
   - title: Core
     file: app-core.py
-    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnEnUAJnAZEArpwA6EPRnQB9bcgC8ybTigBzOEboAbbSoAUe5J8ucs3dJoojGTlyI0duAGt3NFlOUPCICJ1CZGSASQhiKShWOGQAOU0YACN1ZIBKImQAYmQAHjqPLytSAP9AqgAPCmiyTUoysEq9cr0xiDU6NnVFBlc-AKJWinaiXNZWOIhyxCbPPspzZGzYxSx5KGc4VwAGUf0IL2QAARO5M7g6OjhZPZe3hRwLBwRSUeYQdpYYJbMKRcqeWoNP6TZBGVw7P5PA4ULC5HrY9HIADUyAAjPc-q9VOosF0evcnijsep0btHk8vFIKJoGI86MkQATygBfZLjAyYI7idCuQwmThrGbqe4pMAUXDoBAoNVwbpgYUAXSAA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnEnUAJnAZEArpwA6EPRnQB9bcgC8ybTigBzOEboAbbSoAUe5J8ucs3dJoojGTlyI0duAGt3NFlOUPCICJ1CZGSASQhiKShWOGQAOU0YACN1ZIBKImQAYmQAHjqPLytSAP9AqgAPCmiyTUoysEq9cr0xiDU6NnVFBlc-AKJWinaiXNZWOIhyxCbPPspzZGzYxSx5KGc4VwAGUf0IL2QAARO5M7g6OjhZPZe3hRwLBwRSUeYQdpYYJbMKRcqeWoNP6TZBGVw7P5PA4ULC5HrY9HIADUyAAjPc-q9VOosF0KMjPshsep0btHk8vFIKJoGI86MkQATygBfZLjAyYI7idCuQwmThrGbqe4pMAUXDoBAoNVwbpgYUAXSAA
 - id: relevant-functions
   template: ../../_partials/components-detail-relevant-functions.ejs
   contents:
   - title: ui.input_action_link
-    href: https://shiny.posit.co/py/api/ui.input_action_link.html
+    href: https://shiny.posit.co/py/api/core/ui.input_action_link.html#shiny.ui.input_action_link
     signature: ui.input_action_link(id, label, *, icon=None, **kwargs)
   - title: reactive.event
-    href: https://shiny.posit.co/py/api/reactive.event.html
+    href: https://shiny.posit.co/py/api/core/reactive.event.html#shiny.reactive.event
     signature: reactive.event(*args, ignore_none=True, ignore_init=False)
+  - title: ui.update_action_link
+    href: https://shiny.posit.co/py/api/core/ui.update_action_link.html#shiny.ui.update_action_link
+    signature: ui.update_action_link(id, *, label=None, icon=None, session=None)
 - id: kitchen-sink
   template: ../../_partials/components-detail-kitchen-sink.ejs
   contents:

@@ -216,7 +216,7 @@ Shiny for Python empowers you to bring your data to life with interactive applic
   Build delightful user interfaces using an extensive library of simple yet composable [components](/components/) and [layouts](/layouts/).
   As your app grows, you'll also appreciate advanced features like [modules](/docs/modules.qmd), [theming](/docs/ui-customize.qmd), [non-blocking tasks](/docs/nonblocking.qmd), [bookmarking](https://shiny.posit.co/blog/posts/shiny-python-1.4/), and more.
 
-- **Ready for AI**<br>
+- **Easily integrate AI into your applications**<br>
   Quickly build [beautiful AI apps](/docs/genai-inspiration.qmd) like [chatbots](/docs/genai-chatbots.qmd) and other [streaming](/docs/genai-stream.qmd) interfaces.
 
 

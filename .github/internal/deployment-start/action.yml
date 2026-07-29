@@ -1,0 +1,47 @@
+name: Start GitHub deployment
+description: Creates a GitHub deployment and marks it in_progress
+
+inputs:
+  environment:
+    description: Deployment environment name
+    required: true
+  ref:
+    description: Git ref to deploy
+    required: true
+  token:
+    description: GitHub token
+    required: true
+  log_url:
+    description: Link to the Actions run log
+    required: true
+
+outputs:
+  deployment_id:
+    description: GitHub deployment ID
+    value: ${{ steps.create.outputs.deployment_id }}
+  env:
+    description: Environment name (echoed for downstream use)
+    value: ${{ inputs.environment }}
+
+runs:
+  using: composite
+  steps:
+    - id: create
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.token }}
+        DEPLOY_REF: ${{ inputs.ref }}
+        DEPLOY_ENV: ${{ inputs.environment }}
+        DEPLOY_LOG_URL: ${{ inputs.log_url }}
+      run: |
+        # Use --input with explicit JSON so required_contexts is a real empty
+        # array — gh api -f cannot express an empty array, which causes a 409.
+        deployment_id=$(printf '{"ref":"%s","environment":"%s","auto_merge":false,"required_contexts":[]}' \
+          "$DEPLOY_REF" "$DEPLOY_ENV" \
+          | gh api "repos/${{ github.repository }}/deployments" \
+              --method POST --input - --jq '.id')
+        gh api "repos/${{ github.repository }}/deployments/${deployment_id}/statuses" \
+          --method POST \
+          -f state="in_progress" \
+          -f log_url="$DEPLOY_LOG_URL"
+        echo "deployment_id=${deployment_id}" >> "$GITHUB_OUTPUT"

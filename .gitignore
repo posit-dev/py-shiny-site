@@ -5,6 +5,7 @@
 /pypi-tmp/
 /pypi/
 /_build/
+/.quartodoc-stamp
 .DS_Store
 
 /.luarc.json
@@ -18,4 +19,22 @@ __pycache__/
 .venv/
 __pycache__/
 
+# Test artifacts (pytest + pytest-playwright)
+.pytest_cache/
+/test-results/
+
 components/static/
+.claude/*
+# ...but track shared, repo-specific Claude skills
+!.claude/skills/
+.playwright-mcp/
+shinylive/
+
+**/*.quarto_ipynb
+
+/tests/node_modules/
+/tests/dist/
+
+# Agent planning documents (specs/plans) - not committed
+/docs/superpowers/
+index-listing.json

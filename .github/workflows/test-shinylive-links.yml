@@ -1,0 +1,40 @@
+name: test-shinylive-links
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: test-shinylive-links-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-shinylive-links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # Installs uv (Python from the Makefile) and checks out the pinned py-shiny
+      # submodule. The link generator's `shinylive:` values must be encoded with
+      # the same shinylive version the site build uses (pinned via py-shiny's
+      # docs extras in the submodule), or this check produces false failures.
+      - name: Set up py-shiny-site
+        uses: ./.github/internal/setup-py-shiny-site
+
+      # Regenerate the shinylive links embedded in the component index.qmd
+      # files. The Makefile self-manages its uv venv.
+      - name: Regenerate shinylive links
+        run: make components-shinylive-links
+
+      # If regenerating changed any tracked file, the committed links are stale.
+      - name: Verify shinylive links are up to date
+        run: |
+          if ! git diff --quiet; then
+            echo "::error::Shinylive links are out of date. Run 'make components-shinylive-links' and commit the result."
+            echo "--- Offending diff ---"
+            git diff
+            exit 1
+          fi
+          echo "Shinylive links are up to date."
