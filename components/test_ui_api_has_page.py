@@ -105,7 +105,7 @@ _TODO_NEEDS_COMPONENT_PAGE = {
     "bind_task_button", "chat_ui", "download_button", "download_link",
     "input_bookmark_button",
     "input_task_button", "output_code", "output_markdown_stream", "output_table",
-    "popover", "toast", "toast_header", "show_toast", "hide_toast",
+    "popover",
     "offcanvas", "show_offcanvas", "hide_offcanvas", "toggle_offcanvas",
 }
 
