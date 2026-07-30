@@ -15,6 +15,8 @@ update_core_app = create_example_fixture(HERE / "app-variation-update-popover-co
 update_express_app = create_example_fixture(
     HERE / "app-variation-update-popover-express.py"
 )
+inputs_core_app = create_example_fixture(HERE / "app-variation-inputs-core.py")
+inputs_express_app = create_example_fixture(HERE / "app-variation-inputs-express.py")
 
 
 def _check_popover_interaction(page: Page, app: ShinyAppProc) -> None:
@@ -65,6 +67,15 @@ def _check_update_popover_interaction(page: Page, app: ShinyAppProc) -> None:
     close.click()
     popover.expect_active(False)
 
+    # Positional args replace the body and `title` replaces the header, which is
+    # what the page claims update_popover() can do.
+    controller.InputActionButton(page, "btn_update").click()
+    popover.set(True)
+    popover.expect_active(True)
+    popover.expect_body("An updated message.")
+    popover.expect_title("An updated popover")
+    popover.set(False)
+
 
 def test_update_popover_core_interaction(
     page: Page, update_core_app: ShinyAppProc
@@ -76,3 +87,33 @@ def test_update_popover_express_interaction(
     page: Page, update_express_app: ShinyAppProc
 ) -> None:
     _check_update_popover_interaction(page, update_express_app)
+
+
+def _check_inputs_in_popover(page: Page, app: ShinyAppProc) -> None:
+    page.goto(app.url)
+
+    popover = controller.Popover(page, "settings_popover")
+    summary = controller.OutputCode(page, "summary")
+    summary.expect_value("50 points in red")
+
+    # A popover can hold live input controls, not just text -- the feature that
+    # distinguishes it from a tooltip. Drive them while the popover is open.
+    popover.set(True)
+    popover.expect_active(True)
+    controller.InputSlider(page, "n").set("80")
+    summary.expect_value("80 points in red")
+    controller.InputSelect(page, "color").set("blue")
+    summary.expect_value("80 points in blue")
+
+    popover.set(False)
+    popover.expect_active(False)
+
+
+def test_inputs_in_popover_core(page: Page, inputs_core_app: ShinyAppProc) -> None:
+    _check_inputs_in_popover(page, inputs_core_app)
+
+
+def test_inputs_in_popover_express(
+    page: Page, inputs_express_app: ShinyAppProc
+) -> None:
+    _check_inputs_in_popover(page, inputs_express_app)
