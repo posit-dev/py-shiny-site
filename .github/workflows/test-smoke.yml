@@ -43,3 +43,22 @@ jobs:
       # no-ops because the remote server env is set above).
       - name: Smoke-test shard ${{ matrix.shard }} of 6
         run: make test-smoke PYTEST_ARGS="--num-shards 6 --shard-id ${{ matrix.shard }}"
+
+  # Single stable check for branch protection / auto-merge. The `smoke` matrix
+  # above may be re-sharded freely without touching the required-checks list.
+  done-test-smoke:
+    name: done-test-smoke
+    # `always()` is required: without it, a failing shard would make this job
+    # skip, and GitHub treats a skipped required check as satisfied.
+    if: always()
+    needs: smoke
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify that every smoke shard succeeded
+        env:
+          RESULTS: ${{ toJSON(needs.*.result) }}
+        run: |
+          echo "Job results: $RESULTS"
+          if echo "$RESULTS" | grep -qE 'failure|cancelled|skipped'; then
+            exit 1
+          fi
