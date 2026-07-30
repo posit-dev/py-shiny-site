@@ -10,22 +10,28 @@ ui.input_action_button("danger", "Danger")
 @reactive.effect
 @reactive.event(input.success)
 def show_success():
-    ui.show_toast(ui.toast("Operation successful!", type="success"))  # <<
+    ui.show_toast(
+        ui.toast("Operation successful!", type="success", id="toast_success")  # <<
+    )
 
 
 @reactive.effect
 @reactive.event(input.info)
 def show_info():
-    ui.show_toast(ui.toast("Here's some information.", type="info"))
+    ui.show_toast(ui.toast("Here's some information.", type="info", id="toast_info"))
 
 
 @reactive.effect
 @reactive.event(input.warning)
 def show_warning():
-    ui.show_toast(ui.toast("Warning: check your input.", type="warning"))
+    ui.show_toast(
+        ui.toast("Warning: check your input.", type="warning", id="toast_warning")
+    )
 
 
 @reactive.effect
 @reactive.event(input.danger)
 def show_danger():
-    ui.show_toast(ui.toast("Error: operation failed.", type="danger"))
+    ui.show_toast(
+        ui.toast("Error: operation failed.", type="danger", id="toast_danger")
+    )

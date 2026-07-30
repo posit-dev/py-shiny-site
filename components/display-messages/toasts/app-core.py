@@ -1,3 +1,5 @@
+from faicons import icon_svg
+
 from shiny import App, reactive, ui
 
 app_ui = ui.page_fluid(
@@ -13,6 +15,7 @@ def server(input, output, session):
             ui.toast(
                 "You have a new message!",
                 header=ui.toast_header("Inbox", status="just now"),
+                icon=icon_svg("envelope"),
                 type="success",
                 id="message_toast",
             )

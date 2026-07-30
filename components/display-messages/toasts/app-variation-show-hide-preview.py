@@ -15,6 +15,7 @@ def server(input, output, session):
                 "This toast stays until you hide it.",
                 id="persistent_toast",
                 duration_s=None,
+                closable=False,
             )
         )
 

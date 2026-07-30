@@ -14,10 +14,10 @@ listing:
     height: 200
   - title: Express
     file: app-express.py
-    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDOFGIVOANzgAdCI2ZsuPLHAAe6Ma1Z8BQkd3QBXCkROcFCy1mNmA+hKnkHAIzMVyACjlgOpADufkR+AMrsQcheUKwUfgCU1hAKAAJizjJw6nR0cJJpGZJZ6rKU3vYUWAGBSRAAJnB0KkEO8LpQAOZw3gmICsiDyLY1DjFx3oMAxMgAPLMDQ0u24xS+EEubQ34AmqQmyOxQsshQyBBwgcjtrF1wAIQhi1tL7OKNDAC8K6SxFA5vKAfXxgACSEDcpA0ITYFCgFBMrE+fgAVoiRBAgokCM8XoMKLh0HBkf4TMRiHBdE8Nnihpx6iSbncxr84tS8XUlnVCKgCUTaGAqBoKGAAL4AXSAA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6EeY2bJuAC3YRcfAUJEM4UYhXaS4ipizUbcWOAA90+7r36DhfCOgCuFIl-by8v5YGt4UYobG5GIARj4U5AAUsmBqpADuKUQpAMqqGcgJUNwUKQCUgQoQAAL6kSZwtnR0cEbytQZGDbamlImhPlhp6RUQACZwdCr56WLwzlDScIlliPLIG8jBw2JFJYkbAMTIADwn65uXwXsUyRCXD5spAJqkXsiqUKbIUMgQcOlkPNuIs4ABCLIXR6XVQGCYMAC811IxXCsKg8OSYAAkhAYqQ7FkVBQoBQvNwESkAFbkkQQDLlAhQ6EbTjkBFsiASGRY6imAA2pHQZjAZSZ9xZmwouGFlNSXmIxDgzkhEslfDGcuBoN2KJKqpZo0uo0IqGlwtoYCodgoYAAvgBdIA
   - title: Core
     file: app-core.py
-    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGjOgD6q5AF5kqnFADmcHXQA2qgCYAKDchfHOWbumUUdMueR0AI28KcicwDlIAdzVCZFiAZXZo5FCoVgpYgEoCDSyNAog7ODo2OAZFBgdPbyJSby8KIlY4VlZOcizEZ1cAASk-BTgsEro4WR6XfulZIZHFSmqIRqxIqPyIV2Ri0p0HLsmtt1XkqJ00jIcXAGJkAB47w6PXEwuKJ03nr5dYgE165DsKCKZBQZAQOBRZDwNrmOAAQliuU+32e7GkxQYBlepHSPnRUEx4QAkhBAqQAB5ItgUKAUZSsAyxABWDJEEGi2WRqK+FFw6DgTIiymIxFarCRTx5fDsQphrDh51xGUlKNRG2+G0K2kMYkwDm0ek4zXKlQ2cTAfIFtEtcApFDAAF8ALpAA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6EeY2bJuAC3YRcfAUJEBBTEQZwoxCu0lwiAV3bz5GdGNvIAvMls4o0uGLoAbWwATAAp5ZAiPdiwNdGsKMVNzcjEAI3iKcjCwNVIAd1lCZEKAZVV85EyobgpCgEoCeTr7BQgguDoVOAZLBhDY+KJSeLiKIm44bm52cjrEcMiAAWMkizgsDro4MwWI5ZMzNY3LSn6IUaxcvOaISOR2zrEQud27qMvyvLEqmpCIgGJkAAeIGvN6RTw-ChhW7guERQoATWGyFUUEsyCgyAgcDyyHgU28cAAhIVGrD4eDVCZ2gxXJDSNUEtSoLTsgBJCCpUgADzJKgoUAo1m4rkKACsRSIIPl6uTKXDOORXEqIBIZNlqJZ-KR0HA5WCFZVcHqxTlrMRiJNuGTDQr2EEzQTuETvoyaraKZSbvCbi1HG5kAZ0CFHM52ONur0bkUwBQTQgUHG4DyKGAAL4AXSAA
 - id: relevant-functions
   template: ../../_partials/components-detail-relevant-functions.ejs
   contents:
@@ -48,10 +48,10 @@ listing:
       height: 250
     - title: Express
       file: app-variation-types-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDOFGIVOANzgAdCI2ZsuPLHAAe6Ma1Z8BQkd3QBXCkROcFCy1mNmA+hKnkHAIzMVyACjlhWJsTEcLp+RH4AyoHBoWAAlDacdhCmFE6SnK4eFF4QvmDcdKRhyH4AkorF8YnJqekuEO6ePn4A7lAMENwA5iV+AOodXRC91RC29mnOmY3ZufkAJlAjcAx9YAAiy92rfgkQ1hAAAmLTsup0dHCSCifiGedwspTek1gBQSGs+wtwdCqkVoOD4xVjeOKIBTIaHIWwcQEOLxQVgUby2JEo-IAeXQqygDTY0S+dBMABsAIQlCi4XEAXj8IK+ezi0IAxMgADwcw63U4POAXK43Y58qSPZ6ot6FUg-P4AoHS8GQiAw2FJeFAjGo9GkZGovwACVWcAA5HpWMw4HxKgwYPiZlgqTS4PSCpVmTyRfcxQK-kKKLzvTJfRLXikzFh2p0erL-hqHFHht0lVCYXD2AitWiklmBkMeihiOxrgBrZC4UgmBjW1KOwjIal0tr5kYeg7tu5nX2Xa4Br1d9Sht5LFYMWPyhwjnYMFMqtPqjOa3WYnV6-IAUQYTAYKFIuIY9vIyDoUE4pLgCzrREbLr8U928X29bAN9oL80FDAAF8ALpAA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDOFGIVOANzgAdCI2ZsuPLHAAe6Ma1Z8BQkd3QBXCkROcFCy1mNmA+hKnkHAIzMVyACjlhWJsTEcLp+RH4AyoHBoWAAlDacdhCmFE6SnK4eFF4QvmDcdKRhyH4AkorF8YnJqekuEO6ePn4A7lAMENwA5iV+AOodXRC91RC29mnOmY3ZufkAJlAjcAx9YAAiy92rfgkQ1hAAAmLTsup0dHCSCifiGedwspTek1gBQSGs+wtwdCqkVoOD4xVjeOKIBTIaHIWwcQEOLxQVgUXwQGEY2FJJEo-IAeXQqygDTY0S+dBMABsAIQlCi4QkAXj8IK+JU4C2ZYBxaVZsTi0IAxMgADwiqEw-aHO5nOAXK43Y6nB5yp7UVFvQqkH5-AFArXgyHomFw9gInneWwWvwACVWcAA5HpWMw4HxKgwYMSZlg6Qy4FytezOX4eQ4g-EpQclfcpI9LtcKLdlXHVc8NSkzFh2p0ejr-vCgTnht1DRLoabzaRkajy5irdXcQMhj0UMR2NcANbIXCkEwMd2pX2EZD0pltFsjYNcsPFnp7OtR5OxmSqhOKmUq9Tp16ZihYJYrBj5vUOQ87Bhl40VpKFxGN2vX+vYh-5ACiDCYDBQpEJDG95DIHQUCcJScALMORBjgGfjnrsI4cjOD5nts8H7Bi+wjty-q0NymgUGAAC+AC6QA
     - title: Core
       file: app-variation-types-core.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGjOgD6q5AF5kqnFADmcHXQA2qgCYAKDchfHOWbumUUdMueR0AI28KcicwVmViYjhWVjVCZASAZSiYuISASgJnVxNPb19ZTgDgilCIcO46UgSiBIBJCBqsnIhXNw8ILx8-EoggkLCEgHcoBghuMzqksAB1ccmIabBs3Jd87sK+0qHKhLsoZbgGGYSAESOLU9W2zI0HiDs4OjYTxQYHAooiUm8eoisWKsfqZRDrZAAASkfUUWBedDgsgh0OkxThcEUlC+WwoWEi0WB93armerx0DjBEI6Jg4pBGOlCUFYFAcJiZLPCAHl0CcoP52gT0qw6MprABCGYUXC8gwJIXArKZFwAYmQAB51Y8OqjYXB4XREciSS5dej9ZjqKzvl0asSOmTkBSqSaOp06QyOaz2aRmayEgAJE5wADkrDYzDgfGaQhg-P6WClMrgcrA1Vqq2JKJh5oNRoo2bRcgxWOtuKwYwmU3tpJeTsp4NdNPcHsZvs5Pr94QWVeWKGI7CRAGtkLg-gxoz1E4lpbLRospkrta4zcWLYakQXXauFBbSzip4djgway5Hc7G268i32PS213O5yEgBRBhMBgoUi8hjx8jIOhQJw1hwHY05ELOKYHFcJxLpocHaIYYiYA42h6JwgLvCcxKJGAEG0LhcAAB4UGAAC+AC6QA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGjOgD6q5AF5kqnFADmcHXQA2qgCYAKDchfHOWbumUUdMueR0AI28KcicwVmViYjhWVjVCZASAZSiYuISASgJnVxNPb19ZTgDgilCIcO46UgSiBIBJCBqsnIhXNw8ILx8-EoggkLCEgHcoBghuMzqksAB1ccmIabBs3Jd87sK+0qHKhLsoZbgGGYSAESOLU9W2zI0HiDs4OjYTxQYHAooiUm8eoisWKsfqZRDrZAAASkfUUWBedDgsgh0OkxThcEUlC+WwoWEi0WB93armerx0DjBEI6Jg4pBGOlCUFYFCcJI6HM6TJZ4QA8ugTlB-O0CelWHRlNYAIQzCi4AUGBKi4EzTh2RVgbk+ZUZVYuADEyAAPEbqa5iSiYei4PC6IjkeyoVa5Bisazvl0asSOmTkBSqY6ae46QytWzOZyTGGEgAJE5wADkrDYzDgfGaQhgQv6WFl8rgGuqtUSao1Wp0RayZpcFsdqNhNoRSIolrRLsbbpxPSwYwmU29pJefsp4MDeWD7HpjNIzNZ1Y5UZnPISCz7yxQxHYSIA1shcH8GOnu3mFaNFlNVeqEuXe0sVgPObWOvXrbb7S2686FB3qO7cVhDmOBgH2QX1-VHCNOhDadZ3DSDxywaMwAAUQYJgGBQUgBQYbNyGQOgoE4aw4DsXNEjlU8wEA65LzLJcfGok4qzHGtHi0TBDDETAHG0PROEBd4TmJRJNXzWhNTgAAPCgwAAXwAXSAA
   - title: Toast positions
     description: |
       Place a toast anywhere on screen with the `position` argument of `ui.toast()`. Valid positions combine top/middle/bottom with left/center/right, e.g. `"top-left"`, `"middle-center"`, or `"bottom-right"`. The default is `"top-right"`.
@@ -61,23 +61,23 @@ listing:
       height: 250
     - title: Express
       file: app-variation-positions-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDOFGIVOANzgAdCI2ZsuPLHAAe6Ma1Z8BQkd3QBXCkROcFCy1mNmA+hKnkHAIzMVyACjlgv6A4ANnB0FH5EfgAqpOjIIWF+AJQ2nHYQphROkpyuHhReEL7+sQ7E1FQMEcjRscjllHBVYCkQtvZZzrkQ7p4+fjCcACZDIWUVTdV+ALLDo3D1E82t7RmOXXl9RX5upAXMDgycAObs4YQ1YABCe14sR6fnrdYQAAJiXbLqdHRwkgrvcQ5L5wWSUbwdLABYKhCitIahFSkADuDmhCQo3iSiAUyDxyFsHBRaNIUFYmNsXjJmNqcQxyEErE4Lgg1UZzO6AF4-AEALQY5JJPEAYmQAB4xS8AR9gXBvr9-m8ZVIQWDMZDoQ1KvDEUTUZqllicRB8QS0nqSdTvJTSeTijE4lqmgzSEyWWzXRzyNySuheU7ls9WUqgSq5aEFeEQ59w2qIWsKFhBiMxgGdXQkajk-Nxo0GEbcfjCexiVS7TarTM5iFFnmXW7uh6G96BtW4P6loKpdHZfK-lHATH1HHIbt9jBDiczunM+5bgcHmcCyai+aS-rbRS0mWadd5-cpyJ2e6LseuTt97zF09Whd-Lh0AgUP5NBQwABfAC6QA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDOFGIVOANzgAdCI2ZsuPLHAAe6Ma1Z8BQkd3QBXCkROcFCy1mNmA+hKnkHAIzMVyACjlgv6A4ANnB0FH5EfgAqpOjIIWF+AJQ2nHYQphROkpyuHhReEL7+sQ7E1FQMEcjRscjllHBVYCkQtvZZzrkQ7p4+fjCcACZDIWUVTdV+ALLDo3D1E82t7RmOXXl9RX5upAXMDgycAObs4YQ1YABCe14sR6fnrdYQAAJiXbLqdHRwkgrvcQ5L5wWSUbwdLABYKhCitIahFSkADuDmhCQo3iSiAUyDxyFsHBRaNIUFYmNx+Kpti8ZIpECpjPxtTiGOQglYnBcEAilKZVI5XO6AF4-AEALQY6rIADEyAAPPK+fy8cNRSU6STAlLCMqqa19S8AR9gXBvr9-m8TVIQWDMZDoQ1KvDEUTUY6llicQz8YT2MTaeTfD6mTTSUG9fyWYtGgx2aROdzeSGVfHEyKxbFxU7JrqUyq1ZnNR7Y8mVQb8c8eVagTazaELeEa5963aIWsKFhBiMxjmGC66EjUd35uNY17lX6A+H6Sqw3Tg6nmWBZj2Fn200LyGWl5vueqRyFs0sd0vCxryQ5D3Ax5VT4yK3iq8bazJ6z8-k3AS31G3Ibt9hgQ4TjOAch3cW4DgeM4JxTKd3RnRd+XnCN8yja5IPuECREFJM813PcMzAAC7nFaDzgISMmXPQMshIqDsPvQ0U1aC5-FwdAEBQfxNAoMAAF8AF0gA
     - title: Core
       file: app-variation-positions-core.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGjOgD6q5AF5kqnFADmcHXQA2qgCYAKDchfHOWbumUUdMueR0AI28KcicwUN1rODoKNUJkeIAVUnRkaNj4gEoCZ1cTT29fWU4A4IpQiHDInWJqKgZ4omTU5DrKOEawHLyXAogvHz9SiCCQsPiYTjs7aNr6zqbEsABZadm4NoWunohXNw8BouGy8ar4wNIK5h0GTjN2OIT4gCEr0JY7h6fdrI1-iB2GJsTqKBgOQoUIikbyDIisOCsVgjLKIXrIAACUmGiiwMTocFk6Kx0hKuLgikoEKOFCwNQyFD+e1cQLoyB0DlR6P2Jg4pAA7jpQlBWBQHCZhaLwik0gzkIJkf5NAkFZwlQZ4pEALQM7JZFwAYmQAB5jQD9iScXA8XQCUTmS5LWTrRT6tTBnTUvMOgwmftWezOWiHfsDnzBZKxRLSCKxS00u0GvLSIqRktVerNaktYnFt0mcTsc6bXa4iGnXJyZSxZCsFMZnNc770QGOVyQzz3OGhTGpdHY+E1g3Nk3k6nyOmU2qRhqwPWNjntnrza4KwoXbbCWWLUXKy7q+7vFhLtcYLd7o8-SzgW3g6H8l32AKewP+1LXu9mMgvo8x9OJyqU6ZmAJ4fFqP4-AWmjQJghhiJgDjaHonDwqCnRMgkES4OgCAoBEcAAB4UGAAC+AC6QA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGjOgD6q5AF5kqnFADmcHXQA2qgCYAKDchfHOWbumUUdMueR0AI28KcicwUN1rODoKNUJkeIAVUnRkaNj4gEoCZ1cTT29fWU4A4IpQiHDInWJqKgZ4omTU5DrKOEawHLyXAogvHz9SiCCQsPiYTjs7aNr6zqbEsABZadm4NoWunohXNw8BouGy8ar4wNIK5h0GTjN2OIT4gCEr0JY7h6fdrI1-iB2GJsTqKBgOQoUIikbyDIisOCsVgjLKIXrIAACUmGiiwMTocFk6Kx0hKuLgikoEKOFCwNQyFD+e1cQLoyB0DlR6P2Jg4pAA7jpQlBWBQnMz9pKDsLReKpfLXC00gzkIJkf5NIRuQrXGrOBqDPFIgBaBlLZAAYmQAB5rdqdXw7IaIqQRT56TEnrkJTqmQqmcTsWS4Hi6ASiT6STiQxT6tTBnTUvMOgw-SzgRyuT6ee4+YKZWL7ZKTAW5Q7JUqtinVaR1SMmkWFXqDUbUsb2g0G9ny9NnQWhUmO4std2pWmxwD9lHg6Hw3FI0G5OTKWLIVgpjM5kPU+jWezOWjRwc8wO3WWHSXXbLG-L4mtN5ttzW6+Qu+XJc2Rs6Nxt29s3++ri9q2bo6D+W7-iO77jpKAYLqSS4xmGhLzlOi4KDGK7xt4WCXNcMC3PcjwwXumaHgqvLsAKp7XkeOaJmeN5Sq87zMMgXyPM++r1lBgEuJ+5DOnhHzGhxXpMZKwEuqBwk3GJAEOjB+xwVomCGGImAONoeicPCoKdEyCQRLg6AICgERwAAHhQYAAL4ALpAA
   - title: Show and hide a toast from the server
     description: |
-      Give a toast an `id` and set `duration_s=None` to keep it on screen, then call `ui.hide_toast()` with that `id` to dismiss it programmatically. `ui.show_toast()` also returns the toast's id (auto-generated if you don't provide one), so you can hide any toast you've shown.
+      Give a toast an `id` and set `duration_s=None` to keep it on screen, then call `ui.hide_toast()` with that `id` to dismiss it programmatically. `ui.show_toast()` also returns the toast's id (auto-generated if you don't provide one), so you can hide any toast you've shown. This toast also passes `closable=False`, so the server is the only thing that can dismiss it; only combine that with `duration_s=None` when your app is certain to call `ui.hide_toast()`.
     apps:
     - title: Preview
       file: app-variation-show-hide-preview.py
       height: 250
     - title: Express
       file: app-variation-show-hide-express.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDOFGIVOANzgAdCI2ZsuPLHAAe6Ma1Z8BQkd3QBXCkROcFCy1mNmA+hKnkHAIzMVyACjlgOpADufkR+AMrsQcheUKwUfgCUNpx2EKYUTpKcrh4UXhC+YFwAJvKEyH4AEpyl0aSx8WBJENYQAAJizjJw6nR0cJIKHeJZsuqylN72FFgBgc2ldCpBDuhwDKyccdQZMXHeCYgKyCfItnMOexS+EKd3ZylXN-cvFWAAKlx6V2wUULh6EyUTgAG2QuFIJmQJTgfBmIWOrzuNQAvH41hstlRKJd6nEQicAMTIAA8JMRSJOxRMDCgLggDlYKIAcuQ4AQKfdmndmq1hl0xnA+gN4u1OqMenAJtdplgYQshdCanBVutNtscU9DpzbDDcQ1Chj1djdnjGgkiaTyRBymAKLg1rQ7ZoKGAAL4AXSAA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDOFGIVOANzgAdCI2ZsuPLHAAe6Ma1Z8BQkd3QBXCkROcFCy1mNmA+hKnkHAIzMVyACjlgOpADufkR+AMrsQcheUKwUfgCUNpx2EKYUTpKcrh4UXhC+YFwAJvKEyH4AEpyl0aSx8WBJENYQAAJizjJw6nR0cJIKHeJZsuqylN72FFgBgc2ldCpBDuhwDKyccdQZMXHeCYgKyCfItnMOexS+EKd3ZylXN-cvFWAAKlx6V2wUULh6EyUTgAG2QuFIJmQJTgfBmIWOrzuNQAvH41hstlRKJd6nEQicAMTIAA8JMRSJOxRMDCgLggDlYKIAcuQ4AQKZTiCDSKwoG4QXAUQAxKAg1jszl3ZrS1pDTqjHpwPoDeLtBVSMZwCbXaZYGELZXQmpwVbrTbbHFPQ6c2ww3ENQoYi3Y3Z4xoJImk8kQcpgCi4Na0f2aChgAC+AF0gA
     - title: Core
       file: app-variation-show-hide-core.py
-      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGjOgD6q5AF5kqnFADmcHXQA2qgCYAKDchfHOWbumUUdMueR0AI28KcicwDlIAdzVCZFiAZXZo5FCoVgpYgEoCZ1cTT29fWU4A4IpQiHCuOzhYoliACU5a1NJ0zLAcjSyNPohaujY4BkUGB0KKIlJvLynh1lZSiCzEPJcAASk-BTgsODo6OFl15C3pEsV9xUoJiDmsSKjeiFdkQeQdB1XTt5MnnRpDJOV5vMEuExAigg8Gw1yxAAqXFYbQ6bAoUFwKOUlE41mQuBmyBqcD4FCw9V+cNcLQMsXQIyWGWoPih9RcAGJkAAeblU6nvZQMKD+CA6VgGABy5CU-LBLzhL1O5x2VwORxOoM220uezgN2hkywJIVrg+Xx+WrBJhJgPawPpjM4zModo62U5PL5mh92kMYkwDm0ek4RFYIzGLziYAouAZtBjcAAHhQwABfAC6QA
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGjOgD6q5AF5kqnFADmcHXQA2qgCYAKDchfHOWbumUUdMueR0AI28KcicwDlIAdzVCZFiAZXZo5FCoVgpYgEoCZ1cTT29fWU4A4IpQiHCuOzhYoliACU5a1NJ0zLAcjSyNPohaujY4BkUGB0KKIlJvLynh1lZSiCzEPJcAASk-BTgsODo6OFl15C3pEsV9xUoJiDmsSKjeiFdkQeQdB1XTt5MnnRpDJOV5vMEuExAigg8Gw1yxAAqXFYbQ6bAoUFwKOUlE41mQuBmyBqcD4FCw9V+cNcLQMsXQIyWGWoPih9RcAGJkAAeblU6nvZQMKD+CA6VgGABy5CU-OpxGspFYUEC1jgBgAYlBrKxZaCBS84S9TucdlcDkcTvqzttLns4DdoZMsCTDa4Pl8fta-u4SYD2sD6YzOMzKP6OtlOTy+ZpY9pDGJMA5tHpOERdaMRi84mAKLgGbRc3AAB4UMAAXwAukA
 ---
 
 :::{#example}
@@ -101,15 +101,23 @@ def _():
 
 For more control, build the toast with [`ui.toast()`](https://shiny.posit.co/py/api/ui.toast.html) and pass it to `ui.show_toast()`. `ui.toast()` lets you set:
 
-* `type` to color-code the message (e.g. `"success"`, `"info"`, `"warning"`, `"danger"`).
-* `position` to place the toast on screen (top/middle/bottom × left/center/right; `"top-right"` by default).
+* `type` to color-code the message. The nine values are `"primary"`, `"secondary"`, `"success"`, `"info"`, `"warning"`, `"danger"`, `"error"` (an alias for `"danger"`), `"light"`, and `"dark"`.
+* `position` to place the toast on screen (top/middle/bottom × left/center/right; `"top-right"` by default). Accepts either a string (`"top-left"`, `"top left"`) or a sequence (`["top", "left"]`).
 * `duration_s` to control auto-hide. Toasts disappear after 5 seconds by default; set `duration_s=None` (or `0`) to keep the toast visible until it's dismissed. While the toast is visible, an animated progress bar shows the time remaining.
 * `header` to add a header above the body, either as a plain string or via [`ui.toast_header()`](https://shiny.posit.co/py/api/ui.toast_header.html), which supports a title, an icon, and muted status text (e.g. `"just now"`).
-* `closable` to control whether the toast has a close button (`True` by default).
+* `icon` to show an icon in the toast body, alongside the message.
+* `closable` to control whether the toast has a close button (`True` by default). Take care when combining `closable=False` with auto-hide disabled: the user then has no way to dismiss the toast, so your app must close it with `ui.hide_toast()`.
 
 To dismiss a toast from the server, call [`ui.hide_toast()`](https://shiny.posit.co/py/api/ui.hide_toast.html) with the toast's `id` — either one you set when creating the toast, or the id returned by `ui.show_toast()`.
 
-See also: [Notifications](../notifications/index.qmd) are a simpler, longer-standing way to display transient messages, and [Modal messages](../modal/index.qmd) display information the user must acknowledge.
+### Toasts or notifications?
+
+Toasts and [notifications](../notifications/index.qmd) overlap heavily — both show a transient message without interrupting the user — so prefer whichever matches the message you're sending:
+
+* Reach for a **toast** when placement or severity carries meaning: it can appear at any of the nine screen positions, be color-coded by `type`, carry a header and icon, and show a countdown bar for the time remaining.
+* Reach for a **notification** for a plain status line. Notifications are the simpler, longer-standing API, and always stack in one corner.
+
+[Modal messages](../modal/index.qmd) are the third option, for information the user must acknowledge before continuing.
 
 ## Variations
 
