@@ -40,6 +40,8 @@ class TitleResolutionError(Exception):
 _EXTERNAL = {
     "@shinywidgets.render_widget()",
     "shinywidgets.output_widget",
+    "great_tables.shiny.output_gt",
+    "great_tables.shiny.render_gt",
 }
 
 # Chat is documented against an *instance* (``chat = ui.Chat()``) so its titles

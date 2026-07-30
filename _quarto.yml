@@ -177,6 +177,7 @@ website:
             - components/outputs/plot-plotly/index.qmd
             - components/outputs/plot-seaborn/index.qmd
             - components/outputs/table/index.qmd
+            - components/outputs/table-great-tables/index.qmd
             - components/outputs/text/index.qmd
             - components/outputs/ui/index.qmd
             - components/outputs/value-box/index.qmd
