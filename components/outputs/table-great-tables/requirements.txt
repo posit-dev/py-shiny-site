@@ -1,1 +1,5 @@
-great-tables
+# Pinned below 0.22 for Shinylive: 0.22.0 added a hard dependency on multimark,
+# which publishes only compiled platform wheels (no py3-none-any), so micropip
+# cannot install it in Pyodide. Raise this ceiling once multimark ships a pure
+# Python wheel or great-tables makes it optional.
+great-tables<0.22

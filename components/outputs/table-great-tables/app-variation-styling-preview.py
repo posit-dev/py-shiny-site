@@ -50,4 +50,6 @@ def server(input, output, session):
 app = App(app_ui, server)
 
 ## file: requirements.txt
-great-tables
+# Pinned below 0.22: 0.22.0 added a hard multimark dependency, which has no
+# pure Python wheel and so cannot install under Pyodide.
+great-tables<0.22
