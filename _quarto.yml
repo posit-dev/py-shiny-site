@@ -145,6 +145,7 @@ website:
             - components/inputs/action-link/index.qmd
             - components/inputs/checkbox/index.qmd
             - components/inputs/checkbox-group/index.qmd
+            - components/inputs/code-editor/index.qmd
             - components/inputs/dark-mode/index.qmd
             - components/inputs/date-range-selector/index.qmd
             - components/inputs/date-selector/index.qmd
@@ -158,6 +159,7 @@ website:
             - components/inputs/selectize-multiple/index.qmd
             - components/inputs/slider/index.qmd
             - components/inputs/slider-range/index.qmd
+            - components/inputs/submit-textarea/index.qmd
             - components/inputs/switch/index.qmd
             - components/inputs/text-area/index.qmd
             - components/inputs/text-box/index.qmd
@@ -183,6 +185,7 @@ website:
             - components/display-messages/notifications/index.qmd
             - components/display-messages/popovers/index.qmd
             - components/display-messages/progress-bar/index.qmd
+            - components/display-messages/toasts/index.qmd
             - components/display-messages/tooltips/index.qmd
         - section: "![](/images/cards-blue.svg){.sidebar-icon .sidebar-subtitle}__Layout__"
           contents:
@@ -315,6 +318,7 @@ website:
           contents:
             - docs/unit-testing.qmd
             - docs/end-to-end-testing.qmd
+            - docs/test-mode.qmd
         - section: "<span class='emoji-icon'>🏗️</span>  __Extending__"
           contents:
             - docs/custom-component-one-off.qmd

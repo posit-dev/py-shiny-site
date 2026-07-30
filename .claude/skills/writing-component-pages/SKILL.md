@@ -145,9 +145,20 @@ See also: [Action Button](../action-button/index.qmd)
   Every non-Preview app **must** carry a `shinylive:` key or the generator warns and skips it.
 - Point the Preview tab at a dedicated **`app-detail-preview.py`**, not at `app-core.py`
   or `app-preview.py`. (Reusing core/preview is the most common shortcut in review.)
-- `relevant-functions` `href`s use the flat API-page form `https://shiny.posit.co/py/api/<name>.html`
-  (NOT `/py/api/core/<name>.html` — the `/core/` path is a minority form). Use the real
-  `signature`. For third-party outputs (e.g. Great Tables) link the package docs.
+- `relevant-functions` `href` and `signature` are **generated, not hand-written**. Add the
+  entry with just a `title:` (e.g. `ui.input_text_area`) plus placeholder `href`/`signature`,
+  then run `make components-relevant-functions` — it reads the quartodoc-generated `api/**`
+  pages and rewrites both fields in place, annotation-free. The generated `href` form is
+  `https://shiny.posit.co/py/api/core/<page-stem>.html#shiny.<qualified-name>`
+  (`components/_relevant_functions.py:23` holds the base URL; `_href()` at `:97-98` builds
+  it); for a method, `<page-stem>` is the class's page and the anchor is
+  `shiny.<Class>.<method>`. The `test-relevant-functions` CI check regenerates these on
+  every PR and **fails when the committed values differ**, so never hand-edit them.
+- Third-party functions (e.g. Great Tables) have no `api/**` page, so the generator can't
+  resolve them: link the package's own documentation and register the title in the matching
+  skip set in `components/_relevant_functions.py` (`_EXTERNAL` for third-party,
+  `_NO_API_PAGE` for a `shiny.ui` export missing from py-shiny's quartodoc config) so strict
+  regeneration still passes.
 - **List the component's mutator functions in `relevant-functions`, not just its
   constructor.** Every server-side `update_<name>` / `insert_<name>` / `remove_<name>`
   that pairs with the component belongs here as its own `title`/`href`/`signature`
@@ -156,9 +167,10 @@ See also: [Action Button](../action-button/index.qmd)
   `update_accordion_panel`, `insert_accordion_panel`, `remove_accordion_panel`). This
   is enforced: `components/test_ui_api_has_page.py` checks that every public `ui`
   export is documented by some page's `relevant-functions` block, and mutators are
-  expected to be found on their base component's page rather than opted out. Generate
-  each `signature` annotation-free to match the surrounding entries, e.g.
-  `python -c "import inspect, shiny.ui as u; s=inspect.signature(u.update_text_area); print('ui.update_text_area'+str(s.replace(parameters=[p.replace(annotation=inspect.Parameter.empty) for p in s.parameters.values()], return_annotation=inspect.Signature.empty)))"`.
+  expected to be found on their base component's page rather than opted out. Add the
+  `title:` for each and let `make components-relevant-functions` fill in the rest.
+  Note that this test is satisfied by a `title:` string alone — it proves the function is
+  *listed*, not that it is actually explained or demonstrated.
 - Each variation's **Preview** app should be its own `app-variation-<slug>-preview.py`
   (same rule as the top-level Preview — no `shinylive:` key), not a reuse of its `-core.py`.
 
