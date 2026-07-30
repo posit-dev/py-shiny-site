@@ -61,8 +61,8 @@ _TYPE_ALIASES = {
 
 # Classes returned/consumed by component functions (documented alongside them).
 _CLASSES = {
-    "AccordionPanel", "CardItem", "Chat", "MarkdownStream", "Sidebar", "Theme",
-    "ValueBoxTheme",
+    "AccordionPanel", "CardItem", "Chat", "MarkdownStream", "Offcanvas",
+    "Sidebar", "Theme", "ValueBoxTheme",
 }
 
 # Plot brushing / click option builders.
@@ -82,6 +82,7 @@ _MUTATORS = {
 _DEPRECATED = {
     "column", "row",  # superseded by layout_columns / layout_column_wrap
     "update_navs",  # superseded by update_navset
+    "panel_well",  # deprecated; its relevant-functions entry was dropped (#404)
 }
 
 # TODO: layout / navigation / page / panel functions not yet documented in a
@@ -105,6 +106,7 @@ _TODO_NEEDS_COMPONENT_PAGE = {
     "input_bookmark_button",
     "input_task_button", "output_code", "output_markdown_stream", "output_table",
     "popover", "toast", "toast_header", "show_toast", "hide_toast",
+    "offcanvas", "show_offcanvas", "hide_offcanvas", "toggle_offcanvas",
 }
 
 KNOWN_MISSING_COMPONENTS: set[str] = (
