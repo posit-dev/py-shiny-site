@@ -74,7 +74,6 @@ _OPTS = {"brush_opts", "click_opts", "dblclick_opts", "hover_opts"}
 # mutator should be added to that page's ``relevant-functions`` when it is
 # written (the base component is tracked in _TODO_NEEDS_COMPONENT_PAGE).
 _MUTATORS = {
-    "update_popover",           # base: popover
     "update_task_button",       # base: input_task_button
 }
 
@@ -105,7 +104,6 @@ _TODO_NEEDS_COMPONENT_PAGE = {
     "bind_task_button", "chat_ui", "download_button", "download_link",
     "input_bookmark_button",
     "input_task_button", "output_code", "output_markdown_stream", "output_table",
-    "popover",
     "offcanvas", "show_offcanvas", "hide_offcanvas", "toggle_offcanvas",
 }
 
