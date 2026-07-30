@@ -10,6 +10,10 @@ HERE = Path(__file__).parent
 
 core_app = create_example_fixture(HERE / "app-core.py")
 express_app = create_example_fixture(HERE / "app-express.py")
+languages_core_app = create_example_fixture(HERE / "app-variation-languages-core.py")
+languages_express_app = create_example_fixture(
+    HERE / "app-variation-languages-express.py"
+)
 update_core_app = create_example_fixture(HERE / "app-variation-update-core.py")
 update_express_app = create_example_fixture(HERE / "app-variation-update-express.py")
 
@@ -36,6 +40,34 @@ def test_code_editor_express_interaction(
     page: Page, express_app: ShinyAppProc
 ) -> None:
     _check_code_editor_interaction(page, express_app)
+
+
+def _check_languages(page: Page, app: ShinyAppProc) -> None:
+    page.goto(app.url)
+
+    # Each editor keeps the `language` it was created with, which is what drives
+    # syntax highlighting. These apps have no server logic, so the language
+    # attribute is the only observable effect the variation promises.
+    for editor_id, language, value in (
+        ("python_code", "python", "def hello():\n    print('Hello, Python!')"),
+        (
+            "javascript_code",
+            "javascript",
+            "function hello() {\n  console.log('Hello, JavaScript!');\n}",
+        ),
+        ("sql_code", "sql", "SELECT * FROM users\nWHERE active = true;"),
+    ):
+        editor = controller.InputCodeEditor(page, editor_id)
+        editor.expect_language(language)
+        editor.expect_value(value)
+
+
+def test_languages_core(page: Page, languages_core_app: ShinyAppProc) -> None:
+    _check_languages(page, languages_core_app)
+
+
+def test_languages_express(page: Page, languages_express_app: ShinyAppProc) -> None:
+    _check_languages(page, languages_express_app)
 
 
 def _check_update_code_editor(page: Page, app: ShinyAppProc) -> None:

@@ -29,9 +29,18 @@ def _check_submit_textarea_interaction(page: Page, app: ShinyAppProc) -> None:
     textarea.set("Just typing, not submitting")
     value.expect_value("Nothing submitted yet.")
 
-    # Submitting sends the value.
+    # Submitting sends the value. `set(submit=True)` clicks the submit button.
     textarea.set("Hello, Shiny!", submit=True)
     value.expect_value("You submitted: Hello, Shiny!")
+
+    # The documented default shortcut is Ctrl+Enter (Cmd+Enter on Mac). Neither
+    # `set(submit=True)` nor `submit()` presses it -- both just click the button --
+    # so press the real combination here, or submit_key="enter+modifier" goes
+    # untested.
+    textarea.expect_data_needs_modifier(True)
+    textarea.set("Sent with the keyboard")
+    textarea.loc.press("ControlOrMeta+Enter")
+    value.expect_value("You submitted: Sent with the keyboard")
 
 
 def test_submit_textarea_core_interaction(
