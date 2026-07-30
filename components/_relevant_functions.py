@@ -40,6 +40,8 @@ class TitleResolutionError(Exception):
 _EXTERNAL = {
     "@shinywidgets.render_widget()",
     "shinywidgets.output_widget",
+    "great_tables.shiny.output_gt",
+    "great_tables.shiny.render_gt",
 }
 
 # Chat is documented against an *instance* (``chat = ui.Chat()``) so its titles
@@ -52,26 +54,22 @@ _CHAT_INSTANCE = {
     "chat.ui()",
 }
 
-# Transitional: these resolve once the py-shiny submodule bump lands (see
-# posit-dev/py-shiny-site#404). Until then the pinned submodule has no API page
-# for them, so leave their hand-authored fields untouched instead of erroring.
-# Remove from this set once #404 is merged (card_body gains an api/ page;
-# panel_well's dead link is dropped).
-_PENDING_SUBMODULE_BUMP = {
-    "ui.card_body",
-    "ui.panel_well",
-}
-
-# Public ``shiny.ui`` exports with no page in the generated API reference (not
-# listed in py-shiny's quartodoc config), documented on a component page with
-# hand-authored fields.
+# Public ``shiny.ui`` exports that are real (in ``shiny.ui.__all__``) but have no
+# page in the generated API reference because py-shiny's quartodoc config does not
+# list them. Documented on a component page with hand-authored href/signature.
+#
+# Because these fields are hand-authored rather than generated, they are NOT
+# protected by the `test-relevant-functions` staleness check and will rot silently
+# when the upstream signature changes. The real fix is upstream: add the function
+# to `py-shiny/docs/_quartodoc-core.yml` so it gets an api/ page, then delete it
+# from this set.
+# TODO(py-shiny): `ui.bind_task_button` is missing from the quartodoc config even
+# though `ui.input_task_button` / `ui.update_task_button` are both listed.
 _NO_API_PAGE = {
     "ui.bind_task_button",
 }
 
-SKIP_TITLES: set[str] = (
-    _EXTERNAL | _CHAT_INSTANCE | _PENDING_SUBMODULE_BUMP | _NO_API_PAGE
-)
+SKIP_TITLES: set[str] = _EXTERNAL | _CHAT_INSTANCE | _NO_API_PAGE
 
 
 def normalize_title(title: str) -> str:
