@@ -101,9 +101,8 @@ _MISC = {"busy_indicators", "fill", "hold"}
 # TODO: genuine components that should get their own component page. Move each
 # to a real page (and drop it from here) as pages are written.
 _TODO_NEEDS_COMPONENT_PAGE = {
-    "bind_task_button", "chat_ui", "download_button", "download_link",
-    "input_bookmark_button",
-    "input_task_button", "output_code", "output_markdown_stream", "output_table",
+    "bind_task_button", "download_button", "download_link",
+    "input_bookmark_button", "input_task_button",
     "offcanvas", "show_offcanvas", "hide_offcanvas", "toggle_offcanvas",
 }
 
