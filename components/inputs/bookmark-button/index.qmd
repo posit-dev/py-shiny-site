@@ -27,6 +27,31 @@ listing:
     signature: ui.input_bookmark_button(label='Bookmark...', *, icon=MISSING, width=None,
       disabled=False, id=BOOKMARK_ID, title="Bookmark this application's state and
       get a URL for sharing.", **kwargs)
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/inputs/bookmark-button/
+  contents:
+  - title: Multiple bookmark buttons
+    description: |
+      Shiny only bookmarks automatically for the button's default `id`. To use more than one bookmark button (or one inside a module), give each a custom `id`, add those ids to `session.bookmark.exclude` so they are not saved as state, and call `await session.bookmark()` yourself from a `reactive.effect`.
+    apps:
+    - title: Preview
+      file: app-variation-multiple-preview.py
+      height: 300
+    - title: Express
+      file: app-variation-multiple-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDOFGIVOANzgAdCI2ZsuPLHAAe6Ma1Z8BQkRnQB9Uugqsi3dAFcKRVnF2dyRW5wULjZi6wAUAEakpADWMFAMoSasFEJwALxyYLYMADbJAJReEB5YNvYmDFAAJq4mgfZxEAHJaXAUVAzJRMkAwuwhTshQyPWNcM2EyMSdnMTOCcDJAIItyMkAQvPtyQC62bmc+RB2FBUh4ZHRlY3k-kuHEVHI-nHo2cOcJUlgwWHX0fdZyMgAxMgADyAhR5Ar7d5HKIVKrnS4fY63YJnGCPawvZKQz4HFE-f5AkEQBQAmYjWyxZQAA2elOQ8CgNWQAGVVLwIKQ+uQAOaDZBY456cgjNLjUI9ezMKBSYhQNJpXCODmaYhpWwleQQAEUdhwPmwiB8Ep6JQsbW61hQWQlNgUKW6hnWigMThcnkMZBmvlXRG4UipJxpOhYBROFzkLD8qLqDQqtVwLDGaglC5vb3Q75gTK-AHAkPOViuCARtOhaOx9UJzBJlORk6kXGZnIKAACYgkUlk6jodDgkhbbckMnjcFklH84OLCPT5msu3sk6hdZRmygrFwEGIyHVdGQJn8mUQCl+vygAHcoJwRKGC+Ha-vswSmxBm9fCwvPlhyAcp6E4CVvGuG5bnAO57qkaQoLEDAHkex5nheV75m+tZYLY6AlHaJgAI62IMuAxE63Bcv44GbMMYAULg6AICgFGaBQYAAL5rEAA
+    - title: Core
+      file: app-variation-multiple-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwqgYBs4KqsGcAI4BXOO1bIAljHSkGFZACVhY9gB0ImxszYALKRFzTZ8xQEFMRQVGIUpANzhERUze4gBiZABU9cZABVAElkGBF2ZAAjAKhkOhEIOylyZApSZGpWEUE0vShFOFs9ZAi4BmRBdnlxPLgpCtIAdwgg0IcoLjUsTQATODpkDHQAfVcACkFRcQoUFWn2AEpETWQ1yt4c1tccKABzOBG6Lqle8dX1y53DdBEKEYYoXpSRqLv0iFZzsB4+cvVCMgAQBhPSkUisWLIX5UBgAojEMFSYjiAC8wAB5nhQLAACFsSCAQBdRYEC6XNbXCC3e5RcEAaxgnHpr3e5G+uIZTIY9OQ43S6EW2NOqIBdNIjOZIwFANJa28AB4FeSKVSaa8uVK3nx2QDORLubzxnSdTAhYCRWLNTyNabZURkIrla11kKtO7+oNIQwnAxxjc7kRSHcaURIaxWCkIMsVd5zMhiBF0iwAAanFNhIqfZAAZQMRmQEAyXHIBwq4slPMkqWIXGRvKgd2YBWRnS4uDDpFjmQAHrWRP06tE2a1TpIdCwKP42FAnL02BwqEMIPOKAwpHsy0OK4bkLhgwxIVw6D0XWtw5HyFgd8ysHA+11+lhhtQzlaDVKZWBFvLkEqVReUbXta9J3g+A5wM+mCvt8N42iayayh4lwAAI2MkTh3nQdBwHYKpoUUGGQXATiUP61J3MBH42gKRABhQVGViyCHMG6lxQKwuBJMgnrICM4wxmeFJQE0UBSIogFXnB9ICb+-7uqhkkQIxhpYOQGrUfScC9CqHFccQPEDHx4w5FwKDsAwgkUusIliRJ4iXsp0lYCI6C9AUhzTAwuAjBZhh7CZ3Buh4wzIKiyCWOg4zDGMUhhuUvpENJvnpIIopgKZSEQICYAULg6AICguX3hQYAAL5EkAA
+- id: kitchen-sink
+  template: ../../_partials/components-detail-kitchen-sink.ejs
+  contents:
+  - title: Bookmark Button
+    core: https://shinylive.io/py/editor/#h=0&code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6ERs2TcKUBgBs4FKlgZwAjgFc4K3v0HDkAJQPGV8+YpbcAFuwi4+AoSICCmIkN2Bwh5AGJkABUXOGQAVQBJZBhDFWQAI1ioVkMIYgp2cmQKUmRqbkM9YpcoETgoYhdkVLgGZD0VIRNquHY20gB3CHikySh1Oyx5ABM4OmQMdDEggAo9IxMKFBsNlQBKRHlkY-atSuGgnChpODE6CfZplaOT18v3dEMKMQYoacKxOkviUeM8wJptK1ZIRkNCAMIuUikbhZZAQqgMaFERqkTgmAC8wGhvixsLAACFSfDoQBdPYEF6vY7vCCfb7pJEAaxgak5gOB5GewyZIuhAGUoJJYjBPCpanAsYyRSdOOR8aqIBIZGCOaRubzofSlcrkANHhQXPjoQBmAAMtvQAA9FcKTcd-twoOlNNN8QAxcYohmut0FCiaK1gCVSnoovisr68KAQabIMh4BbKGp6L2aeJWAAyU0IxuVxHUUG43DEkZgFAAtNaXSajSG9iEZnNlK0pQwVh8vkRSF82UQUVXChADkqInF0NN5T0MkwBiiGAByXhxQvx5DoCvEWLuFT1VOkeauQbuaSZmCkBfqKYhgAC4+4k6wuv1DE5WHIgK5HkfzgaYlUrXA8mQWZ5jEFZKnUFAVAYacQ1eKABg4EQ3w-L8gN-Qx53lMQNgYXAJAoBhrzgjR21COjFmQfFkH8dAVkWZZ2DHHtWiIXDeXIrpI3gw15BhMAKFwdAEBQcS4EdCgwAAXxpIA
+    express: https://shinylive.io/py/editor/#h=0&code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6EeY2bJuAC3YRcWOAA90DON179Bw5BnRjS6CtyLdD3duSIBXdvPkWrN7gAoAI1JSAGsYKAYQiQohOABeWTBXBgAbRIBKTwh3LA10VwoxBigAE2cxAIKYnj9ElLgKKgZEokSAYVVgh3Nkesa4ZsJkYk7OQzjgRIBBFuREgCFZ9sSAXUzs9lyIfMKg0PDIiqryWohkc7mwAGUoSThkGFwVCigqFvkL0XI4znIJGVqYD2YQiIQyBA+FwA7uwShRVAkwABmAAMKPQOneZwuZW4UAC9RKcQAYlAUg4IdjzhR2BR6oibndkPDDPc8gVeFAICVhtYnlAVKoInB8fVkABVABKABksFjPsQUlAjGJETAKABaJFY9ZZADEEvQJVe9xZyACTChDgYAHJeFLpXwzuglcQ2TwqKVkKQ6ILSDCINIejBSMaUnKIAABBxGZwQLDAg4hLB-ROguAlLzcXAQYjIEpwX1iPzJFIobgUBjpRCQ85QKEcEQxpzkBPBEGRLCuI0msQAR1cA1w0QYGmkJdS6yGYAouHQCBQM90FDAAF8VkA
+    image: thumbnail.png
 ---
 
 :::{#example}
@@ -63,17 +88,24 @@ async def _(url: str):
 The live preview above runs inside an embedded [Shinylive](https://shiny.posit.co/py/docs/shinylive.html) frame, so the bookmark URL it produces points at the frame, not at a page you can share, and reloading this documentation page will not restore the app's state. The button still works — click it to see the bookmark modal — but to experience saving and restoring state end to end, run the example in its own browser tab (e.g. open the Express or Core code in the Shinylive editor) or run the app locally.
 :::
 
-### Multiple bookmark buttons
+### Restoring state
 
-By default, Shiny listens for the bookmark button's default `id` and calls `session.bookmark()` automatically on click. If you use more than one bookmark button, or use one inside a [module](https://shiny.posit.co/py/docs/modules.html), supply a custom `id` for each button, exclude that `id` from bookmarking, and trigger the bookmark yourself:
+Saving state is only half of bookmarking. When a user opens a bookmark URL, Shiny restores the saved inputs automatically, but anything else your app derives from them — reactive values, computed state, dynamically created UI — you restore yourself with `@session.bookmark.on_restore` (or `on_restored`, which runs after the inputs are in place). To keep a value out of the bookmark entirely, add its id to `session.bookmark.exclude`.
 
-```python
-session.bookmark.exclude.append("custom_id")
+Choosing a store matters here too: `bookmark_store="url"` encodes every saved input into the query string, so it needs no server state but produces long URLs and exposes the values to anyone with the link. `bookmark_store="server"` writes the state to disk on the server and puts only a short identifier in the URL, which keeps values private but means bookmarks are tied to that server's storage.
 
-@reactive.effect
-@reactive.event(input.custom_id)
-async def _():
-    await session.bookmark()
-```
+For the full picture — restore callbacks, excluding inputs, storing state on the server, and bookmarking inside modules — see:
+
+- [Bookmarking state](/docs/bookmarking.qmd) for the core workflow
+- [Advanced bookmarking](/docs/bookmarking-advanced.qmd) for `on_restore` and custom state
+- [Bookmarking with modules](/docs/bookmarking-modules.qmd) for module-scoped state
+
+## Variations
+
+:::{#variations}
+:::
+
+:::{#kitchen-sink}
+:::
 
 See also: [Action Button](../action-button/index.qmd)
