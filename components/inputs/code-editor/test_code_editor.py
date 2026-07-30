@@ -16,6 +16,8 @@ languages_express_app = create_example_fixture(
 )
 update_core_app = create_example_fixture(HERE / "app-variation-update-core.py")
 update_express_app = create_example_fixture(HERE / "app-variation-update-express.py")
+kitchensink_core_app = create_example_fixture(HERE / "app-kitchensink-core.py")
+kitchensink_express_app = create_example_fixture(HERE / "app-kitchensink-express.py")
 
 
 def _check_code_editor_interaction(page: Page, app: ShinyAppProc) -> None:
@@ -97,3 +99,34 @@ def test_update_code_editor_express(
     page: Page, update_express_app: ShinyAppProc
 ) -> None:
     _check_update_code_editor(page, update_express_app)
+
+
+def _check_kitchensink(page: Page, app: ShinyAppProc) -> None:
+    page.goto(app.url)
+
+    editor = controller.InputCodeEditor(page, "editor")
+
+    # The kitchen sink exists to exercise every parameter, so assert the ones
+    # that are otherwise undemonstrated anywhere on the page.
+    editor.expect_language("python")
+    editor.expect_height("260px")
+    editor.expect_width("100%")
+    editor.expect_theme_light("github-light")
+    editor.expect_theme_dark("github-dark")
+    editor.expect_read_only(False)
+    editor.expect_line_numbers(True)
+    editor.expect_word_wrap(True)
+    editor.expect_tab_size(4)
+
+    # It is still a working editor: Ctrl/Cmd+Enter sends the value.
+    value = controller.OutputCode(page, "submitted")
+    editor.set("print('kitchen sink')", submit=True)
+    value.expect_value("print('kitchen sink')")
+
+
+def test_kitchensink_core(page: Page, kitchensink_core_app: ShinyAppProc) -> None:
+    _check_kitchensink(page, kitchensink_core_app)
+
+
+def test_kitchensink_express(page: Page, kitchensink_express_app: ShinyAppProc) -> None:
+    _check_kitchensink(page, kitchensink_express_app)

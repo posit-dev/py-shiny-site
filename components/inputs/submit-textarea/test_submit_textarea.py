@@ -16,6 +16,8 @@ enter_key_express_app = create_example_fixture(
 )
 update_core_app = create_example_fixture(HERE / "app-variation-update-core.py")
 update_express_app = create_example_fixture(HERE / "app-variation-update-express.py")
+kitchensink_core_app = create_example_fixture(HERE / "app-kitchensink-core.py")
+kitchensink_express_app = create_example_fixture(HERE / "app-kitchensink-express.py")
 
 
 def _check_submit_textarea_interaction(page: Page, app: ShinyAppProc) -> None:
@@ -109,3 +111,35 @@ def test_update_submit_textarea_express(
     page: Page, update_express_app: ShinyAppProc
 ) -> None:
     _check_update_submit_textarea(page, update_express_app)
+
+
+def _check_kitchensink(page: Page, app: ShinyAppProc) -> None:
+    page.goto(app.url)
+
+    textarea = controller.InputSubmitTextarea(page, "message")
+    value = controller.OutputCode(page, "submitted")
+
+    # Each parameter the kitchen sink sets should be visible on the widget.
+    value.expect_value("Nothing submitted yet.")
+    textarea.expect_value("Hello from the kitchen sink!")
+    textarea.expect_rows("4")
+    textarea.expect_placeholder("Write something, then press Ctrl/Cmd + Enter...")
+    textarea.expect_data_needs_modifier(True)
+
+    # A custom `button=` must still drive submission, and must keep its own label.
+    textarea.expect_button_label("Send")
+    textarea.set("Sent with the custom button", submit=True)
+    value.expect_value("Sent with the custom button")
+
+    # ...and the keyboard shortcut must keep working alongside it.
+    textarea.set("Sent with the keyboard")
+    textarea.loc.press("ControlOrMeta+Enter")
+    value.expect_value("Sent with the keyboard")
+
+
+def test_kitchensink_core(page: Page, kitchensink_core_app: ShinyAppProc) -> None:
+    _check_kitchensink(page, kitchensink_core_app)
+
+
+def test_kitchensink_express(page: Page, kitchensink_express_app: ShinyAppProc) -> None:
+    _check_kitchensink(page, kitchensink_express_app)
