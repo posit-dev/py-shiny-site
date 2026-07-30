@@ -26,21 +26,9 @@ assert len(_APPS) > 300, (
 
 # App id (path relative to components/) -> stderr substrings to tolerate for that
 # app (e.g. a known deprecation an example intentionally still demonstrates).
-# Deprecations are otherwise treated as errors.
-#
-# great_tables.shiny still implements render_gt via py-shiny's legacy
-# output_transformer(), which emits a ShinyDeprecationWarning at startup. The
-# warning comes from the great-tables package, not the example code; drop these
-# entries once great-tables moves to shiny.render.renderer.Renderer.
-_GREAT_TABLES_DEPRECATION = [
-    "ShinyDeprecationWarning: `shiny.render.transformer.output_transformer()`",
-    "super().__init__(",
-]
-ALLOW_STDERR: dict[str, list[str]] = {
-    "outputs/great-tables/app-core.py": _GREAT_TABLES_DEPRECATION,
-    "outputs/great-tables/app-detail-preview.py": _GREAT_TABLES_DEPRECATION,
-    "outputs/great-tables/app-express.py": _GREAT_TABLES_DEPRECATION,
-}
+# Deprecations are otherwise treated as errors. Empty today; kept as the plumbing
+# for future per-app opt-outs.
+ALLOW_STDERR: dict[str, list[str]] = {}
 
 
 @pytest.mark.parametrize(

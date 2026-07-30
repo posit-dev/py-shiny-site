@@ -1,8 +1,8 @@
+## file: app.py
 import pandas as pd
 from great_tables import GT, loc, md, style
 from great_tables.shiny import output_gt, render_gt
 from shiny import App, ui
-
 
 sales = pd.DataFrame(
     {
@@ -13,7 +13,6 @@ sales = pd.DataFrame(
         "growth": [0.08, 0.14, 0.21, -0.03, 0.27],
     }
 )
-
 
 app_ui = ui.page_fluid(output_gt("sales_table"), title="Great Tables")
 
@@ -49,3 +48,6 @@ def server(input, output, session):
 
 
 app = App(app_ui, server)
+
+## file: requirements.txt
+great-tables

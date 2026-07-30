@@ -9,7 +9,7 @@ listing:
 - id: example
   template: ../../_partials/components-detail-example.ejs
   template-params:
-    dir: components/outputs/great-tables/
+    dir: components/outputs/table-great-tables/
   contents:
   - title: Preview
     file: app-detail-preview.py
@@ -26,10 +26,36 @@ listing:
     - requirements.txt
     shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5dKCAEygGdk+7LgB0IAM2akYyAObM4UCgH0KUAEYAbOPwZNWyAOIAVIhtLEiMLkV4VcW0RKmz5ileq28svABZ0IuMi6LGykAK4U6BFKMhRE8txwzDEUjpLSvv6BwfoAgphEYXSiJRC8UJ7IALxCWAAiilAAYsywcAAUosjdyCBdPQPCYOiSXGHEqbTAQwCivLzUFHQVvENEQwAKGmGrhMibkmv7YEYKMLvrYDOUSSN0C0MAugT9A91D8gBu1GFwQyjAACMAA4ACwABkhRAATAA2ADskPBRAAzABWaFImEATlhWOQoOhgKRz1ebyGI1IYjokwBKJR+NhxKhyGJmJZ8IhLMBKOxJJeEDePSGMCgzBk-n+yGA4KwIKIsuhKIVWGh2JV0LRKvppMFQuOclIAHcKD4pTKsODgSrAaCNYCiABaWXg5XIRXw3UDAC+ogAlKVRBh0EoitVkEUcFAZHAlGJtnQuO1wpForFOmByp53Jo-mA-UQlhQtFUhgZXGwjB5tEMAxBSlw4GJkAtmN9mO1-FE4sgU92bNpeHRyH7EGSAAIJRvJWJkxvNrPaHNadqjskDeQUMLMQWdPX6nrGdqL3jxY3QeBKMgaUvDUbjSZ1g8DLCqNRKHwKad75-6osloYAEUwjFKhmA0QJKTGCZ2CSMQWFFCBiDzAVfyFXgwjUf84FvAAlOBvggX4iEpak3zoDQaVwIhOC4ZBcAUZhHVIdtHQYsUXGNU01nXfUnzQ191CUWxMM-KAkw0dQ4BvA5SGgx9eKFQT314DgIAgJJ2kktRpNvJp-E4Yhlg0C5kGvMIYDKKppjAL4fhQ45SJpI4RTFCV6zAR5+N-LBr14JRtOkn80I3Aj7LwsKiIcpyKFvDZJDIo5RXFfxbwAWTcyU9kNE0fFvABNUh8s43KhkUt5vOfLAxBgZRiG3BJiFwdpzMs3hrI+SLfhcu8qWczyiEbIzRRMqpwUqg9qtqpR0CSZDKBa0htjajqwGS9yepy7iBuQIaGBWKpAQm-UsB4VQryWlhgpC7pWqs1yUo81Cbu6DgtAoKhVoAYjEYEuHhHgep+sQxBRYgRD2IYvq4QE4ABiGvRe3apCgVKLUBLV3SwdFEd-Y6lLfYS7BXcqD1sewcOAcmtGqiiNAzL64bENEQdrGxibgV84AADwodojTgOgZB8WKhjUJaIb9XGbrMYhFGHKzZawcWuGayQjXa4BQS8568dJnosFIdBlHVonmDodB-BkVd9e6ZThPCZhkKUCBSCodorAzAAqL2AGVHeQxAfeQABJDRtlsVolm+ZAAEcQNYJIIOQeQMI0Chdj9fHkDrUpg3DfJ0HaYNQzoAc2ySOs9jAOxZtoGueYoMBvSIcALwQFBbLgeO6HkeBKC8CheersgbhoTu5AUChHTfTwqjGuVQUtURq9rjvUCoYfvUeIA
     height: 410
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/outputs/table-great-tables/
+  contents:
+  - title: Header, spanners, and styling
+    description: Chain `GT` methods to add a stubhead and column spanner, relabel columns,
+      color cells by value with `.data_color()`, and target specific cells with
+      `.tab_style()`.
+    apps:
+    - title: Preview
+      file: app-variation-styling-preview.py
+    - title: Express
+      file: app-variation-styling-express.py
+    - title: Core
+      file: app-variation-styling-core.py
+  - title: Reacting to inputs
+    description: Read a reactive value inside the decorated function and the table
+      rebuilds whenever that value changes.
+    apps:
+    - title: Preview
+      file: app-variation-reactive-preview.py
+    - title: Express
+      file: app-variation-reactive-express.py
+    - title: Core
+      file: app-variation-reactive-core.py
 - id: relevant-functions
   template: ../../_partials/components-detail-relevant-functions.ejs
   template-params:
-    dir: components/outputs/great-tables/
+    dir: components/outputs/table-great-tables/
   contents:
   - title: great_tables.shiny.output_gt
     href: https://github.com/posit-dev/great-tables/blob/main/great_tables/shiny.py
@@ -47,12 +73,19 @@ listing:
 
 ## Details
 
-[Great Tables](https://posit-dev.github.io/great-tables/) creates polished presentation tables with headers, annotations, value formatting, color scales, and targeted styles. Use a [data grid](../data-grid/index.qmd) instead when users need to sort, filter, select, or edit the data.
+[Great Tables](https://posit-dev.github.io/great-tables/) creates polished presentation tables with headers, annotations, value formatting, color scales, and targeted styles. Use a [data grid](../data-grid/index.qmd) instead when users need to sort, filter, select, or edit the data, or [Table](../table/index.qmd) when a plain HTML table is enough.
 
-Install Great Tables with `pip install great-tables`, then:
+Great Tables is a separate package, so install it with `pip install great-tables` alongside Shiny. Then:
 
 1. Build and return a `GT` object from a function decorated with `@render_gt`.
 2. In Express, the decorated function creates its output automatically.
 3. In Core, add `output_gt("id")` to the UI and give the decorated function the same name.
 
-Shiny reruns the function whenever any reactive values it reads change, so the table can respond to inputs just like other outputs. See the [Great Tables user guide](https://posit-dev.github.io/great-tables/get-started/) for more formatting and styling options.
+Shiny reruns the function whenever any reactive values it reads change, so the table can respond to inputs just like other outputs.
+
+See the [Great Tables user guide](https://posit-dev.github.io/great-tables/user-guide/introduction.html) for the full set of formatting and styling options.
+
+## Variations
+
+:::{#variations}
+:::
