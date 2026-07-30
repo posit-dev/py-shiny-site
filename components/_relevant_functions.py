@@ -52,17 +52,7 @@ _CHAT_INSTANCE = {
     "chat.ui()",
 }
 
-# Transitional: these resolve once the py-shiny submodule bump lands (see
-# posit-dev/py-shiny-site#404). Until then the pinned submodule has no API page
-# for them, so leave their hand-authored fields untouched instead of erroring.
-# Remove from this set once #404 is merged (card_body gains an api/ page;
-# panel_well's dead link is dropped).
-_PENDING_SUBMODULE_BUMP = {
-    "ui.card_body",
-    "ui.panel_well",
-}
-
-SKIP_TITLES: set[str] = _EXTERNAL | _CHAT_INSTANCE | _PENDING_SUBMODULE_BUMP
+SKIP_TITLES: set[str] = _EXTERNAL | _CHAT_INSTANCE
 
 
 def normalize_title(title: str) -> str:
