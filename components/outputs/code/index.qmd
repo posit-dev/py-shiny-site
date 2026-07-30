@@ -3,7 +3,6 @@ title: Code
 sidebar: components
 appPreview:
   file: components/outputs/code/app-preview.py
-  static: true
 listing:
 - id: example
   template: ../../_partials/components-detail-example.ejs
@@ -50,4 +49,4 @@ To make reactive code output, follow three steps:
 
 By default, `ui.output_code()` displays an empty shaded rectangle as a placeholder even when the string to display is empty. To hide the rectangle when the string is empty, set `placeholder=False`.
 
-See also: [Verbatim Text](../verbatim-text/index.qmd) and [Text](../text/index.qmd).
+See also: [Verbatim Text](../verbatim-text/index.qmd) and [Text](../text/index.qmd) for other ways to display text output, and [Code Editor](../../inputs/code-editor/index.qmd) for letting the user *write* code rather than read it.

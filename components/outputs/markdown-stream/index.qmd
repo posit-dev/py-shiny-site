@@ -3,7 +3,6 @@ title: Markdown Stream
 sidebar: components
 appPreview:
   file: components/outputs/markdown-stream/app-preview.py
-  static: true
 listing:
 - id: example
   template: ../../_partials/components-detail-example.ejs
@@ -50,8 +49,14 @@ To add a markdown stream to your app:
 
 2. In the server, create a `ui.MarkdownStream()` object with the same `id` (Core only — in Express you already have the object).
 
-3. Call `await md.stream(...)` with a string, an iterable, or an async iterable of content chunks. Each chunk is appended to the display as it arrives. By default `.stream()` clears previous content first; pass `clear=False` to append instead.
+3. Call `await md.stream(...)` with an iterable or async iterable of content chunks. Each chunk is appended to the display as it arrives. By default `.stream()` clears previous content first; pass `clear=False` to append to what is already there.
 
-The UI component accepts `content` for initial (non-streamed) content, `content_type` (`"markdown"`, `"html"`, `"semi-markdown"`, or `"text"`), and `auto_scroll` to control whether the container scrolls as new content arrives.
+   Pass a sequence of strings, not a single string: a bare `str` is itself an iterable of characters, so `.stream("Hello")` streams one letter at a time.
+
+The UI component accepts `content` for initial (non-streamed) content, `content_type` (`"markdown"`, `"html"`, or `"text"`), and `auto_scroll` to control whether the container scrolls as new content arrives.
+
+Besides `.stream()`, a `ui.MarkdownStream()` object gives you `.clear()` to empty the display and `.latest_stream` to reactively read the stream itself. `.latest_stream` returns the underlying [extended task](/docs/nonblocking.qmd), so you can read its final `.result()`, check its `.status()`, or `.cancel()` a stream in progress.
+
+Pass `on_error` to `ui.MarkdownStream()` to control how streaming errors surface. With the default `"auto"`, the message is sanitized if the app is set to sanitize errors and shown verbatim otherwise; `"actual"` and `"sanitize"` force those two behaviors. All three notify the user and let the app keep running. `"unhandled"` instead shows nothing and stops the app.
 
 See also: [Chat](../../display-messages/chat/index.qmd) for a complete conversational interface.

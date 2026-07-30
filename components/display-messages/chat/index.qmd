@@ -23,12 +23,6 @@ listing:
   template-params:
     dir: components/display-messages/chat
   contents:
-  - title: ui.chat_ui
-    href: https://shiny.posit.co/py/api/core/ui.chat_ui.html#shiny.ui.chat_ui
-    signature: ui.chat_ui(id, *, messages=None, greeting=None, placeholder='Enter
-      a message...', width='min(680px, 100%)', height='auto', fill=True, icon_assistant=None,
-      enable_cancel=MISSING, submit_key='enter', allow_attachments=MISSING, footer=None,
-      **kwargs)
   - title: chat = ui.Chat()
     href: https://shiny.posit.co/py/api/ui.Chat.html
     signature: ui.Chat(id, on_error="auto")
@@ -36,6 +30,12 @@ listing:
     href: https://shiny.posit.co/py/api/ui.Chat.html
     signature: chat.ui(placeholder="Enter a message...", width="min(680px, 100%)",
       height="auto", fill=True)
+  - title: ui.chat_ui
+    href: https://shiny.posit.co/py/api/core/ui.chat_ui.html#shiny.ui.chat_ui
+    signature: ui.chat_ui(id, *, messages=None, greeting=None, placeholder='Enter
+      a message...', width='min(680px, 100%)', height='auto', fill=True, icon_assistant=None,
+      enable_cancel=MISSING, submit_key='enter', allow_attachments=MISSING, footer=None,
+      **kwargs)
   - title: '@chat.on_user_submit'
     href: https://shiny.posit.co/py/api/ui.Chat.html
     signature: chat.on_user_submit(fn)

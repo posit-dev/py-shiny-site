@@ -43,7 +43,9 @@ listing:
 
 ## Details
 
-A table output renders a pandas `DataFrame` as a static HTML table. Unlike [Data Grid](../data-grid/index.qmd) and [Data Table](../data-table/index.qmd), the resulting table is not interactive — users cannot sort, filter, or select rows — which makes it a good fit for small summary tables.
+A table output renders a pandas `DataFrame` as a static HTML table. Unlike [Data Grid](../data-grid/index.qmd) and [Data Table](../data-table/index.qmd), the resulting table is not interactive — users cannot sort, filter, or select rows.
+
+**Prefer `@render.data_frame` for most tables.** `@render.table` predates it and is kept for cases where you want the raw HTML a `DataFrame` (or a [pandas Styler](https://pandas.pydata.org/docs/reference/api/pandas.io.formats.style.Styler.html)) produces — for example to apply pandas styling that the interactive grid does not support, or to render a small summary table with no interactive machinery.
 
 To make reactive table output, follow three steps:
 
@@ -53,6 +55,6 @@ To make reactive table output, follow three steps:
 
 3. Decorate the function with `@render.table` and give it the same name as the output `id`. Shiny matches the two by name.
 
-Use the `@render.table` parameters to tweak the rendering: `index=True` includes the data frame's index, and `classes` controls the Bootstrap table classes applied to the output.
+Use the `@render.table` parameters to tweak the rendering: `index=True` includes the data frame's index, `classes` controls the Bootstrap table classes applied to the output, and `border` sets the table's `border` attribute. Any further keyword arguments are passed through to the object's `.to_html()` method.
 
 For an interactive table, use [Data Grid](../data-grid/index.qmd) or [Data Table](../data-table/index.qmd) instead.
