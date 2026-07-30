@@ -90,6 +90,8 @@ The value of an input component is accessible as a reactive value within the `se
 
 Users submit with **Ctrl+Enter** (or Cmd+Enter on Mac) or by clicking the submit button, which is a [task button](https://shiny.posit.co/py/api/ui.input_task_button.html) that shows a busy indicator while the server processes the submission. Set `submit_key="enter"` to submit with just Enter instead.
 
+To customize the submit button itself, pass your own via the `button` parameter. Use a [`ui.input_task_button()`](https://shiny.posit.co/py/api/ui.input_task_button.html) so it keeps the built-in busy indicator and auto-disables until the next reactive flush. If submitting kicks off a long-running job, that button can also be bound to a `reactive.extended_task` with `ui.bind_task_button()`.
+
 To update the input from the server, call `ui.update_submit_textarea()` within a reactive effect. You can change the `value`, `placeholder`, or `label`, move keyboard `focus` to the input, or set `submit=True` to submit the updated value programmatically.
 
 ## Variations
@@ -97,4 +99,4 @@ To update the input from the server, call `ui.update_submit_textarea()` within a
 :::{#variations}
 :::
 
-See also: [Text Area](../text-area/index.qmd)
+See also: [Text Area](../text-area/index.qmd), [Code Editor](../code-editor/index.qmd), [Chat](../../display-messages/chat/index.qmd)

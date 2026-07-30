@@ -99,4 +99,4 @@ The editor automatically switches between `theme_light` and `theme_dark` when us
 :::{#variations}
 :::
 
-See also: [Text Area](../text-area/index.qmd)
+See also: [Text Area](../text-area/index.qmd), [Submit Textarea](../submit-textarea/index.qmd)
