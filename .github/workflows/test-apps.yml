@@ -38,3 +38,22 @@ jobs:
       # no-ops because the remote server env is set above).
       - name: Run per-component app tests (shard ${{ matrix.shard }} of 6)
         run: make test-apps PYTEST_ARGS="--num-shards 6 --shard-id ${{ matrix.shard }}"
+
+  # Single stable check for branch protection / auto-merge. The `apps` matrix
+  # above may be re-sharded freely without touching the required-checks list.
+  done-test-apps:
+    name: done-test-apps
+    # `always()` is required: without it, a failing shard would make this job
+    # skip, and GitHub treats a skipped required check as satisfied.
+    if: always()
+    needs: apps
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify that every apps shard succeeded
+        env:
+          RESULTS: ${{ toJSON(needs.*.result) }}
+        run: |
+          echo "Job results: $RESULTS"
+          if echo "$RESULTS" | grep -qE 'failure|cancelled|skipped'; then
+            exit 1
+          fi

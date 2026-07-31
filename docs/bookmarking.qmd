@@ -176,6 +176,8 @@ When clicked, this button triggers the bookmarking process (by internally callin
 - If you've set up `session.bookmark.update_query_string()` in your `on_bookmarked` callback, clicking the button will update the browser's URL
 - If you haven't defined an `on_bookmarked` callback, clicking the button will display the bookmark URL in a modal dialog (see next section)
 
+See the [Bookmark Button](/components/inputs/bookmark-button/index.qmd) component page for the button's own options (label, icon, tooltip) and for how to use more than one bookmark button in a single app.
+
 ::: {.callout-tip}
 ## Disable automatic bookmarking
 
