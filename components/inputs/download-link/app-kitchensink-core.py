@@ -13,16 +13,12 @@ app_ui = ui.page_fluid(
         ui.card_header("Download Link Examples"),
         # Basic download link
         ui.download_link(id="download1", label="Download CSV"),
-        ui.br(),
-        ui.br(),
         # Download link with an icon
         ui.download_link(
             id="download2",
             label="Download Report",
             icon=ui.tags.i(class_="fa-solid fa-file-arrow-down"),
         ),
-        ui.br(),
-        ui.br(),
         # Download link with a fixed width
         ui.download_link(id="download3", label="Download Fixed-Width Link", width="300px"),
     ),

@@ -96,7 +96,7 @@ _MISC = {"busy_indicators", "fill", "hold"}
 # TODO: genuine components that should get their own component page. Move each
 # to a real page (and drop it from here) as pages are written.
 _TODO_NEEDS_COMPONENT_PAGE = {
-    "download_button", "download_link",
+    "download_button",
     "offcanvas", "show_offcanvas", "hide_offcanvas", "toggle_offcanvas",
 }
 
