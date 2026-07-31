@@ -164,15 +164,25 @@ def smoke_test() -> Callable[..., None]:
 
 
 COMPONENTS_DIR = Path(__file__).parent
+REPO_ROOT = COMPONENTS_DIR.parent
+
+# Directories whose example apps the smoke sweep launches. ``layouts/`` embeds its
+# apps with the inline ``shinylive_app_preview()`` helper rather than the components
+# listing machinery, so it has no per-page ``test_*.py`` files -- but the apps are
+# just as runnable, and just as able to rot.
+EXAMPLE_APP_DIRS = ("components", "layouts")
 
 
 def example_app_paths() -> list[Path]:
-    """Every example app under ``components/`` (``app.py`` or ``app-*.py``).
+    """Every example app under :data:`EXAMPLE_APP_DIRS` (``app.py`` or ``app-*.py``).
 
     Example apps follow the naming convention ``app.py`` / ``app-<name>.py``;
     build scripts and other ``.py`` files are deliberately excluded.
     """
-    paths = set(COMPONENTS_DIR.rglob("app.py")) | set(COMPONENTS_DIR.rglob("app-*.py"))
+    paths: set[Path] = set()
+    for name in EXAMPLE_APP_DIRS:
+        root = REPO_ROOT / name
+        paths |= set(root.rglob("app.py")) | set(root.rglob("app-*.py"))
     return sorted(p for p in paths if "static" not in p.parts)
 
 

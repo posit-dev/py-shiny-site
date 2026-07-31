@@ -19,6 +19,6 @@ with ui.panel_absolute(  # <<
     top="50px",  # <<
     draggable=True,  # <<
 ):  # <<
-    with ui.panel_well():
-        ui.h2("Draggable panel")
+    with ui.card():
+        ui.card_header("Draggable panel")
         "Move this panel anywhere you want."
