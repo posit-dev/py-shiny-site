@@ -17,14 +17,12 @@ app_ui = ui.page_fluid(
             ui.card_header("Download Button Examples"),
             # Basic button with width parameter
             ui.download_button(id="download1", label="Basic Download", width="200px"),
-            ui.br(),  # Add spacing
             # Button with icon
             ui.download_button(
                 id="download2",
                 label="Download with Icon",
                 icon=ui.tags.i(class_="fa-solid fa-file-csv"),
             ),
-            ui.br(),  # Add spacing
             # Button with custom class and style attributes
             ui.download_button(
                 id="download3",
