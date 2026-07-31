@@ -247,4 +247,49 @@ See also: [`ui.panel_fixed()`](https://shiny.posit.co/py/api/ui.panel_fixed.html
 
 ## Conditional panel
 
-Use [`ui.panel_conditional()`](https://shiny.posit.co/py/api/ui.panel_conditional.html) to create a panel that is shown or hidden depending on a JavaScript condition evaluated in the browser, such as the current value of an input (e.g., `"input.show_details"`).
+Use [`ui.panel_conditional()`](https://shiny.posit.co/py/api/core/ui.panel_conditional.html) to show or hide a group of UI elements based on the state of your inputs, without a round trip to the server.
+
+:::{.column-screen-inset-right style="max-width:800px;"}
+```{python}
+#| output: asis
+#| echo: false
+
+shinylive_app_preview("app-panel-conditional-core.py", viewer_height=300)
+express_core_preview("app-panel-conditional-express.py", "app-panel-conditional-core.py")
+```
+:::
+
+Follow these steps to add a conditional panel to your app:
+
+  1. Add `ui.panel_conditional()` inside any Shiny UI page method (e.g., `ui.page_fluid()`).
+
+  2. Pass a condition as the first argument. This is a **JavaScript** expression written as a string, evaluated in the browser. The panel's contents are shown whenever the expression is truthy.
+
+  3. Pass the UI elements you want to show or hide as the remaining arguments.
+
+Inside the condition, refer to inputs as `input.<id>` — for example `"input.show"`. Conditions can combine inputs with JavaScript operators, as in `"input.show && input.kind === 'slider'"`.
+
+::: {.callout-important}
+## The condition is JavaScript, not Python
+
+This is the most common source of surprises with `ui.panel_conditional()`. The string is evaluated by the browser, so it follows JavaScript rules, not Python ones:
+
+  - Use `&&`, `||`, and `!` — not `and`, `or`, and `not`.
+  - Compare with `===` / `!==`, and quote string values: `"input.kind === 'slider'"`.
+  - JavaScript booleans are `true` and `false`, lowercase.
+  - Access inputs as `input.my_id` — dot notation, and no trailing `()`.
+
+A mistake in the expression is not a Python error, so your app still starts normally and the panel simply never appears. The browser console reports what went wrong — writing `"input.show and true"` logs `Error parsing expression: input.show and true`. Check there first when a conditional panel refuses to show.
+
+Because the condition never reaches Python, showing and hiding is instant and does not invalidate any reactive outputs. But it also means the condition cannot use reactive values or any other server-side state. When your visibility logic depends on something only the server knows, render the UI dynamically with [`@render.ui`](https://shiny.posit.co/py/api/core/render.ui.html) instead.
+:::
+
+::: {.callout-tip}
+## Inside a module, use the plain input id
+
+`ui.panel_conditional()` records the module's namespace alongside the condition, and Shiny narrows the `input` object to that module before evaluating it. So within a module you write the same `"input.show"` you would write in a standalone app — **not** the namespaced `"input['my_module-show']"`, which will not match anything.
+:::
+
+::: {.callout-note}
+Hidden content is still sent to the browser and still exists in the page — `ui.panel_conditional()` only controls visibility. Do not use it to hide sensitive values.
+:::
