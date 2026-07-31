@@ -75,4 +75,4 @@ To add a download link to your app:
 
 **Button vs Link**: Use `ui.download_link()` when you want the download control to appear as inline text (like a hyperlink), which is less visually prominent. Use `ui.download_button()` when you want a more prominent call-to-action with button styling.
 
-See Also: [Output UI](../../outputs/ui/index.qmd) can be used to dynamically generate download links based on user inputs or reactive values.
+See Also: [Download Button](../download-button/index.qmd) for the button-styled counterpart of this component, and [Output UI](../../outputs/ui/index.qmd) which can be used to dynamically generate download links based on user inputs or reactive values.
