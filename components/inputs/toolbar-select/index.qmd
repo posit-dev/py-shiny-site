@@ -23,16 +23,16 @@ listing:
   template: ../../_partials/components-detail-relevant-functions.ejs
   contents:
   - title: ui.toolbar_input_select
-    href: https://shiny.posit.co/py/api/ui.toolbar_input_select.html
+    href: https://shiny.posit.co/py/api/core/ui.toolbar_input_select.html#shiny.ui.toolbar_input_select
     signature: ui.toolbar_input_select(id, label, choices, *, selected=None, icon=None,
       show_label=False, tooltip=MISSING, **kwargs)
   - title: ui.update_toolbar_input_select
-    href: https://shiny.posit.co/py/api/ui.update_toolbar_input_select.html
+    href: https://shiny.posit.co/py/api/core/ui.update_toolbar_input_select.html#shiny.ui.update_toolbar_input_select
     signature: ui.update_toolbar_input_select(id, *, label=None, show_label=None,
       choices=None, selected=None, icon=None, session=None)
   - title: ui.toolbar
-    href: https://shiny.posit.co/py/api/ui.toolbar.html
-    signature: ui.toolbar(*args, align="right", gap=None, width=None)
+    href: https://shiny.posit.co/py/api/core/ui.toolbar.html#shiny.ui.toolbar
+    signature: ui.toolbar(*args, align='right', gap=None, width=None)
 - id: variations-updating
   template: ../../_partials/components-variations.ejs
   template-params:

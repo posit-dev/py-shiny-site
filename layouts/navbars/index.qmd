@@ -1,19 +1,44 @@
 ---
-title: "Navbars"
-description: >
-  A navbar adds a navigation bar, allowing users to easily navigate your
-  Shiny app.
-
+title: Navbars
+description: |
+  A navbar adds a navigation bar, allowing users to easily navigate your Shiny app.
 listing:
 - id: relevant-functions
   template: ../../components/_partials/components-detail-relevant-functions.ejs
   contents:
   - title: ui.page_navbar
-    href: https://shiny.posit.co/py/api/core/ui.page_navbar.html
-    signature: ui.page_navbar(*args, title=None, id=None, selected=None, sidebar=None, fillable=True, fillable_mobile=False, gap=None, padding=None, position='static-top', header=None, footer=None, bg=None, inverse=False, underline=True, collapsible=True, fluid=True, window_title=MISSING, lang=None)
+    href: https://shiny.posit.co/py/api/core/ui.page_navbar.html#shiny.ui.page_navbar
+    signature: ui.page_navbar(*args, title=None, id=None, selected=None, sidebar=None,
+      fillable=False, fillable_mobile=False, gap=None, padding=None, header=None,
+      footer=None, navbar_options=None, fluid=True, window_title=MISSING, lang=None,
+      theme=None, position=DEPRECATED, bg=DEPRECATED, inverse=DEPRECATED, underline=DEPRECATED,
+      collapsible=DEPRECATED)
+  - title: ui.navset_bar
+    href: https://shiny.posit.co/py/api/core/ui.navset_bar.html#shiny.ui.navset_bar
+    signature: ui.navset_bar(*args, title, id=None, selected=None, sidebar=None, fillable=True,
+      gap=None, padding=None, header=None, footer=None, navbar_options=None, fluid=True,
+      position=DEPRECATED, bg=DEPRECATED, inverse=DEPRECATED, underline=DEPRECATED,
+      collapsible=DEPRECATED)
+  - title: ui.navbar_options
+    href: https://shiny.posit.co/py/api/core/ui.navbar_options.html#shiny.ui.navbar_options
+    signature: ui.navbar_options(position=MISSING, bg=MISSING, theme=MISSING, underline=MISSING,
+      collapsible=MISSING, **attrs)
   - title: ui.nav_panel
-    href: https://shiny.posit.co/py/api/core/ui.nav_panel.html
+    href: https://shiny.posit.co/py/api/core/ui.nav_panel.html#shiny.ui.nav_panel
     signature: ui.nav_panel(title, *args, value=None, icon=None)
+  - title: ui.update_nav_panel
+    href: https://shiny.posit.co/py/api/core/ui.update_nav_panel.html#shiny.ui.update_nav_panel
+    signature: ui.update_nav_panel(id, target, method, session=None)
+  - title: ui.insert_nav_panel
+    href: https://shiny.posit.co/py/api/core/ui.insert_nav_panel.html#shiny.ui.insert_nav_panel
+    signature: ui.insert_nav_panel(id, nav_panel, target=None, position='after', select=False,
+      session=None)
+  - title: ui.remove_nav_panel
+    href: https://shiny.posit.co/py/api/core/ui.remove_nav_panel.html#shiny.ui.remove_nav_panel
+    signature: ui.remove_nav_panel(id, target, session=None)
+  - title: ui.nav_spacer
+    href: https://shiny.posit.co/py/api/core/ui.nav_spacer.html#shiny.ui.nav_spacer
+    signature: ui.nav_spacer()
 ---
 
 ```{python}
@@ -53,8 +78,6 @@ Follow these steps to add a navbar to the top of your app:
 
   4. _Optional:_ Pass a string to the `id` argument of `ui.page_navbar()`. This will create an input value that holds the title of the currently selected nav item. For example, `id = "tab"` would create a reactive value accessible as `input.tab()`.
 
-
-
 ## Navbar at bottom
 
 :::{.column-screen-inset-right style="max-width:800px;"}
@@ -76,8 +99,71 @@ Follow these steps to add a navbar to the bottom of your app:
 
   2. Pass nav items (e.g., [`ui.nav_panel()`](https://shiny.posit.co/py/api/core/ui.nav_panel.html) and [`ui.nav_menu()`](https://shiny.posit.co/py/api/core/ui.nav_menu.html)) to `ui.page_navbar()` to control the items displayed in the navbar.
 
-  3. Set the `position` parameter of `ui.page_navbar()` to `"fixed-bottom"` to pin the navbar to the bottom of the app. By default, `position` is `"static-top"`, which causes the navbar to display at the top with normal scrolling behavior. You can also pin the navbar to the top (`position="fixed-top"`).
+  3. Pass `navbar_options=ui.navbar_options(position="fixed-bottom")` to `ui.page_navbar()` to pin the navbar to the bottom of the app. By default, `position` is `"static-top"`, which causes the navbar to display at the top with normal scrolling behavior. You can also pin the navbar to the top (`position="fixed-top"`).
 
   4. Set the `title` argument of `ui.page_navbar()` to set the browser window title.
 
   5. _Optional:_ Pass a string to the `id` argument of `ui.page_navbar()`. This will create an input value that holds the title of the currently selected nav item. For example, `id = "tab"` would create a reactive value accessible as `input.tab()`.
+
+
+
+## Navbar within a page
+
+`ui.page_navbar()` makes the navbar the whole page layout. If you instead want a navbar as one element *among others* — with content above or below it — use `ui.navset_bar()` inside a regular page function such as `ui.page_fluid()`. It takes the same nav items and the same `navbar_options`.
+
+:::{.column-screen-inset-right style="max-width:800px;"}
+
+```{python}
+#| output: asis
+#| echo: false
+
+shinylive_app_preview("app-navset-bar-core.py", viewer_height=300)
+express_core_preview("app-navset-bar-express.py", "app-navset-bar-core.py")
+```
+
+:::
+
+Follow these steps to add a navbar inside a page:
+
+  1. Add `ui.navset_bar()` inside any Shiny UI page method (e.g., `ui.page_fluid()`). Unlike `ui.page_navbar()`, it does not have to be the outermost element, so content can appear before and after it.
+
+  2. Set the `title` argument of `ui.navset_bar()`. Unlike `ui.page_navbar()`, this argument is required, and it sets the brand text shown in the navbar rather than the browser window title.
+
+  3. Pass nav items (e.g., [`ui.nav_panel()`](https://shiny.posit.co/py/api/core/ui.nav_panel.html) and [`ui.nav_menu()`](https://shiny.posit.co/py/api/core/ui.nav_menu.html)) to `ui.navset_bar()` to control the items displayed in the navbar.
+
+  4. _Optional:_ Add [`ui.nav_spacer()`](https://shiny.posit.co/py/api/core/ui.nav_spacer.html) between nav items to insert flexible space. Everything after the spacer is pushed to the far side of the navbar — the usual way to right-align an "About" or "Help" item. It works in `ui.page_navbar()` too.
+
+  5. _Optional:_ Pass a string to the `id` argument of `ui.navset_bar()`. This will create an input value that holds the title of the currently selected nav item. For example, `id = "section"` would create a reactive value accessible as `input.section()`.
+
+
+## Navbar appearance options
+
+`ui.navbar_options()` collects the options that control how the navbar itself looks. Pass the result to the `navbar_options` argument of `ui.page_navbar()` or `ui.navset_bar()`:
+
+  - `position` — where the navbar sits: `"static-top"` (the default), `"fixed-top"`, or `"fixed-bottom"`.
+  - `bg` — a CSS color for the navbar background.
+  - `theme` — `"dark"` for light text on a dark background, `"light"` for dark text on a light background, or `"auto"` (the default), which picks whichever contrasts better with `bg`.
+  - `underline` — whether nav links get an underline effect. `True` by default.
+  - `collapsible` — whether nav items collapse into an expandable menu on narrow screens. `True` by default.
+
+Any extra keyword arguments become HTML attributes on the navbar container element, so `ui.navbar_options(class_="bg-primary", theme="dark")` is a convenient way to pick up a Bootswatch theme's colors.
+
+::: {.callout-note}
+`"fixed-top"` and `"fixed-bottom"` take the navbar out of the normal document flow, so it overlays your content instead of reserving space for itself. Add matching padding to the body to compensate — for example `ui.tags.style("body {padding-bottom: 70px;}")` alongside a `"fixed-bottom"` navbar.
+:::
+
+::: {.callout-warning collapse="true"}
+## Setting these options directly is deprecated
+
+Before Shiny v1.3.0, these options were passed straight to `ui.page_navbar()` and `ui.navset_bar()` (for example `ui.page_navbar(..., position="fixed-bottom")`). That still works, but it emits a deprecation warning. Wrap them in `ui.navbar_options()` instead:
+
+```python
+# Deprecated
+ui.page_navbar(..., position="fixed-bottom", bg="#0062cc")
+
+# Current
+ui.page_navbar(..., navbar_options=ui.navbar_options(position="fixed-bottom", bg="#0062cc"))
+```
+
+The old `inverse=True` / `inverse=False` arguments became `theme="dark"` / `theme="light"`.
+:::

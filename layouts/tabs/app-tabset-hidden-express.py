@@ -1,0 +1,22 @@
+from shiny import reactive
+from shiny.express import input, ui
+
+ui.input_radio_buttons(
+    "controller", "Show panel", ["1", "2", "3"], selected="1", inline=True
+)
+
+with ui.navset_hidden(id="hidden_tabs"):  # <<
+    with ui.nav_panel(None, value="panel1"):  # <<
+        "Panel 1 content"
+
+    with ui.nav_panel(None, value="panel2"):  # <<
+        "Panel 2 content"
+
+    with ui.nav_panel(None, value="panel3"):  # <<
+        "Panel 3 content"
+
+
+@reactive.effect
+@reactive.event(input.controller)
+def _():
+    ui.update_navset("hidden_tabs", selected="panel" + input.controller())  # <<

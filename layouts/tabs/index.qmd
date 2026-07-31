@@ -1,39 +1,58 @@
 ---
-title: "Tabs"
-description: >
+title: Tabs
+description: |
   Tabs and navigation allow you to create Shiny apps with multiple pages.
-
 listing:
 - id: relevant-functions
   template: ../../components/_partials/components-detail-relevant-functions.ejs
   contents:
   - title: ui.accordion
-    href: https://shiny.posit.co/py/api/ui.accordion.html#shiny.ui.accordion
-    signature: ui.accordion(*args, id=None, open=None, multiple=True, class_=None, width=None, height=None, **kwargs)
-
+    href: https://shiny.posit.co/py/api/core/ui.accordion.html#shiny.ui.accordion
+    signature: ui.accordion(*args, id=None, open=None, multiple=True, class_=None,
+      width=None, height=None, **kwargs)
   - title: ui.accordion_panel
-    href: https://shiny.posit.co/py/api/ui.accordion_panel.html
+    href: https://shiny.posit.co/py/api/core/ui.accordion_panel.html#shiny.ui.accordion_panel
     signature: ui.accordion_panel(title, *args, value=MISSING, icon=None, **kwargs)
-
   - title: ui.navset_card_tab
-    href: https://shiny.posit.co/py/api/ui.navset_card_tab.html
-    signature: ui.navset_card_tab(*args, id=None, selected=None, title=None, sidebar=None, header=None, footer=None)
-
+    href: https://shiny.posit.co/py/api/core/ui.navset_card_tab.html#shiny.ui.navset_card_tab
+    signature: ui.navset_card_tab(*args, id=None, selected=None, title=None, sidebar=None,
+      full_screen=False, header=None, footer=None)
   - title: ui.navset_card_pill
-    href: https://shiny.posit.co/py/api/ui.navset_card_pill.html
-    signature: ui.navset_card_pill(*args, id=None, selected=None, title=None, sidebar=None, header=None, footer=None, placement='above')
-
+    href: https://shiny.posit.co/py/api/core/ui.navset_card_pill.html#shiny.ui.navset_card_pill
+    signature: ui.navset_card_pill(*args, id=None, selected=None, title=None, sidebar=None,
+      full_screen=False, header=None, footer=None, placement='above')
+  - title: ui.navset_card_underline
+    href: https://shiny.posit.co/py/api/core/ui.navset_card_underline.html#shiny.ui.navset_card_underline
+    signature: ui.navset_card_underline(*args, id=None, selected=None, title=None,
+      sidebar=None, full_screen=False, header=None, footer=None, placement='above')
+  - title: ui.navset_hidden
+    href: https://shiny.posit.co/py/api/core/ui.navset_hidden.html#shiny.ui.navset_hidden
+    signature: ui.navset_hidden(*args, id=None, selected=None, header=None, footer=None)
   - title: ui.navset_pill
-    href: https://shiny.posit.co/py/api/ui.navset_pill.html
+    href: https://shiny.posit.co/py/api/core/ui.navset_pill.html#shiny.ui.navset_pill
     signature: ui.navset_pill(*args, id=None, selected=None, header=None, footer=None)
-
   - title: ui.navset_pill_list
-    href: https://shiny.posit.co/py/api/ui.navset_pill_list.html
-    signature: ui.navset_pill_list(*args, id=None, selected=None, header=None, footer=None, well=True, widths=(4, 8))
-
+    href: https://shiny.posit.co/py/api/core/ui.navset_pill_list.html#shiny.ui.navset_pill_list
+    signature: ui.navset_pill_list(*args, id=None, selected=None, header=None, footer=None,
+      well=True, widths=(4, 8))
   - title: ui.navset_tab
-    href: https://shiny.posit.co/py/api/ui.navset_tab.html
+    href: https://shiny.posit.co/py/api/core/ui.navset_tab.html#shiny.ui.navset_tab
     signature: ui.navset_tab(*args, id=None, selected=None, header=None, footer=None)
+  - title: ui.navset_underline
+    href: https://shiny.posit.co/py/api/core/ui.navset_underline.html#shiny.ui.navset_underline
+    signature: ui.navset_underline(*args, id=None, selected=None, header=None, footer=None)
+  - title: ui.update_navset
+    href: https://shiny.posit.co/py/api/core/ui.update_navset.html#shiny.ui.update_navset
+    signature: ui.update_navset(id, selected=None, session=None)
+  - title: ui.nav_control
+    href: https://shiny.posit.co/py/api/core/ui.nav_control.html#shiny.ui.nav_control
+    signature: ui.nav_control(*args)
+  - title: ui.nav_menu
+    href: https://shiny.posit.co/py/api/core/ui.nav_menu.html#shiny.ui.nav_menu
+    signature: ui.nav_menu(title, *args, value=None, icon=None, align='left')
+  - title: ui.nav_panel
+    href: https://shiny.posit.co/py/api/core/ui.nav_panel.html#shiny.ui.nav_panel
+    signature: ui.nav_panel(title, *args, value=None, icon=None)
 ---
 
 ```{python}
@@ -72,6 +91,34 @@ Follow these steps to create an app with a tabset with pill navigation layout:
   3. Pass arguments to the nav items to control each item's title, appearance, and associated content. For example, set the `title` argument of `ui.nav_panel()` to control the displayed title of the nav item. Pass UI elements as additional arguments to `ui.nav_panel()`. These elements will be displayed when the tab is active.
 
   4. _Optional:_ Pass a string to the `id` argument of `ui.navset_pill()`. This will create an input value that holds the title of the currently selected nav item. For example, `id = "tab"` would create a reactive value accessible as `input.tab()`.
+
+
+
+## Tabset with underline navigation
+
+:::{.column-screen-inset-right style="max-width:800px;"}
+
+```{python}
+#| output: asis
+#| echo: false
+
+shinylive_app_preview("app-tabset-underline-core.py", viewer_height=190)
+express_core_preview("app-tabset-underline-express.py", "app-tabset-underline-core.py")
+```
+
+:::
+
+Follow these steps to create an app with an underline navigation layout:
+
+  1. Add `ui.navset_underline()` inside any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.navset_underline()` creates a tabset where the selected nav item is underlined.
+
+  2. Pass nav items (e.g., [`ui.nav_panel()`](https://shiny.posit.co/py/api/core/ui.nav_panel.html) and [`ui.nav_menu()`](https://shiny.posit.co/py/api/core/ui.nav_menu.html)) to `ui.navset_underline()` to set the items displayed in the navset.
+
+  3. Pass arguments to the nav items to control each item's title, appearance, and associated content. For example, set the `title` argument of `ui.nav_panel()` to control the displayed title of the nav item. Pass UI elements as additional arguments to `ui.nav_panel()`. These elements will be displayed when the tab is active.
+
+  4. _Optional:_ Pass a string to the `id` argument of `ui.navset_underline()`. This will create an input value that holds the title of the currently selected nav item. For example, `id = "tab"` would create a reactive value accessible as `input.tab()`.
+
+To place an underlined tabset inside a card, use `ui.navset_card_underline()` instead — see [Card with an underline tabset](#card-with-an-underline-tabset) below.
 
 
 
@@ -168,6 +215,60 @@ Follow these steps to add a card with a pill tabset to your app:
   3. Pass arguments to the nav items to control each item's title, appearance, and associated content. For example, set the `title` argument of `ui.nav_panel()` to control the displayed title of the nav item. Pass UI elements as additional arguments to `ui.nav_panel()`. These elements will be displayed when the tab is active.
 
   4. _Optional:_ Pass a string to the `id` argument of `ui.navset_card_pill()`. This will create an input value that holds the title of the currently selected nav item. For example, `id = "tab"` would create a reactive value accessible as `input.tab()`.
+
+
+
+## Card with an underline tabset
+
+:::{.column-screen-inset-right style="max-width:800px;"}
+```{python}
+#| output: asis
+#| echo: false
+
+shinylive_app_preview("app-tabset-underline-card-core.py", viewer_height=250, div_attrs=".p-0")
+express_core_preview("app-tabset-underline-card-express.py", "app-tabset-underline-card-core.py")
+```
+:::
+
+Follow these steps to add a card with an underline tabset to your app:
+
+  1. Add `ui.navset_card_underline()` inside any Shiny UI page method (e.g., `ui.page_fluid()`). `ui.navset_card_underline()` creates an underlined tabset inside a card.
+
+  2. Pass nav items (e.g., [`ui.nav_panel()`](https://shiny.posit.co/py/api/core/ui.nav_panel.html) and [`ui.nav_menu()`](https://shiny.posit.co/py/api/core/ui.nav_menu.html)) to `ui.navset_card_underline()` to set the items displayed in the tabset inside the card.
+
+  3. Pass arguments to the nav items to control each item's title, appearance, and associated content. For example, set the `title` argument of `ui.nav_panel()` to control the displayed title of the nav item. Pass UI elements as additional arguments to `ui.nav_panel()`. These elements will be displayed when the tab is active.
+
+  4. _Optional:_ Pass a string to the `id` argument of `ui.navset_card_underline()`. This will create an input value that holds the title of the currently selected nav item. For example, `id = "tab"` would create a reactive value accessible as `input.tab()`.
+
+
+
+## Tabset with no visible navigation
+
+Sometimes you want the panel-switching behavior of a tabset, but you want to drive it from your own controls rather than from a row of tabs — for example a multi-step wizard driven by "Next" and "Back" buttons. `ui.navset_hidden()` renders the panels with the navigation hidden, and you change the visible panel from the server with [`ui.update_navset()`](https://shiny.posit.co/py/api/core/ui.update_navset.html).
+
+:::{.column-screen-inset-right style="max-width:800px;"}
+```{python}
+#| output: asis
+#| echo: false
+
+shinylive_app_preview("app-tabset-hidden-core.py", viewer_height=200)
+express_core_preview("app-tabset-hidden-express.py", "app-tabset-hidden-core.py")
+```
+:::
+
+Follow these steps to create a tabset with no visible navigation:
+
+  1. Add `ui.navset_hidden()` inside any Shiny UI page method (e.g., `ui.page_fluid()`), and pass a string to its `id` argument. The `id` is optional on the other navsets, but here you always want it: it is what `ui.update_navset()` targets, and without it there is no way to change the visible panel.
+
+  2. Pass nav items to `ui.navset_hidden()`. Give each `ui.nav_panel()` a `value` — that is the name you will switch to later. Because the navigation is not displayed, pass `None` as the panel's `title`.
+
+  3. Add whatever controls you want to drive the tabset with, such as `ui.input_radio_buttons()` above or a pair of buttons.
+
+  4. In the server function, call `ui.update_navset("<id>", selected="<value>")` to show a different panel — typically from a `@reactive.effect` that responds to your controls.
+
+::: {.callout-note}
+The nav links are still present in the HTML, just hidden with CSS, so this is a layout convenience rather than a way to keep panel content secret. Content in an unselected panel is still sent to the browser.
+:::
 
 
 
