@@ -1,11 +1,15 @@
 from functools import partial
 
 from shiny.express import ui
-from shiny.ui import page_navbar
+from shiny.ui import navbar_options, page_navbar
 
 ui.page_opts(
     title="App with navbar",  # <<
-    page_fn=partial(page_navbar, id="page", position="fixed-bottom"),  # <<
+    page_fn=partial(  # <<
+        page_navbar,  # <<
+        id="page",  # <<
+        navbar_options=navbar_options(position="fixed-bottom"),  # <<
+    ),  # <<
 )
 
 with ui.nav_panel("A"):  # <<

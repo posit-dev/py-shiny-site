@@ -87,10 +87,7 @@ _DEPRECATED = {
 # the source of truth for layout documentation -- once one of these appears
 # there (or on a component page) it is counted, so drop it from this list.
 _TODO_NEEDS_LAYOUT_PAGE = {
-    "nav_spacer", "navbar_options",
-    "navset_bar", "navset_card_underline", "navset_hidden", "navset_underline",
     "page_auto", "page_bootstrap", "page_opts", "page_output",
-    "panel_conditional",
 }
 
 # Express-only / low-level helpers with no standalone component page.
