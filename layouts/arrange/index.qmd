@@ -1,25 +1,31 @@
 ---
-title: "Arrange Elements"
-description: >
-  Layout elements into rows and columns that responsively adapt to a wide range of
-  screen sizes.
-
+title: Arrange Elements
+description: |
+  Layout elements into rows and columns that responsively adapt to a wide range of screen sizes.
 listing:
 - id: relevant-functions
   template: ../../components/_partials/components-detail-relevant-functions.ejs
   contents:
   - title: ui.layout_columns
-    href: https://shiny.posit.co/py/api/ui.layout_columns.html
-    signature: ui.layout_columns(*args, col_widths=None, row_heights=None, fill=True, fillable=True, gap=None, class_=None, height=None, **kwargs)
+    href: https://shiny.posit.co/py/api/core/ui.layout_columns.html#shiny.ui.layout_columns
+    signature: ui.layout_columns(*args, col_widths=None, row_heights=None, fill=True,
+      fillable=True, gap=None, class_=None, height=None, min_height=None, max_height=None,
+      **kwargs)
   - title: ui.layout_column_wrap
-    href: https://shiny.posit.co/py/api/ui.layout_column_wrap.html
-    signature: ui.layout_columns(*args, col_widths=None, row_heights=None, fill=True, fillable=True, gap=None, class_=None, height=None, **kwargs)
+    href: https://shiny.posit.co/py/api/core/ui.layout_column_wrap.html#shiny.ui.layout_column_wrap
+    signature: ui.layout_column_wrap(*args, width=MISSING, fixed_width=False, heights_equal='all',
+      fill=True, fillable=True, height=None, min_height=None, max_height=None, height_mobile=None,
+      gap=None, class_=None, **kwargs)
   - title: ui.page_fixed
-    href: https://shiny.posit.co/py/api/ui.page_fixed.html
-    signature: ui.page_fixed(*args, title=None, lang=None, **kwargs)
+    href: https://shiny.posit.co/py/api/core/ui.page_fixed.html#shiny.ui.page_fixed
+    signature: ui.page_fixed(*args, title=None, lang=None, theme=None, **kwargs)
   - title: ui.page_fillable
-    href: https://shiny.posit.co/py/api/ui.page_fillable.html
-    signature: ui.page_fillable(*args, padding=None, gap=None, fillable_mobile=False, title=None, lang=None, **kwargs)
+    href: https://shiny.posit.co/py/api/core/ui.page_fillable.html#shiny.ui.page_fillable
+    signature: ui.page_fillable(*args, padding=None, gap=None, fillable_mobile=False,
+      title=None, lang=None, theme=None, **kwargs)
+  - title: ui.page_fluid
+    href: https://shiny.posit.co/py/api/core/ui.page_fluid.html#shiny.ui.page_fluid
+    signature: ui.page_fluid(*args, title=None, lang=None, theme=None, **kwargs)
 ---
 
 ```{python}

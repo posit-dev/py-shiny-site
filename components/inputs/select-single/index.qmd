@@ -23,9 +23,12 @@ listing:
   template: ../../_partials/components-detail-relevant-functions.ejs
   contents:
   - title: ui.input_select
-    href: https://shiny.posit.co/py/api/ui.input_select.html
+    href: https://shiny.posit.co/py/api/core/ui.input_select.html#shiny.ui.input_select
     signature: ui.input_select(id, label, choices, *, selected=None, multiple=False,
-      selectize=False, width=None, size=None)
+      selectize=DEPRECATED, width=None, size=None, remove_button=DEPRECATED, options=DEPRECATED)
+  - title: ui.update_select
+    href: https://shiny.posit.co/py/api/core/ui.update_select.html#shiny.ui.update_select
+    signature: ui.update_select(id, *, label=None, choices=None, selected=None, session=None)
 - id: variations
   template: ../../_partials/components-variations.ejs
   template-params:

@@ -23,11 +23,14 @@ listing:
   template: ../../_partials/components-detail-relevant-functions.ejs
   contents:
   - title: ui.input_action_link
-    href: https://shiny.posit.co/py/api/ui.input_action_link.html
+    href: https://shiny.posit.co/py/api/core/ui.input_action_link.html#shiny.ui.input_action_link
     signature: ui.input_action_link(id, label, *, icon=None, **kwargs)
   - title: reactive.event
-    href: https://shiny.posit.co/py/api/reactive.event.html
+    href: https://shiny.posit.co/py/api/core/reactive.event.html#shiny.reactive.event
     signature: reactive.event(*args, ignore_none=True, ignore_init=False)
+  - title: ui.update_action_link
+    href: https://shiny.posit.co/py/api/core/ui.update_action_link.html#shiny.ui.update_action_link
+    signature: ui.update_action_link(id, *, label=None, icon=None, session=None)
 - id: kitchen-sink
   template: ../../_partials/components-detail-kitchen-sink.ejs
   contents:
