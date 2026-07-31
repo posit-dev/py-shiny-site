@@ -69,13 +69,11 @@ _CLASSES = {
 _OPTS = {"brush_opts", "click_opts", "dblclick_opts", "hover_opts"}
 
 # Mutators (``update_*`` / ``insert_*`` / ``remove_*``) are documented in their
-# base component's ``relevant-functions`` block, not opted out. The only ones
-# still listed here are those whose base component has no page yet -- their
-# mutator should be added to that page's ``relevant-functions`` when it is
-# written (the base component is tracked in _TODO_NEEDS_COMPONENT_PAGE).
-_MUTATORS = {
-    "update_task_button",       # base: input_task_button
-}
+# base component's ``relevant-functions`` block, never opted out. There is no
+# _MUTATORS set any more: every mutator's base component now has a page, and
+# ``update_task_button`` -- the last holdout -- is listed on the new task-button
+# page. If you add a mutator whose base component has no page yet, list the base
+# component in _TODO_NEEDS_COMPONENT_PAGE rather than reviving a mutator opt-out.
 
 # Deprecated / superseded functions that intentionally have no doc page.
 _DEPRECATED = {
@@ -101,8 +99,7 @@ _MISC = {"busy_indicators", "fill", "hold"}
 # TODO: genuine components that should get their own component page. Move each
 # to a real page (and drop it from here) as pages are written.
 _TODO_NEEDS_COMPONENT_PAGE = {
-    "bind_task_button", "download_button", "download_link",
-    "input_bookmark_button", "input_task_button",
+    "download_button", "download_link",
     "offcanvas", "show_offcanvas", "hide_offcanvas", "toggle_offcanvas",
 }
 
@@ -111,7 +108,6 @@ KNOWN_MISSING_COMPONENTS: set[str] = (
     | _TYPE_ALIASES
     | _CLASSES
     | _OPTS
-    | _MUTATORS
     | _MISC
     | _DEPRECATED
     | _TODO_NEEDS_LAYOUT_PAGE
