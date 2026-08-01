@@ -80,7 +80,8 @@ jobs:
 
   # Single stable check for branch protection / auto-merge. The `build` matrix
   # above may be re-sharded freely without touching the required-checks list,
-  # and unlike `deploy` this job cannot be skipped into a false pass.
+  # and unlike a job with a plain `needs: build` it cannot be skipped into a
+  # false pass.
   done-build:
     name: done-build
     # `always()` is required: without it, a failing shard would make this job
@@ -98,9 +99,15 @@ jobs:
             exit 1
           fi
 
-  # No `if: always()` here on purpose -- a failing shard *should* skip the
-  # deploy rather than publish a broken site. `done-build` is the merge gate.
-  deploy:
+  # Assembles the ten shard artifacts into a whole site. Deliberately uses no
+  # secrets, so it also passes on pull requests from forks -- that is what makes
+  # it safe to mark as a required check, unlike `publish` below.
+  #
+  # No `if: always()` here on purpose: a failing shard *should* skip this rather
+  # than merge a known-incomplete site. That does mean a skipped `merge-shards`
+  # reports "Success" to branch protection -- `done-build` is what catches the
+  # failing-shard case, and the two are required together.
+  merge-shards:
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -111,6 +118,28 @@ jobs:
           path: _shards/
       - name: Merge shards
         run: python3 scripts/ci-merge.py --shards _shards --out _build
+
+      # Hand the assembled site to `publish` so that what gets deployed is
+      # byte-for-byte what was validated here.
+      - uses: actions/upload-artifact@v7
+        with:
+          name: site-merged
+          path: _build/
+          include-hidden-files: true
+          retention-days: 1
+
+  # Netlify publish + the PR "view deployment" button. Needs repository secrets
+  # and `deployments: write`, so it cannot succeed on fork pull requests --
+  # never mark this a required check or external contributions can never merge.
+  publish:
+    needs: merge-shards
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          name: site-merged
+          path: _build/
 
       # =====================================================
       # Deploy docs to Netlify

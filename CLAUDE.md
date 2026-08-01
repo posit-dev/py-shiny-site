@@ -257,7 +257,8 @@ All code examples use Shinylive to run Python in the browser via WebAssembly. Th
 
 - **Production:** Commits to `main` branch trigger automatic build and deploy via GitHub Actions
 - **Preview:** Pull requests generate preview deployments (e.g., `pr-123--pyshiny.netlify.app`)
-- **Pipeline:** 10 parallel shard jobs render slices of the site, then a `deploy` job merges the artifacts (`scripts/ci-merge.py`) and publishes — ~9 min end to end. A failed shard skips the deploy entirely — so the merge gate is the `done-build` aggregator job (`if: always()` + explicit `needs.*.result` check), not `deploy`, which would silently skip into a "satisfied" required check. Superseded runs are cancelled by a concurrency group (only the newest commit per ref deploys).
+- **Pipeline:** 10 parallel shard jobs render slices of the site, then `merge-shards` assembles the artifacts (`scripts/ci-merge.py`) and `publish` pushes to Netlify — ~9 min end to end. A failed shard skips both. Superseded runs are cancelled by a concurrency group (only the newest commit per ref deploys).
+- **Merge gating:** the required checks are `done-build` (an `if: always()` aggregator over the shard matrix) and `merge-shards`. A job with a plain `needs:` *skips* when an upstream job fails, and GitHub reports a skipped job as "Success" — so `done-build` exists to fail loudly where a skip would silently satisfy branch protection. `publish` must **never** be required: it needs Netlify secrets and `deployments: write`, neither of which fork pull requests get, so requiring it would permanently block external contributors.
 - **Escape hatch:** run the workflow manually (`workflow_dispatch`) with `full_render = true` for a single unsharded build job.
 - **CI caches:** `.quarto/shinylive-cache/` persists across runs via `actions/cache` (content-addressed keys; safe to restore stale).
 - **Platform:** Hosted on Netlify
