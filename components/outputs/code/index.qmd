@@ -1,0 +1,52 @@
+---
+title: Code
+sidebar: components
+appPreview:
+  file: components/outputs/code/app-preview.py
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/outputs/code/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhXER0AVwpFhEACZwGRBZwA6EfTqzdFFAPpV+FABS6w8UVADmcO0TsBZEa2evCyOwAJOAAbENJkAGUuHjsASn1EiAABVQ0GLDINZGQAYmQAHgL9DTpkLLhrOMR9HJzhCgUGCGQ6AHIhbhs7EBMlLAcfFyqAX3i2-X8wClx0BBRpgQowEYBdIA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnLN3QKKmqgA8KdsPFZWEzhlQmRQgFk4QODQolCACTgLC1JkAGUuHlCASgJ7R0NSdzcPMlk-cpCwPIcAYmQAHkbVHNV2iFk6NjkANzkbV3ciYopSolZo1k5yHMQChwABKU65LCr6ppaIR2Qu5CqbOYXd5CkKBQYdugBydAZuX1CQIYosAKDTI4BfXJuO9SYPRiTA2DTaTgTPpyNoQMJgCi4dAIFAIuA+MDfAC6QA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.output_code
+    href: https://shiny.posit.co/py/api/core/ui.output_code.html#shiny.ui.output_code
+    signature: ui.output_code(id, placeholder=True)
+  - title: '@render.code'
+    href: https://shiny.posit.co/py/api/core/render.code.html#shiny.render.code
+    signature: render.code(_fn=None, *, placeholder=True)
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A code output displays a character string as monospaced code in a shaded rectangle. It is the recommended way to show code, log output, or any other text where whitespace and line breaks matter.
+
+To make reactive code output, follow three steps:
+
+1. Add `ui.output_code()` to the UI, passing it a unique `id`.
+
+2. Define a function in the server that returns the string to display. The string is shown exactly as returned, so use `\n` (or a triple-quoted string) for line breaks.
+
+3. Decorate the function with `@render.code` and give it the same name as the output `id`. Shiny matches the two by name.
+
+By default, `ui.output_code()` displays an empty shaded rectangle as a placeholder even when the string to display is empty. To hide the rectangle when the string is empty, set `placeholder=False`.
+
+See also: [Verbatim Text](../verbatim-text/index.qmd) and [Text](../text/index.qmd) for other ways to display text output, and [Code Editor](../../inputs/code-editor/index.qmd) for letting the user *write* code rather than read it.

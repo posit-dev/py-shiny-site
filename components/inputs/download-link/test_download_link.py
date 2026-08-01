@@ -1,0 +1,90 @@
+import re
+from datetime import date
+from pathlib import Path
+
+from playwright.sync_api import Page, expect
+
+from conftest import create_example_fixture
+from shiny.playwright import controller
+from shiny.run import ShinyAppProc
+
+HERE = Path(__file__).parent
+
+core_app = create_example_fixture(HERE / "app-core.py")
+express_app = create_example_fixture(HERE / "app-express.py")
+kitchensink_core_app = create_example_fixture(HERE / "app-kitchensink-core.py")
+kitchensink_express_app = create_example_fixture(HERE / "app-kitchensink-express.py")
+
+EXPECTED_CSV = "name,value\nAlice,100\nBob,200\n"
+
+
+def _download_text(page: Page, click_target, tmp_path: Path) -> tuple[str, str]:
+    """Click a download control and return (suggested_filename, contents)."""
+    with page.expect_download() as download_info:
+        click_target.click()
+    download = download_info.value
+    # download.path() is unavailable against a remote browser (CI connects via
+    # browser_type.connect()), so save a local copy instead.
+    saved = tmp_path / download.suggested_filename
+    download.save_as(saved)
+    return download.suggested_filename, saved.read_text()
+
+
+def _check_download_link(page: Page, app: ShinyAppProc, tmp_path: Path) -> None:
+    page.goto(app.url)
+
+    link = controller.DownloadLink(page, "download_data")
+    expect(link.loc).to_contain_text("Download CSV")
+    # The control is disabled until the session registers the download handler.
+    expect(link.loc).not_to_have_class(re.compile(r"\bdisabled\b"))
+
+    filename, contents = _download_text(page, link.loc, tmp_path)
+    assert filename == f"data-{date.today().isoformat()}.csv"
+    assert contents == EXPECTED_CSV
+
+
+def test_download_link_core(page: Page, core_app: ShinyAppProc, tmp_path: Path) -> None:
+    _check_download_link(page, core_app, tmp_path)
+
+
+def test_download_link_express(
+    page: Page, express_app: ShinyAppProc, tmp_path: Path
+) -> None:
+    _check_download_link(page, express_app, tmp_path)
+
+
+def _check_kitchensink(page: Page, app: ShinyAppProc, tmp_path: Path) -> None:
+    page.goto(app.url)
+
+    # `icon=` renders an <i> inside the link. Express cannot pass `icon` through
+    # `render.download_link()`, so this asserts the explicit-placement +
+    # `ui.hold()` pattern produces exactly one link, not a duplicate.
+    icon_link = page.locator("a#download2")
+    expect(icon_link).to_have_count(1)
+    expect(icon_link.locator("i")).to_have_count(1)
+
+    # `width=` becomes an inline style on the link.
+    expect(page.locator("a#download3")).to_have_attribute(
+        "style", re.compile(r"width:\s*300px")
+    )
+
+    filename, contents = _download_text(page, page.locator("a#download1"), tmp_path)
+    assert filename == f"data-{date.today().isoformat()}.csv"
+    assert contents == EXPECTED_CSV
+
+    # A second handler on the same page downloads its own distinct content.
+    filename, contents = _download_text(page, icon_link, tmp_path)
+    assert filename == "report.txt"
+    assert contents == f"Report generated on: {date.today()}"
+
+
+def test_download_link_kitchensink_core(
+    page: Page, kitchensink_core_app: ShinyAppProc, tmp_path: Path
+) -> None:
+    _check_kitchensink(page, kitchensink_core_app, tmp_path)
+
+
+def test_download_link_kitchensink_express(
+    page: Page, kitchensink_express_app: ShinyAppProc, tmp_path: Path
+) -> None:
+    _check_kitchensink(page, kitchensink_express_app, tmp_path)

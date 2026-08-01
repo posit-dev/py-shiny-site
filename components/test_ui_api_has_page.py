@@ -61,29 +61,25 @@ _TYPE_ALIASES = {
 
 # Classes returned/consumed by component functions (documented alongside them).
 _CLASSES = {
-    "AccordionPanel", "CardItem", "Chat", "MarkdownStream", "Sidebar", "Theme",
-    "ValueBoxTheme",
+    "AccordionPanel", "CardItem", "Chat", "MarkdownStream", "Offcanvas",
+    "Sidebar", "Theme", "ValueBoxTheme",
 }
 
 # Plot brushing / click option builders.
 _OPTS = {"brush_opts", "click_opts", "dblclick_opts", "hover_opts"}
 
 # Mutators (``update_*`` / ``insert_*`` / ``remove_*``) are documented in their
-# base component's ``relevant-functions`` block, not opted out. The only ones
-# still listed here are those whose base component has no page yet -- their
-# mutator should be added to that page's ``relevant-functions`` when it is
-# written (the base component is tracked in _TODO_NEEDS_COMPONENT_PAGE).
-_MUTATORS = {
-    "update_code_editor",       # base: input_code_editor
-    "update_popover",           # base: popover
-    "update_submit_textarea",   # base: input_submit_textarea
-    "update_task_button",       # base: input_task_button
-}
+# base component's ``relevant-functions`` block, never opted out. There is no
+# _MUTATORS set any more: every mutator's base component now has a page, and
+# ``update_task_button`` -- the last holdout -- is listed on the new task-button
+# page. If you add a mutator whose base component has no page yet, list the base
+# component in _TODO_NEEDS_COMPONENT_PAGE rather than reviving a mutator opt-out.
 
 # Deprecated / superseded functions that intentionally have no doc page.
 _DEPRECATED = {
     "column", "row",  # superseded by layout_columns / layout_column_wrap
     "update_navs",  # superseded by update_navset
+    "panel_well",  # deprecated; its relevant-functions entry was dropped (#404)
 }
 
 # TODO: layout / navigation / page / panel functions not yet documented in a
@@ -91,10 +87,7 @@ _DEPRECATED = {
 # the source of truth for layout documentation -- once one of these appears
 # there (or on a component page) it is counted, so drop it from this list.
 _TODO_NEEDS_LAYOUT_PAGE = {
-    "nav_spacer", "navbar_options",
-    "navset_bar", "navset_card_underline", "navset_hidden", "navset_underline",
     "page_auto", "page_bootstrap", "page_opts", "page_output",
-    "panel_conditional",
 }
 
 # Express-only / low-level helpers with no standalone component page.
@@ -102,11 +95,14 @@ _MISC = {"busy_indicators", "fill", "hold"}
 
 # TODO: genuine components that should get their own component page. Move each
 # to a real page (and drop it from here) as pages are written.
+#
+# Offcanvas is all that is left: the download-button and download-link pages
+# landed, so their four entries are gone. Offcanvas is tracked by
+# https://github.com/posit-dev/py-shiny-site/issues/422 -- once that page exists
+# this set becomes empty and should be deleted outright, along with its entry in
+# the KNOWN_MISSING_COMPONENTS union below.
 _TODO_NEEDS_COMPONENT_PAGE = {
-    "bind_task_button", "chat_ui", "download_button", "download_link",
-    "input_bookmark_button", "input_code_editor", "input_submit_textarea",
-    "input_task_button", "output_code", "output_markdown_stream", "output_table",
-    "popover", "toast", "toast_header", "show_toast", "hide_toast",
+    "offcanvas", "show_offcanvas", "hide_offcanvas", "toggle_offcanvas",
 }
 
 KNOWN_MISSING_COMPONENTS: set[str] = (
@@ -114,7 +110,6 @@ KNOWN_MISSING_COMPONENTS: set[str] = (
     | _TYPE_ALIASES
     | _CLASSES
     | _OPTS
-    | _MUTATORS
     | _MISC
     | _DEPRECATED
     | _TODO_NEEDS_LAYOUT_PAGE

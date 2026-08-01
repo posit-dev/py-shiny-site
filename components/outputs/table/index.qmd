@@ -1,0 +1,60 @@
+---
+title: Table
+sidebar: components
+preview: '<div class="p-4 w-100 h-100"> <table class="w-100 h-100 my-0 "> <thead>
+  <tr style="border-bottom:2px solid #1D1F21;"> <th class="fw-600 p-90 px-2 py-1"
+  colspan="1" scope="col"> <div>This</div> </th> <th class="fw-600 p-90 px-2 py-1"
+  colspan="1" scope="col"> <div>That</div> </th> </tr> </thead> <tbody> <tr> <td class="fw-500
+  p-90 px-2 py-1">And</td> <td class="fw-500 p-90 px-2 py-1">The</td> </tr> <tr> <td
+  class="fw-500 p-90 px-2 py-1">Other</td> <td class="fw-500 p-90 px-2 py-1">Thing</td>
+  </tr> </tbody> </table> </div>'
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/outputs/table/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 350
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5dKCAEygGdk+7LgB0IogGbNSMZLwAWdCLixwAHumZxe-Bk1bJF6AK4Uim7nGZEjdUaK7jkAXiFYAIlApQAYs1hwAClFkEOQQYNDI4TAAWVIuOAAbaJRgaJioAC8eZAAlAA0AFmiiaI8KXiMIZAB2AEYABhLkdMtiZAAmQoa3ZujvOk9kOo6ADj6wADVSRIA3UmHCjoBRaIBdAgjIkPSABQBxFORgDrqsBqIOjqxRy8KsQqIAZmvHzrPCja3t6IBhXESigSzF4R2AADYiG9oVCvtVtjswAAJFi8OBMADuljBdUaRAAnE8iOCOsTIcMGvi4ZEAL6iACUdggNiwhhMAH1eIDgUEwFIMaDCC0wLlSALkBQFlw6Lx0IkoLhmjBFE46kQYFBVE4AKxEWZQRJGOBOJ6MsTmgAC5mBWC8ACNEnAQgBiZAAHjd9jgjntjoC9MQ300FCMzGqDiwcjgUC4ATZFCw-N4-rNQrAFFw6AQKHTagoYBpayAA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5dKCAEygGdk+7LgB0IogGbNSMZLwAWdCLmQMmrZAEFMRZtS5xmRAK51RoruOQBeIVgAiUClABizWHAAUo5D+QhvvoHCYACypPoANsEowMEhUABePMgASgAaACzBRMEOFLxGEMgA7ACMAAzZyHEGxMgATBnldlXBznSOyKX1ABytYABqpBEAbqRdGfUAosEAugQBgT5xAAoA4tHIwPWlWOVE9fVYPQcZWBlEAMxHFw27GfOLS8EAwrgRivrMvJvAAGxEW5AwGPIpLZZgAASLF4cCYAHcDL9ShUiABOS5EP71LEArrlNGgwIAX1EAEozNBMAB9EzWZAmHBQADmcGp4giJi4XjBPkZinQRgo1N4Hy+XjAUnhP0I1TAKVI0uQFHGXDovHQESguCqMEUVlKRBgUAAHlYAKxEEZQTlwKyXMkLXkMuhYUhCwXCpwAIwinmCPr9wUdPgAxMgADwR8mU8xwSyw5gjAweAVCojuiieoiw3i8OjkMmIJ4AAV03AMWEDcDDkejzv0lmrHiLT0CugoRmYRQsWDkcCg3LTFCwUt4LYpYinGHQ9K06A8M9pdBzBmTzEnsrAFFw6AQKG3cBNFDAxNmQA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.output_table
+    href: https://shiny.posit.co/py/api/core/ui.output_table.html#shiny.ui.output_table
+    signature: ui.output_table(id, **kwargs)
+  - title: '@render.table'
+    href: https://shiny.posit.co/py/api/core/render.table.html#shiny.render.table
+    signature: render.table(_fn=None, *, index=False, classes='table shiny-table w-auto',
+      border=0, **kwargs)
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A table output renders a pandas `DataFrame` as a static HTML table. Unlike [Data Grid](../data-grid/index.qmd) and [Data Table](../data-table/index.qmd), the resulting table is not interactive — users cannot sort, filter, or select rows.
+
+**Prefer `@render.data_frame` for most tables.** `@render.table` predates it and is kept for cases where you want the raw HTML a `DataFrame` (or a [pandas Styler](https://pandas.pydata.org/docs/reference/api/pandas.io.formats.style.Styler.html)) produces — for example to apply pandas styling that the interactive grid does not support, or to render a small summary table with no interactive machinery.
+
+To make reactive table output, follow three steps:
+
+1. Add `ui.output_table()` to the UI, passing it a unique `id`.
+
+2. Define a function in the server that returns a pandas `DataFrame` (or any object with a `.to_html()` method, such as a [pandas Styler](https://pandas.pydata.org/docs/reference/api/pandas.io.formats.style.Styler.html)).
+
+3. Decorate the function with `@render.table` and give it the same name as the output `id`. Shiny matches the two by name.
+
+Use the `@render.table` parameters to tweak the rendering: `index=True` includes the data frame's index, `classes` controls the Bootstrap table classes applied to the output, and `border` sets the table's `border` attribute. Any further keyword arguments are passed through to the object's `.to_html()` method.
+
+For an interactive table, use [Data Grid](../data-grid/index.qmd) or [Data Table](../data-table/index.qmd) instead.

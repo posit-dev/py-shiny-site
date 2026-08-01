@@ -1,0 +1,111 @@
+---
+title: Task Button
+sidebar: components
+appPreview:
+  file: components/inputs/task-button/app-preview.py
+  static: true
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/inputs/task-button/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 200
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5ChuAHQh4DNmpGMgDOACzoRcyBk1bJmcKMQ4A3OEUUQAJnGb9Bw8ZNxY4AD3SKRImYxZtJ6AK4Uizujx4esT1wH0KKBEAa38AI1cKcgAKLjAg0Iio8niieIAlZwh2YJD4gEpkZABiZAAecq9eCAABLV1mLDJdHnqlFTp1M3VKGL8KLESwyIpoiAKeXT4FOBFnABsKGILEHmLijngsEQW4OHQYgCYi0uQAZQZFqCpkKGQF8gBzAFpmbIhJJ9zQ9Y3FCjOZg5PjxAAqeWQZEYeyo2mQIAGQzyyTGsQKAF92JwYiJJmAeIRUBRcOgECgEhYKGAMQBdIA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5ChuAHQh4DNmpGMgDOACzoRcyBk1bIAgpiLM4UYhwBucFdQAmcZkQCudHjwzoA+qeQBeZKZxQA5nCt8ANqb0AKHsiBjnRYkujGFFYUUCIA1lYARhEU5P5g0XGJyeRchMi5AErGEOwxsbkAlETIAMTIADz1AUFOpBHhkWQGaaoixp4UlQQ8Fea8EAZ8oobazL5hEURtFB1EInAiInTkFYjNgQACqhOGWF3cJUFHahp02lhw2pTzEB1YGfFJFCkQo5eBk2QvX6FF8u32QUCHHgWBEnjgcHQvgATBVAnUAMoMfpQKjIKDITzkFwAWmYxQgkhcpTiEMhqgoxmYJT4uQAKmVkGRGPCqHpkCAFhR3mUst9UhUAL7sTi+ESjMBjCyYeyKTC+Sw2OhrGaGP55dK4dAIFDpOAADwoYElAF0gA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  contents:
+  - title: ui.input_task_button
+    href: https://shiny.posit.co/py/api/core/ui.input_task_button.html#shiny.ui.input_task_button
+    signature: ui.input_task_button(id, label, *args, icon=None, label_busy='Processing...',
+      icon_busy=MISSING, width=None, type='primary', auto_reset=True, **kwargs)
+  - title: ui.update_task_button
+    href: https://shiny.posit.co/py/api/core/ui.update_task_button.html#shiny.ui.update_task_button
+    signature: ui.update_task_button(id, *, state=None, session=None)
+  - title: ui.bind_task_button
+    href: https://shiny.posit.co/py/docs/nonblocking.html
+    signature: ui.bind_task_button(task=None, *, button_id)
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/inputs/task-button/
+  contents:
+  - title: Manually reset the button with `update_task_button`
+    description: |
+      Pass `auto_reset=False` to `ui.input_task_button()` to keep the button in its busy state after the click has been handled, then call `ui.update_task_button(id, state="ready")` from the server to reset it yourself. Click "Run task", wait for the result, and note the button stays busy until you click "Reset task button".
+    apps:
+    - title: Preview
+      file: app-variation-update-preview.py
+      height: 200
+    - title: Express
+      file: app-variation-update-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5ChuAHQh4DNmpGMgDOACzoRcyBk1bJmcKMQ4A3OEUUQAJnGb9Bw8ZNxY4AD3SKRImYxZtJ6AK4Uizujx4esT1wH0KKBEAa38AI1cKcgAKLjBmZ15CZHiAJST2YJD4oihXUn9rOAoAXgAxKAAbETgASmRkAGJkAB5W7zpfCBcKf2UOcgio2PjiilzUsDS4WrYg0ORIimjkuq9eCAABLV1mLDJdHh2lFTp1M3VKGL8KLESIdZ04PgVZ5yqKGLrEHkbGjjwLAiKpwODoGIARiwAFYGs1kABlBgfKBUZBQZBVcgAcwAtA8IJIcVlQn9-ooKM5mBBkHx4gAVbLIMiMUFUbTIEC3e5Jb4AX3YnBiInWYA2x0UA3OcDMfD4cBUktOallcCuXx54yeule-m+v1p-x8znQ2jRcEC2WGK1GCSSkxEQSopTGSm0uHi8Ja7R4KTAFFw6AQKADFgoYH5AF0gA
+    - title: Core
+      file: app-variation-update-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5ChuAHQh4DNmpGMgDOACzoRcyBk1bIAgpiLM4UYhwBucFdQAmcZkQCudHjwzoA+qeQBeZKZxQA5nCt8ANqb0AKHsiBjnRYkujGFFYUUCIA1lYARhEU5P5gzMa8hMhcYABKmewxsblEUBGkVqoicBR2AGJQnjUAlETIAMTIADzdAUFOYRFW6hzkicmpudW1pTn5cDVs0XHISRQpWW39gU6kEeGRZAZp1caeFLnbEC3mvBAGfKKG2sy+QxRE+xSHRDUiIjo5BaiB2yAAAqoHoYsMduBAghDVKM6NosHBtJR3hBDlgMjcwY9kGcLr4QWDERx4FgRJ44HB0L4AIxYACsLUCXQAygxzlAqMgoMhPOQXABafEQSQuIpxClBVQUYzMBF8XIAFWKyDIjDpVD0yBAHzxmTJAF92JxfCJbmA7ojIWoNKi4Oi+Hw4BowY6UWiMdQKNjcTMKLcEUEiVYyaDw4jdiFjOg9Pz3Ct4utNqdMnMRNEqHZpmo9Lgrpyen17hZMPZFJhfJYbHQ-i9DGHsmAKLh0AgUB24AAPChgM0AXSAA
+  - title: True non-blocking work with `extended_task`
+    description: |
+      A plain task button only stays busy for the duration of the click's reactive flush, and reactive code runs serially -- so slow work inside a render function blocks every other output and every other session. Pair the button with `reactive.extended_task` and `ui.bind_task_button()` to run the work outside the reactive graph: the button stays busy for the whole task, the clock above keeps ticking, and `.cancel()` can interrupt it.
+    apps:
+    - title: Preview
+      file: app-variation-extended-task-preview.py
+      height: 320
+    - title: Express
+      file: app-variation-extended-task-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5KAZ1wmLtIB0IAM2akYyACZQqFBnGQMmrSdLiz4gwSLHIOACzoRcCxizbM4UYrIBucIhYgS4zLaPH7DuLHAAe6Cw4OEyU2Q3QAVwoiCLpNCFisGChmAGsJUgB3CAAKfjAAFT15YgAbUmJU5FS4OHRg2UrDAHNkTINS+Qpi5ApOKuYIiA5EfIBKeMEAAUdnZiwyZ0FnIWRiCOZHCgB9dTgcsdGIZBPkCytbOCxDGyhSuikqbdLVZhyARgnj04sKDePHmo5FgIFkDlgOBRmEI9nkwABSAASiHhAFkUQBlcaTBJ0a4QSI7BLwZh0Yhw3z5Ij5SmEZCfQSJcJRbbElxkuG4KnIfJcukAJi+TIJLL6HFS2wARlEKOQ4WRGFE4Nz8gBhMSE+y6cqZUp8oV45k7C58CBSmVy-LEKA8OClFVgVU24h27EQeJTRKSwwSXb9c0UWW5aWB8jbB4AXitGqV4xOAGJkAAeJPTc7WOh2Hy+KhOOC+sVVZCJlOCTjcYiSOCrDg67YKzU5KAoQzRZCSluUMbIAC0AD4FJQjqd2JkoHQ2OWeHwIZ06jkAMxfEe-f7sZAAanbOJmlgzWerQjg1jTe8uPjslByRoWMaoXxWyG2B2Hp1rWXrd-2N98ByIN9wA4vg9dNz0PY8KFPE0D0vChrxFCgFmdO0H2rJ8X0EEd30yT9FSoJDbVKA4E2TVN3XI3c83mRZlTzVZAgiUo4MOTCfjUNdITebDcM1LAGKYoDBDpMAKFwdAEBQES-AoMAAF8AF0gA
+    - title: Core
+      file: app-variation-extended-task-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5KAZ1wmLtIB0IAM2akYyACZQqFBnGQMmrSdLiz4gwSLHIOACzoRcCxizYBBTEWZwoxWQDc416hLjMiAVzqbomAPreyAC8yN44UADmcP5CADbeEgAUgshpYXRYMFDMANYSpADuEClgACp68sRxpMS5yLlwcOgcyLJ1hpHIhQZx8hSVbZz1zJ4QHIj8YACUBKnp4aSeFOjL-mRupcSezDaU-upwU7PzaeGGqxT+EJ7wzHTEpQAeU0RTL4TIAIwnEOkZWAuaxudwepVwr2QUwhnwATL9-ucIJcDsN-AAjZYUchbMSXI6fKYAYTxy2cuhqhTiMIRC0yQKudlk5AxWJxU2IUB4cDikOJXOIPOOcz+dKwSxWaw2cFKNg4njiFGFgmmvkEbiEuncTmYSQZRAllyIHDgHA4fAg00morSAAE9m5mFhpadJHBNdtdtQrocklbXf8bEy6E5ARAHFA4nQpFR-HFVLqfgH0jYKDs-jG1HIsBAin6sBwKMwhL6pgBSAASiDLAFlqwBlY6+f628LowwSVEcXKsijYkqYvss6PBDmkqjHNIAYmQAB5Z677bZ7CG4Fg4E8qBA3J2KMNp3OFzb2FweG7NRxKetxzKoChDBQiOj75RpsgALQAPgUlGt-3+UCFFAdBsJw3C8KQBZ9M0SQAMyqsegZqOm7DIAA1Mg6LNukS7BqG7pCHA9iLkGK74U4lB6siyzOjeCH-BqyD+H6f7-mkl5FNejBklRlxYE8fpEAyWC4H6CEkcujhrgRRFKseuFkdJFEULxNGctycT0ekjHMf6iHpBxhRcfizoCjyfoHvO2F2g67i0W4rqMXKCoqXpbFpKmKGFrqhnGWSWDOYqYlqn46AhMgljoEkGDoIEdDGtq7gIZ8YAULg6AICgqUbhQYAAL4ALpAA
+- id: kitchen-sink
+  template: ../../_partials/components-detail-kitchen-sink.ejs
+  contents:
+  - title: Task Button
+    core: https://shinylive.io/py/editor/#h=0&code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6EeY2bJuAC3YRcfAUJEBBTEQZwoxCu0lwj1ACZwGRAK7t58jOjHPkAXmTOcUNJwYnQANs42ABTyyLF+7Fga6I4UYhRQ3ADWYgBGKRTk0RBxJciyYOlZufnk5QQxpbHlAEqOxZWZdQ2NnOTevRASMtFg6KFQuOUAlPXFjcjjOXCh1dy43uUAwgxtxOoQ0sgQjjBLDNxYl11zPeJ5a-3iUtIj3OgaEPbTs-PIAO7sGwUVQbMAAZgADBD0AAPa6-Ci4dBwUF-KAMCAaOSEbqlKApUhiYzcOAUbwAMSgoRJP3mxHG3G4YlBMAoAFowfC4jNcf4kikxKZzORqhQChARsTSXUymBmnASSIOsg8mLamAeTd4lhSClkqkyHZJQrHKEKN95FNXAoIHY6Cp7JYGJF+RQiLqKPqiCTGexyFNELiAALGW32LCGuDB4xCixwLBwSyUF0QfVYDqi8VWrV25DE00USIB3ElYwURwY1jlAAqGUyyDIAlCpLgNmQIFd6brmcKUwAvshzPBItwrWBrSUQyYzHGE3Q6HAzNHp+ZLAmk4XO1KKNmSrmxEXA1qSv5HOgbFAqGlu6rxSMM7f1d70lRQTGbJMNda3JgfMgDOgkTuJ47Deo69jZoQqCIsitAVHAMIUGAfYALpAA
+    express: https://shinylive.io/py/editor/#h=0&code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZOqASzIgGdl2Z0pBhT5cA+twBuAcwA6EeY2bJuAC3YRcfAUJEM4UYhXaS4RfRAAmcBoqYs1G3FjgAPdPu69+g4XwjoAK4URIHs8vJhWBpBFGIUUNwA1mIARsEU5AAU8sh5yLJgCclpGeSFBLn5hQBKgRDIxUkVVXmc5AC87RASMjlg6AA2ULiFAJSVDfnDqXCDpdy4HYUAwgz1xOoQ0sgQgTCzDNxYJy1TbeLpi13iUtL93OgaEDbjk-nIAO7slhSqy2AAMwABmB6FcZw+FFw6DgAM+UAYEA0ckIrWQUGCpDEnjgFA6ADEoINuGZ0cRhl4xACYBQALSAs5jSLsaIBYJiQzGcilCiZCD9XEUCoFMA1OCkkRNZDpPnlMDMhRKgACFmsDCwZGs8lVBiMJjgLlMlCyMWCWCavP5iusdGQnkCgwoWTGiHR+gogSRrEKABVEklkGQBIM8XBLMgQGaKBaA1bsmMAL6NfhwLLcZlgCIq-Rcg0uOh0OBGHW5-WmI3UZ3RrBCm1wO1iF1u87IKKBdCWKBUeJx2X8-qW-vyojcBJUAG5yyjBXyQioaGw2hFNwUMCJgC6QA
+    image: thumbnail.png
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A task button is similar to an [action button](../action-button/index.qmd), but it is designed for triggering operations that take a while to complete. When clicked, the button immediately disables itself and displays a busy message (`"Processing..."` by default) so the user cannot re-submit the task while it is still running. Once the server finishes handling the click, the button automatically resets to its ready state.
+
+Follow these steps to add a task button to your app:
+
+  1. Add `ui.input_task_button()` to the UI of your app to create a task button. Where you call this function will determine where the button will appear within the app's layout.
+
+  2. Specify the `id` and `label` parameters of `ui.input_task_button()` to define the button's identifier and the label shown while it is ready to be clicked.
+
+  3. Optionally, set `label_busy` to customize the message shown while the button is busy, or pass `auto_reset=False` to keep the button busy until you reset it yourself with `ui.update_task_button()` (see the variation below).
+
+The value of a task button is accessible as a reactive value within the `server()` function. To access the value of a task button:
+
+  1. Use `input.<task_button_id>()` (e.g., `input.task_button()`) to access the value of the task button. The server value of a task button is an integer representing the number of clicks.
+
+### Long-running tasks
+
+A task button on its own only manages the *button's* appearance: it stays busy for the duration of the click's reactive flush, then resets. It does not make the work itself non-blocking. Shiny runs reactive code serially, so slow work inside a render function or effect holds up every other output — and every other session served by the same process. Making that function `async` and `await`ing does not change this; `await asyncio.sleep(3)` blocks exactly as much as `time.sleep(3)`.
+
+To actually run work in the background, move it out of the reactive graph with [`reactive.extended_task`](/api/core/reactive.extended_task.qmd) and link it to the button with `ui.bind_task_button()`. The button then stays busy for as long as the task runs, and the task becomes cancellable. See the "True non-blocking work" variation below for a complete app, and [Non-blocking operations](/docs/nonblocking.qmd) for the full guide.
+
+## Variations
+
+:::{#variations}
+:::
+
+:::{#kitchen-sink}
+:::
+
+See also: [Action Button](../action-button/index.qmd)

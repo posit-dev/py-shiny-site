@@ -1,0 +1,101 @@
+---
+title: Popovers
+sidebar: components
+appPreview:
+  file: components/display-messages/popovers/app-preview.py
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/display-messages/popovers/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 220
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhXER0AVwpFhEACZwGRBZwA6EfQHdOFdsh05SUgG6aAFJzUBeXWABGFCAH0pNza6IKEwAbOBcwAEFkX1JbBgDo4KhiOHhKcIZOAHN2ClcAShRkAGJkAB4y-WRq804sbkUKL2Sg8i83JQpyO1cPA0JkVyiOii6IZGNTZChoq1j-MHzq0oqqmqHkeFEoLLg5Vkc90z2YuKxXZfLKgxuAAVUNBiwyDX0NOlm-Bi9WCigqOyFNbVYQUBQMcZ0VwABTmcTYfyoKBADSUWD6Pjh9nyAF8LiUrvoBmAKLh0AgUCSBBQwDiALpAA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnHKUEA3OTYcBiZAB4-e0dgw250BQpNKGIKTnJNACMIinI7MASKNUJkZTBRZCSKFIhkAHdOCnZkKGRBdzlcgEoiZF8AoOCHXPz4VlYTOD4IVk5ZZErButIPBixclrbAks6HWIoLOF1u2tdphuzW-yWVh1Gt9MzNKZn5nyOOzvQLaLh4SnOGTmN2ClvD9uWDmadwBIWcpAi4UiZFkaWuck0rAoUCoTQIqkaqixEFkdDYchmNjCESIEIoUKIrDgfTiEEaiAeAAEpDi5FgYXAHridvUGIjkVQbPSHsEpBQFAwSnRcgAFXYzNgCuAoEDEihYDIQK7yzyNAC+uRBS2xGj0YkwNg02k4lIJckxEGyYAouHQCBQzrgAA8KGA9QBdIA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  template-params:
+    dir: components/display-messages/popovers/
+  contents:
+  - title: ui.popover
+    href: https://shiny.posit.co/py/api/core/ui.popover.html#shiny.ui.popover
+    signature: ui.popover(trigger, *args, title=None, id=None, placement='auto', options=None,
+      **kwargs)
+  - title: ui.update_popover
+    href: https://shiny.posit.co/py/api/core/ui.update_popover.html#shiny.ui.update_popover
+    signature: ui.update_popover(id, *args, title=None, show=None, session=None)
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/display-messages/popovers/
+  contents:
+  - title: Put input controls in a popover
+    description: |
+      Because a popover opens on click and stays open, it can hold live input controls rather than just text. That makes it a good home for settings that would otherwise clutter the page. Place the trigger first, then the inputs; they stay reactive while the popover is open.
+    apps:
+    - title: Preview
+      file: app-variation-inputs-preview.py
+      height: 300
+    - title: Express
+      file: app-variation-inputs-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhXER0AVwpFhEACZwGRBZwA6EfQHdOFdsh05SUgG6aAFJzUBeXWFZwKFbgHNWAfSkbTVciLwoAGzgXMAAFcNJZd08fVlcASkR9ZGzzTixuRQo-KGIvcj8AIyUKcjtXJK8IXxDkVwBlD0bmwmRicKhRP2iYCgBaAGZ0rJyLAqU-VnDHe1cDHtcAOQUYCs1kUjpkKW4KVJ6ARiJzgAZrogBWa7TsgGJkAB536ezZ+Xn3SKlOpgMjxBgtVwAYVIYJawFcwjUELA3mE1GRFXCCjgrgAus9kG9PvoSRAAAKqDQMLBkDT6DSHVjbGBQBi4OwZb7IYQUBQMCDIOiuEBzChYCAcgC+R1IJzE3GQIr+YtB0ilrn0PTAFFw6AQKG1AgoYEluKAA
+    - title: Core
+      file: app-variation-inputs-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEG1ACZwGRAK6cAOhFUZ0AfSXIAvMiU4oAczia6AGyXSAFKuQODnHKUEA3OXYiOfTrN3QFCk0oYgpOck0AIyCKcjswVjgKcIhjVmVCZEyAZWTU9MyiYgsoVlZNXUyYCgBaAGZMgEoCe18HQwCgzVYLTlkGBLUszIA5BRgouWRSOmRBbgoMrIBGIhWABg2iAFYNlocAYmQAHhO29s6IQOCkizgwhLILISLssABhUheGN+BMqTSN6ZYxSajAsBRKxwTIAXQOyGOZwuvnCFHuVTAAAUXiIkiluIVCCifP1MfiChVBO45EUUS0UYZSEEbpoyLIEqwJjAoAxcM1WhAmqoRRBZHMkgwPIMuhQiMyKDciElyhEhYgUQABKRiuRYdkw7yOcVsbm83A2Joao3tKQUBQMbx0TIgWVYCCWgC+81Ii1YfG8ruuQX13yEXsyovUmD0YkwNg02k4yrk0uFECyYAouHQCBQWbgAA8KGBPbCgA
+  - title: Update a popover
+    description: Call `ui.update_popover()` to programmatically show or hide a popover
+      with a given id, or to update its contents and title.
+    apps:
+    - title: Preview
+      file: app-variation-update-popover-preview.py
+      height: 250
+    - title: Express
+      file: app-variation-update-popover-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDOFGIVOANzgAdCI2ZsuPLHAAe6Ma1Z8BQkd3QBXCkROcFCy1mNmA+hKnkHAIzMVyACjlg3FBAOHKQA7n5EfgDK7GHIgoKyDBHIxAA2ULoOALx+MBQAtADMyPDFfgCUNpx2EKYUTpKcrh4UXhC+-oEO6aSs8oTIfgDCaX1w8aSJcMmD6ZmsOXmFJWVFldW19Y0uQa3tnQFBJugAJlBUKX4ASnDoGcQTZJTUFKwp81m5YPnFpXDlMBVCAKUKcCjsZC2BKkJLeTinb5HBwwpIpKQUNJwb4AQUm01mFUQCmQpKhNXsDWczT2nh8fmRoRRU1hMyuYDx+3IyDBEOQUHxrNmRE+i2+v3WQJJZL8ePguigAHMJtxWAiJhCJqiZlg-NYQRAAAJiamydR0OhwSQKY3iJpmuCySjwupmLDIkKhYGnOB0FRhZkE7xE6Wk2wnc5UQNCw7dbXC-2hbIAFQYJjgFVJAGJkAAeXP6m0m+1wc2W61G4tSB1Oigu+ru7q9fre32pMb9aNwkMQMnkrARi5wLszWNBeMpT3ZABiUDSLezeYLBqLdurpd95Yoq9NG9r9bdyMHVFbfrE9wkw-jweJvbJOYACn1wTS5-yGIqTPBKHpzw8NewExuKQpy4AA3MgAAGGJYpBoh3P+eiasggFQD6DC6neYY1MeV4snCDJxvhbKDLKva4ac-wKsquqDDB2JkVCZxDpRE5Aou+YKIMYAULg6AICgPGaBQYAAL4ALpAA
+    - title: Core
+      file: app-variation-update-popover-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnCIBXTgB0IGjOgD6q5AF5kqnFADmcHXQA2qgCYAKDchfHOWbumUUdMueR0AI28KcicwQIoIHQ5SAHc1QmREgGV2eORBQUUGRKJiayhWVh0DRJgKAFoAZmR4GsSASgJnVxNPb19ZTgDgilCIcMjogtJWODzksABhazG4TNJsuFykgqKSsrAKmrq4BrBm1pd2iC8fPx7ovoGhqL10OygqScSAJTh0QuIFskpqCisSbrYqlcpVWr1apNFoQVxuLCBBgOI5wtruLKkHJONHwk7uDoXbq9EJhY54+GJYY6OI6TE5V5gUTIG7kZBxTgUdjIKCLZarfKFUFbHbQsDk+GoikuRLM+DFcwLbisTh2BZchb0lZYPIS1xyCjWOBbZlagV6lyqrbUs263HIVGNDTOiBquhsFbYwlEUjec5EcbFK6NRDkgACUkuiiwcDodDgsnDke60bgikoDkJiPusTiTvtbrY6VpZpRoft8JMykez0spap91tSVzBgAKgxlHBGi4AMTIAA8-Zd8Ij0hTcBjcYTFCTY7kqfTFEzZ282ZGc3G+fhhdG4zpSyxKzLFoR1aeVH3-Lu0SbAeLBgAYlBrJvewOh5p7aOoxPY-HE1+ybzr+i7Luca4POeXbkoWUhfDIdYHtiIYnn2AAKYyclcz48gwZjKPAlCsMgcHfOq7ALIEpB2LgADcyAAAYGkaDEkZ8ZHERqyAUVAaoMDqFbolgZ61peh7IielIRI2SErIyohwiJVB2HsCoWDqSTMcasqKTWyl8uJiQnt2yB9oOLpaJghhiJgDjaHonABp6Kz5kkYAULg6AICg7lwAAHhQYAAL4ALpAA
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+A popover is a container that appears next to a trigger element when the user clicks the element. Unlike a [tooltip](../tooltips/index.qmd), which shows a short message on hover, a popover opens on click and stays open until it is dismissed, so it can hold richer content such as formatted text or even input controls.
+
+To add a popover in Shiny Core, wrap the trigger element in [`ui.popover()`](https://shiny.posit.co/py/api/ui.popover.html) and pass the popover contents as additional arguments. In Shiny Express, use `with ui.popover():` as a context manager, placing the trigger element first inside the block, followed by the popover contents.
+
+Use the `title` argument to add a header to the popover. Control where the popover appears relative to its trigger with the `placement` argument, which defaults to `'auto'` but can be set to `'top'`, `'bottom'`, `'left'`, or `'right'`. `placement` is a preference rather than a guarantee: the popover is repositioned automatically when there isn't room where you asked for it.
+
+Optionally assign the popover an `id` to trigger reactions when the popover opens or closes, or to update the popover from the server. A boolean that describes whether or not the popover is visible will be accessible as a reactive variable within the server function as `input.<id>()`.
+
+To show or hide a popover programmatically, or to replace its contents or title, call [`ui.update_popover()`](https://shiny.posit.co/py/api/ui.update_popover.html) from the server with the popover's `id`.
+
+For finer control, `options` takes a dictionary of [Bootstrap popover options](https://getbootstrap.com/docs/5.3/components/popovers/#options) passed straight through to Bootstrap. Note that `content`, `title`, and `placement` cannot be set this way — use the dedicated arguments above instead.
+
+### Dismissing a popover
+
+Besides clicking the close button, a popover can be closed by clicking its trigger again, or by pressing **Esc** or **Space** while the popover or its trigger has focus.
+
+### Accessibility of popover triggers
+
+Because the user has to interact with the trigger to see the popover, prefer an element that is already keyboard accessible, such as a button or a link. If you use a non-interactive element such as a `span` or bare text, `ui.popover()` adds `tabindex="0"` for you so the trigger can still be reached with the keyboard.
+
+The case that needs care is an icon used as the trigger with no accompanying text. Icons are often generated on the assumption that they are decorative, which hides them from assistive technologies. When an icon is the trigger, make sure it does **not** carry `aria-hidden="true"` or `role="presentation"`, and give it a short title describing what the trigger does.
+
+See Also: [Tooltips](../tooltips/index.qmd) show a short message on hover. [Modal messages](../modal/index.qmd) and [notifications](../notifications/index.qmd) provide alternative ways to display information to the user.
+
+## Variations
+
+:::{#variations}
+:::
