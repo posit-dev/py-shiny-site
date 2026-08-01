@@ -166,7 +166,7 @@ Full renders are split into weight-balanced slices and merged:
   concatenates the shard-scoped `search.json`/`llms.txt`, keeps the real
   homepage over per-shard redirect stubs, and rewrites residual cross-shard
   `.qmd` hrefs to `.html`.
-- CI runs 10 shard jobs + `merge` + `publish`; `make site-parallel` does the
+- CI runs 10 shard jobs + a merge/deploy job; `make site-parallel` does the
   same locally in APFS clone-copy scratch trees (`SHARDS=6` default).
 - Known cosmetic gap: navbar section-highlight is missing on ~38 pages whose
   navbar target renders in another shard.
@@ -257,9 +257,9 @@ All code examples use Shinylive to run Python in the browser via WebAssembly. Th
 
 - **Production:** Commits to `main` branch trigger automatic build and deploy via GitHub Actions
 - **Preview:** Pull requests generate preview deployments (e.g., `pr-123--pyshiny.netlify.app`)
-- **Pipeline:** 10 parallel shard jobs render slices of the site, then `merge` assembles the artifacts (`scripts/ci-merge.py`) and `publish` pushes the result to Netlify — ~9 min end to end. A failed shard skips both. Superseded runs are cancelled by a concurrency group (only the newest commit per ref deploys).
-- **Merge gating:** `done-site` is the only `site.yml` job in the required-checks list. It is an `if: always()` aggregator over `[build, merge]` that fails on any `failure|cancelled|skipped` result, so the shard count can change without touching branch protection. The `always()` matters: a job with a plain `needs:` *skips* when an upstream job fails, and GitHub reports a skipped job as "Success" even when required — `done-site` turns that silent pass into a hard failure.
-- **Why `merge` and `publish` are separate jobs:** so the merge can be gated and the publish cannot. `publish` uses Netlify secrets and `deployments: write`, and `pull_request` runs from forks get a read-only `GITHUB_TOKEN`, so it fails with HTTP 403 on any outside contribution regardless of site health (see PR #420). Adding `publish` to `done-site`'s `needs` — or to the required-checks list — would permanently block external contributors. `merge` uses no secrets, so it is safe to gate on.
+- **Pipeline:** 10 parallel shard jobs render slices of the site, then a `deploy` job merges the artifacts (`scripts/ci-merge.py`) and pushes the result to Netlify — ~9 min end to end. A failed shard skips the deploy. Superseded runs are cancelled by a concurrency group (only the newest commit per ref deploys).
+- **Merge gating:** `done-site` is the only `site.yml` job in the required-checks list. It is an `if: always()` aggregator over `[build, deploy]` that fails on any `failure|cancelled|skipped` result, so the shard count can change without touching branch protection. The `always()` matters: a job with a plain `needs:` *skips* when an upstream job fails, and GitHub reports a skipped job as "Success" even when required — `done-site` turns that silent pass into a hard failure.
+- **`deploy` must stay fork-safe:** `done-site` gates on `deploy`, so any step in `deploy` that a fork PR cannot pass would make outside contributions permanently unmergeable. Fork PRs get neither the Netlify secrets nor a writable `GITHUB_TOKEN`, so the publishing steps are guarded with `env.IS_FORK != 'true'`; PR #420 failed with HTTP 403 before that guard existed. The `ci-merge.py` step needs no secrets and always runs. The cosmetic "view deployment" button is additionally `continue-on-error: true` — both historical `deploy` failures (#417, #420) were in that step, and a flaky button must not block merges.
 - **Escape hatch:** run the workflow manually (`workflow_dispatch`) with `full_render = true` for a single unsharded build job.
 - **CI caches:** `.quarto/shinylive-cache/` persists across runs via `actions/cache` (content-addressed keys; safe to restore stale).
 - **Platform:** Hosted on Netlify
