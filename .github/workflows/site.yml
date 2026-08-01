@@ -78,7 +78,15 @@ jobs:
           path: .quarto/shinylive-cache
           key: shinylive-cache-${{ hashFiles('requirements.txt') }}-${{ github.run_id }}-${{ matrix.shard }}
 
-  deploy:
+  # Assembles the shard artifacts into the whole site. Split out from `publish`
+  # so that `done-site` can gate on `scripts/ci-merge.py`: this job uses no
+  # secrets and needs no elevated token, so unlike `publish` it also succeeds on
+  # pull requests from forks.
+  #
+  # No `if: always()` here on purpose -- a failing shard *should* skip this
+  # rather than assemble a knowingly incomplete site. `done-site` treats that
+  # skip as a failure.
+  merge:
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -89,6 +97,33 @@ jobs:
           path: _shards/
       - name: Merge shards
         run: python3 scripts/ci-merge.py --shards _shards --out _build
+
+      # Hand the assembled site to `publish` so that what gets deployed is
+      # byte-for-byte what was gated here.
+      - uses: actions/upload-artifact@v7
+        with:
+          name: site-merged
+          path: _build/
+          include-hidden-files: true
+          retention-days: 1
+
+  # Publishes the assembled site to Netlify and manages the PR "view deployment"
+  # button.
+  #
+  # Never mark this a required check, and never add it to `done-site`'s `needs`:
+  # it uses Netlify secrets and `deployments: write`, and `pull_request` runs
+  # from forks get a read-only GITHUB_TOKEN, so it fails with HTTP 403 there no
+  # matter how healthy the site is. Gating on it blocks all outside
+  # contributions (see PR #420).
+  publish:
+    needs: merge
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          name: site-merged
+          path: _build/
 
       # =====================================================
       # Deploy docs to Netlify
@@ -141,3 +176,27 @@ jobs:
           environment_url: "https://${{ steps.deployment.outputs.env }}--pyshiny.netlify.app"
           token: ${{ secrets.GITHUB_TOKEN }}
           log_url: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+  # The single stable check for branch protection / auto-merge -- the one job
+  # from this workflow to put in the required-checks list. The shard count can
+  # change without touching that list.
+  #
+  # `always()` is required: without it, a failing shard would make this job skip,
+  # and GitHub reports a skipped job as "Success" even when it is a required
+  # check.
+  #
+  # `publish` is deliberately NOT in `needs` -- see the comment on that job.
+  done-site:
+    name: done-site
+    if: always()
+    needs: [build, merge]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify that every shard built and the site assembled
+        env:
+          RESULTS: ${{ toJSON(needs.*.result) }}
+        run: |
+          echo "Job results: $RESULTS"
+          if echo "$RESULTS" | grep -qE 'failure|cancelled|skipped'; then
+            exit 1
+          fi
