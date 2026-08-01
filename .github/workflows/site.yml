@@ -78,17 +78,22 @@ jobs:
           path: .quarto/shinylive-cache
           key: shinylive-cache-${{ hashFiles('requirements.txt') }}-${{ github.run_id }}-${{ matrix.shard }}
 
-  # Assembles the shard artifacts into the whole site. Split out from `publish`
-  # so that `done-site` can gate on `scripts/ci-merge.py`: this job uses no
-  # secrets and needs no elevated token, so unlike `publish` it also succeeds on
-  # pull requests from forks.
+  # Merges the shard artifacts into a whole site, then publishes it to Netlify.
+  #
+  # `done-site` gates on this job, so every step here must be able to succeed on
+  # a pull request from a fork -- otherwise outside contributions could never
+  # merge. Fork PRs get neither the Netlify secrets nor a writable GITHUB_TOKEN,
+  # so the publishing steps below are skipped there (see PR #420, which failed
+  # with HTTP 403 before this guard existed). The merge itself needs no secrets
+  # and always runs, which is the part worth gating on.
   #
   # No `if: always()` here on purpose -- a failing shard *should* skip this
-  # rather than assemble a knowingly incomplete site. `done-site` treats that
-  # skip as a failure.
-  merge:
+  # rather than publish a broken site. `done-site` treats that skip as a failure.
+  deploy:
     needs: build
     runs-on: ubuntu-latest
+    env:
+      IS_FORK: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/download-artifact@v8
@@ -97,33 +102,6 @@ jobs:
           path: _shards/
       - name: Merge shards
         run: python3 scripts/ci-merge.py --shards _shards --out _build
-
-      # Hand the assembled site to `publish` so that what gets deployed is
-      # byte-for-byte what was gated here.
-      - uses: actions/upload-artifact@v7
-        with:
-          name: site-merged
-          path: _build/
-          include-hidden-files: true
-          retention-days: 1
-
-  # Publishes the assembled site to Netlify and manages the PR "view deployment"
-  # button.
-  #
-  # Never mark this a required check, and never add it to `done-site`'s `needs`:
-  # it uses Netlify secrets and `deployments: write`, and `pull_request` runs
-  # from forks get a read-only GITHUB_TOKEN, so it fails with HTTP 403 there no
-  # matter how healthy the site is. Gating on it blocks all outside
-  # contributions (see PR #420).
-  publish:
-    needs: merge
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: actions/download-artifact@v8
-        with:
-          name: site-merged
-          path: _build/
 
       # =====================================================
       # Deploy docs to Netlify
@@ -141,8 +119,16 @@ jobs:
           # use branch name, but replace slashes. E.g. feat/a -> feat-a
           echo "RELEASE_NAME=${GITHUB_REF_NAME/\//-}" >> $GITHUB_ENV
 
+      # Non-fatal: `done-site` does not wait for this job, so an auto-merging PR
+      # can be squashed and its branch deleted while this job is still running,
+      # and creating a deployment for the vanished ref then fails with HTTP 422.
+      # The button is cosmetic -- losing it must not take the Netlify deploy
+      # with it. Downstream steps therefore avoid this step's outputs, and the
+      # guard below tests `outcome` (the real result) rather than `conclusion`
+      # (which `continue-on-error` forces to "success").
       - name: Create Github "view deployment" button in PR
-        if: ${{github.event_name == 'pull_request'}}
+        if: ${{ github.event_name == 'pull_request' && env.IS_FORK != 'true' }}
+        continue-on-error: true
         uses: ./.github/internal/deployment-start
         id: deployment
         with:
@@ -152,11 +138,12 @@ jobs:
           log_url: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
       - name: Deploy to Netlify
+        if: ${{ env.IS_FORK != 'true' }}
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           REF_NAME: ${{ github.ref_name }}
-          ALIAS: ${{ steps.deployment.outputs.env }}
+          ALIAS: ${{ env.RELEASE_NAME }}
         run: |
           npm install -g netlify-cli@26.1.0
           # push main branch to production, others to preview --
@@ -168,12 +155,12 @@ jobs:
 
       - name: Update Github "view deployment" button in PR
         uses: ./.github/internal/deployment-finish
-        if: ${{ steps.deployment.conclusion != 'failure' && github.event_name == 'pull_request'}}
+        if: ${{ steps.deployment.outcome == 'success' && github.event_name == 'pull_request' && env.IS_FORK != 'true' }}
         with:
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-          environment: ${{ steps.deployment.outputs.env }}
+          environment: ${{ env.RELEASE_NAME }}
           status: ${{ job.status }}
-          environment_url: "https://${{ steps.deployment.outputs.env }}--pyshiny.netlify.app"
+          environment_url: "https://${{ env.RELEASE_NAME }}--pyshiny.netlify.app"
           token: ${{ secrets.GITHUB_TOKEN }}
           log_url: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
@@ -185,14 +172,16 @@ jobs:
   # and GitHub reports a skipped job as "Success" even when it is a required
   # check.
   #
-  # `publish` is deliberately NOT in `needs` -- see the comment on that job.
+  # `deploy` is in `needs` only because its fork-hostile steps are guarded --
+  # see the comment on that job. Removing those guards would make every fork
+  # pull request permanently unmergeable.
   done-site:
     name: done-site
     if: always()
-    needs: [build, merge]
+    needs: [build, deploy]
     runs-on: ubuntu-latest
     steps:
-      - name: Verify that every shard built and the site assembled
+      - name: Verify that every shard built and the site deployed
         env:
           RESULTS: ${{ toJSON(needs.*.result) }}
         run: |
