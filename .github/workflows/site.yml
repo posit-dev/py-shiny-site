@@ -78,13 +78,15 @@ jobs:
           path: .quarto/shinylive-cache
           key: shinylive-cache-${{ hashFiles('requirements.txt') }}-${{ github.run_id }}-${{ matrix.shard }}
 
-  # Assembles the ten shard artifacts into a whole site. Deliberately uses no
-  # secrets, so it also passes on pull requests from forks.
+  # Merges the shard artifacts and publishes to Netlify.
   #
-  # No `if: always()` here on purpose: a failing shard *should* skip this rather
-  # than merge a known-incomplete site. `done-site` below is what turns that
-  # skip into a hard failure for branch protection.
-  merge-shards:
+  # No `if: always()` here on purpose -- a failing shard *should* skip this
+  # rather than publish a broken site. `done-site` below is the merge gate.
+  #
+  # Never mark this a required check: it needs Netlify secrets and
+  # `deployments: write`, which pull requests from forks do not get, so gating
+  # on it would permanently block external contributors.
+  deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -95,28 +97,6 @@ jobs:
           path: _shards/
       - name: Merge shards
         run: python3 scripts/ci-merge.py --shards _shards --out _build
-
-      # Hand the assembled site to `publish` so that what gets deployed is
-      # byte-for-byte what was validated here.
-      - uses: actions/upload-artifact@v7
-        with:
-          name: site-merged
-          path: _build/
-          include-hidden-files: true
-          retention-days: 1
-
-  # Netlify publish + the PR "view deployment" button. Needs repository secrets
-  # and `deployments: write`, so it cannot succeed on fork pull requests --
-  # never mark this a required check or external contributions can never merge.
-  publish:
-    needs: merge-shards
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: actions/download-artifact@v8
-        with:
-          name: site-merged
-          path: _build/
 
       # =====================================================
       # Deploy docs to Netlify
@@ -170,25 +150,25 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           log_url: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
-  # The single stable check for branch protection / auto-merge -- the one job to
-  # put in the required-checks list for this workflow. Because the shard count
-  # and the job layout above are free to change without touching that list.
+  # The single stable check for branch protection / auto-merge -- the one job
+  # from this workflow to put in the required-checks list. The shard count can
+  # change without touching that list.
   #
   # `always()` is required: without it, a failing shard would make this job skip,
   # and GitHub reports a skipped job as "Success" even when it is a required
-  # check. Skipping is exactly how the upstream jobs signal failure here --
-  # `merge-shards` skips when a shard fails -- so `skipped` counts as a failure.
+  # check.
   #
-  # `publish` is deliberately NOT in `needs`: it requires Netlify secrets and
+  # `deploy` is deliberately NOT in `needs`: it requires Netlify secrets and
   # `deployments: write`, which fork pull requests never get, so gating on it
-  # would permanently block external contributors.
+  # would permanently block external contributors. The tradeoff is that a
+  # `scripts/ci-merge.py` regression fails `deploy` without blocking the merge.
   done-site:
     name: done-site
     if: always()
-    needs: [build, merge-shards]
+    needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Verify that every shard built and the site assembled
+      - name: Verify that every build shard succeeded
         env:
           RESULTS: ${{ toJSON(needs.*.result) }}
         run: |
