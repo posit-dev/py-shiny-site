@@ -86,7 +86,7 @@ jobs:
   # No `if: always()` here on purpose -- a failing shard *should* skip this
   # rather than assemble a knowingly incomplete site. `done-site` treats that
   # skip as a failure.
-  merge-site:
+  merge:
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -116,7 +116,7 @@ jobs:
   # matter how healthy the site is. Gating on it blocks all outside
   # contributions (see PR #420).
   publish:
-    needs: merge-site
+    needs: merge
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -189,7 +189,7 @@ jobs:
   done-site:
     name: done-site
     if: always()
-    needs: [build, merge-site]
+    needs: [build, merge]
     runs-on: ubuntu-latest
     steps:
       - name: Verify that every shard built and the site assembled
