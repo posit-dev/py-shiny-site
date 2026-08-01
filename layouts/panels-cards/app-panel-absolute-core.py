@@ -3,8 +3,8 @@ from shiny import App, ui
 
 app_ui = ui.page_fillable(
     ui.panel_absolute(  # <<
-        ui.panel_well(
-            ui.panel_title("Draggable panel"),
+        ui.card(
+            ui.card_header("Draggable panel"),
             "Move this panel anywhere you want.",
         ),
         width="300px",  # <<

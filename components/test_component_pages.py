@@ -19,6 +19,8 @@ import pytest
 COMPONENTS_DIR = Path(__file__).parent
 SECTIONS = ("inputs", "outputs", "display-messages", "layout")
 
+_QUARTO_YML = (COMPONENTS_DIR.parent / "_quarto.yml").read_text()
+
 # Component pages ("<section>/<name>") exempt from the example-app requirement.
 # Keep this empty; add an entry only with a comment explaining why the page
 # cannot ship a runnable example app.
@@ -68,4 +70,25 @@ def test_component_page_has_example_app(page_dir: Path) -> None:
     assert _has_example_app(page_dir), (
         f"Component page '{rel}' has no example app (app.py / app-*.py). "
         "Add an example app for it."
+    )
+
+
+@pytest.mark.parametrize(
+    "page_dir",
+    _PAGES,
+    ids=[str(p.relative_to(COMPONENTS_DIR)) for p in _PAGES],
+)
+def test_component_page_is_in_sidebar(page_dir: Path) -> None:
+    """Every component page must be listed in ``_quarto.yml``.
+
+    Quarto renders a page whether or not it appears in the sidebar, so a page
+    that was added to disk but never wired into the navigation still builds and
+    still passes every other check -- it is simply unreachable. This is enforced
+    for all pages with no allowlist: a new component page has no reason to be
+    absent from the sidebar.
+    """
+    href = f"{page_dir.relative_to(COMPONENTS_DIR.parent)}/index.qmd"
+    assert href in _QUARTO_YML, (
+        f"Component page '{href}' is missing from _quarto.yml, so it renders but "
+        "is unreachable from the sidebar. Add it to the matching section."
     )

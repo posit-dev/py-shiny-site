@@ -6,7 +6,7 @@ app_ui = ui.page_navbar(  # <<
     ui.nav_panel("C", "Page C content"),  # <<
     title="App with navbar",  # <<
     id="page",  # <<
-    position="fixed-bottom",  # <<
+    navbar_options=ui.navbar_options(position="fixed-bottom"),  # <<
 )  # <<
 
 
