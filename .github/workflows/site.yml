@@ -78,35 +78,12 @@ jobs:
           path: .quarto/shinylive-cache
           key: shinylive-cache-${{ hashFiles('requirements.txt') }}-${{ github.run_id }}-${{ matrix.shard }}
 
-  # Single stable check for branch protection / auto-merge. The `build` matrix
-  # above may be re-sharded freely without touching the required-checks list,
-  # and unlike a job with a plain `needs: build` it cannot be skipped into a
-  # false pass.
-  done-build:
-    name: done-build
-    # `always()` is required: without it, a failing shard would make this job
-    # skip, and GitHub treats a skipped required check as satisfied.
-    if: always()
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Verify that every build shard succeeded
-        env:
-          RESULTS: ${{ toJSON(needs.*.result) }}
-        run: |
-          echo "Job results: $RESULTS"
-          if echo "$RESULTS" | grep -qE 'failure|cancelled|skipped'; then
-            exit 1
-          fi
-
   # Assembles the ten shard artifacts into a whole site. Deliberately uses no
-  # secrets, so it also passes on pull requests from forks -- that is what makes
-  # it safe to mark as a required check, unlike `publish` below.
+  # secrets, so it also passes on pull requests from forks.
   #
   # No `if: always()` here on purpose: a failing shard *should* skip this rather
-  # than merge a known-incomplete site. That does mean a skipped `merge-shards`
-  # reports "Success" to branch protection -- `done-build` is what catches the
-  # failing-shard case, and the two are required together.
+  # than merge a known-incomplete site. `done-site` below is what turns that
+  # skip into a hard failure for branch protection.
   merge-shards:
     needs: build
     runs-on: ubuntu-latest
@@ -192,3 +169,30 @@ jobs:
           environment_url: "https://${{ steps.deployment.outputs.env }}--pyshiny.netlify.app"
           token: ${{ secrets.GITHUB_TOKEN }}
           log_url: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+  # The single stable check for branch protection / auto-merge -- the one job to
+  # put in the required-checks list for this workflow. Because the shard count
+  # and the job layout above are free to change without touching that list.
+  #
+  # `always()` is required: without it, a failing shard would make this job skip,
+  # and GitHub reports a skipped job as "Success" even when it is a required
+  # check. Skipping is exactly how the upstream jobs signal failure here --
+  # `merge-shards` skips when a shard fails -- so `skipped` counts as a failure.
+  #
+  # `publish` is deliberately NOT in `needs`: it requires Netlify secrets and
+  # `deployments: write`, which fork pull requests never get, so gating on it
+  # would permanently block external contributors.
+  done-site:
+    name: done-site
+    if: always()
+    needs: [build, merge-shards]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify that every shard built and the site assembled
+        env:
+          RESULTS: ${{ toJSON(needs.*.result) }}
+        run: |
+          echo "Job results: $RESULTS"
+          if echo "$RESULTS" | grep -qE 'failure|cancelled|skipped'; then
+            exit 1
+          fi
