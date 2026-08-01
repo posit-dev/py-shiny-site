@@ -78,6 +78,28 @@ jobs:
           path: .quarto/shinylive-cache
           key: shinylive-cache-${{ hashFiles('requirements.txt') }}-${{ github.run_id }}-${{ matrix.shard }}
 
+  # Single stable check for branch protection / auto-merge. The `build` matrix
+  # above may be re-sharded freely without touching the required-checks list,
+  # and unlike `deploy` this job cannot be skipped into a false pass.
+  done-build:
+    name: done-build
+    # `always()` is required: without it, a failing shard would make this job
+    # skip, and GitHub treats a skipped required check as satisfied.
+    if: always()
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify that every build shard succeeded
+        env:
+          RESULTS: ${{ toJSON(needs.*.result) }}
+        run: |
+          echo "Job results: $RESULTS"
+          if echo "$RESULTS" | grep -qE 'failure|cancelled|skipped'; then
+            exit 1
+          fi
+
+  # No `if: always()` here on purpose -- a failing shard *should* skip the
+  # deploy rather than publish a broken site. `done-build` is the merge gate.
   deploy:
     needs: build
     runs-on: ubuntu-latest
