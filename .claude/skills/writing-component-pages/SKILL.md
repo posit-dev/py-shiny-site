@@ -140,6 +140,11 @@ See also: [Action Button](../action-button/index.qmd)
 - Prefer `appPreview: { file, static: true }` (a rendered screenshot of `app-preview.py`)
   over the inline `preview:` HTML-string key. Only ~8 pages use `preview:`; reserve it
   for components that genuinely can't be statically rendered.
+  **Exception: components whose card effect only appears on interaction** (toasts,
+  popovers, notifications, modals — most of `display-messages/`) must omit
+  `static: true` so the card runs LIVE via shinylive; a static snapshot of a
+  "Show toast" button is a card whose button does nothing. Every existing
+  display-messages card is live.
 - The `#example` **Preview** tab (and each variation's Preview) runs LIVE via shinylive;
   the link generator deliberately skips `title: Preview`, so it needs no `shinylive:` key.
   Every non-Preview app **must** carry a `shinylive:` key or the generator warns and skips it.
