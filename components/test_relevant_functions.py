@@ -225,7 +225,7 @@ def test_rewrite_strict_raises_on_unresolvable_title(tmp_path, monkeypatch):
     from _relevant_functions import rewrite_relevant_functions
 
     api = _write_api(tmp_path)
-    page = _write_page_with_unresolvable_title(tmp_path)
+    _write_page_with_unresolvable_title(tmp_path)
     monkeypatch.chdir(tmp_path)
     with pytest.raises(TitleResolutionError):
         rewrite_relevant_functions("comp/index.qmd", api_dir=api, strict=True)
