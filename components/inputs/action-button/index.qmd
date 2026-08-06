@@ -15,19 +15,24 @@ listing:
     height: 200
   - title: Express
     file: app-express.py
-    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDOFGIVOANzhExEACZwGAHQiNmbLjyxwAHujGtWfAUJHd0AVwpFrndU4gOsV2wH0JU8h4BGthTkABSqaJKcvgEUQRBhRGEAghHkYQCUyMgAxMgAPLnO6gACCsoMWFT6FMFpxWLeMnB6spTB7hRYDVGB5LVKcHTIZNaUKjWI6pmZYhTWDBDIdGEg7Z0pEP49EDUAvmHqhKgUuOgIKGCVFGA7ALpAA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDOFGIVOANzhExEACZwGAHQiNmbLjyxwAHujGtWfAUJHd0AVwpFrndU4gOsV2wH0JU8h4BGthTkABSqaJKcvgEUQRBhRGEAghHkYQCUyMgAxMgAPLnO6gACCsoMWFT6FMVi3jJwerKUwe4UWHVRgeRp6sp0yGTWlCrBaYjqmZliFNYMEMh0YSCt7SkQ-l0QowC+YeqEqBS46AgoYJUUYNsAukA
   - title: Core
     file: app-core.py
-    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnEnUAJnAZEArpwA6EPRnQB9bcgC8ybTigBzOEboAbbSoAUe5J8ucs3dJoojGTlyIwAjAIpydzRZTlCIiij9QmQdMFE48nSASiJkAGJkAB5ijy8rUgD-QKoADwoYsk1KdVyCPRy9bog1OjZ1RQZXPwCiKooaolY4VlZ4iBzEcs8AASle9Sx6xq6IL2R16TjFLDhFShGIGqxghfDI8j2DvuRm1uGllYPkKQpNBj7OjpECjCi3LIQB5JaI5AC+6R6Bkw5jEmFchhMnGmg3Ue1SYAouHQCBQhLgDTAcIAukA
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEGcKMQqcAbnEnUAJnAZEArpwA6EPRnQB9bcgC8ybTigBzOEboAbbSoAUe5J8ucs3dJoojGTlyIwAjAIpydzRZTlCIiij9QmQdMFE48nSASiJkAGJkAB5ijy8rUgD-QKoADwoYsk1KdVyCPRy9bog1OjZ1RQZXPwCiKooaolY4VlZ4iBzEcs8AASle9Sx6ihXkdek4xSw4RUoRiBqsYIXwyPIuiC9kPuRm1uGlveepCk0GJ50dIgUYUa5ZCB3JLRHIAX3SPQMmHMYkwrkMJk400G6keqTAFFw6AQKAJcAaYFhAF0gA
 - id: relevant-functions
   template: ../../_partials/components-detail-relevant-functions.ejs
   contents:
   - title: ui.input_action_button
-    href: https://shiny.posit.co/py/api/ui.input_action_button.html
-    signature: ui.input_action_button(id, label, *, icon=None, width=None, **kwargs)
+    href: https://shiny.posit.co/py/api/core/ui.input_action_button.html#shiny.ui.input_action_button
+    signature: ui.input_action_button(id, label, *, icon=None, width=None, disabled=False,
+      **kwargs)
   - title: reactive.event
-    href: https://shiny.posit.co/py/api/reactive.event.html
+    href: https://shiny.posit.co/py/api/core/reactive.event.html#shiny.reactive.event
     signature: reactive.event(*args, ignore_none=True, ignore_init=False)
+  - title: ui.update_action_button
+    href: https://shiny.posit.co/py/api/core/ui.update_action_button.html#shiny.ui.update_action_button
+    signature: ui.update_action_button(id, *, label=None, icon=None, disabled=None,
+      session=None)
 - id: kitchen-sink
   template: ../../_partials/components-detail-kitchen-sink.ejs
   contents:
@@ -58,4 +63,3 @@ The value of an input component is accessible as a reactive value within the `se
   1. Use `input.<action_button_id()>` (e.g., `input.action_button()`) to access the value of the action button. The server value of an action button is an integer representing the number of clicks.
 
 See also: [Action Link](../action-link/index.qmd)
-

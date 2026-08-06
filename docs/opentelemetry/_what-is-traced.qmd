@@ -1,0 +1,123 @@
+## Types of Traces & Spans
+
+Shiny's OpenTelemetry integration automatically creates spans for key operations within your application.
+
+### Session lifecycle
+
+Shiny traces the session lifecycle when the collect level is `"session"` or higher.
+
+::: {.callout-note collapse="true"}
+## Reminder: What is a session in Shiny?
+
+A `session` starts when a user opens your Shiny app in their browser. Each session keeps its own state (input values, reactive values, outputs, etc.). A session ends when the user navigates away, closes the window, or the connection is lost.
+
+If you have multiple users at once, they will each have their own `session`. This is where our logged `session_id`s can be helpful to distinguish the events of an individual session, even if multiple sessions are happening concurrently.
+
+:::
+
+Every Shiny session generates a span marking when each session starts and ends: `session_start` and `session_end`.  The `session_start` span will capture the execution of your app's `server` function, including any initial `reactive_update` spans (if enabled) that run when the session begins.
+
+##### Spans
+
+- `session_start`: When starting a new session
+- `session_end`: When ending the session
+
+### Reactive updates
+
+Shiny traces reactive updates when the collect level is `"reactive_update"` or higher.
+
+When an input changes or an output needs to be re-rendered, Shiny creates a `reactive_update` span that encompasses the entire cascade of reactive calculations triggered by that change.
+
+The `reactive_update` span starts when Shiny starts an output render or `@reactive.effect` calculation. The `reactive_update` span ends when all reactive expressions have resolved.
+
+The time elapsed in the `reactive_update` span is equivalent to the time the Python thread is busy (as every session of the Shiny app is single threaded).
+
+Within a `reactive_update` span, new input values will not be processed. That is, if a user changes a value, the server will not process these new changes until after the current reactive update completes.
+
+For the best performance available, use `ExtendedTask` for long-running computations. Extended tasks run asynchronously outside the reactive graph, allowing your app to remain responsive to user interactions while the task executes. Once the task completes, it reports its result back to the reactive system.
+
+For example, you might have the user input certain variables, then kick off an extended task that performs a model training, testing, and prediction process. The user will be able to continue looking around your app, and your output (ex. graphs, charts) will update when the extended task (model training & testing) completes.
+Learn more about [nonblocking behavior and extended tasks](/docs/nonblocking.qmd).
+
+
+##### Spans
+
+- `reactive_update`: The entire cascade of reactive calculations triggered by an input change or a new output to be rendered
+
+### Reactive expressions
+
+Shiny traces the execution of every reactive calculation when the collect level is `"reactivity"` or higher.
+
+All `"reactivity"` spans have an optional module id prefix `<mod_id>:` if the reactive object is defined within a module. This prefix will automatically appear. Having the module id within the span name helps disambiguate reactives with the same name across different modules.
+
+The span names for `reactive.calc`, `reactive.effect`, and output render functions may include quantifiers such as `event` (for event-driven reactives).
+
+For example, an event-driven `reactive.effect()` within a module would have a span name like `reactive.effect event myModuleId:my_effect`, defined as:
+
+```python
+@reactive.effect
+@reactive.event(input.trigger)
+def my_effect():
+    ...
+```
+
+##### Spans
+
+- `reactive.calc [event ][<mod_id>:]<name>`: Reactive calculations created with `@reactive.calc`. Calculate a new value only when their upstream values change.
+- `reactive.effect [event ][<mod_id>:]<name>`: Side effects created with `@reactive.effect`. Perform actions in response to reactive changes.
+- `output [event ][<mod_id>:]<name>`: Output rendering created with `@render.*` decorators (e.g., `@render.text`, `@render.plot`).
+- `reactive.poll [<mod_id>:]<name>`: Reactive polling created with `reactive.poll()`. Periodically checks for changes.
+- `reactive.file_reader [<mod_id>:]<name>`: File monitoring created with `reactive.file_reader()`. Re-reads files when they change.
+- `extended_task [<mod_id>:]<name>`: Long-running background computations created with `@ui.task` or `ui.ExtendedTask`.
+
+
+#### Labels
+
+Each OTel span has its label derived from the **function name**. It is **highly recommended to use descriptive function names** for your reactive expressions and effects to make traces easier to interpret.
+
+In Python, span labels are automatically extracted from the function's `__name__` attribute. Functions without meaningful names (lambdas, functions named `_`, etc.) will be labeled as `<anonymous>`:
+
+```python
+# ❌ - span label: `"reactive.calc <anonymous>"`
+x = reactive.calc(lambda: ...)
+
+# ❌ - span label: `"reactive.effect <anonymous>"`
+@reactive.effect
+def _():  # Single underscore = anonymous
+    ...
+```
+
+For better trace readability, **use descriptive function names**:
+
+```python
+# ✅ - span label: `"reactive.calc chat_last_message"`
+@reactive.calc
+def chat_last_message():
+    return chat.messages()[-1]
+
+# ✅ - span label: `"reactive.effect update_user_input"`
+@reactive.effect
+@reactive.event(input.submit)
+def update_user_input():
+    # Process user input...
+    pass
+
+# ✅ - span label: `"extended_task weather_forecast_task"`
+@ui.task
+async def weather_forecast_task():
+    return await fetch_weather(lat, lon)
+```
+
+### Logged events
+
+In addition to OTel spans, Shiny logs important events:
+
+- Fatal errors: `Fatal error` (`fatal` level)
+- Unhandled errors: `Unhandled error` (`error` level)
+- `reactive.value()` values being set: `Set reactive.value [<mod_id>:]<name>` (`info` level)
+- Extended task invocations being queued: `extended_task queued [<mod_id>:]<name>` (`debug` level)
+
+The reactive value and extended task logs require that the Shiny OTel collect level be set to `"reactivity"` or higher.
+
+All spans and log entries include the session ID, making it easy to filter and analyze data for specific user sessions.
+

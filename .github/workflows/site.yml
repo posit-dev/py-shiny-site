@@ -1,0 +1,191 @@
+name: site
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      full_render:
+        description: "Render the whole site in a single job (skip sharding)"
+        type: boolean
+        default: false
+
+concurrency:
+  group: site-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: ${{ fromJSON((github.event_name == 'workflow_dispatch' && inputs.full_render) && '[1]' || '[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]') }}
+    env:
+      SHARD_COUNT: ${{ (github.event_name == 'workflow_dispatch' && inputs.full_render) && 1 || 10 }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Restore shinylive render cache
+        uses: actions/cache/restore@v6
+        with:
+          path: .quarto/shinylive-cache
+          key: shinylive-cache-${{ hashFiles('requirements.txt') }}-${{ github.run_id }}
+          restore-keys: |
+            shinylive-cache-${{ hashFiles('requirements.txt') }}-
+      - name: Record restored shinylive cache state
+        id: shinylive-cache-state
+        run: echo "hash=${{ hashFiles('.quarto/shinylive-cache/**') }}" >> "$GITHUB_OUTPUT"
+      # =====================================================
+      # Install dependencies
+      # =====================================================
+      # Sets up uv + Quarto (versions from the Makefile) + the py-shiny submodule.
+      - name: Set up py-shiny-site
+        uses: ./.github/internal/setup-py-shiny-site
+
+      - name: Install R
+        uses: r-lib/actions/setup-r@v2
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          install-quarto: false
+          packages: |
+            any::knitr
+            any::rmarkdown
+            any::reticulate
+
+      # =====================================================
+      # Build
+      # =====================================================
+      - name: Build shard ${{ matrix.shard }}/${{ env.SHARD_COUNT }}
+        run: |
+          make deps quartodoc components QUARTO_PATH=quarto
+          python3 scripts/ci-shard.py --shard ${{ matrix.shard }} --count ${{ env.SHARD_COUNT }}
+          make site QUARTO_PATH=quarto
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: site-shard-${{ matrix.shard }}
+          path: _build/
+          include-hidden-files: true
+          retention-days: 1
+
+      # Skip the save when the restored cache already had identical content;
+      # entries are content-addressed, so an unchanged hash means nothing new.
+      - name: Save shinylive render cache
+        if: always() && steps.shinylive-cache-state.outputs.hash != hashFiles('.quarto/shinylive-cache/**')
+        uses: actions/cache/save@v6
+        with:
+          path: .quarto/shinylive-cache
+          key: shinylive-cache-${{ hashFiles('requirements.txt') }}-${{ github.run_id }}-${{ matrix.shard }}
+
+  # Merges the shard artifacts into a whole site, then publishes it to Netlify.
+  #
+  # `done-site` gates on this job, so every step here must be able to succeed on
+  # a pull request from a fork -- otherwise outside contributions could never
+  # merge. Fork PRs get neither the Netlify secrets nor a writable GITHUB_TOKEN,
+  # so the publishing steps below are skipped there (see PR #420, which failed
+  # with HTTP 403 before this guard existed). The merge itself needs no secrets
+  # and always runs, which is the part worth gating on.
+  #
+  # No `if: always()` here on purpose -- a failing shard *should* skip this
+  # rather than publish a broken site. `done-site` treats that skip as a failure.
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      IS_FORK: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: site-shard-*
+          path: _shards/
+      - name: Merge shards
+        run: python3 scripts/ci-merge.py --shards _shards --out _build
+
+      # =====================================================
+      # Deploy docs to Netlify
+      # =====================================================
+
+      - name: Configure pull release name
+        if: ${{github.event_name == 'pull_request'}}
+        env:
+          PR_NUMBER: ${{ github.event.number }}
+        run: |
+          echo "RELEASE_NAME=pr-${PR_NUMBER}" >> $GITHUB_ENV
+      - name: Configure branch release name
+        if: ${{github.event_name != 'pull_request'}}
+        run: |
+          # use branch name, but replace slashes. E.g. feat/a -> feat-a
+          echo "RELEASE_NAME=${GITHUB_REF_NAME/\//-}" >> $GITHUB_ENV
+
+      # Non-fatal: `done-site` does not wait for this job, so an auto-merging PR
+      # can be squashed and its branch deleted while this job is still running,
+      # and creating a deployment for the vanished ref then fails with HTTP 422.
+      # The button is cosmetic -- losing it must not take the Netlify deploy
+      # with it. Downstream steps therefore avoid this step's outputs, and the
+      # guard below tests `outcome` (the real result) rather than `conclusion`
+      # (which `continue-on-error` forces to "success").
+      - name: Create Github "view deployment" button in PR
+        if: ${{ github.event_name == 'pull_request' && env.IS_FORK != 'true' }}
+        continue-on-error: true
+        uses: ./.github/internal/deployment-start
+        id: deployment
+        with:
+          environment: ${{ env.RELEASE_NAME }}
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          log_url: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+      - name: Deploy to Netlify
+        if: ${{ env.IS_FORK != 'true' }}
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          REF_NAME: ${{ github.ref_name }}
+          ALIAS: ${{ env.RELEASE_NAME }}
+        run: |
+          npm install -g netlify-cli@26.1.0
+          # push main branch to production, others to preview --
+          if [ "${REF_NAME}" == "main" ]; then
+            netlify deploy --dir=_build/ --prod
+          else
+            netlify deploy --dir=_build/ --alias="${ALIAS}"
+          fi
+
+      - name: Update Github "view deployment" button in PR
+        uses: ./.github/internal/deployment-finish
+        if: ${{ steps.deployment.outcome == 'success' && github.event_name == 'pull_request' && env.IS_FORK != 'true' }}
+        with:
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+          environment: ${{ env.RELEASE_NAME }}
+          status: ${{ job.status }}
+          environment_url: "https://${{ env.RELEASE_NAME }}--pyshiny.netlify.app"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          log_url: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+  # The single stable check for branch protection / auto-merge -- the one job
+  # from this workflow to put in the required-checks list. The shard count can
+  # change without touching that list.
+  #
+  # `always()` is required: without it, a failing shard would make this job skip,
+  # and GitHub reports a skipped job as "Success" even when it is a required
+  # check.
+  #
+  # `deploy` is in `needs` only because its fork-hostile steps are guarded --
+  # see the comment on that job. Removing those guards would make every fork
+  # pull request permanently unmergeable.
+  done-site:
+    name: done-site
+    if: always()
+    needs: [build, deploy]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify that every shard built and the site deployed
+        env:
+          RESULTS: ${{ toJSON(needs.*.result) }}
+        run: |
+          echo "Job results: $RESULTS"
+          if echo "$RESULTS" | grep -qE 'failure|cancelled|skipped'; then
+            exit 1
+          fi

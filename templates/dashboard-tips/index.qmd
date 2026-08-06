@@ -53,7 +53,7 @@ Another notable difference is the use of `plotly` for interactive plots.
 **Packages:**
 
 * `faicons`
-* `pandas`
+* `polars`
 * `plotly`
 * `shinywidgets`
 :::

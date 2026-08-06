@@ -355,37 +355,17 @@ Tabs and navigation allow you to create apps that have multiple pages.
 
 <h2 class="mt-4">
   <a href="panels-cards" class="dark text-decoration-none">
-    <img alt="" src="/images/cards-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Panels & Cards
+    <img alt="" src="/images/cards-blue.svg" class="me-2" style="height: 34px;margin-bottom:7px;">Cards & Panels
   </a>
 </h2>
 
-Use panels and cards to define areas of related content.
+Use cards and panels to define areas of related content.
 
-<a href="panels-cards" class="fw-500">Learn Panels & Cards <i class="bi bi-chevron-right"></i></a>
+<a href="panels-cards" class="fw-500">Learn Cards & Panels <i class="bi bi-chevron-right"></i></a>
 :::
 ::::
 :::: {.g-col-xl-9 .g-col-12 .pt-3 .pt-xl-5 .ps-0 .ps-xl-5 .ms-0 .ms-xl-4}
 ::: {#panel .grid}
-
-
-
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<a class="component-list-header-text" href="panels-cards/#main-image-with-panel-floating-above">
-<div class="component-list-header">
-<div class="h5">Floating panel</div>
-<div class="component-list-icon">
-<p class="my-0">
-<i class="component-link-icon dark bi fst-normal"></i>
-</p>
-</div>
-</div>
-<div class="component-list-card layout-list-card">
-<p class="layout-list-image my-0">
-  <img alt="" src="/images/drag.png" class="h-100 w-100">
-</p>
-</div>
-</a>
-</div>
 
 
 <div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
@@ -406,6 +386,24 @@ Use panels and cards to define areas of related content.
 </a>
 </div>
 
+
+<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+<a class="component-list-header-text" href="panels-cards/#main-image-with-panel-floating-above">
+<div class="component-list-header">
+<div class="h5">Floating panel</div>
+<div class="component-list-icon">
+<p class="my-0">
+<i class="component-link-icon dark bi fst-normal"></i>
+</p>
+</div>
+</div>
+<div class="component-list-card layout-list-card">
+<p class="layout-list-image my-0">
+  <img alt="" src="/images/drag.png" class="h-100 w-100">
+</p>
+</div>
+</a>
+</div>
 
 :::
 

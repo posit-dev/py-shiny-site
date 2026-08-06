@@ -23,9 +23,12 @@ listing:
   template: ../../_partials/components-detail-relevant-functions.ejs
   contents:
   - title: ui.input_text
-    href: https://shiny.posit.co/py/api/ui.input_text.html
+    href: https://shiny.posit.co/py/api/core/ui.input_text.html#shiny.ui.input_text
     signature: ui.input_text(id, label, value='', *, width=None, placeholder=None,
-      autocomplete='off', spellcheck=None)
+      autocomplete='off', spellcheck=None, update_on='change')
+  - title: ui.update_text
+    href: https://shiny.posit.co/py/api/core/ui.update_text.html#shiny.ui.update_text
+    signature: ui.update_text(id, *, label=None, value=None, placeholder=None, session=None)
 - id: kitchen-sink
   template: ../../_partials/components-detail-kitchen-sink.ejs
   contents:

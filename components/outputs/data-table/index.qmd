@@ -30,15 +30,15 @@ listing:
     dir: components/outputs/data-table/
   contents:
   - title: ui.output_data_frame
-    href: https://shiny.posit.co/py/api/ui.output_data_frame.html
+    href: https://shiny.posit.co/py/api/core/ui.output_data_frame.html#shiny.ui.output_data_frame
     signature: ui.output_data_frame(id)
   - title: '@render.data_frame'
-    href: https://shiny.posit.co/py/api/render.data_frame.html
-    signature: render.data_frame(fn=None)
+    href: https://shiny.posit.co/py/api/core/render.data_frame.html#shiny.render.data_frame
+    signature: render.data_frame(fn)
   - title: render.DataTable
-    href: https://shiny.posit.co/py/api/render.DataTable.html
-    signature: render.DataTable(self, data, *, width='fit-content', height='500px',
-      summary=True, filters=False, row_selection_mode='none')
+    href: https://shiny.posit.co/py/api/core/render.DataTable.html#shiny.render.DataTable
+    signature: render.DataTable(data, *, width='fit-content', height='500px', summary=True,
+      filters=False, editable=False, selection_mode='none', styles=None, row_selection_mode='deprecated')
 - id: variations
   template: ../../_partials/components-variations.ejs
   template-params:
@@ -138,15 +138,9 @@ listing:
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiINqiuAyJCdOtRtHIAvHIUr3QqIAFACUrtCYykLeyEI4ULxwynTsQopBOshZsYJYhgBMGWAAChxcyMV8gdpgIQSZ2XGk-BToLcqKUBRQyQywcEUBmh10WrX1EGEQ4Q50Bo4Abo5Bwm0URM2tLUQicCIiguQhiA1ZAAJ2EA4MWJ3dvf2nyLOsVcOKdKEnENm-yHYUfgMH6Xa5YAAiXSgABUoAAjdgDIaiIgAd0Eigohi8YwAzAAGfHoAAeYyIhjggl4hgoOLA+QArETSbUsgBiZAAHk54R0GHQMWs6CC-Kigh2i0cU0IqAouB4tDAVGJFDAAF8ALpAA
       height: 350
   - title: Styling
-    description: 'Set `styles` in `render.DataGrid()` to a customize the table display.
-      `styles` can take a list of dictionaries where each dictionary represents a
-      style to be applied to the table (and thus should have at least a `style` (or
-      `class`) key to apply CSS styles or classes to the relevant cells). To scope
-      the styling to particular cells, use the `rows` and `cols` keys (with 0-based
-      indexing).
-
-      Note that if both `rows` and `cols` are specified, the style will be applied
-      only to the intersection of the specified rows and columns.'
+    description: |-
+      Set `styles` in `render.DataGrid()` to a customize the table display. `styles` can take a list of dictionaries where each dictionary represents a style to be applied to the table (and thus should have at least a `style` (or `class`) key to apply CSS styles or classes to the relevant cells). To scope the styling to particular cells, use the `rows` and `cols` keys (with 0-based indexing).
+      Note that if both `rows` and `cols` are specified, the style will be applied only to the intersection of the specified rows and columns.
     apps:
     - title: Preview
       file: app-variation-styles-core.py
@@ -160,16 +154,8 @@ listing:
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5dKCAEygGdk+7LgB0IAM2akY7KABt4zdNQDmAVzoR+DJq2SzSULgH0lENRt6iJU5LwAWG3Mm0s2AQUxFm1LnGZF1UVFTc01kAF49A2MQ9U0ACgBKIOhMI3UI5HUcKGU4IzFZdS540WRyrLosOwAmUrAABTkFZAaVOMswRIIyiuzSVQp0QaMeCigC5lg4etiLUbFhLp6IZIgU3zFbPwA3P3iNYYoiAaHBol44Xl46ckTEXvKAAW9uPywxiYlpx+RN9na8y4YiSDwgFQhyG8FFUzHBr18zCwABEoOMACpQABGshmv0hFTmmiwdH0xGAwAADEQAIxEGqU6nIBl05AAZkZRA5NIAukREHz8QTbBRcLjeOFgOUAMTIAA8cqFwoqsoAwtQqMxkBQ7HBtXAAB5sUhbOBQYh2ZDEOCyWTIeKqG5mZAAIVIpAovAoU3QWQopLooqtsj4vESyFlCqVyuQIBl8sV4JjyaWxBD1yWKCWVCNAFprZQ-EsiBGE9HlQBfEuRxPJgmyt2yLja3XIMR0Zheq2kIowcE18vCuOlqNJuvC1M9zooKl8+Oj8fKpZesVwTOxpZicgUXMAdzgdGUdgo66WWJ7IjAVfntcX5WvI9vd9lAAlD3ZZO+2Dq9UTu-pO0fQcCRAYCYyWSRd2nZAqVpOcgLHO8KknWRoNnasy0QpDkGXUVcXXUCwCxc0AGtlEkVRuHzHsWFPMBpTEMQuGIxYrwwhckIfAcsLrYduOwiEINIKD12AGouXg-iBPKFC0MpSTMOkmSwBXfDaEI4jiDIiiqLIAC6OlLEaS4AA2Uyli4xTOPYp9Fz4qzpKEkTaGAAAWIgAFYFI4xywD0uTvNs7DcNXAiz1I8iBl0mjmAM0yoAATjEGoLJssCIUsnyY0C6M1hSDBfUiDx0HiAr0joC5dj8NZCFQUUlFoMAcwoK8eSAA
       height: 350
   - title: Update Filters
-    description: 'The data frame filters can be programmatically updated using the
-      `.update_filter()` method. It takes a list of column filters to apply to the
-      data frame. Each column filter is a dictionary with the following keys: `col`
-      and `value`. The `col` key is the column index to filter on, and the `value`
-      key is the value to filter for. The `value` key can be a single value for string
-      columns or a list of values to filter for numeric columns. Note, to not set
-      a minimum or maximum value for a numeric column, you can provide a `None` value.
-      To reset filters, provide `None` for the filters (`.update_filter(None)`).
-
-      '
+    description: |
+      The data frame filters can be programmatically updated using the `.update_filter()` method. It takes a list of column filters to apply to the data frame. Each column filter is a dictionary with the following keys: `col` and `value`. The `col` key is the column index to filter on, and the `value` key is the value to filter for. The `value` key can be a single value for string columns or a list of values to filter for numeric columns. Note, to not set a minimum or maximum value for a numeric column, you can provide a `None` value. To reset filters, provide `None` for the filters (`.update_filter(None)`).
     apps:
     - title: Preview
       file: app-variation-update-filter-core.py
@@ -183,14 +169,8 @@ listing:
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiIM4UYhUEA3OLeqK4DIkJ061GqLIALxyCioBQqIAFACUftCYykIhyEI4ULxwynTsQorROsjFaYJYhgBMhWAAChxcyDV8UdpgsQRFJenC6PwUyg5O5MoARn0U5NX86IpQVDmC7FQMrURaYACqM3NwyHSLy63tncXdEL39g4LDYxQTENV2InD9+0teq8jrAEpwz7JvQ7rY4QEqlcoAVmqAGF+Aw7JQ9gcPih1kQQOtiOwoCJWqiwOgKABaCrrAC+ILB6VIfQuyjInmqkU0C3eDGBHVBXTKNIodNmFCgOQYsDgTOaLMUdA5OniEASnjoBi8rgY0R6fSIvIuRGeuOuEFiiASYIAAgjPAwsAy4CdkIrWBLRKzlnFjVywcU7BQ4aDmc6pVhAV44sUAMTIAA8kZNJXNHi8WAFQsYortDv9ImUUrddrB3t9yAtiYAInMoAAVKAjdhizNEYMrYIVhj8OCxcNRmPyj3IeNXVxYOB0OhwRx2-uOFxwIeuSjq859LDTAXZRsiOVgnG4CDEe3D5DKXO9rcAdygglkmezdGX23mjeinejec9xWAz+7b+-JQjAGUXlYKAZEEDhkBgOZiEMZAIxfE8fxKDEwDIdh1hQAAGNYwGcDg2zQr4wAAcWockiBgrtXwQ8iANkGBhGQHC8l2WCvyoz0kJQ-CKiwxi8NoaIIUw5AADlyHbMkyJYyiEP-QCIIADwY3DmIo+CqI40hUNoABmHjlPw6JRIgNxkAARgAdliCTP2kn9ZNkEV1BUuC2PYzFNPwgAWPSmIMioKiE-yISsyTVNcgBdUKXO-DtyLgic7AHGdh1Hcde0nJxBzgOcKAXC4sCeF4XQ+TcSm3Xd9yVI8jWkqBz0vR11BaG871XYq1SM9sbJ7HQMHQVJrHQaI+uSQRdRVLw5UIVAKFwHhaDAKh5IoMAyXCoA
       height: 350
   - title: Update Sorting
-    description: 'The data frame sorting can be programmatically updated using the
-      `.update_sort()` method. It takes a list of sorting information or column numbers
-      to apply to the data frame. When using a number, the default sorting direction
-      will be applied. When providing a sorting info object, `col` and `desc` describe
-      the column index and whether or not the sorting direction is descending. To
-      reset the sorting, provide `None` for the sorting information (`.update_sort(None)`).
-
-      '
+    description: |
+      The data frame sorting can be programmatically updated using the `.update_sort()` method. It takes a list of sorting information or column numbers to apply to the data frame. When using a number, the default sorting direction will be applied. When providing a sorting info object, `col` and `desc` describe the column index and whether or not the sorting direction is descending. To reset the sorting, provide `None` for the sorting information (`.update_sort(None)`).
     apps:
     - title: Preview
       file: app-variation-update-sort-core.py
@@ -223,11 +203,8 @@ listing:
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZdKAG3gfWoHMBXAJYQAzskEx0pBhWTtSUACYB9HhAHCRAHQiNmyEQAthucZOmyAgpiIM4UYhUEA3OLeqK4DIkJ061GqLIALxyCioBQqIAFACUftCYykIhyEI4ULxwynTsQorROsjFaYJYhgBMhWAAChxcyDV8UdpgsQRFJenC6PwUyg5O5MoARn0U5NX86IpQVMoicOxwjoLkWoTIGwCqM3NwBksrQxAb7Z3F3RC9-YNrEKPjkxt2i-2Ly6vrmxsASnBvQ6fE5nDoQEqlcoAVmqAGF+Aw7JQgcd7igNkQQBtiOwoCJWuiwOgKABaCobAC+53BXTKpD6N2UZE81UimgWRy+pzaYIh6XpFEZswoUByDFgcFZzXZijooJ08VOEE8dEODFcDGiPT6RAFNyIi3x91iiASEIAAkjPAwsMy4BdkCrWNLRBzgfc4qaaRDinYKAjwWzXbLbUt2G7UZNYsAXqQAO6tAC6yAAxMgADzps0lS0eLxYYWixgSh1OoMiZSyz3FNOZh0Qv0B5BW-MAETmUAAKlARstouWDZyTsoYKRPMFYwmzjWM1mlRa7HdXFg4HQ6Mdig7c0u4CvXJQtdc+lhpsLsh9IxBYltvcg8bgIMRHavkMpqzO67eIVA41BBLJy0rOgTz2eZiDDCMuWiLEwAoXAeA2QkmDjDEtjAZCCWQYAAEYiAqIgAA5EypVNZwdLdF1WZdV3XRwKPsKjdzgfcKEPG4sFeOB3iHY0HXvR9n1VN8TQ-OcfRKH8-wAl0KxDU99iZCCLygmC4IQ2hJ1QydMOAYjr1EhIMHQVJrHQaIjOSQRB3VLxFU2WD4IQFBYLgAAPCgwApRMgA
       height: 350
   - title: Customize Summary Statement
-    description: 'Set `summary` in `render.DataGrid()` to `False` to remove the statement
-      "Viewing rows 1 through 10 of 20". Set it to a string template containing `{start}`,
-      `{end}`, and `{total}` tokens, to customize the message.
-
-      '
+    description: |
+      Set `summary` in `render.DataGrid()` to `False` to remove the statement "Viewing rows 1 through 10 of 20". Set it to a string template containing `{start}`, `{end}`, and `{total}` tokens, to customize the message.
     apps:
     - title: Preview
       file: app-variation-customize-summary-statement-core.py

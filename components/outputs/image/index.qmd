@@ -28,11 +28,11 @@ listing:
     dir: components/outputs/image/
   contents:
   - title: ui.output_image
-    href: https://shiny.posit.co/py/api/ui.output_image.html
+    href: https://shiny.posit.co/py/api/core/ui.output_image.html#shiny.ui.output_image
     signature: ui.output_image(id, width='100%', height='400px', *, inline=False,
       click=False, dblclick=False, hover=False, brush=False, fill=False)
   - title: '@render.image'
-    href: https://shiny.posit.co/py/api/render.image.html
+    href: https://shiny.posit.co/py/api/core/render.image.html#shiny.render.image
     signature: render.image(_fn=None, *, delete_file=False)
 ---
 

@@ -1,0 +1,87 @@
+## Production Considerations
+
+When deploying Shiny apps with OpenTelemetry to production, consider these best practices:
+
+### Sanitize sensitive data
+
+**Shiny automatically sanitizes exception messages in OpenTelemetry spans by default.**
+However, this only protects sensitive data in error messages. Sensitive data can still leak through other channels.
+
+#### What gets sanitized automatically
+
+By default (`App.sanitize_otel_errors=True`), Shiny replaces exception messages with a generic message:
+
+```python
+# Original exception in your code:
+raise ValueError("Database password is 'secret123'")
+
+# What gets recorded in OpenTelemetry:
+Exception("An error has occurred. Check your logs or contact the app author for clarification.")
+```
+
+Error sanitization is controlled separately for UI display and OpenTelemetry:
+
+- **`App.sanitize_errors`**: Controls error messages shown in the UI (default: `True` in production)
+- **`App.sanitize_otel_errors`**: Controls exception messages in OpenTelemetry spans (default: `True`)
+
+#### What does NOT get sanitized automatically
+
+Exception sanitization **does not protect**:
+
+- **Reactive value logs**: When `reactive.value().set()` is called, the actual value is logged (at `info` level when `SHINY_OTEL_COLLECT=reactivity`)
+- **Span attributes**: Source file paths, function names, session IDs
+- **Stack traces**: Variable values visible in exception tracebacks
+- **Custom attributes**: Any attributes you manually add to spans
+
+**Important**: Exception message sanitization alone is insufficient for securing sensitive operations. Use `@otel.suppress` for complete protection.
+
+### Control telemetry collection for sensitive operations
+
+Use `@otel.suppress` to exclude sensitive code from telemetry entirely:
+
+```python
+from shiny import otel, reactive
+
+# Exclude sensitive reactive calculations
+@reactive.calc
+@otel.suppress
+def api_key_rotation():
+    # No spans or logs generated for this function
+    return rotate_api_keys()
+
+# Or use as context manager during initialization
+with otel.suppress():
+    sensitive_data = reactive.value(fetch_secrets())
+```
+
+This is more secure than sanitization alone, as it prevents any Shiny telemetry collection for the wrapped code. Note, custom spans / non-Shiny spans will never be suppressed, only Shiny's telemetry.
+
+### Set appropriate collection levels
+
+Use environment variables to control telemetry granularity:
+
+```bash
+# Production: Minimize overhead, focus on session-level patterns
+export SHINY_OTEL_COLLECT=session
+
+# Staging: Include reactive updates for debugging
+export SHINY_OTEL_COLLECT=reactive_update
+
+# Development: Full instrumentation
+export SHINY_OTEL_COLLECT=reactivity
+```
+Lower collection levels reduce performance overhead and data volume in production.
+
+### Correlate with other metrics
+
+OpenTelemetry traces work best when combined with other observability data:
+
+- Server metrics (CPU, memory, network)
+- Application logs
+- Custom business metrics
+- Database query performance
+
+This holistic view helps you understand not just _what_ is slow, but _why_.
+The Otel ecosystem can also be helpful here.
+
+Many observability platforms like [Logfire](https://logfire.pydantic.dev/) provide integrated dashboards combining traces, logs, and metrics for a holistic view of your application's health.

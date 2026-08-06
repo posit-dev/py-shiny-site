@@ -1,45 +1,315 @@
-.PHONY: help all preview build_pkgs \
-	submodules submodules-pull \
-	requirements \
-	quarto-exts \
-	install-quarto \
-	site serve \
-	components components-shinylive components-static \
-	clean clean-extensions clean-venv distclean
-
 .DEFAULT_GOAL := help
 
-VENV = venv
-PYBIN = $(VENV)/bin
+VENV ?= .venv
+PYBIN ?= $(VENV)/bin
+PYTHON_VERSION ?= 3.12
+PIP3 ?= pip3
+
+# Run a command inside the uv-managed .venv. `uv run` auto-discovers ./.venv, so
+# recipes need no `activate` and CI needs no PATH/VIRTUAL_ENV export.
+UVRUN ?= uv run --no-project
+
+QUARTO_VERSION ?= 1.9.36
+QUARTO_PATH ?= ~/.local/share/qvm/versions/v${QUARTO_VERSION}/bin/quarto
+
+# Any targets that depend on $(VENV) or $(PYBIN) will cause the venv to be
+# created using uv (much faster than standard venv). To run a tool inside it,
+# use `$(UVRUN) <cmd>` (e.g. `$(UVRUN) pytest ...`).
+# check-uv is an order-only prerequisite: it runs (and errors on missing uv)
+# only when .venv actually needs to be created, not on every build.
+$(VENV): | check-uv
+	uv venv --python $(PYTHON_VERSION)
+
+$(PYBIN): $(VENV)
 
 
-QUARTO_VERSION ?= 1.7.23
-QUARTO_PATH = ~/.local/share/qvm/versions/v${QUARTO_VERSION}/bin/quarto
+## Build assets and render site
+.PHONY: all
+all: quartodoc components site
+
+# Ensure shinylive web assets exist in the shinylive user cache dir.
+# Downloading them is a side effect of `base-htmldeps` that the render cache
+# in _extensions/quarto-ext/shinylive/shinylive.lua may skip; run it once,
+# uncached, before rendering. No-op (~0.1 s) when assets are already present.
+.PHONY: shinylive-assets
+shinylive-assets: $(PYBIN)
+	$(UVRUN) shinylive extension base-htmldeps --sw-dir . > /dev/null
+
+## Build website
+.PHONY: site
+site: $(PYBIN) install-quarto shinylive-assets
+	$(UVRUN) ${QUARTO_PATH} render
+
+## Serve the site with live preview (parallel build first if _build is missing; re-renders only edited pages)
+.PHONY: serve
+serve: $(PYBIN) install-quarto shinylive-assets
+	@if [ ! -f _build/index.html ] || [ _quarto.yml -nt _build/index.html ]; then \
+		echo "🔵 _build/ is missing or older than _quarto.yml — running parallel build first"; \
+		$(MAKE) site-parallel; \
+	fi
+	$(UVRUN) ${QUARTO_PATH} preview --render none --port $${CONDUCTOR_PORT:-1414}
+
+## Serve with a full serial initial render (use after _quarto.yml/theme/extension changes)
+.PHONY: serve-serial
+serve-serial: $(PYBIN) install-quarto shinylive-assets
+	$(UVRUN) ${QUARTO_PATH} preview
+
+SHARDS ?= 6
+
+## Render the site in SHARDS local parallel jobs and merge into _build (faster than `site` on multi-core machines)
+.PHONY: site-parallel
+site-parallel: $(PYBIN) install-quarto
+	QUARTO_PATH="$(QUARTO_PATH)" SHARDS="$(SHARDS)" scripts/local-parallel-render.sh
+
+## Serve existing _build without full re-render (fast preview; run `make site` or `make site-parallel` first)
+.PHONY: serve-fast
+serve-fast: $(PYBIN) install-quarto
+	$(UVRUN) ${QUARTO_PATH} preview --render none --port $${CONDUCTOR_PORT:-1414} --no-browser
+
+## Best-effort seed of heavy gitignored caches (_build, shinylive render cache) from a donor checkout
+.PHONY: seed-caches
+seed-caches:
+	@scripts/seed-caches.sh || true
+
+## Initialize a fresh worktree/workspace: submodules, seeded caches, deps, generated docs
+.PHONY: ai-setup
+ai-setup:
+	$(MAKE) submodules
+	$(MAKE) seed-caches
+	$(MAKE) deps
+	$(MAKE) quartodoc
+	$(MAKE) components
+
+
+# Fail early with install guidance if uv is not on PATH.
+.PHONY: check-uv
+check-uv:
+	@command -v uv > /dev/null 2>&1 || { \
+		echo "❌ uv is not installed. Install it, then re-run:"; \
+		echo "   https://docs.astral.sh/uv/getting-started/installation/"; \
+		exit 1; \
+	}
+
 
 .PHONY: install-quarto
 install-quarto:
-	@echo "🔵 Installing quarto"
-	@if ! [ -z $(command -v qvm)]; then \
-		@echo "Error: qvm is not installed. Please visit https://github.com/dpastoor/qvm/releases/ to install it." >&2 \
+	# In CI environments, assume quarto is pre-installed
+	@if [ "$(CI)" = "true" ]; then \
+		echo "🔍 CI environment detected, checking for quarto..."; \
+		if command -v quarto > /dev/null 2>&1; then \
+			echo "✓ quarto is available"; \
+		else \
+			echo "❌ Error: quarto is not available in CI environment" >&2; \
+			exit 1; \
+		fi; \
+	else \
+		echo "🔵 Installing quarto"; \
+		if ! command -v qvm > /dev/null 2>&1; then \
+			if command -v brew > /dev/null 2>&1; then \
+				echo "🔹 Installing qvm via Homebrew"; \
+				brew install dpastoor/tap/qvm; \
+			else \
+				echo "❌ Error: qvm is not installed. Please visit https://github.com/dpastoor/qvm/releases/ to install it." >&2; \
+				exit 1; \
+			fi; \
+		fi; \
+		qvm install v${QUARTO_VERSION}; \
+		echo "🔹 Updating .vscode/settings.json"; \
+		awk -v path="${QUARTO_PATH}" '/"quarto.path":/ {gsub(/"quarto.path": ".*"/, "\"quarto.path\": \"" path "\"")} 1' .vscode/settings.json > .vscode/settings.json.tmp && mv .vscode/settings.json.tmp .vscode/settings.json; \
+		echo "🔹 Updating .github/workflows/site.yml"; \
+		awk -v ver="${QUARTO_VERSION}" '/QUARTO_VERSION:/ {gsub(/QUARTO_VERSION: .*/, "QUARTO_VERSION: " ver)} 1' .github/workflows/site.yml > .github/workflows/site.yml.tmp && mv .github/workflows/site.yml.tmp .github/workflows/site.yml; \
+	fi
+
+$(QUARTO_PATH): install-quarto
+
+## Update git submodules to commits referenced in this repository
+.PHONY: submodules
+submodules:
+	git submodule init
+	git submodule update --depth=0
+
+## Pull latest commits in git submodules
+.PHONY: submodules-pull
+submodules-pull:
+	git submodule update --recursive --remote
+
+
+_extensions/quarto-ext/shinylive: install-quarto
+	${QUARTO_PATH} add --no-prompt quarto-ext/shinylive
+	@echo "🔹 Re-applying shinylive render-cache patch"
+	@if git apply --reverse --check scripts/patches/shinylive-cache.patch > /dev/null 2>&1; then \
+		echo "   Patch already applied; skipping."; \
+	else \
+		git apply scripts/patches/shinylive-cache.patch || \
+		(echo "❌ scripts/patches/shinylive-cache.patch no longer applies." ; \
+		 echo "   Upstream quarto-ext/shinylive changed. Re-port the cache patch" ; \
+		 echo "   (see the header of scripts/patches/shinylive-cache.patch)" ; \
+		 echo "   or delete the patch if upstream now ships its own caching." ; \
+		 exit 1) ; \
+	fi
+_extensions/shafayetShafee/line-highlight: install-quarto
+	${QUARTO_PATH} add --no-prompt shafayetShafee/line-highlight
+_extensions/machow/quartodoc: install-quarto
+	${QUARTO_PATH} add --no-prompt machow/quartodoc
+
+## Update Quarto extensions
+.PHONY: quarto-extensions
+quarto-extensions: _extensions/quarto-ext/shinylive _extensions/shafayetShafee/line-highlight _extensions/machow/quartodoc
+
+
+# Install build dependencies
+deps: $(PYBIN)
+	uv pip install -r requirements.txt
+	cd py-shiny && $(UVRUN) make ci-install-docs
+
+
+QUARTODOC_STAMP ?= .quartodoc-stamp
+
+## Build qmd files for Shiny API docs (skips the body when inputs are unchanged)
+quartodoc: $(PYBIN) deps install-quarto
+	@key="$$(scripts/quartodoc-stamp.sh)"; \
+	if [ -f $(QUARTODOC_STAMP) ] && [ "$$(cat $(QUARTODOC_STAMP))" = "$$key" ]; then \
+		echo "quartodoc up to date"; \
+	else \
+		set -e; \
+		cd py-shiny/docs && $(UVRUN) make quartodoc; \
+		cd $(CURDIR); \
+		echo "🔹 Copying generated api/ files (checksum mode: identical files keep their mtimes)"; \
+		rsync -ac --exclude="index.qmd" py-shiny/docs/api/ ./api; \
+		cp -R py-shiny/docs/_inv py-shiny/docs/objects.json ./; \
+		cp py-shiny/docs/api/express/index.qmd ./api/express/_api_index.qmd; \
+		cp py-shiny/docs/api/core/index.qmd ./api/core/_api_index.qmd; \
+		cp py-shiny/docs/api/testing/index.qmd ./api/testing/_api_index.qmd; \
+		echo "$$key" > $(QUARTODOC_STAMP); \
+	fi
+
+
+## Build component static previews and update shinylive links
+.PHONY: components
+components: components-shinylive-links components-relevant-functions components-static-previews
+
+.PHONY: components-static-previews
+components-static-previews: $(PYBIN) deps
+	rm -rf components/static
+	$(UVRUN) python components/make-static-previews.py
+
+## Update shinylive links; pass FILES="dir-or-file ..." to limit to those pages
+.PHONY: components-shinylive-links
+components-shinylive-links: $(PYBIN) deps
+	$(UVRUN) python components/update-shinylive-links.py $(FILES)
+
+## Regenerate relevant-functions href/signature from the API pages; pass
+## FILES="dir-or-file ..." to limit to those pages.
+##
+## The build/setup chain "falls forward": an unresolvable (rotted/renamed)
+## title is warned about and left as-authored so it never aborts a local build
+## or `make ai-setup`. CI sets RELEVANT_FUNCTIONS_STRICT=1 so the same rot
+## fails the check -- the correct fields are still required before merge.
+RELEVANT_FUNCTIONS_STRICT ?=
+.PHONY: components-relevant-functions
+components-relevant-functions: $(PYBIN) deps quartodoc
+	$(UVRUN) python components/update-relevant-functions.py \
+		$(if $(RELEVANT_FUNCTIONS_STRICT),--strict,--no-strict) $(FILES)
+
+# Install the Playwright browser used by `make test` (idempotent; ~no-op once
+# present). Skipped when a remote Playwright server is configured
+# (PW_TEST_CONNECT_WS_ENDPOINT set, e.g. by CI's setup-playwright-remote action).
+.PHONY: install-playwright
+install-playwright: $(PYBIN) deps
+	@if [ -n "$$PW_TEST_CONNECT_WS_ENDPOINT" ]; then \
+		echo "Remote Playwright configured; skipping local browser install."; \
+	else \
+		$(UVRUN) playwright install chromium; \
+	fi
+
+## Run all example-app tests: smoke sweep + per-component app tests (chromium, parallel; from pytest.ini)
+.PHONY: test
+test: test-smoke test-apps
+
+## Smoke-test every components/**/app*.py (each app launches with no server/JS/output errors). Pass PYTEST_ARGS="..." to narrow (e.g. PYTEST_ARGS='-k "layout/accordion"') or shard (PYTEST_ARGS='--num-shards 6 --shard-id 0').
+.PHONY: test-smoke
+test-smoke: $(PYBIN) deps install-playwright
+	$(UVRUN) pytest components/test_examples_smoke.py $(PYTEST_ARGS)
+
+## Run per-component app tests (controller interaction tests + conftest unit tests), excluding the smoke sweep. Pass PYTEST_ARGS="..." to narrow or shard.
+.PHONY: test-apps
+test-apps: $(PYBIN) deps install-playwright
+	$(UVRUN) pytest --ignore=components/test_examples_smoke.py $(PYTEST_ARGS)
+
+## Remove Quarto website build files
+.PHONY: clean
+clean:
+	rm -rf _build
+	rm -rf .quarto/shinylive-cache
+	rm -rf components/static
+	cd py-shiny/docs && make clean
+
+.PHONY: clean-extensions
+clean-extensions:
+	rm -rf _extensions
+
+.PHONY: clean-venv
+clean-venv:
+	rm -rf $(VENV)
+
+## Remove all build files (Quarto website, quarto extensions, venv)
+.PHONY: distclean
+distclean: clean clean-extensions clean-venv
+
+SHINYLIVE_ARTIFACT_DIR ?= _shinylive-pr-build
+SHINYLIVE_BRANCH ?= main
+
+## This is essential the first time you want to use the dev shinylive build, but is not
+## necessary after, as shinylive will use the lastest cached artifact
+## By default searches main branch. Supply SHINYLIVE_BRANCH to test a specific branch.
+## Usage: make use-dev-shinylive [SHINYLIVE_BRANCH=feature-branch]
+## Download and install dev shinylive artifact from py-shiny CI/CD (requires gh and jq)
+.PHONY: use-dev-shinylive
+use-dev-shinylive: $(PYBIN) deps
+	@command -v gh jq > /dev/null || (echo "❌ Install: brew install gh jq && gh auth login" && exit 1)
+	@gh auth status > /dev/null 2>&1 || (echo "❌ Authenticate: gh auth login" && exit 1)
+	@echo "🔵 Finding shinylive-build artifact in py-shiny workflows on branch: $(SHINYLIVE_BRANCH)..."; \
+	RUN_IDS=$$(gh run list --repo posit-dev/py-shiny --workflow build-docs.yaml --branch $(SHINYLIVE_BRANCH) --limit 20 --json databaseId --jq '.[].databaseId'); \
+	FOUND=false; \
+	for RUN_ID in $$RUN_IDS; do \
+		if gh api repos/posit-dev/py-shiny/actions/runs/$$RUN_ID/artifacts --jq '.artifacts[].name' 2>/dev/null | grep -q '^shinylive-build$$'; then \
+			echo "🔹 Found artifact in run $$RUN_ID"; \
+			rm -rf $(SHINYLIVE_ARTIFACT_DIR) && \
+			$(UVRUN) python -c "import appdirs, shutil; shutil.rmtree(appdirs.user_cache_dir('shinylive'), ignore_errors=True)" && \
+			rm -rf .quarto/shinylive-cache && \
+			gh run download --repo posit-dev/py-shiny --name shinylive-build --dir $(SHINYLIVE_ARTIFACT_DIR) $$RUN_ID && \
+			$(UVRUN) shinylive assets install-from-local "$(SHINYLIVE_ARTIFACT_DIR)" && \
+			echo "✓ Shinylive artifact installed from branch $(SHINYLIVE_BRANCH)" && \
+			FOUND=true && \
+			break; \
+		fi; \
+	done; \
+	if [ "$$FOUND" != "true" ]; then \
+		echo "❌ No shinylive-build artifact found in recent py-shiny builds on branch $(SHINYLIVE_BRANCH)"; \
 		exit 1; \
 	fi
-	qvm install v${QUARTO_VERSION}
-	@echo "🔹 Updating .vscode/settings.json"
-	@awk -v path="${QUARTO_PATH}" '/"quarto.path":/ {gsub(/"quarto.path": ".*"/, "\"quarto.path\": \"" path "\"")} 1' .vscode/settings.json > .vscode/settings.json.tmp && mv .vscode/settings.json.tmp .vscode/settings.json
-	@echo "🔹 Updating .github/workflows/deploy-docs.yml"
-	@awk -v ver="${QUARTO_VERSION}" '/QUARTO_VERSION:/ {gsub(/QUARTO_VERSION: .*/, "QUARTO_VERSION: " ver)} 1' .github/workflows/deploy-docs.yml > .github/workflows/deploy-docs.yml.tmp && mv .github/workflows/deploy-docs.yml.tmp .github/workflows/deploy-docs.yml
 
 
-## Build everything
-all: deps quartodoc components-static site
+## Clean shinylive artifact download
+.PHONY: clean-dev-shinylive
+clean-dev-shinylive:
+	rm -rf $(SHINYLIVE_ARTIFACT_DIR)
 
-# Any targets that depend on $(VENV) or $(PYBIN) will cause the venv to be
-# created. To use the ven, python scripts should run with the prefix $(PYBIN),
-# as in `$(PYBIN)/pip`.
-$(VENV):
-	python3 -m venv $(VENV)
 
-$(PYBIN): $(VENV)
+# ---------------------------------------------------------------------------
+# Site quality checks (require Node.js + AWS credentials for Bedrock)
+# ---------------------------------------------------------------------------
+
+COMPARE_OLD_URL ?= https://shiny.posit.co/py
+COMPARE_NEW_URL ?= http://localhost:1414
+AWS_PROFILE ?= claude
+
+## Compare two builds for regressions using Claude vision (run before merging major changes)
+.PHONY: compare-versions
+compare-versions:
+	cd tests && npm install --silent
+	cd tests && AWS_PROFILE=$(AWS_PROFILE) npm run compare -- --old $(COMPARE_OLD_URL) --new $(COMPARE_NEW_URL) $(if $(FILTER),--filter $(FILTER),) $(if $(EXCLUDE),--exclude $(EXCLUDE),)
+
 
 
 define PRINT_HELP_PYSCRIPT
@@ -47,6 +317,8 @@ import re, sys
 
 prev_line_help = None
 for line in sys.stdin:
+	if line.strip().startswith(".PHONY"):
+		continue
 	if prev_line_help is None:
 		match = re.match(r"^## (.*)", line)
 		if match:
@@ -65,71 +337,6 @@ for line in sys.stdin:
 endef
 export PRINT_HELP_PYSCRIPT
 
+.PHONY: help
 help:
 	@python3 -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
-
-## Update git submodules to commits referenced in this repository
-submodules:
-	git submodule init
-	git submodule update --depth=0
-
-## Pull latest commits in git submodules
-submodules-pull:
-	git submodule update --recursive --remote
-
-## Update Quarto extensions
-quarto-exts:
-	${QUARTO_PATH} add --no-prompt quarto-ext/shinylive
-	${QUARTO_PATH} add --no-prompt shafayetShafee/line-highlight
-
-## Install build dependencies
-deps: $(PYBIN)
-	$(PYBIN)/pip install pip --upgrade
-	$(PYBIN)/pip install -r requirements.txt
-	. $(PYBIN)/activate && cd py-shiny && make install-docs
-
-## Build qmd files for Shiny API docs
-quartodoc: $(PYBIN)
-	. $(PYBIN)/activate && cd py-shiny/docs && make quartodoc
-	# Copy all generated files except index.qmd
-	rsync -av --exclude="index.qmd" py-shiny/docs/api/ ./api
-	cp -R py-shiny/docs/_inv py-shiny/docs/objects.json ./
-	# Copy over index.qmd, but rename it to _api_index.qmd
-	cp py-shiny/docs/api/express/index.qmd ./api/express/_api_index.qmd
-	cp py-shiny/docs/api/core/index.qmd ./api/core/_api_index.qmd
-	cp py-shiny/docs/api/testing/index.qmd ./api/testing/_api_index.qmd
-
-## Build website
-site: $(PYBIN)
-	. $(PYBIN)/activate && ${QUARTO_PATH} render
-
-## Build website and serve
-serve: $(PYBIN)
-	. $(PYBIN)/activate && ${QUARTO_PATH} preview
-
-## Remove Quarto website build files
-clean:
-	rm -rf _build
-	rm -rf components/static
-	cd py-shiny/docs && make clean
-
-## Remove Quarto extensions
-clean-exts:
-	rm -rf _extensions
-
-## Remove venv files
-clean-venv:
-	rm -rf $(VENV)
-
-## Remove all build files (Quarto website, quarto extensions, venv)
-distclean: clean clean-extensions clean-venv
-
-components-static:
-	rm -rf components/static
-	. $(PYBIN)/activate && python components/make-static-previews.py
-
-components-shinylive-links:
-	. $(PYBIN)/activate && python components/update-shinylive-links.py
-
-## Build component static previews and update shinylive links
-components: components-shinylive-links components-static

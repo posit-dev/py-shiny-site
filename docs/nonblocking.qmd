@@ -151,6 +151,8 @@ This synchronizes the `ExtendedTask` object with the `ui.input_task_button` in t
 It _does not_ cause button clicks to invoke the task; we still need to do that manually, which we'll talk about next.
 
 If you use some other UI gesture or condition besides `ui.input_task_button` to invoke the task, don't include the `@ui.bind_task_button` decorator--it doesn't work with `ui.input_action_button`, for example.
+
+See the [Task Button](/components/inputs/task-button/index.qmd) component page for the button's own options, including `label_busy` and resetting it manually with `ui.update_task_button()`.
 :::
 
 ### Invoking the task
@@ -278,3 +280,9 @@ Only use async functions in your reactive code if you need to call async-only fu
 Don't expect your application to run faster, more responsively, or more efficiently.
 
 To achieve true non-blocking behavior in Shiny applications, factor your slow/async code into an `ExtendedTask` callable object, call it from a reactive effect, and read its `result()` from a render function or reactive calc.
+
+::: {.callout-tip}
+## Monitoring Performance with OpenTelemetry
+
+`ExtendedTask` operations are automatically traced when using [OpenTelemetry](opentelemetry.qmd). This lets you monitor background task execution, identify slow operations, and track performance in production without adding debug code.
+:::
