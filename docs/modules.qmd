@@ -423,6 +423,16 @@ Since modules allow you to tie UI and Server code together in the same namespace
 Anything that you can do in a Shiny app can also be done inside of a module, and modules can themselves call other modules.
 This allows you to break your app up into building blocks of various sizes, compose those blocks to build different applications, and share them with others.
 
+## Working with custom HTML and ids
+
+When working with modules, it's important to understand that standard Shiny UI functions like `ui.input_text()` and `ui.output_text()` automatically handle id namespacing within modules. However, if you're creating custom HTML elements with explicit `id` attributes, you need to manually resolve the id to ensure it's properly namespaced.
+
+::: callout-important
+## Manual id Resolution for Custom HTML
+
+When creating custom HTML elements with `id` attributes inside modules, you must use `resolve_id()` to ensure the id is properly namespaced:
+
+
 ## Conclusion
 
 Whenever you find that your Shiny code is repetitive, you should consider whether it's worth extracting some logic into a function or a module.
