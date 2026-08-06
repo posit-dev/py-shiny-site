@@ -560,6 +560,122 @@ app = App(app_ui, server)
 `resolve_id()` is also what makes a custom component module-aware, since the component's own HTML is written by hand.
 For a longer example of that, see [Custom JavaScript component](custom-component-one-off.qmd).
 
+## Getting the current module id
+
+A module function does not receive its own id as an argument: `@module.ui` and `@module.server` consume the id you pass and turn it into the namespace.
+So if a module's behavior needs to depend on its own id, it's tempting to add a parameter for it and pass the id in twice, as in `row_ui("row_1", "row_1")`.
+You don't have to. Call `current_namespace()` inside the module instead:
+
+```{.python}
+from shiny import module
+from shiny.module import current_namespace
+
+@module.ui
+def row_ui():
+    module_id = current_namespace()
+    ...
+```
+
+A few things to know about the value it returns:
+
+- It is the *fully resolved* namespace, meaning the id you passed prefixed by the namespaces of any enclosing modules. A top-level `row_ui("row_1")` sees `"row_1"`, but a `row_ui("inner")` called inside a module that was created as `outer_ui("out")` sees `"out-inner"`.
+- It is a `str` subclass, so ordinary string methods work on it.
+- It works in module server functions as well as module UI functions.
+- Outside of any module it returns an empty string, since the top level of an app has no namespace.
+
+In the app below, the label a row uses depends on its own id, and the row's output reports which row it belongs to — neither of which requires threading the id through an extra parameter.
+
+::: {.panel-tabset .panel-pills}
+
+### Express
+
+::: {.column-page}
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+## file: app.py
+from shiny.express import module, render, ui
+from shiny.module import current_namespace
+
+
+@module
+def io_row(input, output, session):
+    # The module's own id, without having to pass it in a second time
+    module_id = current_namespace()
+    is_special = module_id.endswith(("3", "5"))
+    label = "Enter something special" if is_special else "Enter text"
+
+    with ui.layout_columns():
+        with ui.card():
+            ui.input_text("text_in", label)
+        with ui.card():
+
+            @render.text
+            def text_out():
+                return f'{module_id} says: "{input.text_in()}"'
+
+
+extra_ids = ["row_3", "row_4", "row_5"]
+
+io_row("row_1")
+io_row("row_2")
+[io_row(x) for x in extra_ids]
+```
+:::
+
+### Core
+
+::: {.column-page}
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+## file: app.py
+from shiny import App, module, render, ui
+from shiny.module import current_namespace
+
+
+@module.ui
+def row_ui():
+    # The module's own id, without having to pass it in a second time
+    module_id = current_namespace()
+    is_special = module_id.endswith(("3", "5"))
+    label = "Enter something special" if is_special else "Enter text"
+    return ui.layout_columns(
+        ui.card(ui.input_text("text_in", label)),
+        ui.card(ui.output_text("text_out")),
+    )
+
+
+@module.server
+def row_server(input, output, session):
+    module_id = current_namespace()
+
+    @render.text
+    def text_out():
+        return f'{module_id} says: "{input.text_in()}"'
+
+
+extra_ids = ["row_3", "row_4", "row_5"]
+
+app_ui = ui.page_fluid(
+    row_ui("row_1"),
+    row_ui("row_2"),
+    [row_ui(x) for x in extra_ids],
+)
+
+
+def server(input, output, session):
+    row_server("row_1")
+    row_server("row_2")
+    [row_server(x) for x in extra_ids]
+
+
+app = App(app_ui, server)
+```
+:::
+
+:::
+
 ## Conclusion
 
 Whenever you find that your Shiny code is repetitive, you should consider whether it's worth extracting some logic into a function or a module.
