@@ -561,11 +561,12 @@ app = App(app_ui, server)
 The same applies when you write a custom component, since the component's HTML is written by hand.
 For a longer example, see [Custom JavaScript component](custom-component-one-off.qmd).
 
-## Getting the current module id
+## Getting a module's own ID
 
-A module function does not receive its own id as an argument: `@module.ui` and `@module.server` consume the id you pass and turn it into the namespace.
-So if a module's behavior needs to depend on its own id, it's tempting to add a parameter for it and pass the id in twice, as in `row_ui("row_1", "row_1")`.
-You don't have to. Call `current_namespace()` inside the module instead:
+A module function doesn't receive its own ID as an argument. The `@module.ui` and `@module.server` decorators take the
+ID you pass in and turn it into the namespace, so it never reaches your function. If your module's behavior needs to
+depend on its own ID, you might be tempted to add a parameter for it and pass the ID in twice, as in
+`row_ui("row_1", "row_1")`. This isn't necessary, because you can call `current_namespace()` inside the module to get it.
 
 ```{.python}
 from shiny import module
@@ -577,14 +578,15 @@ def row_ui():
     ...
 ```
 
-A few things to know about the value it returns:
+There are a few helpful things to know about the value this returns: it is the fully resolved namespace, which
+means it includes the ID you passed along with the namespaces of any modules that enclose it. A top-level call to
+`row_ui("row_1")` returns `"row_1"`, but if `row_ui("inner")` is called inside a module created with `outer_ui("out")`,
+it returns `"out-inner"`. Also, the value is a subclass of `str`, so you can use normal string methods on it.
+It works in module server functions as well as module UI functions, and outside of a module it returns an empty string,
+because the top level of an application has no namespace.
 
-- It is the *fully resolved* namespace, meaning the id you passed prefixed by the namespaces of any enclosing modules. A top-level `row_ui("row_1")` sees `"row_1"`, but a `row_ui("inner")` called inside a module that was created as `outer_ui("out")` sees `"out-inner"`.
-- It is a `str` subclass, so ordinary string methods work on it.
-- It works in module server functions as well as module UI functions.
-- Outside of any module it returns an empty string, since the top level of an app has no namespace.
-
-In the app below, the label a row uses depends on its own id, and the row's output reports which row it belongs to — neither of which requires threading the id through an extra parameter.
+In the app below, the label each row uses depends on its own ID, and the row's output reports which row it belongs to.
+Neither of these requires passing the ID in through an extra parameter.
 
 ::: {.panel-tabset .panel-pills}
 
@@ -601,7 +603,7 @@ from shiny.module import current_namespace
 
 @module
 def io_row(input, output, session):
-    # The module's own id, without having to pass it in a second time
+    # The module's own ID, without having to pass it in a second time
     module_id = current_namespace()
     is_special = module_id.endswith(("3", "5"))
     label = "Enter something special" if is_special else "Enter text"
@@ -637,7 +639,7 @@ from shiny.module import current_namespace
 
 @module.ui
 def row_ui():
-    # The module's own id, without having to pass it in a second time
+    # The module's own ID, without having to pass it in a second time
     module_id = current_namespace()
     is_special = module_id.endswith(("3", "5"))
     label = "Enter something special" if is_special else "Enter text"
