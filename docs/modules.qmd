@@ -423,16 +423,18 @@ Since modules allow you to tie UI and Server code together in the same namespace
 Anything that you can do in a Shiny app can also be done inside of a module, and modules can themselves call other modules.
 This allows you to break your app up into building blocks of various sizes, compose those blocks to build different applications, and share them with others.
 
-## Namespacing ids in custom HTML
+## Namespacing IDs in custom HTML
 
-Shiny's own UI functions take care of namespacing for you.
-Call `ui.input_text("text_in", "Enter text")` inside a module whose id is `row_1`, and the id that reaches the browser is `row_1-text_in`.
+Shiny's UI functions handle namespacing for you. If you call `ui.input_text("text_in", "Enter text")`
+inside a module with the id `row_1`, the ID that reaches the browser is `row_1-text_in`.
 
-It's worth being precise about *where* that happens, because it explains a behavior that otherwise looks like a bug.
-The `@module.ui` decorator does not rewrite the UI that your function returns.
-All it does is set the *current namespace* for the duration of the call; it is each individual `ui.input_*()` and `ui.output_*()` function that looks up that namespace and prefixes its own id with it.
+It's worth going into some detail about how that happens, because it explains a behavior which might look like
+a bug at first glance. The `@module.ui` decorator does not modify the UI that your function returns.
+Instead, it sets the current namespace while the function runs, and then each `ui.input_*()` and
+`ui.output_*()` function looks up that namespace and adds it as a prefix to its own ID.
 
-So an id that you write by hand — on `ui.div()`, or on any other raw HTML tag — comes out unchanged, because no Shiny UI function was involved to namespace it:
+This means that an ID you write by hand, such as one you pass to `ui.div()` or to any other raw HTML tag,
+comes out unchanged, because no Shiny UI function was involved to namespace it.
 
 ```{.python}
 from shiny import module, ui
@@ -445,7 +447,8 @@ print(modui("modid"))
 #> <div id="divid"></div>
 ```
 
-To namespace such an id yourself, pass it through `resolve_id()`, which applies the current namespace exactly the way Shiny's UI functions do:
+To namespace an ID like this yourself, pass it to `resolve_id()`, which applies the current namespace the
+same way Shiny's UI functions do.
 
 ```{.python}
 from shiny import module, ui
@@ -459,16 +462,14 @@ print(modui("modid"))
 #> <div id="modid-divid"></div>
 ```
 
-::: callout-tip
-### Rule of thumb
+In general, if Shiny generated the ID then it is already namespaced, and if you wrote the ID yourself then it
+needs `resolve_id()`.
 
-If Shiny generated the id, it is already namespaced. If you typed the id yourself, wrap it in `resolve_id()`.
-:::
-
-This matters whenever something else has to find that element by its id: your own CSS or JavaScript, or a Shiny function that takes a CSS selector, such as `ui.insert_ui()`.
-In the app below, each module instance owns a `notes` container that its server logic inserts into.
-Because both the id and the selector go through `resolve_id()`, each instance's notes land in its own container.
-Without it, both instances would emit a `<div id="notes">` and every note would be inserted into the first one.
+This matters any time something else needs to find the element by its ID, whether that's your own CSS or JavaScript,
+or a Shiny function which takes a CSS selector, like `ui.insert_ui()`. In the app below, each module instance has its own
+`notes` container that its server function inserts into. Both the ID and the selector are passed through `resolve_id()`,
+so each instance's notes go into its own container. Without it, both instances would create a `<div id="notes">`, and
+every note would be inserted into the first one.
 
 ::: {.panel-tabset .panel-pills}
 
@@ -488,7 +489,7 @@ from shiny.module import resolve_id
 def note_row(input, output, session):
     with ui.card():
         ui.input_action_button("add", "Add a note")
-        # A hand-written id, so it needs resolve_id() to be namespaced
+        # A hand-written ID, so it needs resolve_id() to be namespaced
         ui.div(id=resolve_id("notes"))
 
     @reactive.effect
@@ -497,7 +498,7 @@ def note_row(input, output, session):
         ui.insert_ui(
             ui.tags.p(f"Note {input.add()}"),
             # resolve_id() works in the server function too
-            selector="#" + resolve_id("notes"),
+            selector=f"#{resolve_id('notes')}",
             where="beforeEnd",
         )
 
@@ -522,7 +523,7 @@ from shiny.module import resolve_id
 def note_row_ui():
     return ui.card(
         ui.input_action_button("add", "Add a note"),
-        # A hand-written id, so it needs resolve_id() to be namespaced
+        # A hand-written ID, so it needs resolve_id() to be namespaced
         ui.div(id=resolve_id("notes")),
     )
 
@@ -535,7 +536,7 @@ def note_row_server(input, output, session):
         ui.insert_ui(
             ui.p(f"Note {input.add()}"),
             # resolve_id() works in the server function too
-            selector="#" + resolve_id("notes"),
+            selector=f"#{resolve_id('notes')}",
             where="beforeEnd",
         )
 
@@ -557,8 +558,8 @@ app = App(app_ui, server)
 
 :::
 
-`resolve_id()` is also what makes a custom component module-aware, since the component's own HTML is written by hand.
-For a longer example of that, see [Custom JavaScript component](custom-component-one-off.qmd).
+The same applies when you write a custom component, since the component's HTML is written by hand.
+For a longer example, see [Custom JavaScript component](custom-component-one-off.qmd).
 
 ## Getting the current module id
 
