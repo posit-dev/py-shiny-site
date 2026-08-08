@@ -1,5 +1,5 @@
 ---
-title: User interfaces
+title: Laying out your app
 editor:
   markdown:
     wrap: sentence
@@ -17,7 +17,7 @@ Here, we'll use the following dashboard as motivation to learn about some import
 See the [gallery](/gallery), [layouts](/layouts), and [components](/components) for more UI design inspiration.
 :::
 
-## Basic dashboard
+## A quick start
 
 Before we walk through a more sophisticated dashboard, consider this basic dashboard with a header (i.e., page title) and a sidebar layout. In the sidebar, there are a couple [inputs](/components/#inputs) for getting different views of the data, and in the main content area, is a [plotly output](jupyter-widgets.qmd). That output is also placed in a card to give it some depth and the ability to go full screen. The card isn't critical when there is only one output, but they come highly recommended when there are multiple outputs to display.
 
@@ -46,9 +46,11 @@ with ui.card(full_screen=True):
         return px.histogram(load_penguins(), x=input.var(), nbins=input.bins())
 ```
 
-## Sophisticated dashboard
+## Layout and components
 
-Now let's work up to a more sophisticated dashboard by walking through components and layouts that are useful for dashboards step-by-step.
+Now let's work up to a more sophisticated dashboard by walking through layouts and components that are useful for dashboards step-by-step.
+
+<!-- TODO: Callout layout and components galleries -->
 
 ### Sidebar layout
 
@@ -233,7 +235,7 @@ with ui.popover(title="Popover title"):
 ```
 
 
-### All together now
+## Building a complete dashboard
 
 Let's put it all together to create a dashboard for exploring restaurant tipping data.
 
