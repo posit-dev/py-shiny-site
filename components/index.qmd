@@ -169,3 +169,5 @@ Organize and structure your app's content with cards and other layout components
 ::::::
 ::::::::
 <!-- End List area -->
+
+<script src="_partials/components-list.js" defer></script>
