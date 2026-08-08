@@ -10,6 +10,7 @@ HERE = Path(__file__).parent
 
 core_app = create_example_fixture(HERE / "app-core.py")
 express_app = create_example_fixture(HERE / "app-express.py")
+preview_app = create_example_fixture(HERE / "app-preview.py")
 
 
 def _check_select_single_interaction(page: Page, app: ShinyAppProc) -> None:
@@ -32,3 +33,11 @@ def test_select_single_core_interaction(page: Page, core_app: ShinyAppProc) -> N
 
 def test_select_single_express_interaction(page: Page, express_app: ShinyAppProc) -> None:
     _check_select_single_interaction(page, express_app)
+
+
+def test_select_single_preview_has_no_busy_output(
+    page: Page, preview_app: ShinyAppProc
+) -> None:
+    page.goto(preview_app.url)
+    controller.InputSelect(page, "select").expect_selected("1A")
+    expect(page.locator(".recalculating")).to_have_count(0)

@@ -82,6 +82,41 @@ def test_component_page_has_gallery_preview_assets(page_dir: Path) -> None:
         assert difference.getbbox() is None
 
 
+def test_select_single_animation_changes_visible_selection() -> None:
+    """The native select preview must demonstrate selection, not a broken focus ring."""
+    page_dir = COMPONENTS_DIR / "inputs" / "select-single"
+    with Image.open(page_dir / "thumbnail.png") as poster:
+        rgb = poster.convert("RGB")
+        background = Image.new("RGB", rgb.size, rgb.getpixel((0, 0)))
+        subject = ImageChops.difference(rgb, background).convert("L").point(
+            lambda value: 255 if value > 12 else 0
+        )
+        bounds = subject.getbbox()
+        assert bounds is not None
+        left, top, right, bottom = bounds
+        value_region = (
+            left + 10,
+            top + 7,
+            left + round((right - left) * 0.65),
+            bottom - 7,
+        )
+        initial_value = rgb.crop(value_region)
+
+    value_changes = []
+    with Image.open(page_dir / "preview.gif") as animation:
+        for frame_index in range(1, animation.n_frames):
+            animation.seek(frame_index)
+            difference = ImageChops.difference(
+                initial_value, animation.convert("RGB").crop(value_region)
+            )
+            changed = difference.convert("L").point(
+                lambda value: 255 if value > 12 else 0
+            )
+            value_changes.append(changed.getbbox())
+
+    assert any(value_changes)
+
+
 def test_rendered_gallery_uses_linked_lazy_animated_images(tmp_path: Path) -> None:
     """Cards link through and load their GIF only while they are being explored."""
     partials = tmp_path / "_partials"
