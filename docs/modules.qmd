@@ -423,6 +423,262 @@ Since modules allow you to tie UI and Server code together in the same namespace
 Anything that you can do in a Shiny app can also be done inside of a module, and modules can themselves call other modules.
 This allows you to break your app up into building blocks of various sizes, compose those blocks to build different applications, and share them with others.
 
+## Namespacing IDs in custom HTML
+
+Shiny's UI functions handle namespacing for you. If you call `ui.input_text("text_in", "Enter text")`
+inside a module with the id `row_1`, the ID that reaches the browser is `row_1-text_in`.
+
+It's worth going into some detail about how that happens, because it explains a behavior which might look like
+a bug at first glance. The `@module.ui` decorator does not modify the UI that your function returns.
+Instead, it sets the current namespace while the function runs, and then each `ui.input_*()` and
+`ui.output_*()` function looks up that namespace and adds it as a prefix to its own ID.
+
+This means that an ID you write by hand, such as one you pass to `ui.div()` or to any other raw HTML tag,
+comes out unchanged, because no Shiny UI function was involved to namespace it.
+
+```{.python}
+from shiny import module, ui
+
+@module.ui
+def modui():
+    return ui.div(id="divid")
+
+print(modui("modid"))
+#> <div id="divid"></div>
+```
+
+To namespace an ID like this yourself, pass it to `resolve_id()`, which applies the current namespace the
+same way Shiny's UI functions do.
+
+```{.python}
+from shiny import module, ui
+from shiny.module import resolve_id
+
+@module.ui
+def modui():
+    return ui.div(id=resolve_id("divid"))
+
+print(modui("modid"))
+#> <div id="modid-divid"></div>
+```
+
+In general, if Shiny generated the ID then it is already namespaced, and if you wrote the ID yourself then it
+needs `resolve_id()`.
+
+This matters any time something else needs to find the element by its ID, whether that's your own CSS or JavaScript,
+or a Shiny function which takes a CSS selector, like `ui.insert_ui()`. In the app below, each module instance has its own
+`notes` container that its server function inserts into. Both the ID and the selector are passed through `resolve_id()`,
+so each instance's notes go into its own container. Without it, both instances would create a `<div id="notes">`, and
+every note would be inserted into the first one.
+
+::: {.panel-tabset .panel-pills}
+
+### Express
+
+::: {.column-page}
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+## file: app.py
+from shiny import reactive
+from shiny.express import module, ui
+from shiny.module import resolve_id
+
+
+@module
+def note_row(input, output, session):
+    with ui.card():
+        ui.input_action_button("add", "Add a note")
+        # A hand-written ID, so it needs resolve_id() to be namespaced
+        ui.div(id=resolve_id("notes"))
+
+    @reactive.effect
+    @reactive.event(input.add)
+    def _():
+        ui.insert_ui(
+            ui.tags.p(f"Note {input.add()}"),
+            # resolve_id() works in the server function too
+            selector=f"#{resolve_id('notes')}",
+            where="beforeEnd",
+        )
+
+
+note_row("row_1")
+note_row("row_2")
+```
+:::
+
+### Core
+
+::: {.column-page}
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+## file: app.py
+from shiny import App, module, reactive, ui
+from shiny.module import resolve_id
+
+
+@module.ui
+def note_row_ui():
+    return ui.card(
+        ui.input_action_button("add", "Add a note"),
+        # A hand-written ID, so it needs resolve_id() to be namespaced
+        ui.div(id=resolve_id("notes")),
+    )
+
+
+@module.server
+def note_row_server(input, output, session):
+    @reactive.effect
+    @reactive.event(input.add)
+    def _():
+        ui.insert_ui(
+            ui.p(f"Note {input.add()}"),
+            # resolve_id() works in the server function too
+            selector=f"#{resolve_id('notes')}",
+            where="beforeEnd",
+        )
+
+
+app_ui = ui.page_fluid(
+    note_row_ui("row_1"),
+    note_row_ui("row_2"),
+)
+
+
+def server(input, output, session):
+    note_row_server("row_1")
+    note_row_server("row_2")
+
+
+app = App(app_ui, server)
+```
+:::
+
+:::
+
+The same applies when you write a custom component, since the component's HTML is written by hand.
+For a longer example, see [Custom JavaScript component](custom-component-one-off.qmd).
+
+## Getting a module's own ID
+
+A module function doesn't receive its own ID as an argument. The `@module.ui` and `@module.server` decorators take the
+ID you pass in and turn it into the namespace, so it never reaches your function. If your module's behavior needs to
+depend on its own ID, you might be tempted to add a parameter for it and pass the ID in twice, as in
+`row_ui("row_1", "row_1")`. This isn't necessary, because you can call `current_namespace()` inside the module to get it.
+
+```{.python}
+from shiny import module
+from shiny.module import current_namespace
+
+@module.ui
+def row_ui():
+    module_id = current_namespace()
+    ...
+```
+
+There are a few helpful things to know about the value this returns: it is the fully resolved namespace, which
+means it includes the ID you passed along with the namespaces of any modules that enclose it. A top-level call to
+`row_ui("row_1")` returns `"row_1"`, but if `row_ui("inner")` is called inside a module created with `outer_ui("out")`,
+it returns `"out-inner"`. Also, the value is a subclass of `str`, so you can use normal string methods on it.
+It works in module server functions as well as module UI functions, and outside of a module it returns an empty string,
+because the top level of an application has no namespace.
+
+In the app below, the label each row uses depends on its own ID, and the row's output reports which row it belongs to.
+Neither of these requires passing the ID in through an extra parameter.
+
+::: {.panel-tabset .panel-pills}
+
+### Express
+
+::: {.column-page}
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+## file: app.py
+from shiny.express import module, render, ui
+from shiny.module import current_namespace
+
+
+@module
+def io_row(input, output, session):
+    # The module's own ID, without having to pass it in a second time
+    module_id = current_namespace()
+    is_special = module_id.endswith(("3", "5"))
+    label = "Enter something special" if is_special else "Enter text"
+
+    with ui.layout_columns():
+        with ui.card():
+            ui.input_text("text_in", label)
+        with ui.card():
+
+            @render.text
+            def text_out():
+                return f'{module_id} says: "{input.text_in()}"'
+
+
+extra_ids = ["row_3", "row_4", "row_5"]
+
+io_row("row_1")
+io_row("row_2")
+[io_row(x) for x in extra_ids]
+```
+:::
+
+### Core
+
+::: {.column-page}
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+## file: app.py
+from shiny import App, module, render, ui
+from shiny.module import current_namespace
+
+
+@module.ui
+def row_ui():
+    # The module's own ID, without having to pass it in a second time
+    module_id = current_namespace()
+    is_special = module_id.endswith(("3", "5"))
+    label = "Enter something special" if is_special else "Enter text"
+    return ui.layout_columns(
+        ui.card(ui.input_text("text_in", label)),
+        ui.card(ui.output_text("text_out")),
+    )
+
+
+@module.server
+def row_server(input, output, session):
+    module_id = current_namespace()
+
+    @render.text
+    def text_out():
+        return f'{module_id} says: "{input.text_in()}"'
+
+
+extra_ids = ["row_3", "row_4", "row_5"]
+
+app_ui = ui.page_fluid(
+    row_ui("row_1"),
+    row_ui("row_2"),
+    [row_ui(x) for x in extra_ids],
+)
+
+
+def server(input, output, session):
+    row_server("row_1")
+    row_server("row_2")
+    [row_server(x) for x in extra_ids]
+
+
+app = App(app_ui, server)
+```
+:::
+
+:::
+
 ## Conclusion
 
 Whenever you find that your Shiny code is repetitive, you should consider whether it's worth extracting some logic into a function or a module.

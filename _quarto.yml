@@ -346,6 +346,10 @@ website:
     # added entry below to prevent this.
     - id: deploy
 
+# Pin the Jupyter kernel project-wide. Without this, Quarto auto-discovers a
+# kernel and can pick one outside `.venv` on machines with several registered.
+jupyter: python3
+
 format:
   html:
     # it appears that these are applied to all rendered pages, and _metadata.yml
