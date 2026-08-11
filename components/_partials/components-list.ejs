@@ -46,7 +46,12 @@
 <div class="shinylive-wrapper" style="">
 <div class="shinylive-container viewer">
 <div class="shinylive-viewer">
-<iframe class="app-frame" src="<%= item.appPreview.file.replace(/^components\//, "static/").replace(/\.py$/, ".html") %>"></iframe>
+<iframe
+  class="app-frame component-preview-frame is-loading"
+  data-src="<%= item.appPreview.file.replace(/^components\//, "static/").replace(/\.py$/, ".html") %>"
+  loading="lazy"
+  title="<%= item.title %> component preview"
+></iframe>
 </div>
 </div>
 </div>
