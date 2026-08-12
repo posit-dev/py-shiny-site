@@ -46,7 +46,7 @@ listing:
 
 To make a reactive image, follow three steps:
 
-  1. Call [`ui.output_image()`](TODO ADD LINK) in the `app_ui` section of your app to create a div in which to display the image.
+  1. Call [`ui.output_image()`](/api/core/ui.output_image.qmd) in the `app_ui` section of your app to create a div in which to display the image.
 
       1. Set the id argument of `ui.output_image()` to a unique value.
       2. Optionally, set `ui.output_image(inline=True)` to place the image inline with the text or elements that precede it.
@@ -64,4 +64,4 @@ To make a reactive image, follow three steps:
 
   3. Decorate the function with `@render.image`. Use `@render.image(delete_file=True)` to delete the image from the server after it has been rendered.
 
-You can use an image as an input widget, collecting the locations of user clicks, double clicks, hovers, and brushes. To do this, follow the instructions provided for [plots as inputs](plot-matplotlib.html#plots-as-inputs).
+You can use an image as an input widget, collecting the locations of user clicks, double clicks, hovers, and brushes. To do this, follow the instructions provided for [plots as inputs](../plot-matplotlib/index.qmd#plots-as-inputs).

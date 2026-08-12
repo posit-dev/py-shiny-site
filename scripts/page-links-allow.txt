@@ -1,0 +1,16 @@
+# Known-broken internal links, suppressed so `make check-page-links` can gate
+# on regressions. Format: <kind><TAB><target>, one per line; a leading '#' is a
+# comment (a mid-line '#' is a URL fragment, not a comment).
+#
+# Kinds emitted by scripts/check-page-links.py:
+#   missing-target    the link resolves to no file or directory index
+#   missing-anchor    the page exists but has no element with that id/name
+#   unrewritten-qmd   a .qmd href survived rendering (reader gets served source)
+#
+# Every entry should reference the issue tracking its fix. Prefer fixing the
+# link over adding a line here.
+
+# #447 -- py-shiny's shiny/otel/__init__.py docstring links to
+# `../../examples/open-telemetry/`, a path relative to the py-shiny repo layout,
+# not the site. Must be fixed upstream; drop this entry after a submodule bump.
+missing-target	../../examples/open-telemetry/

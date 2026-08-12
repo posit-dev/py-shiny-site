@@ -19,7 +19,7 @@ In this article, we'll learn how to leverage ipywidgets in Shiny, including how 
 ::: callout-note
 ### Not all Jupyter Widgets are ipywidgets
 
-Although the term "Jupyter Widgets" is often used to refer to ipywidgets, it's important to note that not all Jupyter Widgets are ipywidgets. For example, packages like [folium](https://python-visualization.github.io/folium/latest/) and [ipyvizzu](https://ipyvizzu.vizzuhq.com/latest/) aren't compatible with ipywidgets, but do provide a [`_repr_html_` method](https://ipython.readthedocs.io/en/stable/config/integrating.html#rich-display) for getting the HTML representation. It may be possible to display these widgets using Shiny's [`@render.ui`](../api/render.ui.html) decorator.
+Although the term "Jupyter Widgets" is often used to refer to ipywidgets, it's important to note that not all Jupyter Widgets are ipywidgets. For example, packages like [folium](https://python-visualization.github.io/folium/latest/) and [ipyvizzu](https://ipyvizzu.vizzuhq.com/latest/) aren't compatible with ipywidgets, but do provide a [`_repr_html_` method](https://ipython.readthedocs.io/en/stable/config/integrating.html#rich-display) for getting the HTML representation. It may be possible to display these widgets using Shiny's [`@render.ui`](../api/core/render.ui.qmd) decorator.
 :::
 
 
@@ -558,7 +558,7 @@ If the extension is properly configured, and still isn't working, here are some 
 1. The widget requires initialization code to work in a notebook environment.
   * In this case, `shinywidgets` probably won't work without providing the equivalent setup information to Shiny. A known case of this is bokeh, shinywidgets' `@render_bokeh` decorator handles through inclusion of additional HTML [dependencies](https://github.com/posit-dev/py-shinywidgets/blob/9ea804c3/shinywidgets/_render_widget.py#L38-L42).
 2. Not all widgets are compatible with ipywidgets!
-  * Some web-based widgets in Python aren't compatible with the ipywidgets framework, but do provide a `repr_html` method for getting the HTML representation (e.g., [folium](https://python-visualization.github.io/folium/latest/)). It may be possible to display these widgets using Shiny's [`@render.ui`](../api/render.ui.html) decorator, but be aware that, you may not be able to do things mentioned in this article with these widgets.
+  * Some web-based widgets in Python aren't compatible with the ipywidgets framework, but do provide a `repr_html` method for getting the HTML representation (e.g., [folium](https://python-visualization.github.io/folium/latest/)). It may be possible to display these widgets using Shiny's [`@render.ui`](../api/core/render.ui.qmd) decorator, but be aware that, you may not be able to do things mentioned in this article with these widgets.
 3. The widget itself is broken.
   * If you think this is the case, try running the code in a notebook to see if it works there. If it doesn't work in a notebook, then it's likely a problem with the widget itself (and the issue should be reported to the widget's maintainers).
 4. The widget is otherwise misconfigured (or your offline).
