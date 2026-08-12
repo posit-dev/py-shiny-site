@@ -113,11 +113,8 @@ jobs:
     needs: [relevant-functions, shinylive-links, link-checker]
     runs-on: ubuntu-latest
     steps:
-      - name: Verify that every docs check succeeded
-        env:
-          RESULTS: ${{ toJSON(needs.*.result) }}
-        run: |
-          echo "Job results: $RESULTS"
-          if echo "$RESULTS" | grep -qE 'failure|cancelled|skipped'; then
-            exit 1
-          fi
+      # A local composite action cannot run without the repo checked out.
+      - uses: actions/checkout@v7
+      - uses: ./.github/internal/verify-job-results
+        with:
+          results: ${{ toJSON(needs.*.result) }}

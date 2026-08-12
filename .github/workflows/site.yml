@@ -88,22 +88,24 @@ jobs:
           path: .quarto/shinylive-cache
           key: shinylive-cache-${{ hashFiles('requirements.txt') }}-${{ github.run_id }}-${{ matrix.shard }}
 
-  # Merges the shard artifacts into a whole site, then publishes it to Netlify.
+  # Merges the shard artifacts into the whole site and republishes it as a single
+  # artifact.
   #
-  # `done-site` gates on this job, so every step here must be able to succeed on
-  # a pull request from a fork -- otherwise outside contributions could never
-  # merge. Fork PRs get neither the Netlify secrets nor a writable GITHUB_TOKEN,
-  # so the publishing steps below are skipped there (see PR #420, which failed
-  # with HTTP 403 before this guard existed). The merge itself needs no secrets
-  # and always runs, which is the part worth gating on.
+  # Split out of `deploy` so the merged site has one producer and two independent
+  # consumers (`deploy` and `page-links`). A broken link then fails on its own
+  # check rather than from inside the publish job, the two run in parallel, and
+  # `site-merged` is downloadable from the run -- which is the artifact you want
+  # when diagnosing a shard-merge problem without reproducing a full build
+  # locally. Cheap: the shard download measures ~11s and the merge ~4s.
+  #
+  # Needs no secrets, so it succeeds on fork pull requests. This is the part of
+  # the pipeline that `done-site` really gates.
   #
   # No `if: always()` here on purpose -- a failing shard *should* skip this
-  # rather than publish a broken site. `done-site` treats that skip as a failure.
-  deploy:
+  # rather than publish a partial site. `done-site` treats that skip as a failure.
+  combine:
     needs: build
     runs-on: ubuntu-latest
-    env:
-      IS_FORK: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/download-artifact@v8
@@ -112,6 +114,31 @@ jobs:
           path: _shards/
       - name: Merge shards
         run: python3 scripts/ci-merge.py --shards _shards --out _build
+      - uses: actions/upload-artifact@v7
+        with:
+          name: site-merged
+          path: _build/
+          include-hidden-files: true
+          retention-days: 1
+
+  # Publishes the merged site to Netlify. Nothing but publishing lives here.
+  #
+  # `done-site` gates on this job, so every step must be able to succeed on a
+  # pull request from a fork -- otherwise outside contributions could never
+  # merge. Fork PRs get neither the Netlify secrets nor a writable GITHUB_TOKEN,
+  # so the publishing steps below are skipped there (see PR #420, which failed
+  # with HTTP 403 before this guard existed).
+  deploy:
+    needs: combine
+    runs-on: ubuntu-latest
+    env:
+      IS_FORK: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          name: site-merged
+          path: _build/
 
       # =====================================================
       # Deploy docs to Netlify
@@ -174,23 +201,37 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           log_url: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
-      # Runs here, not in test-docs.yml, because the checker needs a *rendered*
-      # site and this is the only job that has one -- the merged `_build/` that
-      # was just published. Re-rendering it in another workflow would double the
-      # most expensive job in CI for a check that takes seconds.
-      #
-      # Deliberately the last step: a broken link should not cost the pull request
-      # its preview deploy, which is how you would go look at the link. It still
-      # fails this job, and `done-site` gates on that. Invoked directly rather
-      # than through `make check-page-links` for the same reason as ci-merge.py
-      # above -- both are stdlib-only and this job has no uv/venv setup. Keep the
-      # flags in sync with that target.
+  # Checks the rendered site for broken internal links.
+  #
+  # Lives in this workflow, not test-docs.yml, because the checker needs a
+  # *rendered* site and `combine` is what produces one. Re-rendering it in
+  # another workflow would double the most expensive job in CI for a check that
+  # takes seconds; reading `site-merged` across workflows would mean correlating
+  # runs through the API off `workflow_run`.
+  #
+  # A sibling of `deploy` rather than a step inside it, so a broken link does not
+  # cost the pull request its preview deploy -- which is how you would go look at
+  # the link.
+  #
+  # Runs the Makefile target so the flags have one definition; that target is
+  # dependency-free and stdlib-only for exactly this reason, so no uv/venv setup
+  # is needed here.
+  page-links:
+    needs: combine
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          name: site-merged
+          path: _build/
       - name: Check internal links
-        run: python3 scripts/check-page-links.py --dir _build --allow scripts/page-links-allow.txt
+        run: make check-page-links
 
   # The single stable check for branch protection / auto-merge -- the one job
-  # from this workflow to put in the required-checks list. The shard count can
-  # change without touching that list.
+  # from this workflow to put in the required-checks list. The shard count, and
+  # the jobs above, can change without touching that list: `needs.*` expands to
+  # every entry in this job's `needs:`, so the grep below needs no change either.
   #
   # `always()` is required: without it, a failing shard would make this job skip,
   # and GitHub reports a skipped job as "Success" even when it is a required
@@ -202,14 +243,11 @@ jobs:
   done-site:
     name: done-site
     if: always()
-    needs: [build, deploy]
+    needs: [build, combine, deploy, page-links]
     runs-on: ubuntu-latest
     steps:
-      - name: Verify that every shard built and the site deployed
-        env:
-          RESULTS: ${{ toJSON(needs.*.result) }}
-        run: |
-          echo "Job results: $RESULTS"
-          if echo "$RESULTS" | grep -qE 'failure|cancelled|skipped'; then
-            exit 1
-          fi
+      # A local composite action cannot run without the repo checked out.
+      - uses: actions/checkout@v7
+      - uses: ./.github/internal/verify-job-results
+        with:
+          results: ${{ toJSON(needs.*.result) }}

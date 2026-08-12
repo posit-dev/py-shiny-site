@@ -108,7 +108,7 @@ re-port or retire it).
 ## CI and deployment
 
 - Every push to a PR builds the site on GitHub Actions: six parallel shard
-  jobs render slices of the site, then a deploy job merges them and publishes
+  jobs render slices of the site, a combine job merges them, then a deploy job publishes
   a preview to Netlify (`pr-<N>--pyshiny.netlify.app`, ~12 minutes end to
   end). Superseded runs are cancelled automatically.
 - Commits to `main` deploy to production the same way.
@@ -127,9 +127,9 @@ re-port or retire it).
     `make components-shinylive-links` (optionally scoped with `FILES="..."`)
     and commit the updated `index.qmd`. Check: `done-test-docs`.
 - Broken internal links are checked in the site workflow rather than
-  `test-docs`, since the checker needs the rendered site the deploy job just
-  merged (`make check-page-links` locally).
-- Shared workflow setup lives in local composite actions under
+  `test-docs`, since the checker needs the rendered site that workflow's
+  `combine` job produces (`make check-page-links` locally).
+- Shared workflow logic lives in local composite actions under
   `.github/internal/` (`setup-uv`, `setup-py-shiny-site`,
   `setup-playwright-remote`).
 

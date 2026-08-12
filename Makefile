@@ -78,9 +78,15 @@ site-parallel: $(PYBIN) install-quarto
 	QUARTO_PATH="$(QUARTO_PATH)" SHARDS="$(SHARDS)" scripts/local-parallel-render.sh
 
 ## Check the rendered site in _build for broken internal links (run `make site-parallel` first)
+# Deliberately does NOT depend on $(PYBIN), and uses bare python3 rather than
+# $(UVRUN): the checker is stdlib-only, and site.yml's `page-links` job runs this
+# target in a job that has no uv/venv setup. Requiring the venv there would cost
+# a uv install to run a stdlib script -- or, worse, invite CI to invoke the script
+# directly and duplicate these flags. Keep it dependency-free so there is exactly
+# one definition of how the check is run. (Verified on Python 3.9.)
 .PHONY: check-page-links
-check-page-links: $(PYBIN)
-	$(UVRUN) python scripts/check-page-links.py --dir _build --allow scripts/page-links-allow.txt
+check-page-links:
+	python3 scripts/check-page-links.py --dir _build --allow scripts/page-links-allow.txt
 
 ## Unit-test the link checker itself (not collected by test-apps; testpaths=components)
 .PHONY: test-check-page-links

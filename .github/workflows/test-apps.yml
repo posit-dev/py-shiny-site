@@ -83,17 +83,13 @@ jobs:
   # every entry in this job's `needs:`, so the grep below needs no change either.
   done-test-apps:
     name: done-test-apps
-    # `always()` is required: without it, a failing shard would make this job
-    # skip, and GitHub treats a skipped required check as satisfied.
+    # `always()` is required -- see the action's description for why.
     if: always()
     needs: [apps, smoke]
     runs-on: ubuntu-latest
     steps:
-      - name: Verify that every apps and smoke shard succeeded
-        env:
-          RESULTS: ${{ toJSON(needs.*.result) }}
-        run: |
-          echo "Job results: $RESULTS"
-          if echo "$RESULTS" | grep -qE 'failure|cancelled|skipped'; then
-            exit 1
-          fi
+      # A local composite action cannot run without the repo checked out.
+      - uses: actions/checkout@v7
+      - uses: ./.github/internal/verify-job-results
+        with:
+          results: ${{ toJSON(needs.*.result) }}
