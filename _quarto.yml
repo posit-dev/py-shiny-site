@@ -191,7 +191,6 @@ website:
             - components/display-messages/chat/index.qmd
             - components/display-messages/modal/index.qmd
             - components/display-messages/notifications/index.qmd
-            - components/display-messages/offcanvas/index.qmd
             - components/display-messages/popovers/index.qmd
             - components/display-messages/progress-bar/index.qmd
             - components/display-messages/toasts/index.qmd
@@ -200,6 +199,7 @@ website:
           contents:
             - components/layout/accordion/index.qmd
             - components/layout/cards/index.qmd
+            - components/layout/offcanvas/index.qmd
             - components/layout/toolbar/index.qmd
 
     - id: layouts
