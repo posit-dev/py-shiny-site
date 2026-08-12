@@ -97,6 +97,9 @@ jobs:
       - name: Internal-link checker
         run: make test-site-links-checker
 
+      - name: Generated-api anchor fixup
+        run: make test-api-anchors
+
   done-test-docs:
     if: always()
     needs: [relevant-functions, shinylive-links, unit]
