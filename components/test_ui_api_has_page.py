@@ -93,17 +93,9 @@ _TODO_NEEDS_LAYOUT_PAGE = {
 # Express-only / low-level helpers with no standalone component page.
 _MISC = {"busy_indicators", "fill", "hold"}
 
-# TODO: genuine components that should get their own component page. Move each
-# to a real page (and drop it from here) as pages are written.
-#
-# Offcanvas is all that is left: the download-button and download-link pages
-# landed, so their four entries are gone. Offcanvas is tracked by
-# https://github.com/posit-dev/py-shiny-site/issues/422 -- once that page exists
-# this set becomes empty and should be deleted outright, along with its entry in
-# the KNOWN_MISSING_COMPONENTS union below.
-_TODO_NEEDS_COMPONENT_PAGE = {
-    "offcanvas", "show_offcanvas", "hide_offcanvas", "toggle_offcanvas",
-}
+# Genuine components that should get their own component page. Move each to a
+# real page (and drop it from here) as pages are written.
+_TODO_NEEDS_COMPONENT_PAGE: set[str] = set()
 
 KNOWN_MISSING_COMPONENTS: set[str] = (
     _HTMLTOOLS
