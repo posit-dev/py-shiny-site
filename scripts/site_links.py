@@ -12,7 +12,7 @@ paths and unresolved fragments.
 
 Usage::
 
-    scripts/check-page-links.py [--dir _build] [--allow FILE] [--anchors]
+    scripts/site_links.py [--dir _build] [--allow FILE] [--anchors]
 
 Exits 1 if anything is reported.
 

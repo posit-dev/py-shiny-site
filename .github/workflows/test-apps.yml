@@ -1,5 +1,8 @@
 name: test-apps
 
+# Everything that boots a Shiny app in a browser. One job per Make target.
+# Browserless checks over doc content live in test-docs.yml.
+
 on:
   push:
     branches: [main]
@@ -11,7 +14,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  apps:
+  components-examples:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
@@ -32,28 +35,46 @@ jobs:
       - name: Set up remote Playwright
         uses: ./.github/internal/setup-playwright-remote
 
-      # Per-component controller interaction tests + conftest unit tests --
-      # everything except the smoke sweep (which runs in test-smoke.yml). Uses
-      # the Makefile target (chromium + xdist from pytest.ini; install-playwright
-      # no-ops because the remote server env is set above).
-      - name: Run per-component app tests (shard ${{ matrix.shard }} of 6)
-        run: make test-apps PYTEST_ARGS="--num-shards 6 --shard-id ${{ matrix.shard }}"
+      - name: Run per-component interaction tests (shard ${{ matrix.shard }} of 6)
+        run: make test-components-examples PYTEST_ARGS="--num-shards 6 --shard-id ${{ matrix.shard }}"
 
-  # Single stable check for branch protection / auto-merge. The `apps` matrix
-  # above may be re-sharded freely without touching the required-checks list.
-  done-test-apps:
-    name: done-test-apps
-    # `always()` is required: without it, a failing shard would make this job
-    # skip, and GitHub treats a skipped required check as satisfied.
-    if: always()
-    needs: apps
+  # Near-identical to the job above apart from the Makefile target and timeout.
+  components-smoke:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      # One failing shard should not cancel the others -- we want the full
+      # picture of which example apps are broken.
+      fail-fast: false
+      matrix:
+        # NOTE: keep this list and `--num-shards` below in sync. N shards ->
+        # indices 0..N-1. ~308 example apps / 6 shards ~= 50 apps per job.
+        shard: [0, 1, 2, 3, 4, 5]
     steps:
-      - name: Verify that every apps shard succeeded
-        env:
-          RESULTS: ${{ toJSON(needs.*.result) }}
-        run: |
-          echo "Job results: $RESULTS"
-          if echo "$RESULTS" | grep -qE 'failure|cancelled|skipped'; then
-            exit 1
-          fi
+      - uses: actions/checkout@v7
+
+      - name: Set up py-shiny-site
+        uses: ./.github/internal/setup-py-shiny-site
+
+      # Installs requirements.txt + py-shiny's [dev,test,doc] extras (pytest,
+      # pytest-playwright, pytest-xdist, pytest-shard, playwright).
+      - name: Install dependencies
+        run: make deps
+
+      # Run the browser in a cached Docker container instead of installing it on
+      # the runner; pytest-playwright connects over PW_TEST_CONNECT_WS_ENDPOINT.
+      - name: Set up remote Playwright
+        uses: ./.github/internal/setup-playwright-remote
+
+      # Smoke-test this shard's slice of every components/**/app*.py via the
+      # Makefile target (chromium + xdist come from pytest.ini; install-playwright
+      # no-ops because the remote server env is set above).
+      - name: Smoke-test shard ${{ matrix.shard }} of 6
+        run: make test-components-smoke PYTEST_ARGS="--num-shards 6 --shard-id ${{ matrix.shard }}"
+
+  done-test-apps:
+    if: always()
+    needs: [components-examples, components-smoke]
+    uses: ./.github/workflows/_done.yml
+    with:
+      results: ${{ toJSON(needs.*.result) }}

@@ -1,8 +1,8 @@
-# Known-broken internal links, suppressed so `make check-page-links` can gate
+# Known-broken internal links, suppressed so `make test-site-links` can gate
 # on regressions. Format: <kind><TAB><target>, one per line; a leading '#' is a
 # comment (a mid-line '#' is a URL fragment, not a comment).
 #
-# Kinds emitted by scripts/check-page-links.py:
+# Kinds emitted by scripts/test_site_links.py:
 #   missing-target    the link resolves to no file or directory index
 #   missing-anchor    the page exists but has no element with that id/name
 #   unrewritten-qmd   a .qmd href survived rendering (reader gets served source)

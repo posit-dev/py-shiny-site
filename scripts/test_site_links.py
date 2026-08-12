@@ -1,26 +1,20 @@
-"""Unit tests for scripts/check-page-links.py.
+"""Unit tests for scripts/site_links.py, the internal-link checker.
 
-Not collected by `make test-apps` (pytest.ini scopes testpaths to components/).
-Run explicitly:
+Not collected by the test-components-* targets (pytest.ini scopes testpaths to
+components/). Run explicitly:
 
-    uv run pytest scripts/test_check_page_links.py
+    make test-site-links-checker
 """
 
 from __future__ import annotations
 
-import importlib.util
-import sys
 from pathlib import Path
 
 import pytest
 
-_SPEC = importlib.util.spec_from_file_location(
-    "check_page_links", Path(__file__).with_name("check-page-links.py")
-)
-assert _SPEC and _SPEC.loader
-check_page_links = importlib.util.module_from_spec(_SPEC)
-sys.modules["check_page_links"] = check_page_links
-_SPEC.loader.exec_module(check_page_links)
+# pytest's default "prepend" import mode puts scripts/ on sys.path (no
+# __init__.py here), so the checker imports as a plain module.
+import site_links
 
 
 @pytest.fixture
@@ -33,7 +27,7 @@ def site(tmp_path: Path) -> Path:
 
 
 def findings(root: Path, *, anchors: bool = True) -> set[tuple[str, str]]:
-    found, _pages = check_page_links.check(str(root), check_anchors=anchors)
+    found, _pages = site_links.check(str(root), check_anchors=anchors)
     return {(f.kind, f.target) for f in found}
 
 
@@ -116,8 +110,8 @@ def test_anchor_checking_is_off_by_default_in_main(site: Path) -> None:
     """quartodoc omits the ids its own interlinks target; gating on anchors
     would report ~1500 findings from generated api/** pages."""
     write_page(site, '<a href="../real/index.html#nope">x</a>')
-    assert check_page_links.main(["--dir", str(site)]) == 0
-    assert check_page_links.main(["--dir", str(site), "--anchors"]) == 1
+    assert site_links.main(["--dir", str(site)]) == 0
+    assert site_links.main(["--dir", str(site), "--anchors"]) == 1
 
 
 def test_name_attribute_counts_as_an_anchor(site: Path) -> None:
@@ -149,7 +143,7 @@ def test_allowlist_suppresses_by_kind_and_target(tmp_path: Path) -> None:
         # A mid-line '#' is a URL fragment, not a comment.
         "missing-anchor\t../real/index.html#nope\n"
     )
-    entries = check_page_links.load_allowlist(str(allow))
+    entries = site_links.load_allowlist(str(allow))
     assert entries == {
         "missing-target\t../gone.html",
         "missing-anchor\t../real/index.html#nope",
@@ -157,14 +151,14 @@ def test_allowlist_suppresses_by_kind_and_target(tmp_path: Path) -> None:
 
 
 def test_main_exits_2_when_the_render_dir_is_absent(tmp_path: Path) -> None:
-    assert check_page_links.main(["--dir", str(tmp_path / "nope")]) == 2
+    assert site_links.main(["--dir", str(tmp_path / "nope")]) == 2
 
 
 def test_main_exits_0_on_a_clean_site(site: Path) -> None:
     write_page(site, '<a href="../real/">x</a>')
-    assert check_page_links.main(["--dir", str(site)]) == 0
+    assert site_links.main(["--dir", str(site)]) == 0
 
 
 def test_main_exits_1_when_findings_remain(site: Path) -> None:
     write_page(site, '<a href="../gone.html">x</a>')
-    assert check_page_links.main(["--dir", str(site)]) == 1
+    assert site_links.main(["--dir", str(site)]) == 1

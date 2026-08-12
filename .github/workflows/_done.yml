@@ -1,0 +1,28 @@
+name: done
+
+on:
+  workflow_call:
+    inputs:
+      results:
+        description: >
+          JSON array of upstream job results. Pass the toJSON(needs.*.result)
+          expression from the calling job.
+        required: true
+        type: string
+
+# Nothing here touches the repo or the API.
+permissions: {}
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify every upstream job succeeded
+        env:
+          RESULTS: ${{ inputs.results }}
+        run: |
+          echo "Job results: $RESULTS"
+          if echo "$RESULTS" | grep -qE 'failure|cancelled|skipped'; then
+            exit 1
+          fi
+          echo "All upstream jobs succeeded."

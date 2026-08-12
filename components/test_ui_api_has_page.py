@@ -12,7 +12,7 @@ each ``components/**/index.qmd`` and ``layouts/**/index.qmd`` front matter (its
 ``title:`` entries name the documented functions, e.g.
 ``ui.input_action_button``); no dedicated registry is needed.
 
-This is a static filesystem check (no browser), so it runs under ``make test-apps``.
+This is a static filesystem check (no browser); run it with ``make test-components-exist``.
 It mirrors py-shiny's ``test_express_ui_is_complete`` (explicit opt-out set +
 staleness guard).
 """
