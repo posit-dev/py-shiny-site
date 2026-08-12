@@ -59,7 +59,7 @@ Given its longer history, Shiny Core is naturally more mature than Shiny Express
 We've carefully designed the Shiny Express syntax, and hope not to have to make breaking changes to it.
 However, we don't know what we don't know, and it's possible that user feedback or our own testing will someday require us to make significant changes.
 
-Similarly, we are constantly testing Shiny Express, but as of this writing, it has not has as much real-world use as Shiny Core.
+Similarly, we are constantly testing Shiny Express, but as of this writing, it has not had as much real-world use as Shiny Core.
 Therefore, with Shiny Core, you are less likely to encounter bugs.
 
 ## Familiarity to R users
