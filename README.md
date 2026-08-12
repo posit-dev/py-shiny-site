@@ -114,14 +114,21 @@ re-port or retire it).
 - Commits to `main` deploy to production the same way.
 - Escape hatch: run the workflow manually (`workflow_dispatch`) with
   `full_render = true` to build in a single unsharded job.
-- A separate **`test-shinylive-links`** workflow runs on every PR: it
-  regenerates the component Shinylive links and fails if the committed links
-  are out of date. So after editing any `app-*.py`, run
-  `make components-shinylive-links` (optionally scoped with `FILES="..."`) and
-  commit the updated `index.qmd`.
-- **`test-smoke`** (sharded, 6 jobs) and **`test-apps`** run the example-app
-  Playwright tests on every PR (`make test-smoke` / `make test-apps`). They use
-  a cached Docker Playwright browser, so no per-job browser download.
+- Two more workflows run on every PR, each covering one concern and reporting
+  one required check:
+  - **`test-apps`** — everything that boots an app in a browser: the
+    per-component interaction tests and the smoke sweep, both sharded 6 ways
+    (`make test-apps` / `make test-smoke`). They use a cached Docker Playwright
+    browser, so no per-job browser download. Check: `done-test-apps`.
+  - **`test-docs`** — browserless checks over doc content: the component
+    Shinylive links and `relevant-functions` fields are regenerated and the job
+    fails if the committed values are out of date, plus unit tests for the
+    internal-link checker. So after editing any `app-*.py`, run
+    `make components-shinylive-links` (optionally scoped with `FILES="..."`)
+    and commit the updated `index.qmd`. Check: `done-test-docs`.
+- Broken internal links are checked in the site workflow rather than
+  `test-docs`, since the checker needs the rendered site the deploy job just
+  merged (`make check-page-links` locally).
 - Shared workflow setup lives in local composite actions under
   `.github/internal/` (`setup-uv`, `setup-py-shiny-site`,
   `setup-playwright-remote`).

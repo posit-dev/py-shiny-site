@@ -1,0 +1,123 @@
+name: test-docs
+
+# Everything that validates generated or authored documentation content without
+# booting a browser. Anything that needs a real app in a browser belongs in
+# test-apps.yml; anything that needs a *rendered site* belongs in site.yml (see
+# the `Check internal links` step in its `deploy` job -- that is where the merged
+# `_build/` exists, so re-rendering it here would double the most expensive job
+# in CI).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: test-docs-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  relevant-functions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # Installs uv + Quarto (versions from the Makefile) + checks out the pinned
+      # py-shiny submodule so the generated API pages (the generator's input)
+      # match the site build.
+      - name: Set up py-shiny-site
+        uses: ./.github/internal/setup-py-shiny-site
+
+      # Regenerate href/signature in the component/layout index.qmd files. The
+      # target depends on quartodoc (which regenerates the api/** pages and needs
+      # the quarto binary set up above). QUARTO_PATH=quarto points the Makefile
+      # at that quarto; `install-quarto`'s CI branch just checks it is on PATH.
+      #
+      # RELEVANT_FUNCTIONS_STRICT=1 makes an unresolvable (rotted/renamed) title
+      # fail here rather than be silently left as-authored: unlike the build/setup
+      # chain, which falls forward, CI requires the fields to be correct.
+      - name: Regenerate relevant-functions fields
+        run: make components-relevant-functions QUARTO_PATH=quarto RELEVANT_FUNCTIONS_STRICT=1
+
+      # If regenerating changed any tracked file, the committed fields are stale.
+      - name: Verify relevant-functions are up to date
+        run: |
+          if ! git diff --quiet; then
+            echo "::error::relevant-functions href/signature are out of date. Run 'make components-relevant-functions' and commit the result."
+            echo "--- Offending diff ---"
+            git diff
+            exit 1
+          fi
+          echo "relevant-functions are up to date."
+
+  shinylive-links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # Installs uv (Python from the Makefile) and checks out the pinned py-shiny
+      # submodule. The link generator's `shinylive:` values must be encoded with
+      # the same shinylive version the site build uses (pinned via py-shiny's
+      # docs extras in the submodule), or this check produces false failures.
+      - name: Set up py-shiny-site
+        uses: ./.github/internal/setup-py-shiny-site
+
+      # Regenerate the shinylive links embedded in the component index.qmd
+      # files. The Makefile self-manages its uv venv.
+      - name: Regenerate shinylive links
+        run: make components-shinylive-links
+
+      # If regenerating changed any tracked file, the committed links are stale.
+      - name: Verify shinylive links are up to date
+        run: |
+          if ! git diff --quiet; then
+            echo "::error::Shinylive links are out of date. Run 'make components-shinylive-links' and commit the result."
+            echo "--- Offending diff ---"
+            git diff
+            exit 1
+          fi
+          echo "Shinylive links are up to date."
+
+  # Unit tests for the internal-link checker that site.yml runs against the
+  # merged `_build/`. pytest.ini scopes `testpaths` to `components/`, so these
+  # are not collected by `make test-apps` and would otherwise never run in CI --
+  # leaving the thing that gates every page link unguarded itself. No quartodoc,
+  # no browser, no render: the tests themselves take under a second.
+  link-checker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up py-shiny-site
+        uses: ./.github/internal/setup-py-shiny-site
+
+      # The target runs pytest with `-n0`, which needs pytest + pytest-xdist --
+      # both come from py-shiny's dev extras, so the full `deps` install applies.
+      - name: Install dependencies
+        run: make deps
+
+      - name: Unit-test the internal-link checker
+        run: make test-check-page-links
+
+  # Single stable check for branch protection / auto-merge -- the one job from
+  # this workflow to put in the required-checks list. Jobs above can be added,
+  # renamed, or re-sharded without touching that list: `needs.*` expands to every
+  # entry in this job's `needs:`, so the grep below needs no change either.
+  #
+  # `always()` is required: without it, a failing job above would make this one
+  # skip, and GitHub treats a skipped required check as satisfied.
+  done-test-docs:
+    name: done-test-docs
+    if: always()
+    needs: [relevant-functions, shinylive-links, link-checker]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify that every docs check succeeded
+        env:
+          RESULTS: ${{ toJSON(needs.*.result) }}
+        run: |
+          echo "Job results: $RESULTS"
+          if echo "$RESULTS" | grep -qE 'failure|cancelled|skipped'; then
+            exit 1
+          fi

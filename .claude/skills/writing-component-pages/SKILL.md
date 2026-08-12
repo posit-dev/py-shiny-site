@@ -157,7 +157,7 @@ See also: [Action Button](../action-button/index.qmd)
   `https://shiny.posit.co/py/api/core/<page-stem>.html#shiny.<qualified-name>`
   (`components/_relevant_functions.py:23` holds the base URL; `_href()` at `:97-98` builds
   it); for a method, `<page-stem>` is the class's page and the anchor is
-  `shiny.<Class>.<method>`. The `test-relevant-functions` CI check regenerates these on
+  `shiny.<Class>.<method>`. The `test-docs` workflow's `relevant-functions` job regenerates these on
   every PR and **fails when the committed values differ**, so never hand-edit them.
 - Third-party functions (e.g. Great Tables) have no `api/**` page, so the generator can't
   resolve them: link the package's own documentation and register the title in the matching
@@ -188,7 +188,7 @@ It encodes each app's source into the `shinylive:` value in place. You only need
 **Always re-run `make components-shinylive-links` after editing, adding, or removing
 any `app-*.py` file (or its `resources:`).** The `shinylive:` values are an encoding of
 the app source, so any change to the source makes the committed link stale. This is not
-optional: the `test-shinylive-links` GitHub Actions workflow regenerates the links on
+optional: the `test-docs` workflow's `shinylive-links` job regenerates the links on
 every PR and **fails the build if the committed links differ**. Regenerate and commit the
 updated `index.qmd` files as part of the same change — do not leave it for later.
 

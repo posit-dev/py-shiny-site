@@ -262,15 +262,28 @@ All code examples use Shinylive to run Python in the browser via WebAssembly. Th
 - **`deploy` must stay fork-safe:** `done-site` gates on `deploy`, so any step in `deploy` that a fork PR cannot pass would make outside contributions permanently unmergeable. Fork PRs get neither the Netlify secrets nor a writable `GITHUB_TOKEN`, so the publishing steps are guarded with `env.IS_FORK != 'true'`; PR #420 failed with HTTP 403 before that guard existed. The `ci-merge.py` step needs no secrets and always runs. The cosmetic "view deployment" button is additionally `continue-on-error: true` — both historical `deploy` failures (#417, #420) were in that step, and a flaky button must not block merges.
 - **Escape hatch:** run the workflow manually (`workflow_dispatch`) with `full_render = true` for a single unsharded build job.
 - **CI caches:** `.quarto/shinylive-cache/` persists across runs via `actions/cache` (content-addressed keys; safe to restore stale). Two more caches exist to keep CI off github.com's release-asset throttle (see below): the Quarto install (`~/.local/share/quarto-<version>`, keyed on the Makefile's `QUARTO_VERSION`) and the shinylive web-assets bundle (`~/.cache/shinylive`, keyed on `requirements.txt`). Each lives in its own composite action (`.github/internal/setup-quarto`, `.github/internal/setup-shinylive-assets`) that restores, downloads on a miss, and saves. Both use split `actions/cache/restore` + `actions/cache/save` steps that save immediately after the download is verified, *not* at end of job — both are pinned upstream artifacts, so a failed render says nothing about their validity and must not cost the next run the download.
-- **Release-asset downloads must be cached + retried:** github.com returns HTTP 503s and drops connections for unauthenticated release-asset downloads when many jobs ask at once — and one push here starts 10 site shards plus four other workflows. `.github/internal/setup-quarto` therefore installs Quarto itself (cache + `curl --retry-all-errors`) rather than using `quarto-dev/quarto-actions/setup`, whose bare `wget` exits immediately on a 503. The Makefile's `shinylive-assets` target retries with backoff for the same reason (shinylive downloads via urllib, which does not retry). Anything new that pulls a GitHub release asset in CI needs the same treatment.
+- **Release-asset downloads must be cached + retried:** github.com returns HTTP 503s and drops connections for unauthenticated release-asset downloads when many jobs ask at once — and one push here starts 10 site shards plus ~15 more jobs across `test-apps` and `test-docs`. `.github/internal/setup-quarto` therefore installs Quarto itself (cache + `curl --retry-all-errors`) rather than using `quarto-dev/quarto-actions/setup`, whose bare `wget` exits immediately on a 503. The Makefile's `shinylive-assets` target retries with backoff for the same reason (shinylive downloads via urllib, which does not retry). Anything new that pulls a GitHub release asset in CI needs the same treatment.
 - **Platform:** Hosted on Netlify
 - **Output directory:** `_build/` (configured in _quarto.yml)
 
 ### Other CI checks
 
-- **`test-shinylive-links`** (`.github/workflows/test-shinylive-links.yml`) — on every PR, regenerates the component Shinylive links (`make components-shinylive-links`) and **fails if the committed links differ**. This catches an edited `app-*.py` whose `shinylive:` link in `index.qmd` wasn't regenerated. It installs the py-shiny submodule + full `deps` so the shinylive version matches the site build, and reads `PYTHON_VERSION` from the Makefile. Fix a failure by running `make components-shinylive-links` and committing the updated `index.qmd` files.
+Each workflow file covers one concern and exposes exactly **one** required check — a `done-*` aggregator. Add, rename, or re-shard jobs inside a file freely; only adding or removing a *workflow file* touches branch protection. The three required checks are `done-site`, `done-test-apps`, and `done-test-docs`.
 
-- **`test-relevant-functions`** (`.github/workflows/test-relevant-functions.yml`) — on every PR, regenerates the `relevant-functions` front-matter fields (`make components-relevant-functions`) and **fails if the committed `index.qmd` files differ**. This catches a `title`/`href`/`signature` in a component or layout page's `relevant-functions` block that drifted from the live `shiny.ui` / `shiny.express.ui` API (e.g. after a py-shiny submodule bump). It sets up the submodule + `deps` and runs `quartodoc` first (the generator reads the generated `api/**` pages). Fix a failure by running `make components-relevant-functions` and committing the updated `index.qmd` files.
+Every `done-*` aggregator needs `if: always()` and a `toJSON(needs.*.result)` grep for `failure|cancelled|skipped`. The `always()` is load-bearing (see the merge-gating note above); `needs.*` expands to whatever is in that job's `needs:`, so the grep never has to change.
+
+- **`test-apps`** (`.github/workflows/test-apps.yml`) — everything that boots an app in a browser, both jobs sharded 6 ways over a remote Playwright container (`.github/internal/setup-playwright-remote`):
+  - `apps` — per-component controller interaction tests + `conftest` unit tests (`make test-apps`), 15 min timeout.
+  - `smoke` — sweep over every `components/**/app*.py` (`make test-smoke`), 20 min timeout.
+  - Aggregator: `done-test-apps`.
+
+- **`test-docs`** (`.github/workflows/test-docs.yml`) — everything that validates generated or authored doc content, no browser:
+  - `relevant-functions` — regenerates the `relevant-functions` front-matter fields (`make components-relevant-functions`, with `RELEVANT_FUNCTIONS_STRICT=1`) and **fails if the committed `index.qmd` files differ**. Catches a `title`/`href`/`signature` that drifted from the live `shiny.ui` / `shiny.express.ui` API (e.g. after a submodule bump). Runs `quartodoc` first, since the generator reads the generated `api/**` pages. Fix by running `make components-relevant-functions` and committing.
+  - `shinylive-links` — regenerates the component Shinylive links (`make components-shinylive-links`) and **fails if the committed links differ**. Catches an edited `app-*.py` whose `shinylive:` link in `index.qmd` wasn't regenerated. Needs the pinned submodule so the shinylive version matches the site build. Fix by running `make components-shinylive-links` and committing.
+  - `link-checker` — unit tests for the internal-link checker (`make test-check-page-links`). These live in `scripts/`, which `pytest.ini`'s `testpaths` excludes, so without this job they would never run in CI.
+  - Aggregator: `done-test-docs`.
+
+- **Internal link checking runs in `site.yml`, not `test-docs`.** `scripts/check-page-links.py` needs a *rendered* site, and the only job in CI that has one is `deploy`, which just merged the shard artifacts into `_build/`. It is the last step of that job on purpose: a broken link should not cost the PR the preview deploy you would use to look at the link. It still fails `deploy`, and `done-site` gates on that. Fix a failure by correcting the link, or — only if the target must be fixed upstream — adding an entry to `scripts/page-links-allow.txt`.
 
 ## Working with Components
 
@@ -293,10 +306,10 @@ make components-static-previews
 
 **Always regenerate the Shinylive links after editing any `app-*.py` file** and
 commit the updated `index.qmd`. The `shinylive:` values encode the app source, so
-a stale link ships the wrong code — and the `test-shinylive-links` CI workflow
+a stale link ships the wrong code — and `test-docs`' `shinylive-links` job
 fails the PR when committed links are out of date.
 
-**Regenerate the `relevant-functions` fields** with `make components-relevant-functions` whenever you add a new component/layout page (or edit its `relevant-functions` block), bump the py-shiny submodule, or otherwise change the documented API — the `title`/`href`/`signature` values are generated from the `api/**` reference pages, and the `test-relevant-functions` CI workflow fails the PR when committed values are stale.
+**Regenerate the `relevant-functions` fields** with `make components-relevant-functions` whenever you add a new component/layout page (or edit its `relevant-functions` block), bump the py-shiny submodule, or otherwise change the documented API — the `title`/`href`/`signature` values are generated from the `api/**` reference pages, and `test-docs`' `relevant-functions` job fails the PR when committed values are stale.
 
 ## Working with API Documentation
 
@@ -326,11 +339,13 @@ The custom renderer automatically extracts examples from `py-shiny/shiny/example
 
 This exists because Quarto only validates `.qmd` links. A link with no extension (e.g. `templates/dashboard/` instead of `/templates/dashboard/`) is passed through verbatim and silently 404s — see #59's follow-up. Known-broken links are suppressed via `scripts/page-links-allow.txt` (`<kind><TAB><target>`); prefer fixing the link over adding an entry.
 
+In CI this runs as the last step of `site.yml`'s `deploy` job, against the merged `_build/` that was just published — not in `test-docs`, which has no rendered site. See "Other CI checks".
+
 **Anchor checking is off by default and not gateable yet.** quartodoc emits interlinks like `api/core/App.html#shiny.App` but never writes a matching `id` attribute on the target page, so `--anchors` reports ~1,500 findings, ~1,460 of them from generated `api/**` output. The ~33 findings originating outside `api/**` are mostly real stale heading anchors — tracked in #448.
 
 **Run it after `make site-parallel`, not `make serve`.** A partial or seeded `_build/` produces large numbers of false positives: `site_libs/` asset hashes drift (excluded for this reason), and unmerged shard output leaves `.qmd` hrefs that `scripts/ci-merge.py` would have rewritten (it resolved 4,851 of them in one measured run).
 
-Unit tests for the checker live in `scripts/test_check_page_links.py` and are **not** collected by `make test-apps` (pytest.ini scopes `testpaths` to `components/`). Run them with `make test-check-page-links`.
+Unit tests for the checker live in `scripts/test_check_page_links.py` and are **not** collected by `make test-apps` (pytest.ini scopes `testpaths` to `components/`). Run them with `make test-check-page-links`; `test-docs`' `link-checker` job runs the same target in CI.
 
 **`make compare-versions`** — viewport comparison between production and a local build using Playwright + Claude vision via AWS Bedrock. Run it before merging any change that could affect rendered output site-wide: Quarto version upgrades, Shinylive version upgrades, `_quarto.yml` structural changes, `_renderer.py` changes, or other dependency upgrades. Writes a timestamped markdown report to `tests/`; start with the executive summary.
 

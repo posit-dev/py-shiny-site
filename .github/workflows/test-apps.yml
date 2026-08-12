@@ -1,5 +1,9 @@
 name: test-apps
 
+# Everything that boots a Shiny app in a browser: the per-component controller
+# interaction tests (`apps`) and the smoke sweep over every components/**/app*.py
+# (`smoke`). Browserless checks over doc content live in test-docs.yml.
+
 on:
   push:
     branches: [main]
@@ -33,23 +37,59 @@ jobs:
         uses: ./.github/internal/setup-playwright-remote
 
       # Per-component controller interaction tests + conftest unit tests --
-      # everything except the smoke sweep (which runs in test-smoke.yml). Uses
-      # the Makefile target (chromium + xdist from pytest.ini; install-playwright
+      # everything except the smoke sweep (the `smoke` job below). Uses the
+      # Makefile target (chromium + xdist from pytest.ini; install-playwright
       # no-ops because the remote server env is set above).
       - name: Run per-component app tests (shard ${{ matrix.shard }} of 6)
         run: make test-apps PYTEST_ARGS="--num-shards 6 --shard-id ${{ matrix.shard }}"
 
-  # Single stable check for branch protection / auto-merge. The `apps` matrix
-  # above may be re-sharded freely without touching the required-checks list.
+  # Near-identical to `apps` apart from the Makefile target and the timeout.
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      # One failing shard should not cancel the others -- we want the full
+      # picture of which example apps are broken.
+      fail-fast: false
+      matrix:
+        # NOTE: keep this list and `--num-shards` below in sync. N shards ->
+        # indices 0..N-1. ~308 example apps / 6 shards ~= 50 apps per job.
+        shard: [0, 1, 2, 3, 4, 5]
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up py-shiny-site
+        uses: ./.github/internal/setup-py-shiny-site
+
+      # Installs requirements.txt + py-shiny's [dev,test,doc] extras (pytest,
+      # pytest-playwright, pytest-xdist, pytest-shard, playwright).
+      - name: Install dependencies
+        run: make deps
+
+      # Run the browser in a cached Docker container instead of installing it on
+      # the runner; pytest-playwright connects over PW_TEST_CONNECT_WS_ENDPOINT.
+      - name: Set up remote Playwright
+        uses: ./.github/internal/setup-playwright-remote
+
+      # Smoke-test this shard's slice of every components/**/app*.py via the
+      # Makefile target (chromium + xdist come from pytest.ini; install-playwright
+      # no-ops because the remote server env is set above).
+      - name: Smoke-test shard ${{ matrix.shard }} of 6
+        run: make test-smoke PYTEST_ARGS="--num-shards 6 --shard-id ${{ matrix.shard }}"
+
+  # Single stable check for branch protection / auto-merge -- the one job from
+  # this workflow to put in the required-checks list. The matrices above may be
+  # re-sharded, and jobs added, without touching that list: `needs.*` expands to
+  # every entry in this job's `needs:`, so the grep below needs no change either.
   done-test-apps:
     name: done-test-apps
     # `always()` is required: without it, a failing shard would make this job
     # skip, and GitHub treats a skipped required check as satisfied.
     if: always()
-    needs: apps
+    needs: [apps, smoke]
     runs-on: ubuntu-latest
     steps:
-      - name: Verify that every apps shard succeeded
+      - name: Verify that every apps and smoke shard succeeded
         env:
           RESULTS: ${{ toJSON(needs.*.result) }}
         run: |
