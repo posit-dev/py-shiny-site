@@ -21,6 +21,7 @@ app_ui = ui.page_fluid(
         ui.p("This panel slides in from the bottom."),
         title="Bottom",
         placement="bottom",
+        height=200,
         trigger=ui.input_action_button("open_bottom", "From the bottom"),
         id="bottom_panel",
     ),
