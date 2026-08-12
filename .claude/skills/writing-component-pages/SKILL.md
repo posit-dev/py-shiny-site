@@ -290,7 +290,7 @@ def test_core_interaction(page: Page, core_app: ShinyAppProc) -> None:
 Smoke coverage (app starts with no server/JS/output errors) is already automatic for every
 discovered `app.py`/`app-*.py` via `components/test_examples_smoke.py`, so your
 `test_<name>.py` only needs the interaction assertions. Run it with
-`uv run pytest components/<section>/<name>/test_<name>.py` (or `make test-apps-intent`).
+`uv run pytest components/<section>/<name>/test_<name>.py` (or `make test-components-examples`).
 
 ### Core and Express APIs can differ — verify the signature you actually call
 

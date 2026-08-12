@@ -67,13 +67,19 @@ Every example app under `components/` is exercised by Playwright tests
 (reusing py-shiny's public testing API — no custom runner):
 
 ```bash
-make test-apps-smoke   # smoke sweep over every app-*.py
-make test-apps-intent  # per-component interaction/unit tests
-make test-scripts      # unit tests for the helper scripts in scripts/ (no browser)
+make test-components-smoke     # does every app-*.py boot?
+make test-components-examples  # do the per-component example apps behave?
+
+# non-browser checks, one target per test file
+make test-components-pages              # every page ships a runnable app
+make test-components-exist              # every public ui export has a doc page
+make test-components-relevant-functions # relevant-functions generator helpers
+make test-components-conftest           # conftest.py helpers
+make test-site-links-checker            # the internal-link checker
 ```
 
 `pytest.ini` defaults to the chromium browser and xdist (`-n auto`); narrow a
-run with `PYTEST_ARGS`, e.g. `make test-apps-smoke PYTEST_ARGS='-k "layout/accordion"'`.
+run with `PYTEST_ARGS`, e.g. `make test-components-smoke PYTEST_ARGS='-k "layout/accordion"'`.
 See the `testing-example-apps` skill for how to add tests for a component.
 
 ## Pulling changes
@@ -118,7 +124,7 @@ re-port or retire it).
   one required check:
   - **`test-apps`** — everything that boots an app in a browser: the
     per-component interaction tests and the smoke sweep, both sharded 6 ways
-    (`make test-apps-intent` / `make test-apps-smoke`). They use a cached Docker Playwright
+    (`make test-components-examples` / `make test-components-smoke`). They use a cached Docker Playwright
     browser, so no per-job browser download. Check: `done-test-apps / verify`.
   - **`test-docs`** — browserless checks over doc content: the component
     Shinylive links and `relevant-functions` fields are regenerated and the job

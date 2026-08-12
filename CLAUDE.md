@@ -277,14 +277,14 @@ Every `done-*` aggregator is four lines — `if: always()`, its `needs:`, and a 
 Also beware: GitHub evaluates `${{ }}` expressions inside an action manifest's `description:` fields. Writing the input's expected value as a literal `${{ toJSON(needs.*.result) }}` there makes the manifest fail to load with `Unrecognized named-value: 'needs'`. `_done.yml` refers to the expression in prose for this reason.
 
 - **`test-apps`** (`.github/workflows/test-apps.yml`) — everything that boots an app in a browser, both jobs sharded 6 ways over a remote Playwright container (`.github/internal/setup-playwright-remote`):
-  - `apps` — per-component controller interaction tests + `conftest` unit tests (`make test-apps-intent`), 15 min timeout.
-  - `smoke` — sweep over every `components/**/app*.py` (`make test-apps-smoke`), 20 min timeout.
+  - `components-examples` — the per-component interaction tests (`make test-components-examples`), 15 min timeout.
+  - `components-smoke` — sweep over every `components/**/app*.py` (`make test-components-smoke`), 20 min timeout.
   - Aggregator: `done-test-apps`.
 
 - **`test-docs`** (`.github/workflows/test-docs.yml`) — everything that validates generated or authored doc content, no browser:
   - `relevant-functions` — regenerates the `relevant-functions` front-matter fields (`make docs-update-relevant-functions`, with `RELEVANT_FUNCTIONS_STRICT=1`) and **fails if the committed `index.qmd` files differ**. Catches a `title`/`href`/`signature` that drifted from the live `shiny.ui` / `shiny.express.ui` API (e.g. after a submodule bump). Runs `quartodoc` first, since the generator reads the generated `api/**` pages. Fix by running `make docs-update-relevant-functions` and committing.
   - `shinylive-links` — regenerates the component Shinylive links (`make docs-update-shinylive-links`) and **fails if the committed links differ**. Catches an edited `app-*.py` whose `shinylive:` link in `index.qmd` wasn't regenerated. Needs the pinned submodule so the shinylive version matches the site build. Fix by running `make docs-update-shinylive-links` and committing.
-  - `script-tests` — unit tests for the helper scripts in `scripts/` (`make test-scripts`), currently the internal-link checker. `pytest.ini` scopes `testpaths` to `components/`, so without this job they would never run in CI.
+  - `unit` — the non-browser test files, one step per Make target: `test-components-pages`, `test-components-exist`, `test-components-relevant-functions`, `test-components-conftest`, `test-site-links-checker`. Kept in one job because `components/conftest.py` imports playwright and `shiny.pytest` at module scope, so all of them need the same `make deps`, and together they run in under a second. They need no browser.
   - Aggregator: `done-test-docs`.
 
 - **Internal link checking is `site.yml`'s `page-links` job, not a `test-docs` job.** `scripts/test_site_links.py` needs a *rendered* site, and `combine` is what produces one. It is a sibling of `deploy` rather than a step inside it, so a broken link does not cost the PR the preview deploy you would use to look at the link; `done-site` gates both. Fix a failure by correcting the link, or — only if the target must be fixed upstream — adding an entry to `scripts/site-links-allow.txt`.
@@ -349,7 +349,7 @@ In CI this is `site.yml`'s `page-links` job, running against the `site-merged` a
 
 **Run it after `make site-parallel`, not `make serve`.** A partial or seeded `_build/` produces large numbers of false positives: `site_libs/` asset hashes drift (excluded for this reason), and unmerged shard output leaves `.qmd` hrefs that `scripts/ci-merge.py` would have rewritten (it resolved 4,851 of them in one measured run).
 
-Unit tests for the checker live in `scripts/test_check_site_links.py` and are **not** collected by the `test-apps-*` targets (pytest.ini scopes `testpaths` to `components/`). Run them with `make test-scripts`, which covers everything under `scripts/`; `test-docs`' `script-tests` job runs the same target in CI.
+Unit tests for the checker live in `scripts/test_site_links.py` and are **not** collected by the `test-components-*` targets (pytest.ini scopes `testpaths` to `components/`). Run them with `make test-site-links-checker`; `test-docs`' `unit` job runs the same target in CI.
 
 **`make compare-versions`** — viewport comparison between production and a local build using Playwright + Claude vision via AWS Bedrock. Run it before merging any change that could affect rendered output site-wide: Quarto version upgrades, Shinylive version upgrades, `_quarto.yml` structural changes, `_renderer.py` changes, or other dependency upgrades. Writes a timestamped markdown report to `tests/`; start with the executive summary.
 

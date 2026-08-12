@@ -86,14 +86,14 @@ site-parallel: $(PYBIN) install-quarto
 ## Check the rendered site in _build for broken internal links (run `make site-parallel` first)
 .PHONY: test-site-links
 test-site-links:
-	python3 scripts/test_site_links.py --dir _build --allow scripts/site-links-allow.txt
+	python3 scripts/site_links.py --dir _build --allow scripts/site-links-allow.txt
 
-# pytest.ini scopes testpaths to components/, so these are not collected by
-# the test-apps-* targets.
-## Unit-test the helper scripts in scripts/
-.PHONY: test-scripts
-test-scripts: $(PYBIN)
-	$(UVRUN) pytest scripts/ -n0
+# Tests scripts/site_links.py itself. pytest.ini scopes testpaths to components/,
+# so this file is never collected by the test-components-* targets.
+## Unit-test the internal-link checker
+.PHONY: test-site-links-checker
+test-site-links-checker: $(PYBIN)
+	$(UVRUN) pytest scripts/test_site_links.py -n0
 
 ## Serve existing _build without full re-render (fast preview; run `make site` or `make site-parallel` first)
 .PHONY: serve-fast
@@ -251,15 +251,44 @@ install-playwright: $(PYBIN) deps
 		$(UVRUN) playwright install chromium; \
 	fi
 
-## Smoke-test every components/**/app*.py
-.PHONY: test-apps-smoke
-test-apps-smoke: $(PYBIN) deps install-playwright
+# ---- browser tests: one target per test file, `install-playwright` required ----
+
+## Smoke-test every components/**/app*.py (does every example app boot?)
+.PHONY: test-components-smoke
+test-components-smoke: $(PYBIN) deps install-playwright
 	$(UVRUN) pytest components/test_examples_smoke.py $(PYTEST_ARGS)
 
-## Run per-component app tests
-.PHONY: test-apps-intent
-test-apps-intent: $(PYBIN) deps install-playwright
-	$(UVRUN) pytest --ignore=components/test_examples_smoke.py $(PYTEST_ARGS)
+## Run the per-component interaction tests (does each example app behave?)
+.PHONY: test-components-examples
+test-components-examples: $(PYBIN) deps install-playwright
+	$(UVRUN) pytest components/*/*/test_*.py $(PYTEST_ARGS)
+
+# ---- non-browser tests -------------------------------------------------------
+#
+# These still need `deps`: components/conftest.py imports playwright and
+# shiny.pytest at module scope, so collecting anything under components/ requires
+# the full install. They do not need the browser binary, hence no
+# `install-playwright` -- the `page` fixture is never requested.
+
+## Check every component page ships a runnable example app
+.PHONY: test-components-pages
+test-components-pages: $(PYBIN) deps
+	$(UVRUN) pytest components/test_component_pages.py $(PYTEST_ARGS)
+
+## Check every public shiny.ui / shiny.express.ui export has a doc page
+.PHONY: test-components-exist
+test-components-exist: $(PYBIN) deps
+	$(UVRUN) pytest components/test_ui_api_has_page.py $(PYTEST_ARGS)
+
+## Unit-test the relevant-functions generator helpers
+.PHONY: test-components-relevant-functions
+test-components-relevant-functions: $(PYBIN) deps
+	$(UVRUN) pytest components/test_relevant_functions.py $(PYTEST_ARGS)
+
+## Unit-test the components/conftest.py helpers
+.PHONY: test-components-conftest
+test-components-conftest: $(PYBIN) deps
+	$(UVRUN) pytest components/test_conftest.py $(PYTEST_ARGS)
 
 ## Remove Quarto website build files
 .PHONY: clean

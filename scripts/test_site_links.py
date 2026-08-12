@@ -1,209 +1,164 @@
-#!/usr/bin/env python3
-"""Check a rendered site for broken internal links.
+"""Unit tests for scripts/site_links.py, the internal-link checker.
 
-Scans every ``*.html`` under the render directory (default ``_build``) and
-reports ``href``/``src`` targets that do not resolve on disk, plus any ``.qmd``
-href that survived rendering.
+Not collected by the test-components-* targets (pytest.ini scopes testpaths to
+components/). Run explicitly:
 
-Quarto validates ``.qmd`` links, but only those: a link with no extension (e.g.
-``templates/dashboard/``) is passed through verbatim, so a missing leading slash
-silently 404s. This catches that class, along with stale hand-written ``.html``
-paths and unresolved fragments.
-
-Usage::
-
-    scripts/test_site_links.py [--dir _build] [--allow FILE] [--anchors]
-
-Exits 1 if anything is reported.
-
-``--anchors`` is opt-in. quartodoc emits interlinks like
-``api/core/App.html#shiny.App`` but no matching ``id`` attribute on the target
-page, so enabling it reports ~1500 findings from generated ``api/**`` output.
+    make test-site-links-checker
 """
 
 from __future__ import annotations
 
-import argparse
-import os
-import re
-import sys
-from collections import defaultdict
-from dataclasses import dataclass
-from urllib.parse import unquote, urlsplit
+from pathlib import Path
 
-# Attribute values we resolve. Deliberately not `srcset` (comma/width syntax).
-ATTR_RE = re.compile(r'(?:href|src)="([^"]*)"')
+import pytest
 
-# Regions whose contents are illustrative or client-side, not site links:
-# code samples name things like `my-styles.css`, and JS/EJS templates carry
-# placeholders (`${href}`, `<%= app.shinylive %>`) that are not URLs at all.
-INERT_RE = re.compile(r"<pre\b.*?</pre>|<code\b.*?</code>|<script\b.*?</script>", re.S)
-
-# Anything not resolved against the filesystem.
-EXTERNAL_RE = re.compile(r"^(?:[a-z][a-z0-9+.-]*:|//)", re.I)
-TEMPLATE_RE = re.compile(r"[<$]%?[={]|\{\{")
-
-# Content-hashed asset paths differ between shard outputs; the merge step owns
-# reconciling them, and a stale local render trips over them constantly.
-SKIP_PATH_RE = re.compile(r"(^|/)site_libs/")
-
-ANCHOR_ID_RE = re.compile(r'\bid="([^"]+)"')
-ANCHOR_NAME_RE = re.compile(r'\bname="([^"]+)"')
+# pytest's default "prepend" import mode puts scripts/ on sys.path (no
+# __init__.py here), so the checker imports as a plain module.
+import site_links
 
 
-@dataclass(frozen=True)
-class Finding:
-    kind: str
-    target: str
-    source: str
-
-    def __str__(self) -> str:
-        return f"{self.kind:<14} {self.target}\n{'':<14} in {self.source}"
-
-
-def load_allowlist(path: str | None) -> set[str]:
-    """Read newline-separated ``kind<TAB>target`` entries.
-
-    Only a leading ``#`` starts a comment -- entries routinely end in a URL
-    fragment (``page.html#anchor``), so mid-line ``#`` is data, not a comment.
-    """
-    if not path:
-        return set()
-    allowed = set()
-    with open(path, encoding="utf-8") as fh:
-        for line in fh:
-            line = line.strip()
-            if line and not line.startswith("#"):
-                allowed.add(line)
-    return allowed
+@pytest.fixture
+def site(tmp_path: Path) -> Path:
+    """A minimal rendered site: sub/page.html linking at real/index.html."""
+    (tmp_path / "sub").mkdir()
+    (tmp_path / "real").mkdir()
+    (tmp_path / "real" / "index.html").write_text('<h2 id="known">k</h2>')
+    return tmp_path
 
 
-def anchors_of(path: str, cache: dict[str, set[str]]) -> set[str]:
-    if path not in cache:
-        try:
-            with open(path, encoding="utf-8", errors="replace") as fh:
-                html = fh.read()
-        except OSError:
-            cache[path] = set()
-        else:
-            cache[path] = set(ANCHOR_ID_RE.findall(html)) | set(
-                ANCHOR_NAME_RE.findall(html)
-            )
-    return cache[path]
+def findings(root: Path, *, anchors: bool = True) -> set[tuple[str, str]]:
+    found, _pages = site_links.check(str(root), check_anchors=anchors)
+    return {(f.kind, f.target) for f in found}
 
 
-def resolve(root: str, page_dir: str, path: str) -> str | None:
-    """Map a link path to the file that would serve it, or None if nothing does."""
-    if path.startswith("/"):
-        base = os.path.join(root, path.lstrip("/"))
-    else:
-        base = os.path.join(page_dir, path)
-    base = os.path.normpath(base)
-    if os.path.isdir(base):
-        index = os.path.join(base, "index.html")
-        return index if os.path.isfile(index) else None
-    return base if os.path.isfile(base) else None
+def write_page(site: Path, body: str) -> None:
+    (site / "sub" / "page.html").write_text(body)
 
 
-def check(root: str, check_anchors: bool) -> tuple[list[Finding], int]:
-    findings: list[Finding] = []
-    anchor_cache: dict[str, set[str]] = {}
-    pages = 0
-
-    for dirpath, dirnames, filenames in os.walk(root):
-        dirnames[:] = [d for d in dirnames if d not in {"site_libs", ".venv"}]
-        for filename in sorted(filenames):
-            if not filename.endswith(".html"):
-                continue
-            pages += 1
-            page = os.path.join(dirpath, filename)
-            rel_page = os.path.relpath(page, root)
-            with open(page, encoding="utf-8", errors="replace") as fh:
-                html = INERT_RE.sub("", fh.read())
-
-            for raw in dict.fromkeys(ATTR_RE.findall(html)):
-                value = raw.strip()
-                if (
-                    not value
-                    or value.startswith("#")
-                    or EXTERNAL_RE.match(value)
-                    or TEMPLATE_RE.search(value)
-                    or SKIP_PATH_RE.search(value)
-                ):
-                    continue
-
-                split = urlsplit(value)
-                path = unquote(split.path)
-                if not path:
-                    continue
-
-                # A .qmd href in rendered output means Quarto (or the shard
-                # merge) failed to rewrite it: the reader gets served source.
-                if path.endswith(".qmd"):
-                    findings.append(Finding("unrewritten-qmd", value, rel_page))
-                    continue
-
-                target = resolve(root, dirpath, path)
-                if target is None:
-                    findings.append(Finding("missing-target", value, rel_page))
-                    continue
-
-                if check_anchors and split.fragment:
-                    fragment = unquote(split.fragment)
-                    if fragment not in anchors_of(target, anchor_cache):
-                        findings.append(Finding("missing-anchor", value, rel_page))
-
-    return findings, pages
+@pytest.mark.parametrize(
+    "href",
+    [
+        "../real/",  # directory with an index.html
+        "../real/index.html",  # direct file
+        "/real/",  # root-absolute, resolved against the render dir
+        "../real/index.html#known",  # anchor that exists
+    ],
+)
+def test_resolvable_links_are_not_reported(site: Path, href: str) -> None:
+    write_page(site, f'<a href="{href}">x</a>')
+    assert findings(site) == set()
 
 
-def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--dir", default="_build", help="rendered site (default: _build)")
-    parser.add_argument("--allow", help="allowlist file of known-broken entries")
-    parser.add_argument(
-        "--anchors",
-        action="store_true",
-        help=(
-            "also check #fragments. Off by default: quartodoc does not emit "
-            "id attributes for the objects its own interlinks target, so this "
-            "currently reports ~1500 findings from generated api/** pages."
-        ),
+@pytest.mark.parametrize(
+    "href",
+    [
+        "https://example.com/x",  # external
+        "//cdn.example.com/x.js",  # protocol-relative
+        "mailto:a@b.c",
+        "#local",  # same-page fragment
+        "${href}",  # JS template literal
+        "<%= app.shinylive %>",  # EJS placeholder
+        "../site_libs/bootstrap/x.min.css",  # merge-owned hashed asset
+        "",
+    ],
+)
+def test_non_site_links_are_skipped(site: Path, href: str) -> None:
+    write_page(site, f'<a href="{href}">x</a>')
+    assert findings(site) == set()
+
+
+@pytest.mark.parametrize(
+    "wrapper",
+    ["<pre>{}</pre>", "<code>{}</code>", "<script>{}</script>"],
+)
+def test_code_and_script_regions_are_ignored(site: Path, wrapper: str) -> None:
+    """Samples name files like `my-styles.css` that are not meant to resolve."""
+    write_page(site, wrapper.format('<a href="my-styles.css">x</a>'))
+    assert findings(site) == set()
+
+
+def test_missing_target_is_reported(site: Path) -> None:
+    write_page(site, '<a href="../gone.html">x</a>')
+    assert findings(site) == {("missing-target", "../gone.html")}
+
+
+def test_relative_link_missing_leading_slash_is_reported(site: Path) -> None:
+    """The py-shiny-site #59 follow-up bug: `templates/x/` instead of `/templates/x/`."""
+    write_page(site, '<a href="real/">x</a>')
+    assert findings(site) == {("missing-target", "real/")}
+
+
+def test_directory_without_index_is_reported(site: Path) -> None:
+    (site / "empty").mkdir()
+    write_page(site, '<a href="../empty/">x</a>')
+    assert findings(site) == {("missing-target", "../empty/")}
+
+
+def test_unrewritten_qmd_is_reported_even_when_the_file_exists(site: Path) -> None:
+    """Quarto copies some unresolved .qmd files through; the link is still wrong."""
+    (site / "real" / "index.qmd").write_text("source")
+    write_page(site, '<a href="../real/index.qmd">x</a>')
+    assert findings(site) == {("unrewritten-qmd", "../real/index.qmd")}
+
+
+def test_missing_anchor_is_reported(site: Path) -> None:
+    write_page(site, '<a href="../real/index.html#nope">x</a>')
+    assert findings(site) == {("missing-anchor", "../real/index.html#nope")}
+
+
+def test_anchor_checking_is_off_by_default_in_main(site: Path) -> None:
+    """quartodoc omits the ids its own interlinks target; gating on anchors
+    would report ~1500 findings from generated api/** pages."""
+    write_page(site, '<a href="../real/index.html#nope">x</a>')
+    assert site_links.main(["--dir", str(site)]) == 0
+    assert site_links.main(["--dir", str(site), "--anchors"]) == 1
+
+
+def test_name_attribute_counts_as_an_anchor(site: Path) -> None:
+    (site / "real" / "index.html").write_text('<a name="legacy"></a>')
+    write_page(site, '<a href="../real/index.html#legacy">x</a>')
+    assert findings(site) == set()
+
+
+def test_percent_encoded_paths_resolve(site: Path) -> None:
+    (site / "real" / "a b.html").write_text("x")
+    write_page(site, '<a href="../real/a%20b.html">x</a>')
+    assert findings(site) == set()
+
+
+def test_query_string_is_stripped_before_resolving(site: Path) -> None:
+    write_page(site, '<a href="../real/index.html?v=1">x</a>')
+    assert findings(site) == set()
+
+
+def test_src_attributes_are_checked(site: Path) -> None:
+    write_page(site, '<img src="../missing.png">')
+    assert findings(site) == {("missing-target", "../missing.png")}
+
+
+def test_allowlist_suppresses_by_kind_and_target(tmp_path: Path) -> None:
+    allow = tmp_path / "allow.txt"
+    allow.write_text(
+        "# a leading-hash comment\nmissing-target\t../gone.html\n\n"
+        # A mid-line '#' is a URL fragment, not a comment.
+        "missing-anchor\t../real/index.html#nope\n"
     )
-    args = parser.parse_args(argv)
-
-    root = os.path.normpath(args.dir)
-    if not os.path.isdir(root):
-        print(f"error: no such render directory: {root}", file=sys.stderr)
-        print("Build the site first (e.g. `make site-parallel`).", file=sys.stderr)
-        return 2
-
-    findings, pages = check(root, check_anchors=args.anchors)
-
-    allowed = load_allowlist(args.allow)
-    kept = [f for f in findings if f"{f.kind}\t{f.target}" not in allowed]
-    suppressed = len(findings) - len(kept)
-
-    by_kind: dict[str, list[Finding]] = defaultdict(list)
-    for finding in kept:
-        by_kind[finding.kind].append(finding)
-
-    print(f"Scanned {pages} pages in {root}/")
-    if suppressed:
-        print(f"Suppressed {suppressed} allowlisted finding(s) from {args.allow}")
-
-    if not kept:
-        print("No broken internal links found.")
-        return 0
-
-    for kind in sorted(by_kind):
-        group = by_kind[kind]
-        print(f"\n{kind} ({len(group)}):")
-        for finding in sorted(group, key=lambda f: (f.target, f.source)):
-            print(f"  {finding.target}\n      in {finding.source}")
-
-    print(f"\n{len(kept)} broken internal link(s).")
-    return 1
+    entries = site_links.load_allowlist(str(allow))
+    assert entries == {
+        "missing-target\t../gone.html",
+        "missing-anchor\t../real/index.html#nope",
+    }
 
 
-if __name__ == "__main__":
-    sys.exit(main())
+def test_main_exits_2_when_the_render_dir_is_absent(tmp_path: Path) -> None:
+    assert site_links.main(["--dir", str(tmp_path / "nope")]) == 2
+
+
+def test_main_exits_0_on_a_clean_site(site: Path) -> None:
+    write_page(site, '<a href="../real/">x</a>')
+    assert site_links.main(["--dir", str(site)]) == 0
+
+
+def test_main_exits_1_when_findings_remain(site: Path) -> None:
+    write_page(site, '<a href="../gone.html">x</a>')
+    assert site_links.main(["--dir", str(site)]) == 1

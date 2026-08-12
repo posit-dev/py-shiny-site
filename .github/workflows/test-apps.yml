@@ -1,8 +1,7 @@
 name: test-apps
 
-# Everything that boots a Shiny app in a browser: the per-component controller
-# interaction tests (`apps`) and the smoke sweep over every components/**/app*.py
-# (`smoke`). Browserless checks over doc content live in test-docs.yml.
+# Everything that boots a Shiny app in a browser. One job per Make target.
+# Browserless checks over doc content live in test-docs.yml.
 
 on:
   push:
@@ -15,7 +14,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  apps:
+  components-examples:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
@@ -36,15 +35,11 @@ jobs:
       - name: Set up remote Playwright
         uses: ./.github/internal/setup-playwright-remote
 
-      # Per-component controller interaction tests + conftest unit tests --
-      # everything except the smoke sweep (the `smoke` job below). Uses the
-      # Makefile target (chromium + xdist from pytest.ini; install-playwright
-      # no-ops because the remote server env is set above).
-      - name: Run per-component app tests (shard ${{ matrix.shard }} of 6)
-        run: make test-apps-intent PYTEST_ARGS="--num-shards 6 --shard-id ${{ matrix.shard }}"
+      - name: Run per-component interaction tests (shard ${{ matrix.shard }} of 6)
+        run: make test-components-examples PYTEST_ARGS="--num-shards 6 --shard-id ${{ matrix.shard }}"
 
-  # Near-identical to `apps` apart from the Makefile target and the timeout.
-  smoke:
+  # Near-identical to the job above apart from the Makefile target and timeout.
+  components-smoke:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
@@ -75,11 +70,11 @@ jobs:
       # Makefile target (chromium + xdist come from pytest.ini; install-playwright
       # no-ops because the remote server env is set above).
       - name: Smoke-test shard ${{ matrix.shard }} of 6
-        run: make test-apps-smoke PYTEST_ARGS="--num-shards 6 --shard-id ${{ matrix.shard }}"
+        run: make test-components-smoke PYTEST_ARGS="--num-shards 6 --shard-id ${{ matrix.shard }}"
 
   done-test-apps:
     if: always()
-    needs: [apps, smoke]
+    needs: [components-examples, components-smoke]
     uses: ./.github/workflows/_done.yml
     with:
       results: ${{ toJSON(needs.*.result) }}

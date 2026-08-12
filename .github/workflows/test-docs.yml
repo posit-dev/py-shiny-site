@@ -65,7 +65,13 @@ jobs:
           fi
           echo "Shinylive links are up to date."
 
-  script-tests:
+  # The non-browser test files, one step per Make target. Kept in one job rather
+  # than five: components/conftest.py imports playwright and shiny.pytest at
+  # module scope, so all of these need the same `make deps` -- and together they
+  # run in well under a second, so five jobs would pay ~23s of setup five times
+  # for no extra signal. Steps stop at the first failure; the suites are fast
+  # enough to iterate.
+  unit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -76,12 +82,24 @@ jobs:
       - name: Install dependencies
         run: make deps
 
-      - name: Unit-test the helper scripts
-        run: make test-scripts
+      - name: Every component page ships a runnable example app
+        run: make test-components-pages
+
+      - name: Every public ui export has a doc page
+        run: make test-components-exist
+
+      - name: relevant-functions generator helpers
+        run: make test-components-relevant-functions
+
+      - name: components/conftest.py helpers
+        run: make test-components-conftest
+
+      - name: Internal-link checker
+        run: make test-site-links-checker
 
   done-test-docs:
     if: always()
-    needs: [relevant-functions, shinylive-links, script-tests]
+    needs: [relevant-functions, shinylive-links, unit]
     uses: ./.github/workflows/_done.yml
     with:
       results: ${{ toJSON(needs.*.result) }}

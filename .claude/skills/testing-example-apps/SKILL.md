@@ -41,7 +41,7 @@ Everything uses the **public `shiny` package API** — `shiny.pytest.create_app_
   component page (`components/<section>/<name>/index.qmd`) ships at least one example
   app (`app.py` / `app-*.py`). All discovered pages are enforced; a page may only opt
   out via `EXEMPT_PAGES` (normally empty) with a documented reason. Runs under
-  `make test-apps-intent`.
+  `make test-components-examples`.
 
 ## Steps to test a component
 
@@ -84,10 +84,10 @@ encourages example apps to diverge (a bare Express `@render.text` renders a `<di
 
 ```bash
 # Make targets (install deps + chromium, then run)
-make test-apps-smoke   # smoke sweep over every app
-make test-apps-intent  # per-component interaction + unit tests
-make test-apps-smoke PYTEST_ARGS='-k "layout/accordion"'        # narrow to one component
-make test-apps-smoke PYTEST_ARGS='--num-shards 6 --shard-id 0'  # one shard (CI does this)
+make test-components-smoke     # smoke sweep over every app
+make test-components-examples  # per-component interaction tests
+make test-components-smoke PYTEST_ARGS='-k "layout/accordion"'        # narrow to one component
+make test-components-smoke PYTEST_ARGS='--num-shards 6 --shard-id 0'  # one shard (CI does this)
 ```
 
 Or drive pytest directly via `uv run` for fast local iteration (`uv run`
