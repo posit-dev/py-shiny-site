@@ -3,6 +3,7 @@ title: Popovers
 sidebar: components
 appPreview:
   file: components/display-messages/popovers/app-preview.py
+  static: true
 listing:
 - id: example
   template: ../../_partials/components-detail-example.ejs

@@ -7,6 +7,7 @@ toc: false
 page-layout: article
 resources:
   - _partials/animation.lottie
+  - _partials/deferred-component-previews.js
 format:
   html:
     css:
@@ -138,3 +139,5 @@ Organize and structure your app's content with cards and other layout components
 ::::::
 ::::::::
 <!-- End List area -->
+
+<script src="_partials/deferred-component-previews.js"></script>

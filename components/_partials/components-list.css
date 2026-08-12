@@ -82,6 +82,40 @@ div.shinylive-wrapper {
   justify-content: center;
   align-content: center;
   flex-wrap: wrap;
+  content-visibility: auto;
+  contain-intrinsic-size: 150px;
+}
+
+.component-list-card:has(iframe[data-src]),
+.component-list-card:has(.deferred-shinylive-python) {
+  background: linear-gradient(100deg, #f2f4f5 30%, #ffffff 50%, #f2f4f5 70%);
+  background-size: 250% 100%;
+  animation: component-preview-loading 1.5s ease-in-out infinite;
+}
+
+.component-preview-frame.is-loading {
+  visibility: hidden;
+}
+
+.deferred-shinylive-python {
+  display: none;
+}
+
+@keyframes component-preview-loading {
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .component-list-card:has(iframe[data-src]),
+  .component-list-card:has(.deferred-shinylive-python) {
+    animation: none;
+  }
 }
 .component-list-header {
   display: flex;
@@ -184,4 +218,3 @@ a.component-list-header-text:hover
     margin-left: 1.5rem;
   }
 }
-
