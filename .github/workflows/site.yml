@@ -56,7 +56,7 @@ jobs:
       # =====================================================
       # Build
       # =====================================================
-      - name: Install dependencies
+      - name: Install python dependencies
         run: make deps
 
       # Restores/downloads/saves the shinylive web-assets bundle. Runs before

@@ -173,7 +173,8 @@ _extensions/machow/quartodoc: install-quarto
 quarto-extensions: _extensions/quarto-ext/shinylive _extensions/shafayetShafee/line-highlight _extensions/machow/quartodoc
 
 
-# Install build dependencies
+# Install python build dependencies
+.PHONY: deps
 deps: $(PYBIN)
 	uv pip install -r requirements.txt
 	cd py-shiny && $(UVRUN) make ci-install-docs
@@ -182,6 +183,7 @@ deps: $(PYBIN)
 QUARTODOC_STAMP ?= .quartodoc-stamp
 
 ## Build qmd files for Shiny API docs (skips the body when inputs are unchanged)
+.PHONY: quartodoc
 quartodoc: $(PYBIN) deps install-quarto
 	@key="$$(scripts/quartodoc-stamp.sh)"; \
 	if [ -f $(QUARTODOC_STAMP) ] && [ "$$(cat $(QUARTODOC_STAMP))" = "$$key" ]; then \
