@@ -77,8 +77,23 @@ runs:
       shell: bash
       env:
         DIR: ${{ steps.quarto-version.outputs.dir }}
+      run: echo "${DIR}/bin" >> "$GITHUB_PATH"
+
+    # Separate step on purpose: $GITHUB_PATH only affects *subsequent* steps, so
+    # this is the first place `quarto` can be resolved off PATH the way the
+    # workflows invoke it (`make ... QUARTO_PATH=quarto`). Checking the version
+    # matches the Makefile catches a stale cache entry or a wrong-version quarto
+    # shadowing ours -- fail here rather than deep inside a render.
+    - name: Verify Quarto
+      shell: bash
+      env:
+        VERSION: ${{ steps.quarto-version.outputs.version }}
       run: |
         set -euo pipefail
-        echo "${DIR}/bin" >> "$GITHUB_PATH"
-        # Fail here rather than deep inside a render if the install is broken.
-        "${DIR}/bin/quarto" --version
+        found="$(command -v quarto)"
+        installed="$(quarto --version)"
+        if [ "$installed" != "$VERSION" ]; then
+          echo "::error::Expected Quarto ${VERSION} but ${found} reports ${installed}"
+          exit 1
+        fi
+        echo "✓ quarto ${installed} (${found})"
