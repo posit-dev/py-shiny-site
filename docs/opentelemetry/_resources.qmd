@@ -5,9 +5,9 @@ OpenTelemetry integration in Shiny provides powerful observability for productio
 - [OpenTelemetry Python documentation](https://opentelemetry.io/docs/languages/python/)
 - [OpenTelemetry documentation](https://opentelemetry.io/docs/)
 - [Logfire documentation](https://logfire.pydantic.dev/)
-- [Shiny for Python API reference](/api/)
+- [Shiny for Python API reference](/api/core/index.qmd)
 
 For related topics on improving Shiny apps:
 
-- [Testing Shiny applications](../testing/)
-- [Performance](../performance/)
+- [End-to-end testing your app](/docs/end-to-end-testing.qmd)
+- [Non-blocking operations](/docs/nonblocking.qmd)

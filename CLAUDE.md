@@ -318,6 +318,20 @@ The custom renderer automatically extracts examples from `py-shiny/shiny/example
 
 ## Site Quality Checks
 
+**`make check-page-links`** — scans the rendered site in `_build/` for broken internal links (`scripts/check-page-links.py`). Requires a current full build; run `make site-parallel` first. Reports three kinds:
+
+- `missing-target` — the link resolves to no file or directory index
+- `missing-anchor` — the page exists but has no element with that `id`/`name` (**opt-in**, `--anchors`)
+- `unrewritten-qmd` — a `.qmd` href survived rendering, so the reader is served source
+
+This exists because Quarto only validates `.qmd` links. A link with no extension (e.g. `templates/dashboard/` instead of `/templates/dashboard/`) is passed through verbatim and silently 404s — see #59's follow-up. Known-broken links are suppressed via `scripts/page-links-allow.txt` (`<kind><TAB><target>`); prefer fixing the link over adding an entry.
+
+**Anchor checking is off by default and not gateable yet.** quartodoc emits interlinks like `api/core/App.html#shiny.App` but never writes a matching `id` attribute on the target page, so `--anchors` reports ~1,500 findings, ~1,460 of them from generated `api/**` output. The ~33 findings originating outside `api/**` are mostly real stale heading anchors — tracked in #448.
+
+**Run it after `make site-parallel`, not `make serve`.** A partial or seeded `_build/` produces large numbers of false positives: `site_libs/` asset hashes drift (excluded for this reason), and unmerged shard output leaves `.qmd` hrefs that `scripts/ci-merge.py` would have rewritten (it resolved 4,851 of them in one measured run).
+
+Unit tests for the checker live in `scripts/test_check_page_links.py` and are **not** collected by `make test-apps` (pytest.ini scopes `testpaths` to `components/`). Run them with `make test-check-page-links`.
+
 **`make compare-versions`** — viewport comparison between production and a local build using Playwright + Claude vision via AWS Bedrock. Run it before merging any change that could affect rendered output site-wide: Quarto version upgrades, Shinylive version upgrades, `_quarto.yml` structural changes, `_renderer.py` changes, or other dependency upgrades. Writes a timestamped markdown report to `tests/`; start with the executive summary.
 
 ### How to run

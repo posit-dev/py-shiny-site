@@ -77,6 +77,16 @@ SHARDS ?= 6
 site-parallel: $(PYBIN) install-quarto
 	QUARTO_PATH="$(QUARTO_PATH)" SHARDS="$(SHARDS)" scripts/local-parallel-render.sh
 
+## Check the rendered site in _build for broken internal links (run `make site-parallel` first)
+.PHONY: check-page-links
+check-page-links: $(PYBIN)
+	$(UVRUN) python scripts/check-page-links.py --dir _build --allow scripts/page-links-allow.txt
+
+## Unit-test the link checker itself (not collected by test-apps; testpaths=components)
+.PHONY: test-check-page-links
+test-check-page-links: $(PYBIN)
+	$(UVRUN) pytest scripts/test_check_page_links.py -n0
+
 ## Serve existing _build without full re-render (fast preview; run `make site` or `make site-parallel` first)
 .PHONY: serve-fast
 serve-fast: $(PYBIN) install-quarto

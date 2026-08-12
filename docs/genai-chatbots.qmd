@@ -524,7 +524,7 @@ app = App(app_ui, server)
 ### Custom icons
 
 Customize the assistant icon by supplying HTML/SVG to `icon_assistant` when creating the UI element (or when appending a message).
-The `faicons` package makes it easy to do this for [font awesome](https://fontawesome.com/), but other icon libraries (e.g., [Bootstrap icons]((https://icons.getbootstrap.com/#usage)), [heroicons](https://heroicons.com/), etc.) or custom SVGs are also possible by providing inline SVGs as a string to `ui.HTML()`.
+The `faicons` package makes it easy to do this for [font awesome](https://fontawesome.com/), but other icon libraries (e.g., [Bootstrap icons](https://icons.getbootstrap.com/#usage), [heroicons](https://heroicons.com/), etc.) or custom SVGs are also possible by providing inline SVGs as a string to `ui.HTML()`.
 
 ::: {.panel-tabset .panel-pills}
 

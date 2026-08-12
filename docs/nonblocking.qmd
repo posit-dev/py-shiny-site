@@ -79,7 +79,7 @@ This is true even if the two reactive effects belong to two different Shiny sess
 This may seem like a strange decision on the part of Shiny: why support async at all if the code is not going to run concurrently?
 
 The reason for supporting async is simple: there are functions you may need to call from reactive contexts that are only available as async functions.
-This includes some functions in Shiny itself that are used to communicate with the browser, like [`Session.send_custom_message`](api/Session.html#shiny.Session.send_custom_message).
+This includes some functions in Shiny itself that are used to communicate with the browser, like [`Session.send_custom_message`](../api/core/Session.qmd#shiny.Session.send_custom_message).
 
 The reason for not allowing (reactive) async code to run concurrently is more nuanced.
 The main reason is that it would be very difficult to ensure that the application behaves predictably if async code were allowed to run concurrently.
