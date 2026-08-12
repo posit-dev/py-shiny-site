@@ -1,9 +1,9 @@
 name: Set up Quarto (version from Makefile)
 description: >
   Read QUARTO_VERSION from the repo Makefile (single source of truth) and
-  install Quarto at that version via quarto-dev/quarto-actions/setup. Requires
-  the repo to be checked out first. Exposes the resolved version as the
-  `quarto-version` output.
+  install Quarto at that version, caching the install so repeat runs do not
+  re-download it. Requires the repo to be checked out first. Exposes the
+  resolved version as the `quarto-version` output.
 
 outputs:
   quarto-version:
@@ -25,8 +25,60 @@ runs:
           exit 1
         fi
         echo "version=${version}" >> "$GITHUB_OUTPUT"
+        echo "dir=${HOME}/.local/share/quarto-${version}" >> "$GITHUB_OUTPUT"
 
-    - name: Install Quarto
-      uses: quarto-dev/quarto-actions/setup@v2
+    # Why we install Quarto by hand instead of using quarto-dev/quarto-actions:
+    # that action downloads the release asset with a bare `wget` on every job.
+    # github.com throttles unauthenticated release-asset downloads, and with 10
+    # site shards plus four other workflows per push we hit that limit hard --
+    # `wget` exits immediately on the resulting HTTP 503 (exit 8) and gives up
+    # after ~20 tries on the connection resets (exit 4), failing whole runs.
+    # Caching the extracted tarball means a cache hit downloads nothing at all,
+    # and the curl below retries transient HTTP/network errors instead of dying.
+    - name: Restore cached Quarto
+      id: quarto-cache
+      uses: actions/cache@v6
       with:
-        version: ${{ steps.quarto-version.outputs.version }}
+        path: ${{ steps.quarto-version.outputs.dir }}
+        key: quarto-${{ runner.os }}-${{ runner.arch }}-${{ steps.quarto-version.outputs.version }}
+
+    - name: Download and install Quarto
+      if: steps.quarto-cache.outputs.cache-hit != 'true'
+      shell: bash
+      env:
+        VERSION: ${{ steps.quarto-version.outputs.version }}
+        DIR: ${{ steps.quarto-version.outputs.dir }}
+      run: |
+        set -euo pipefail
+
+        case "${RUNNER_OS}-${RUNNER_ARCH}" in
+          Linux-X64) bundle="linux-amd64" ;;
+          Linux-ARM64) bundle="linux-arm64" ;;
+          macOS-*) bundle="macos" ;;
+          *)
+            echo "::error::No Quarto tarball for ${RUNNER_OS}-${RUNNER_ARCH}; use quarto-dev/quarto-actions there"
+            exit 1
+            ;;
+        esac
+
+        tarball="quarto-${VERSION}-${bundle}.tar.gz"
+        url="https://github.com/quarto-dev/quarto-cli/releases/download/v${VERSION}/${tarball}"
+
+        # --retry-all-errors is the point: it covers both the 503 responses and
+        # the dropped connections that github.com serves when it is throttling.
+        curl --fail --location --show-error --silent \
+          --retry 8 --retry-delay 5 --retry-all-errors \
+          --output "${RUNNER_TEMP}/${tarball}" "$url"
+
+        mkdir -p "$DIR"
+        tar -xzf "${RUNNER_TEMP}/${tarball}" -C "$DIR" --strip-components=1
+
+    - name: Add Quarto to PATH
+      shell: bash
+      env:
+        DIR: ${{ steps.quarto-version.outputs.dir }}
+      run: |
+        set -euo pipefail
+        echo "${DIR}/bin" >> "$GITHUB_PATH"
+        # Fail here rather than deep inside a render if the install is broken.
+        "${DIR}/bin/quarto" --version

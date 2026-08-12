@@ -36,6 +36,16 @@ jobs:
       - name: Record restored shinylive cache state
         id: shinylive-cache-state
         run: echo "hash=${{ hashFiles('.quarto/shinylive-cache/**') }}" >> "$GITHUB_OUTPUT"
+      # Separate from the render cache above: this is the shinylive *web assets*
+      # bundle (wasm/pyodide payload) that `make shinylive-assets` downloads from
+      # GitHub releases. Caching it keeps 10 shards from each re-downloading it
+      # and hitting github.com's release-asset throttling. Version tracks
+      # requirements.txt, same as the render cache key.
+      - name: Cache shinylive web assets
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/shinylive
+          key: shinylive-assets-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
       # =====================================================
       # Install dependencies
       # =====================================================

@@ -31,9 +31,25 @@ all: quartodoc components site
 # Downloading them is a side effect of `base-htmldeps` that the render cache
 # in _extensions/quarto-ext/shinylive/shinylive.lua may skip; run it once,
 # uncached, before rendering. No-op (~0.1 s) when assets are already present.
+#
+# Retried with backoff: on a cold cache this downloads the shinylive bundle from
+# GitHub releases, and github.com intermittently throttles those downloads
+# (HTTP 503 / dropped connections) when many CI jobs ask at once. shinylive uses
+# urllib with no retry, so a single blip would otherwise fail the whole build.
 .PHONY: shinylive-assets
 shinylive-assets: $(PYBIN)
-	$(UVRUN) shinylive extension base-htmldeps --sw-dir . > /dev/null
+	@for attempt in 1 2 3 4 5; do \
+		if $(UVRUN) shinylive extension base-htmldeps --sw-dir . > /dev/null; then \
+			exit 0; \
+		fi; \
+		if [ "$$attempt" = 5 ]; then \
+			echo "❌ shinylive asset download failed after 5 attempts" >&2; \
+			exit 1; \
+		fi; \
+		delay=$$((attempt * 5)); \
+		echo "⚠️  shinylive asset download failed (attempt $$attempt/5); retrying in $${delay}s" >&2; \
+		sleep $$delay; \
+	done
 
 ## Build website
 .PHONY: site
