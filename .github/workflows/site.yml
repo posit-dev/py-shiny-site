@@ -36,18 +36,6 @@ jobs:
       - name: Record restored shinylive cache state
         id: shinylive-cache-state
         run: echo "hash=${{ hashFiles('.quarto/shinylive-cache/**') }}" >> "$GITHUB_OUTPUT"
-      # Separate from the render cache above: this is the shinylive *web assets*
-      # bundle (wasm/pyodide payload) that `make shinylive-assets` downloads from
-      # GitHub releases. Caching it keeps 10 shards from each re-downloading it
-      # and hitting github.com's release-asset throttling. Version tracks
-      # requirements.txt, same as the render cache key. Saved further down, right
-      # after the download step -- see the comment there.
-      - name: Restore shinylive web assets
-        id: shinylive-assets-cache
-        uses: actions/cache/restore@v6
-        with:
-          path: ~/.cache/shinylive
-          key: shinylive-assets-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
       # =====================================================
       # Install dependencies
       # =====================================================
@@ -71,22 +59,12 @@ jobs:
       - name: Install dependencies
         run: make deps
 
-      # Pulled out of the build below so the assets are downloaded (and cached)
-      # as their own step. `make site` depends on this target too, so it is a
-      # no-op by the time the build runs.
-      - name: Download shinylive web assets
-        run: make shinylive-assets
-
-      # Saved here, immediately after the download, rather than at end of job:
-      # the assets are a pinned upstream bundle, so whether the render later
-      # succeeds says nothing about their validity, and a failed render must not
-      # cost the next run the download. Only fires when the restore missed.
-      - name: Save shinylive web assets
-        if: steps.shinylive-assets-cache.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v6
-        with:
-          path: ~/.cache/shinylive
-          key: ${{ steps.shinylive-assets-cache.outputs.cache-primary-key }}
+      # Restores/downloads/saves the shinylive web-assets bundle. Runs before
+      # the build (rather than implicitly inside `make site`) so the download is
+      # its own step and can be cached the moment it lands; `make site` depends
+      # on the same target, so it no-ops by the time the build runs.
+      - name: Set up shinylive web assets
+        uses: ./.github/internal/setup-shinylive-assets
 
       - name: Build shard ${{ matrix.shard }}/${{ env.SHARD_COUNT }}
         run: |
