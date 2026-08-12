@@ -1,0 +1,62 @@
+# Turn off the repo-action toolbox ("Edit this page" / "Report an issue") for
+# every page under api/ and its subdirectories.
+#
+# WHY
+# ---
+# Pages under api/ are generated at build time by quartodoc and are not
+# committed to this repository (api/.gitignore ignores *.qmd), so the "Edit
+# this page" action linked to a file that does not exist on GitHub and 404'd:
+#
+#   https://github.com/posit-dev/py-shiny-site/edit/main/api/core/ui.layout_columns.qmd
+#
+# See https://github.com/posit-dev/py-shiny-site/issues/187
+# and https://github.com/posit-dev/py-shiny-site/issues/280
+#
+# WHY `false` AND NOT `[issue]`
+# -----------------------------
+# Quarto only honors `true`/`false` for a *document-level* `repo-actions`. A
+# list is silently ignored here: the set of actions always resolves from
+# `website.repo-actions` in _quarto.yml (currently `[issue, edit]`). Quarto's
+# `handleRepoLinks` tests the document value for `=== false` (suppress all) and
+# `=== true` (force), then reads the list from the website config. The docs
+# likewise document only `repo-actions: false` as the per-page knob:
+#
+#   https://quarto.org/docs/websites/website-navigation.html#github-links
+#
+# `website.issue-url` does not help either -- it is consulted *after* the
+# `=== false` early return, so it cannot re-add the issue link on a page whose
+# toolbox has been suppressed.
+#
+# WHAT THIS COSTS
+# ---------------
+# Diffing an old vs. new render of api/core/ui.layout_columns.qmd, exactly two
+# blocks disappear -- two copies of the same link list:
+#
+#   1. <div class="toc-actions"> at the bottom of the right-hand "On this page"
+#      TOC nav.
+#   2. Its small-screen duplicate, <div class="toc-actions d-sm-block d-md-none">
+#      inside .nav-footer-center (that footer cell is now just &nbsp;).
+#
+# Each held two links:
+#
+#   - "Edit this page"   -- already broken (404); the bug being fixed.
+#   - "Report an issue"  -- worked. This is the real and only loss.
+#
+# "View source" was never enabled (website.repo-actions omits `source`), so
+# nothing is lost there. Nothing else on the page changes: TOC entries,
+# sidebar, breadcrumbs, footer links and page navigation are untouched. The
+# other feature `handleRepoLinks` early-returns past, elements marked
+# data-quarto-source-url="repo", does not occur anywhere in this site.
+#
+# So: "Report an issue" is gone from the generated api/ pages and from the
+# three hand-written api/*/index.qmd pages (whose bodies are almost entirely a
+# generated `{{< include _api_index.qmd >}}`). If that link is ever wanted back
+# here, it has to be added outside the repo-actions machinery -- e.g. an
+# `include-after-body` scoped to api/.
+#
+# MAINTENANCE
+# -----------
+# This file is tracked (api/.gitignore only ignores *.qmd), and `make
+# quartodoc` copies generated files in with `rsync -ac` and no `--delete`, so
+# it survives regeneration.
+repo-actions: false
