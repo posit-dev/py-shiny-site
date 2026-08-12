@@ -30,12 +30,22 @@ To get started you can do the following (or see the [installation instructions](
 2.  Install Shiny. We strongly recommend using a virtual environment for this as it will eliminate dependency resolution headaches and make deployment easier.
 
 ::: {.panel-tabset .panel-pills}
+### Install with uv
+
+``` bash
+# Create a virtual environment in the .venv subdirectory
+uv venv
+source .venv/bin/activate
+# Install shiny
+uv pip install shiny
+```
+
 ### Install with pip
 
 ``` bash
 # Create a virtual environment in the .venv subdirectory
-python3 -m venv venv
-source venv/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 # Install shiny
 pip install shiny
 ```
