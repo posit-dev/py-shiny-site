@@ -5,7 +5,7 @@ aliases:
   - /docs/install-create-run.html
 ---
 
-Shiny for Python can be installed via `pip`, `conda`, or `uv`.
+Shiny for Python can be installed via `uv`, `pip`, or `conda`.
 
 ::: {.panel-tabset .panel-pills}
 
