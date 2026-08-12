@@ -25,7 +25,7 @@ $(PYBIN): $(VENV)
 
 ## Build assets and render site
 .PHONY: all
-all: quartodoc components site
+all: quartodoc docs site
 
 # Ensure shinylive web assets exist in the shinylive user cache dir.
 # Downloading them is a side effect of `base-htmldeps` that the render cache
@@ -77,18 +77,20 @@ SHARDS ?= 6
 site-parallel: $(PYBIN) install-quarto
 	QUARTO_PATH="$(QUARTO_PATH)" SHARDS="$(SHARDS)" scripts/local-parallel-render.sh
 
-## Check the rendered site in _build for broken internal links (run `make site-parallel` first)
 # Deliberately does NOT depend on $(PYBIN), and uses bare python3 rather than
 # $(UVRUN): the checker is stdlib-only, and site.yml's `page-links` job runs this
 # target in a job that has no uv/venv setup. Requiring the venv there would cost
 # a uv install to run a stdlib script -- or, worse, invite CI to invoke the script
 # directly and duplicate these flags. Keep it dependency-free so there is exactly
 # one definition of how the check is run. (Verified on Python 3.9.)
+## Check the rendered site in _build for broken internal links (run `make site-parallel` first)
 .PHONY: test-page-links
 test-page-links:
 	python3 scripts/check-page-links.py --dir _build --allow scripts/page-links-allow.txt
 
-## Unit-test the helper scripts in scripts/ (pytest.ini scopes testpaths to components/, so these are not collected by test-apps)
+# pytest.ini scopes testpaths to components/, so these are not collected by
+# the test-apps-* targets.
+## Unit-test the helper scripts in scripts/
 .PHONY: test-scripts
 test-scripts: $(PYBIN)
 	$(UVRUN) pytest scripts/ -n0
@@ -102,16 +104,6 @@ serve-fast: $(PYBIN) install-quarto
 .PHONY: seed-caches
 seed-caches:
 	@scripts/seed-caches.sh || true
-
-## Initialize a fresh worktree/workspace: submodules, seeded caches, deps, generated docs
-.PHONY: ai-setup
-ai-setup:
-	$(MAKE) submodules
-	$(MAKE) seed-caches
-	$(MAKE) deps
-	$(MAKE) quartodoc
-	$(MAKE) components
-
 
 # Fail early with install guidance if uv is not on PATH.
 .PHONY: check-uv
@@ -218,34 +210,37 @@ quartodoc: $(PYBIN) deps install-quarto
 	fi
 
 
-## Build component static previews and update shinylive links
-.PHONY: components
-components: components-shinylive-links components-relevant-functions components-static-previews
+## Auto generate links and function signatures. Update static previews
+.PHONY: docs
+docs: docs-update-shinylive-links docs-update-relevant-functions docs-static-previews
 
-.PHONY: components-static-previews
-components-static-previews: $(PYBIN) deps
+## Regenerate the static component preview images into components/static
+.PHONY: docs-static-previews
+docs-static-previews: $(PYBIN) deps
 	rm -rf components/static
 	$(UVRUN) python components/make-static-previews.py
 
 ## Update shinylive links; pass FILES="dir-or-file ..." to limit to those pages
-.PHONY: components-shinylive-links
-components-shinylive-links: $(PYBIN) deps
+.PHONY: docs-update-shinylive-links
+docs-update-shinylive-links: $(PYBIN) deps
 	$(UVRUN) python components/update-shinylive-links.py $(FILES)
 
-## Regenerate relevant-functions href/signature from the API pages; pass
-## FILES="dir-or-file ..." to limit to those pages.
-##
-## The build/setup chain "falls forward": an unresolvable (rotted/renamed)
-## title is warned about and left as-authored so it never aborts a local build
-## or `make ai-setup`. CI sets RELEVANT_FUNCTIONS_STRICT=1 so the same rot
-## fails the check -- the correct fields are still required before merge.
 RELEVANT_FUNCTIONS_STRICT ?=
-.PHONY: components-relevant-functions
-components-relevant-functions: $(PYBIN) deps quartodoc
+
+# The build/setup chain "falls forward": an unresolvable (rotted/renamed) title
+# is warned about and left as-authored so it never aborts a local build or
+# `make ai-setup`. CI sets RELEVANT_FUNCTIONS_STRICT=1 so the same rot fails the
+# check -- the correct fields are still required before merge.
+#
+# Only the `##` line immediately above the target reaches `make help`; a
+# multi-line `##` block silently drops the target from the listing.
+## Regenerate relevant-functions href/signature from the API pages; pass FILES="dir-or-file ..." to limit to those pages
+.PHONY: docs-update-relevant-functions
+docs-update-relevant-functions: $(PYBIN) deps quartodoc
 	$(UVRUN) python components/update-relevant-functions.py \
 		$(if $(RELEVANT_FUNCTIONS_STRICT),--strict,--no-strict) $(FILES)
 
-# Install the Playwright browser used by `make test` (idempotent; ~no-op once
+# Install the Playwright browser used by the test-apps-* targets (idempotent; ~no-op once
 # present). Skipped when a remote Playwright server is configured
 # (PW_TEST_CONNECT_WS_ENDPOINT set, e.g. by CI's setup-playwright-remote action).
 .PHONY: install-playwright
@@ -256,18 +251,14 @@ install-playwright: $(PYBIN) deps
 		$(UVRUN) playwright install chromium; \
 	fi
 
-## Run all example-app tests: smoke sweep + per-component app tests (chromium, parallel; from pytest.ini)
-.PHONY: test
-test: test-scripts test-smoke test-apps
-
-## Smoke-test every components/**/app*.py (each app launches with no server/JS/output errors). Pass PYTEST_ARGS="..." to narrow (e.g. PYTEST_ARGS='-k "layout/accordion"') or shard (PYTEST_ARGS='--num-shards 6 --shard-id 0').
-.PHONY: test-smoke
-test-smoke: $(PYBIN) deps install-playwright
+## Smoke-test every components/**/app*.py
+.PHONY: test-apps-smoke
+test-apps-smoke: $(PYBIN) deps install-playwright
 	$(UVRUN) pytest components/test_examples_smoke.py $(PYTEST_ARGS)
 
-## Run per-component app tests (controller interaction tests + conftest unit tests), excluding the smoke sweep. Pass PYTEST_ARGS="..." to narrow or shard.
-.PHONY: test-apps
-test-apps: $(PYBIN) deps install-playwright
+## Run per-component app tests
+.PHONY: test-apps-intent
+test-apps-intent: $(PYBIN) deps install-playwright
 	$(UVRUN) pytest --ignore=components/test_examples_smoke.py $(PYTEST_ARGS)
 
 ## Remove Quarto website build files
@@ -343,6 +334,21 @@ AWS_PROFILE ?= claude
 compare-versions:
 	cd tests && npm install --silent
 	cd tests && AWS_PROFILE=$(AWS_PROFILE) npm run compare -- --old $(COMPARE_OLD_URL) --new $(COMPARE_NEW_URL) $(if $(FILTER),--filter $(FILTER),) $(if $(EXCLUDE),--exclude $(EXCLUDE),)
+
+
+
+# ----------------------------------------------------------------------------
+# Setup
+# ----------------------------------------------------------------------------
+
+## Initialize a fresh worktree/workspace: submodules, seeded caches, deps, generated docs
+.PHONY: ai-setup
+ai-setup:
+	$(MAKE) submodules
+	$(MAKE) seed-caches
+	$(MAKE) deps
+	$(MAKE) quartodoc
+	$(MAKE) docs
 
 
 

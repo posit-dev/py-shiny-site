@@ -41,7 +41,7 @@ jobs:
       # Makefile target (chromium + xdist from pytest.ini; install-playwright
       # no-ops because the remote server env is set above).
       - name: Run per-component app tests (shard ${{ matrix.shard }} of 6)
-        run: make test-apps PYTEST_ARGS="--num-shards 6 --shard-id ${{ matrix.shard }}"
+        run: make test-apps-intent PYTEST_ARGS="--num-shards 6 --shard-id ${{ matrix.shard }}"
 
   # Near-identical to `apps` apart from the Makefile target and the timeout.
   smoke:
@@ -75,7 +75,7 @@ jobs:
       # Makefile target (chromium + xdist come from pytest.ini; install-playwright
       # no-ops because the remote server env is set above).
       - name: Smoke-test shard ${{ matrix.shard }} of 6
-        run: make test-smoke PYTEST_ARGS="--num-shards 6 --shard-id ${{ matrix.shard }}"
+        run: make test-apps-smoke PYTEST_ARGS="--num-shards 6 --shard-id ${{ matrix.shard }}"
 
   done-test-apps:
     if: always()

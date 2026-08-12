@@ -35,7 +35,7 @@ Running `make` by itself lists all targets.
 | `make site-parallel` | Full site build into `_build/` using local parallel shards (`SHARDS=6` by default). The honest full rebuild, several times faster than `make site` on multi-core machines. |
 | `make site` | Full serial site build (what CI's shards run under the hood; the reference for fidelity). |
 | `make quartodoc` | Regenerate API reference qmds from the py-shiny submodule. Skips itself when nothing relevant changed (submodule commit, `_renderer.py`, quartodoc configs, `requirements.txt`). |
-| `make components` | Rebuild component static previews and Shinylive links. |
+| `make docs` | Rebuild component static previews and Shinylive links. |
 | `make clean` | Remove build outputs and render caches. |
 
 ### How builds got fast (and what that means for you)
@@ -67,14 +67,13 @@ Every example app under `components/` is exercised by Playwright tests
 (reusing py-shiny's public testing API — no custom runner):
 
 ```bash
-make test          # everything below
-make test-smoke    # just the smoke sweep
-make test-apps     # just the per-component interaction/unit tests
-make test-scripts  # unit tests for the helper scripts in scripts/ (no browser)
+make test-apps-smoke   # smoke sweep over every app-*.py
+make test-apps-intent  # per-component interaction/unit tests
+make test-scripts      # unit tests for the helper scripts in scripts/ (no browser)
 ```
 
 `pytest.ini` defaults to the chromium browser and xdist (`-n auto`); narrow a
-run with `PYTEST_ARGS`, e.g. `make test-smoke PYTEST_ARGS='-k "layout/accordion"'`.
+run with `PYTEST_ARGS`, e.g. `make test-apps-smoke PYTEST_ARGS='-k "layout/accordion"'`.
 See the `testing-example-apps` skill for how to add tests for a component.
 
 ## Pulling changes
@@ -119,13 +118,13 @@ re-port or retire it).
   one required check:
   - **`test-apps`** — everything that boots an app in a browser: the
     per-component interaction tests and the smoke sweep, both sharded 6 ways
-    (`make test-apps` / `make test-smoke`). They use a cached Docker Playwright
+    (`make test-apps-intent` / `make test-apps-smoke`). They use a cached Docker Playwright
     browser, so no per-job browser download. Check: `done-test-apps / verify`.
   - **`test-docs`** — browserless checks over doc content: the component
     Shinylive links and `relevant-functions` fields are regenerated and the job
     fails if the committed values are out of date, plus unit tests for the
     the helper scripts in `scripts/`. So after editing any `app-*.py`, run
-    `make components-shinylive-links` (optionally scoped with `FILES="..."`)
+    `make docs-update-shinylive-links` (optionally scoped with `FILES="..."`)
     and commit the updated `index.qmd`. Check: `done-test-docs / verify`.
 - Broken internal links are checked in the site workflow rather than
   `test-docs`, since the checker needs the rendered site that workflow's

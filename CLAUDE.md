@@ -68,7 +68,7 @@ make site
 make quartodoc
 
 # Rebuild component previews and Shinylive links
-make components
+make docs
 
 # Clean build artifacts (also purges .quarto/shinylive-cache)
 make clean
@@ -91,13 +91,13 @@ make deps
 make quartodoc
 
 # Update component Shinylive links (all pages)
-make components-shinylive-links
+make docs-update-shinylive-links
 # ...or just the pages you touched (dirs, index.qmd, or any file inside a
 # component dir such as an edited app-*.py — resolved to the owning index.qmd)
-make components-shinylive-links FILES="components/inputs/action-button/app-core.py"
+make docs-update-shinylive-links FILES="components/inputs/action-button/app-core.py"
 
 # Generate static component previews
-make components-static-previews
+make docs-static-previews
 ```
 
 ### Virtual Environment
@@ -277,13 +277,13 @@ Every `done-*` aggregator is four lines — `if: always()`, its `needs:`, and a 
 Also beware: GitHub evaluates `${{ }}` expressions inside an action manifest's `description:` fields. Writing the input's expected value as a literal `${{ toJSON(needs.*.result) }}` there makes the manifest fail to load with `Unrecognized named-value: 'needs'`. `_done.yml` refers to the expression in prose for this reason.
 
 - **`test-apps`** (`.github/workflows/test-apps.yml`) — everything that boots an app in a browser, both jobs sharded 6 ways over a remote Playwright container (`.github/internal/setup-playwright-remote`):
-  - `apps` — per-component controller interaction tests + `conftest` unit tests (`make test-apps`), 15 min timeout.
-  - `smoke` — sweep over every `components/**/app*.py` (`make test-smoke`), 20 min timeout.
+  - `apps` — per-component controller interaction tests + `conftest` unit tests (`make test-apps-intent`), 15 min timeout.
+  - `smoke` — sweep over every `components/**/app*.py` (`make test-apps-smoke`), 20 min timeout.
   - Aggregator: `done-test-apps`.
 
 - **`test-docs`** (`.github/workflows/test-docs.yml`) — everything that validates generated or authored doc content, no browser:
-  - `relevant-functions` — regenerates the `relevant-functions` front-matter fields (`make components-relevant-functions`, with `RELEVANT_FUNCTIONS_STRICT=1`) and **fails if the committed `index.qmd` files differ**. Catches a `title`/`href`/`signature` that drifted from the live `shiny.ui` / `shiny.express.ui` API (e.g. after a submodule bump). Runs `quartodoc` first, since the generator reads the generated `api/**` pages. Fix by running `make components-relevant-functions` and committing.
-  - `shinylive-links` — regenerates the component Shinylive links (`make components-shinylive-links`) and **fails if the committed links differ**. Catches an edited `app-*.py` whose `shinylive:` link in `index.qmd` wasn't regenerated. Needs the pinned submodule so the shinylive version matches the site build. Fix by running `make components-shinylive-links` and committing.
+  - `relevant-functions` — regenerates the `relevant-functions` front-matter fields (`make docs-update-relevant-functions`, with `RELEVANT_FUNCTIONS_STRICT=1`) and **fails if the committed `index.qmd` files differ**. Catches a `title`/`href`/`signature` that drifted from the live `shiny.ui` / `shiny.express.ui` API (e.g. after a submodule bump). Runs `quartodoc` first, since the generator reads the generated `api/**` pages. Fix by running `make docs-update-relevant-functions` and committing.
+  - `shinylive-links` — regenerates the component Shinylive links (`make docs-update-shinylive-links`) and **fails if the committed links differ**. Catches an edited `app-*.py` whose `shinylive:` link in `index.qmd` wasn't regenerated. Needs the pinned submodule so the shinylive version matches the site build. Fix by running `make docs-update-shinylive-links` and committing.
   - `script-tests` — unit tests for the helper scripts in `scripts/` (`make test-scripts`), currently the internal-link checker. `pytest.ini` scopes `testpaths` to `components/`, so without this job they would never run in CI.
   - Aggregator: `done-test-docs`.
 
@@ -302,10 +302,10 @@ To update component examples:
 
 ```bash
 # Regenerate Shinylive links (add FILES="..." to limit to specific pages)
-make components-shinylive-links
+make docs-update-shinylive-links
 
 # Regenerate static preview images
-make components-static-previews
+make docs-static-previews
 ```
 
 **Always regenerate the Shinylive links after editing any `app-*.py` file** and
@@ -313,7 +313,7 @@ commit the updated `index.qmd`. The `shinylive:` values encode the app source, s
 a stale link ships the wrong code — and `test-docs`' `shinylive-links` job
 fails the PR when committed links are out of date.
 
-**Regenerate the `relevant-functions` fields** with `make components-relevant-functions` whenever you add a new component/layout page (or edit its `relevant-functions` block), bump the py-shiny submodule, or otherwise change the documented API — the `title`/`href`/`signature` values are generated from the `api/**` reference pages, and `test-docs`' `relevant-functions` job fails the PR when committed values are stale.
+**Regenerate the `relevant-functions` fields** with `make docs-update-relevant-functions` whenever you add a new component/layout page (or edit its `relevant-functions` block), bump the py-shiny submodule, or otherwise change the documented API — the `title`/`href`/`signature` values are generated from the `api/**` reference pages, and `test-docs`' `relevant-functions` job fails the PR when committed values are stale.
 
 ## Working with API Documentation
 
@@ -322,7 +322,7 @@ API docs are generated from the py-shiny repository:
 1. Update py-shiny submodule if needed: `make submodules-pull`
 2. Regenerate docs: `make quartodoc`
 3. Docs appear in `api/express/`, `api/core/`, `api/testing/`
-4. Regenerate the component/layout `relevant-functions` fields: `make components-relevant-functions` (the `title`/`href`/`signature` values are generated from the `api/**` pages, so a submodule bump can change them). Commit the updated `index.qmd` files.
+4. Regenerate the component/layout `relevant-functions` fields: `make docs-update-relevant-functions` (the `title`/`href`/`signature` values are generated from the `api/**` pages, so a submodule bump can change them). Commit the updated `index.qmd` files.
 
 The custom renderer automatically extracts examples from `py-shiny/shiny/examples/{function_name}/` and embeds them as interactive Shinylive demos.
 
@@ -349,7 +349,7 @@ In CI this is `site.yml`'s `page-links` job, running against the `site-merged` a
 
 **Run it after `make site-parallel`, not `make serve`.** A partial or seeded `_build/` produces large numbers of false positives: `site_libs/` asset hashes drift (excluded for this reason), and unmerged shard output leaves `.qmd` hrefs that `scripts/ci-merge.py` would have rewritten (it resolved 4,851 of them in one measured run).
 
-Unit tests for the checker live in `scripts/test_check_page_links.py` and are **not** collected by `make test-apps` (pytest.ini scopes `testpaths` to `components/`). Run them with `make test-scripts`, which covers everything under `scripts/`; `test-docs`' `script-tests` job runs the same target in CI.
+Unit tests for the checker live in `scripts/test_check_page_links.py` and are **not** collected by the `test-apps-*` targets (pytest.ini scopes `testpaths` to `components/`). Run them with `make test-scripts`, which covers everything under `scripts/`; `test-docs`' `script-tests` job runs the same target in CI.
 
 **`make compare-versions`** — viewport comparison between production and a local build using Playwright + Claude vision via AWS Bedrock. Run it before merging any change that could affect rendered output site-wide: Quarto version upgrades, Shinylive version upgrades, `_quarto.yml` structural changes, `_renderer.py` changes, or other dependency upgrades. Writes a timestamped markdown report to `tests/`; start with the executive summary.
 
@@ -391,7 +391,7 @@ The report is written to `tests/compare-versions-<timestamp>.md`. The executive 
 
 **If components aren't rendering:**
 
-1. Regenerate components: `make components`
+1. Regenerate components: `make docs`
 2. Check for syntax errors in component .qmd files
 3. Verify Shinylive extension is installed
 

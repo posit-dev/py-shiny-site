@@ -1,6 +1,6 @@
 """Unit tests for scripts/check-page-links.py.
 
-Not collected by `make test-apps` (pytest.ini scopes testpaths to components/).
+Not collected by `make test-apps-intent` (pytest.ini scopes testpaths to components/).
 Run explicitly:
 
     uv run pytest scripts/test_check_page_links.py

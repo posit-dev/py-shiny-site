@@ -28,13 +28,13 @@ jobs:
       # fail here rather than be silently left as-authored: unlike the build/setup
       # chain, which falls forward, CI requires the fields to be correct.
       - name: Regenerate relevant-functions fields
-        run: make components-relevant-functions QUARTO_PATH=quarto RELEVANT_FUNCTIONS_STRICT=1
+        run: make docs-update-relevant-functions QUARTO_PATH=quarto RELEVANT_FUNCTIONS_STRICT=1
 
       # If regenerating changed any tracked file, the committed fields are stale.
       - name: Verify relevant-functions are up to date
         run: |
           if ! git diff --quiet; then
-            echo "::error::relevant-functions href/signature are out of date. Run 'make components-relevant-functions' and commit the result."
+            echo "::error::relevant-functions href/signature are out of date. Run 'make docs-update-relevant-functions' and commit the result."
             echo "--- Offending diff ---"
             git diff
             exit 1
@@ -52,13 +52,13 @@ jobs:
       # Regenerate the shinylive links embedded in the component index.qmd
       # files. The Makefile self-manages its uv venv.
       - name: Regenerate shinylive links
-        run: make components-shinylive-links
+        run: make docs-update-shinylive-links
 
       # If regenerating changed any tracked file, the committed links are stale.
       - name: Verify shinylive links are up to date
         run: |
           if ! git diff --quiet; then
-            echo "::error::Shinylive links are out of date. Run 'make components-shinylive-links' and commit the result."
+            echo "::error::Shinylive links are out of date. Run 'make docs-update-shinylive-links' and commit the result."
             echo "--- Offending diff ---"
             git diff
             exit 1
