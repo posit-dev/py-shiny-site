@@ -100,21 +100,14 @@ jobs:
       - name: Unit-test the internal-link checker
         run: make test-scripts
 
-  # Single stable check for branch protection / auto-merge -- the one job from
-  # this workflow to put in the required-checks list. Jobs above can be added,
-  # renamed, or re-sharded without touching that list: `needs.*` expands to every
-  # entry in this job's `needs:`, so the grep below needs no change either.
-  #
-  # `always()` is required: without it, a failing job above would make this one
-  # skip, and GitHub treats a skipped required check as satisfied.
+  # Single stable check for branch protection / auto-merge -- reports as
+  # `done-test-docs / verify`, and that is the one name from this workflow to put
+  # in the required-checks list. Jobs above can be added, renamed, or re-sharded
+  # without touching that list: `needs.*` expands to every entry in this job's
+  # `needs:`. See _done.yml for why `always()` here is load-bearing.
   done-test-docs:
-    name: done-test-docs
     if: always()
     needs: [relevant-functions, shinylive-links, script-tests]
-    runs-on: ubuntu-latest
-    steps:
-      # A local composite action cannot run without the repo checked out.
-      - uses: actions/checkout@v7
-      - uses: ./.github/internal/verify-job-results
-        with:
-          results: ${{ toJSON(needs.*.result) }}
+    uses: ./.github/workflows/_done.yml
+    with:
+      results: ${{ toJSON(needs.*.result) }}

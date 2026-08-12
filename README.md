@@ -120,17 +120,21 @@ re-port or retire it).
   - **`test-apps`** — everything that boots an app in a browser: the
     per-component interaction tests and the smoke sweep, both sharded 6 ways
     (`make test-apps` / `make test-smoke`). They use a cached Docker Playwright
-    browser, so no per-job browser download. Check: `done-test-apps`.
+    browser, so no per-job browser download. Check: `done-test-apps / verify`.
   - **`test-docs`** — browserless checks over doc content: the component
     Shinylive links and `relevant-functions` fields are regenerated and the job
     fails if the committed values are out of date, plus unit tests for the
-    internal-link checker. So after editing any `app-*.py`, run
+    the helper scripts in `scripts/`. So after editing any `app-*.py`, run
     `make components-shinylive-links` (optionally scoped with `FILES="..."`)
-    and commit the updated `index.qmd`. Check: `done-test-docs`.
+    and commit the updated `index.qmd`. Check: `done-test-docs / verify`.
 - Broken internal links are checked in the site workflow rather than
   `test-docs`, since the checker needs the rendered site that workflow's
   `combine` job produces (`make test-page-links` locally).
-- Shared workflow logic lives in local composite actions under
+- Each workflow exposes exactly one required check, a `done-*` aggregator that
+  calls the reusable `.github/workflows/_done.yml` and fails if any job it
+  covers did not succeed. Jobs can be added or re-sharded inside a workflow
+  without touching branch protection.
+- Other shared workflow setup lives in local composite actions under
   `.github/internal/` (`setup-uv`, `setup-py-shiny-site`,
   `setup-playwright-remote`).
 
