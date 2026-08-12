@@ -2,10 +2,8 @@ name: test-docs
 
 # Everything that validates generated or authored documentation content without
 # booting a browser. Anything that needs a real app in a browser belongs in
-# test-apps.yml; anything that needs a *rendered site* belongs in site.yml (see
-# the `Check internal links` step in its `deploy` job -- that is where the merged
-# `_build/` exists, so re-rendering it here would double the most expensive job
-# in CI).
+# test-apps.yml; anything that needs a *rendered site* belongs in site.yml, whose
+# `page-links` job consumes the merged `_build/` that `combine` produces.
 
 on:
   push:
@@ -23,17 +21,9 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      # Installs uv + Quarto (versions from the Makefile) + checks out the pinned
-      # py-shiny submodule so the generated API pages (the generator's input)
-      # match the site build.
       - name: Set up py-shiny-site
         uses: ./.github/internal/setup-py-shiny-site
 
-      # Regenerate href/signature in the component/layout index.qmd files. The
-      # target depends on quartodoc (which regenerates the api/** pages and needs
-      # the quarto binary set up above). QUARTO_PATH=quarto points the Makefile
-      # at that quarto; `install-quarto`'s CI branch just checks it is on PATH.
-      #
       # RELEVANT_FUNCTIONS_STRICT=1 makes an unresolvable (rotted/renamed) title
       # fail here rather than be silently left as-authored: unlike the build/setup
       # chain, which falls forward, CI requires the fields to be correct.
@@ -56,10 +46,6 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      # Installs uv (Python from the Makefile) and checks out the pinned py-shiny
-      # submodule. The link generator's `shinylive:` values must be encoded with
-      # the same shinylive version the site build uses (pinned via py-shiny's
-      # docs extras in the submodule), or this check produces false failures.
       - name: Set up py-shiny-site
         uses: ./.github/internal/setup-py-shiny-site
 
@@ -79,11 +65,6 @@ jobs:
           fi
           echo "Shinylive links are up to date."
 
-  # Unit tests for the internal-link checker that site.yml runs against the
-  # merged `_build/`. pytest.ini scopes `testpaths` to `components/`, so these
-  # are not collected by `make test-apps` and would otherwise never run in CI --
-  # leaving the thing that gates every page link unguarded itself. No quartodoc,
-  # no browser, no render: the tests themselves take under a second.
   script-tests:
     runs-on: ubuntu-latest
     steps:
@@ -92,12 +73,10 @@ jobs:
       - name: Set up py-shiny-site
         uses: ./.github/internal/setup-py-shiny-site
 
-      # The target runs pytest with `-n0`, which needs pytest + pytest-xdist --
-      # both come from py-shiny's dev extras, so the full `deps` install applies.
       - name: Install dependencies
         run: make deps
 
-      - name: Unit-test the internal-link checker
+      - name: Unit-test the helper scripts
         run: make test-scripts
 
   done-test-docs:

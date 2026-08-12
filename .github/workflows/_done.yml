@@ -1,29 +1,3 @@
-# Reusable "did everything upstream succeed?" job, called by the `done-*` job in
-# each workflow -- the single stable check that branch protection requires, so
-# that the jobs it covers can be added, renamed, or re-sharded without touching
-# the required-checks list.
-#
-# Two things make this correct, and both are easy to get wrong when hand-rolling
-# it in a new workflow, which is why it lives here:
-#
-#   1. The *calling* job must set `if: always()`. Without it, a failing upstream
-#      job makes the caller skip, and GitHub reports a skipped job as "Success"
-#      even when it is a required check -- so the failure passes silently.
-#   2. `skipped` must count as a failure below, for the same reason: a job that
-#      was skipped because something upstream of it failed verified nothing.
-#
-# Callers pass the toJSON(needs.*.result) expression, which expands to every
-# entry in the calling job's `needs:` -- so adding a job there needs no change
-# here.
-#
-# Leading underscore: this workflow only runs via `workflow_call`, never on its
-# own trigger.
-#
-# CHECK NAME: a reusable-workflow call reports as "<caller job> / <this job>",
-# e.g. `done-site / verify`. Those are the names in the required-checks list, so
-# renaming the `verify` job below, or a `done-*` caller job, breaks branch
-# protection until the list is updated to match.
-
 name: done
 
 on:
