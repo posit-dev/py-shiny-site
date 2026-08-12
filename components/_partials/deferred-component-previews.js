@@ -1,5 +1,4 @@
 (() => {
-  const iframePreviews = document.querySelectorAll("iframe[data-src]");
   const shinylivePreviews = document.querySelectorAll(".shinylive-python");
   const shinylivePreviewCards = new Map();
   const shinyliveRunner = document.querySelector(
@@ -20,6 +19,14 @@
     );
   });
 
+  const iframePreviewCards = new Map();
+  document.querySelectorAll("iframe[data-src]").forEach((preview) => {
+    iframePreviewCards.set(
+      preview.closest(".component-list-card") || preview,
+      preview,
+    );
+  });
+
   function loadIframePreview(preview) {
     preview.addEventListener(
       "load",
@@ -30,8 +37,24 @@
     preview.removeAttribute("data-src");
   }
 
+  function startShinylivePreviews(previews) {
+    if (!previews.length || !shinyliveRunner) return;
+    shinyliveImportId += 1;
+    import(`${shinyliveRunner.src}?component-preview=${shinyliveImportId}`).catch(
+      (error) => {
+        previews.forEach((preview) =>
+          preview.classList.replace(
+            "shinylive-python",
+            "deferred-shinylive-python",
+          ),
+        );
+        console.error("Unable to load component preview", error);
+      },
+    );
+  }
+
   if (!("IntersectionObserver" in window)) {
-    iframePreviews.forEach(loadIframePreview);
+    iframePreviewCards.forEach(loadIframePreview);
     shinylivePreviews.forEach((preview) =>
       preview.classList.replace(
         "deferred-shinylive-python",
@@ -41,45 +64,39 @@
     return;
   }
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      const visibleShinylivePreviews = [];
-
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        observer.unobserve(entry.target);
-
-        if (entry.target.matches("iframe[data-src]")) {
-          loadIframePreview(entry.target);
-          return;
-        }
-
-        const shinylivePreview = shinylivePreviewCards.get(entry.target);
-        shinylivePreview.classList.replace(
-          "deferred-shinylive-python",
-          "shinylive-python",
-        );
-        visibleShinylivePreviews.push(shinylivePreview);
-      });
-
-      if (visibleShinylivePreviews.length && shinyliveRunner) {
-        shinyliveImportId += 1;
-        import(
-          `${shinyliveRunner.src}?component-preview=${shinyliveImportId}`
-        ).catch((error) => {
-          visibleShinylivePreviews.forEach((preview) =>
-            preview.classList.replace(
-              "shinylive-python",
-              "deferred-shinylive-python",
-            ),
-          );
-          console.error("Unable to load component preview", error);
+  // Observe the card rather than the preview inside it: cards are
+  // `content-visibility: auto`, and descendants of a skipped subtree can report
+  // an empty intersection rect.
+  function observeCards(cards, rootMargin, onVisible) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = [];
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          observer.unobserve(entry.target);
+          visible.push(cards.get(entry.target));
         });
-      }
-    },
-    { rootMargin: "400px 0px" },
-  );
+        onVisible(visible);
+      },
+      { rootMargin },
+    );
+    cards.forEach((_preview, card) => observer.observe(card));
+  }
 
-  iframePreviews.forEach((preview) => observer.observe(preview));
-  shinylivePreviewCards.forEach((_preview, card) => observer.observe(card));
+  // A static preview is a few KB of HTML on top of libraries the first one
+  // warms for the rest, so it can be fetched several screens ahead and be
+  // there the moment it scrolls in. Shinylive previews each boot a Python
+  // runtime, so they stay close to the viewport.
+  observeCards(iframePreviewCards, "1500px 0px", (previews) =>
+    previews.forEach(loadIframePreview),
+  );
+  observeCards(shinylivePreviewCards, "400px 0px", (previews) => {
+    previews.forEach((preview) =>
+      preview.classList.replace(
+        "deferred-shinylive-python",
+        "shinylive-python",
+      ),
+    );
+    startShinylivePreviews(previews);
+  });
 })();

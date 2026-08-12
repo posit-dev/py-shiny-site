@@ -36,7 +36,7 @@
 </div>
 <div class="component-list-card">
 <div style="background-color: #ffffff;
-  animation: 0.75s fadeIn;
+  animation: 0.2s fadeIn;
   animation-fill-mode: forwards;
   visibility: hidden;
   border-radius: 10px;">
@@ -49,7 +49,6 @@
 <iframe
   class="app-frame component-preview-frame is-loading"
   data-src="<%= item.appPreview.file.replace(/^components\//, "static/").replace(/\.py$/, ".html") %>"
-  loading="lazy"
   title="<%= item.title %> component preview"
 ></iframe>
 </div>
@@ -74,10 +73,6 @@
 <style type="text/css">
   @keyframes fadeIn {
   0% {
-    opacity: 0;
-  }
-
-   50% {
     opacity: 0;
   }
 
