@@ -84,14 +84,14 @@ site-parallel: $(PYBIN) install-quarto
 # a uv install to run a stdlib script -- or, worse, invite CI to invoke the script
 # directly and duplicate these flags. Keep it dependency-free so there is exactly
 # one definition of how the check is run. (Verified on Python 3.9.)
-.PHONY: check-page-links
-check-page-links:
+.PHONY: test-page-links
+test-page-links:
 	python3 scripts/check-page-links.py --dir _build --allow scripts/page-links-allow.txt
 
-## Unit-test the link checker itself (not collected by test-apps; testpaths=components)
-.PHONY: test-check-page-links
-test-check-page-links: $(PYBIN)
-	$(UVRUN) pytest scripts/test_check_page_links.py -n0
+## Unit-test the helper scripts in scripts/ (pytest.ini scopes testpaths to components/, so these are not collected by test-apps)
+.PHONY: test-scripts
+test-scripts: $(PYBIN)
+	$(UVRUN) pytest scripts/ -n0
 
 ## Serve existing _build without full re-render (fast preview; run `make site` or `make site-parallel` first)
 .PHONY: serve-fast
@@ -258,7 +258,7 @@ install-playwright: $(PYBIN) deps
 
 ## Run all example-app tests: smoke sweep + per-component app tests (chromium, parallel; from pytest.ini)
 .PHONY: test
-test: test-smoke test-apps
+test: test-scripts test-smoke test-apps
 
 ## Smoke-test every components/**/app*.py (each app launches with no server/JS/output errors). Pass PYTEST_ARGS="..." to narrow (e.g. PYTEST_ARGS='-k "layout/accordion"') or shard (PYTEST_ARGS='--num-shards 6 --shard-id 0').
 .PHONY: test-smoke

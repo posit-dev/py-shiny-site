@@ -67,9 +67,10 @@ Every example app under `components/` is exercised by Playwright tests
 (reusing py-shiny's public testing API — no custom runner):
 
 ```bash
-make test          # smoke sweep (every app-*.py) + per-component interaction tests
+make test          # everything below
 make test-smoke    # just the smoke sweep
 make test-apps     # just the per-component interaction/unit tests
+make test-scripts  # unit tests for the helper scripts in scripts/ (no browser)
 ```
 
 `pytest.ini` defaults to the chromium browser and xdist (`-n auto`); narrow a
@@ -128,7 +129,7 @@ re-port or retire it).
     and commit the updated `index.qmd`. Check: `done-test-docs`.
 - Broken internal links are checked in the site workflow rather than
   `test-docs`, since the checker needs the rendered site that workflow's
-  `combine` job produces (`make check-page-links` locally).
+  `combine` job produces (`make test-page-links` locally).
 - Shared workflow logic lives in local composite actions under
   `.github/internal/` (`setup-uv`, `setup-py-shiny-site`,
   `setup-playwright-remote`).

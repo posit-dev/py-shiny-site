@@ -84,7 +84,7 @@ jobs:
   # are not collected by `make test-apps` and would otherwise never run in CI --
   # leaving the thing that gates every page link unguarded itself. No quartodoc,
   # no browser, no render: the tests themselves take under a second.
-  link-checker:
+  script-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -98,7 +98,7 @@ jobs:
         run: make deps
 
       - name: Unit-test the internal-link checker
-        run: make test-check-page-links
+        run: make test-scripts
 
   # Single stable check for branch protection / auto-merge -- the one job from
   # this workflow to put in the required-checks list. Jobs above can be added,
@@ -110,7 +110,7 @@ jobs:
   done-test-docs:
     name: done-test-docs
     if: always()
-    needs: [relevant-functions, shinylive-links, link-checker]
+    needs: [relevant-functions, shinylive-links, script-tests]
     runs-on: ubuntu-latest
     steps:
       # A local composite action cannot run without the repo checked out.

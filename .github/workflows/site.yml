@@ -226,7 +226,7 @@ jobs:
           name: site-merged
           path: _build/
       - name: Check internal links
-        run: make check-page-links
+        run: make test-page-links
 
   # The single stable check for branch protection / auto-merge -- the one job
   # from this workflow to put in the required-checks list. The shard count, and
