@@ -164,7 +164,7 @@ Broadly speaking, there are two kinds of UI components in Shiny: _container comp
 Here are some examples of container components:
 
 - [`ui.sidebar()`](../layouts/sidebars/index.qmd)
-- [`ui.card()`](../layouts/panels-cards/index.qmd#content-divided-by-cards)
+- [`ui.card()`](../layouts/panels-cards/index.qmd#multiple-cards)
 - [`ui.layout_columns()`](../layouts/arrange/index.qmd#grid-layouts)
 - `ui.div()`
 

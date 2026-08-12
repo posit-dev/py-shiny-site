@@ -42,7 +42,7 @@ Note also the use of Shiny [modules](/docs/modules.qmd) to encapsulate and reuse
 
 * [Sidebar](/layouts/sidebars/index.qmd)
 * [Grid layout](/layouts/arrange/index.qmd)
-* [Cards](/layouts/panels-cards/index.qmd#content-divided-by-cards)
+* [Cards](/layouts/panels-cards/index.qmd#multiple-cards)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}
