@@ -77,13 +77,7 @@ jobs:
       - name: Smoke-test shard ${{ matrix.shard }} of 6
         run: make test-smoke PYTEST_ARGS="--num-shards 6 --shard-id ${{ matrix.shard }}"
 
-  # Single stable check for branch protection / auto-merge -- reports as
-  # `done-test-apps / verify`, and that is the one name from this workflow to put
-  # in the required-checks list. The matrices above may be re-sharded, and jobs
-  # added, without touching that list: `needs.*` expands to every entry in this
-  # job's `needs:`.
   done-test-apps:
-    # `always()` is required -- see _done.yml for why.
     if: always()
     needs: [apps, smoke]
     uses: ./.github/workflows/_done.yml

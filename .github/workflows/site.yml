@@ -228,15 +228,6 @@ jobs:
       - name: Check internal links
         run: make test-page-links
 
-  # The single stable check for branch protection / auto-merge -- reports as
-  # `done-site / verify`, and that is the one name from this workflow to put in
-  # the required-checks list. The shard count, and the jobs above, can change
-  # without touching that list: `needs.*` expands to every entry in this job's
-  # `needs:`. See _done.yml for why `always()` here is load-bearing.
-  #
-  # `deploy` is in `needs` only because its fork-hostile steps are guarded --
-  # see the comment on that job. Removing those guards would make every fork
-  # pull request permanently unmergeable.
   done-site:
     if: always()
     needs: [build, combine, deploy, page-links]

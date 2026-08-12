@@ -100,11 +100,6 @@ jobs:
       - name: Unit-test the internal-link checker
         run: make test-scripts
 
-  # Single stable check for branch protection / auto-merge -- reports as
-  # `done-test-docs / verify`, and that is the one name from this workflow to put
-  # in the required-checks list. Jobs above can be added, renamed, or re-sharded
-  # without touching that list: `needs.*` expands to every entry in this job's
-  # `needs:`. See _done.yml for why `always()` here is load-bearing.
   done-test-docs:
     if: always()
     needs: [relevant-functions, shinylive-links, script-tests]
