@@ -193,10 +193,24 @@ Before generating tests, make sure you have:
 pip install "shiny[add-test]"
 ```
 
+#### Specifying the app and test file
+
+To skip the prompts, pass the paths on the command line:
+
+```bash
+# Writes test_app_dashboard.py next to the app
+shiny add test --app app_dashboard.py
+
+# Choose both paths yourself
+shiny add test --app app_dashboard.py --test-file test_dashboard.py
+```
+
+When `--test-file` is omitted, the test file is named `test_` plus the app file name and written alongside the app. Whichever way you name it, the file must start with `test_` and must not already exist — `shiny add test` will not overwrite a test you have already written.
+
 #### Choosing a provider for generating tests
 
 ```bash
-# Anthropic (default)
+# Anthropic (default; uses the sonnet model)
 shiny add test --app app.py
 
 # OpenAI (will use gpt-5)
@@ -204,6 +218,25 @@ shiny add test --app app.py --provider openai
 
 # explicitly use gpt-5-mini model
 shiny add test --app app.py --provider openai --model gpt-5-mini
+```
+
+`--model` takes one of these aliases rather than a full model name:
+
+| Provider | Alias | Model |
+|----------|-------|-------|
+| `anthropic` | `sonnet` (default) | `claude-sonnet-4-20250514` |
+| `anthropic` | `haiku3.5` | `claude-3-5-haiku-20241022` |
+| `openai` | `gpt-5` (default) | `gpt-5-2025-08-07` |
+| `openai` | `gpt-5-mini` | `gpt-5-mini-2025-08-07` |
+
+Generation runs against your own API key, so each invocation consumes tokens and costs money. The command reports both when it finishes:
+
+```
+🤖 Generating test using anthropic provider...
+LLM token usage and cost:
+Anthropic (claude-sonnet-4-20250514): 12.3k input, 2.1k output | Cost $0.0845 | Time taken: 8.45s
+
+✅ Test file generated successfully: test_app.py
 ```
 
 ### Troubleshooting Common Issues
