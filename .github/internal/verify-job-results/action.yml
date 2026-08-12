@@ -1,3 +1,7 @@
+# NOTE: no "dollar-brace" expressions anywhere in the description fields below.
+# GitHub evaluates them even inside `description:`, against a context where
+# `needs` does not exist, and the whole manifest then fails to load with
+# "Unrecognized named-value: 'needs'". Refer to the expression in prose instead.
 name: Verify job results
 description: >
   Fail if any upstream job did not succeed. Used by the `done-*` aggregator job
@@ -14,12 +18,15 @@ description: >
   2. `skipped` must count as a failure here, for the same reason: a job that was
      skipped because something upstream of it failed did not verify anything.
 
-  Pass `${{ toJSON(needs.*.result) }}`. That expression expands to every entry in
-  the calling job's `needs:`, so adding a job to `needs:` needs no change here.
+  Pass `toJSON(needs.*.result)` (as a workflow expression) for `results`. That
+  expands to every entry in the calling job's `needs:`, so adding a job there
+  needs no change here.
 
 inputs:
   results:
-    description: 'JSON array of upstream job results -- pass `${{ toJSON(needs.*.result) }}`.'
+    description: >
+      JSON array of upstream job results. Pass the `toJSON(needs.*.result)`
+      expression from the calling job.
     required: true
 
 runs:
