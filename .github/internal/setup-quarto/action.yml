@@ -35,9 +35,15 @@ runs:
     # after ~20 tries on the connection resets (exit 4), failing whole runs.
     # Caching the extracted tarball means a cache hit downloads nothing at all,
     # and the curl below retries transient HTTP/network errors instead of dying.
+    #
+    # restore/save are split (rather than one `actions/cache`) so the save is a
+    # real step we control: it runs only after `Verify Quarto` below passes, so
+    # a half-extracted or wrong-version install is never persisted. `actions/
+    # cache`'s implicit post-job save would have written the cache even when the
+    # job failed.
     - name: Restore cached Quarto
       id: quarto-cache
-      uses: actions/cache@v6
+      uses: actions/cache/restore@v6
       with:
         path: ${{ steps.quarto-version.outputs.dir }}
         key: quarto-${{ runner.os }}-${{ runner.arch }}-${{ steps.quarto-version.outputs.version }}
@@ -97,3 +103,14 @@ runs:
           exit 1
         fi
         echo "✓ quarto ${installed} (${found})"
+
+    # Only after the install has been verified, and only when we actually
+    # downloaded something. Saving here rather than at end of job is deliberate:
+    # nothing later in the job can affect this directory, so there is no reason
+    # to make the cache wait on (or be poisoned by) the rest of the build.
+    - name: Save Quarto to cache
+      if: steps.quarto-cache.outputs.cache-hit != 'true'
+      uses: actions/cache/save@v6
+      with:
+        path: ${{ steps.quarto-version.outputs.dir }}
+        key: ${{ steps.quarto-cache.outputs.cache-primary-key }}

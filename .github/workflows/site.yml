@@ -40,9 +40,11 @@ jobs:
       # bundle (wasm/pyodide payload) that `make shinylive-assets` downloads from
       # GitHub releases. Caching it keeps 10 shards from each re-downloading it
       # and hitting github.com's release-asset throttling. Version tracks
-      # requirements.txt, same as the render cache key.
-      - name: Cache shinylive web assets
-        uses: actions/cache@v6
+      # requirements.txt, same as the render cache key. Saved further down, right
+      # after the download step -- see the comment there.
+      - name: Restore shinylive web assets
+        id: shinylive-assets-cache
+        uses: actions/cache/restore@v6
         with:
           path: ~/.cache/shinylive
           key: shinylive-assets-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
@@ -66,9 +68,29 @@ jobs:
       # =====================================================
       # Build
       # =====================================================
+      - name: Install dependencies
+        run: make deps
+
+      # Pulled out of the build below so the assets are downloaded (and cached)
+      # as their own step. `make site` depends on this target too, so it is a
+      # no-op by the time the build runs.
+      - name: Download shinylive web assets
+        run: make shinylive-assets
+
+      # Saved here, immediately after the download, rather than at end of job:
+      # the assets are a pinned upstream bundle, so whether the render later
+      # succeeds says nothing about their validity, and a failed render must not
+      # cost the next run the download. Only fires when the restore missed.
+      - name: Save shinylive web assets
+        if: steps.shinylive-assets-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v6
+        with:
+          path: ~/.cache/shinylive
+          key: ${{ steps.shinylive-assets-cache.outputs.cache-primary-key }}
+
       - name: Build shard ${{ matrix.shard }}/${{ env.SHARD_COUNT }}
         run: |
-          make deps quartodoc components QUARTO_PATH=quarto
+          make quartodoc components QUARTO_PATH=quarto
           python3 scripts/ci-shard.py --shard ${{ matrix.shard }} --count ${{ env.SHARD_COUNT }}
           make site QUARTO_PATH=quarto
 
