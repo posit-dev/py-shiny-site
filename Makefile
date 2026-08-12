@@ -84,9 +84,9 @@ site-parallel: $(PYBIN) install-quarto
 # directly and duplicate these flags. Keep it dependency-free so there is exactly
 # one definition of how the check is run. (Verified on Python 3.9.)
 ## Check the rendered site in _build for broken internal links (run `make site-parallel` first)
-.PHONY: test-page-links
-test-page-links:
-	python3 scripts/check-page-links.py --dir _build --allow scripts/page-links-allow.txt
+.PHONY: test-site-links
+test-site-links:
+	python3 scripts/test_site_links.py --dir _build --allow scripts/site-links-allow.txt
 
 # pytest.ini scopes testpaths to components/, so these are not collected by
 # the test-apps-* targets.
@@ -220,7 +220,7 @@ docs-static-previews: $(PYBIN) deps
 	rm -rf components/static
 	$(UVRUN) python components/make-static-previews.py
 
-## Update shinylive links; pass FILES="dir-or-file ..." to limit to those pages
+## Update shinylive links
 .PHONY: docs-update-shinylive-links
 docs-update-shinylive-links: $(PYBIN) deps
 	$(UVRUN) python components/update-shinylive-links.py $(FILES)
@@ -234,7 +234,7 @@ RELEVANT_FUNCTIONS_STRICT ?=
 #
 # Only the `##` line immediately above the target reaches `make help`; a
 # multi-line `##` block silently drops the target from the listing.
-## Regenerate relevant-functions href/signature from the API pages; pass FILES="dir-or-file ..." to limit to those pages
+## Regenerate relevant-functions href/signature from the API pages
 .PHONY: docs-update-relevant-functions
 docs-update-relevant-functions: $(PYBIN) deps quartodoc
 	$(UVRUN) python components/update-relevant-functions.py \

@@ -226,7 +226,7 @@ jobs:
           name: site-merged
           path: _build/
       - name: Check internal links
-        run: make test-page-links
+        run: make test-site-links
 
   done-site:
     if: always()

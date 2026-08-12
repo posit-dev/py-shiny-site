@@ -128,7 +128,7 @@ re-port or retire it).
     and commit the updated `index.qmd`. Check: `done-test-docs / verify`.
 - Broken internal links are checked in the site workflow rather than
   `test-docs`, since the checker needs the rendered site that workflow's
-  `combine` job produces (`make test-page-links` locally).
+  `combine` job produces (`make test-site-links` locally).
 - Each workflow exposes exactly one required check, a `done-*` aggregator that
   calls the reusable `.github/workflows/_done.yml` and fails if any job it
   covers did not succeed. Jobs can be added or re-sharded inside a workflow

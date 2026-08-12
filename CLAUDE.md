@@ -287,7 +287,7 @@ Also beware: GitHub evaluates `${{ }}` expressions inside an action manifest's `
   - `script-tests` — unit tests for the helper scripts in `scripts/` (`make test-scripts`), currently the internal-link checker. `pytest.ini` scopes `testpaths` to `components/`, so without this job they would never run in CI.
   - Aggregator: `done-test-docs`.
 
-- **Internal link checking is `site.yml`'s `page-links` job, not a `test-docs` job.** `scripts/check-page-links.py` needs a *rendered* site, and `combine` is what produces one. It is a sibling of `deploy` rather than a step inside it, so a broken link does not cost the PR the preview deploy you would use to look at the link; `done-site` gates both. Fix a failure by correcting the link, or — only if the target must be fixed upstream — adding an entry to `scripts/page-links-allow.txt`.
+- **Internal link checking is `site.yml`'s `page-links` job, not a `test-docs` job.** `scripts/test_site_links.py` needs a *rendered* site, and `combine` is what produces one. It is a sibling of `deploy` rather than a step inside it, so a broken link does not cost the PR the preview deploy you would use to look at the link; `done-site` gates both. Fix a failure by correcting the link, or — only if the target must be fixed upstream — adding an entry to `scripts/site-links-allow.txt`.
 
 ## Working with Components
 
@@ -335,13 +335,13 @@ The custom renderer automatically extracts examples from `py-shiny/shiny/example
 
 ## Site Quality Checks
 
-**`make test-page-links`** — scans the rendered site in `_build/` for broken internal links (`scripts/check-page-links.py`). Requires a current full build; run `make site-parallel` first. Reports three kinds:
+**`make test-site-links`** — scans the rendered site in `_build/` for broken internal links (`scripts/test_site_links.py`). Requires a current full build; run `make site-parallel` first. Reports three kinds:
 
 - `missing-target` — the link resolves to no file or directory index
 - `missing-anchor` — the page exists but has no element with that `id`/`name` (**opt-in**, `--anchors`)
 - `unrewritten-qmd` — a `.qmd` href survived rendering, so the reader is served source
 
-This exists because Quarto only validates `.qmd` links. A link with no extension (e.g. `templates/dashboard/` instead of `/templates/dashboard/`) is passed through verbatim and silently 404s — see #59's follow-up. Known-broken links are suppressed via `scripts/page-links-allow.txt` (`<kind><TAB><target>`); prefer fixing the link over adding an entry.
+This exists because Quarto only validates `.qmd` links. A link with no extension (e.g. `templates/dashboard/` instead of `/templates/dashboard/`) is passed through verbatim and silently 404s — see #59's follow-up. Known-broken links are suppressed via `scripts/site-links-allow.txt` (`<kind><TAB><target>`); prefer fixing the link over adding an entry.
 
 In CI this is `site.yml`'s `page-links` job, running against the `site-merged` artifact that `combine` produced — not a `test-docs` job, since nothing there has a rendered site. See "Other CI checks".
 
@@ -349,7 +349,7 @@ In CI this is `site.yml`'s `page-links` job, running against the `site-merged` a
 
 **Run it after `make site-parallel`, not `make serve`.** A partial or seeded `_build/` produces large numbers of false positives: `site_libs/` asset hashes drift (excluded for this reason), and unmerged shard output leaves `.qmd` hrefs that `scripts/ci-merge.py` would have rewritten (it resolved 4,851 of them in one measured run).
 
-Unit tests for the checker live in `scripts/test_check_page_links.py` and are **not** collected by the `test-apps-*` targets (pytest.ini scopes `testpaths` to `components/`). Run them with `make test-scripts`, which covers everything under `scripts/`; `test-docs`' `script-tests` job runs the same target in CI.
+Unit tests for the checker live in `scripts/test_check_site_links.py` and are **not** collected by the `test-apps-*` targets (pytest.ini scopes `testpaths` to `components/`). Run them with `make test-scripts`, which covers everything under `scripts/`; `test-docs`' `script-tests` job runs the same target in CI.
 
 **`make compare-versions`** — viewport comparison between production and a local build using Playwright + Claude vision via AWS Bedrock. Run it before merging any change that could affect rendered output site-wide: Quarto version upgrades, Shinylive version upgrades, `_quarto.yml` structural changes, `_renderer.py` changes, or other dependency upgrades. Writes a timestamped markdown report to `tests/`; start with the executive summary.
 
