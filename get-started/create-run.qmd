@@ -19,7 +19,7 @@ shiny create
 
 You can also get started faster by using one of our [starter templates](/templates/).
 There are templates for common use cases.
-For example, [data dashboards](templates/dashboard/), [applications](/templates/database-explorer/), [streaming](/templates/monitor-database/) updates, or [data entry](/templates/survey/).
+For example, [data dashboards](/templates/dashboard/), [applications](/templates/database-explorer/), [streaming](/templates/monitor-database/) updates, or [data entry](/templates/survey/).
 
 
 ## Run your Shiny application
