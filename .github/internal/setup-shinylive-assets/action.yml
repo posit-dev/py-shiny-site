@@ -1,0 +1,45 @@
+name: Set up shinylive web assets
+description: >
+  Make the shinylive web-assets bundle (the wasm/pyodide payload that
+  `make shinylive-assets` fetches from GitHub releases) available in the
+  shinylive user cache dir, restoring it from the Actions cache when possible
+  and saving it when it had to be downloaded. Requires the repo to be checked
+  out and `make deps` to have run first -- the download runs through the site's
+  uv venv. Exposes whether the restore hit as the `cache-hit` output.
+
+outputs:
+  cache-hit:
+    description: '"true" when the assets were restored from the cache.'
+    value: ${{ steps.cache.outputs.cache-hit }}
+
+runs:
+  using: composite
+  steps:
+    # Keyed on requirements.txt, which pins the shinylive version (same input as
+    # the render cache in site.yml). Caching this keeps 10 site shards from each
+    # re-downloading the bundle and hitting github.com's release-asset
+    # throttling, which is what breaks the download in the first place.
+    - name: Restore shinylive web assets
+      id: cache
+      uses: actions/cache/restore@v6
+      with:
+        path: ~/.cache/shinylive
+        key: shinylive-assets-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+
+    # A no-op (~0.1 s) on a cache hit; on a miss this downloads the bundle,
+    # retrying with backoff (see the Makefile target).
+    - name: Download shinylive web assets
+      shell: bash
+      run: make shinylive-assets
+
+    # Saved here, immediately after the download, rather than at end of job: the
+    # bundle is a pinned upstream artifact, so whatever the job does later says
+    # nothing about its validity, and a failed render must not cost the next run
+    # the download. (`actions/cache`'s implicit post-job save would tie the two
+    # together.) Only fires when the restore missed.
+    - name: Save shinylive web assets
+      if: steps.cache.outputs.cache-hit != 'true'
+      uses: actions/cache/save@v6
+      with:
+        path: ~/.cache/shinylive
+        key: ${{ steps.cache.outputs.cache-primary-key }}

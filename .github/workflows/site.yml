@@ -56,9 +56,19 @@ jobs:
       # =====================================================
       # Build
       # =====================================================
+      - name: Install python dependencies
+        run: make deps
+
+      # Restores/downloads/saves the shinylive web-assets bundle. Runs before
+      # the build (rather than implicitly inside `make site`) so the download is
+      # its own step and can be cached the moment it lands; `make site` depends
+      # on the same target, so it no-ops by the time the build runs.
+      - name: Set up shinylive web assets
+        uses: ./.github/internal/setup-shinylive-assets
+
       - name: Build shard ${{ matrix.shard }}/${{ env.SHARD_COUNT }}
         run: |
-          make deps quartodoc components QUARTO_PATH=quarto
+          make quartodoc components QUARTO_PATH=quarto
           python3 scripts/ci-shard.py --shard ${{ matrix.shard }} --count ${{ env.SHARD_COUNT }}
           make site QUARTO_PATH=quarto
 

@@ -31,9 +31,25 @@ all: quartodoc components site
 # Downloading them is a side effect of `base-htmldeps` that the render cache
 # in _extensions/quarto-ext/shinylive/shinylive.lua may skip; run it once,
 # uncached, before rendering. No-op (~0.1 s) when assets are already present.
+#
+# Retried with backoff: on a cold cache this downloads the shinylive bundle from
+# GitHub releases, and github.com intermittently throttles those downloads
+# (HTTP 503 / dropped connections) when many CI jobs ask at once. shinylive uses
+# urllib with no retry, so a single blip would otherwise fail the whole build.
 .PHONY: shinylive-assets
 shinylive-assets: $(PYBIN)
-	$(UVRUN) shinylive extension base-htmldeps --sw-dir . > /dev/null
+	@for attempt in 1 2 3 4 5; do \
+		if $(UVRUN) shinylive extension base-htmldeps --sw-dir . > /dev/null; then \
+			exit 0; \
+		fi; \
+		if [ "$$attempt" = 5 ]; then \
+			echo "❌ shinylive asset download failed after 5 attempts" >&2; \
+			exit 1; \
+		fi; \
+		delay=$$((attempt * 5)); \
+		echo "⚠️  shinylive asset download failed (attempt $$attempt/5); retrying in $${delay}s" >&2; \
+		sleep $$delay; \
+	done
 
 ## Build website
 .PHONY: site
@@ -157,7 +173,8 @@ _extensions/machow/quartodoc: install-quarto
 quarto-extensions: _extensions/quarto-ext/shinylive _extensions/shafayetShafee/line-highlight _extensions/machow/quartodoc
 
 
-# Install build dependencies
+# Install python build dependencies
+.PHONY: deps
 deps: $(PYBIN)
 	uv pip install -r requirements.txt
 	cd py-shiny && $(UVRUN) make ci-install-docs
@@ -166,6 +183,7 @@ deps: $(PYBIN)
 QUARTODOC_STAMP ?= .quartodoc-stamp
 
 ## Build qmd files for Shiny API docs (skips the body when inputs are unchanged)
+.PHONY: quartodoc
 quartodoc: $(PYBIN) deps install-quarto
 	@key="$$(scripts/quartodoc-stamp.sh)"; \
 	if [ -f $(QUARTODOC_STAMP) ] && [ "$$(cat $(QUARTODOC_STAMP))" = "$$key" ]; then \
