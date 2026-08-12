@@ -394,7 +394,7 @@ app = App(app_ui, server)
 Another useful UI pattern is to embed the chat component inside a `ui.card()`.
 If nothing else, this will help visually separate the chat from the rest of the app.
 It also provides a natural place to provide a header (with perhaps a [tooltip](../components/display-messages/tooltips/index.qmd) with more info about your chatbot).
-[Cards](../layouts/panels-cards/index.qmd#content-divided-by-cards) also come with other handy features like `full_screen=True` to make the chat full-screen when embedded inside a larger app.
+[Cards](../layouts/panels-cards/index.qmd#multiple-cards) also come with other handy features like `full_screen=True` to make the chat full-screen when embedded inside a larger app.
 
 ::: {.panel-tabset .panel-pills}
 
@@ -635,7 +635,7 @@ async def _(user_input: str):
 :::
 
 
-Suggestions are a great way to help guide users throughout a multi-turn conversation (for real examples, see [here](genai-inspiration.qmd#guided-exploration-🧭)).
+Suggestions are a great way to help guide users throughout a multi-turn conversation (for real examples, see [here](genai-inspiration.qmd#guided-exploration)).
 To accomplish this, you'll need to instruct the AI how to generate suggestions itself.
 We've found that adding a section like the one below to your [`system_prompt`](#models-prompts) to be effective for this:
 
@@ -1122,7 +1122,7 @@ When deploying AI chatbots to production, [OpenTelemetry tracing](opentelemetry.
 - Understand user interaction patterns
 - Debug issues without accessing production logs
 
-Many observability platforms like [Logfire](opentelemetry.qmd#quick-setup-with-logfire) can automatically instrument AI libraries (OpenAI, Anthropic, etc.) to show API calls nested within your Shiny traces.
+Many observability platforms like [Logfire](opentelemetry.qmd#logfire) can automatically instrument AI libraries (OpenAI, Anthropic, etc.) to show API calls nested within your Shiny traces.
 
 ## Next steps
 

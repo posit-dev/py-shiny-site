@@ -338,18 +338,22 @@ The custom renderer automatically extracts examples from `py-shiny/shiny/example
 **`make test-site-links`** — scans the rendered site in `_build/` for broken internal links (`scripts/test_site_links.py`). Requires a current full build; run `make site-parallel` first. Reports three kinds:
 
 - `missing-target` — the link resolves to no file or directory index
-- `missing-anchor` — the page exists but has no element with that `id`/`name` (**opt-in**, `--anchors`)
+- `missing-anchor` — the page exists but has no element with that `id`/`name` (`--anchors`, which `make test-site-links` passes)
 - `unrewritten-qmd` — a `.qmd` href survived rendering, so the reader is served source
 
 This exists because Quarto only validates `.qmd` links. A link with no extension (e.g. `templates/dashboard/` instead of `/templates/dashboard/`) is passed through verbatim and silently 404s — see #59's follow-up. Known-broken links are suppressed via `scripts/site-links-allow.txt` (`<kind><TAB><target>`); prefer fixing the link over adding an entry.
 
 In CI this is `site.yml`'s `page-links` job, running against the `site-merged` artifact that `combine` produced — not a `test-docs` job, since nothing there has a rendered site. See "Other CI checks".
 
-**Anchor checking is off by default and not gateable yet.** quartodoc emits interlinks like `api/core/App.html#shiny.App` but never writes a matching `id` attribute on the target page, so `--anchors` reports ~1,500 findings, ~1,460 of them from generated `api/**` output. The ~33 findings originating outside `api/**` are mostly real stale heading anchors — tracked in #448.
+**Anchor checking is gated, and stays that way only because of `scripts/api_anchors.py`.** quartodoc puts an explicit anchor on every documented object's heading and records the URL in `objects.json`, but Quarto promotes a generated page's first heading into the title block and drops its attributes — so `api/core/App.html` had `#shiny.App.run` and no `#shiny.App`. That, plus re-export aliases whose inventory path (`shiny.Session.close`) differs from the heading quartodoc generated (`shiny.session.Session.close`), left 1,463 dead fragments across 293 distinct targets.
+
+`api_anchors.py` runs from the **post-render hook** and injects an empty `<span>` carrying each promised-but-missing id: the page's own object goes on the title block (that heading *is* the title block), an alias goes on the heading documenting the same object, so both land where the reader expects. It adds nothing that the page's qmd or the inventory did not already promise — an undocumented object that something links to stays broken on purpose, because that is a real docs bug and the checker should keep reporting it. Idempotent, and it runs on partial renders too so `make serve` previews what CI gates.
+
+Consequence for anything touching generated api output: **`make test-site-links` now fails on a dead `#shiny.*` fragment.** If a submodule bump breaks it, run `python3 scripts/api_anchors.py --dir _build` — it prints how many promised anchors it could not place, and `plan_anchors` is where the three rules live. Unit tests: `make test-api-anchors`.
 
 **Run it after `make site-parallel`, not `make serve`.** A partial or seeded `_build/` produces large numbers of false positives: `site_libs/` asset hashes drift (excluded for this reason), and unmerged shard output leaves `.qmd` hrefs that `scripts/ci-merge.py` would have rewritten (it resolved 4,851 of them in one measured run).
 
-Unit tests for the checker live in `scripts/test_site_links.py` and are **not** collected by the `test-components-*` targets (pytest.ini scopes `testpaths` to `components/`). Run them with `make test-site-links-checker`; `test-docs`' `unit` job runs the same target in CI.
+Unit tests for the checker live in `scripts/test_site_links.py`, and for the anchor fixup in `scripts/test_api_anchors.py`. Neither is collected by the `test-components-*` targets (pytest.ini scopes `testpaths` to `components/`). Run them with `make test-site-links-checker` and `make test-api-anchors`; `test-docs`' `unit` job runs both targets in CI.
 
 **`make compare-versions`** — viewport comparison between production and a local build using Playwright + Claude vision via AWS Bedrock. Run it before merging any change that could affect rendered output site-wide: Quarto version upgrades, Shinylive version upgrades, `_quarto.yml` structural changes, `_renderer.py` changes, or other dependency upgrades. Writes a timestamped markdown report to `tests/`; start with the executive summary.
 

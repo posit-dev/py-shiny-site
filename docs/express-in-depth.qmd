@@ -237,7 +237,7 @@ In this case, it's just a single card, but there's no limit to how much or how l
 In Shiny Core, UI objects are just normal objects, so you can assign them to variables no differently than you would an integer or a list.
 :::
 
-### Problem: Reactively rendering UI
+### Problem: Reactively rendering UI {#problem-reactively-rendering-ui}
 
 So far, all of the UI we've generated has been "static"---it's generated once, when the page loads, and never changes.
 It's pretty common in Shiny to want to generate UI in response to user input or server events.

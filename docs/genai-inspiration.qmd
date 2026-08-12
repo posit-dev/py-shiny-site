@@ -92,7 +92,7 @@ Specifically, by clicking on the ✨ icon, the user is provided with a natural l
 ![Screenshot of the "sidebot" app with a tooltip describing the visualization.](/images/genai-sidebot-tooltip.png){class="rounded shadow lightbox mt-3"}
 
 
-### Guided exploration 🧭
+### Guided exploration 🧭 {#guided-exploration}
 
 Chatbots are also a great way to guide users through an experience, such as a story, game, or learning activity.
 The `Chat()` component's [input suggestion](genai-chatbots.qmd#suggest-input) feature provides a particularly useful interface for this, as it makes it very easy for users to 'choose their own adventure' with little to no typing.

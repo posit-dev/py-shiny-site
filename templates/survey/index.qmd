@@ -41,7 +41,7 @@ In this example, we use the [shiny_validate] package for input validation, provi
 
 **Layouts:**
 
-* [Cards](/layouts/panels-cards/index.qmd#content-divided-by-cards)
+* [Cards](/layouts/panels-cards/index.qmd#multiple-cards)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}

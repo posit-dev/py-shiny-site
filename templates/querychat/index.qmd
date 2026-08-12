@@ -31,7 +31,7 @@ To learn more, visit [querychat's website](https://github.com/posit-dev/querycha
 ::: {.g-col-6 .g-col-sm-4}
 **Layouts:**
 
-* [Cards](/layouts/panels-cards/#content-divided-by-cards)
+* [Cards](/layouts/panels-cards/#multiple-cards)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}

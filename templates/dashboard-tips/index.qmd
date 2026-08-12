@@ -46,7 +46,7 @@ Another notable difference is the use of `plotly` for interactive plots.
 
 * [Sidebar](/layouts/sidebars)
 * [Grid layout](/layouts/arrange)
-* [Cards](/layouts/panels-cards/#content-divided-by-cards)
+* [Cards](/layouts/panels-cards/#multiple-cards)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}

@@ -83,10 +83,17 @@ site-parallel: $(PYBIN) install-quarto
 # a uv install to run a stdlib script -- or, worse, invite CI to invoke the script
 # directly and duplicate these flags. Keep it dependency-free so there is exactly
 # one definition of how the check is run. (Verified on Python 3.9.)
-## Check the rendered site in _build for broken internal links (run `make site-parallel` first)
+#
+# --anchors is on: scripts/api_anchors.py (via the post-render hook) restores the
+# object anchors Quarto drops from the generated api/** pages, so fragments are
+# now checkable site-wide rather than reporting ~1,460 dead api interlinks. If
+# this starts failing on api/** after a submodule bump, suspect a promised anchor
+# with no heading to attach to -- `python3 scripts/api_anchors.py --dir _build`
+# reports how many it could not place.
+## Check the rendered site in _build for broken internal links and anchors (run `make site-parallel` first)
 .PHONY: test-site-links
 test-site-links:
-	python3 scripts/site_links.py --dir _build --allow scripts/site-links-allow.txt
+	python3 scripts/site_links.py --dir _build --anchors --allow scripts/site-links-allow.txt
 
 # Tests scripts/site_links.py itself. pytest.ini scopes testpaths to components/,
 # so this file is never collected by the test-components-* targets.
@@ -94,6 +101,12 @@ test-site-links:
 .PHONY: test-site-links-checker
 test-site-links-checker: $(PYBIN)
 	$(UVRUN) pytest scripts/test_site_links.py -n0
+
+# Same deal for the anchor fixup that makes --anchors gateable.
+## Unit-test the generated-api anchor fixup
+.PHONY: test-api-anchors
+test-api-anchors: $(PYBIN)
+	$(UVRUN) pytest scripts/test_api_anchors.py -n0
 
 ## Serve existing _build without full re-render (fast preview; run `make site` or `make site-parallel` first)
 .PHONY: serve-fast

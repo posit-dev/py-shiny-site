@@ -37,7 +37,7 @@ By wrapping the chat in a `card()` component, the card footer offers a natural p
 ::: {.g-col-6 .g-col-sm-4}
 **Layouts:**
 
-* [Cards](/layouts/panels-cards/#content-divided-by-cards)
+* [Cards](/layouts/panels-cards/#multiple-cards)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}

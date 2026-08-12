@@ -44,7 +44,7 @@ Additionally, when a file is selected in this table, the contents are displayed 
 **Layouts:**
 
 * [Grid layout](/layouts/arrange/index.qmd)
-* [Cards](/layouts/panels-cards/index.qmd#content-divided-by-cards)
+* [Cards](/layouts/panels-cards/index.qmd#multiple-cards)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}
