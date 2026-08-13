@@ -19,8 +19,16 @@ Because the skill ships with the package, it always matches the version of `shin
 
 ## Install the skill into your project
 
-Once `shiny` is a dependency of your project, use [`library-skills`](https://library-skills.io) to make the bundled skill available to your agent.
-Run these commands from your own project directory (where `shiny` is installed) — `library-skills` finds the skill in your installed `shiny` package, so this is not tied to the py-shiny source repository.
+The skill ships inside the package, so installing `shiny` installs it too — you only need to point your agent at it.
+Use [`library-skills`](https://library-skills.io) to do that.
+
+::: {.callout-important}
+## Run these commands from your own project directory
+
+`library-skills` reads the dependencies of whatever project you run it in, then installs the skills bundled with the packages that project has installed.
+So run it from the project where `shiny` is installed.
+Running it in an empty directory, or in a clone of the py-shiny source repository, will install nothing.
+:::
 
 ::: {.panel-tabset .panel-pills}
 
@@ -49,7 +57,9 @@ uvx library-skills --copy
 :::
 
 By default, `library-skills` symlinks the packaged skill into your project rather than copying it.
-This means the skill stays in sync automatically when you upgrade `shiny` — there is no separate step to re-install it after an upgrade.
+This means the skill keeps tracking your installed version of `shiny` as you upgrade — there is no separate step to re-install it afterwards.
+
+Because `library-skills` works from your project's dependencies rather than from any one package, the same command also installs the skills bundled with your other dependencies, if they ship any.
 
 ::: {.callout-tip}
 See `uvx library-skills --help` for the full list of options.
