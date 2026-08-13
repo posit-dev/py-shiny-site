@@ -29,6 +29,8 @@ project:
     - "*.gif"
     - "*.jpg"
     - "*.svg"
+    - /components/*/*/thumbnail.png
+    - /components/*/*/preview.gif
     - /components/static/**
   post-render:
     - scripts/post-render.py

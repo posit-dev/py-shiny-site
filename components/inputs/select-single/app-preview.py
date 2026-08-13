@@ -9,7 +9,6 @@ app_ui = ui.page_fluid(
             "2": {"2A": "Choice 2A", "2B": "Choice 2B", "2C": "Choice 2C"},
         },
     ),
-    ui.output_text("value"),
     {"class": "vh-100 d-flex justify-content-center align-items-center px-4"},
 )
 
