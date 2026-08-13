@@ -38,7 +38,7 @@
 /components/outputs/verbatim-text.html          /py/components/outputs/verbatim-text/index.html
 
 /py/components/outputs/datatable/* /py/components/outputs/data-table/:splat
-/py/components/display-messages/modal/* /py/components/layout/modal/:splat
+/components/display-messages/modal/* /py/components/layout/modal/:splat
 
 /layouts/arrange.html      /py/layouts/arrange/index.html
 /layouts/navbars.html      /py/layouts/navbars/index.html
