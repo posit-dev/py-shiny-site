@@ -67,27 +67,6 @@
   object-position: center;
 }
 
-.component-list-preview-hint {
-  align-items: center;
-  background: rgba(29, 31, 33, 0.82);
-  border-radius: 999px;
-  bottom: 0.65rem;
-  color: #fff;
-  display: flex;
-  font-size: 0.72rem;
-  font-weight: 600;
-  gap: 0.15rem;
-  letter-spacing: 0.01em;
-  padding: 0.25rem 0.55rem 0.25rem 0.4rem;
-  pointer-events: none;
-  position: absolute;
-  right: 0.65rem;
-  transition: opacity 150ms ease;
-}
-
-.component-list-card.is-previewing .component-list-preview-hint {
-  opacity: 0;
-}
 .component-list-header {
   display: flex;
   justify-content: space-between;
@@ -146,12 +125,6 @@ a.component-list-header-text:hover
   .component-list-card:hover,
   .component-list-card:focus-visible {
     transform: none;
-  }
-}
-
-@media (hover: none) {
-  .component-list-preview-hint {
-    display: none;
   }
 }
 

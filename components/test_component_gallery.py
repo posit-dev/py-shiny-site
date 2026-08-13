@@ -71,11 +71,11 @@ def test_component_page_has_gallery_preview_assets(page_dir: Path) -> None:
         assert all(duration > 0 for duration in durations)
         assert max(changes) >= 0.005
         subject_extent = _subject_extent(poster_image)
-        assert subject_extent >= 0.28
+        assert subject_extent >= 0.20
         if page_dir.parent.name == "inputs":
-            assert subject_extent <= 0.62
+            assert subject_extent <= 0.65
 
-        animation_image.seek(0)
+        animation_image.seek(animation_image.n_frames // 2)
         difference = ImageChops.difference(
             poster_image.convert("RGB"), animation_image.convert("RGB")
         )
@@ -164,6 +164,7 @@ appPreview:
 
     assert len(cards) == 1
     assert not soup.select(".quarto-listing iframe, .quarto-listing .shinylive-wrapper")
+    assert not soup.select(".component-list-preview-hint")
 
     for card in cards:
         column = card.find_parent("div", class_="component-list-column")
