@@ -117,7 +117,7 @@ Toasts and [notifications](../notifications/index.qmd) overlap heavily — both 
 * Reach for a **toast** when placement or severity carries meaning: it can appear at any of the nine screen positions, be color-coded by `type`, carry a header and icon, and show a countdown bar for the time remaining.
 * Reach for a **notification** for a plain status line. Notifications are the simpler, longer-standing API, and always stack in one corner.
 
-[Modal messages](../modal/index.qmd) are the third option, for information the user must acknowledge before continuing.
+[Modal messages](../../layout/modal/index.qmd) are the third option, for information the user must acknowledge before continuing.
 
 ## Variations
 

@@ -138,7 +138,7 @@ ui.offcanvas(
 
 Prefer a natively keyboard-accessible `trigger`, such as a button or a link, so the panel can be opened without a mouse.
 
-See Also: a [sidebar](/layouts/sidebars/index.qmd) holds secondary content permanently alongside your app rather than on top of it, and collapses on narrow screens. [Modal messages](../../display-messages/modal/index.qmd) also cover the page, but demand attention now rather than offering content on the side. [Popovers](../../display-messages/popovers/index.qmd) and [tooltips](../../display-messages/tooltips/index.qmd) attach a small amount of content to a specific element.
+See Also: a [sidebar](/layouts/sidebars/index.qmd) holds secondary content permanently alongside your app rather than on top of it, and collapses on narrow screens. [Modal messages](../modal/index.qmd) also cover the page, but demand attention now rather than offering content on the side. [Popovers](../../display-messages/popovers/index.qmd) and [tooltips](../../display-messages/tooltips/index.qmd) attach a small amount of content to a specific element.
 
 ## Variations
 

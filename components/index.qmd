@@ -108,7 +108,7 @@ Outputs create a spot on the webpage to display results from the server, such as
 
 <h2 class="mt-4"> <i class="bi bi-chat-dots-fill indigo"></i> Display Messages </h2>
 
-Provide feedback to your user with notifications, progress bars, and confirmation modals.
+Provide feedback to your user with notifications, progress bars, and tooltips.
 
 :::
 ::::
@@ -125,7 +125,7 @@ Provide feedback to your user with notifications, progress bars, and confirmatio
 
 <h2 class="mt-4"> <i class="bi bi-layout-text-window-reverse indigo"></i> Layout </h2>
 
-Organize and structure your app's content with cards and other layout components.
+Organize and structure your app's content with cards, modals, and other layout components.
 
 :::
 ::::
