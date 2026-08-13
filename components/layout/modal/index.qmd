@@ -2,12 +2,12 @@
 title: Modal
 sidebar: components
 appPreview:
-  file: components/display-messages/modal/app-preview.py
+  file: components/layout/modal/app-preview.py
 listing:
 - id: example
   template: ../../_partials/components-detail-example.ejs
   template-params:
-    dir: components/display-messages/modal/
+    dir: components/layout/modal/
   contents:
   - title: Preview
     file: app-detail-preview.py
@@ -37,7 +37,7 @@ listing:
 - id: variations
   template: ../../_partials/components-variations.ejs
   template-params:
-    dir: components/display-messages/modal/
+    dir: components/layout/modal/
   contents:
   - title: Modal for authentication
     description: Place inputs inside a modal to collect, and then login with, database
@@ -86,7 +86,7 @@ To add elements to a modal, pass them as unnamed arguments to `ui.modal()`. Moda
 
 Modals come in four sizes: small (`'s'`), medium (`'m'`) (the default), large (`'l'`), and extra-large (`'xl'`). Set the size of a modal with the `size` argument of `ui.modal()`.
 
-See Also: [Notifications](../notifications/index.qmd) provide a similar, but alternative way to display information to the user.
+See Also: [Notifications](../../display-messages/notifications/index.qmd) provide a similar, but alternative way to display information to the user.
 
 ## Variations
 

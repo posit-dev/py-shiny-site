@@ -37,7 +37,7 @@ We also make clever use of [`navset_hidden()`](/api/core/ui.navset_hidden.qmd) t
 
 **Layouts:**
 
-* [Cards](/layouts/panels-cards/index.qmd#content-divided-by-cards)
+* [Cards](/layouts/panels-cards/index.qmd#multiple-cards)
 * [Tabs](/layouts/tabs/index.qmd)
 
 :::

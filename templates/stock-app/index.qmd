@@ -44,7 +44,7 @@ Note that the icon for the stock price change is a green arrow pointing up if th
 
 * [Sidebar](/layouts/sidebars/index.qmd)
 * [Grid layout](/layouts/arrange/index.qmd)
-* [Cards](/layouts/panels-cards/index.qmd#content-divided-by-cards)
+* [Cards](/layouts/panels-cards/index.qmd#multiple-cards)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}

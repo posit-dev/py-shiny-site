@@ -48,7 +48,7 @@ Everything is configurable through standard [OpenTelemetry environment variables
 - Auto-instrumentation also instruments other libraries your app uses (HTTP clients, databases, etc.), so their spans appear alongside Shiny's.
 - `shiny run --reload` works; the reloaded process inherits the instrumentation.
 
-### Logfire (Observability Backend Service)
+### Logfire (Observability Backend Service) {#logfire}
 
 [Pydantic Logfire](https://logfire.pydantic.dev/) provides zero-configuration OpenTelemetry setup with a managed observability platform. You will need to set up a Logfire account and project.
 

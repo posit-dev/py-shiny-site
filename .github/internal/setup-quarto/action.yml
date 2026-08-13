@@ -1,9 +1,9 @@
 name: Set up Quarto (version from Makefile)
 description: >
   Read QUARTO_VERSION from the repo Makefile (single source of truth) and
-  install Quarto at that version via quarto-dev/quarto-actions/setup. Requires
-  the repo to be checked out first. Exposes the resolved version as the
-  `quarto-version` output.
+  install Quarto at that version, caching the install so repeat runs do not
+  re-download it. Requires the repo to be checked out first. Exposes the
+  resolved version as the `quarto-version` output.
 
 outputs:
   quarto-version:
@@ -25,8 +25,92 @@ runs:
           exit 1
         fi
         echo "version=${version}" >> "$GITHUB_OUTPUT"
+        echo "dir=${HOME}/.local/share/quarto-${version}" >> "$GITHUB_OUTPUT"
 
-    - name: Install Quarto
-      uses: quarto-dev/quarto-actions/setup@v2
+    # Why we install Quarto by hand instead of using quarto-dev/quarto-actions:
+    # that action downloads the release asset with a bare `wget` on every job.
+    # github.com throttles unauthenticated release-asset downloads, and with 10
+    # site shards plus four other workflows per push we hit that limit hard --
+    # `wget` exits immediately on the resulting HTTP 503 (exit 8) and gives up
+    # after ~20 tries on the connection resets (exit 4), failing whole runs.
+    # Caching the extracted tarball means a cache hit downloads nothing at all,
+    # and the curl below retries transient HTTP/network errors instead of dying.
+    #
+    # restore/save are split (rather than one `actions/cache`) so the save is a
+    # real step we control: it runs only after `Verify Quarto` below passes, so
+    # a half-extracted or wrong-version install is never persisted. `actions/
+    # cache`'s implicit post-job save would have written the cache even when the
+    # job failed.
+    - name: Restore cached Quarto
+      id: quarto-cache
+      uses: actions/cache/restore@v6
       with:
-        version: ${{ steps.quarto-version.outputs.version }}
+        path: ${{ steps.quarto-version.outputs.dir }}
+        key: quarto-${{ runner.os }}-${{ runner.arch }}-${{ steps.quarto-version.outputs.version }}
+
+    - name: Download and install Quarto
+      if: steps.quarto-cache.outputs.cache-hit != 'true'
+      shell: bash
+      env:
+        VERSION: ${{ steps.quarto-version.outputs.version }}
+        DIR: ${{ steps.quarto-version.outputs.dir }}
+      run: |
+        set -euo pipefail
+
+        case "${RUNNER_OS}-${RUNNER_ARCH}" in
+          Linux-X64) bundle="linux-amd64" ;;
+          Linux-ARM64) bundle="linux-arm64" ;;
+          macOS-*) bundle="macos" ;;
+          *)
+            echo "::error::No Quarto tarball for ${RUNNER_OS}-${RUNNER_ARCH}; use quarto-dev/quarto-actions there"
+            exit 1
+            ;;
+        esac
+
+        tarball="quarto-${VERSION}-${bundle}.tar.gz"
+        url="https://github.com/quarto-dev/quarto-cli/releases/download/v${VERSION}/${tarball}"
+
+        # --retry-all-errors is the point: it covers both the 503 responses and
+        # the dropped connections that github.com serves when it is throttling.
+        curl --fail --location --show-error --silent \
+          --retry 8 --retry-delay 5 --retry-all-errors \
+          --output "${RUNNER_TEMP}/${tarball}" "$url"
+
+        mkdir -p "$DIR"
+        tar -xzf "${RUNNER_TEMP}/${tarball}" -C "$DIR" --strip-components=1
+
+    - name: Add Quarto to PATH
+      shell: bash
+      env:
+        DIR: ${{ steps.quarto-version.outputs.dir }}
+      run: echo "${DIR}/bin" >> "$GITHUB_PATH"
+
+    # Separate step on purpose: $GITHUB_PATH only affects *subsequent* steps, so
+    # this is the first place `quarto` can be resolved off PATH the way the
+    # workflows invoke it (`make ... QUARTO_PATH=quarto`). Checking the version
+    # matches the Makefile catches a stale cache entry or a wrong-version quarto
+    # shadowing ours -- fail here rather than deep inside a render.
+    - name: Verify Quarto
+      shell: bash
+      env:
+        VERSION: ${{ steps.quarto-version.outputs.version }}
+      run: |
+        set -euo pipefail
+        found="$(command -v quarto)"
+        installed="$(quarto --version)"
+        if [ "$installed" != "$VERSION" ]; then
+          echo "::error::Expected Quarto ${VERSION} but ${found} reports ${installed}"
+          exit 1
+        fi
+        echo "✓ quarto ${installed} (${found})"
+
+    # Only after the install has been verified, and only when we actually
+    # downloaded something. Saving here rather than at end of job is deliberate:
+    # nothing later in the job can affect this directory, so there is no reason
+    # to make the cache wait on (or be poisoned by) the rest of the build.
+    - name: Save Quarto to cache
+      if: steps.quarto-cache.outputs.cache-hit != 'true'
+      uses: actions/cache/save@v6
+      with:
+        path: ${{ steps.quarto-version.outputs.dir }}
+        key: ${{ steps.quarto-cache.outputs.cache-primary-key }}

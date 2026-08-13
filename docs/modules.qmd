@@ -17,11 +17,6 @@ Note that while Shiny modules are analogous to [Python modules](https://docs.pyt
 Python modules are a generic way to organize objects in a namespace, while Shiny modules are used to encapsulate reactive components in a namespace.
 :::
 
-::: callout-note
-Modules are supported in [Shiny Express](express-vs-core.qmd) apps as of version 0.10.0.
-:::
-
-
 ## Functions in Shiny
 
 One of the most important things you can do to improve your code quality is to extract a piece of logic into a function.
@@ -205,16 +200,17 @@ For example, consider this function which returns two UI elements:
 ### Express
 
 ```{.python}
-from shiny.express import expressify, input, render, module, ui
+from shiny.express import expressify, input, render, ui
 
 @expressify
 def io_row():
     with ui.layout_columns():
-        ui.input_text("text_input", "Enter text")
-
-        @render.text
-        def text_output():
-            return f'You entered "{input.text_input()}"'
+        with ui.card():
+            ui.input_text("text_input", "Enter text")
+        with ui.card():
+            @render.text
+            def text_output():
+                return f'You entered "{input.text_input()}"'
 
 io_row()
 ```
@@ -247,7 +243,8 @@ The `io_row()` function works fine in this case, but if you try to use it more t
 The reason is that Shiny requires all IDs in the UI to be unique, and if we call this function more than once, there will be several elements with the `text_input` id and several elements with the `text_output` id.
 When that happens, Shiny doesn't know how to connect particular inputs to particular outputs.
 
-One possible way to address this is to add a `prefix` argument to our function and append that to the ids of all the returned elements. (Note that this can be done with Shiny Core applications, but is difficult to do with Shiny Express.)
+One possible way to address this is to add a `prefix` argument to our function and append that to the ids of all the elements it creates.
+That works, but it's tedious and error-prone: every id in the function has to remember the prefix, and any code that reads those inputs or writes those outputs has to build the same prefixed id.
 
 Modules solve these problems by encapsulating both the UI and server logic in their own namespace.
 A module namespace can be thought of as a container for a module's code, and helps to keep the module's variables, functions, and classes separate from those in other modules.
@@ -280,7 +277,7 @@ from shiny.express import module, render, ui
 def io_row(input, output, session):
     with ui.layout_columns():
         with ui.card():
-            ui.input_text(f"text_input", "Enter text")
+            ui.input_text("text_input", "Enter text")
         with ui.card():
             @render.text
             def text_out():
@@ -321,7 +318,7 @@ from shiny.express import module, render, ui
 def io_row(input, output, session, placeholder=""):
     with ui.layout_columns():
         with ui.card():
-            ui.input_text(f"text_input", "Enter text", placeholder=placeholder)
+            ui.input_text("text_input", "Enter text", placeholder=placeholder)
         with ui.card():
             @render.text
             def text_out():

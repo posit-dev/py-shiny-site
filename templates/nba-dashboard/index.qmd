@@ -42,7 +42,7 @@ This provides a useful way to query player(s) based on a specific statistic, the
 
 * [Sidebar](/layouts/sidebars/index.qmd)
 * [Grid layout](/layouts/arrange/index.qmd)
-* [Cards](/layouts/panels-cards/index.qmd#content-divided-by-cards)
+* [Cards](/layouts/panels-cards/index.qmd#multiple-cards)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}

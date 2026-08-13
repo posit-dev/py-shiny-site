@@ -1,0 +1,146 @@
+---
+title: Offcanvas
+sidebar: components
+appPreview:
+  file: components/layout/offcanvas/app-preview.py
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/layout/offcanvas/
+  contents:
+  - title: Preview
+    file: app-detail-preview.py
+    height: 220
+  - title: Express
+    file: app-express.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhXER0AVwpFhEACZwGRBZwA6EfTqyk6dYlAgA3KKwAUyZAGJkAHhf6HDo+lu6wAQQhkEzMLazF0CzgAGzZozg0xbmRGZmQKdjhkODUAcyyTdMzkSPysPwBKAg9Pb18wAGFo0lYszlkAd3b2IqyAIyUKciIM-qhiAGs1JnQiaV7kAFFWc3QsibheSuqgzwp26LgAXj8AETgKKE5o1j8dz3SGTlz8hiOjbkUKAH1x-fJvgMKEMIPVSGsDIRkH4APIQkpRaLbBzONw1BwJE5gSIQGJ3FGudwQCr6UkQAACqg0DCwZA0+g0dDYlyotgqiHRyGEFAUDCCdD8AAVEeIxCAAOTg6ji8RMz5KHCItnZG5ZcXEZqtNTigC+fgJaIgULAFFwa1oJoEFDAOoAukA
+  - title: Core
+    file: app-core.py
+    shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEAkhHQBXCqyIB5eXIVEAynFatO5Ig2oATOAyKzOAHQjWM6APoXkAXmQWcUAOZx7dADYWRgAU1shhbpxYpHR0xFAQAG5QrEFhAMTIADyZoeF57ughYKIQyNGx8UmsyOjxcH5sfpwm1dzIjMzIFOxwyHBG3mV0XT01XnBYlmAAlAS5eWEFRQDCfqSsvZwiAO5b7CO9AEbyFPoHyIdQxADWRkzoRELnAKKscei913C4kzNzpQswhQtn44M4pgAROAUKCcPysKb-QFAhicTzeBjOdzcNT2K7A8j2Y4UU4QIqkD42QjIKZKSljCD1KazdJZHIAwHNcFgWqMvyI1nZebIWbC9ykVTyexkExFVgwqjM-7TayqiAmYYbBgJUxBHHyFDSNSKMqSigoFQUY1EDY6PQQFBaO3kaaIYUAAUM6tMWBlcGFGrYCrgQVdwryhgosgYpToUwACnUGpxqiAAOQU6hpvjDfUUDx80N9eG9NPENYbIxpgC+U0F7LVdhcYkwQTsjk4NtMOsxWp7Kog1LAFFwH1ow7gAA8KGBqwBdIA
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  template-params:
+    dir: components/layout/offcanvas/
+  contents:
+  - title: ui.offcanvas
+    href: https://shiny.posit.co/py/api/core/ui.offcanvas.html#shiny.ui.offcanvas
+    signature: ui.offcanvas(*args, title=None, footer=None, trigger=None, id=None,
+      placement='right', width=None, height=None, close_button=True, backdrop=True,
+      scroll=False, keyboard=True, **kwargs)
+  - title: ui.show_offcanvas
+    href: https://shiny.posit.co/py/api/core/ui.show_offcanvas.html#shiny.ui.show_offcanvas
+    signature: ui.show_offcanvas(offcanvas, *, session=None)
+  - title: ui.hide_offcanvas
+    href: https://shiny.posit.co/py/api/core/ui.hide_offcanvas.html#shiny.ui.hide_offcanvas
+    signature: ui.hide_offcanvas(id, *, session=None)
+  - title: ui.toggle_offcanvas
+    href: https://shiny.posit.co/py/api/core/ui.toggle_offcanvas.html#shiny.ui.toggle_offcanvas
+    signature: ui.toggle_offcanvas(id, show=None, *, session=None)
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/layout/offcanvas/
+  contents:
+  - title: Choose which edge the panel comes from
+    description: |
+      `placement` sets the edge the panel slides in from: `'right'` (the default), `'left'`, `'top'`, or `'bottom'`. Size a left or right panel with `width`, and a top or bottom panel with `height`. Setting `width` on a top or bottom panel (or `height` on a left or right one) has no effect and emits a warning.
+    apps:
+    - title: Preview
+      file: app-variation-placement-preview.py
+      height: 250
+    - title: Express
+      file: app-variation-placement-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXLOAD3QM4rVsk4x0pBhWQBXTgB0IyhVlJ06xKBABuUVgAplyU-M45jYACpcx6HXAA2bJ5wAmI8RGSNmyCnY4ZCc4OgosRTAASgITMwpOClCAXiiAGTCKKLifM3QnKGI4eEo0sFDwnNMAYmQAHnr40wB3D0CUgGYABm6iZDrG5oCGTgBzMbgGFLVudDkKAH0ixPJFgCMFinIrUnRqRcrswmQogDEmFkDgo6jY4Y9yo8WHCGcc5WjlVQsNLR19EZhmp0FZbJx7I4XKw3J4xNxfJcAkEAntIjFcmYAklUlFrHsPnlTAUiiVqBRytt0NUBg0mkTkEFxuwKQAmXr9Qb0rEUUYTKYzCxzBbLYirCAbLY7KJ7A5U6rnJHXVHUjEPdyUvYvKGEr4qCBqP7aPQGYwMkFguzIV7OVweLwIvxXFHrUgUbYwdH3BmJZJwcoAITdHsJWJJxVKFKirvdzBpXOGTLGLJS7L6tTpw1540m01mEHmSxWnDWm1jEF2+wlMZDJ0V-mVNbjaoZj2jweY2reTl1yhOYAouH2tAHAgoYAAvgBdIA
+    - title: Core
+      file: app-variation-placement-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEArpwA6EORnQB9acgC8yaTigBzOEroAbaQBMAFHORXNnLKTp1iUCADcorCxGvebOC2AAVLlZkdGc4QzZDThM4EO5kRmZkCnY4ZEM4OgosGTAASgJLHysKTgpMtTyAGSyKPKKvEtDDKGI4eEoqsEzshqsAYmQAHmHikoB3GNS1AGYABnmiZCHR8Z8KBk4dPQY1LW50SQolNrLyJQAjY4pyf1J0aiVe+sJkPIAxJhZU9Je8wrrbwxbovJRhCARBrrQFNKxaeyOZxuDxA6xadD+IKcEIQiJRGJxPheJI-NIpB65AqNZopcqVPIBB7QuE+dCtdqdCjdW7oforEZjVneNLbdjcgBMi2WqyFtM2212+1sh2Op2I5wgVxudzyDyevP6n2+KXJhupaKsILyvPB4UMLO8sO8CIcTlc7k8tIxWOCoXtBNi8RJJt+yEupAotxgVOdzTKFTg3QAQpHo47muy2h1qNy8hGo8x+bLLchRTpxWopUtBoLSwqdnA9gcIEcTmdOBdroWIPdHlqC+m3sbkmHB0WLcLrNawOOYHbIQ7CDDGvk5OuILE6Gwmy4m2ZVRQiKRjm2iKw4qxOxB8oh1mFWKwNwpMOoxJgzIoVJxz7um2uIDeMAKFwR5aGAuAAA8KDAABfABdIA
+  - title: Open and close the panel from the server
+    description: "Give the panel an `id` and it no longer needs a trigger of its own:\
+      \ call `ui.toggle_offcanvas()` to flip it (or pass `show=True`/`show=False`\
+      \ to force a direction) and `ui.hide_offcanvas()` to close it. The same `id`\
+      \ is also a reactive value, `input.<id>()`, that reports whether the panel is\
+      \ open. Note that opening a panel by `id` is `ui.toggle_offcanvas(id, show=True)`,\
+      \ not `ui.show_offcanvas()` \u2014 that one takes the object returned by `ui.offcanvas()`,\
+      \ and passing it an `id` string raises `AttributeError`. Note also where the\
+      \ **Hide** button lives: while the panel is open, its backdrop covers the rest\
+      \ of the page, so a control that closes the panel belongs inside the panel.\n"
+    apps:
+    - title: Preview
+      file: app-variation-server-control-preview.py
+      height: 300
+    - title: Express
+      file: app-variation-server-control-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDOFGIVOANzgAdCI2ZsuPLHAAe6Ma1Z8BQkd3QBXCkTEQAJnAZETnBQodZSdOsSgRpUVgAoFZCDkF3QAsAAVLj10LzgAG2R2X2QIUmQKBk4Ac2zbZDc+Cj1SAHcIAG4M9jg2W1kGAvRqPS8rZGJ40lY4PU4KLDkwAEoCQOCXYzMAfQkpcmmAIzMKcnCuGyGiIYAJTk2RomQAYmQAHjPxoKkKeLgAXiGAZXr8skomeLurLau+K0eYFiEASWyCpwuCmGTggkwgpgos0knAWywoqwg4Q4ZTBz3YOJGzk4WCmiLmKIgSxWayGq1yd1xkVI9PkhIgMIAApYbAwsGRNtY4HQ2BQoFQ-MNEH8xBQTAwIMg6EMAApxRKcPQgADkpGaEC1fGFpJwaolyASPWQWs63TgVi1AF8hjCFFzxMjZOp3HBJK6xOTPXBZJQ-MbsaVoYLheHpsCEhKpQqJsS6dk7tM3B4vD5-EM4-EweH7hEGCY4MNwedLuya26A3AvXQfRQ-e6pIHgxRQ-CzFgNuWFDZhf3Y6bJX8XCPM55vL5wvmhhWTlWXRA6x6G0Km761-6N+pO92EVhU3dI0OMsy03BRyD4gmJymr+np9m53m1YvK5CIIRUBRcGaWgwCoDQKDAB0AF0gA
+    - title: Core
+      file: app-variation-server-control-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEAkhHQBXCqyIB5eXIVEAynFatO5IgzhRiFTgDc4B6gBM4DIrM4AdCC4zoA+o+QBeZI5woAHM4DzoAG0drAAoXZHj-TixSOjpiKAgzKFZYiAT8xJxYsAAVLlZkdAy4cOR2bOQIUmQKBk4gkIZkFL4FboB3CABuFvY4NjsLLtJ0agqM62RicNJWbV6sJzAASgI4gviA7jUPY1NyDwAjeQpyYq5bLaItgAlOR52iZABiZAAeP77A6mCjhOA+LZaBhTJbkVqkcJg6xPIEFd4QsBVCA1J7xX4A1G7VFHGTyU4mPQQK43O5bDikfq4yHsBlbIl5BIkk5nSnUii3CDFW4dMFM0qkEVwNl7DmHJKkVRksi2YqsChQKjSlzbFy6iC2OgTaF2aLHeQoaRqRTdRUUFAqChWohrHSUlBaV3kbaIVEAAUMPIsWDgqTgJj9AYpQbgFkoptJFCw9P6OtlyANyA80W9qPyAWFQTBHhSaQyWRyWyxOMIbBZ-R8JQYsjg2zx-0BrjT-qMUbgwdD4a7kdM0djFHjaiwDxbqIzWZzabzSWnxdS6Uy2WKVfCbLbBM7+W7gb7IboYYoEZ7I5PY4n8iwBbBqfyc+zPsXnKSj9CJfX5a31Q7jse4dpe+p2FgypSmmGZqhqcBvrmCSGBQsgMHkdBbAACoBfAVCAADkMzUARfCGmaibbtmyA1GsyAEcsqxwNYBEAL5bHqbiYL4YiYNE7heJwzqTHYPhrMaDCpjWYAULgsy0DJcAAB4UGArEALpAA
+  - title: Create a panel from the server
+    description: |
+      When the panel's content isn't known until the app is running, skip the UI entirely and build the panel in the server function, then insert and reveal it with `ui.show_offcanvas()`. It takes the object returned by `ui.offcanvas()` rather than an `id`.
+    apps:
+    - title: Preview
+      file: app-variation-show-preview.py
+      height: 250
+    - title: Express
+      file: app-variation-show-express.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkDOFGIVOANzgAdCI2ZsuPLHAAe6Ma1Z8BQkd3QBXCkROcFCy1mNmA+hKnkHAIzMVyACjlgOpADufkR+AMrsQcjoUBBwADZ+AJTWEAoAAmLOMnDqdHRwkhlZkjnqspTe9hRYAYEpEAAmcHQqQQ6scAyyDA4xcfHeSYgKyGPItnUOpPnEsdJQrN5jAMTIADzro+M7tjN0cxALS9s7ZxOcOL5gACpcev0JyIGLyMRZVI3IbrwU7HBsLo9IgQUgiP4AgCqAEksMkCKdzuMpBR4nAALzhIFdaKxBIhRFI6LxCRweCUTFgNF0CgEiBEnacRqUzrdLp9PGJQiE8YNHYNQioCi4dAIFBgKgaChgAC+AF0gA
+    - title: Core
+      file: app-variation-show-core.py
+      shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQDMAnUmZAZwAsBLCXZTmdKQYVkAQUxEAkhHQBXCqyIB5eXIVEAynFatO5IgzhRiFTgDc4RWZwA6EOxnQB9a8gC8yazigBzOE7oAG2sAEwAKO2Qoz04sbjUnY1NyJwAjeQpyCLAOUgB3G0JkQo12fOR0KAg4QMKASgI7OrsWiBC4OjY4BgsGMPj5FGk1RWRSVUHkFQoRolZtXXIULR09CDrESOiAAUMk8zgsDro4Ey2o3aMTA6OLSn6ZeSxcvOaIaOR2zqcwjfOPmLPMp5JykOh0YhVMxQVhhKIAYmQAB4kf8AdEvGCIVCYRF3uiCVEvOhsgAVLisCpVGrIPIw5DEPZUELIVK8CjsOBdHrdIgQUgiDlcgCqkiw9Ua+MJ6NMFECcDcJW6vSp1VqhDR0qi6ECxjg8EoirA8roFEKkq16M4ISN8x5DCclTV5s16LehLerUc7jEmDCjhcnDmyu6bjtvTeRTAFFw6AQKGjcAAHhQwABfAC6QA
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+An offcanvas panel slides in from an edge of the page, on top of the rest of the app, and stays there until it is dismissed. It is a good place for content that is useful but secondary — filters, help text, details about the selected row — that you don't want taking up room in the main layout.
+
+Create one with [`ui.offcanvas()`](https://shiny.posit.co/py/api/ui.offcanvas.html), passing the panel's body as positional arguments. `title` adds a header, and `footer` adds content pinned below the body. In both Shiny Core and Shiny Express, `ui.offcanvas()` is a regular function call rather than a context manager: put it anywhere in your UI, and it renders nothing visible until it is opened.
+
+Every panel needs a way to be opened, so `ui.offcanvas()` requires either a `trigger` or an `id`:
+
+- `trigger` takes a UI element — usually an [action button](../../inputs/action-button/index.qmd) or a link — that opens the panel when clicked. The trigger is rendered where you placed the `ui.offcanvas()` call, as a sibling of the panel itself.
+- `id` lets the server open and close the panel with [`ui.toggle_offcanvas()`](https://shiny.posit.co/py/api/ui.toggle_offcanvas.html) and [`ui.hide_offcanvas()`](https://shiny.posit.co/py/api/ui.hide_offcanvas.html), and makes the panel's open/closed state available as a reactive value, `input.<id>()`.
+
+You can use both together, as the example above does: a button opens the panel, and `input.panel()` reports whether it is open.
+
+### Dismissing a panel
+
+By default a panel can be dismissed in three ways: the close button in its header, clicking the backdrop behind it, or pressing **Esc**. Each is adjustable:
+
+- `close_button=False` removes the close button from the header.
+- `backdrop=False` renders no backdrop at all, leaving the rest of the app clickable while the panel is open; `backdrop='static'` keeps the backdrop but ignores clicks on it, so the panel can't be closed by accident.
+- `keyboard=False` stops **Esc** from closing the panel.
+- `scroll=True` lets the page behind the panel keep scrolling while the panel is open.
+
+If you turn off enough of these that the user has no way out, be sure the server closes the panel for them with `ui.hide_offcanvas()`.
+
+### Building a panel from the server
+
+[`ui.show_offcanvas()`](https://shiny.posit.co/py/api/ui.show_offcanvas.html) inserts a panel into the page and opens it in one step. Unlike the other two mutators it takes the object returned by `ui.offcanvas()`, not an `id` — `ui.show_offcanvas("my_id")` raises `AttributeError`. That makes it the right choice when the panel's content depends on the state of the app; to open a panel that is *already* in your UI, use `ui.toggle_offcanvas(id, show=True)` instead. If you give that panel an `id`, it stays in the page after it is closed, and calling `ui.show_offcanvas()` again simply reveals it — the content is *not* re-rendered. To keep an id'd panel's content current, put reactive outputs inside it and let them update; without an `id`, the panel is temporary and is removed from the page when it closes.
+
+### Accessibility
+
+The panel is labelled by its `title`, so a panel without one is unlabelled for screen readers; `ui.offcanvas()` warns in that case. If you intentionally omit `title`, pass an `aria-label` (or `aria-labelledby`) attribute instead:
+
+```python
+ui.offcanvas(
+    ui.p("No visible header."),
+    trigger=ui.input_action_button("open", "Open panel"),
+    **{"aria-label": "Filters"},
+)
+```
+
+Prefer a natively keyboard-accessible `trigger`, such as a button or a link, so the panel can be opened without a mouse.
+
+See Also: a [sidebar](/layouts/sidebars/index.qmd) holds secondary content permanently alongside your app rather than on top of it, and collapses on narrow screens. [Modal messages](../modal/index.qmd) also cover the page, but demand attention now rather than offering content on the side. [Popovers](../../display-messages/popovers/index.qmd) and [tooltips](../../display-messages/tooltips/index.qmd) attach a small amount of content to a specific element.
+
+## Variations
+
+:::{#variations}
+:::

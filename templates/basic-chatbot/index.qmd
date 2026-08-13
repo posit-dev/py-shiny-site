@@ -42,7 +42,7 @@ Just change `ChatAnthropic()` with another provider (e.g., [`ChatOpenAI()`](http
 ::: {.g-col-6 .g-col-sm-4}
 **Layouts:**
 
-* [Cards](/layouts/panels-cards/#content-divided-by-cards)
+* [Cards](/layouts/panels-cards/#multiple-cards)
 
 :::
 ::: {.g-col-6 .g-col-sm-4}

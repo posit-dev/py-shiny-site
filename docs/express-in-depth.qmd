@@ -237,7 +237,7 @@ In this case, it's just a single card, but there's no limit to how much or how l
 In Shiny Core, UI objects are just normal objects, so you can assign them to variables no differently than you would an integer or a list.
 :::
 
-### Problem: Reactively rendering UI
+### Problem: Reactively rendering UI {#problem-reactively-rendering-ui}
 
 So far, all of the UI we've generated has been "static"---it's generated once, when the page loads, and never changes.
 It's pretty common in Shiny to want to generate UI in response to user input or server events.
@@ -397,8 +397,8 @@ This can be potentially dangerous since one users activity could impact another'
 
 ### Sessions
 
-Shiny apps have an object that represent a particular user's [session](../api/Session.html).
-This object is useful for a variety of more advanced tasks like [sending messages to the client](../api/Session.html#shiny.Session.send_custom_message) and [serving up session-specific data](../api/Session.html#shiny.Session.dynamic_route).
+Shiny apps have an object that represent a particular user's [session](../api/core/Session.qmd).
+This object is useful for a variety of more advanced tasks like [sending messages to the client](../api/core/Session.qmd#shiny.Session.send_custom_message) and [serving up session-specific data](../api/core/Session.qmd#shiny.Session.dynamic_route).
 In Express, you'll need to import `session` from `shiny.express` and only use it inside a reactive function, like a `@reactive.effect`:
 
 ```{shinylive-python}

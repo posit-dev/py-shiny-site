@@ -1,0 +1,108 @@
+name: test-docs
+
+# Everything that validates generated or authored documentation content without
+# booting a browser. Anything that needs a real app in a browser belongs in
+# test-apps.yml; anything that needs a *rendered site* belongs in site.yml, whose
+# `page-links` job consumes the merged `_build/` that `combine` produces.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: test-docs-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  relevant-functions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up py-shiny-site
+        uses: ./.github/internal/setup-py-shiny-site
+
+      # RELEVANT_FUNCTIONS_STRICT=1 makes an unresolvable (rotted/renamed) title
+      # fail here rather than be silently left as-authored: unlike the build/setup
+      # chain, which falls forward, CI requires the fields to be correct.
+      - name: Regenerate relevant-functions fields
+        run: make docs-update-relevant-functions QUARTO_PATH=quarto RELEVANT_FUNCTIONS_STRICT=1
+
+      # If regenerating changed any tracked file, the committed fields are stale.
+      - name: Verify relevant-functions are up to date
+        run: |
+          if ! git diff --quiet; then
+            echo "::error::relevant-functions href/signature are out of date. Run 'make docs-update-relevant-functions' and commit the result."
+            echo "--- Offending diff ---"
+            git diff
+            exit 1
+          fi
+          echo "relevant-functions are up to date."
+
+  shinylive-links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up py-shiny-site
+        uses: ./.github/internal/setup-py-shiny-site
+
+      # Regenerate the shinylive links embedded in the component index.qmd
+      # files. The Makefile self-manages its uv venv.
+      - name: Regenerate shinylive links
+        run: make docs-update-shinylive-links
+
+      # If regenerating changed any tracked file, the committed links are stale.
+      - name: Verify shinylive links are up to date
+        run: |
+          if ! git diff --quiet; then
+            echo "::error::Shinylive links are out of date. Run 'make docs-update-shinylive-links' and commit the result."
+            echo "--- Offending diff ---"
+            git diff
+            exit 1
+          fi
+          echo "Shinylive links are up to date."
+
+  # The non-browser test files, one step per Make target. Kept in one job rather
+  # than five: components/conftest.py imports playwright and shiny.pytest at
+  # module scope, so all of these need the same `make deps` -- and together they
+  # run in well under a second, so five jobs would pay ~23s of setup five times
+  # for no extra signal. Steps stop at the first failure; the suites are fast
+  # enough to iterate.
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up py-shiny-site
+        uses: ./.github/internal/setup-py-shiny-site
+
+      - name: Install dependencies
+        run: make deps
+
+      - name: Every component page ships a runnable example app
+        run: make test-components-pages
+
+      - name: Every public ui export has a doc page
+        run: make test-components-exist
+
+      - name: relevant-functions generator helpers
+        run: make test-components-relevant-functions
+
+      - name: components/conftest.py helpers
+        run: make test-components-conftest
+
+      - name: Internal-link checker
+        run: make test-site-links-checker
+
+      - name: Generated-api anchor fixup
+        run: make test-api-anchors
+
+  done-test-docs:
+    if: always()
+    needs: [relevant-functions, shinylive-links, unit]
+    uses: ./.github/workflows/_done.yml
+    with:
+      results: ${{ toJSON(needs.*.result) }}

@@ -138,7 +138,7 @@ Here's a full Shiny application in action, complete with [reactivity](/docs/reac
 Hit the ground running with one of our [starter templates](/templates/), like the app above, by using `shiny create`.
 
 There are templates for common use cases.
-For example, [data dashboards](templates/dashboard/), [data applications](/templates/database-explorer/), [streaming updates](/templates/monitor-database/), or [data entry](/templates/survey/).
+For example, [data dashboards](/templates/dashboard/), [data applications](/templates/database-explorer/), [streaming updates](/templates/monitor-database/), or [data entry](/templates/survey/).
 
 Use the terminal command below to [create and run](create-run.qmd) the same dashboard locally with `shiny create`, starting from a [template](/templates/).
 

@@ -157,7 +157,7 @@ data = reactive.value(load_data())
 
 from the `app.py` file to the `setup.py` file -- this changes `data` from being a user-scoped reactive value to a globally-scoped reactive value (i.e. [shared among all users](express-in-depth.qmd#shared-objects)).
 
-Sharing data in this way works fine when only users can change the data, but it wouldn't work in a scenario where data can be changed outside of the app (e.g., another app or a database admin). In this case, we would need to periodically check for updates using something like [reactive polling](reading-data.qmd#reactive-reading).
+Sharing data in this way works fine when only users can change the data, but it wouldn't work in a scenario where data can be changed outside of the app (e.g., another app or a database admin). In this case, we would need to periodically check for updates using something like [reactive polling](reading-data.qmd#reactive).
 
 ### SQL injection
 

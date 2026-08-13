@@ -35,7 +35,7 @@ Running `make` by itself lists all targets.
 | `make site-parallel` | Full site build into `_build/` using local parallel shards (`SHARDS=6` by default). The honest full rebuild, several times faster than `make site` on multi-core machines. |
 | `make site` | Full serial site build (what CI's shards run under the hood; the reference for fidelity). |
 | `make quartodoc` | Regenerate API reference qmds from the py-shiny submodule. Skips itself when nothing relevant changed (submodule commit, `_renderer.py`, quartodoc configs, `requirements.txt`). |
-| `make components` | Rebuild component static previews and Shinylive links. |
+| `make docs` | Rebuild component static previews and Shinylive links. |
 | `make clean` | Remove build outputs and render caches. |
 
 ### How builds got fast (and what that means for you)
@@ -67,13 +67,19 @@ Every example app under `components/` is exercised by Playwright tests
 (reusing py-shiny's public testing API — no custom runner):
 
 ```bash
-make test          # smoke sweep (every app-*.py) + per-component interaction tests
-make test-smoke    # just the smoke sweep
-make test-apps     # just the per-component interaction/unit tests
+make test-components-smoke     # does every app-*.py boot?
+make test-components-examples  # do the per-component example apps behave?
+
+# non-browser checks, one target per test file
+make test-components-pages              # every page ships a runnable app
+make test-components-exist              # every public ui export has a doc page
+make test-components-relevant-functions # relevant-functions generator helpers
+make test-components-conftest           # conftest.py helpers
+make test-site-links-checker            # the internal-link checker
 ```
 
 `pytest.ini` defaults to the chromium browser and xdist (`-n auto`); narrow a
-run with `PYTEST_ARGS`, e.g. `make test-smoke PYTEST_ARGS='-k "layout/accordion"'`.
+run with `PYTEST_ARGS`, e.g. `make test-components-smoke PYTEST_ARGS='-k "layout/accordion"'`.
 See the `testing-example-apps` skill for how to add tests for a component.
 
 ## Pulling changes
@@ -108,21 +114,32 @@ re-port or retire it).
 ## CI and deployment
 
 - Every push to a PR builds the site on GitHub Actions: six parallel shard
-  jobs render slices of the site, then a deploy job merges them and publishes
+  jobs render slices of the site, a combine job merges them, then a deploy job publishes
   a preview to Netlify (`pr-<N>--pyshiny.netlify.app`, ~12 minutes end to
   end). Superseded runs are cancelled automatically.
 - Commits to `main` deploy to production the same way.
 - Escape hatch: run the workflow manually (`workflow_dispatch`) with
   `full_render = true` to build in a single unsharded job.
-- A separate **`test-shinylive-links`** workflow runs on every PR: it
-  regenerates the component Shinylive links and fails if the committed links
-  are out of date. So after editing any `app-*.py`, run
-  `make components-shinylive-links` (optionally scoped with `FILES="..."`) and
-  commit the updated `index.qmd`.
-- **`test-smoke`** (sharded, 6 jobs) and **`test-apps`** run the example-app
-  Playwright tests on every PR (`make test-smoke` / `make test-apps`). They use
-  a cached Docker Playwright browser, so no per-job browser download.
-- Shared workflow setup lives in local composite actions under
+- Two more workflows run on every PR, each covering one concern and reporting
+  one required check:
+  - **`test-apps`** — everything that boots an app in a browser: the
+    per-component interaction tests and the smoke sweep, both sharded 6 ways
+    (`make test-components-examples` / `make test-components-smoke`). They use a cached Docker Playwright
+    browser, so no per-job browser download. Check: `done-test-apps / verify`.
+  - **`test-docs`** — browserless checks over doc content: the component
+    Shinylive links and `relevant-functions` fields are regenerated and the job
+    fails if the committed values are out of date, plus unit tests for the
+    the helper scripts in `scripts/`. So after editing any `app-*.py`, run
+    `make docs-update-shinylive-links` (optionally scoped with `FILES="..."`)
+    and commit the updated `index.qmd`. Check: `done-test-docs / verify`.
+- Broken internal links are checked in the site workflow rather than
+  `test-docs`, since the checker needs the rendered site that workflow's
+  `combine` job produces (`make test-site-links` locally).
+- Each workflow exposes exactly one required check, a `done-*` aggregator that
+  calls the reusable `.github/workflows/_done.yml` and fails if any job it
+  covers did not succeed. Jobs can be added or re-sharded inside a workflow
+  without touching branch protection.
+- Other shared workflow setup lives in local composite actions under
   `.github/internal/` (`setup-uv`, `setup-py-shiny-site`,
   `setup-playwright-remote`).
 

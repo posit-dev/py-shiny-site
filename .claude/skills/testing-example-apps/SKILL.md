@@ -41,7 +41,7 @@ Everything uses the **public `shiny` package API** — `shiny.pytest.create_app_
   component page (`components/<section>/<name>/index.qmd`) ships at least one example
   app (`app.py` / `app-*.py`). All discovered pages are enforced; a page may only opt
   out via `EXEMPT_PAGES` (normally empty) with a documented reason. Runs under
-  `make test-apps`.
+  `make test-components-examples`.
 
 ## Steps to test a component
 
@@ -84,11 +84,10 @@ encourages example apps to diverge (a bare Express `@render.text` renders a `<di
 
 ```bash
 # Make targets (install deps + chromium, then run)
-make test          # smoke sweep + per-component app tests
-make test-smoke    # just the smoke sweep over every app
-make test-apps     # just the per-component interaction + unit tests
-make test-smoke PYTEST_ARGS='-k "layout/accordion"'          # narrow to one component
-make test-smoke PYTEST_ARGS='--num-shards 6 --shard-id 0'    # one shard (CI does this)
+make test-components-smoke     # smoke sweep over every app
+make test-components-examples  # per-component interaction tests
+make test-components-smoke PYTEST_ARGS='-k "layout/accordion"'        # narrow to one component
+make test-components-smoke PYTEST_ARGS='--num-shards 6 --shard-id 0'  # one shard (CI does this)
 ```
 
 Or drive pytest directly via `uv run` for fast local iteration (`uv run`
@@ -105,8 +104,8 @@ uv run pytest components/layout/accordion/test_accordion.py          # one compo
 
 - Test the **raw `app-*.py`** files, never the shinylive URLs (they are derived). After
   editing any `app-*.py`, regenerate the page's shinylive links
-  (`make components-shinylive-links FILES="components/<section>/<name>/index.qmd"`) and
-  commit the updated `index.qmd`, or `test-shinylive-links` CI fails.
+  (`make docs-update-shinylive-links FILES="components/<section>/<name>/index.qmd"`) and
+  commit the updated `index.qmd`, or the `test-docs` CI workflow fails.
 - Display values with `output_code` / `@render.code`; only use `controller.OutputTextVerbatim`
   when the component under test is itself `output_text_verbatim`.
 - In Core apps, pair matching output/render names: `ui.output_code("id")` ↔ `@render.code`

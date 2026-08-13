@@ -9,7 +9,7 @@ Every discovered page is enforced. A page may only skip the requirement by
 being listed in ``EXEMPT_PAGES`` with a documented reason -- the set should
 normally stay empty.
 
-This is a static filesystem check (no browser), so it runs under ``make test-apps``.
+This is a static filesystem check (no browser); run it with ``make test-components-pages``.
 """
 
 from pathlib import Path

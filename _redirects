@@ -3,7 +3,7 @@
 /api/testing/*      /py/api/testing/:splat 200
 /api/*              /py/api/core/:splat
 
-/components/display-messages/modal.html         /py/components/display-messages/modal/index.html
+/components/display-messages/modal.html         /py/components/layout/modal/index.html
 /components/display-messages/notifications.html /py/components/display-messages/notifications/index.html
 /components/display-messages/progress-bar.html  /py/components/display-messages/progress-bar/index.html
 /components/display-messages/tooltips.html      /py/components/display-messages/tooltips/index.html
@@ -38,6 +38,7 @@
 /components/outputs/verbatim-text.html          /py/components/outputs/verbatim-text/index.html
 
 /py/components/outputs/datatable/* /py/components/outputs/data-table/:splat
+/components/display-messages/modal/* /py/components/layout/modal/:splat
 
 /layouts/arrange.html      /py/layouts/arrange/index.html
 /layouts/navbars.html      /py/layouts/navbars/index.html

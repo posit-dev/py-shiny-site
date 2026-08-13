@@ -48,7 +48,7 @@ def slider_val():
 
 ```
 
-This happens because, if a non-existent input is read, a [`SilentException`](/api/express/req.html#shiny) is raised.
+This happens because, if a non-existent input is read, a [`SilentException`](/api/core/ExceptionTypes.html#shiny.types.SilentException) is raised.
 That behavior is useful for events and [dynamic ui](/docs/ui-dynamic.qmd), but it can be confusing when you mistype an input id.
 
 ::: {.callout-tip}

@@ -40,15 +40,15 @@ Compare their respective source code, and consider:
 
 ## Feature set
 
-**Consider using Shiny Core if you need to use Shiny Modules or dynamic UI.**
+**Consider using Shiny Core if you need the options that live on the `ui.output_*()` functions.**
 
 At this time, Shiny Core's functionality is a superset of Express, meaning that anything you can do in Express, you can also do in Core.
-However, the reverse is not true.
+However, the reverse is not quite true.
 
-Most importantly, [Shiny Modules](modules.qmd) are supported in Shiny Core but not (yet) in Shiny Express. Shiny Modules are extremely useful for organizing large apps into smaller, more manageable pieces, and are also a mechanism for reusing Shiny application logic.
-
-Shiny Core also has `ui.insert_ui()` and `ui.remove_ui()` functions, which is a way to imperatively add or remove UI elements from the app at any time.
-Despite being available in `shiny.express.ui`, these functions do not currently work well with Shiny Express. The same goes for `ui.modal_show()`.
+The remaining gap is a narrow one, and it's about outputs.
+In Core, you place each output yourself with a call like `ui.output_plot("plot1")`, and that call is also where some output options live, such as `ui.output_plot("plot1", brush=True)` to enable plot brushing.
+Express creates the output for you, at the spot where you define the render function, so there is no such call to pass those options to.
+Workarounds do exist---see [Express in depth](express-in-depth.qmd).
 
 ## Maturity
 
@@ -59,7 +59,7 @@ Given its longer history, Shiny Core is naturally more mature than Shiny Express
 We've carefully designed the Shiny Express syntax, and hope not to have to make breaking changes to it.
 However, we don't know what we don't know, and it's possible that user feedback or our own testing will someday require us to make significant changes.
 
-Similarly, we are constantly testing Shiny Express, but as of this writing, it has not has as much real-world use as Shiny Core.
+Similarly, we are constantly testing Shiny Express, but as of this writing, it has not had as much real-world use as Shiny Core.
 Therefore, with Shiny Core, you are less likely to encounter bugs.
 
 ## Familiarity to R users

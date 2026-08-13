@@ -213,7 +213,7 @@ Use `ui.layout_sidebar()` inside a card to create a card with a sidebar layout. 
 :::{#variation-card-sidebar}
 :::
 
-## Floating panel
+## Floating panel {#floating-panel}
 
 :::{.column-screen-inset-right style="max-width:800px;"}
 ```{python}
