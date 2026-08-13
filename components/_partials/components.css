@@ -92,6 +92,15 @@ main a.nav-link:hover {
   height: 200px;
 }
 
+/* Quarto attaches a copy button to every `pre.sourceCode`, including the
+   shinylive source block that shinylive's JS then replaces in place with the
+   running app. The button survives that swap and floats over the top right of
+   the preview, where it would copy nothing useful — the source is already
+   offered (with its own copy button) in the code tabs below. */
+.app-preview .code-copy-button {
+  display: none;
+}
+
 /* Improve spacing for app previews */
 .app-preview {
   margin-bottom: 1rem;
