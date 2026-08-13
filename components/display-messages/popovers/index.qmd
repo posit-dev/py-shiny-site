@@ -93,7 +93,7 @@ Because the user has to interact with the trigger to see the popover, prefer an 
 
 The case that needs care is an icon used as the trigger with no accompanying text. Icons are often generated on the assumption that they are decorative, which hides them from assistive technologies. When an icon is the trigger, make sure it does **not** carry `aria-hidden="true"` or `role="presentation"`, and give it a short title describing what the trigger does.
 
-See Also: [Tooltips](../tooltips/index.qmd) show a short message on hover. [Modal messages](../modal/index.qmd) and [notifications](../notifications/index.qmd) provide alternative ways to display information to the user.
+See Also: [Tooltips](../tooltips/index.qmd) show a short message on hover. [Modal messages](../../layout/modal/index.qmd) and [notifications](../notifications/index.qmd) provide alternative ways to display information to the user.
 
 ## Variations
 
