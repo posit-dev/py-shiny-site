@@ -2,7 +2,7 @@ from shiny import App, render, ui
 
 app_ui = ui.page_fluid(
     ui.input_password("x", "", placeholder="Enter password"),
-    ui.output_text_verbatim("txt"),
+    ui.output_code("txt"),
     {
         "class": "vh-100 d-flex justify-content-center align-items-center px-4 flex-column"
     },
@@ -10,7 +10,7 @@ app_ui = ui.page_fluid(
 
 
 def server(input, output, session):
-    @render.text
+    @render.code
     def txt():
         return ""
 

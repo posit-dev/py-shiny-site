@@ -7,12 +7,12 @@ app_ui = ui.page_fluid(
         id="btn_tooltip",  # <<
         placement="right",  # <<
     ),
-    ui.output_text_verbatim("text"),
+    ui.output_code("text"),
 )
 
 
 def server(input, output, session):
-    @render.text
+    @render.code
     def text():
         return f"Tooltip state: {input.btn_tooltip()}"  # <<
 
