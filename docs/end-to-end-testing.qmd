@@ -35,6 +35,13 @@ Imagine you've built a beautiful, interactive Shiny app.  You want to make sure 
 
 Learn more at the [official Playwright documentation](https://playwright.dev/python/).
 
+::: {.callout-tip}
+## Do you need a browser for this test?
+
+End-to-end tests are the only way to check what the user actually sees, but they're also the slowest to run and the most fiddly to keep passing.
+If a test only cares about what your *server* computes — that an output has the right value, that a bad input raises — [`test_server()`](test-server.qmd) can check it in memory, with no browser at all.
+:::
+
 ### Let's Build and Test a Simple Shiny App!
 
 We'll start with a super simple example to show you the basics.  Follow along, and you'll be writing your own tests in no time!
@@ -217,6 +224,7 @@ shiny add test --app app.py --provider openai --model gpt-5-mini
 You've taken your first steps into the world of Shiny app testing! Here are some resources to help you learn more:
 
 - [Test mode](test-mode.qmd) - Assert on server-side state (inputs, outputs, and internal reactive values) in your end-to-end tests.
+- [Server testing](test-server.qmd) - Test the same server-side state without a browser, using `test_server()`.
 - [Shiny testing API documentation](https://shiny.posit.co/py/api/testing/) - This is your go-to guide for all the available testing methods in Shiny.
 - [Playwright documentation](https://playwright.dev/python/) - Learn more about Playwright's powerful features.
 - [pytest documentation](https://docs.pytest.org/en/stable/)

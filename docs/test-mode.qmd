@@ -56,6 +56,25 @@ export_test_values(doubled=doubled)
 
 Each exported value shows up under the snapshot's `export` block. And here's the best part: `export_test_values()` is a **no-op when test mode is off**, so you can leave these calls in your production code with zero impact on your users.
 
+::: {.callout-tip}
+## Reading exports without a browser
+
+Exported values aren't only for end-to-end tests.
+[`test_server()`](test-server.qmd) reads the very same values with `get_export()`, running the server function in memory:
+
+```python
+from shiny.testserver import test_server
+
+
+def test_internal_calc():
+    with test_server("app.py") as ts:
+        ts.set_inputs(n=30)
+        assert ts.get_export("doubled") == 60
+```
+
+So a value you export for your Playwright tests is testable from a fast, browserless test too — no `test_mode=True` and no running app required.
+:::
+
 ### Reading the snapshot in a test
 
 The `AppTestValues` controller reads the snapshot from a running app. Its `expect_*` methods automatically retry until the expectation holds (or a timeout elapses), just like other controller assertions:
