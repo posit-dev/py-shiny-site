@@ -33,7 +33,7 @@ from shiny import App, render, ui
 
 app_ui = ui.page_fixed(
     ui.input_slider("val", "Slider label", min=0, max=100, value=50),
-    ui.output_text_verbatim("slider_val")
+    ui.output_text("slider_val")
 )
 
 def server(input, output, session):
@@ -82,7 +82,7 @@ from shiny import App, render, ui
 app_ui = ui.page_fixed(
     ui.layout_columns(
       ui.input_slider("val", "Slider label", min=0, max=100, value=50),
-      ui.output_text_verbatim("slider_val")
+      ui.output_text("slider_val")
     )
 )
 

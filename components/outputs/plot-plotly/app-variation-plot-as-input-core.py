@@ -11,11 +11,11 @@ penguins = load_penguins()
 app_ui = ui.page_fluid(
     output_widget("plot"),  
     "Click info",
-    ui.output_text_verbatim("click_info", placeholder=True),
+    ui.output_code("click_info"),
     "Hover info",
-    ui.output_text_verbatim("hover_info", placeholder=True),   
+    ui.output_code("hover_info"),   
     "Selection info (use box or lasso select)",
-    ui.output_text_verbatim("selection_info", placeholder=True)
+    ui.output_code("selection_info")
 )
 
 
@@ -49,15 +49,15 @@ def server(input, output, session):
     def on_point_selection(trace, points, state): # <<
         selection_reactive.set(points) # <<
 
-    @render.text
+    @render.code
     def click_info():
         return click_reactive.get()
 
-    @render.text
+    @render.code
     def hover_info():
         return hover_reactive.get()
 
-    @render.text
+    @render.code
     def selection_info():
         return selection_reactive.get()
 

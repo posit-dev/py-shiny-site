@@ -3,7 +3,7 @@ from shiny import App, render, ui
 app_ui = ui.page_fluid(
     ui.input_text("Text", "Enter text", "Hello Shiny"),
     "You entered:",
-    ui.output_text_verbatim("text"),  # <<
+    ui.output_text("text"),  # <<
 )
 
 
