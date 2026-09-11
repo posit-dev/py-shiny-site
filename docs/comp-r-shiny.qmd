@@ -125,11 +125,11 @@ from shiny import ui, render, App
 
 app_ui = ui.page_fluid(
     ui.input_slider("n", "N", 0, 100, 40),
-    ui.output_text_verbatim("txt"),
+    ui.output_code("txt"),
 )
 
 def server(input, output, session):
-    @render.text
+    @render.code
     def txt():
         return f"n*2 is {input.n() * 2}"
 
@@ -182,11 +182,11 @@ from shiny import ui, render, App
 
 app_ui = ui.page_fluid(
     ui.input_slider("n", "N", 0, 100, 40),
-    ui.output_text_verbatim("txt"),
+    ui.output_code("txt"),
 )
 
 def server(input, output, session):
-    @render.text
+    @render.code
     def txt():
         return f"n*2 is {input.n() * 2}"
 
@@ -244,11 +244,11 @@ from shiny import ui, render, App
 
 app_ui = ui.page_fluid(
     ui.input_slider("n", "N", 0, 100, 40),
-    ui.output_text_verbatim("txt"),
+    ui.output_code("txt"),
 )
 
 def server(input, output, session):
-    @render.text
+    @render.code
     def txt():
         return f"n*2 is {input.n() * 2}"
 
@@ -302,7 +302,7 @@ from shiny import ui, render, reactive, App
 
 app_ui = ui.page_fluid(
     ui.input_slider("n", "N", 0, 100, 40),
-    ui.output_text_verbatim("txt"),
+    ui.output_code("txt"),
 )
 
 def server(input, output, session):
@@ -310,7 +310,7 @@ def server(input, output, session):
     def n():
       return input.n()
 
-    @render.text
+    @render.code
     def txt():
         return f"n*2 is {n() * 2}"
 
@@ -398,7 +398,7 @@ from shiny import App, reactive, render, ui
 
 app_ui = ui.page_fluid(
     ui.input_slider("n", "N", 0, 100, 40),
-    ui.output_text_verbatim("txt"),
+    ui.output_code("txt"),
     ui.input_action_button("reset", "Reset"),
 )
 
@@ -412,7 +412,7 @@ def server(input, output, session):
         input.reset()
         ui.update_slider("n", value=40)
 
-    @render.text
+    @render.code
     def txt():
         return f"n*2 is {val() * 2}"
 

@@ -125,12 +125,12 @@ from shiny import *
 
 app_ui = ui.page_fluid(
     ui.input_slider("n", "N", 0, 100, 40),
-    ui.output_text_verbatim("txt"),
+    ui.output_code("txt"),
 )
 
 def server(input, output, session):
     @output
-    @render.text
+    @render.code
     def txt():
         return f"The value of n*2 is {input.n() * 2}"
 

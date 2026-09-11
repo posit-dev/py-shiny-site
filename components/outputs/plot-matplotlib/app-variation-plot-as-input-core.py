@@ -11,13 +11,13 @@ app_ui = ui.page_fluid(
         brush=True,  # <<
     ),
     "Click:",
-    ui.output_text_verbatim("clk", placeholder=True),
+    ui.output_code("clk"),
     "Double Click:",
-    ui.output_text_verbatim("dblclk", placeholder=True),
+    ui.output_code("dblclk"),
     "Hover:",
-    ui.output_text_verbatim("hvr", placeholder=True),
+    ui.output_code("hvr"),
     "Brush",
-    ui.output_text_verbatim("brsh", placeholder=True),
+    ui.output_code("brsh"),
 )
 
 
@@ -33,19 +33,19 @@ def server(input, output, session):
         plt.ylabel("Bill Length (mm)")
         plt.title("Penguin Mass vs Bill Length")
 
-    @render.text
+    @render.code
     def clk():
         return input.plot_click()
 
-    @render.text
+    @render.code
     def dblclk():
         return input.plot_dblclick()
 
-    @render.text
+    @render.code
     def hvr():
         return input.plot_hover()
 
-    @render.text
+    @render.code
     def brsh():
         return input.plot_brush()
 

@@ -2,12 +2,12 @@ from shiny import App, render, ui
 
 app_ui = ui.page_fluid(
     ui.input_password("password", "Password", "mypassword1"),  # <<
-    ui.output_text_verbatim("value"),
+    ui.output_code("value"),
 )
 
 
 def server(input, output, session):
-    @render.text
+    @render.code
     def value():
         return input.password()
 
