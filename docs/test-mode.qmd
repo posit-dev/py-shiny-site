@@ -5,15 +5,18 @@ editor:
     wrap: sentence
 ---
 
-In the [previous article](end-to-end-testing.qmd), you learned how to test a Shiny app end-to-end with Playwright controllers.
-Controllers are great for checking what your users *see*, but sometimes you want to check values your app doesn't render at all — like the result of a `reactive.calc` — or to read an output's value without parsing it out of the page's HTML.
-That's what **test mode** is for.
+In [Unit testing](unit-testing.qmd#testing-the-server-function), you read a session's inputs, outputs, and exported values in-process, through `local_server`.
+Those readers work because the session keeps a *snapshot* of the server's state.
+**Test mode** is what makes that same snapshot available from a *running* app: with it enabled, a Shiny session serves the snapshot as JSON over HTTP, so an [end-to-end test](end-to-end-testing.qmd) can check server-side values from a real browser session.
 
-When test mode is enabled, a running Shiny session serves a JSON *snapshot* of its current state with three blocks:
+That matters because Playwright controllers only see what the user sees.
+Sometimes you want to check a value your app doesn't render at all — the result of a `reactive.calc` — or read an output's value without parsing it out of the page's HTML.
+
+The snapshot has the same three blocks you met in-process:
 
 *   **`input`** — the current value of every input
 *   **`output`** — the current value of every output
-*   **`export`** — internal values you explicitly export from your server code
+*   **`export`** — internal values you explicitly export from your server code with `export_test_values()`
 
 ### Enabling test mode
 
@@ -23,10 +26,11 @@ There are two ways to enable test mode:
 *   Set the `SHINY_TESTMODE=1` environment variable before starting the app
 
 Here's the good news: the pytest app-launch fixtures (`local_app`, `create_app_fixture`) enable test mode by default, so if you followed the steps in the previous article, you already have it — no changes needed.
+(The in-memory `local_server` fixture and `test_server()` enable it for their own session the same way, which is why `get_export()` works there without any setup.)
 
 ### Exporting internal reactive values
 
-By default, the snapshot only contains inputs and outputs. To surface an *internal* value — say, a `reactive.calc` that never gets rendered directly — call `export_test_values()` in your server code. Each keyword argument names a value to export, and each value is a function that takes no arguments — a `reactive.calc` is a natural fit:
+By default, the snapshot only contains inputs and outputs. To surface an *internal* value — say, a `reactive.calc` that never gets rendered directly — call `export_test_values()` in your server code, exactly as in [Exported values](unit-testing.qmd#exported-values). Nothing changes on the app side between the two kinds of test; the same export serves both. The app below is the one the rest of this article tests:
 
 ```{shinylive-python}
 #| standalone: true
@@ -55,21 +59,6 @@ export_test_values(doubled=doubled)
 ```
 
 Each exported value shows up under the snapshot's `export` block. And here's the best part: `export_test_values()` is a **no-op when test mode is off**, so you can leave these calls in your production code with zero impact on your users.
-
-::: {.callout-tip}
-## Reading exports without a browser
-
-Exported values aren't only for end-to-end tests.
-The [`local_server` fixture](unit-testing.qmd#testing-the-server-function) runs the server function in memory and reads the very same values with `get_export()`:
-
-```python
-def test_internal_calc(local_server):
-    local_server.set_inputs(n=30)
-    assert local_server.get_export("doubled") == 60
-```
-
-So a value you export for your Playwright tests is testable from a fast, browserless test too — no `test_mode=True` and no running app required.
-:::
 
 ### Reading the snapshot in a test
 
@@ -174,6 +163,8 @@ stamp.snapshot_preprocess(lambda value: "time = <scrubbed>")
 ```
 
 File inputs get one preprocessor automatically: the uploaded file's `datapath` (a temporary directory that differs on every run) is replaced with just the file's basename.
+
+Preprocessors are part of building the snapshot, not of serving it, so they apply equally to the values `local_server` reads in-process: a scrubbed output is scrubbed in `get_output()`, and a scrubbed input in `get_input()`.
 
 ::: {.callout-tip collapse="true"}
 ## Advanced: the raw snapshot endpoint

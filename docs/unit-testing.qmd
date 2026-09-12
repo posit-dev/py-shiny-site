@@ -137,6 +137,7 @@ Three things to notice:
 *   **`set_inputs()` waits.** It sends the values as an input update and returns once the reactive graph has settled, so the very next line can read the result. There's no polling and no `expect_*` retry loop, because there's nothing racing you.
 *   **Every test gets a fresh instance.** `local_server` is function-scoped, because a session remembers every input set so far — sharing one across tests would let them leak into each other.
 *   **The app runs unchanged.** No `conftest.py`, no fixture of your own, and no `test_mode=True` — `local_server` turns [test mode](test-mode.qmd) on for the session itself, which is what makes `get_export()` work.
+*   **UI defaults aren't sent.** In a browser, `ui.input_numeric("n", "N", 10)` reports its `10` to the server on load. There's no browser here, so an input doesn't exist until you `set_inputs()` it: `get_input("n")` raises `KeyError` before that, and an output that reads `input.n()` is `"silent"` (see below). Set the inputs a test depends on before asserting on them.
 
 To test a file other than `app.py`, point the fixture at it with an indirect parametrization:
 
@@ -176,11 +177,12 @@ def doubled():
     return str(input.n() * 2)
 ```
 
-Three readers cover the three blocks of a session's state:
+While it runs, the session keeps a *snapshot* of the server's state in three blocks — every input, every output, and any internal values the app chooses to export.
+Three readers cover the three blocks:
 
 *   `get_input(id)` — the current value of an input
 *   `get_output(id)` — the current value of an output
-*   `get_export(name)` — a value registered with [`export_test_values()`](test-mode.qmd#exporting-internal-reactive-values)
+*   `get_export(name)` — an internal value the app registered with `export_test_values()` (see [Exported values](#exported-values) below)
 
 Each returns a [`TestServerValue`](../api/testing/testserver.TestServerValue.qmd), which compares equal to the underlying value, so ordinary assertions need no unwrapping:
 
@@ -201,13 +203,62 @@ def test_doubling_app(local_server):
 
 Asking for an id that doesn't exist raises `KeyError` rather than returning an empty value, so a typo'd id fails loudly.
 
-`get_export()` reads exactly the values [test mode](test-mode.qmd) exposes, so a `reactive.calc` you already export for your end-to-end tests is readable here too — without launching the app:
+#### Exported values
+
+The snapshot's `input` and `output` blocks fill themselves.
+The third block is for values that never reach an output — a `reactive.calc`, say — and it's empty until the app puts something in it.
+To do that, call [`export_test_values()`](../api/core/testmode.export_test_values.qmd) in your app.
+Each keyword argument names a value to export, and each value is a function that takes no arguments, so a `reactive.calc` is a natural fit.
+Here's the same app with its doubling pulled out into a calc and exported:
+
+```{.python filename="app.py"}
+from shiny import reactive
+from shiny.express import input, render, ui
+from shiny.testmode import export_test_values
+
+ui.input_text("name", "Name", "")
+ui.input_numeric("n", "N", 10)
+
+
+@reactive.calc
+def double():
+    return input.n() * 2
+
+
+@render.text
+def greeting():
+    return f"Hello, {input.name()}!"
+
+
+@render.text
+def doubled():
+    if input.n() < 0:
+        raise ValueError("`n` must be positive")
+    return str(double())
+
+
+export_test_values(double=double)
+```
+
+Now `get_export()` can read the calc's value directly — the integer, not the string the output renders it as:
 
 ```python
 def test_internal_calc(local_server):
     local_server.set_inputs(n=30)
-    assert local_server.get_export("doubled") == 60
+    assert local_server.get_export("double") == 60
+    assert local_server.get_output("doubled") == "60"
 ```
+
+`export_test_values()` does nothing unless test mode is on, so the call can stay in production code with no effect on users.
+`local_server` turns test mode on for its session, which is why the export shows up here without any other setup.
+
+::: {.callout-note}
+## The same snapshot, from a running app
+
+This snapshot isn't specific to in-memory testing.
+A Shiny app running in test mode serves it over HTTP too, so an end-to-end test can read the same inputs, outputs, and exports from a real browser session — with the same `export_test_values()` calls.
+The [Test mode](test-mode.qmd) article covers that side.
+:::
 
 #### When a value isn't a value
 
