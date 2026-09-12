@@ -307,7 +307,7 @@ Call `test_server()` yourself when the fixture can't express what you need:
 
 *   **A different kind of target.** `local_server` only loads files. `test_server()` also accepts a `shiny.App` instance, or a bare server function — which it wraps in an app with an empty UI, so a module's server can be tested with no app file at all.
 *   **`client_data=`**, to override the browser stand-ins for every output at once.
-*   **`timeout_secs=`** (default `5.0`), the cap on how long any single reactive flush may take before raising `TimeoutError`. Raise it if the app is simply slow to start — a cold matplotlib font cache, say.
+*   **`timeout_secs=`** (default `5.0`), the cap on how long any single reactive flush may take before raising `TimeoutError`. Raise it if the app is simply slow to start — a cold matplotlib font cache, say. But a flush that never finishes *no matter how long you wait* is usually a reactive cycle — two effects that each write a value the other reads, re-queueing each other forever — and no timeout fixes that.
 
 ```python
 test_server()                # app.py beside the test file
