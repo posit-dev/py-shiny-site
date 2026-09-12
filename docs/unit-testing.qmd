@@ -135,7 +135,7 @@ It's still worth extracting pure functions where you can: a test of `filter_peng
 Three things to notice:
 
 *   **`set_inputs()` waits.** It sends the values as an input update and returns once the reactive graph has settled, so the very next line can read the result. There's no polling and no `expect_*` retry loop, because there's nothing racing you.
-*   **Every test gets a fresh app.** `local_server` is function-scoped, because a session remembers every input set so far — sharing one across tests would let them leak into each other.
+*   **Every test gets a fresh instance.** `local_server` is function-scoped, because a session remembers every input set so far — sharing one across tests would let them leak into each other.
 *   **The app runs unchanged.** No `test_mode=True`, no `conftest.py`, no fixture of your own.
 
 To test a file other than `app.py`, point the fixture at it with an indirect parametrization:
@@ -231,7 +231,7 @@ def test_rejects_a_negative_n(local_server):
 ```
 
 ::: {.callout-important}
-## Comparing a non-`ok` value raises
+## Comparing a non-ok value raises
 
 `==` on a value whose status isn't `"ok"` raises `ValueError` explaining why, instead of returning `False`.
 That's deliberate: if it returned `False`, then `assert local_server.get_output("doubled") != "hi"` would *pass* for an output that crashed, hiding the crash behind an assertion that looks successful.
