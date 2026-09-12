@@ -326,7 +326,6 @@ website:
         - section: "<span class='emoji-icon'>🧪</span>  __Testing__"
           contents:
             - docs/unit-testing.qmd
-            - docs/test-server.qmd
             - docs/end-to-end-testing.qmd
             - docs/test-mode.qmd
         - section: "<span class='emoji-icon'>🏗️</span>  __Extending__"

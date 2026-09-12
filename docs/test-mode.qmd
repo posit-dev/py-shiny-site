@@ -60,16 +60,12 @@ Each exported value shows up under the snapshot's `export` block. And here's the
 ## Reading exports without a browser
 
 Exported values aren't only for end-to-end tests.
-[`test_server()`](test-server.qmd) reads the very same values with `get_export()`, running the server function in memory:
+The [`local_server` fixture](unit-testing.qmd#testing-the-server-function) runs the server function in memory and reads the very same values with `get_export()`:
 
 ```python
-from shiny.testserver import test_server
-
-
-def test_internal_calc():
-    with test_server("app.py") as ts:
-        ts.set_inputs(n=30)
-        assert ts.get_export("doubled") == 60
+def test_internal_calc(local_server):
+    local_server.set_inputs(n=30)
+    assert local_server.get_export("doubled") == 60
 ```
 
 So a value you export for your Playwright tests is testable from a fast, browserless test too — no `test_mode=True` and no running app required.
