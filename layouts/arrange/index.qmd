@@ -271,7 +271,7 @@ Stick to functions that are designed for fill layouts, such as the ones in the S
 
 ## Bringing your own HTML page
 
-Sometimes you don't want Shiny to build the page at all --- you already have a complete HTML document, such as the `index.html` your JavaScript bundler emits, or a design handed to you by someone else.
+Sometimes you don't want Shiny to build the page at all — you already have a complete HTML document, such as the `index.html` your JavaScript bundler emits, or a design handed to you by someone else.
 `ui.page_html()` serves that document as-is: you own the markup, and Shiny only fills in its own HTML dependencies and wires up any elements whose `id` matches an input or output.
 
 ::: {.column-screen-inset-right style="max-width:800px;"}
@@ -306,11 +306,11 @@ A few things to know:
 -   Pass the document as a string, or as a `pathlib.Path` to an HTML file (read fresh on every call).
     Use `App(ui=lambda request: ui.page_html(...))` rather than `App(ui=ui.page_html(...))` if your app supports [bookmarking](/docs/bookmarking.qmd), which requires a UI function.
 
--   Shiny's HTML dependencies --- plus anything you pass to `extra_deps=` --- are inserted where the document has `<meta name="shiny-dependency-placeholder" content="">`.
+-   Shiny's HTML dependencies — plus anything you pass to `extra_deps=` — are inserted where the document has `<meta name="shiny-dependency-placeholder" content="">`.
     If your document marks that spot some other way, name it with `deps_replace_pattern=`.
     Without a placeholder Shiny has nowhere to put its CSS and JavaScript, and the page won't be reactive.
 
 -   In Express mode, pass the document to `ui.page_opts(html=)`, which routes the whole app through `ui.page_html()`.
-    Top-level UI markup you write in the app file is dropped --- the document already *is* the page --- but the HTML dependencies of those elements are kept.
+    Top-level UI markup you write in the app file is dropped — the document already *is* the page — but the HTML dependencies of those elements are kept.
 
 This is the Python counterpart to Shiny for R's `shinyApp(ui = htmlTemplate("index.html", document_ = TRUE))` with `attachDependencies()`.
