@@ -7,10 +7,14 @@ editor:
 
 Testing is important to ensure your apps continue working as intended.
 There are two main approaches to testing Shiny apps: unit testing and end-to-end testing.
-Relatively speaking, unit tests much more limited compared to end-to-end, but they're also simpler to write and maintain since they don't depend on running the app in a browser.
-Unit tests also tend to force you to separate the app's "business" logic from the reactive logic (which can be a good thing) since your app won't have access to things like `input` or `output` in a unit test.
+Unit tests run in-process, with no browser: they're fast, simple to write, and simple to maintain.
+End-to-end tests drive the real app in a real browser, so they can check anything a user could see — at the cost of being slower and more involved.
 
-In this article, we'll provide a short guide on unit testing with **pytest**. See the next article for end-to-end testing.
+Unit tests come in two flavors.
+The first is the classic one: extract your app's "business" logic into plain functions and test those.
+The second is specific to Shiny: run the app's *server function* in memory with [`test_server()`](../api/testing/testserver.test_server.qmd), set inputs, and assert on outputs — no browser required.
+This article covers both, using **pytest**.
+The [next article](end-to-end-testing.qmd) covers end-to-end testing with **Playwright**.
 
 ### Make your app testable
 
@@ -33,10 +37,8 @@ def display_dat():
     return penguins[idx]
 ```
 
-None of the logic can be tested directly through a unit test.[^end-to-end]
-We can, however, put the logic for `display_dat` inside separate function, which can be then be tested independently of the Shiny app:
-
-[^end-to-end]: You could test this with an end-to-end test, but that's for the next article.
+A plain function test can't call `display_dat` directly, because it reads `input.species()` and there's no `input` outside a running app.
+We can, however, put the logic for `display_dat` inside a separate function, which can then be tested independently of the Shiny app:
 
 ```python
 @render.data_frame
@@ -49,7 +51,6 @@ def filter_penguins(species):
 
 Now that we have a function that doesn't rely on a reactive `input` value, we can write a unit test for it.
 There are many unit testing frameworks available for Python, but we'll use **pytest** in this article since it's by far the most common.
-
 
 ### pytest
 
@@ -108,6 +109,355 @@ E        +  where 152 = filter_penguins(["Adelie"]).shape[0]
 
 ```
 
-Unit testing is a great way to ensure that your "business" logic is working as expected.
-However, to fully ensure your app is working as intended, you'll also want to write end-to-end tests.
-In the next article, we'll show you how to write end-to-end tests for your Shiny app via **Playwright**.
+### Testing the server function
+
+Extracting `filter_penguins()` tests the *business* logic, but nothing yet checks that `display_dat` actually calls it with the user's selection — or that the app wires the two together at all.
+For that, Shiny provides a built-in pytest fixture, `local_server`, that runs the `app.py` beside your test file in memory.
+Ask for it as a test argument and it's already running; there's nothing to import:
+
+```{.python filename="test_app.py"}
+def rows(value):
+    # A data frame output's value is the JSON the browser receives
+    return value.value["payload"]["data"]
+
+
+def test_display_dat(local_server):
+    local_server.set_inputs(species=["Adelie"])
+    assert len(rows(local_server.get_output("display_dat"))) == 152
+
+    local_server.set_inputs(species=["Adelie", "Gentoo"])
+    assert len(rows(local_server.get_output("display_dat"))) == 276
+```
+
+This works against the app exactly as it was first written, with the logic still inline in `display_dat` — so it's also a way to get a test around an app you'd rather not refactor yet.
+It's still worth extracting pure functions where you can: a test of `filter_penguins()` is faster and pins the failure to one place.
+
+Three things to notice:
+
+*   **`set_inputs()` waits.** It sends the values as an input update and returns once the reactive graph has settled, so the very next line can read the result. There's no polling and no `expect_*` retry loop, because there's nothing racing you.
+*   **Every test gets a fresh instance.** `local_server` is function-scoped, because a session remembers every input set so far — sharing one across tests would let them leak into each other.
+*   **The app runs unchanged.** No `conftest.py`, no fixture of your own, and no `test_mode=True` — `local_server` turns [test mode](test-mode.qmd) on for the session itself, which is what makes `get_export()` work.
+*   **UI defaults aren't sent.** In a browser, `ui.input_numeric("n", "N", 10)` reports its `10` to the server on load. There's no browser here, so an input doesn't exist until you `set_inputs()` it: `get_input("n")` raises `KeyError` before that, and an output that reads `input.n()` is `"silent"` (see below). Set the inputs a test depends on before asserting on them.
+
+To test a file other than `app.py`, point the fixture at it with an indirect parametrization:
+
+```python
+import pytest
+
+
+@pytest.mark.parametrize("local_server", ["other_app.py"], indirect=True)
+def test_the_other_app(local_server):
+    local_server.set_inputs(n=10)
+    assert local_server.get_output("tripled") == "30"
+```
+
+The path is resolved relative to the test file, and the app can be Core or Express.
+
+#### Reading values
+
+The rest of this section uses a smaller app, whose outputs are strings that are easy to assert on.
+One of them rejects a negative value:
+
+```{.python filename="app.py"}
+from shiny.express import input, render, ui
+
+ui.input_text("name", "Name", "")
+ui.input_numeric("n", "N", 10)
+
+
+@render.text
+def greeting():
+    return f"Hello, {input.name()}!"
+
+
+@render.text
+def doubled():
+    if input.n() < 0:
+        raise ValueError("`n` must be positive")
+    return str(input.n() * 2)
+```
+
+While it runs, the session keeps a *snapshot* of the server's state in three blocks — every input, every output, and any internal values the app chooses to export.
+Three readers cover the three blocks:
+
+*   `get_input(id)` — the current value of an input
+*   `get_output(id)` — the current value of an output
+*   `get_export(name)` — an internal value the app registered with `export_test_values()` (see [Exported values](#exported-values) below)
+
+Each returns a [`TestServerValue`](../api/testing/testserver.TestServerValue.qmd), which compares equal to the underlying value, so ordinary assertions need no unwrapping:
+
+```{.python filename="test_app.py"}
+def test_doubling_app(local_server):
+    # Several inputs at once, as one user interaction
+    local_server.set_inputs(name="Ada", n=10)
+
+    assert local_server.is_ok
+    assert local_server.get_output("greeting") == "Hello, Ada!"
+    assert local_server.get_output("doubled") == "20"
+
+    # A later interaction re-renders. Inputs you don't name keep their
+    # values, so `name` is still "Ada" here.
+    local_server.set_inputs(n=21)
+    assert local_server.get_output("doubled") == "42"
+```
+
+Asking for an id that doesn't exist raises `KeyError` rather than returning an empty value, so a typo'd id fails loudly.
+
+#### Exported values
+
+The snapshot's `input` and `output` blocks fill themselves.
+The third block is for values that never reach an output — a `reactive.calc`, say — and it's empty until the app puts something in it.
+To do that, call [`export_test_values()`](../api/core/testmode.export_test_values.qmd) in your app.
+Each keyword argument names a value to export, and each value is a function that takes no arguments, so a `reactive.calc` is a natural fit.
+Here's the same app with its doubling pulled out into a calc and exported:
+
+```{.python filename="app.py"}
+from shiny import reactive
+from shiny.express import input, render, ui
+from shiny.testmode import export_test_values
+
+ui.input_text("name", "Name", "")
+ui.input_numeric("n", "N", 10)
+
+
+@reactive.calc
+def double():
+    return input.n() * 2
+
+
+@render.text
+def greeting():
+    return f"Hello, {input.name()}!"
+
+
+@render.text
+def doubled():
+    if input.n() < 0:
+        raise ValueError("`n` must be positive")
+    return str(double())
+
+
+export_test_values(double=double)
+```
+
+Now `get_export()` can read the calc's value directly — the integer, not the string the output renders it as:
+
+```python
+def test_internal_calc(local_server):
+    local_server.set_inputs(n=30)
+    assert local_server.get_export("double") == 60
+    assert local_server.get_output("doubled") == "60"
+```
+
+`export_test_values()` does nothing unless test mode is on, so the call can stay in production code with no effect on users.
+`local_server` turns test mode on for its session, which is why the export shows up here without any other setup.
+
+::: {.callout-note}
+## The same snapshot, from a running app
+
+This snapshot isn't specific to in-memory testing.
+A Shiny app running in test mode serves it over HTTP too, so an end-to-end test can read the same inputs, outputs, and exports from a real browser session — with the same `export_test_values()` calls.
+The [Test mode](test-mode.qmd) article covers that side.
+:::
+
+#### When a value isn't a value
+
+An output doesn't always produce something.
+Every `TestServerValue` carries a `status` saying how it turned out:
+
+*   **`"ok"`** — it rendered. The result is in `.value`.
+*   **`"error"`** — it raised. The message is in `.error`, and the formatted traceback in `.traceback`.
+*   **`"silent"`** — its most recent render produced nothing, because a [`req()`](../api/core/req.qmd) failed: an input it reads was never set, or a plot has no size yet. The browser blanks such an output, so there's no `.value` here either — even if an earlier render produced one.
+*   **`"never-rendered"`** — it hasn't run at all. An output that's hidden is suspended, and stays never-rendered until it becomes visible.
+
+```python
+def test_rejects_a_negative_n(local_server):
+    local_server.set_inputs(n=-1)
+
+    assert local_server.is_ok is False
+    failed = local_server.get_output("doubled")
+    assert failed.status == "error"
+    assert "must be positive" in failed.error
+    assert "raise ValueError" in failed.traceback
+```
+
+::: {.callout-important}
+## Comparing a non-ok value raises
+
+`==` on a value whose status isn't `"ok"` raises `ValueError` explaining why, instead of returning `False`.
+That's deliberate: if it returned `False`, then `assert local_server.get_output("doubled") != "hi"` would *pass* for an output that crashed, hiding the crash behind an assertion that looks successful.
+Check `.status` (or `.error`) when you expect something other than a plain value.
+:::
+
+`local_server.is_ok` is `True` when no output or export errored and no fatal error occurred, and `local_server.error` summarizes the first failure.
+Asserting `is_ok` early in a test turns a broken app into one clear failure rather than a confusing comparison error further down.
+
+#### Modules
+
+A [module](modules.qmd) namespaces its ids, joining them to the module instance's id with `-`.
+Given an app whose server calls `counter_server("counter")`, where the module renders a `label` output from an `n` input, you can use those namespaced ids directly:
+
+```python
+def test_counter_module(local_server):
+    local_server.set_inputs(**{"counter-n": 7})
+    assert local_server.get_output("counter-label") == "n=7"
+```
+
+`set_inputs()` takes keyword arguments, so an id that isn't a valid Python identifier goes through an unpacked dictionary: `set_inputs(**{"counter-n": 7})`.
+
+Or take a *scope* and use the bare ids the module's own code uses — the same view [`Session.make_scope()`](../api/core/Session.qmd) hands a module:
+
+```python
+def test_counter_module_in_scope(local_server):
+    counter = local_server.make_scope("counter")
+    counter.set_inputs(n=7)
+    assert counter.get_output("label") == "n=7"
+
+    # Scoped all the way down: only this module's items, keyed bare
+    assert set(counter.to_values().outputs) == {"label"}
+```
+
+A scope holds no state of its own, so take as many as the test needs:
+
+```python
+def test_two_counters(local_server):
+    first = local_server.make_scope("first")
+    first.set_inputs(n=1)
+    assert first.get_output("label") == "n=1"
+
+    second = local_server.make_scope("second")
+    second.set_inputs(n=2)
+    assert second.get_output("label") == "n=2"
+```
+
+Express modules namespace their ids the same way, so an Express app holding `counter("counter")` is reached with the very same ids and the very same scope.
+Nested modules compose their namespaces, so the id is every ancestor id joined by `-` — `local_server.get_output("outer-inner-label")`, or `local_server.make_scope("outer").make_scope("inner").get_output("label")`.
+
+#### Client data
+
+A real browser reports things back to the server: how big each output is, the device pixel ratio, and the parts of the URL.
+Your app reads them through `session.clientdata`, and so do renderers — `@render.plot` needs a width and a height before it can draw anything.
+
+There's no browser here, so those values would never arrive, and a plot would silently render nothing.
+To avoid that, the session sends the stand-ins in [`DEFAULT_CLIENT_DATA`](../api/testing/testserver.DEFAULT_CLIENT_DATA.qmd) as soon as it starts, so plots and `session.clientdata.url_*()` work out of the box.
+
+To change one output's size partway through a test, set its `.clientdata_*` input:
+
+```python
+def test_plot_resized_midway(local_server):
+    local_server.set_inputs(**{".clientdata_output_plot_width": 300})
+    assert local_server.get_output("plot").status == "ok"
+```
+
+To set every output's size up front, pass `client_data=` — an argument only `test_server()` itself takes, which brings us to the next section.
+
+#### Calling `test_server()` directly
+
+`local_server` is a [`test_server()`](../api/testing/testserver.test_server.qmd) session that has already been started for you.
+Call `test_server()` yourself when the fixture can't express what you need:
+
+*   **A different kind of target.** `local_server` only loads files. `test_server()` also accepts a `shiny.App` instance, or a bare server function — which it wraps in an app with an empty UI, so a module's server can be tested with no app file at all.
+*   **`client_data=`**, to override the browser stand-ins for every output at once.
+*   **`timeout_secs=`** (default `5.0`), the cap on how long any single reactive flush may take before raising `TimeoutError`. Raise it if the app is simply slow to start — a cold matplotlib font cache, say. But a flush that never finishes *no matter how long you wait* is usually a reactive cycle — two effects that each write a value the other reads, re-queueing each other forever — and no timeout fixes that.
+
+```python
+test_server()                # app.py beside the test file
+test_server("myapp.py")      # another file beside the test file, Core or Express
+test_server(path_to_app)     # an absolute `Path`, used as-is
+test_server(my_app)          # a `shiny.App` instance
+test_server(my_mod_server)   # a bare server function
+```
+
+The session it returns hasn't started yet, and **must be used with `with`** — that's what starts the app, and what tears it down on exit even when an assertion fails partway through:
+
+```python
+from shiny.testserver import test_server
+
+
+def test_plot_at_a_given_size():
+    with test_server("app.py", client_data={"output_width": 300}) as ts:
+        assert ts.get_output("plot").status == "ok"
+```
+
+To reuse one of these across tests, wrap it in a fixture of your own.
+Keep it function-scoped — the default — for the same reason `local_server` is:
+
+```python
+import pytest
+
+from shiny import Inputs, Outputs, Session, module, render
+from shiny.testserver import test_server
+
+
+@module.server
+def counter_server(input: Inputs, output: Outputs, session: Session):
+    @render.text
+    def label():
+        return f"n={input.n()}"
+
+
+def app_server(input: Inputs, output: Outputs, session: Session):
+    counter_server("counter")
+
+
+@pytest.fixture
+def ts():
+    with test_server(app_server) as session:
+        yield session
+
+
+def test_counter_module(ts):
+    ts.set_inputs(**{"counter-n": 7})
+    assert ts.get_output("counter-label") == "n=7"
+```
+
+The readers only work while the session is open.
+To assert after the `with` block has closed, capture the values first.
+Both forms hold copies, so they stay valid once the app is gone:
+
+```python
+def test_reports_everything():
+    with test_server("app.py") as ts:
+        ts.set_inputs(n=10)
+        values = ts.to_values()  # rich `TestServerValue`s
+        as_dict = dict(ts)  # the same, as plain JSON-ready data
+
+    assert values.outputs["doubled"].value == "20"
+    assert as_dict["outputs"]["doubled"]["value"] == "20"
+```
+
+[`to_values()`](../api/testing/testserver.TestServerValues.qmd) returns a `TestServerValues` with `inputs`, `outputs`, and `exports` dictionaries alongside `is_ok` and `error`.
+`dict(ts)` is the same snapshot converted all the way down to plain data, which is handy for a whole-session comparison or a snapshot test.
+
+#### Async tests
+
+`test_server()` drives its own event loop, so it can't run inside one that's already running.
+In an `async` test, use [`test_server_async()`](../api/testing/testserver.test_server_async.qmd) instead.
+Everything works the same way, except that you `async with` the session and `await` `set_inputs()`; reading a value is still synchronous:
+
+```python
+import pytest
+
+from shiny.testserver import test_server_async
+
+
+@pytest.mark.asyncio
+async def test_doubling_app():
+    async with test_server_async("app.py") as ts:
+        await ts.set_inputs(name="Ada", n=10)
+
+        assert ts.is_ok
+        assert ts.get_output("greeting") == "Hello, Ada!"
+```
+
+Note that an app with `async` server code doesn't itself require an `async` test — the reactive graph runs either way.
+Only the *test function* being `async` does.
+
+### Where to go next
+
+Unit tests — whether of a pure function or of the server function in memory — are the fast, precise way to check what your app *computes*.
+To check what your users *see*, you'll also want end-to-end tests.
+
+*   [End-to-end testing](end-to-end-testing.qmd) — drive the real app in a real browser with Playwright.
+*   [Test mode](test-mode.qmd) — export internal reactive values, and read them from a running app.
+*   [Testing API reference](../api/testing/index.qmd) — every method on `TestServerSession`, `TestServerScope`, and `TestServerValue`.
