@@ -253,6 +253,8 @@ website:
               href: "/layouts/arrange/index.html#column-nesting"
             - text: "Controlling for Page Size"
               href: "/layouts/arrange/index.html#controlling-for-page-width-and-height"
+            - text: "Bringing Your Own HTML Page"
+              href: "/layouts/arrange/index.html#bringing-your-own-html-page"
     - id: get-started
       style: "floating"
       collapse-level: 1
