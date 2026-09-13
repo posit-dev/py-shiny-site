@@ -87,7 +87,7 @@ _DEPRECATED = {
 # the source of truth for layout documentation -- once one of these appears
 # there (or on a component page) it is counted, so drop it from this list.
 _TODO_NEEDS_LAYOUT_PAGE = {
-    "page_auto", "page_bootstrap", "page_html", "page_opts", "page_output",
+    "page_auto", "page_bootstrap", "page_opts", "page_output",
 }
 
 # Express-only / low-level helpers with no standalone component page.
