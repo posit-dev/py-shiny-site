@@ -23,7 +23,9 @@ def find_index_qmds(dirs):
         for cdir in cdirs:
             if ".ruff_cache" in cdir:
                 continue
-            index_qmds.append(os.path.join(cdir, "index.qmd"))
+            qmd = os.path.join(cdir, "index.qmd")
+            if os.path.isfile(qmd):
+                index_qmds.append(qmd)
 
     return index_qmds
 
