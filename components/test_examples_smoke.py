@@ -55,6 +55,27 @@ ALLOW_STDERR: dict[str, list[str]] = {
     )
 }
 
+# The Verbatim Text page documents `ui.output_text_verbatim()` itself, which py-shiny
+# deprecated in favour of `ui.output_code()` / `ui.output_text()`. Its examples have to
+# keep calling it, so tolerate the warning here only. Everywhere else the deprecation
+# stays an error -- other pages were migrated to `ui.output_code()` / `@render.code`.
+# Retire these entries (and the page) when the deprecated function is removed.
+ALLOW_STDERR.update(
+    {
+        f"components/outputs/verbatim-text/{app}": [
+            "ShinyDeprecationWarning: `ui.output_text_verbatim()` is deprecated",
+            # The warning echoes the offending source line too.
+            "ui.output_text_verbatim(",
+        ]
+        for app in (
+            "app-core.py",
+            "app-preview.py",
+            "app-variation-placeholder-rectangle-when-string-is-empty-core.py",
+            "app-variation-placeholder-rectangle-when-string-is-empty-express.py",
+        )
+    }
+)
+
 
 @pytest.mark.parametrize(
     "app_path",

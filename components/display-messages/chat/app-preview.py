@@ -20,7 +20,7 @@ welcome = ui.markdown(
 chat = ui.Chat(id="chat")
 
 # Display it, with a welcome message
-chat.ui(messages=[welcome])
+chat.ui(greeting=welcome)
 
 
 # Define a callback to run when the user submits a message
