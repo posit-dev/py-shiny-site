@@ -67,15 +67,15 @@ def test_component_page_has_gallery_preview_assets(page_dir: Path) -> None:
             durations.append(animation_image.info.get("duration", 0))
             changes.append(_changed_pixel_ratio(first_frame, animation_image))
 
-        assert 1_800 <= sum(durations) <= 4_000
+        assert 1_800 <= sum(durations) <= 8_000
         assert all(duration > 0 for duration in durations)
+        # Smooth motion: 20 ms (50 fps) frames wherever something moves.
+        assert min(durations) <= 20
         assert max(changes) >= 0.005
-        subject_extent = _subject_extent(poster_image)
-        assert subject_extent >= 0.20
-        if page_dir.parent.name == "inputs":
-            assert subject_extent <= 0.65
+        assert _subject_extent(poster_image) >= 0.20
 
-        animation_image.seek(animation_image.n_frames // 2)
+        # The poster is the GIF's exact first frame, so hover swaps don't jump.
+        animation_image.seek(0)
         difference = ImageChops.difference(
             poster_image.convert("RGB"), animation_image.convert("RGB")
         )

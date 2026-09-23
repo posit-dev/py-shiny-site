@@ -16,8 +16,10 @@ app_ui = ui.page_fluid(
             ),
         ),
         ui.card_body(
-            ui.div("Card body", class_="small"),
+            ui.div("Card contents", class_="small"),
         ),
+        height="7rem",
+        style="width: 16rem;",
     ),
     {"class": "vh-100 d-flex justify-content-center align-items-center px-4"},
 )

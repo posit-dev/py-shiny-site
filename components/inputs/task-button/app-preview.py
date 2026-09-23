@@ -1,4 +1,6 @@
-from shiny import App, ui
+import time
+
+from shiny import App, reactive, ui
 
 app_ui = ui.page_fluid(
     ui.input_task_button("task_button", "Run task"),
@@ -7,7 +9,10 @@ app_ui = ui.page_fluid(
 
 
 def server(input, output, session):
-    pass
+    @reactive.effect
+    @reactive.event(input.task_button)
+    def _():
+        time.sleep(2)
 
 
 app = App(app_ui, server)

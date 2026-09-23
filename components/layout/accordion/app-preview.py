@@ -2,9 +2,9 @@ from shiny import App, ui
 
 app_ui = ui.page_fluid(
     ui.accordion(
-        ui.accordion_panel("Section A", "Some narrative for section A"),
-        ui.accordion_panel("Section B", "Some narrative for section B"),
-        ui.accordion_panel("Section C", "Some narrative for section C"),
+        ui.accordion_panel("Section A", "Contents for Section A"),
+        ui.accordion_panel("Section B", "Contents for Section B"),
+        ui.accordion_panel("Section C", "Contents for Section C"),
         id="acc",
     ),
     {"class": "vh-100 d-flex flex-column justify-content-center px-4"},

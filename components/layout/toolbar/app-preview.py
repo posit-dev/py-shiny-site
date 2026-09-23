@@ -4,7 +4,7 @@ from shiny import App, ui
 app_ui = ui.page_fixed(
     ui.card(
         ui.card_header(
-            "Header",
+            "Card",
             ui.toolbar(
                 ui.toolbar_input_button(
                     id="action1",
@@ -20,14 +20,18 @@ app_ui = ui.page_fixed(
                 align="right",
             ),
         ),
-        ui.card_body(),
+        ui.card_body(
+            ui.div("Card contents", class_="small"),
+        ),
+        height="7rem",
+        style="width: 16rem;",
     ),
     {"class": "vh-100 d-flex justify-content-center align-items-center px-4"},
 )
 
 
 def server(input, output, session):
-   pass
+    pass
 
 
 app = App(app_ui, server)
