@@ -5,6 +5,7 @@ format:
     toc: false
     code-line-numbers: true
     code-overflow: scroll
+    code-copy: false
     include-after-body: _partials/componentsjs.html
 filters:
   - quarto

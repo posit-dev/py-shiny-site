@@ -5,11 +5,10 @@ app_ui = ui.page_fluid(
         "select",
         "",
         {
-            "1": {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"},
-            "2": {"2A": "Choice 2A", "2B": "Choice 2B", "2C": "Choice 2C"},
+            "Group 1": {"1A": "Choice 1A", "1B": "Choice 1B", "1C": "Choice 1C"},
+            "Group 2": {"2A": "Choice 2A", "2B": "Choice 2B", "2C": "Choice 2C"},
         },
     ),
-    ui.output_text("value"),
     {"class": "vh-100 d-flex justify-content-center align-items-center px-4"},
 )
 

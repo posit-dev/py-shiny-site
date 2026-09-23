@@ -11,7 +11,7 @@ def server(input: Inputs, output: Outputs, session: Session):
     @reactive.event(input.show)
     def _():
         m = ui.modal(
-            "This is a somewhat important message.",
+            "Dialog that blocks the screen",
             easy_close=True,
             footer=None,
         )

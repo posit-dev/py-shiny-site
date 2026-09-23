@@ -1,7 +1,7 @@
 from shiny import App, reactive, render, ui
 
 app_ui = ui.page_fluid(
-    ui.input_action_link("action_link", "Action"),
+    ui.input_action_link("action_link", "Action Link"),
     ui.output_text("counter"),
     {"class": "vh-100 d-flex justify-content-center align-items-center px-4"},
 )

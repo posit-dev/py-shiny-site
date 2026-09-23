@@ -315,6 +315,43 @@ fails the PR when committed links are out of date.
 
 **Regenerate the `relevant-functions` fields** with `make docs-update-relevant-functions` whenever you add a new component/layout page (or edit its `relevant-functions` block), bump the py-shiny submodule, or otherwise change the documented API — the `title`/`href`/`signature` values are generated from the `api/**` reference pages, and `test-docs`' `relevant-functions` job fails the PR when committed values are stale.
 
+### Gallery previews (`preview.gif` + `thumbnail.png`)
+
+The `/components/` gallery cards (`components/_partials/components-list.{ejs,js,css}`) show each component's `thumbnail.png` and swap in `preview.gif` on hover/focus (not on touch or with reduced motion). The EJS appends `?v=<mtime>` so re-recorded assets are not served stale. **`thumbnail.png` is also the kitchen-sink `image:` on many component pages**, so re-recording changes those too.
+
+Both files are generated — never hand-edit them:
+
+```bash
+uv run playwright install chromium-headless-shell   # once; also needs ffmpeg on PATH
+make docs-gallery-previews                      # record all components (~6 min)
+make docs-gallery-previews NAMES="slider cards"  # or just some, by dir name
+make gallery-debug   # write + open gallery-debug.html: every thumbnail beside its GIF
+```
+
+`gallery-debug.html` is gitignored and regenerated on demand rather than kept: it hard-codes the component list and a cache-busting stamp, so a saved copy goes stale after any re-record.
+
+Each component has a `Spec` in `scripts/record-component-previews.py`: which app to serve (`app-preview.py` by default; some outputs use `app-core.py` or a variation), a `zoom`, extra `css` injected before first paint, an optional `ready` selector, and a scripted `play()` using the `Driver` helpers (`click`, `hover`, `glide`, `drag_to`, `type`, `idle`). `d.poster()` marks the frame to use as the thumbnail; the GIF loop is rotated to start there, so the thumbnail is always the GIF's exact first frame (`components/test_component_gallery.py` enforces this, plus 450×253, looping, ≤8 s, and 20 ms frames).
+
+**Design rules** (from review feedback on #437 — keep them when adding or re-recording a component):
+
+- **The frame is 450×253 (the card); fill it.** `zoom` scales the app inside it (the viewport becomes 450/zoom × 253/zoom CSS px). The default of 2 renders 16px text at 32px, the legibility target, and keeps text a consistent size across cards. Lower `zoom` only when the content genuinely needs the room (date pickers, plots, tables, data grids, the map).
+- **Arrange content for a 16:9 frame instead of letting it overflow**: open dropdowns downward from the top of the frame and cap their height, dock the datepicker calendar to the right of the input, place tables and plots beside their slider, and position popovers and tooltips low enough to open upward. Nothing may overflow or clip, and labels must not wrap (the injected CSS sets `nowrap` on buttons and check labels).
+- **The thumbnail shows the component, not its trigger**: a notification, tooltip, toast, popover or progress bar is shown open; checkboxes checked, passwords typed, multi-selects filled, uploads complete, date pickers open, streams finished.
+- **Preview app text**: use full names for labels ("Action Button", "Download Link"), "Group 1"/"Group 2" for option groups, "contents" rather than "body" for placeholder text ("Card contents"), and mute placeholder text that isn't the point (`text-body-secondary`). Don't leave empty outputs in a preview app — an unfilled `ui.output_code()` renders as a stray box (it was the "artifact" beside the slider).
+- **Hold states long enough to read**: pause before the first interaction and let the final state linger before the loop restarts.
+
+**Capture gotchas, each learned the hard way:**
+
+- **The CDP screencast ignores emulated DPR.** It returns CSS-pixel frames (a zoom-3 preview came back at 150×84 and was upscaled, so it looked blurry). Each recording therefore launches its own browser with `--force-device-scale-factor=<zoom>`. The viewport is rounded *up* and the frames are cropped to 450×253; scaling 252→253 px would soften every frame.
+- **The screencast only emits frames on repaint.** Frames are resampled to a constant 50 fps (20 ms GIF delays; browsers clamp ≤10 ms to 100 ms), and `mpdecimate` plus `-fps_mode vfr` merges identical frames so static stretches cost almost nothing.
+- **Awaited CDP mouse moves cap a drag at about 25 fps**, so `drag_to()` dispatches its intermediate `mousemove`s in-page, one per `requestAnimationFrame`. A slider still produces only as many distinct frames as it has steps (0–20 → 21 positions); that is expected.
+- **Parallel recording (`-j >1`) drops frames**, because the pages compete for the compositor. Keep the default of `-j 1`.
+- **Native `<select>` popups are drawn by the OS and never captured.** `select-single` switches on Chrome's customizable select (`appearance: base-select`, see `BASE_SELECT`) so the picker renders in-page; the toolbar selects step their values with `select_option()` instead.
+- **The macOS accent color leaks into headless Chrome** (yellow focus rings, checked `<option>`s, selection). The global `CSS` pins them all to Shiny blue `#007bc2`.
+- **Layout traps in Shiny's defaults**: plot and image outputs default to `height: 400px`, and input containers to `width: 300px`. Override them in the spec's `css` or they blow out the frame.
+- **shinywidgets (plotly, ipyleaflet) rebuilds the widget on every change**, blanking it for about 0.6 s. Wait for `.js-plotly-plot .bars` after each change, and keep map pans short, since every pan frame is a full repaint (the map is the largest GIF).
+- **Panning or animating whole-frame content grows the GIF quickly.** All the GIFs total about 4 MB, and they load only on hover.
+
 ## Working with API Documentation
 
 API docs are generated from the py-shiny repository:

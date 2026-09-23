@@ -4,7 +4,7 @@ from shiny import App, ui
 app_ui = ui.page_fluid(
     ui.card(
         ui.card_header(
-            "Card",
+            ui.span("Card", class_="text-body-secondary fw-normal"),
             ui.toolbar(
                 ui.toolbar_input_select(
                     id="filter",
@@ -16,8 +16,10 @@ app_ui = ui.page_fluid(
             ),
         ),
         ui.card_body(
-            ui.div("Card body", class_="small"),
+            ui.div("Card contents", class_="small text-body-secondary"),
         ),
+        height="7rem",
+        style="width: 16rem;",
     ),
     {"class": "vh-100 d-flex justify-content-center align-items-center px-4"},
 )

@@ -1,7 +1,7 @@
 from shiny import ui, render, App
 
 app_ui = ui.page_fluid(
-    ui.download_button("download", "Download"),
+    ui.download_button("download", "Download Button"),
     {"class": "vh-100 d-flex justify-content-center align-items-center px-4"},
 )
 

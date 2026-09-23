@@ -17,8 +17,39 @@ listing:
   - id: input
     type: grid
     template: _partials/components-list.ejs
+    # Explicit list (sort: false) so the grid follows the sidebar order in
+    # _quarto.yml — a glob would sort alphabetically. New input components
+    # must be added here too (enforced by test_component_pages.py).
+    sort: false
     contents:
-      - inputs/*/*.qmd
+      - inputs/action-button/index.qmd
+      - inputs/action-link/index.qmd
+      - inputs/bookmark-button/index.qmd
+      - inputs/checkbox/index.qmd
+      - inputs/checkbox-group/index.qmd
+      - inputs/code-editor/index.qmd
+      - inputs/dark-mode/index.qmd
+      - inputs/date-range-selector/index.qmd
+      - inputs/date-selector/index.qmd
+      - inputs/download-button/index.qmd
+      - inputs/download-link/index.qmd
+      - inputs/file/index.qmd
+      - inputs/numeric-input/index.qmd
+      - inputs/password-field/index.qmd
+      - inputs/radio-buttons/index.qmd
+      - inputs/select-single/index.qmd
+      - inputs/select-multiple/index.qmd
+      - inputs/selectize-single/index.qmd
+      - inputs/selectize-multiple/index.qmd
+      - inputs/slider/index.qmd
+      - inputs/slider-range/index.qmd
+      - inputs/submit-textarea/index.qmd
+      - inputs/switch/index.qmd
+      - inputs/task-button/index.qmd
+      - inputs/text-area/index.qmd
+      - inputs/text-box/index.qmd
+      - inputs/toolbar-button/index.qmd
+      - inputs/toolbar-select/index.qmd
   - id: output
     type: grid
     template: _partials/components-list.ejs
@@ -138,3 +169,5 @@ Organize and structure your app's content with cards, modals, and other layout c
 ::::::
 ::::::::
 <!-- End List area -->
+
+<script src="_partials/components-list.js" defer></script>

@@ -20,6 +20,7 @@ COMPONENTS_DIR = Path(__file__).parent
 SECTIONS = ("inputs", "outputs", "display-messages", "layout")
 
 _QUARTO_YML = (COMPONENTS_DIR.parent / "_quarto.yml").read_text()
+_COMPONENTS_INDEX = (COMPONENTS_DIR / "index.qmd").read_text()
 
 # Component pages ("<section>/<name>") exempt from the example-app requirement.
 # Keep this empty; add an entry only with a comment explaining why the page
@@ -91,4 +92,25 @@ def test_component_page_is_in_sidebar(page_dir: Path) -> None:
     assert href in _QUARTO_YML, (
         f"Component page '{href}' is missing from _quarto.yml, so it renders but "
         "is unreachable from the sidebar. Add it to the matching section."
+    )
+
+
+@pytest.mark.parametrize(
+    "page_dir",
+    [p for p in _PAGES if p.parent.name == "inputs"],
+    ids=[str(p.relative_to(COMPONENTS_DIR)) for p in _PAGES if p.parent.name == "inputs"],
+)
+def test_input_page_is_in_components_index(page_dir: Path) -> None:
+    """Every inputs page must be listed in ``components/index.qmd``.
+
+    The inputs grid uses an explicit ``contents`` list with ``sort: false`` so
+    the grid order matches the sidebar, which means new input components no
+    longer appear automatically. A page missing from the list still builds but
+    never shows up in the grid on the components page.
+    """
+    entry = f"{page_dir.relative_to(COMPONENTS_DIR)}/index.qmd"
+    assert entry in _COMPONENTS_INDEX, (
+        f"Inputs page '{entry}' is missing from the listing contents in "
+        "components/index.qmd, so it renders but is absent from the components "
+        "grid. Add it in sidebar order."
     )

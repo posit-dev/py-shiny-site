@@ -1,7 +1,7 @@
 from shiny import App, render, ui
 
 app_ui = ui.page_fluid(
-    ui.download_link("download", "Download"),
+    ui.download_link("download", "Download Link"),
     {"class": "vh-100 d-flex justify-content-center align-items-center px-4"},
 )
 

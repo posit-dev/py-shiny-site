@@ -1,84 +1,38 @@
 <% for (const item of items) { %>
 
-<% if (item.preview) { %>
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
+<% if (item.preview || item.appPreview) { %>
+<% const previewBase = item.path.replace(/index\.qmd$/, "").replace(/index\.html$/, ""); %>
+<% const thumbnailPath = `${previewBase}thumbnail.png`; %>
+<% const animationPath = `${previewBase}preview.gif`; %>
+<% const thumbnailVersion = Deno.statSync(thumbnailPath.replace(/^\//, "")).mtime?.getTime() ?? 0; %>
+<% const animationVersion = Deno.statSync(animationPath.replace(/^\//, "")).mtime?.getTime() ?? 0; %>
+<% const thumbnailSrc = `${thumbnailPath}?v=${thumbnailVersion}`; %>
+<% const animationSrc = `${animationPath}?v=${animationVersion}`; %>
+<div class="g-col-lg-4 g-col-12 component-list-column">
 <div class="component-list-header">
 <a class="component-list-header-text" href="<%= item.path %>">
 <div class="h5"><%= item.title %></div>
 </a>
 <div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="<%= item.path %>">
+<p class="my-0"><a class="text-decoration-none dark" href="<%= item.path %>" aria-label="View <%= item.title %> component">
 <i class="component-link-icon dark bi fst-normal"></i>
 </a></p>
 </div>
 </div>
-<div class="component-list-card">
-<%= item.preview %>
-</div>
-</div>
-<% } %>
-
-
-
-
-
-<% if (item.appPreview) { %>
-<div class="g-col-md-4 g-col-sm-6 g-col-12 component-list-column">
-<div class="component-list-header">
-<a class="component-list-header-text" href="<%= item.path %>">
-<div class="h5"><%= item.title %></div>
+<a class="component-list-card" href="<%= item.path %>" aria-label="View <%= item.title %> component">
+<img
+  class="component-list-preview"
+  src="<%= thumbnailSrc %>"
+  data-static-src="<%= thumbnailSrc %>"
+  data-animated-src="<%= animationSrc %>"
+  alt="<%= item.title %> component preview"
+  loading="lazy"
+  decoding="async"
+  width="450"
+  height="253"
+>
 </a>
-<div class="component-list-icon">
-<p class="my-0"><a class="text-decoration-none dark" href="<%= item.path %>">
-<i class="component-link-icon dark bi fst-normal"></i>
-</a></p>
-</div>
-</div>
-<div class="component-list-card">
-<div style="background-color: #ffffff;
-  animation: 0.75s fadeIn;
-  animation-fill-mode: forwards;
-  visibility: hidden;
-  border-radius: 10px;">
-<% if (item.appPreview.static) { // Handle the case where the app preview is prerendered by make-static-previews.py %>
-```{=html}
-<div class="sourceCode" data-engine="python">
-<div class="shinylive-wrapper" style="">
-<div class="shinylive-container viewer">
-<div class="shinylive-viewer">
-<iframe class="app-frame" src="<%= item.appPreview.file.replace(/^components\//, "static/").replace(/\.py$/, ".html") %>"></iframe>
-</div>
-</div>
-</div>
-</div>
-```
-<% } else { %>
-```{shinylive-python}
-#| standalone: true
-#| components: [viewer]
-<%= Deno.readTextFileSync(item.appPreview.file) %>
-```
-<% } %>
-</div>
-</div>
 </div>
 <% } %>
 
 <% } %>
-
-<style type="text/css">
-  @keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-
-   50% {
-    opacity: 0;
-  }
-
-  100% {
-    visibility: visible;
-    opacity: 1;
-  }
-}
-</style>
