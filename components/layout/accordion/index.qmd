@@ -3,7 +3,6 @@ title: Accordion
 sidebar: components
 appPreview:
   file: components/layout/accordion/app-preview.py
-  static: true
 listing:
 - id: example
   template: ../../_partials/components-detail-example.ejs

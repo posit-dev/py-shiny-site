@@ -223,15 +223,9 @@ quartodoc: $(PYBIN) deps install-quarto
 	fi
 
 
-## Auto generate links and function signatures. Update static previews
+## Auto generate links and function signatures
 .PHONY: docs
-docs: docs-update-shinylive-links docs-update-relevant-functions docs-static-previews
-
-## Regenerate the static component preview images into components/static
-.PHONY: docs-static-previews
-docs-static-previews: $(PYBIN) deps
-	rm -rf components/static
-	$(UVRUN) python components/make-static-previews.py
+docs: docs-update-shinylive-links docs-update-relevant-functions
 
 ## Record gallery previews (preview.gif + thumbnail.png); limit with NAMES="slider cards"
 .PHONY: docs-gallery-previews
