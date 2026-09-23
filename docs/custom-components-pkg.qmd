@@ -72,9 +72,9 @@ If you just want to get up and running with the code, you can start with one of 
 
 ## Development workflow
 
-While there are lots of ways to develop components with live-feedback (e.g. Storybook, dev servers like `vite`, etc) an easy way to develop a component with our package structure is to use the example app, an editable mode pip install, and the watch mode for our build step. We can do this with the following steps:
+While there are lots of ways to develop components with live-feedback (e.g. Storybook, dev servers like `vite`, etc) an easy way to develop a component with our package structure is to use the example app, an editable install, and the watch mode for our build step. We can do this with the following steps:
 
-1. Install the package in [“editable mode”](https://setuptools.pypa.io/en/latest/userguide/development_mode.html) with `pip install -e .`
+1. Install the package in [“editable mode”](https://setuptools.pypa.io/en/latest/userguide/development_mode.html) with `uv pip install -e .`
 
 2. Run the bundler in watch mode with `npm run watch`. This will watch the `srcts` directory for changes and automatically rebuild the JavaScript when it detects a change.
 

@@ -151,20 +151,20 @@ There are many ways to deploy to a static web server. For example, you could dep
 First, install the shinylive package:
 
 ```bash
-pip install shinylive
+uv pip install shinylive
 ```
 
 Next, create a directory with a Shiny application. We'll use the `shiny create` command to create a basic application in a directory called `myapp/`.
 
 ```bash
-shiny create --dir myapp
+uv run shiny create --dir myapp
 ```
 
 Pick a Shiny app template to create in the `myapp` directory.
 Next, create the distribution with shinylive:
 
 ```bash
-shinylive export myapp site
+uv run shinylive export myapp site
 ```
 
 The resulting `site` directory will contain the following files (among others that are not shown for brevity):
@@ -197,22 +197,22 @@ To run a Shinylive application, the files must be served with a web server; simp
 If you have multiple applications, you may want to export them in subdirectories of the site, so that they can all share the same Shinylive assets. You can do this with the `--subdir` option:
 
 ```bash
-shinylive export myapp1 site --subdir app1
-shinylive export myapp2 site --subdir app2
+uv run shinylive export myapp1 site --subdir app1
+uv run shinylive export myapp2 site --subdir app2
 ```
 
 The `site/shinylive/pyodide/` directory will contain a Pyodide distribution containing just the Python packages needed to run the exported application(s). There are some cases where you may want to include other packages. For example, if you want users who visit the `edit/` URL to be able to load more packages. In order to include extra packages, you have two options:
 
 * Add a `requirements.txt` file to an application which lists the extra packages.
-* Run `shinylive export myapp site --full-shinylive`. This will cause it to include all of the Python packages from the Shinylive distribution.
+* Run `uv run shinylive export myapp site --full-shinylive`. This will cause it to include all of the Python packages from the Shinylive distribution.
 
 
 :::{.callout-note}
 The Shinylive distribution is under rapid development, and the files in the distribution will change. The `shinylive export` command automatically downloads and caches a a copy of the Shinylive distribution on your computer. To make sure you are up to date, run:
 
 ```bash
-pip install shinylive --upgrade
-shinylive assets remove   # Remove old cached shinylive files
+uv pip install --upgrade shinylive
+uv run shinylive assets remove   # Remove old cached shinylive files
 ```
 Then the next time you run `shinylive export`, it will download the latest version.
 :::
@@ -227,7 +227,7 @@ If you would like to deploy to a Posit Connect server, install and configure the
 Then you can deploy the application as a static website:
 
 ```bash
-rsconnect deploy html site
+uv run rsconnect deploy html site
 ```
 
 

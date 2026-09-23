@@ -134,7 +134,7 @@ Before you run the test, you need to install a couple of things:
 1.  **Install pytest and pytest-playwright**: Open your terminal (or command prompt) and type:
 
 ```bash
-pip install pytest pytest-playwright
+uv pip install pytest pytest-playwright
 ```
 
 2.  **Navigate to your app's directory**: In the terminal, use the `cd` command to go to the folder where you saved `app.py` and `test_basic_app.py`.
@@ -142,7 +142,7 @@ pip install pytest pytest-playwright
 3.  **Run the test**: Type the following command and press Enter:
 
 ```bash
-pytest
+uv run pytest
 ```
 
 You should see output similar to this:
@@ -164,13 +164,13 @@ What does this mean?
 If you want to see what Playwright is doing, you can run the test in "headed" mode. This will open a browser window and show you the interactions.
 
 ```bash
-pytest --headed
+uv run pytest --headed
 ```
 
 You can also specify a particular browser:
 
 ```bash
-pytest --browser firefox
+uv run pytest --browser firefox
 ```
 
 ### Adding Tests to an Existing Shiny App
@@ -181,7 +181,7 @@ If you already have a Shiny app, you can easily add tests:
 1. Run the shiny add test command:
 
 ```bash
-shiny add test
+uv run shiny add test
 ```
 
 1. Answer the prompts: It will ask for the path to your app file (e.g., `app.py`) and a name for your test file (e.g., `test_myapp.py`). Remember, the test file name must start with `test_`.
@@ -197,20 +197,20 @@ Before generating tests, make sure you have:
 - Shiny testing dependencies installed. If you haven't installed the extras yet:
 
 ```bash
-pip install "shiny[add-test]"
+uv pip install "shiny[add-test]"
 ```
 
 #### Choosing a provider for generating tests
 
 ```bash
 # Anthropic (default)
-shiny add test --app app.py
+uv run shiny add test --app app.py
 
 # OpenAI (will use gpt-5)
-shiny add test --app app.py --provider openai
+uv run shiny add test --app app.py --provider openai
 
 # explicitly use gpt-5-mini model
-shiny add test --app app.py --provider openai --model gpt-5-mini
+uv run shiny add test --app app.py --provider openai --model gpt-5-mini
 ```
 
 ### Troubleshooting Common Issues
@@ -237,7 +237,7 @@ If your app uses [OpenTelemetry tracing](opentelemetry.qmd), you may want to dis
 
 ```bash
 export SHINY_OTEL_COLLECT=none
-pytest
+uv run pytest
 ```
 :::
 
