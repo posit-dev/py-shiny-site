@@ -323,11 +323,12 @@ Both files are generated — never hand-edit them:
 
 ```bash
 uv run playwright install chromium-headless-shell   # once; also needs ffmpeg on PATH
-uv run python scripts/record-component-previews.py              # all components (~6 min)
-uv run python scripts/record-component-previews.py slider cards  # by dir name
-uv run python scripts/gallery-debug-page.py   # gallery-debug.html (gitignored): every
-                                              # thumbnail beside its GIF, for review
+make docs-gallery-previews                      # record all components (~6 min)
+make docs-gallery-previews NAMES="slider cards"  # or just some, by dir name
+make gallery-debug   # write + open gallery-debug.html: every thumbnail beside its GIF
 ```
+
+`gallery-debug.html` is gitignored and regenerated on demand rather than kept: it hard-codes the component list and a cache-busting stamp, so a saved copy goes stale after any re-record.
 
 Each component has a `Spec` in `scripts/record-component-previews.py`: which app to serve (`app-preview.py` by default; some outputs use `app-core.py` or a variation), a `zoom`, extra `css` injected before first paint, an optional `ready` selector, and a scripted `play()` using the `Driver` helpers (`click`, `hover`, `glide`, `drag_to`, `type`, `idle`). `d.poster()` marks the frame to use as the thumbnail; the GIF loop is rotated to start there, so the thumbnail is always the GIF's exact first frame (`components/test_component_gallery.py` enforces this, plus 450×253, looping, ≤8 s, and 20 ms frames).
 

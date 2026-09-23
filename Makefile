@@ -233,6 +233,17 @@ docs-static-previews: $(PYBIN) deps
 	rm -rf components/static
 	$(UVRUN) python components/make-static-previews.py
 
+## Record gallery previews (preview.gif + thumbnail.png); limit with NAMES="slider cards"
+.PHONY: docs-gallery-previews
+docs-gallery-previews: $(PYBIN) deps
+	$(UVRUN) python scripts/record-component-previews.py $(NAMES)
+
+## Write gallery-debug.html (every thumbnail beside its GIF) and open it
+.PHONY: gallery-debug
+gallery-debug: $(PYBIN)
+	$(UVRUN) python scripts/gallery-debug-page.py
+	open gallery-debug.html 2>/dev/null || xdg-open gallery-debug.html
+
 ## Update shinylive links
 .PHONY: docs-update-shinylive-links
 docs-update-shinylive-links: $(PYBIN) deps
