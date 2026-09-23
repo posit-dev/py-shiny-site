@@ -88,7 +88,11 @@ document.querySelectorAll(".component-list-card").forEach((card) => {
     if (event.pointerType !== "touch") showAnimation();
   });
   card.addEventListener("pointerleave", showPoster);
-  card.addEventListener("focus", showAnimation);
+  // Keyboard focus only: Android Chrome also focuses a tapped link, which
+  // would start downloading the GIF just as the page navigates away.
+  card.addEventListener("focus", () => {
+    if (card.matches(":focus-visible")) showAnimation();
+  });
   card.addEventListener("blur", showPoster);
   image.addEventListener("load", () => {
     if (blobUrl && image.src === blobUrl) card.classList.add("is-playing");
