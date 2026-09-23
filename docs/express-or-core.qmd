@@ -52,15 +52,13 @@ Workarounds do exist---see [Express in depth](express-in-depth.qmd).
 
 ## Maturity
 
-**Consider using Shiny Core if you care more about maturity and stability than convenience.**
+**Maturity is no longer a strong reason to prefer one syntax over the other.**
 
-Given its longer history, Shiny Core is naturally more mature than Shiny Express in both syntax and implementation.
+Shiny Core has the longer history: it has been Shiny for Python's syntax since the first release, while Shiny Express arrived in version 0.7.0 (January 2024).
+Since then, the Express syntax has stayed stable.
+Its only Express-specific breaking change was a more ergonomic signature for `express.ui.insert_accordion_panel()` in version 1.5.0.
 
-We've carefully designed the Shiny Express syntax, and hope not to have to make breaking changes to it.
-However, we don't know what we don't know, and it's possible that user feedback or our own testing will someday require us to make significant changes.
-
-Similarly, we are constantly testing Shiny Express, but as of this writing, it has not had as much real-world use as Shiny Core.
-Therefore, with Shiny Core, you are less likely to encounter bugs.
+Both syntaxes are built on the same reactive engine, UI components, and render functions, and they ship and are tested together in every release.
 
 ## Familiarity to R users
 
