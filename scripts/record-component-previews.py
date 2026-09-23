@@ -211,12 +211,14 @@ def slider(container: str = "", fracs=(0.85, 0.2, None), idle: bool = False):
     return play
 
 
-def typer(selector: str, text: str, submit: str | None = None):
+def typer(selector: str, text: str, submit: str | None = None, poster=False):
     async def play(d: Driver):
         await d.click(selector)
         await d.wait(200)
         await d.type(text)
         await d.wait(300)
+        if poster:
+            d.poster()
         if submit:
             await d.press(submit)
         await d.idle(700)
@@ -245,9 +247,11 @@ async def _(d: Driver):
 
 @spec("inputs/checkbox", zoom=1.8)
 async def _(d: Driver):
-    for _ in range(2):
+    for i in range(2):
         await d.click("#x", ms=400)
         await d.wait(550)
+        if i == 0:
+            d.poster()
 
 
 @spec("inputs/switch", zoom=1.8)
@@ -279,7 +283,7 @@ async def _(d: Driver):
 
 
 spec("inputs/text-box")(typer("#x", "Hello, Shiny!"))
-spec("inputs/password-field")(typer("#x", "hunter2hunter2"))
+spec("inputs/password-field")(typer("#x", "hunter2hunter2", poster=True))
 spec("inputs/text-area", zoom=1.8)(typer("#x", "Shiny for Python\nmakes apps easy."))
 @spec("inputs/submit-textarea", zoom=1.6)
 async def _(d: Driver):
@@ -375,7 +379,9 @@ async def _(d: Driver):
         await d.click(f".option[data-value='{v}']", ms=300)
     await d.wait(300)
     await d.page.keyboard.press("Escape")
-    await d.wait(700)
+    await d.wait(400)
+    d.poster()
+    await d.wait(300)
 
 
 # bootstrap-datepicker drops the calendar below the input; park it to the
@@ -474,29 +480,36 @@ async def _(d: Driver):
 
 @spec("display-messages/notifications", zoom=1.35)
 async def _(d: Driver):
-    for _ in range(2):
+    for i in range(2):
         await d.click("#show", ms=400)
         await d.wait(700)
+        if i == 0:
+            d.poster()
     await d.glide(d.x - 60, d.y + 50)
 
 
 @spec("display-messages/progress-bar", zoom=1.35)
 async def _(d: Driver):
     await d.click("#button")
-    await d.wait(300)
+    await d.wait(800)
+    d.poster()
     await d.idle(800)
 
 
 @spec("display-messages/toasts", zoom=1.35)
 async def _(d: Driver):
     await d.click("#show")
-    await d.wait(1600)
+    await d.wait(700)
+    d.poster()
+    await d.wait(900)
 
 
 @spec("display-messages/popovers", zoom=1.35, css=".vh-100{align-items:flex-end!important;padding-bottom:28px}")
 async def _(d: Driver):
     await d.click("#btn")
-    await d.wait(1300)
+    await d.wait(600)
+    d.poster()
+    await d.wait(700)
     await d.click("#btn")
     await d.wait(500)
 
@@ -504,7 +517,9 @@ async def _(d: Driver):
 @spec("display-messages/tooltips", zoom=1.6, css=".vh-100{align-items:flex-end!important;padding-bottom:22px}")
 async def _(d: Driver):
     await d.hover("#tooltip")
-    await d.wait(1400)
+    await d.wait(700)
+    d.poster()
+    await d.wait(700)
     await d.glide(d.x + 150, d.y + 60)
     await d.wait(400)
 
@@ -586,9 +601,18 @@ spec("outputs/plot-seaborn", app="app-core.py", zoom=1.0, css=PLOT)(
 )
 @spec("outputs/plot-plotly", app="app-core.py", zoom=1.0, css=PLOT, ready=".js-plotly-plot .bars")
 async def _(d: Driver):
-    await slider(fracs=(0.45, 0.08, None), idle=True)(d)
-    await d.page.wait_for_selector(".js-plotly-plot .bars")
-    await d.wait(400)
+    # shinywidgets rebuilds the widget on every change, blanking it for up to a
+    # second; let each redraw land before the next drag, and linger at the end.
+    await d.hover(".irs-handle", ms=500)
+    home = d.x
+    line = await d.page.locator(".irs-line").bounding_box()
+    for f in (0.45, 0.08, None):
+        x = home if f is None else line["x"] + line["width"] * f
+        await d.drag_to(x, d.y, ms=750)
+        await d.idle(300)
+        await d.page.wait_for_selector(".js-plotly-plot .bars")
+        await d.wait(700)
+    await d.wait(800)
 SIDE = PAD + """
 .container-fluid { display: grid !important; grid-template-columns: 28% 1fr;
   gap: 18px; align-items: center; height: calc(100vh - 24px); }
