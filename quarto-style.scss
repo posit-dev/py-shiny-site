@@ -491,7 +491,7 @@ div.sourceCode.cell-code:hover
 
 // text links have different underline
 
-main.content a:not(.btn) {
+main.content a:not(.btn):not(.component-list-card) {
   transition: border-bottom-color 0.2s;
   text-decoration: none;
   border-bottom: 1px solid transparent;
@@ -500,7 +500,7 @@ main.content a:not(.btn) {
 main.content
   a:hover:not(.homepage-code p a):not(.tags li a):not(.badge):not(.component-list-header-text):not(.btn):not(.gallery-entry a):not(a img):not(
     .text-decoration-none
-  ):not(.gallery-meta):not(.link-cards a):not(.dont-index a):not(.anchorjs-link):not(.component-list-card a) {
+  ):not(.gallery-meta):not(.link-cards a):not(.dont-index a):not(.anchorjs-link):not(.component-list-card) {
   border-bottom: 1px solid;
 }
 
