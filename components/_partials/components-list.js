@@ -37,9 +37,25 @@ document.querySelectorAll(".component-list-card").forEach((card) => {
   let gif;
   let blobUrl;
   let previewing = false;
+  // Read the download in chunks so the grey loading bar can show real progress
+  // (it fills only at the end if the server sends no Content-Length).
+  const download = async (response) => {
+    const size = Number(response.headers.get("Content-Length")) || 0;
+    const reader = response.body.getReader();
+    const chunks = [];
+    let received = 0;
+    for (let chunk; !(chunk = await reader.read()).done; ) {
+      chunks.push(chunk.value);
+      received += chunk.value.length;
+      if (size) card.style.setProperty("--preview-loaded", received / size);
+    }
+    card.style.setProperty("--preview-loaded", 1);
+    return new Blob(chunks, { type: "image/gif" });
+  };
+
   const loadGif = () =>
     (gif ??= fetch(image.dataset.animatedSrc)
-      .then((response) => (response.ok ? response.blob() : Promise.reject()))
+      .then((response) => (response.ok ? download(response) : Promise.reject()))
       .then(async (blob) => {
         const duration = gifDuration(await blob.arrayBuffer());
         card.style.setProperty("--preview-duration", `${duration}ms`);

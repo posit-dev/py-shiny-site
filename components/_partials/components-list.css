@@ -78,6 +78,18 @@
   animation: component-list-progress var(--preview-duration) linear infinite;
 }
 
+/* How much of the hover GIF has downloaded; stays as the track under the blue bar. */
+.component-list-card.is-previewing::before {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 2px;
+  background-color: #adb5bd;
+  transform-origin: left;
+  transform: scaleX(var(--preview-loaded, 0));
+  transition: transform 150ms linear;
+}
+
 @keyframes component-list-progress {
   from {
     transform: scaleX(0);
