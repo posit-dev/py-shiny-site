@@ -67,6 +67,26 @@
   object-position: center;
 }
 
+/* How far through its loop the hover GIF is (duration set by components-list.js). */
+.component-list-card.is-playing::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 2px;
+  background-color: #007bc2;
+  transform-origin: left;
+  animation: component-list-progress var(--preview-duration) linear infinite;
+}
+
+@keyframes component-list-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
 .component-list-header {
   display: flex;
   justify-content: space-between;

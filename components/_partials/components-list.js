@@ -1,18 +1,71 @@
+// Total play time of a GIF in ms: the sum of its frame delays, clamped the way
+// browsers clamp them (a delay of 0 or 10 ms plays at 100 ms).
+const gifDuration = (buffer) => {
+  const bytes = new Uint8Array(buffer);
+  const colorTable = (packed) => (packed & 0x80 ? 3 << ((packed & 7) + 1) : 0);
+  const skipSubBlocks = (i) => {
+    while (bytes[i]) i += bytes[i] + 1;
+    return i + 1;
+  };
+  let total = 0;
+  let i = 13 + colorTable(bytes[10]);
+  while (i < bytes.length) {
+    if (bytes[i] === 0x21) {
+      if (bytes[i + 1] === 0xf9) {
+        const delay = bytes[i + 4] | (bytes[i + 5] << 8);
+        total += (delay <= 1 ? 10 : delay) * 10;
+      }
+      i = skipSubBlocks(i + 2);
+    } else if (bytes[i] === 0x2c) {
+      i = skipSubBlocks(i + 11 + colorTable(bytes[i + 9]));
+    } else {
+      break;
+    }
+  }
+  return total;
+};
+
 document.querySelectorAll(".component-list-card").forEach((card) => {
   const image = card.querySelector(".component-list-preview");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   if (!image) return;
 
-  const showAnimation = () => {
-    if (reducedMotion.matches) return;
-    image.src = image.dataset.animatedSrc;
-    card.classList.add("is-previewing");
-  };
+  // Fetch the GIF once, then give it a fresh blob URL on every hover: a new URL
+  // always plays from frame 0 (re-setting a cached GIF's src does not restart
+  // it in every browser), which keeps the progress bar in step with it.
+  let gif;
+  let blobUrl;
+  let previewing = false;
+  const loadGif = () =>
+    (gif ??= fetch(image.dataset.animatedSrc)
+      .then((response) => (response.ok ? response.blob() : Promise.reject()))
+      .then(async (blob) => {
+        const duration = gifDuration(await blob.arrayBuffer());
+        card.style.setProperty("--preview-duration", `${duration}ms`);
+        return blob;
+      }));
 
   const showPoster = () => {
+    previewing = false;
     image.src = image.dataset.staticSrc;
-    card.classList.remove("is-previewing");
+    card.classList.remove("is-previewing", "is-playing");
+    if (blobUrl) URL.revokeObjectURL(blobUrl);
+    blobUrl = undefined;
+  };
+
+  const showAnimation = async () => {
+    if (reducedMotion.matches || previewing) return;
+    previewing = true;
+    card.classList.add("is-previewing");
+    try {
+      const blob = await loadGif();
+      if (!previewing) return;
+      blobUrl = URL.createObjectURL(blob);
+      image.src = blobUrl;
+    } catch {
+      showPoster();
+    }
   };
 
   card.addEventListener("pointerenter", (event) => {
@@ -21,6 +74,9 @@ document.querySelectorAll(".component-list-card").forEach((card) => {
   card.addEventListener("pointerleave", showPoster);
   card.addEventListener("focus", showAnimation);
   card.addEventListener("blur", showPoster);
+  image.addEventListener("load", () => {
+    if (blobUrl && image.src === blobUrl) card.classList.add("is-playing");
+  });
   image.addEventListener("error", () => {
     if (image.src !== new URL(image.dataset.staticSrc, document.baseURI).href) {
       showPoster();
