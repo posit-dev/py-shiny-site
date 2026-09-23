@@ -7,7 +7,7 @@ with ui.layout_columns():
 
 with ui.accordion(id="acc", multiple=True):
     with ui.accordion_panel("Section 1", value="sec_1"):
-        "Some narrative for section 1"
+        "Contents for Section 1"
 
 count = reactive.value(1)
 
@@ -20,7 +20,7 @@ def _():
     ui.insert_accordion_panel(
         "acc",
         f"Section {n}",
-        f"Some narrative for section {n}",
+        f"Contents for Section {n}",
         panel_value=f"sec_{n}",
     )
 
