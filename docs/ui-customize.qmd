@@ -66,7 +66,7 @@ ui.tags.style(
 
 with ui.card():
     ui.card_header("Card header")
-    "Card body"
+    "Card contents"
 ```
 
 ### CSS file
@@ -88,7 +88,7 @@ ui.include_css(
 
 with ui.card():
     ui.card_header("Card header")
-    "Card body"
+    "Card contents"
 ## file: my-styles.css
 .card-header {
     color: white;
@@ -110,7 +110,7 @@ from shiny.express import ui
 
 with ui.card():
     ui.card_header("Card header", style="color:white; background:#2A2A2A !important;")
-    "Card body"
+    "Card contents"
 ```
 
 ### Utility classes
@@ -129,7 +129,7 @@ from shiny.express import ui
 
 with ui.card():
     ui.card_header("Card header", class_="bg-primary-subtle lead")
-    "Card body"
+    "Card contents"
 ```
 
 ### CSS Variables {#css-variables}
@@ -149,7 +149,7 @@ ui.tags.style(":root { --bs-primary-rgb: 113,46,246; }")
 
 with ui.card():
     ui.card_header("Card header", class_="bg-primary lead"),
-    "Card body"
+    "Card contents"
 ```
 
 ::: callout-tip
@@ -184,7 +184,7 @@ ui.tags.style(
 
 with ui.card():
     ui.card_header("Card header")
-    "Card body"
+    "Card contents"
 ```
 
 That said, if you want your app to work properly offline, you'll want to serve the font files with the app, which is covered next.
@@ -213,7 +213,7 @@ ui.tags.link(href="my-styles.css", rel="stylesheet")
 
 with ui.card():
     ui.card_header("Card header")
-    "Card body"
+    "Card contents"
 
 ## file: www/my-styles.css
 .card-header {
@@ -240,7 +240,7 @@ ui.tags.link(href="css/my-styles.css", rel="stylesheet")
 
 with ui.card():
     ui.card_header("Card header")
-    "Card body"
+    "Card contents"
 
 ## file: css_files/my-styles.css
 .card-header {
@@ -269,7 +269,7 @@ app_ui = ui.page_fixed(
     ui.tags.link(href="my-styles.css", rel="stylesheet"),
     ui.card(
         ui.card_header("Card header"),
-        "Card body"
+        "Card contents"
     )
 )
 

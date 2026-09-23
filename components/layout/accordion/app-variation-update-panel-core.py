@@ -4,7 +4,7 @@ from shiny import App, reactive, ui
 def make_panel(letter):
     return ui.accordion_panel(
         f"Section {letter}",
-        f"Some narrative for section {letter}",
+        f"Contents for Section {letter}",
         value=f"sec_{letter}",
     )
 
@@ -25,7 +25,7 @@ def server(input, output, session):
             ui.update_accordion_panel(  # <<
                 "acc",
                 f"sec_{letter}",
-                f"Some{txt} narrative for section {letter}",
+                f"Contents{txt} for Section {letter}",
                 title=f"Section {letter}{txt}",
                 show=show,
             )

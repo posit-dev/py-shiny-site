@@ -6,7 +6,7 @@ ui.input_switch("update_panel", "Update (and open) sections")
 with ui.accordion(id="acc", multiple=True):
     for letter in "ABC":
         with ui.accordion_panel(f"Section {letter}", value=f"sec_{letter}"):
-            f"Some narrative for section {letter}"
+            f"Contents for Section {letter}"
 
 
 @reactive.effect
@@ -18,7 +18,7 @@ def _():
         ui.update_accordion_panel(  # <<
             "acc",
             f"sec_{letter}",
-            f"Some{txt} narrative for section {letter}",
+            f"Contents{txt} for Section {letter}",
             title=f"Section {letter}{txt}",
             show=show,
         )

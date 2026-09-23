@@ -7,7 +7,7 @@ app_ui = ui.page_fluid(
     ),
     ui.accordion(
         ui.accordion_panel(
-            "Section 1", "Some narrative for section 1", value="sec_1"
+            "Section 1", "Contents for Section 1", value="sec_1"
         ),
         id="acc",
         multiple=True,
@@ -26,7 +26,7 @@ def server(input, output, session):
         ui.insert_accordion_panel(  # <<
             "acc",
             ui.accordion_panel(
-                f"Section {n}", f"Some narrative for section {n}", value=f"sec_{n}"
+                f"Section {n}", f"Contents for Section {n}", value=f"sec_{n}"
             ),
         )
 

@@ -2,11 +2,11 @@ from shiny.express import input, render, ui
 
 with ui.accordion(id="acc", open=["Section A"]):  # <<
     with ui.accordion_panel("Section A"):
-        "Some narrative for section A"
+        "Contents for Section A"
     with ui.accordion_panel("Section B"):
-        "Some narrative for section B"
+        "Contents for Section B"
     with ui.accordion_panel("Section C"):
-        "Some narrative for section C"
+        "Contents for Section C"
 
 
 @render.code
