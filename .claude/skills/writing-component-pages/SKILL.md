@@ -31,8 +31,13 @@ components/inputs/<name>/
   app-variation-<slug>-core.py     # optional — one set per variation
   app-variation-<slug>-express.py
   app-variation-<slug>-preview.py  # dedicated live Preview app for that variation
-  thumbnail.png                 # optional — static image for the kitchen-sink block
+  thumbnail.png                 # generated — gallery card poster (also used by kitchen-sink blocks)
+  preview.gif                   # generated — gallery card hover animation
 ```
+
+`thumbnail.png` and `preview.gif` are recorded by `scripts/record-component-previews.py`
+from a per-component `Spec` — add one when you add a page, then re-record. See
+CLAUDE.md → "Gallery previews" for the framing rules and capture gotchas.
 
 **File-role cheat sheet:**
 
