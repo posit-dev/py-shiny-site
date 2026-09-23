@@ -96,8 +96,8 @@ make docs-update-shinylive-links
 # component dir such as an edited app-*.py — resolved to the owning index.qmd)
 make docs-update-shinylive-links FILES="components/inputs/action-button/app-core.py"
 
-# Generate static component previews
-make docs-static-previews
+# Re-record gallery previews (preview.gif + thumbnail.png)
+make docs-gallery-previews
 ```
 
 ### Virtual Environment
@@ -148,7 +148,7 @@ The build follows this sequence:
 1. **Submodules** - Update py-shiny submodule to specific commit
 2. **Dependencies** - Install Python packages via uv
 3. **Quartodoc** - Generate API docs from py-shiny source code
-4. **Components** - Generate static previews & update Shinylive links
+4. **Components** - Update Shinylive links and `relevant-functions` fields
 5. **Quarto** - Render all .qmd files to HTML
 6. **Post-render** - Run post-processing scripts
 
@@ -304,8 +304,8 @@ To update component examples:
 # Regenerate Shinylive links (add FILES="..." to limit to specific pages)
 make docs-update-shinylive-links
 
-# Regenerate static preview images
-make docs-static-previews
+# Re-record gallery previews (see "Gallery previews" below)
+make docs-gallery-previews
 ```
 
 **Always regenerate the Shinylive links after editing any `app-*.py` file** and

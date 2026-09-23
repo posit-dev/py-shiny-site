@@ -183,7 +183,7 @@ def example_app_paths() -> list[Path]:
     for name in EXAMPLE_APP_DIRS:
         root = REPO_ROOT / name
         paths |= set(root.rglob("app.py")) | set(root.rglob("app-*.py"))
-    return sorted(p for p in paths if "static" not in p.parts)
+    return sorted(paths)
 
 
 @contextmanager
