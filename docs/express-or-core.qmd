@@ -50,16 +50,6 @@ In Core, you place each output yourself with a call like `ui.output_plot("plot1"
 Express creates the output for you, at the spot where you define the render function, so there is no such call to pass those options to.
 Workarounds do exist---see [Express in depth](express-in-depth.qmd).
 
-## Maturity
-
-**Maturity is no longer a strong reason to prefer one syntax over the other.**
-
-Shiny Core has the longer history: it has been Shiny for Python's syntax since the first release, while Shiny Express arrived in version 0.7.0 (January 2024).
-Since then, the Express syntax has stayed stable.
-Its only Express-specific breaking change was a more ergonomic signature for `express.ui.insert_accordion_panel()` in version 1.5.0.
-
-Both syntaxes are built on the same reactive engine, UI components, and render functions, and they ship and are tested together in every release.
-
 ## Familiarity to R users
 
 **Consider using Shiny Core if you are an R user who is already familiar with Shiny.**
