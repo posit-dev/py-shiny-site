@@ -148,13 +148,7 @@ This involves:
 
 There are many ways to deploy to a static web server. For example, you could deploy to Netlify or GitHub Pages, or use Posit Connect, as described later in this page.
 
-First, install the shinylive package:
-
-```bash
-uv pip install shinylive
-```
-
-Next, create a directory with a Shiny application. We'll use the `shiny create` command to create a basic application in a directory called `myapp/`.
+First, create a directory with a Shiny application. We'll use the `shiny create` command to create a basic application in a directory called `myapp/`.
 
 ```bash
 uvx shiny create --dir myapp
@@ -164,7 +158,7 @@ Pick a Shiny app template to create in the `myapp` directory.
 Next, create the distribution with shinylive:
 
 ```bash
-uv run shinylive export myapp site
+uvx shinylive export myapp site
 ```
 
 The resulting `site` directory will contain the following files (among others that are not shown for brevity):
@@ -197,24 +191,24 @@ To run a Shinylive application, the files must be served with a web server; simp
 If you have multiple applications, you may want to export them in subdirectories of the site, so that they can all share the same Shinylive assets. You can do this with the `--subdir` option:
 
 ```bash
-uv run shinylive export myapp1 site --subdir app1
-uv run shinylive export myapp2 site --subdir app2
+uvx shinylive export myapp1 site --subdir app1
+uvx shinylive export myapp2 site --subdir app2
 ```
 
 The `site/shinylive/pyodide/` directory will contain a Pyodide distribution containing just the Python packages needed to run the exported application(s). There are some cases where you may want to include other packages. For example, if you want users who visit the `edit/` URL to be able to load more packages. In order to include extra packages, you have two options:
 
 * Add a `requirements.txt` file to an application which lists the extra packages.
-* Run `uv run shinylive export myapp site --full-shinylive`. This will cause it to include all of the Python packages from the Shinylive distribution.
+* Run `uvx shinylive export myapp site --full-shinylive`. This will cause it to include all of the Python packages from the Shinylive distribution.
 
 
 :::{.callout-note}
 The Shinylive distribution is under rapid development, and the files in the distribution will change. The `shinylive export` command automatically downloads and caches a a copy of the Shinylive distribution on your computer. To make sure you are up to date, run:
 
 ```bash
-uv pip install --upgrade shinylive
-uv run shinylive assets remove   # Remove old cached shinylive files
+uvx shinylive@latest export myapp site   # Export with the latest shinylive
+uvx shinylive@latest assets cleanup     # Remove older cached shinylive files
 ```
-Then the next time you run `shinylive export`, it will download the latest version.
+`uvx` reuses the shinylive version it has cached, so `@latest` is what fetches a newer release.
 :::
 
 
