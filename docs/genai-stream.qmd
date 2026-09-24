@@ -28,43 +28,43 @@ Copy & paste the relevant `shiny create` terminal command to get the relevant so
 ### Ollama
 
 ```bash
-shiny create --template stream-ai-ollama
+uvx shiny create --template stream-ai-ollama
 ```
 
 ### Anthropic
 
 ```bash
-shiny create --template stream-ai-anthropic
+uvx shiny create --template stream-ai-anthropic
 ```
 
 ### OpenAI
 
 ```bash
-shiny create --template stream-ai-openai
+uvx shiny create --template stream-ai-openai
 ```
 
 ### Google
 
 ```bash
-shiny create --template stream-ai-gemini
+uvx shiny create --template stream-ai-gemini
 ```
 
 ### Bedrock Anthropic
 
 ```bash
-shiny create --template stream-ai-anthropic-aws
+uvx shiny create --template stream-ai-anthropic-aws
 ```
 
 ### Azure OpenAI
 
 ```bash
-shiny create --template stream-ai-azure-openai
+uvx shiny create --template stream-ai-azure-openai
 ```
 
 ### LangChain
 
 ```bash
-shiny create --template stream-ai-langchain
+uvx shiny create --template stream-ai-langchain
 ```
 
 ### Other

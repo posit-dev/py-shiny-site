@@ -166,7 +166,7 @@ uv pip install shiny
 :::{.code_container .homepage-code .w-100}
 ```{python}
 #| eval: false
-shiny create --template dashboard-tips
+uvx shiny create --template dashboard-tips
 ```
 :::
 :::
