@@ -276,10 +276,10 @@ install-playwright: $(PYBIN) deps
 test-components-smoke: $(PYBIN) deps install-playwright
 	$(UVRUN) pytest components/test_examples_smoke.py $(PYTEST_ARGS)
 
-## Run the per-component interaction tests (does each example app behave?)
+## Run the per-component and per-layout interaction tests (does each example app behave?)
 .PHONY: test-components-examples
 test-components-examples: $(PYBIN) deps install-playwright
-	$(UVRUN) pytest components/*/*/test_*.py $(PYTEST_ARGS)
+	$(UVRUN) pytest components/*/*/test_*.py layouts/*/test_*.py $(PYTEST_ARGS)
 
 # ---- non-browser tests -------------------------------------------------------
 #
