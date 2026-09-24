@@ -172,7 +172,7 @@ When using these tools, it's important to explicitly open and close the database
 Here's an example using Ibis with a PostgreSQL database:
 
 ```bash
-pip install 'ibis-framework[postgres]'
+uv pip install 'ibis-framework[postgres]'
 ```
 
 ```python

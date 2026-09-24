@@ -19,10 +19,10 @@ There are two main ways to deploy Shiny apps to Posit Connect:
 
 ### Command line deployment
 
-1.  Install the [rsconnect-python](https://github.com/posit-dev/rsconnect-python) package using pip.
+1.  Install the [rsconnect-python](https://github.com/posit-dev/rsconnect-python) package.
 
     ``` bash
-    pip install rsconnect-python
+    uv pip install rsconnect-python
     ```
 
     Deploying [Shiny Express](https://shiny.posit.co/blog/posts/shiny-express/) applications requires version 1.22.0 or later of the [rsconnect-python package](https://github.com/posit-dev/rsconnect-python).
@@ -32,13 +32,13 @@ There are two main ways to deploy Shiny apps to Posit Connect:
 3.  At the command line add a nickname for your connect server with `rsconnect add`.
 
     ``` bash
-    rsconnect add -n my-connect -s <server_url> --api-key <YOUR_KEY>
+    uv run rsconnect add -n my-connect -s <server_url> --api-key <YOUR_KEY>
     ```
 
 4.  Deploy your application with `rsconnect deploy shiny`
 
     ``` bash
-    rsconnect deploy shiny -n my-connect
+    uv run rsconnect deploy shiny -n my-connect
     ```
 
 You can also deploy shiny apps from a continuous integration system using `rsconnect deploy`.
@@ -87,7 +87,7 @@ If all goes well, you should see a welcome page on http://*hostname*:3838/.
 Next, you need to tell Shiny Server how to find Python.
 You can point Shiny Server at either a Python binary (e.g. `/usr/bin/python3`) or an absolute path to a virtualenv (e.g. `/srv/shiny-server/python39-venv`).
 You can also provide a relative path to a virtualenv (e.g. `.venv`) in which case, SSOS will look for that directory relative to app.py.
-(Don't forget that you need to [pip install shiny](install.html) and any other Python packages needed by your app(s), into whichever Python installation or virtualenv(s) you intend to use.)
+(Don't forget that you need to [install shiny](install.html) and any other Python packages needed by your app(s), into whichever Python installation or virtualenv(s) you intend to use.)
 
 Edit the file `/etc/shiny-server/shiny-server.conf` (root privileges are required).
 Add a line with `python <path-to-python-or-venv>;` to the top of the file, leaving the rest of the file alone (at least for now).

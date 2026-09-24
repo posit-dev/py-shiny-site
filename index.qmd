@@ -156,7 +156,7 @@ It offers full support for [CSS](docs/ui-customize.html) and [JavaScript](docs/c
 :::{.code_container .homepage-code .w-100}
 ```{python}
 #| eval: false
-pip install shiny
+uv pip install shiny
 ```
 :::
 :::
@@ -166,7 +166,7 @@ pip install shiny
 :::{.code_container .homepage-code .w-100}
 ```{python}
 #| eval: false
-shiny create --template dashboard-tips
+uvx shiny create --template dashboard-tips
 ```
 :::
 :::

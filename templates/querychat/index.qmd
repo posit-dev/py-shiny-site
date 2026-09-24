@@ -10,7 +10,7 @@ sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/gen-ai/q
 ---
 
 ``` bash
-shiny create --template querychat --github posit-dev/py-shiny-templates/gen-ai
+uvx shiny create --template querychat --github posit-dev/py-shiny-templates/gen-ai
 ```
 
 This app template allows end users to ask questions about a dataset using natural language.

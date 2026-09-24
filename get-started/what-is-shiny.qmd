@@ -143,7 +143,7 @@ For example, [data dashboards](/templates/dashboard/), [data applications](/temp
 Use the terminal command below to [create and run](create-run.qmd) the same dashboard locally with `shiny create`, starting from a [template](/templates/).
 
 ```bash
-shiny create --template dashboard
+uvx shiny create --template dashboard
 ```
 
 

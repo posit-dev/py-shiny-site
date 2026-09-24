@@ -64,7 +64,7 @@ A straightforward use of querychat is shown below, where the user can ask a natu
 The app above is available as a [template](../templates/querychat/index.qmd):
 
 ```bash
-shiny create --template querychat \
+uvx shiny create --template querychat \
     --github posit-dev/py-shiny-templates/gen-ai
 ```
 :::
@@ -81,7 +81,7 @@ It defaults to the `tips` dataset, but without much effort, you can adapt it to 
 The app above is available as a [template](../templates/sidebot/index.qmd):
 
 ```bash
-shiny create --template querychat \
+uvx shiny create --template querychat \
     --github posit-dev/py-shiny-templates/gen-ai
 ```
 :::
@@ -107,7 +107,7 @@ Based on the scenario the user chooses, the app then guides the user through a s
 The app above is available as a [template](../templates/data-sci-adventure/index.qmd):
 
 ```bash
-shiny create --template data-sci-adventure \
+uvx shiny create --template data-sci-adventure \
     --github posit-dev/py-shiny-templates/gen-ai
 ```
 :::
@@ -130,7 +130,7 @@ In addition to brainstorming through recipe ideas, it also leverages [structured
 The app above is available as a [template](../templates/dinner-recipe/index.qmd):
 
 ```bash
-shiny create --template dinner-recipe \
+uvx shiny create --template dinner-recipe \
     --github posit-dev/py-shiny-templates/gen-ai
 ```
 :::
@@ -166,7 +166,7 @@ Go ahead and visit the [live app](https://github.com/posit-dev/py-shiny-template
 The app above is available as a [template](../templates/workout-plan/index.qmd):
 
 ```bash
-shiny create --template workout-plan \
+uvx shiny create --template workout-plan \
     --github posit-dev/py-shiny-templates/gen-ai
 ```
 :::
@@ -190,7 +190,7 @@ This allows the user to make follow-up requests or ask questions about the image
 The app above is available as a [template](../templates/):
 
 ```bash
-shiny create --github jonkeane/shinyImages
+uvx shiny create --github jonkeane/shinyImages
 ```
 :::
 

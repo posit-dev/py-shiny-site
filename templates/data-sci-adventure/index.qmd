@@ -12,11 +12,11 @@ sourceurl:    https://github.com/posit-dev/py-shiny-templates/tree/main/gen-ai/d
 ::: {.panel-tabset .shiny-mode-tabset  group="shiny-app-mode"}
 ## Express
 ``` bash
-shiny create --template data-sci-adventure --mode express --github posit-dev/py-shiny-templates/gen-ai
+uvx shiny create --template data-sci-adventure --mode express --github posit-dev/py-shiny-templates/gen-ai
 ```
 ## Core
 ``` bash
-shiny create --template data-sci-adventure --mode core --github posit-dev/py-shiny-templates/gen-ai
+uvx shiny create --template data-sci-adventure --mode core --github posit-dev/py-shiny-templates/gen-ai
 ```
 :::
 

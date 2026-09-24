@@ -28,14 +28,14 @@ Although the term "Jupyter Widgets" is often used to refer to ipywidgets, it's i
 To use ipywidgets in Shiny, start by installing `shinywidgets`:
 
 ```bash
-pip install shinywidgets
+uv pip install shinywidgets
 ```
 
 Then, install the ipywidgets that you'd like to use.
 For this article, we'll need the following:
 
 ```bash
-pip install altair bokeh plotly ipyleaflet pydeck==0.8.0
+uv pip install altair bokeh plotly ipyleaflet pydeck==0.8.0
 ```
 
 ## Get started {#get-started}
