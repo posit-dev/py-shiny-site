@@ -25,6 +25,25 @@ const gifDuration = (buffer) => {
   return total;
 };
 
+// Touch screens can't hover, so there every card plays while it's on screen.
+// Skipped with reduced motion or data saver.
+const autoplay =
+  window.matchMedia("(hover: none)").matches &&
+  !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
+  !navigator.connection?.saveData;
+const onScreen = new Map();
+const observer =
+  autoplay &&
+  new IntersectionObserver(
+    (entries) => {
+      for (const { target, isIntersecting } of entries) {
+        const { show, hide } = onScreen.get(target);
+        isIntersecting ? show() : hide();
+      }
+    },
+    { threshold: 0.6 },
+  );
+
 document.querySelectorAll(".component-list-card").forEach((card) => {
   const image = card.querySelector(".component-list-preview");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -87,7 +106,10 @@ document.querySelectorAll(".component-list-card").forEach((card) => {
   card.addEventListener("pointerenter", (event) => {
     if (event.pointerType !== "touch") showAnimation();
   });
-  card.addEventListener("pointerleave", showPoster);
+  // A finger lifting off (or scrolling past) a card is not the end of a hover.
+  card.addEventListener("pointerleave", (event) => {
+    if (event.pointerType !== "touch") showPoster();
+  });
   // Keyboard focus only: Android Chrome also focuses a tapped link, which
   // would start downloading the GIF just as the page navigates away.
   card.addEventListener("focus", () => {
@@ -102,4 +124,8 @@ document.querySelectorAll(".component-list-card").forEach((card) => {
       showPoster();
     }
   });
+  if (observer) {
+    onScreen.set(card, { show: showAnimation, hide: showPoster });
+    observer.observe(card);
+  }
 });
