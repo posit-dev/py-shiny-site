@@ -25,11 +25,22 @@ const gifDuration = (buffer) => {
   return total;
 };
 
+// Quarto rewrites `src` to a relative path but leaves `data-*` site-root
+// absolute, which misses the /py prefix in production. Resolve them against
+// the site root Quarto records in every page.
+const siteRoot = new URL(
+  document.querySelector('meta[name="quarto:offset"]')?.content ?? "./",
+  document.baseURI,
+);
+const fromSiteRoot = (path) => new URL(path.replace(/^\//, ""), siteRoot).href;
+
 document.querySelectorAll(".component-list-card").forEach((card) => {
   const image = card.querySelector(".component-list-preview");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   if (!image) return;
+  const staticSrc = fromSiteRoot(image.dataset.staticSrc);
+  const animatedSrc = fromSiteRoot(image.dataset.animatedSrc);
 
   // Fetch the GIF once, then give it a fresh blob URL on every hover: a new URL
   // always plays from frame 0 (re-setting a cached GIF's src does not restart
@@ -54,7 +65,7 @@ document.querySelectorAll(".component-list-card").forEach((card) => {
   };
 
   const loadGif = () =>
-    (gif ??= fetch(image.dataset.animatedSrc)
+    (gif ??= fetch(animatedSrc)
       .then((response) => (response.ok ? download(response) : Promise.reject()))
       .then(async (blob) => {
         const duration = gifDuration(await blob.arrayBuffer());
@@ -64,7 +75,7 @@ document.querySelectorAll(".component-list-card").forEach((card) => {
 
   const showPoster = () => {
     previewing = false;
-    image.src = image.dataset.staticSrc;
+    image.src = staticSrc;
     card.classList.remove("is-previewing", "is-playing");
     if (blobUrl) URL.revokeObjectURL(blobUrl);
     blobUrl = undefined;
@@ -98,7 +109,7 @@ document.querySelectorAll(".component-list-card").forEach((card) => {
     if (blobUrl && image.src === blobUrl) card.classList.add("is-playing");
   });
   image.addEventListener("error", () => {
-    if (image.src !== new URL(image.dataset.staticSrc, document.baseURI).href) {
+    if (image.src !== staticSrc) {
       showPoster();
     }
   });
