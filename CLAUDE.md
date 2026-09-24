@@ -114,6 +114,11 @@ uv run python -c "import shiny; print(shiny.__version__)"
 uv run pytest components/layout/accordion/test_accordion.py
 ```
 
+Never call bare `python`, `pip`, `pytest`, or other Python tools. They resolve
+to whatever happens to be on `PATH`, not the project's `.venv`. Use `uv run`
+for anything that needs the project environment, and `uvx <tool>` for a one-off
+tool that doesn't (e.g. `uvx shinylive --version`).
+
 ### Cleaning
 
 ```bash
@@ -244,6 +249,14 @@ This repository uses `py-shiny/` as a git submodule. This allows:
 **Interactive examples:**
 
 All code examples use Shinylive to run Python in the browser via WebAssembly. This means examples are immediately runnable without a backend server.
+
+**Terminal commands in the docs assume `uv`:**
+
+- **Install** extra packages into the reader's environment with `uv pip install <pkg>`, not `pip install` or `uv add` (`uv add` needs a `pyproject.toml`, and these pages add to an existing environment). This matches the uv tab in `get-started/install.qmd`.
+- **Run tools that need the app's environment** with `uv run` (`uv run shiny run app.py`, `uv run pytest`, `uv run rsconnect deploy shiny …`). `rsconnect deploy shiny` must stay on `uv run`: it writes the Python version it runs under into the manifest, and under `uvx` that is uv's throwaway Python, not the app's.
+- **Run standalone tools** that only read or write files with `uvx`, and skip the install step: `uvx shiny create …`, `uvx shinylive export …`, `uvx --from rsconnect-python rsconnect deploy html …` (use `--from` when the package and command names differ). To get a newer release, use `uvx <tool>@latest`, because plain `uvx` reuses the cached version.
+- **Don't add pip/uv tabsets.** Use a single uv code block. The only installer tabsets are the deliberate ones in `get-started/install.qmd` and `docs/comp-r-shiny.qmd`.
+- `api/**` is generated. A `pip install` there comes from a py-shiny docstring and has to be fixed upstream.
 
 ## Configuration Files
 
