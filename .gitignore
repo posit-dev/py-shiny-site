@@ -1,6 +1,8 @@
 .ipynb_checkpoints
 /.quarto/
 *.quarto_ipynb
+# Left behind (numbered) when a render is interrupted
+*.quarto_ipynb_*
 /venv/
 /pypi-tmp/
 /pypi/
@@ -29,8 +31,6 @@ components/static/
 !.claude/skills/
 .playwright-mcp/
 shinylive/
-
-**/*.quarto_ipynb
 
 /tests/node_modules/
 /tests/dist/
