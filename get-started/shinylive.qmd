@@ -217,11 +217,11 @@ uvx shinylive@latest assets cleanup     # Remove older cached shinylive files
 After creating the directory with the application and Shinylive bundle, you can deploy it to many different of static web hosting services.
 Posit Connect is one of those options, and allows you to control over who can access the application.
 
-If you would like to deploy to a Posit Connect server, install and configure the `rsconnect-python` package as described in the [Deploy](deploy-on-prem.qmd) page.
+If you would like to deploy to a Posit Connect server, add your server with `rsconnect add` as described in the [Deploy](deploy-on-prem.qmd) page.
 Then you can deploy the application as a static website:
 
 ```bash
-uv run rsconnect deploy html site
+uvx --from rsconnect-python rsconnect deploy html site
 ```
 
 
