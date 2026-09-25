@@ -317,7 +317,7 @@ fails the PR when committed links are out of date.
 
 ### Gallery previews (`preview.gif` + `thumbnail.png`)
 
-The `/components/` gallery cards (`components/_partials/components-list.{ejs,js,css}`) show each component's `thumbnail.png` and swap in `preview.gif` on hover or keyboard focus; on touch screens (no hover) every card plays while it is ≥60% on screen. Never with reduced motion or data saver. The JS fetches each GIF once and plays a fresh blob URL each time (so it restarts at frame 0), with a grey download bar and a blue playback bar along the card's bottom edge. The EJS appends `?v=<mtime>` so re-recorded assets are not served stale. **`thumbnail.png` is also the kitchen-sink `image:` on many component pages**, so re-recording changes those too.
+The `/components/` gallery cards (`components/_partials/components-list.{ejs,js,css}`) show each component's `thumbnail.png` and swap in `preview.gif` on hover or keyboard focus; on touch screens (no hover) every card plays while it is ≥60% on screen (not with data saver), and a card that is held or dragged plays too — a tap only opens the page. Never with reduced motion. The JS fetches each GIF once and plays a fresh blob URL each time (so it restarts at frame 0), with a grey download bar and a blue playback bar along the card's bottom edge. The EJS appends `?v=<mtime>` so re-recorded assets are not served stale. **`thumbnail.png` is also the kitchen-sink `image:` on many component pages**, so re-recording changes those too.
 
 Both files are generated — never hand-edit them:
 
@@ -350,7 +350,7 @@ Each component has a `Spec` in `scripts/record-component-previews.py`: which app
 - **The macOS accent color leaks into headless Chrome** (yellow focus rings, checked `<option>`s, selection). The global `CSS` pins them all to Shiny blue `#007bc2`.
 - **Layout traps in Shiny's defaults**: plot and image outputs default to `height: 400px`, and input containers to `width: 300px`. Override them in the spec's `css` or they blow out the frame.
 - **shinywidgets (plotly, ipyleaflet) rebuilds the widget on every change**, blanking it for about 0.6 s. Wait for `.js-plotly-plot .bars` after each change, and keep map pans short, since every pan frame is a full repaint (the map is the largest GIF).
-- **Panning or animating whole-frame content grows the GIF quickly.** All the GIFs total about 4 MB, and each loads only when its card is hovered, focused, or (on touch screens) scrolled into view.
+- **Panning or animating whole-frame content grows the GIF quickly.** All the GIFs total about 4 MB, and each loads only when its card is hovered, focused, or (on touch screens) scrolled into view, held, or dragged.
 
 ## Working with API Documentation
 
