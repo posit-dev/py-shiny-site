@@ -95,16 +95,20 @@ document.querySelectorAll(".component-list-card").forEach((card) => {
     }
   };
 
-  card.addEventListener("pointerenter", (event) => {
+  // The whole column (title, arrow, and card) triggers the preview.
+  const column = card.closest(".component-list-column") ?? card;
+  column.addEventListener("pointerenter", (event) => {
     if (event.pointerType !== "touch") showAnimation();
   });
-  card.addEventListener("pointerleave", showPoster);
+  column.addEventListener("pointerleave", showPoster);
   // Keyboard focus only: Android Chrome also focuses a tapped link, which
   // would start downloading the GIF just as the page navigates away.
-  card.addEventListener("focus", () => {
-    if (card.matches(":focus-visible")) showAnimation();
+  column.addEventListener("focusin", (event) => {
+    if (event.target.matches(":focus-visible")) showAnimation();
   });
-  card.addEventListener("blur", showPoster);
+  column.addEventListener("focusout", (event) => {
+    if (!column.contains(event.relatedTarget)) showPoster();
+  });
   image.addEventListener("load", () => {
     if (blobUrl && image.src === blobUrl) card.classList.add("is-playing");
   });
