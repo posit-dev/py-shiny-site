@@ -365,6 +365,20 @@ Each component has a `Spec` in `scripts/record-component-previews.py`: which app
 - **shinywidgets (plotly, ipyleaflet) rebuilds the widget on every change**, blanking it for about 0.6 s. Wait for `.js-plotly-plot .bars` after each change, and keep map pans short, since every pan frame is a full repaint (the map is the largest GIF).
 - **Panning or animating whole-frame content grows the GIF quickly.** All the GIFs total about 4 MB, and they load only on hover.
 
+### Keep the R gallery in sync (`rstudio/shiny-dev-center`)
+
+The R site's `/r/components/` gallery is a port of this one (rstudio/shiny-dev-center#425). Its `r/components/_partials/components-list.{ejs,js,css}` started as copies of ours, and its `theme.scss` has the same `:not(.component-list-card)` link-underline exclusions as `quarto-style.scss`. **When a PR here changes how a gallery item is laid out or behaves**, open a matching PR in `rstudio/shiny-dev-center` that links back to it. That covers the card or column markup, the hover, focus or touch handling, the progress bars, the arrow and title states, and the underline exclusion. Otherwise the two galleries drift apart.
+
+- Port the change itself; don't copy whole files over. The R EJS keeps only `item.appPreview` (every R component has an app preview). The site-root comment in the JS doesn't mention `/py`.
+- Recording is separate code there: `scripts/record_component_previews.py` runs R apps with `shiny::runApp()`, driven by `make components-previews`. Port design-rule or capture-gotcha changes by hand, not the Python `Spec`s.
+- Diff a partial against theirs before and after porting:
+
+  ```bash
+  gh api -H "Accept: application/vnd.github.raw" \
+    repos/rstudio/shiny-dev-center/contents/r/components/_partials/components-list.js \
+    | diff components/_partials/components-list.js -
+  ```
+
 ## Working with API Documentation
 
 API docs are generated from the py-shiny repository:
