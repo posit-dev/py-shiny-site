@@ -34,6 +34,26 @@ const siteRoot = new URL(
 );
 const fromSiteRoot = (path) => new URL(path.replace(/^\//, ""), siteRoot).href;
 
+// Touch screens can't hover, so there every card plays while it's >=60% on
+// screen (not with data saver), and a card also plays once it's held or
+// dragged. Either way it stops when it scrolls away.
+const touch = window.matchMedia("(hover: none)").matches;
+const autoplay = touch && !navigator.connection?.saveData;
+const onScreen = new Map();
+const observer =
+  touch &&
+  new IntersectionObserver(
+    (entries) => {
+      for (const { target, intersectionRatio } of entries) {
+        const { show, hide } = onScreen.get(target);
+        if (intersectionRatio < 0.6) hide();
+        else if (autoplay) show();
+      }
+    },
+    // 0 catches a held card (<60% visible) leaving the screen entirely.
+    { threshold: [0, 0.6] },
+  );
+
 document.querySelectorAll(".component-list-card").forEach((card) => {
   const image = card.querySelector(".component-list-preview");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -100,7 +120,21 @@ document.querySelectorAll(".component-list-card").forEach((card) => {
   column.addEventListener("pointerenter", (event) => {
     if (event.pointerType !== "touch") showAnimation();
   });
-  column.addEventListener("pointerleave", showPoster);
+  // A finger lifting off (or scrolling past) a card is not the end of a hover.
+  column.addEventListener("pointerleave", (event) => {
+    if (event.pointerType !== "touch") showPoster();
+  });
+  // Touch: a tap opens the page, so only a hold (as long as a long-press) or a
+  // drag (the browser cancels the pointer to scroll) starts the GIF.
+  let holdTimer;
+  column.addEventListener("pointerdown", (event) => {
+    if (event.pointerType === "touch") holdTimer = setTimeout(showAnimation, 500);
+  });
+  column.addEventListener("pointerup", () => clearTimeout(holdTimer));
+  column.addEventListener("pointercancel", () => {
+    clearTimeout(holdTimer);
+    showAnimation();
+  });
   // Keyboard focus only: Android Chrome also focuses a tapped link, which
   // would start downloading the GIF just as the page navigates away.
   column.addEventListener("focusin", (event) => {
@@ -117,4 +151,8 @@ document.querySelectorAll(".component-list-card").forEach((card) => {
       showPoster();
     }
   });
+  if (observer) {
+    onScreen.set(card, { show: showAnimation, hide: showPoster });
+    observer.observe(card);
+  }
 });

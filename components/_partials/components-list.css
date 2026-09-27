@@ -134,7 +134,8 @@ a .component-link-icon:after {
   transition: all 0.3s !important;
 }
 
-.component-list-column:is(:hover, :has(:focus-visible)) .component-link-icon:after {
+/* Also while the GIF plays, so touch screens (no hover) show it too. */
+.component-list-column:is(:hover, :has(:focus-visible), :has(.is-previewing)) .component-link-icon:after {
   content: "\F133";
   font-family: "bootstrap-icons";
 }
