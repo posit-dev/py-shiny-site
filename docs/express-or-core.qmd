@@ -50,18 +50,6 @@ In Core, you place each output yourself with a call like `ui.output_plot("plot1"
 Express creates the output for you, at the spot where you define the render function, so there is no such call to pass those options to.
 Workarounds do exist---see [Express in depth](express-in-depth.qmd).
 
-## Maturity
-
-**Consider using Shiny Core if you care more about maturity and stability than convenience.**
-
-Given its longer history, Shiny Core is naturally more mature than Shiny Express in both syntax and implementation.
-
-We've carefully designed the Shiny Express syntax, and hope not to have to make breaking changes to it.
-However, we don't know what we don't know, and it's possible that user feedback or our own testing will someday require us to make significant changes.
-
-Similarly, we are constantly testing Shiny Express, but as of this writing, it has not had as much real-world use as Shiny Core.
-Therefore, with Shiny Core, you are less likely to encounter bugs.
-
 ## Familiarity to R users
 
 **Consider using Shiny Core if you are an R user who is already familiar with Shiny.**

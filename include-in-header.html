@@ -11,6 +11,63 @@
   }
 </script>
 
+<script>
+  // Shinylive's service worker loader (load-shinylive-sw.js) ends with
+  //
+  //   navigator.serviceWorker.ready.then(() => {
+  //     navigator.serviceWorker.controller || window.location.reload();
+  //   });
+  //
+  // `ready` resolves as soon as the worker is *active*, which is before it has
+  // called clients.claim() and taken control of this page, so the check fails
+  // and the page throws away everything it just loaded and starts over. Chrome
+  // does this on every first visit to a page with a Shinylive block: the
+  // components list, the API reference, and so on.
+  //
+  // Hold `ready` until the page is actually controlled, so the check above
+  // passes and the reload never happens. If control never arrives, let the
+  // reload through once per tab: that keeps Shinylive's recovery path without
+  // letting it repeat.
+  (function () {
+    const container = navigator.serviceWorker;
+    if (!container) return;
+
+    const nativeReady = Object.getOwnPropertyDescriptor(
+      ServiceWorkerContainer.prototype,
+      "ready"
+    ).get;
+    const reloadedKey = "shinylive-sw-reloaded";
+    let ready;
+
+    Object.defineProperty(container, "ready", {
+      configurable: true,
+      get() {
+        ready ||= nativeReady.call(container).then(
+          (registration) =>
+            new Promise((resolve) => {
+              const controlled = () => resolve(registration);
+              if (container.controller) return controlled();
+              container.addEventListener("controllerchange", controlled, {
+                once: true,
+              });
+              setTimeout(() => {
+                if (container.controller) return controlled();
+                try {
+                  if (sessionStorage.getItem(reloadedKey)) return;
+                  sessionStorage.setItem(reloadedKey, "1");
+                } catch (e) {
+                  return; // Storage blocked; never risk the loop.
+                }
+                controlled();
+              }, 2000);
+            })
+        );
+        return ready;
+      },
+    });
+  })();
+</script>
+
 <!-- Google Tag Manager -->
 <script>
   // prettier-ignore

@@ -87,7 +87,7 @@ listing:
 
 [Great Tables](https://posit-dev.github.io/great-tables/) creates polished presentation tables with headers, annotations, value formatting, color scales, and targeted styles. Use a [data grid](../data-grid/index.qmd) instead when users need to sort, filter, select, or edit the data, or [Table](../table/index.qmd) when a plain HTML table is enough.
 
-Great Tables is a separate package, so install it with `pip install great-tables` alongside Shiny. Then:
+Great Tables is a separate package, so install it with `uv pip install great-tables` alongside Shiny. Then:
 
 1. Build and return a `GT` object from a function decorated with `@render_gt`.
 2. In Express, the decorated function creates its output automatically.

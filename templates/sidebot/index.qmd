@@ -10,7 +10,7 @@ sourceurl:    https://github.com/jcheng5/py-sidebot
 ---
 
 ``` bash
-shiny create --github jcheng5/py-sidebot
+uvx shiny create --github jcheng5/py-sidebot
 ```
 
 

@@ -58,7 +58,7 @@ There are many unit testing frameworks available for Python, but we'll use **pyt
 To get started, you'll first want to install `pytest`:
 
 ```bash
-pip install pytest
+uv pip install pytest
 ```
 
 `pytest` expects tests to be in files with names that start with `test_` or end with `_test.py`.
@@ -76,7 +76,7 @@ def test_filter_penguins():
     assert filter_penguins(["Adelie", "Gentoo", "Chinstrap"]).shape[0] == 344
 ```
 
-Assuming both the `app.py` and `test_filter_penguins.py` files are in the same directory, you can now run the test by typing `pytest` in your terminal.
+Assuming both the `app.py` and `test_filter_penguins.py` files are in the same directory, you can now run the test by typing `uv run pytest` in your terminal.
 `pytest` will automatically locate the test file and run it with the results shown below.
 
 ```bash

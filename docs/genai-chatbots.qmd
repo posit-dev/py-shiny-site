@@ -21,43 +21,43 @@ Copy & paste the relevant `shiny create` terminal command to get the relevant so
 ### Ollama
 
 ```bash
-shiny create --template chat-ai-ollama
+uvx shiny create --template chat-ai-ollama
 ```
 
 ### Anthropic
 
 ```bash
-shiny create --template chat-ai-anthropic
+uvx shiny create --template chat-ai-anthropic
 ```
 
 ### OpenAI
 
 ```bash
-shiny create --template chat-ai-openai
+uvx shiny create --template chat-ai-openai
 ```
 
 ### Google
 
 ```bash
-shiny create --template chat-ai-gemini
+uvx shiny create --template chat-ai-gemini
 ```
 
 ### Bedrock Anthropic
 
 ```bash
-shiny create --template chat-ai-anthropic-aws
+uvx shiny create --template chat-ai-anthropic-aws
 ```
 
 ### Azure OpenAI
 
 ```bash
-shiny create --template chat-ai-azure-openai
+uvx shiny create --template chat-ai-azure-openai
 ```
 
 ### LangChain
 
 ```bash
-shiny create --template chat-ai-langchain
+uvx shiny create --template chat-ai-langchain
 ```
 
 ### Other
@@ -165,7 +165,7 @@ Interactively experiment with different models and prompts with the playground t
 It's also a great learning resource on how to leverage reactivity for dynamic prompts and model selection.
 
 ```bash
-shiny create --template chat-ai-playground
+uvx shiny create --template chat-ai-playground
 ```
 :::
 
@@ -743,7 +743,7 @@ For example, the app below collects some user input through a set of inputs in t
 The app above is available as a [template](../templates/):
 
 ```bash
-shiny create --template data-sci-adventure \
+uvx shiny create --template data-sci-adventure \
     --github posit-dev/py-shiny-templates/gen-ai
 ```
 :::
@@ -761,7 +761,7 @@ For example, in the "What's for Dinner?" app, when the user requests to extract 
 The app above is available as a [template](../templates/):
 
 ```bash
-shiny create --template dinner-recipe \
+uvx shiny create --template dinner-recipe \
     --github posit-dev/py-shiny-templates/gen-ai
 ```
 :::

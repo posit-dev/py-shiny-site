@@ -25,6 +25,15 @@ const gifDuration = (buffer) => {
   return total;
 };
 
+// Quarto rewrites `src` to a relative path but leaves `data-*` site-root
+// absolute, which misses the /py prefix in production. Resolve them against
+// the site root Quarto records in every page.
+const siteRoot = new URL(
+  document.querySelector('meta[name="quarto:offset"]')?.content ?? "./",
+  document.baseURI,
+);
+const fromSiteRoot = (path) => new URL(path.replace(/^\//, ""), siteRoot).href;
+
 // Touch screens can't hover, so there every card plays while it's >=60% on
 // screen (not with data saver), and a card also plays once it's held or
 // dragged. Either way it stops when it scrolls away.
@@ -50,6 +59,8 @@ document.querySelectorAll(".component-list-card").forEach((card) => {
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   if (!image) return;
+  const staticSrc = fromSiteRoot(image.dataset.staticSrc);
+  const animatedSrc = fromSiteRoot(image.dataset.animatedSrc);
 
   // Fetch the GIF once, then give it a fresh blob URL on every hover: a new URL
   // always plays from frame 0 (re-setting a cached GIF's src does not restart
@@ -74,7 +85,7 @@ document.querySelectorAll(".component-list-card").forEach((card) => {
   };
 
   const loadGif = () =>
-    (gif ??= fetch(image.dataset.animatedSrc)
+    (gif ??= fetch(animatedSrc)
       .then((response) => (response.ok ? download(response) : Promise.reject()))
       .then(async (blob) => {
         const duration = gifDuration(await blob.arrayBuffer());
@@ -84,7 +95,7 @@ document.querySelectorAll(".component-list-card").forEach((card) => {
 
   const showPoster = () => {
     previewing = false;
-    image.src = image.dataset.staticSrc;
+    image.src = staticSrc;
     card.classList.remove("is-previewing", "is-playing");
     if (blobUrl) URL.revokeObjectURL(blobUrl);
     blobUrl = undefined;
@@ -104,35 +115,39 @@ document.querySelectorAll(".component-list-card").forEach((card) => {
     }
   };
 
-  card.addEventListener("pointerenter", (event) => {
+  // The whole column (title, arrow, and card) triggers the preview.
+  const column = card.closest(".component-list-column") ?? card;
+  column.addEventListener("pointerenter", (event) => {
     if (event.pointerType !== "touch") showAnimation();
   });
   // A finger lifting off (or scrolling past) a card is not the end of a hover.
-  card.addEventListener("pointerleave", (event) => {
+  column.addEventListener("pointerleave", (event) => {
     if (event.pointerType !== "touch") showPoster();
   });
   // Touch: a tap opens the page, so only a hold (as long as a long-press) or a
   // drag (the browser cancels the pointer to scroll) starts the GIF.
   let holdTimer;
-  card.addEventListener("pointerdown", (event) => {
+  column.addEventListener("pointerdown", (event) => {
     if (event.pointerType === "touch") holdTimer = setTimeout(showAnimation, 500);
   });
-  card.addEventListener("pointerup", () => clearTimeout(holdTimer));
-  card.addEventListener("pointercancel", () => {
+  column.addEventListener("pointerup", () => clearTimeout(holdTimer));
+  column.addEventListener("pointercancel", () => {
     clearTimeout(holdTimer);
     showAnimation();
   });
   // Keyboard focus only: Android Chrome also focuses a tapped link, which
   // would start downloading the GIF just as the page navigates away.
-  card.addEventListener("focus", () => {
-    if (card.matches(":focus-visible")) showAnimation();
+  column.addEventListener("focusin", (event) => {
+    if (event.target.matches(":focus-visible")) showAnimation();
   });
-  card.addEventListener("blur", showPoster);
+  column.addEventListener("focusout", (event) => {
+    if (!column.contains(event.relatedTarget)) showPoster();
+  });
   image.addEventListener("load", () => {
     if (blobUrl && image.src === blobUrl) card.classList.add("is-playing");
   });
   image.addEventListener("error", () => {
-    if (image.src !== new URL(image.dataset.staticSrc, document.baseURI).href) {
+    if (image.src !== staticSrc) {
       showPoster();
     }
   });
