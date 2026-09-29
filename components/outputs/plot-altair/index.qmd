@@ -1,0 +1,220 @@
+---
+title: Plot (Altair)
+sidebar: components
+preview: '<div class="px-3"> <p class="mb-0"> <img style="width: 100%;height:auto;max-height:130px;"
+  src="/images/altair.png"> </p> </div> '
+listing:
+- id: example
+  template: ../../_partials/components-detail-example.ejs
+  template-params:
+    dir: components/outputs/plot-altair/
+  contents:
+  - title: Preview
+    file: app-core.py
+    height: 500
+  - title: Express
+    file: app-express.py
+    shinylive:
+  - title: Core
+    file: app-core.py
+    shinylive:
+- id: relevant-functions
+  template: ../../_partials/components-detail-relevant-functions.ejs
+  template-params:
+    dir: components/outputs/plot-altair/
+  contents:
+  - title: ui.output_plot
+    href: https://shiny.posit.co/py/api/ui.output_plot.html
+    signature: ui.output_plot(id, width='100%', height='400px', *, inline=False, click=False,
+      dblclick=False, hover=False, brush=False, fill=MISSING)
+  - title: '@render.plot'
+    href: https://shiny.posit.co/py/api/render.plot.html
+    signature: render.plot(_fn=None, *, alt=None, width=MISSING, height=MISSING, **kwargs)
+  - title: '@render_altair'
+    href: https://shiny.posit.co/py/docs/jupyter-widgets.html#get-started
+    signature: render.plot(_fn=None, *, width=None, height=None, fill=None, fillable=None)
+  - title: 'reactive_read'
+    href: https://shiny.posit.co/py/docs/jupyter-widgets.html#reactive-read
+    signature: reactive_read(widget, names)
+
+- id: variations
+  template: ../../_partials/components-variations.ejs
+  template-params:
+    dir: components/outputs/plot-altair/
+  contents:
+
+  - title: Basic JupyterChart example
+    description: "Shows how to access the Altair JupyterChart object from shiny using the `.widget` attribute of the `render_altair` object. This is the basic entry point that shows the interface between Altair and Shiny so you are able to follow along the [Altair JupyterChart documentation](https://altair-viz.github.io/user_guide/interactions/jupyter_chart.html)"
+    apps:
+    - title: Preview
+      file: app-variation-basic-express.py
+      height: 720
+    - title: Express
+      file: app-variation-basic-express.py
+      shinylive:
+      height: 720
+    - title: Core
+      file: app-variation-basic-core.py
+      shinylive:
+      height: 720
+
+  - title: JupyterChart update
+    description: "Shows how Shiny can access and update an Altair figure using the JupyterChart representation. This example builds on the previous basic example to show how Shiny can update the Altair figure reactively."
+    apps:
+    - title: Preview
+      file: app-variation-update-express.py
+      height: 720
+    - title: Express
+      file: app-variation-update-express.py
+      shinylive:
+      height: 720
+    - title: Core
+      file: app-variation-update-core.py
+      shinylive:
+      height: 720
+
+  - title: Accessing and observing variable parameters
+    description: "Demonstrates how to access and observe variable parameters from an Altair plot in Shiny. This example shows how to capture changes in variable parameters and reactively update the Shiny app based on those changes."
+    apps:
+    - title: Preview
+      file: app-variation-variable-access-express.py
+      height: 720
+    - title: Express
+      file: app-variation-variable-access-express.py
+      shinylive:
+      height: 720
+    - title: Core
+      file: app-variation-variable-access-core.py
+      shinylive:
+      height: 720
+
+  - title: Setting variable parameters
+    description: "Builds on the update variation to show Shiny components updating and modifying an Altair JupyterChart object."
+    apps:
+    - title: Preview
+      file: app-variation-variable-set-express.py
+      height: 720
+    - title: Express
+      file: app-variation-variable-set-express.py
+      shinylive:
+      height: 720
+    - title: Core
+      file: app-variation-variable-set-core.py
+      shinylive:
+      height: 720
+
+  - title: Point selection parameter with legend
+    description: "Captures the data from a legend point selection in Altair and reactively displays the dataframe data. The selected legend point is an [Altair `PointSelection` object](https://altair-viz.github.io/user_guide/interactions/jupyter_chart.html#point-selections)"
+    apps:
+    - title: Preview
+      file: app-variation-selection-point-legend-express.py
+      height: 720
+    - title: Express
+      file: app-variation-selection-point-legend-express.py
+      shinylive:
+      height: 720
+    - title: Core
+      file: app-variation-selection-point-legend-core.py
+      shinylive:
+      height: 720
+
+  - title: Index selection parameter with hover
+    description: "Captures the hovered point in Altair and reactively displays the dataframe data. The hovered point is an [Altair `IndexSelection` object](https://altair-viz.github.io/user_guide/interactions/jupyter_chart.html#index-selections)"
+    apps:
+    - title: Preview
+      file: app-variation-selection-index-hover-express.py
+      height: 720
+    - title: Express
+      file: app-variation-selection-index-hover-express.py
+      shinylive:
+      height: 720
+    - title: Core
+      file: app-variation-selection-index-hover-core.py
+      shinylive:
+      height: 720
+
+  - title: Interval selection parameter with brush
+    description: "Captures the brushed point(s) in Altair and reactively displays the dataframe data. The brushed points is an [Altair `IntervalSelection` object](https://altair-viz.github.io/user_guide/interactions/jupyter_chart.html#interval-selections)"
+    apps:
+    - title: Preview
+      file: app-variation-selection-interval-brush-express.py
+      height: 720
+    - title: Express
+      file: app-variation-selection-interval-brush-express.py
+      shinylive:
+      height: 720
+    - title: Core
+      file: app-variation-selection-interval-brush-core.py
+      shinylive:
+      height: 720
+---
+
+:::{#example}
+:::
+
+:::{#relevant-functions}
+:::
+
+## Details
+
+[Vega-Altair](https://altair-viz.github.io/index.html) is an interactive declarative visualization library in Python.
+It is based on the [Vega-Lite](https://vega.github.io/vega-lite/) grammar of interactive graphics.
+
+To make an interactive plot with Altair in Shiny for Python,
+we will need to use the [`shinywidgets`](https://shiny.posit.co/py/docs/jupyter-widgets.html)
+library to connect Shiny with [`ipywidgets`](https://ipywidgets.readthedocs.io/en/latest/)
+
+To make an Altair figure, we need to do the following steps:
+
+::: {.panel-tabset group="syntax"}
+## Express
+
+1. Import the `render_altair()` functions from `shinywidgets`.
+
+2. Define a function where you want to create the figure.
+    - If your function calls reactive values, Shiny will update your figure whenever those values change, in a [reactive fashion](https://shiny.posit.co/py/docs/reactive-programming.html).
+    - Do not forget to return the plot object from your function.
+
+3. Decorate your plotting function with a `@render_altair()` decorator.
+    - If your plotting function is not the same as the `id` you used in the `ui.output_widget()`, you can add an additional `@output(id=...)` decorator.
+
+## Core
+
+1. Import the `output_widget()` and `render_altair()` functions from `shinywidgets`.
+
+2. Call `output_widget()` to the UI of your app to create a div in which to display the figure.
+   Where you call this function will determine where the figure will appear within the layout of the app.
+   The `id` parameter you provide will be used to link to other parts of the Shiny app.
+
+3. Define a function within the `server()` function that creates the figure.
+    - The name of the function should be the same value you passed into the `id` parameter in your `output_widget()` function call in the UI.
+    - If your function calls reactive values, Shiny will update your figure whenever those values change, in a [reactive fashion](https://shiny.posit.co/py/docs/reactive-programming.html).
+    - Do not forget to return the plot object from your function.
+
+4. Decorate your plotting function with a `@render_altair()` decorator.
+    - If your plotting function is not the same as the `id` you used in the `ui.output_widget()`, you can add an additional `@output(id=...)` decorator.
+:::
+
+To learn more about using Jupyter widgets with Shiny visit: [shiny.posit.co/py/docs/jupyter-widgets.html](https://shiny.posit.co/py/docs/jupyter-widgets.html).
+
+
+### Plots as inputs
+
+Altair allows you to interact with plots and capture user interactions such as clicks, hovers, and selections.
+In fact, you can actually create [bindings and widgets directly within Altair](https://altair-viz.github.io/user_guide/interactions/bindings_widgets.html).
+However, if we want to connect an Altair figure to Shiny, we need to access the underlying state of the Altair figure.
+We can do that with the [`JupyterChart`](https://altair-viz.github.io/user_guide/interactions/jupyter_chart.html) representation of the Altair figure.
+In shiny,
+when we create an Altair figure using the `@render_altair` decorator,
+we can access the JupyterChart object using the `.widget` attribute of the `render_altair` object.
+
+From there, the `.selections` attribute contains the selected points from the Altair figure
+which can be reactively read into Shiny using the `shinywidgets.reactive_read()` function.
+The type of object returned depends on the type of selection you created in Altair.
+
+For more information see the [Shiny Jupyter Widgets documentation on responding to user interactions](https://shiny.posit.co/py/docs/jupyter-widgets.html#user-input) and the [Altair JupyterChart documentation](https://altair-viz.github.io/user_guide/interactions/jupyter_chart.html).
+
+## Variations
+
+:::{#variations}
+:::
