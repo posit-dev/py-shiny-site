@@ -142,7 +142,7 @@ See the [Shiny Server Administrator's Guide](https://docs.posit.co/shiny-server/
 
 ## Other hosting options
 
-Shiny is built on the well-known foundation of [Starlette](https://www.starlette.io/), [ASGI](https://asgi.readthedocs.io/), and [Uvicorn](https://www.uvicorn.org/)---the same exact stack as [FastAPI](https://fastapi.tiangolo.com/).
+Shiny is built on the well-known foundation of [Starlette](https://starlette.dev/), [ASGI](https://asgi.readthedocs.io/), and [Uvicorn](https://www.uvicorn.org/)---the same exact stack as [FastAPI](https://fastapi.tiangolo.com/).
 Even the shell command used to run an FastAPI server works just as well for a Shiny app:
 
 ``` sh

@@ -136,7 +136,7 @@ Outputs are rendered on-demand and only when their upstream components change, w
 :::{.g-col-12 .g-col-md-4 .feature-section .mx-3}
 
 ### Robust
-Shiny is built atop the modern Python web stack, leveraging [Starlette](https://www.starlette.io/) and [asyncio](https://docs.python.org/3/library/asyncio.html) for robust web applications.
+Shiny is built atop the modern Python web stack, leveraging [Starlette](https://starlette.dev/) and [asyncio](https://docs.python.org/3/library/asyncio.html) for robust web applications.
 It offers full support for [CSS](docs/ui-customize.html) and [JavaScript](docs/custom-component-one-off.qmd) customization, enabling rich, interactive user experiences.
 :::
 :::

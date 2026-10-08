@@ -18,7 +18,7 @@ Asynchronous programming is a technique used in many programming languages to in
 Python supports async programming at the language level, using the `async`/`await` keywords; in the standard library, with the [`asyncio`](https://docs.python.org/3/library/asyncio.html) module; and in third-party libraries, like [FastAPI](https://fastapi.tiangolo.com/) and [aiohttp](https://docs.aiohttp.org/).
 
 Shiny has async support as well, but it's a bit different from your typical async Python framework.
-On the one hand, Shiny is built on top of [Starlette](https://www.starlette.io/), which is an async web framework, so it's possible to use async functions in many parts of your Shiny app.
+On the one hand, Shiny is built on top of [Starlette](https://starlette.dev/), which is an async web framework, so it's possible to use async functions in many parts of your Shiny app.
 On the other hand, Shiny is also designed around reactive programming concepts, and that creates constraints on how async functions can be used.
 
 ### Reactive async/await

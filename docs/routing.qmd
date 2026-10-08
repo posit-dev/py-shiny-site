@@ -4,7 +4,7 @@ title: Routing
 
 This page covers how to access and extend a Shiny applications server,
 including adding new routes.
-Shiny is built on top of the web server framework [Starlette](https://www.starlette.io/),
+Shiny is built on top of the web server framework [Starlette](https://starlette.dev/),
 which allows a wide range of customization.
 
 ## Adding routes
