@@ -26,7 +26,7 @@ Every Shiny session generates a span marking when each session starts and ends: 
 
 Shiny traces reactive updates when the collect level is `"reactive_update"` or higher.
 
-Each `reactive_update` span covers one [reactive cycle](/docs/nonblocking.qmd#how-shiny-runs-reactive-code) of a session. When an input changes or an output needs to be re-rendered, the span encompasses the entire cascade of reactive calculations triggered by that change.
+Each `reactive_update` span covers one [reactive cycle](/docs/nonblocking.qmd#reactive-cycles) of a session. When an input changes or an output needs to be re-rendered, the span encompasses the entire cascade of reactive calculations triggered by that change.
 
 The `reactive_update` span starts when the session queues its first output render or `@reactive.effect` calculation of the cycle. The span ends when all of them have finished, including their async parts, or when the session ends.
 

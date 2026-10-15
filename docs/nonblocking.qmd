@@ -71,7 +71,7 @@ app = App(app_ui, server)
 Despite being defined as an asynchronous function, the sum logic still blocks the time output.
 You could replace `await asyncio.sleep(5)` with its synchronous equivalent, `time.sleep(5)`, and you'd get exactly the same result. The next section explains this (perhaps surprising) behavior.
 
-### How Shiny runs reactive code
+### How Shiny runs reactive code {#reactive-cycles}
 
 Shiny manages the reactive code of each session in *cycles*.
 A cycle starts when something invalidates the reactive graph of the session, for example a changed input or an `invalidate_later()` timer.
