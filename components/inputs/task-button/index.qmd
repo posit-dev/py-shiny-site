@@ -51,7 +51,7 @@ listing:
       shinylive: https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXAAjFADugdOgnmAGlQGMB7CAFzkqVQEsZ1SAnC5ChuAHQh4DNmpGMgDOACzoRcyBk1bIAgpiLM4UYhwBucFdQAmcZkQCudHjwzoA+qeQBeZKZxQA5nCt8ANqb0AKHsiBjnRYkujGFFYUUCIA1lYARhEU5P5gzMa8hMhcYABKmewxsblEUBGkVqoicBR2AGJQnjUAlETIAMTIADzdAUFOYRFW6hzkicmpudW1pTn5cDVs0XHISRQpWW39gU6kEeGRZAZp1caeFLnbEC3mvBAGfKKG2sy+QxRE+xSHRDUiIjo5BaiB2yAAAqoHoYsMduBAghDVKM6NosHBtJR3hBDlgMjcwY9kGcLr4QWDERx4FgRJ44HB0L4AIxYACsLUCXQAygxzlAqMgoMhPOQXABafEQSQuIpxClBVQUYzMBF8XIAFWKyDIjDpVD0yBAHzxmTJAF92JxfCJbmA7ojIWoNKi4Oi+Hw4BowY6UWiMdQKNjcTMKLcEUEiVYyaDw4jdiFjOg9Pz3Ct4utNqdMnMRNEqHZpmo9Lgrpyen17hZMPZFJhfJYbHQ-i9DGHsmAKLh0AgUB24AAPChgM0AXSAA
   - title: True non-blocking work with `extended_task`
     description: |
-      A plain task button only stays busy for the duration of the click's reactive flush, and reactive code runs serially -- so slow work inside a render function blocks every other output and every other session. Pair the button with `reactive.extended_task` and `ui.bind_task_button()` to run the work outside the reactive graph: the button stays busy for the whole task, the clock above keeps ticking, and `.cancel()` can interrupt it.
+      A plain task button only stays busy until the session finishes the reactive code that the click started. While slow work in a render function runs, the session's other outputs and new inputs wait for it, and synchronous work also blocks every other session. Pair the button with `reactive.extended_task` and `ui.bind_task_button()` to run the work outside the reactive graph: the button stays busy for the whole task, the clock above keeps ticking, and `.cancel()` can interrupt it.
     apps:
     - title: Preview
       file: app-variation-extended-task-preview.py
@@ -95,7 +95,7 @@ The value of a task button is accessible as a reactive value within the `server(
 
 ### Long-running tasks
 
-A task button on its own only manages the *button's* appearance: it stays busy for the duration of the click's reactive flush, then resets. It does not make the work itself non-blocking. Shiny runs reactive code serially, so slow work inside a render function or effect holds up every other output — and every other session served by the same process. Making that function `async` and `await`ing does not change this; `await asyncio.sleep(3)` blocks exactly as much as `time.sleep(3)`.
+A task button on its own only manages the *button's* appearance: it stays busy until the session finishes the reactive code that the click started, then resets. It does not make the work itself non-blocking. While slow work in a render function or effect runs, the session holds its other outputs and new inputs until the work finishes. If the work is synchronous, it also blocks every other session served by the same process. Making the function `async` and `await`ing frees the other sessions, but the current session still waits: with `await asyncio.sleep(3)`, the user's app stops responding for three seconds, just as with `time.sleep(3)`.
 
 To actually run work in the background, move it out of the reactive graph with [`reactive.extended_task`](/api/core/reactive.extended_task.qmd) and link it to the button with `ui.bind_task_button()`. The button then stays busy for as long as the task runs, and the task becomes cancellable. See the "True non-blocking work" variation below for a complete app, and [Non-blocking operations](/docs/nonblocking.qmd) for the full guide.
 
