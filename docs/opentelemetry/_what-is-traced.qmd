@@ -26,13 +26,13 @@ Every Shiny session generates a span marking when each session starts and ends: 
 
 Shiny traces reactive updates when the collect level is `"reactive_update"` or higher.
 
-When an input changes or an output needs to be re-rendered, Shiny creates a `reactive_update` span that encompasses the entire cascade of reactive calculations triggered by that change.
+Each `reactive_update` span covers one [reactive cycle](/docs/nonblocking.qmd#how-shiny-runs-reactive-code) of a session. When an input changes or an output needs to be re-rendered, the span encompasses the entire cascade of reactive calculations triggered by that change.
 
-The `reactive_update` span starts when Shiny starts an output render or `@reactive.effect` calculation. The `reactive_update` span ends when all reactive expressions have resolved.
+The `reactive_update` span starts when the session queues its first output render or `@reactive.effect` calculation of the cycle. The span ends when all of them have finished, including their async parts, or when the session ends.
 
-The time elapsed in the `reactive_update` span is equivalent to the time the Python thread is busy (as every session of the Shiny app is single threaded).
+The time elapsed in the `reactive_update` span is the time that the session is busy. If the reactive code is async, other sessions can run while it waits at an `await`, so the `reactive_update` spans of different sessions can overlap. Synchronous reactive code blocks every session while it runs.
 
-Within a `reactive_update` span, new input values will not be processed. That is, if a user changes a value, the server will not process these new changes until after the current reactive update completes.
+Within a `reactive_update` span, new input values will not be processed. That is, if a user changes a value, the server will not process these new changes until after the current reactive cycle ends.
 
 For the best performance available, use `ExtendedTask` for long-running computations. Extended tasks run asynchronously outside the reactive graph, allowing your app to remain responsive to user interactions while the task executes. Once the task completes, it reports its result back to the reactive system.
 
