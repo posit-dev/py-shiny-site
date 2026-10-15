@@ -14,8 +14,8 @@ listing:
   - title: ui.sidebar
     href: https://shiny.posit.co/py/api/core/ui.sidebar.html#shiny.ui.sidebar
     signature: ui.sidebar(*args, position='left', open=None, width=250, id=None, title=None,
-      bg=None, fg=None, class_=None, max_height_mobile=None, gap=None, padding=None,
-      fillable=False, resizable=True, **kwargs)
+      role=None, bg=None, fg=None, class_=None, max_height_mobile=None, gap=None,
+      padding=None, fillable=False, resizable=True, **kwargs)
   - title: ui.update_sidebar
     href: https://shiny.posit.co/py/api/core/ui.update_sidebar.html#shiny.ui.update_sidebar
     signature: ui.update_sidebar(id, *, show=None, session=None)
