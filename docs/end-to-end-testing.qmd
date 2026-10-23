@@ -175,43 +175,8 @@ uv run pytest --browser firefox
 
 ### Adding Tests to an Existing Shiny App
 
-If you already have a Shiny app, you can easily add tests:
-
-1. Open your terminal: Navigate to your app's directory.
-1. Run the shiny add test command:
-
-```bash
-uv run shiny add test
-```
-
-1. Answer the prompts: It will ask for the path to your app file (e.g., `app.py`) and a name for your test file (e.g., `test_myapp.py`). Remember, the test file name must start with `test_`.
-1. Generated test files usually include simple assertions that check visible UI text and interactive states for Shiny components (for example, slider values or checkbox output). Treat these as a starting point and expand them to cover additional behaviors, edge cases, and integration points as needed.
-
-Before generating tests, make sure you have:
-
-- An API key or credentials for the provider you intend to use:
-  - Anthropic: `export ANTHROPIC_API_KEY=...`
-  - OpenAI: `export OPENAI_API_KEY=...`
-
-- A working Shiny app file (e.g. `app.py`).
-- Shiny testing dependencies installed. If you haven't installed the extras yet:
-
-```bash
-uv pip install "shiny[add-test]"
-```
-
-#### Choosing a provider for generating tests
-
-```bash
-# Anthropic (default)
-uv run shiny add test --app app.py
-
-# OpenAI (will use gpt-5)
-uv run shiny add test --app app.py --provider openai
-
-# explicitly use gpt-5-mini model
-uv run shiny add test --app app.py --provider openai --model gpt-5-mini
-```
+To generate tests with a coding agent, use the [`shiny-for-python` Agent Skill](../get-started/agent-skills.qmd), which ships with the `shiny` package.
+You can also write tests by adapting the example above.
 
 ### Troubleshooting Common Issues
 
