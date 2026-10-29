@@ -6,8 +6,7 @@ Sometimes in a Shiny app, you need to perform a long-running operation, like loa
 If you do this in reactive code, it can cause two problems:
 
 1. **The current user's app stops responding.** While a session runs its reactive code, it does not process new input values or update its outputs. The user may think that the app has crashed.
-2. **Other users' apps stop responding.** If the operation is synchronous, it blocks the Python process. Every other session that the process serves (to a
-different user or other tab) must wait until the operation finishes. To those users, the app just feels slow for no reason.
+2. **Other users' apps stop responding.** If the operation is synchronous, it blocks the Python process. Every other session that the process serves (to a different user or other tab) must wait until the operation finishes. To those users, the app just feels slow for no reason.
 
 Async reactive code solves the second problem.
 An `ExtendedTask` solves both.
@@ -91,12 +90,10 @@ This has two results:
 
 Independent sessions of a Shiny app (*e.g.* in a different tab or for a different user) have their own cycles, so a long cycle in one session does not delay the cycles of other sessions.
 
-The reason Shiny holds inputs (and timers) until the current cycle ends is to ensure
-functions that read a value before the change and functions that read it after
-don't get different values. If this were allowed, the
-outputs of that cycle would disagree with each other, and there would be no way to know
-which is the "right" value. Because each cycle sees one consistent set of inputs,
-you can reason about how your app will behave.
+Shiny holds inputs (and timers) until the current cycle ends so that all the reactive code in a cycle sees the same values.
+If Shiny processed a new input in the middle of a cycle, functions that read the input before the change and functions that read it after would get different values.
+The outputs of that cycle would then disagree with each other, and there would be no way to know which is the "right" value.
+Because each cycle sees one consistent set of inputs, you can reason about how your app will behave.
 
 Code outside of the reactive graph, like a background task or a custom timer, can change reactive values too.
 To keep the same consistency, use [`session.run_once_when_idle()`](../api/core/Session.qmd#shiny.Session.run_once_when_idle).
@@ -307,8 +304,8 @@ In particular, if you're using `ProcessPoolExecutor` and neglect to shut down th
 
 *Key things to remember:*
 
-- Synchronous reactive code blocks *every* session in the Shiny app process while it runs,
-  so you should avoid it wherever possible to keep your app responsive across users.
+- Slow synchronous reactive code blocks *every* session in the Shiny app process while it runs,
+  so avoid long-running synchronous work in reactive code to keep your app responsive across users.
 
 - Async reactive code lets other sessions run while it waits at an `await`.
   Use it to call async-only functions, and for slow I/O that an async library can do.
