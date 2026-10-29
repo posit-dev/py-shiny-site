@@ -30,7 +30,7 @@ listing:
   - title: '@render.download_link'
     href: https://shiny.posit.co/py/api/core/render.download_link.html#shiny.render.download_link
     signature: render.download_link(fn=None, *, filename=None, media_type=None, encoding='utf-8',
-      label='Download', width=None)
+      label='Download', width=None, icon=None, **kwargs)
 - id: kitchen-sink
   template: ../../_partials/components-detail-kitchen-sink.ejs
   contents:
