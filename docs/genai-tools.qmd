@@ -285,6 +285,14 @@ async def update_dashboard(
 
 This tool runs within a [non-blocking message stream](genai-chatbots.qmd#non-blocking-streams) (i.e., `.append_message_stream()`), outside of any reactive effect.
 It can still set a reactive value directly: setting a value schedules a reactive update, so `current_data()` and the views that depend on it update while the response continues to stream.
+
+The tool can set the value while an async effect of the session waits at an `await`.
+That effect then sees the old value before the `await` and the new value after it.
+If your effects must see one consistent value, use [`session.run_once_when_idle()`](../api/core/Session.qmd#shiny.Session.run_once_when_idle) to set the value after the session's current [reactive cycle](nonblocking.qmd#reactive-cycles) ends:
+
+```python
+session.run_once_when_idle(lambda: current_query.set(query))
+```
 :::
 
 The final crucial piece is that, in order for the LLM to generate accurate SQL, it needs to know the schema of the dataset.

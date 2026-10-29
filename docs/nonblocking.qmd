@@ -98,6 +98,10 @@ outputs of that cycle would disagree with each other, and there would be no way 
 which is the "right" value. Because each cycle sees one consistent set of inputs,
 you can reason about how your app will behave.
 
+Code outside of the reactive graph, like a background task or a custom timer, can change reactive values too.
+To keep the same consistency, use [`session.run_once_when_idle()`](../api/core/Session.qmd#shiny.Session.run_once_when_idle).
+It runs a function after the session's current cycle ends, for example `session.run_once_when_idle(lambda: latest.set(new_value))`.
+
 ### When to use async reactive code
 
 Using async functions in your reactive code is useful in some common cases:
