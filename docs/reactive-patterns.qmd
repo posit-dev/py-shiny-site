@@ -89,7 +89,7 @@ async def result():
 
 ## Requiring input {#req}
 
-When input must be provided or a certain condition must be met before displaying output, you can use `req()` to effectively stop execution for the current reactive cycle.
+When input must be provided or a certain condition must be met before displaying output, you can use `req()` to stop the current run of a reactive calculation, and of the outputs and effects that read it.
 For example, the app below allows a user to upload a csv file, which is then used to render a table.
 Notice how the reactive calculation, `df`, uses `req()` to stop execution until the user has uploaded a file.
 

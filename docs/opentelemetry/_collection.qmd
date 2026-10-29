@@ -3,7 +3,7 @@
 Shiny automatically creates OpenTelemetry spans for:
 
 - **Session lifecycle**: When sessions start and end, including HTTP request details
-- **Reactive updates**: The entire cascade of reactive calculations triggered by an input change or a new output to be rendered
+- **Reactive updates**: Each reactive cycle of a session: the entire cascade of reactive calculations triggered by an input change or a new output to be rendered
 - **Reactive expressions**: Individual calculations such as `@reactive.calc`, `@reactive.effect`, `@render.*`, and other reactive constructs
 
 Additionally, Shiny adds logs for events such as:
